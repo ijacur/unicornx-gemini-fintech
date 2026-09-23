@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Hyper-Realistic 3D WebGL Platformer Engine (60 FPS PBR)</title>
+  <style>
+    :root {
+      --bg-dark: #070B14;
+      --panel-bg: rgba(13, 20, 36, 0.82);
+      --panel-border: rgba(59, 130, 246, 0.25);
+      --accent-cyan: #06B6D4;
+      --accent-blue: #3B82F6;
+      --accent-emerald: #10B981;
+      --accent-amber: #F59E0B;
+      --accent-rose: #F43F5E;
+      --text-main: #F8FAFC;
+      --text-dim: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "JetBrains Mono", monospace;
+      color: var(--text-main);
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block;
+    }
+
+    /* Top HUD */
+    .hud-top {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+      right: 20px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      pointer-events: none;
+    }
+
+    .hud-stats-group {
+      display: flex;
+      gap: 12px;
+    }
+
+    .hud-card {
+      background: var(--panel-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      pointer-events: auto;
+    }
+
+    .hud-card .val {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #FFF;
+      letter-spacing: 0.5px;
+    }
+
+    .hud-card .lbl {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* Telemetry & Architecture Panel */
+    .telemetry-panel {
+      position: absolute;
+      top: 80px;
+      right: 20px;
+      width: 320px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 16px;
+      z-index: 10;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .telemetry-panel.collapsed {
+      transform: translateX(360px);
+    }
+
+    .panel-toggle-btn {
+      position: absolute;
+      left: -42px;
+      top: 16px;
+      width: 36px;
+      height: 36px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 8px 0 0 8px;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .tel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tel-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tier-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34D399;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+    }
+
+    .metric-row .name {
+      color: var(--text-dim);
+    }
+
+    .metric-row .value {
+      font-family: monospace;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+
+    .value.highlight {
+      color: var(--accent-emerald);
+    }
+
+    .slider-box {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .slider-title {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.15);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    /* Controls Tutorial Prompt */
+    .controls-overlay {
+      position: absolute;
+      bottom: 24px;
+      left: 20px;
+      z-index: 10;
+      background: var(--panel-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      pointer-events: none;
+    }
+
+    .kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #93C5FD;
+      margin: 0 2px;
+    }
+
+    /* On-Screen Touch D-Pad */
+    .mobile-controls {
+      display: none;
+      position: absolute;
+      bottom: 24px;
+      right: 20px;
+      z-index: 20;
+      gap: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .mobile-controls {
+        display: flex;
+      }
+      .controls-overlay {
+        display: none;
+      }
+    }
+
+    .touch-btn {
+      width: 64px;
+      height: 64px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 2px solid var(--panel-border);
+      border-radius: 50%;
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .touch-btn:active {
+      background: var(--accent-blue);
+      transform: scale(0.92);
+    }
+
+    .touch-btn.jump {
+      width: 72px;
+      height: 72px;
+      background: rgba(16, 185, 129, 0.85);
+      border-color: #34D399;
+    }
+
+    /* Modal Game Over / Win */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 7, 15, 0.85);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #F43F5E, #FB7185);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .modal-title.win {
+      background: linear-gradient(135deg, #10B981, #6EE7B7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .btn-restart {
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: white;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(37, 99, 235, 0.5);
+      transition: transform 0.15s ease;
+    }
+
+    .btn-restart:hover {
+      transform: scale(1.05);
+    }
+
+    /* Leaderboard Modal & Table Styling */
+    .leaderboard-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 7, 15, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 120;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .leaderboard-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .leaderboard-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .lb-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+    }
+
+    .lb-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #FBBF24, #F59E0B, #10B981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lb-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #E2E8F0;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.15s;
+    }
+
+    .lb-close-btn:hover {
+      background: #EF4444;
+      color: white;
+    }
+
+    .lb-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    .lb-table th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--text-dim);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .lb-table td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-family: monospace;
+    }
+
+    .lb-table tr:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .lb-rank {
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+
+    .lb-rank.gold { color: #FBBF24; text-shadow: 0 0 12px rgba(251, 191, 36, 0.6); }
+    .lb-rank.silver { color: #E2E8F0; }
+    .lb-rank.bronze { color: #CD7F32; }
+
+    .lb-name {
+      font-weight: 700;
+      font-family: sans-serif;
+      color: #F8FAFC;
+    }
+
+    .lb-score {
+      font-weight: 800;
+      color: var(--accent-emerald);
+      font-size: 1rem;
+    }
+
+    .lb-coins {
+      color: #FBBF24;
+      font-weight: 700;
+    }
+
+    .lb-time {
+      color: #60A5FA;
+      font-weight: 700;
+    }
+
+    .lb-row-new {
+      background: rgba(16, 185, 129, 0.18) !important;
+      border-left: 3px solid var(--accent-emerald);
+    }
+
+    .lb-input {
+      flex: 1;
+      min-width: 160px;
+      background: #0B1222;
+      border: 1px solid #334155;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: white;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .lb-input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+    }
+
+    .lb-footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.8rem;
+    }
+  </style>
+
+  <!-- Import maps for Three.js & PostProcessing Addons -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- WebGL Render Canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Top HUD -->
+  <div class="hud-top">
+    <div class="hud-stats-group">
+      <div class="hud-card">
+        <span style="font-size: 1.4rem;">🪙</span>
+        <div>
+          <div class="val" id="coinVal">0 / 9</div>
+          <div class="lbl">COINS</div>
+        </div>
+      </div>
+      <div class="hud-card">
+        <span style="font-size: 1.4rem;">🏆</span>
+        <div>
+          <div class="val" id="scoreVal">0</div>
+          <div class="lbl">SCORE</div>
+        </div>
+      </div>
+      <div class="hud-card">
+        <span style="font-size: 1.4rem;">❤️</span>
+        <div>
+          <div class="val" id="lifeVal">3</div>
+          <div class="lbl">LIVES</div>
+        </div>
+      </div>
+      <div class="hud-card">
+        <span style="font-size: 1.4rem;">⏱️</span>
+        <div>
+          <div class="val" id="timeVal">00:00</div>
+          <div class="lbl">TIME</div>
+        </div>
+      </div>
+    </div>
+    <button id="btnOpenLeaderboard" class="hud-card" style="cursor: pointer; background: rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.5); font-weight: 800; color: #34D399; pointer-events: auto;">
+      🏆 LEADERBOARD
+    </button>
+  </div>
+
+  <!-- Telemetry & Performance Inspector Panel -->
+  <div class="telemetry-panel" id="telPanel">
+    <button class="panel-toggle-btn" id="btnToggleTel">⚙</button>
+    <div class="tel-header">
+      <span class="tel-title">⚡ GPU & Engine Stats</span>
+      <span class="tier-badge" id="tierBadge">TIER 2 (ULTRA)</span>
+    </div>
+
+    <div class="metric-row">
+      <span class="name">Frame Rate:</span>
+      <span class="value highlight" id="fpsMeter">60.0 FPS</span>
+    </div>
+    <div class="metric-row">
+      <span class="name">Frame Delta:</span>
+      <span class="value" id="msMeter">16.6 ms</span>
+    </div>
+    <div class="metric-row">
+      <span class="name">Draw Calls:</span>
+      <span class="value highlight" id="drawCallMeter">--</span>
+    </div>
+    <div class="metric-row">
+      <span class="name">Scene Triangles:</span>
+      <span class="value" id="trianglesMeter">--</span>
+    </div>
+    <div class="metric-row">
+      <span class="name">Instanced Meshes:</span>
+      <span class="value" id="instancedMeter">1,250 objs</span>
+    </div>
+    <div class="metric-row">
+      <span class="name">Player FSM:</span>
+      <span class="value highlight" id="fsmMeter">IDLE</span>
+    </div>
+    <div class="metric-row">
+      <span class="name">Zero-Alloc Pool:</span>
+      <span class="value">300/300 pre-alloc</span>
+    </div>
+
+    <!-- Sliders -->
+    <div class="slider-box">
+      <div class="slider-title">
+        <span>HDR Bloom Intensity</span>
+        <span id="valBloom">0.75</span>
+      </div>
+      <input type="range" id="sliderBloom" min="0" max="2.0" step="0.05" value="0.75">
+    </div>
+
+    <div class="slider-box">
+      <div class="slider-title">
+        <span>Sun Exposure / Radiance</span>
+        <span id="valExposure">1.2</span>
+      </div>
+      <input type="range" id="sliderExposure" min="0.5" max="3.0" step="0.1" value="1.2">
+    </div>
+
+    <div class="slider-box">
+      <div class="slider-title">
+        <span>Movement Speed</span>
+        <span id="valSpeed">14.0</span>
+      </div>
+      <input type="range" id="sliderSpeed" min="8.0" max="25.0" step="1.0" value="14.0">
+    </div>
+  </div>
+
+  <!-- Controls Hints -->
+  <div class="controls-overlay">
+    <div><b>Boshqaruv:</b> <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span> yoki <span class="kbd">Strelkalar</span></div>
+    <div><b>Sakrash:</b> <span class="kbd">Space</span> (Uzoqroq bosing = Baland sakrash)</div>
+    <div><b>Kamera aylantirish:</b> Sichqonchani bosib harakatlantiring</div>
+    <div><b>Dushmanni yo'q qilish:</b> Tepasidan sakrab bosing (Stomp)!</div>
+  </div>
+
+  <!-- Mobile Buttons -->
+  <div class="mobile-controls">
+    <button class="touch-btn" id="mLeft">◀</button>
+    <button class="touch-btn" id="mRight">▶</button>
+    <button class="touch-btn jump" id="mJump">JUMP</button>
+  </div>
+
+  <!-- End Game Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <h2 class="modal-title" id="modalTitle">GAME OVER</h2>
+    <p id="modalDesc" style="color: #94A3B8; font-size: 1.05rem;">Dushman bilan to'qnashdingiz</p>
+
+    <!-- Score Summary Badges -->
+    <div class="hud-stats-group" style="margin: 8px 0;">
+      <div class="hud-card">
+        <div>
+          <div class="val" id="summaryScore" style="color: #10B981;">0</div>
+          <div class="lbl">FINAL SCORE</div>
+        </div>
+      </div>
+      <div class="hud-card">
+        <div>
+          <div class="val" id="summaryCoins" style="color: #FBBF24;">0 / 9</div>
+          <div class="lbl">COINS</div>
+        </div>
+      </div>
+      <div class="hud-card">
+        <div>
+          <div class="val" id="summaryTime" style="color: #60A5FA;">00:00</div>
+          <div class="lbl">TOTAL TIME</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Name input to save to Leaderboard -->
+    <div style="display: flex; gap: 8px; width: 100%; max-width: 360px;">
+      <input type="text" id="playerNameInput" class="lb-input" placeholder="Ismingizni kiriting..." maxlength="16" value="Player 1">
+      <button id="btnSaveScore" class="btn-restart" style="padding: 10px 18px; font-size: 0.88rem; background: linear-gradient(135deg, #10B981, #059669); white-space: nowrap;">
+        Natijani Saqlash
+      </button>
+    </div>
+
+    <div style="display: flex; gap: 12px; margin-top: 6px;">
+      <button class="btn-restart" id="btnModalRestart">Qaytadan o'ynash</button>
+      <button class="btn-restart" id="btnModalLeaderboard" style="background: #1F2937; border-color: #374151;">
+        🏆 Reytingni ko'rish
+      </button>
+    </div>
+  </div>
+
+  <!-- Dedicated Leaderboard Table Modal -->
+  <div class="leaderboard-modal" id="leaderboardModal">
+    <div class="leaderboard-card">
+      <div class="lb-header">
+        <div class="lb-title">
+          <span>🏆</span>
+          <span>GLOBAL LEADERBOARD</span>
+        </div>
+        <button class="lb-close-btn" id="btnCloseLeaderboard">✕</button>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="lb-table">
+          <thead>
+            <tr>
+              <th style="width: 70px;">O'rin</th>
+              <th>O'yinchi</th>
+              <th>Ball (Score)</th>
+              <th>Tangalar</th>
+              <th>Vaqt</th>
+              <th>Sana</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardTbody">
+            <!-- Populated via LeaderboardManager -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lb-footer-actions">
+        <span style="color: var(--text-dim);">Joriy natijangiz: <b id="lbCurrentStats" style="color: #38BDF8;">0 pts</b></span>
+        <button id="btnResetLeaderboard" style="background: transparent; border: none; color: #EF4444; font-size: 0.75rem; cursor: pointer; text-decoration: underline;">
+          Reytingni tozalash
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Synthesis Script (Web Audio API) -->
+  <script>
+    const SoundFx = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      },
+      jump() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(200, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(600, this.ctx.currentTime + 0.18);
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.18);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.18);
+      },
+      coin() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(987.77, this.ctx.currentTime);
+        osc.frequency.setValueAtTime(1318.51, this.ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.35, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.35);
+      },
+      stomp() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, this.ctx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.4, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.2);
+      },
+      die() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(320, this.ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(80, this.ctx.currentTime + 0.6);
+        gain.gain.setValueAtTime(0.4, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.6);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.6);
+      },
+      win() {
+        if (!this.ctx) return;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.12);
+          gain.gain.setValueAtTime(0.25, this.ctx.currentTime + idx * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + idx * 0.12 + 0.2);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(this.ctx.currentTime + idx * 0.12);
+          osc.stop(this.ctx.currentTime + idx * 0.12 + 0.2);
+        });
+      }
+    };
+  </script>
+
+  <!-- Main WebGL 3D Application -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+    import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+    /* ============================================================================
+     * 1. DVIGATEL KONFIGURATSIYASI VA GLOBALLAR
+     * ============================================================================ */
+    const CONFIG = {
+      GRAVITY: 32.0,
+      FALL_GRAVITY_MULT: 1.8,
+      LOW_JUMP_GRAVITY_MULT: 2.2,
+      JUMP_IMPULSE: 15.5,
+      SPEED: 14.0,
+      ACCELERATION: 40.0,
+      FRICTION: 35.0,
+      BOUNCE_IMPULSE: 12.0
+    };
+
+    let scene, camera, renderer, composer, bloomPass, controls;
+    let dirLight;
+    let clock = new THREE.Clock();
+
+    // Telemetry UI
+    const fpsMeter = document.getElementById('fpsMeter');
+    const msMeter = document.getElementById('msMeter');
+    const drawCallMeter = document.getElementById('drawCallMeter');
+    const trianglesMeter = document.getElementById('trianglesMeter');
+    const fsmMeter = document.getElementById('fsmMeter');
+    const tierBadge = document.getElementById('tierBadge');
+    const coinVal = document.getElementById('coinVal');
+    const timeVal = document.getElementById('timeVal');
+    const scoreVal = document.getElementById('scoreVal');
+
+    // Rolling FPS
+    const frameSamples = new Float32Array(60);
+    let sampleIdx = 0;
+    let currentTier = 2;
+
+    /* ============================================================================
+     * LEADERBOARD MANAGER (PERSISTENT HIGH SCORES)
+     * ============================================================================ */
+    const LeaderboardManager = {
+      STORAGE_KEY: 'platformer3d_leaderboard_v1',
+      defaultEntries: [
+        { name: "CyberMario_99", score: 8750, coins: 9, timeStr: "00:32", timeSec: 32, date: "Bugun" },
+        { name: "Speedrunner21", score: 7900, coins: 9, timeStr: "00:41", timeSec: 41, date: "Bugun" },
+        { name: "VibeCoder_Pro", score: 6500, coins: 8, timeStr: "00:54", timeSec: 54, date: "Bugun" },
+        { name: "ApexPlayer", score: 5200, coins: 7, timeStr: "01:08", timeSec: 68, date: "Kecha" },
+        { name: "NeonRunner", score: 4100, coins: 6, timeStr: "01:25", timeSec: 85, date: "Kecha" }
+      ],
+      getEntries() {
+        try {
+          const raw = localStorage.getItem(this.STORAGE_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch (e) { console.error(e); }
+        return [...this.defaultEntries];
+      },
+      saveEntries(entries) {
+        try {
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(entries));
+        } catch (e) { console.error(e); }
+      },
+      addEntry(name, score, coins, timeSec) {
+        const entries = this.getEntries();
+        const mins = Math.floor(timeSec / 60);
+        const secs = Math.floor(timeSec % 60);
+        const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        
+        const newEntry = {
+          name: (name && name.trim()) ? name.trim() : "Player 1",
+          score: Math.round(score),
+          coins: coins,
+          timeStr: timeStr,
+          timeSec: Math.round(timeSec),
+          date: "Hozir",
+          isNew: true
+        };
+
+        entries.push(newEntry);
+        entries.sort((a, b) => b.score - a.score || a.timeSec - b.timeSec);
+        const trimmed = entries.slice(0, 10);
+        this.saveEntries(trimmed);
+        this.renderTable(newEntry.name);
+        return trimmed;
+      },
+      renderTable(highlightName = null) {
+        const tbody = document.getElementById('leaderboardTbody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        const entries = this.getEntries();
+
+        entries.forEach((e, idx) => {
+          const tr = document.createElement('tr');
+          if (e.isNew || (highlightName && e.name === highlightName)) {
+            tr.className = 'lb-row-new';
+            delete e.isNew;
+          }
+
+          let rankBadge = `#${idx + 1}`;
+          let rankClass = '';
+          if (idx === 0) { rankBadge = "🥇 1st"; rankClass = "gold"; }
+          else if (idx === 1) { rankBadge = "🥈 2nd"; rankClass = "silver"; }
+          else if (idx === 2) { rankBadge = "🥉 3rd"; rankClass = "bronze"; }
+
+          tr.innerHTML = `
+            <td class="lb-rank ${rankClass}">${rankBadge}</td>
+            <td class="lb-name">${e.name}</td>
+            <td class="lb-score">${e.score.toLocaleString()}</td>
+            <td class="lb-coins">🪙 ${e.coins} / 9</td>
+            <td class="lb-time">⏱️ ${e.timeStr}</td>
+            <td style="color: var(--text-dim); font-size: 0.75rem;">${e.date}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      },
+      reset() {
+        localStorage.removeItem(this.STORAGE_KEY);
+        this.renderTable();
+      }
+    };
+
+    /* ============================================================================
+     * 2. ZERO-ALLOCATION PARTICLE OBJECT POOLER
+     * ============================================================================ */
+    class ParticlePool {
+      constructor(count, scene) {
+        this.capacity = count;
+        this.mesh = null;
+        this.positions = new Float32Array(count * 3);
+        this.velocities = new Float32Array(count * 3);
+        this.lifetimes = new Float32Array(count);
+        this.maxLifetimes = new Float32Array(count);
+        this.active = new Uint8Array(count);
+        this.activeCount = 0;
+
+        const geom = new THREE.DodecahedronGeometry(0.12, 0);
+        const mat = new THREE.MeshStandardMaterial({
+          color: 0x00ffff,
+          emissive: 0x00ffff,
+          emissiveIntensity: 3.0,
+          roughness: 0.1,
+          metalness: 0.9
+        });
+
+        this.mesh = new THREE.InstancedMesh(geom, mat, count);
+        this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+        scene.add(this.mesh);
+
+        this._dummy = new THREE.Object3D();
+        for (let i = 0; i < count; i++) {
+          this._dummy.position.set(0, -9999, 0);
+          this._dummy.scale.set(0, 0, 0);
+          this._dummy.updateMatrix();
+          this.mesh.setMatrixAt(i, this._dummy.matrix);
+        }
+        this.mesh.instanceMatrix.needsUpdate = true;
+      }
+
+      burst(x, y, z, num, colorHex) {
+        let spawned = 0;
+        for (let i = 0; i < this.capacity && spawned < num; i++) {
+          if (!this.active[i]) {
+            this.active[i] = 1;
+            this.positions[i * 3 + 0] = x;
+            this.positions[i * 3 + 1] = y;
+            this.positions[i * 3 + 2] = z;
+
+            const theta = Math.random() * Math.PI * 2;
+            const phi = (Math.random() - 0.5) * Math.PI;
+            const speed = 4.0 + Math.random() * 6.0;
+
+            this.velocities[i * 3 + 0] = Math.cos(theta) * Math.cos(phi) * speed;
+            this.velocities[i * 3 + 1] = Math.abs(Math.sin(phi)) * speed + 3.0;
+            this.velocities[i * 3 + 2] = Math.sin(theta) * Math.cos(phi) * speed;
+
+            this.lifetimes[i] = 0;
+            this.maxLifetimes[i] = 0.5 + Math.random() * 0.4;
+            spawned++;
+            this.activeCount++;
+          }
+        }
+      }
+
+      update(dt) {
+        if (this.activeCount === 0) return;
+        let needsUpdate = false;
+
+        for (let i = 0; i < this.capacity; i++) {
+          if (!this.active[i]) continue;
+
+          this.lifetimes[i] += dt;
+          if (this.lifetimes[i] >= this.maxLifetimes[i]) {
+            this.active[i] = 0;
+            this.activeCount--;
+            this._dummy.position.set(0, -9999, 0);
+            this._dummy.scale.set(0, 0, 0);
+            this._dummy.updateMatrix();
+            this.mesh.setMatrixAt(i, this._dummy.matrix);
+            needsUpdate = true;
+            continue;
+          }
+
+          // Physics
+          this.velocities[i * 3 + 1] -= 18.0 * dt; // gravity
+          this.positions[i * 3 + 0] += this.velocities[i * 3 + 0] * dt;
+          this.positions[i * 3 + 1] += this.velocities[i * 3 + 1] * dt;
+          this.positions[i * 3 + 2] += this.velocities[i * 3 + 2] * dt;
+
+          const progress = 1.0 - (this.lifetimes[i] / this.maxLifetimes[i]);
+          this._dummy.position.set(
+            this.positions[i * 3 + 0],
+            this.positions[i * 3 + 1],
+            this.positions[i * 3 + 2]
+          );
+          this._dummy.scale.setScalar(progress * 0.25);
+          this._dummy.updateMatrix();
+          this.mesh.setMatrixAt(i, this._dummy.matrix);
+          needsUpdate = true;
+        }
+
+        if (needsUpdate) {
+          this.mesh.instanceMatrix.needsUpdate = true;
+        }
+      }
+    }
+
+    /* ============================================================================
+     * 3. O'YINCHI, SAHNA VA DARAXTLAR / BILLBOARD INSTANCED MESH
+     * ============================================================================ */
+    let player = {
+      mesh: null,
+      body: null,
+      limbs: [],
+      pos: new THREE.Vector3(0, 4, 0),
+      vel: new THREE.Vector3(0, 0, 0),
+      box: new THREE.Box3(),
+      isGrounded: false,
+      isDead: false,
+      state: 'IDLE',
+      coins: 0,
+      score: 0,
+      enemiesDefeated: 0,
+      runCycle: 0
+    };
+
+    let platforms = [];
+    let coins = [];
+    let enemies = [];
+    let goalFlag = null;
+    let particlePool;
+    let gameActive = true;
+    let gameTime = 0;
+
+    const input = {
+      forward: false,
+      backward: false,
+      left: false,
+      right: false,
+      jump: false,
+      jumpHeld: false
+    };
+
+    /* ============================================================================
+     * 4. BOSH MUHITNI QURISH (PHOTOREALISTIC ENVIRONMENT SETUP)
+     * ============================================================================ */
+    function initEngine() {
+      const canvas = document.getElementById('webgl-canvas');
+
+      // 1. WebGL 2.0 Renderer
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        powerPreference: "high-performance",
+        antialias: false,
+        stencil: false,
+        depth: true
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2.0));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.2;
+
+      // Realtime Cascaded Soft Shadow Mapping
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+      // 2. Scene & Fog
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x0a1122);
+      scene.fog = new THREE.FogExp2(0x0a1122, 0.012);
+
+      // 3. Camera
+      camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 400);
+      camera.position.set(0, 8, 16);
+
+      // Orbit controls for mouse orbiting
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.maxPolarAngle = Math.PI / 2.05; // Prevent dipping below ground
+      controls.minDistance = 6;
+      controls.maxDistance = 28;
+
+      // 4. Photorealistic Lights
+      const ambientLight = new THREE.AmbientLight(0x223355, 0.8);
+      scene.add(ambientLight);
+
+      const hemiLight = new THREE.HemisphereLight(0x60a5fa, 0x1e293b, 0.9);
+      scene.add(hemiLight);
+
+      dirLight = new THREE.DirectionalLight(0xfff3e0, 2.8);
+      dirLight.position.set(30, 50, 20);
+      dirLight.castShadow = true;
+      dirLight.shadow.mapSize.width = 2048;
+      dirLight.shadow.mapSize.height = 2048;
+      dirLight.shadow.camera.near = 10;
+      dirLight.shadow.camera.far = 140;
+      dirLight.shadow.camera.left = -40;
+      dirLight.shadow.camera.right = 40;
+      dirLight.shadow.camera.top = 40;
+      dirLight.shadow.camera.bottom = -40;
+      dirLight.shadow.bias = -0.0004;
+      dirLight.shadow.radius = 2.5;
+      scene.add(dirLight);
+
+      // 5. Post-Processing Stack (EffectComposer)
+      composer = new EffectComposer(renderer);
+      const renderPass = new RenderPass(scene, camera);
+      composer.addPass(renderPass);
+
+      bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        0.75, // strength
+        0.4,  // radius
+        0.75  // threshold
+      );
+      composer.addPass(bloomPass);
+
+      const outputPass = new OutputPass();
+      composer.addPass(outputPass);
+
+      // 6. Object Pooler
+      particlePool = new ParticlePool(300, scene);
+
+      // 7. Level Qurish
+      buildWorld();
+      createPlayer();
+      createInstancedDecorations();
+
+      // 8. Event Listeners
+      setupInput();
+
+      window.addEventListener('resize', onWindowResize);
+    }
+
+    /* ============================================================================
+     * 5. DUNYO GEOMETRIYASI VA PLATFORMALAR (PBR TEXTURED MESHES)
+     * ============================================================================ */
+    function buildWorld() {
+      // PBR Stone Platform Material
+      const platformMat = new THREE.MeshStandardMaterial({
+        color: 0x1e293b,
+        roughness: 0.35,
+        metalness: 0.25
+      });
+
+      const goldBlockMat = new THREE.MeshStandardMaterial({
+        color: 0xf59e0b,
+        roughness: 0.2,
+        metalness: 0.85,
+        emissive: 0xd97706,
+        emissiveIntensity: 0.4
+      });
+
+      const createPlatform = (x, y, z, w, h, d, mat = platformMat) => {
+        const geom = new THREE.BoxGeometry(w, h, d);
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.position.set(x, y, z);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        scene.add(mesh);
+
+        const box = new THREE.Box3().setFromObject(mesh);
+        platforms.push({ mesh, box, min: box.min, max: box.max });
+        return mesh;
+      };
+
+      // Boshlang'ich zamin
+      createPlatform(0, 0, 0, 24, 2, 14);
+
+      // Sakrash platformalari
+      createPlatform(18, 2, 0, 10, 2, 8);
+      createPlatform(34, 4.5, 0, 8, 2, 8);
+      createPlatform(48, 7.5, 0, 12, 2, 10);
+      createPlatform(66, 10, 0, 10, 2, 8);
+
+      // Oltin "Question Mark" bloklari (Mario style)
+      createPlatform(18, 6.5, 0, 2, 2, 2, goldBlockMat);
+      createPlatform(48, 12.0, 0, 2, 2, 2, goldBlockMat);
+
+      // Final zinapoya
+      for (let s = 0; s < 5; s++) {
+        createPlatform(80 + s * 3, 10 + s * 1.5, 0, 3, 2 + s * 1.5, 8);
+      }
+
+      // Finish Castle / Flag Platform
+      createPlatform(105, 17, 0, 16, 2, 12);
+
+      // Bayroq ustuni (Goal Pole)
+      const poleGeom = new THREE.CylinderGeometry(0.18, 0.18, 14, 16);
+      const poleMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9, roughness: 0.1 });
+      const pole = new THREE.Mesh(poleGeom, poleMat);
+      pole.position.set(108, 24, 0);
+      pole.castShadow = true;
+      scene.add(pole);
+
+      const flagGeom = new THREE.BoxGeometry(3.5, 2, 0.1);
+      const flagMat = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        emissive: 0x10b981,
+        emissiveIntensity: 0.8,
+        roughness: 0.3
+      });
+      const flag = new THREE.Mesh(flagGeom, flagMat);
+      flag.position.set(109.8, 30, 0);
+      flag.castShadow = true;
+      scene.add(flag);
+      goalFlag = { x: 108, y: 18, z: 0, radius: 2.5 };
+
+      // Tangalar (3D Spinning Coins)
+      const coinGeom = new THREE.CylinderGeometry(0.8, 0.8, 0.18, 20);
+      coinGeom.rotateX(Math.PI / 2);
+      const coinMat = new THREE.MeshStandardMaterial({
+        color: 0xfbbf24,
+        emissive: 0xf59e0b,
+        emissiveIntensity: 0.9,
+        metalness: 0.95,
+        roughness: 0.1
+      });
+
+      const coinPositions = [
+        [8, 2.5, 0], [18, 4.5, 0], [18, 8.8, 0],
+        [34, 7.0, 0], [48, 10.0, 0], [48, 14.5, 0],
+        [66, 12.5, 0], [83, 14.0, 0], [89, 17.0, 0]
+      ];
+
+      coinPositions.forEach(pos => {
+        const cMesh = new THREE.Mesh(coinGeom, coinMat);
+        cMesh.position.set(pos[0], pos[1], pos[2]);
+        cMesh.castShadow = true;
+        scene.add(cMesh);
+        coins.push({ mesh: cMesh, collected: false });
+      });
+
+      // Dushmanlar (PBR Patrol Drones / Goombas)
+      createEnemy(18, 3.8, 0, 4.0);
+      createEnemy(48, 9.3, 0, 4.5);
+      createEnemy(66, 11.8, 0, 3.5);
+      createEnemy(105, 18.8, 0, 5.0);
+    }
+
+    /* ============================================================================
+     * 6. 1000+ INSTANCED MESHES (1 TA DRAW CALL ORQALI KRISTALLAR)
+     * ============================================================================ */
+    function createInstancedDecorations() {
+      const count = 1200;
+      const crystalGeom = new THREE.OctahedronGeometry(0.4, 0);
+      const crystalMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        emissive: 0x0284c7,
+        emissiveIntensity: 1.5,
+        roughness: 0.1,
+        metalness: 0.9
+      });
+
+      const instancedMesh = new THREE.InstancedMesh(crystalGeom, crystalMat, count);
+      instancedMesh.instanceMatrix.setUsage(THREE.StaticDrawUsage);
+      instancedMesh.castShadow = true;
+
+      const dummy = new THREE.Object3D();
+      for (let i = 0; i < count; i++) {
+        const x = (Math.random() - 0.2) * 140;
+        const y = -10 + Math.random() * 25;
+        const z = (Math.random() - 0.5) * 60;
+
+        // Platformalardan chetdagi bo'shliqqa sochish
+        if (Math.abs(z) < 5 && y > -2) continue;
+
+        dummy.position.set(x, y, z);
+        dummy.scale.set(0.6 + Math.random() * 1.2, 1.0 + Math.random() * 2.0, 0.6 + Math.random() * 1.2);
+        dummy.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        dummy.updateMatrix();
+
+        instancedMesh.setMatrixAt(i, dummy.matrix);
+      }
+
+      instancedMesh.instanceMatrix.needsUpdate = true;
+      scene.add(instancedMesh);
+    }
+
+    /* ============================================================================
+     * 7. O'YINCHI 3D HERO VA DUSHMANLAR MANTIQI
+     * ============================================================================ */
+    function createPlayer() {
+      const root = new THREE.Group();
+
+      // Tanasi (Chiroyli PBR Droid / Cyber Mario)
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0xef4444, // Qizil Mario rang
+        roughness: 0.2,
+        metalness: 0.7
+      });
+      const bodyGeom = new THREE.CapsuleGeometry(0.5, 0.7, 8, 16);
+      const body = new THREE.Mesh(bodyGeom, bodyMat);
+      body.castShadow = true;
+      body.position.y = 0.85;
+      root.add(body);
+      player.body = body;
+
+      // Bosh va Vizor
+      const visorMat = new THREE.MeshStandardMaterial({
+        color: 0x00f3ff,
+        emissive: 0x00f3ff,
+        emissiveIntensity: 2.5,
+        roughness: 0.05
+      });
+      const visorGeom = new THREE.BoxGeometry(0.65, 0.22, 0.4);
+      const visor = new THREE.Mesh(visorGeom, visorMat);
+      visor.position.set(0, 1.15, 0.35);
+      root.add(visor);
+
+      // Oyoqlar
+      const legMat = new THREE.MeshStandardMaterial({ color: 0x1e3a8a, metalness: 0.8, roughness: 0.3 });
+      const legGeom = new THREE.CylinderGeometry(0.14, 0.14, 0.6);
+
+      const leftLeg = new THREE.Mesh(legGeom, legMat);
+      leftLeg.position.set(-0.25, 0.3, 0);
+      leftLeg.castShadow = true;
+      root.add(leftLeg);
+
+      const rightLeg = new THREE.Mesh(legGeom, legMat);
+      rightLeg.position.set(0.25, 0.3, 0);
+      rightLeg.castShadow = true;
+      root.add(rightLeg);
+
+      player.limbs = [leftLeg, rightLeg];
+      player.mesh = root;
+      scene.add(root);
+
+      resetPlayer();
+    }
+
+    function resetPlayer() {
+      player.pos.set(0, 3, 0);
+      player.vel.set(0, 0, 0);
+      player.isDead = false;
+      player.isGrounded = false;
+      player.state = 'IDLE';
+      player.coins = 0;
+      player.score = 0;
+      player.enemiesDefeated = 0;
+      player.mesh.position.copy(player.pos);
+      player.mesh.rotation.y = 0;
+
+      // Reset coins
+      coins.forEach(c => {
+        c.collected = false;
+        c.mesh.visible = true;
+      });
+
+      // Reset enemies
+      enemies.forEach(e => {
+        e.dead = false;
+        e.mesh.visible = true;
+        e.mesh.scale.set(1, 1, 1);
+        e.mesh.position.set(e.startX, e.mesh.position.y, 0);
+      });
+
+      gameTime = 0;
+      coinVal.textContent = `0 / ${coins.length}`;
+      scoreVal.textContent = "0";
+      timeVal.textContent = "00:00";
+
+      gameActive = true;
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.getElementById('leaderboardModal').classList.remove('active');
+    }
+
+    function createEnemy(x, y, z, patrolDist) {
+      const group = new THREE.Group();
+
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0x7c2d12,
+        roughness: 0.35,
+        metalness: 0.6
+      });
+      const headGeom = new THREE.ConeGeometry(0.8, 1.1, 16);
+      const head = new THREE.Mesh(headGeom, bodyMat);
+      head.position.y = 0.6;
+      head.castShadow = true;
+      group.add(head);
+
+      // Qizil qahrli ko'z
+      const eyeMat = new THREE.MeshStandardMaterial({
+        color: 0xff0044,
+        emissive: 0xff0044,
+        emissiveIntensity: 3.0
+      });
+      const eyeGeom = new THREE.SphereGeometry(0.18, 8, 8);
+      const eye = new THREE.Mesh(eyeGeom, eyeMat);
+      eye.position.set(0, 0.7, 0.5);
+      group.add(eye);
+
+      group.position.set(x, y, z);
+      scene.add(group);
+
+      enemies.push({
+        mesh: group,
+        startX: x,
+        patrolDist,
+        dir: 1,
+        speed: 3.5,
+        dead: false,
+        squashTime: 0
+      });
+    }
+
+    /* ============================================================================
+     * 8. KINEMATIKA VA FIZIKA INTEGRATSIYASI (FIXED TICK)
+     * ============================================================================ */
+    function updatePhysics(dt) {
+      if (!gameActive) return;
+
+      gameTime += dt;
+      const mins = Math.floor(gameTime / 60);
+      const secs = Math.floor(gameTime % 60);
+      timeVal.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+      // 1. Gorizontal harakat vektorlari
+      let moveX = 0;
+      let moveZ = 0;
+
+      if (input.forward)  moveX += 1;
+      if (input.backward) moveX -= 1;
+      if (input.left)     moveZ -= 1;
+      if (input.right)    moveZ += 1;
+
+      const inputLen = Math.hypot(moveX, moveZ);
+      if (inputLen > 0.001) {
+        moveX /= inputLen;
+        moveZ /= inputLen;
+
+        player.vel.x += moveX * CONFIG.ACCELERATION * dt;
+        player.vel.z += moveZ * CONFIG.ACCELERATION * dt;
+
+        // Tezlikni cheklash
+        const hSpeed = Math.hypot(player.vel.x, player.vel.z);
+        if (hSpeed > CONFIG.SPEED) {
+          const factor = CONFIG.SPEED / hSpeed;
+          player.vel.x *= factor;
+          player.vel.z *= factor;
+        }
+
+        // Qahramonni yugurish yo'nalishiga burish
+        const targetAngle = Math.atan2(moveZ, moveX);
+        player.mesh.rotation.y = targetAngle;
+      } else {
+        // Friction (Ishqalanish)
+        const hSpeed = Math.hypot(player.vel.x, player.vel.z);
+        if (hSpeed > 0.001) {
+          const drop = CONFIG.FRICTION * dt;
+          const newSpeed = Math.max(0, hSpeed - drop);
+          player.vel.x = (player.vel.x / hSpeed) * newSpeed;
+          player.vel.z = (player.vel.z / hSpeed) * newSpeed;
+        }
+      }
+
+      // 2. Sakrash va Asimmetrik Gravitatsiya (Mario Style)
+      if (input.jump && player.isGrounded) {
+        player.vel.y = CONFIG.JUMP_IMPULSE;
+        player.isGrounded = false;
+        SoundFx.jump();
+        particlePool.burst(player.pos.x, player.pos.y, player.pos.z, 16, 0x00f3ff);
+      }
+      input.jump = false;
+
+      let currentGravity = CONFIG.GRAVITY;
+      if (player.vel.y > 0 && !input.jumpHeld) {
+        currentGravity *= CONFIG.LOW_JUMP_GRAVITY_MULT; // Sakrash tugmasi qo'yib yuborilganda
+      } else if (player.vel.y < 0) {
+        currentGravity *= CONFIG.FALL_GRAVITY_MULT; // Tushishda og'irlik
+      }
+      player.vel.y -= currentGravity * dt;
+
+      const playerRadius = 0.5;
+      const playerHeight = 1.7;
+
+      // 3. X O'QI BO'YICHA HARAKAT VA DEVOL KOLLIZIYASI (X-Axis Wall Collision)
+      player.pos.x += player.vel.x * dt;
+      platforms.forEach(p => {
+        // O'yinchi vertikal va Z bo'yicha platforma oralig'ida bo'lsa
+        const vOverlap = (player.pos.y < p.max.y - 0.05) && (player.pos.y + playerHeight > p.min.y + 0.05);
+        const zOverlap = (player.pos.z + playerRadius - 0.05 > p.min.z) && (player.pos.z - playerRadius + 0.05 < p.max.z);
+
+        if (vOverlap && zOverlap) {
+          if (player.vel.x > 0 && player.pos.x + playerRadius > p.min.x && player.pos.x - playerRadius < p.min.x) {
+            // O'ng devorga to'qnashuv: o'yinchi devorning chap qirrasiga qadaladi
+            player.pos.x = p.min.x - playerRadius;
+            player.vel.x = 0;
+          } else if (player.vel.x < 0 && player.pos.x - playerRadius < p.max.x && player.pos.x + playerRadius > p.max.x) {
+            // Chap devorga to'qnashuv: o'yinchi devorning o'ng qirrasiga qadaladi
+            player.pos.x = p.max.x + playerRadius;
+            player.vel.x = 0;
+          }
+        }
+      });
+
+      // 4. Z O'QI BO'YICHA HARAKAT VA DEVOL KOLLIZIYASI (Z-Axis Wall Collision)
+      player.pos.z += player.vel.z * dt;
+      platforms.forEach(p => {
+        const vOverlap = (player.pos.y < p.max.y - 0.05) && (player.pos.y + playerHeight > p.min.y + 0.05);
+        const xOverlap = (player.pos.x + playerRadius - 0.05 > p.min.x) && (player.pos.x - playerRadius + 0.05 < p.max.x);
+
+        if (vOverlap && xOverlap) {
+          if (player.vel.z > 0 && player.pos.z + playerRadius > p.min.z && player.pos.z - playerRadius < p.min.z) {
+            player.pos.z = p.min.z - playerRadius;
+            player.vel.z = 0;
+          } else if (player.vel.z < 0 && player.pos.z - playerRadius < p.max.z && player.pos.z + playerRadius > p.max.z) {
+            player.pos.z = p.max.z + playerRadius;
+            player.vel.z = 0;
+          }
+        }
+      });
+
+      // 5. Y O'QI BO'YICHA TUSHISH VA ZAMIN KOLLIZIYASI (Y-Axis Floor/Ceiling)
+      player.pos.y += player.vel.y * dt;
+      player.isGrounded = false;
+
+      platforms.forEach(p => {
+        const xOverlap = (player.pos.x + playerRadius - 0.08 > p.min.x) && (player.pos.x - playerRadius + 0.08 < p.max.x);
+        const zOverlap = (player.pos.z + playerRadius - 0.08 > p.min.z) && (player.pos.z - playerRadius + 0.08 < p.max.z);
+
+        if (xOverlap && zOverlap) {
+          // Platforma ustiga qo'nish (Landing)
+          if (player.vel.y <= 0 && player.pos.y <= p.max.y + 0.35 && player.pos.y >= p.max.y - 0.6) {
+            player.pos.y = p.max.y;
+            player.vel.y = 0;
+            player.isGrounded = true;
+          }
+          // Shiftga urilish (Ceiling Bonk)
+          else if (player.vel.y > 0 && player.pos.y + playerHeight >= p.min.y && player.pos.y < p.min.y + 0.4) {
+            player.pos.y = p.min.y - playerHeight;
+            player.vel.y = 0;
+          }
+        }
+      });
+
+      // Jarlikka qulash (Void death)
+      if (player.pos.y < -15) {
+        SoundFx.die();
+        triggerModal(false, "Jarlikka qulab ketdingiz!");
+      }
+
+      // 5. O'yinchi holati (FSM)
+      if (!player.isGrounded) {
+        player.state = player.vel.y > 0 ? 'JUMP' : 'FALL';
+      } else {
+        const speed = Math.hypot(player.vel.x, player.vel.z);
+        player.state = speed > 0.8 ? 'RUN' : 'IDLE';
+      }
+      fsmMeter.textContent = player.state;
+
+      // Yugurish animatsiyasi (Oyoqlar silkinishi)
+      if (player.state === 'RUN') {
+        player.runCycle += dt * 14;
+        player.limbs[0].rotation.x = Math.sin(player.runCycle) * 0.7;
+        player.limbs[1].rotation.x = -Math.sin(player.runCycle) * 0.7;
+      } else {
+        player.limbs[0].rotation.x = 0;
+        player.limbs[1].rotation.x = 0;
+      }
+
+      player.mesh.position.copy(player.pos);
+
+      // 6. Tangalarni yig'ish va aylantirish
+      coins.forEach(c => {
+        if (c.collected) return;
+        c.mesh.rotation.z += dt * 4;
+        if (c.mesh.position.distanceTo(player.pos.clone().add(new THREE.Vector3(0, 0.8, 0))) < 1.4) {
+          c.collected = true;
+          c.mesh.visible = false;
+          player.coins++;
+          player.score += 250;
+          coinVal.textContent = `${player.coins} / ${coins.length}`;
+          scoreVal.textContent = player.score.toLocaleString();
+          SoundFx.coin();
+          particlePool.burst(c.mesh.position.x, c.mesh.position.y, c.mesh.position.z, 20, 0xfbbf24);
+        }
+      });
+
+      // 7. Dushmanlar AI (Patrol & Stomp Detection)
+      enemies.forEach(e => {
+        if (e.dead) {
+          e.squashTime -= dt;
+          if (e.squashTime <= 0) e.mesh.visible = false;
+          return;
+        }
+
+        e.mesh.position.x += e.dir * e.speed * dt;
+        if (Math.abs(e.mesh.position.x - e.startX) > e.patrolDist) {
+          e.dir *= -1;
+        }
+
+        // To'qnashuv
+        const dist = e.mesh.position.distanceTo(player.pos.clone().add(new THREE.Vector3(0, 0.5, 0)));
+        if (dist < 1.25) {
+          // STOMP: O'yinchi dushmanning tepasiga sakragan bo'lsa
+          if (player.vel.y < 0 && player.pos.y > e.mesh.position.y + 0.4) {
+            e.dead = true;
+            e.squashTime = 0.4;
+            e.mesh.scale.set(1.4, 0.2, 1.4); // Ezilish effekti
+            player.enemiesDefeated++;
+            player.score += 500;
+            scoreVal.textContent = player.score.toLocaleString();
+            player.vel.y = CONFIG.BOUNCE_IMPULSE;
+            SoundFx.stomp();
+            particlePool.burst(e.mesh.position.x, e.mesh.position.y + 0.5, e.mesh.position.z, 25, 0xef4444);
+          } else {
+            // O'yinchiga zarar / O'lim
+            SoundFx.die();
+            triggerModal(false, "Dushman dron sizga zarba berdi!");
+          }
+        }
+      });
+
+      // 8. Marra (Finish Flag) tekshiruvi
+      if (goalFlag && Math.hypot(player.pos.x - goalFlag.x, player.pos.z - goalFlag.z) < goalFlag.radius) {
+        SoundFx.win();
+        const timeBonus = Math.max(0, Math.floor(5000 - gameTime * 20));
+        player.score += timeBonus;
+        scoreVal.textContent = player.score.toLocaleString();
+        triggerModal(true, `G'alaba! Marraga yetib keldingiz! (Vaqt bonusi: +${timeBonus.toLocaleString()} pts)`);
+      }
+
+      // 9. Kamera silliq ergashishi
+      const targetCam = player.pos.clone().add(new THREE.Vector3(-14, 8, 0));
+      camera.position.lerp(targetCam, 0.06);
+      controls.target.lerp(player.pos.clone().add(new THREE.Vector3(0, 1.2, 0)), 0.08);
+
+      // Zarrachalarni yangilash
+      particlePool.update(dt);
+    }
+
+    function triggerModal(isWin, desc) {
+      gameActive = false;
+      const modal = document.getElementById('modalOverlay');
+      const title = document.getElementById('modalTitle');
+      const descEl = document.getElementById('modalDesc');
+
+      title.textContent = isWin ? "G'ALABA!" : "O'YIN TUGADI";
+      title.className = isWin ? "modal-title win" : "modal-title";
+      descEl.textContent = desc;
+
+      document.getElementById('summaryScore').textContent = player.score.toLocaleString();
+      document.getElementById('summaryCoins').textContent = `${player.coins} / ${coins.length}`;
+      document.getElementById('summaryTime').textContent = timeVal.textContent;
+      document.getElementById('lbCurrentStats').textContent = `${player.score.toLocaleString()} pts (${player.coins}/${coins.length} coins, ${timeVal.textContent})`;
+
+      modal.classList.add('active');
+    }
+
+    /* ============================================================================
+     * 9. ADAPTIVE RENDER LOOP VA DINAMIK SIFAT REGULYATORI (GOVERNOR)
+     * ============================================================================ */
+    let lastTime = performance.now();
+
+    function renderLoop(now) {
+      const dt = Math.min((now - lastTime) / 1000.0, 0.05);
+      lastTime = now;
+
+      // 1. Fizika va Mantiq
+      updatePhysics(dt);
+
+      // 2. Kamera boshqaruvi
+      controls.update();
+
+      // 3. Post-Processing yoki Direct WebGL Render
+      composer.render();
+
+      // 4. Rolling FPS va Dinamik Sifat Hisobi
+      frameSamples[sampleIdx] = dt;
+      sampleIdx = (sampleIdx + 1) % 60;
+
+      let sumTime = 0;
+      for (let i = 0; i < 60; i++) sumTime += frameSamples[i];
+      const avgFPS = 60.0 / sumTime;
+
+      fpsMeter.textContent = avgFPS.toFixed(1) + " FPS";
+      msMeter.textContent = (dt * 1000).toFixed(1) + " ms";
+      drawCallMeter.textContent = renderer.info.render.calls.toString();
+      trianglesMeter.textContent = (renderer.info.render.triangles / 1000).toFixed(1) + "k";
+
+      // Dinamik Degradatsiya (Agar FPS < 45 bo'lsa)
+      if (avgFPS < 45.0 && currentTier > 0) {
+        currentTier--;
+        if (currentTier === 1) {
+          bloomPass.enabled = false;
+          tierBadge.textContent = "TIER 1 (BALANCED)";
+          tierBadge.style.color = "#FCD34D";
+        } else if (currentTier === 0) {
+          renderer.shadowMap.enabled = false;
+          renderer.setPixelRatio(1.0);
+          tierBadge.textContent = "TIER 0 (PERF)";
+          tierBadge.style.color = "#F87171";
+        }
+      }
+
+      requestAnimationFrame(renderLoop);
+    }
+
+    /* ============================================================================
+     * 10. INPUTLAR VA UI BINDINGS
+     * ============================================================================ */
+    function setupInput() {
+      window.addEventListener('keydown', (e) => {
+        SoundFx.init();
+        if (e.code === 'KeyW' || e.code === 'ArrowUp')    input.forward = true;
+        if (e.code === 'KeyS' || e.code === 'ArrowDown')  input.backward = true;
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft')  input.left = true;
+        if (e.code === 'KeyD' || e.code === 'ArrowRight') input.right = true;
+        if (e.code === 'Space') {
+          if (!input.jumpHeld) input.jump = true;
+          input.jumpHeld = true;
+        }
+      });
+
+      window.addEventListener('keyup', (e) => {
+        if (e.code === 'KeyW' || e.code === 'ArrowUp')    input.forward = false;
+        if (e.code === 'KeyS' || e.code === 'ArrowDown')  input.backward = false;
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft')  input.left = false;
+        if (e.code === 'KeyD' || e.code === 'ArrowRight') input.right = false;
+        if (e.code === 'Space') input.jumpHeld = false;
+      });
+
+      // Mobile Touch
+      const bindBtn = (id, press, release) => {
+        const btn = document.getElementById(id);
+        const onDown = (e) => { e.preventDefault(); SoundFx.init(); press(); };
+        const onUp = (e) => { e.preventDefault(); release(); };
+        btn.addEventListener('touchstart', onDown);
+        btn.addEventListener('touchend', onUp);
+        btn.addEventListener('mousedown', onDown);
+        btn.addEventListener('mouseup', onUp);
+      };
+
+      bindBtn('mLeft', () => input.left = true, () => input.left = false);
+      bindBtn('mRight', () => input.forward = true, () => input.forward = false);
+      bindBtn('mJump', () => {
+        if (!input.jumpHeld) input.jump = true;
+        input.jumpHeld = true;
+      }, () => input.jumpHeld = false);
+
+      document.getElementById('btnModalRestart').onclick = () => resetPlayer();
+
+      // Leaderboard modal controls
+      const lbModal = document.getElementById('leaderboardModal');
+      document.getElementById('btnOpenLeaderboard').onclick = () => {
+        LeaderboardManager.renderTable();
+        lbModal.classList.add('active');
+      };
+      document.getElementById('btnCloseLeaderboard').onclick = () => {
+        lbModal.classList.remove('active');
+      };
+      document.getElementById('btnModalLeaderboard').onclick = () => {
+        LeaderboardManager.renderTable();
+        lbModal.classList.add('active');
+      };
+
+      // Save score button
+      document.getElementById('btnSaveScore').onclick = () => {
+        const nameInput = document.getElementById('playerNameInput');
+        const playerName = (nameInput && nameInput.value) ? nameInput.value.trim() : "Player 1";
+        LeaderboardManager.addEntry(playerName, player.score, player.coins, gameTime);
+        document.getElementById('modalOverlay').classList.remove('active');
+        lbModal.classList.add('active');
+      };
+
+      // Reset leaderboard button
+      document.getElementById('btnResetLeaderboard').onclick = () => {
+        if (confirm("Haqiqatan ham reyting natijalarini tozalamoqchimisiz?")) {
+          LeaderboardManager.reset();
+        }
+      };
+
+      // Telemetry Panel Toggle
+      const telPanel = document.getElementById('telPanel');
+      document.getElementById('btnToggleTel').onclick = () => {
+        telPanel.classList.toggle('collapsed');
+      };
+
+      // Slayderlar
+      document.getElementById('sliderBloom').oninput = (e) => {
+        bloomPass.strength = parseFloat(e.target.value);
+        document.getElementById('valBloom').textContent = e.target.value;
+      };
+      document.getElementById('sliderExposure').oninput = (e) => {
+        renderer.toneMappingExposure = parseFloat(e.target.value);
+        document.getElementById('valExposure').textContent = e.target.value;
+      };
+      document.getElementById('sliderSpeed').oninput = (e) => {
+        CONFIG.SPEED = parseFloat(e.target.value);
+        document.getElementById('valSpeed').textContent = e.target.value;
+      };
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    // Run Engine
+    initEngine();
+    requestAnimationFrame(renderLoop);
+  </script>
+</body>
+</html>

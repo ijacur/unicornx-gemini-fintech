@@ -32,6 +32,18 @@
 - Curated collection of production-grade system prompts based on **School 21** methodology (`KIM SIZ` / `NIMA KERAK` / `KIM UCHUN` / `FORMAT`) and Silicon Valley Y Combinator standards.
 - 1-Click copy to clipboard for rapid prototyping.
 
+### 5. 🕹️ Nexus Arcade: Open Web & AI Game Universe ("Put Your Game")
+- **Instant Play Built-In Games**:
+  - **3D Cyber Runner (WebGL PBR Engine)**: 60 FPS parkour across futuristic Tashkent skyscrapers.
+  - **2D Retro Platformer Quest**: Classic multi-level jumping adventure with collectible crystals and enemies.
+  - **Neon Starfighter (Bullet Blitz)**: High-speed canvas space shooter with particles and boss battles.
+  - **Quantum 2048**: Addictive cyberpunk puzzle game with sound synthesis.
+  - **Cyber-Bazaar 2050**: Gemini procedural negotiation RPG.
+- **Creator Studio ("Put Your Game Into The Website")**:
+  - Anyone can submit their game via Web URL (itch.io, Poki, Vercel) or raw single-file HTML5/JS/Canvas code.
+  - **Gemini AI Prompt Game Generator**: Type any idea (e.g. *"Flappy Falcon dodging Tashkent TV Tower"*), and Gemini generates a full playable HTML5 game in 5 seconds!
+- **Gamification**: Player XP Leveling, Daily Quests, and Global Leaderboard.
+
 ---
 
 ## 🏗️ System Architecture

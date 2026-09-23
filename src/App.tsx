@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
   Rocket,
+  Gamepad2,
   CheckCircle2,
   AlertCircle,
   FileText,
@@ -59,6 +60,7 @@ import {
 import { triggerConfetti } from './lib/utils'
 import { type Language, UI_TRANSLATIONS, MODULES_TRANSLATIONS, LOCALIZED_DEMO_PROJECT } from './lib/i18n'
 import { UnicornStudio } from './components/UnicornStudio/UnicornStudio'
+import { ArcadeHub } from './components/Arcade/ArcadeHub'
 
 const JURY_RELOAD_AUDIT_KEY = 'launch_lab_21_jury_reload_audit'
 
@@ -148,8 +150,8 @@ export default function App() {
   const [activeRole, setActiveRole] = useState<'participant' | 'curator'>(() => loadUserRole())
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0)
   const [activeView, setActiveView] = useState<
-    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio'
-  >(() => (window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : 'unicorn-studio'))
+    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade'
+  >(() => (window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : 'arcade'))
 
   const [activeReelIndex, setActiveReelIndex] = useState(0)
   const [doubleTapHeart, setDoubleTapHeart] = useState(false)
@@ -1073,6 +1075,26 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </span>
             <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-sm">
               ICT 2026
+            </span>
+          </button>
+
+          <button
+            onClick={() => {
+              playBeep(580, 'sine', 0.08)
+              setActiveView('arcade')
+            }}
+            className={`py-3 text-xs sm:text-sm font-bold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+              activeView === 'arcade'
+                ? 'border-indigo-400 text-white shadow-[0_4px_16px_rgba(129,140,248,0.35)]'
+                : 'border-transparent text-indigo-400 hover:text-indigo-300'
+            }`}
+          >
+            <Gamepad2 className="w-4 h-4 text-indigo-400 animate-bounce" />
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent font-extrabold">
+              🎮 ARCADE
+            </span>
+            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
+              GAMES 🕹️
             </span>
           </button>
 
@@ -2855,6 +2877,9 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
         {/* VIEW 7: UNICORN AI STUDIO & CYBER-BAZAAR (ICT WEEK 2026) */}
         {activeView === 'unicorn-studio' && <UnicornStudio />}
+
+        {/* VIEW 8: NEXUS ARCADE & CREATOR HUB */}
+        {activeView === 'arcade' && <ArcadeHub />}
       </main>
 
       {/* ========================================================================= */}

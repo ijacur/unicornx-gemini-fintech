@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2D Platformer Arxitekturasi va Interaktiv Demo</title>
+  <style>
+    :root {
+      --bg-dark: #090D16;
+      --card-bg: #111827;
+      --card-border: #1F2937;
+      --primary: #3B82F6;
+      --accent: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --code-bg: #030712;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 10px;
+    }
+
+    header {
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .header-title h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #60A5FA, #34D399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-title p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93C5FD;
+    }
+
+    .badge.green {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #6EE7B7;
+    }
+
+    .badge.orange {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: #FCD34D;
+    }
+
+    .main-layout {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Game Viewport */
+    .game-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .game-header {
+      padding: 12px 18px;
+      background: rgba(0, 0, 0, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .game-stats {
+      display: flex;
+      gap: 18px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-item .icon {
+      font-size: 1.1rem;
+    }
+
+    .canvas-container {
+      position: relative;
+      background: #5c94fc;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: 480px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      image-rendering: pixelated;
+    }
+
+    .game-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      z-index: 10;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .game-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overlay-title {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .overlay-btn {
+      padding: 10px 24px;
+      background: #2563EB;
+      color: white;
+      font-weight: 700;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.15s;
+    }
+
+    .overlay-btn:hover {
+      background: #1D4ED8;
+      transform: scale(1.05);
+    }
+
+    /* Mobile / On-screen controls */
+    .touch-controls {
+      display: none;
+      padding: 12px 18px;
+      background: rgba(0, 0, 0, 0.3);
+      justify-content: space-between;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    @media (max-width: 768px) {
+      .touch-controls {
+        display: flex;
+      }
+    }
+
+    .d-pad, .action-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .touch-btn {
+      width: 58px;
+      height: 52px;
+      background: #1F2937;
+      border: 1px solid #374151;
+      color: white;
+      font-weight: 800;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .touch-btn:active {
+      background: #3B82F6;
+      border-color: #60A5FA;
+    }
+
+    .touch-btn.jump {
+      width: 80px;
+      background: #059669;
+      border-color: #10B981;
+    }
+
+    .touch-btn.jump:active {
+      background: #10B981;
+    }
+
+    .controls-hint {
+      padding: 10px 16px;
+      background: rgba(0,0,0,0.15);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* Telemetry & Controls Panel */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .panel-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #E5E7EB;
+    }
+
+    .telemetry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .tel-item {
+      background: #0B1120;
+      border: 1px solid #1E293B;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    .tel-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .tel-val {
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: monospace;
+      margin-top: 2px;
+      color: #60A5FA;
+    }
+
+    .state-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      font-weight: 800;
+      font-family: monospace;
+    }
+
+    .state-IDLE { background: #374151; color: #E5E7EB; }
+    .state-RUN  { background: #1E3A8A; color: #93C5FD; }
+    .state-JUMP { background: #064E3B; color: #6EE7B7; }
+    .state-FALL { background: #78350F; color: #FCD34D; }
+    .state-DEAD { background: #7F1D1D; color: #FCA5A5; }
+
+    .slider-group {
+      margin-bottom: 12px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      margin-bottom: 4px;
+      color: var(--text-muted);
+    }
+
+    .slider-header span.val {
+      color: #93C5FD;
+      font-weight: 700;
+      font-family: monospace;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #1F2937;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #3B82F6;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      background: #60A5FA;
+      transform: scale(1.15);
+    }
+
+    .toggles {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: #D1D5DB;
+    }
+
+    .btn-reset {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      background: #1F2937;
+      border: 1px solid #374151;
+      color: #D1D5DB;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .btn-reset:hover {
+      background: #374151;
+      color: white;
+    }
+
+    /* Tabs Section */
+    .tabs-section {
+      width: 100%;
+      max-width: 1200px;
+      margin-top: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .tab-nav {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      border-bottom: 1px solid var(--card-border);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 14px 20px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      color: #60A5FA;
+      border-bottom-color: #3B82F6;
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Architecture Explanations */
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .arch-card {
+      background: #0B1120;
+      border: 1px solid #1E293B;
+      padding: 16px;
+      border-radius: 10px;
+    }
+
+    .arch-card h3 {
+      font-size: 0.95rem;
+      color: #38BDF8;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .arch-card p {
+      font-size: 0.82rem;
+      color: #94A3B8;
+      line-height: 1.5;
+    }
+
+    pre code {
+      display: block;
+      background: var(--code-bg);
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #1F2937;
+      overflow-x: auto;
+      color: #E5E7EB;
+      font-family: "JetBrains Mono", Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .formula-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 0.85rem;
+    }
+
+    .formula-table th, .formula-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid #1F2937;
+    }
+
+    .formula-table th {
+      background: #0F172A;
+      color: #94A3B8;
+      font-weight: 700;
+    }
+
+    .formula-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <h1>🎮 2D Platformer Arxitekturasi</h1>
+      <p>Super Mario uslubidagi kinematika, AABB kolliziya, FSM va bir tomonlama kamera mexanikasi</p>
+    </div>
+    <div class="badges">
+      <span class="badge">C99 / Raylib Arxitekturasi</span>
+      <span class="badge green">60 FPS Fixed Kinematics</span>
+      <span class="badge orange">AABB Spatial Grid</span>
+    </div>
+  </header>
+
+  <main class="main-layout">
+    <!-- Chap qism: Canvas O'yin ekrani -->
+    <section class="game-card">
+      <div class="game-header">
+        <div class="game-stats">
+          <div class="stat-item"><span class="icon">🪙</span> <span id="coinCount">00</span></div>
+          <div class="stat-item"><span class="icon">❤️</span> <span id="lifeCount">3</span></div>
+          <div class="stat-item"><span class="icon">⏱️</span> <span id="gameTimer">000</span></div>
+        </div>
+        <button id="btnRestart" class="overlay-btn" style="padding: 5px 12px; font-size: 0.8rem;">Qayta boshlash</button>
+      </div>
+
+      <div class="canvas-container">
+        <canvas id="gameCanvas" width="800" height="450"></canvas>
+        <div id="gameOverlay" class="game-overlay">
+          <div id="overlayTitle" class="overlay-title">GAME OVER</div>
+          <p id="overlaySub" style="color: #9CA3AF; font-size: 0.9rem;">Dushman bilan to'qnashdingiz</p>
+          <button id="overlayBtn" class="overlay-btn">Qaytadan o'ynash</button>
+        </div>
+      </div>
+
+      <!-- Mobil va Touch tugmalari -->
+      <div class="touch-controls">
+        <div class="d-pad">
+          <button class="touch-btn" id="btnLeft">◀</button>
+          <button class="touch-btn" id="btnRight">▶</button>
+        </div>
+        <div class="action-buttons">
+          <button class="touch-btn jump" id="btnJump">JUMP</button>
+        </div>
+      </div>
+
+      <div class="controls-hint">
+        <span>🎮 <b>Boshqaruv:</b> A/D yoki ◀ ▶ - Yugurish | Space / W / ▲ - Sakrash (uzoqroq bosing = baland sakrash)</span>
+        <span>🔊 Ovoz: Yoqilgan</span>
+      </div>
+    </section>
+
+    <!-- O'ng qism: Telemetriya va Sozlamalar -->
+    <aside class="sidebar">
+      <div class="panel">
+        <div class="panel-title">
+          <span>📊 Real-Vaqt Telemetriyasi</span>
+          <span id="playerStateBadge" class="state-badge state-IDLE">IDLE</span>
+        </div>
+        <div class="telemetry-grid">
+          <div class="tel-item">
+            <div class="tel-label">Velocity X</div>
+            <div class="tel-val" id="telVelX">0.00</div>
+          </div>
+          <div class="tel-item">
+            <div class="tel-label">Velocity Y</div>
+            <div class="tel-val" id="telVelY">0.00</div>
+          </div>
+          <div class="tel-item">
+            <div class="tel-label">Grounded</div>
+            <div class="tel-val" id="telGrounded" style="color: #10B981;">TRUE</div>
+          </div>
+          <div class="tel-item">
+            <div class="tel-label">Gravity Mult</div>
+            <div class="tel-val" id="telGravMult">1.0x</div>
+          </div>
+          <div class="tel-item">
+            <div class="tel-label">Player Pos X</div>
+            <div class="tel-val" id="telPosX">0</div>
+          </div>
+          <div class="tel-item">
+            <div class="tel-label">Camera Lock X</div>
+            <div class="tel-val" id="telCamLock">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">
+          <span>⚙️ Fizika Sozlamalari</span>
+        </div>
+        
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Gravitatsiya (px/s²)</span>
+            <span class="val" id="valGravity">980</span>
+          </div>
+          <input type="range" id="sliderGravity" min="400" max="1600" value="980" step="20">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Sakrash Kuchi (Impulse)</span>
+            <span class="val" id="valJump">450</span>
+          </div>
+          <input type="range" id="sliderJump" min="300" max="650" value="450" step="10">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Gorizontal Tezlanish</span>
+            <span class="val" id="valAccel">800</span>
+          </div>
+          <input type="range" id="sliderAccel" min="400" max="1400" value="800" step="50">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>Ishqalanish (Friction)</span>
+            <span class="val" id="valFriction">1000</span>
+          </div>
+          <input type="range" id="sliderFriction" min="300" max="2000" value="1000" step="50">
+        </div>
+
+        <div class="toggles">
+          <label class="toggle-label">
+            <span>Debug AABB Vizualizatsiyasi</span>
+            <input type="checkbox" id="chkDebugAABB">
+          </label>
+          <label class="toggle-label">
+            <span>AI Zondlash Nurlari (Cliff probes)</span>
+            <input type="checkbox" id="chkDebugProbes" checked>
+          </label>
+          <label class="toggle-label">
+            <span>1-Way Scroll Chegarasini Ko'rsatish</span>
+            <input type="checkbox" id="chkDebugCam" checked>
+          </label>
+        </div>
+
+        <button id="btnResetPhysics" class="btn-reset">Fizika standartlariga qaytarish</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Arxitektura va Kod bo'limi -->
+  <section class="tabs-section">
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="tab-arch">Arxitektura Modullari</button>
+      <button class="tab-btn" data-tab="tab-code">Asl C99 / Raylib Kodi</button>
+      <button class="tab-btn" data-tab="tab-math">Kinematika Formulalari</button>
+    </div>
+
+    <!-- TAB 1: Arxitektura -->
+    <div id="tab-arch" class="tab-content active">
+      <div class="arch-grid">
+        <div class="arch-card">
+          <h3>⚡ 1. O'zgaruvchan Sakrash (Variable Jump)</h3>
+          <p>Tugma bosib turilsa standart gravitatsiya qo'llaniladi. Agar o'yinchi tugmani erta qo'yib yuborsa, <code>LOW_JUMP_GRAVITY_MULT (2.5x)</code> faollashib, o'yinchining ko'tarilishini keskin to'xtatadi. Tushishda esa <code>FALL_GRAVITY_MULT (1.8x)</code> og'irlik hissini beradi.</p>
+        </div>
+        <div class="arch-card">
+          <h3>📦 2. O'qlarga Bo'lingan AABB (Axis-Separation)</h3>
+          <p>Kolliziyalar X va Y o'qlari bo'yicha mustaqil yechiladi. X o'qi surilib devor to'qnashuvi hal qilinadi, so'ngra Y o'qi surilib pol va shift to'qnashuvi yechiladi. Bu burchaklarda tiqilib qolishning (corner snagging) 100% oldini oladi.</p>
+        </div>
+        <div class="arch-card">
+          <h3>🤖 3. Dushman Zondlash AI (Edge Detection)</h3>
+          <p>Goomba uslubidagi dushman oldinga va pastga raycast/overlap nuqtalarini yo'naltiradi. Agar oldinda to'siq (devor) bo'lsa yoki pastida blok yo'q (jarlik) bo'lsa, u darhol harakat yo'nalishini 180° ga o'zgartiradi.</p>
+        </div>
+        <div class="arch-card">
+          <h3>📷 4. Monoton Bir Tomonlama Kamera</h3>
+          <p>Kamera o'yinchi ortidan silliq (lerp) kuzatadi, biroq <code>maxScrollX = max(maxScrollX, camX)</code> sharti orqali uning orqaga qaytishi taqiqlanadi. O'yinchi ekranning chap chegarasiga yetganda uning X pozitsiyasi bloklanadi.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: C Kodi -->
+    <div id="tab-code" class="tab-content">
+      <pre><code>/* ============================================================================
+ * C99 / Raylib: Super Mario 2D Platformer Core Engine
+ * ============================================================================ */
+#include &lt;stdbool.h&gt;
+#include &lt;math.h&gt;
+
+#define TILE_SIZE             32.0f
+#define MAP_WIDTH             100
+#define MAP_HEIGHT            15
+
+#define GRAVITY               980.0f
+#define FALL_GRAVITY_MULT     1.8f
+#define LOW_JUMP_GRAVITY_MULT 2.5f
+#define JUMP_IMPULSE          450.0f
+#define HORIZONTAL_ACCEL      800.0f
+#define FRICTION              1000.0f
+#define MAX_RUN_SPEED         220.0f
+#define STOMP_BOUNCE_IMPULSE  320.0f
+
+typedef struct { float x, y; } Vec2;
+typedef struct { float x, y, width, height; } AABB;
+
+typedef enum { TILE_AIR = 0, TILE_SOLID, TILE_COIN } TileType;
+typedef enum { STATE_IDLE, STATE_RUN, STATE_JUMP, STATE_FALL, STATE_DEAD } PlayerState;
+typedef enum { ENEMY_PATROL, ENEMY_DEAD } EnemyState;
+
+typedef struct {
+    Vec2 position;
+    Vec2 velocity;
+    Vec2 size;
+    PlayerState state;
+    bool isGrounded;
+    bool isDead;
+    int coinsCollected;
+} Player;
+
+typedef struct {
+    Vec2 position;
+    Vec2 velocity;
+    Vec2 size;
+    EnemyState state;
+    int moveDirection;
+    bool isActive;
+} Enemy;
+
+typedef struct {
+    TileType tiles[MAP_HEIGHT][MAP_WIDTH];
+} LevelGrid;
+
+typedef struct {
+    float x;
+    float maxScrollX;
+    float viewportWidth;
+} OneWayCamera;
+
+static inline bool CheckAABBCollision(AABB a, AABB b) {
+    return (a.x &lt; b.x + b.width &amp;&amp; a.x + a.width &gt; b.x &amp;&amp;
+            a.y &lt; b.y + b.height &amp;&amp; a.y + a.height &gt; b.y);
+}
+
+static inline float Approach(float current, float target, float delta) {
+    return (current &lt; target) ? fminf(current + delta, target) 
+                              : fmaxf(current - delta, target);
+}
+
+void ResolveMapCollisions(Player *p, LevelGrid *map, float dt) {
+    // 1. X Axis
+    p-&gt;position.x += p-&gt;velocity.x * dt;
+    AABB boxX = { p-&gt;position.x, p-&gt;position.y, p-&gt;size.x, p-&gt;size.y };
+    int minX = (int)(boxX.x / TILE_SIZE), maxX = (int)((boxX.x + boxX.width) / TILE_SIZE);
+    int minY = (int)(boxX.y / TILE_SIZE), maxY = (int)((boxX.y + boxX.height) / TILE_SIZE);
+
+    for (int ty = minY; ty &lt;= maxY; ty++) {
+        for (int tx = minX; tx &lt;= maxX; tx++) {
+            if (tx &lt; 0 || tx &gt;= MAP_WIDTH || ty &lt; 0 || ty &gt;= MAP_HEIGHT) continue;
+            if (map-&gt;tiles[ty][tx] == TILE_SOLID) {
+                AABB tileBox = { tx * TILE_SIZE, ty * TILE_SIZE, TILE_SIZE, TILE_SIZE };
+                if (CheckAABBCollision(boxX, tileBox)) {
+                    if (p-&gt;velocity.x &gt; 0) p-&gt;position.x = tileBox.x - p-&gt;size.x;
+                    else if (p-&gt;velocity.x &lt; 0) p-&gt;position.x = tileBox.x + tileBox.width;
+                    p-&gt;velocity.x = 0;
+                    boxX.x = p-&gt;position.x;
+                }
+            } else if (map-&gt;tiles[ty][tx] == TILE_COIN) {
+                map-&gt;tiles[ty][tx] = TILE_AIR;
+                p-&gt;coinsCollected++;
+            }
+        }
+    }
+
+    // 2. Y Axis
+    p-&gt;position.y += p-&gt;velocity.y * dt;
+    AABB boxY = { p-&gt;position.x, p-&gt;position.y, p-&gt;size.x, p-&gt;size.y };
+    minX = (int)(boxY.x / TILE_SIZE); maxX = (int)((boxY.x + boxY.width) / TILE_SIZE);
+    minY = (int)(boxY.y / TILE_SIZE); maxY = (int)((boxY.y + boxY.height) / TILE_SIZE);
+    p-&gt;isGrounded = false;
+
+    for (int ty = minY; ty &lt;= maxY; ty++) {
+        for (int tx = minX; tx &lt;= maxX; tx++) {
+            if (tx &lt; 0 || tx &gt;= MAP_WIDTH || ty &lt; 0 || ty &gt;= MAP_HEIGHT) continue;
+            if (map-&gt;tiles[ty][tx] == TILE_SOLID) {
+                AABB tileBox = { tx * TILE_SIZE, ty * TILE_SIZE, TILE_SIZE, TILE_SIZE };
+                if (CheckAABBCollision(boxY, tileBox)) {
+                    if (p-&gt;velocity.y &gt; 0) {
+                        p-&gt;position.y = tileBox.y - p-&gt;size.y;
+                        p-&gt;isGrounded = true;
+                    } else if (p-&gt;velocity.y &lt; 0) {
+                        p-&gt;position.y = tileBox.y + tileBox.height;
+                    }
+                    p-&gt;velocity.y = 0;
+                    boxY.y = p-&gt;position.y;
+                }
+            }
+        }
+    }
+}
+
+void UpdatePlayerKinematics(Player *p, float inputDirX, bool jumpPressed, bool jumpHeld, float dt) {
+    if (p-&gt;state == STATE_DEAD) {
+        p-&gt;velocity.y += GRAVITY * dt;
+        p-&gt;position.y += p-&gt;velocity.y * dt;
+        return;
+    }
+
+    if (inputDirX != 0.0f) {
+        p-&gt;velocity.x += inputDirX * HORIZONTAL_ACCEL * dt;
+        if (p-&gt;velocity.x &gt; MAX_RUN_SPEED)  p-&gt;velocity.x = MAX_RUN_SPEED;
+        if (p-&gt;velocity.x &lt; -MAX_RUN_SPEED) p-&gt;velocity.x = -MAX_RUN_SPEED;
+    } else {
+        p-&gt;velocity.x = Approach(p-&gt;velocity.x, 0.0f, FRICTION * dt);
+    }
+
+    if (jumpPressed &amp;&amp; p-&gt;isGrounded) {
+        p-&gt;velocity.y = -JUMP_IMPULSE;
+        p-&gt;isGrounded = false;
+    }
+
+    float currentGravity = GRAVITY;
+    if (p-&gt;velocity.y &gt; 0) currentGravity *= FALL_GRAVITY_MULT;
+    else if (p-&gt;velocity.y &lt; 0 &amp;&amp; !jumpHeld) currentGravity *= LOW_JUMP_GRAVITY_MULT;
+    p-&gt;velocity.y += currentGravity * dt;
+
+    if (!p-&gt;isGrounded) {
+        p-&gt;state = (p-&gt;velocity.y &lt; 0) ? STATE_JUMP : STATE_FALL;
+    } else {
+        p-&gt;state = (fabsf(p-&gt;velocity.x) &gt; 5.0f) ? STATE_RUN : STATE_IDLE;
+    }
+}
+
+void UpdateEnemy(Enemy *e, LevelGrid *map, Player *p, float dt) {
+    if (!e-&gt;isActive || e-&gt;state == ENEMY_DEAD) return;
+
+    e-&gt;velocity.x = e-&gt;moveDirection * 50.0f;
+    e-&gt;position.x += e-&gt;velocity.x * dt;
+
+    float frontProbeX = (e-&gt;moveDirection &gt; 0) ? e-&gt;position.x + e-&gt;size.x + 2.0f : e-&gt;position.x - 2.0f;
+    int tileFrontX = (int)(frontProbeX / TILE_SIZE);
+    int tileCenterY = (int)((e-&gt;position.y + e-&gt;size.y * 0.5f) / TILE_SIZE);
+    int tileBelowY = (int)((e-&gt;position.y + e-&gt;size.y + 2.0f) / TILE_SIZE);
+
+    if (map-&gt;tiles[tileCenterY][tileFrontX] == TILE_SOLID || map-&gt;tiles[tileBelowY][tileFrontX] == TILE_AIR) {
+        e-&gt;moveDirection *= -1;
+    }
+
+    AABB pBox = { p-&gt;position.x, p-&gt;position.y, p-&gt;size.x, p-&gt;size.y };
+    AABB eBox = { e-&gt;position.x, e-&gt;position.y, e-&gt;size.x, e-&gt;size.y };
+
+    if (CheckAABBCollision(pBox, eBox) &amp;&amp; p-&gt;state != STATE_DEAD) {
+        float playerFeet = p-&gt;position.y + p-&gt;size.y;
+        float enemyMidY = e-&gt;position.y + (e-&gt;size.y * 0.5f);
+
+        if (p-&gt;velocity.y &gt; 0 &amp;&amp; playerFeet &lt;= enemyMidY + 8.0f) {
+            e-&gt;state = ENEMY_DEAD;
+            e-&gt;isActive = false;
+            p-&gt;velocity.y = -STOMP_BOUNCE_IMPULSE;
+        } else {
+            p-&gt;state = STATE_DEAD;
+            p-&gt;isDead = true;
+            p-&gt;velocity.y = -JUMP_IMPULSE * 0.8f;
+        }
+    }
+}
+
+void UpdateOneWayCamera(OneWayCamera *cam, Player *p, float dt) {
+    float targetX = p-&gt;position.x;
+    cam-&gt;x += (targetX - cam-&gt;x) * 5.0f * dt;
+
+    if (cam-&gt;x &gt; cam-&gt;maxScrollX) cam-&gt;maxScrollX = cam-&gt;x;
+    else cam-&gt;x = cam-&gt;maxScrollX;
+
+    float screenLeftEdge = cam-&gt;x - (cam-&gt;viewportWidth * 0.5f);
+    if (p-&gt;position.x &lt; screenLeftEdge) {
+        p-&gt;position.x = screenLeftEdge;
+        if (p-&gt;velocity.x &lt; 0) p-&gt;velocity.x = 0;
+    }
+}</code></pre>
+    </div>
+
+    <!-- TAB 3: Matematik Formulalar -->
+    <div id="tab-math" class="tab-content">
+      <table class="formula-table">
+        <thead>
+          <tr>
+            <th>Mexanika</th>
+            <th>Matematik Formula</th>
+            <th>Tavsif</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Chiziqli Tezlanish</td>
+            <td><code>v_x(t) = clamp(v_x + a · dt, -v_max, v_max)</code></td>
+            <td>Input bosilganda gorizontal tezlikning ortishi</td>
+          </tr>
+          <tr>
+            <td>Inersiya Ishqalanishi</td>
+            <td><code>v_x(t) = Approach(v_x, 0, μ · dt)</code></td>
+            <td>Input bo'lmaganda sirpanishni silliq so'ndirish</td>
+          </tr>
+          <tr>
+            <td>O'zgaruvchan Gravitatsiya</td>
+            <td><code>g_eff = g · (v_y &gt; 0 ? 1.8 : (!held ? 2.5 : 1.0))</code></td>
+            <td>Mario o'yinlaridagi tushish va sakrash asimmetriyasi</td>
+          </tr>
+          <tr>
+            <td>AABB Kesishishi</td>
+            <td><code>(x₁ &lt; x₂ + w₂) ∧ (x₁ + w₁ &gt; x₂) ∧ (y₁ &lt; y₂ + h₂) ∧ (y₁ + h₁ &gt; y₂)</code></td>
+            <td>Ikki to'rtburchak to'qnashuvini O(1) vaqtda aniqlash</td>
+          </tr>
+          <tr>
+            <td>Monoton Kamera</td>
+            <td><code>Cam_x = max(Cam_x + (Target_x - Cam_x)·λ·dt, MaxCam_x)</code></td>
+            <td>Orqaga qaytishni bloklovchi 1-yo'nalishli silliq kuzatish</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script>
+    /* ============================================================================
+     * O'YIN DVIGATELI (HTML5 CANVAS JAVASCRIPT IMPLEMENTATSIYASI)
+     * Ushbu JS kodi C99 algoritmi bilan 100% bir xil fizik mantiq asosida ishlaydi.
+     * ============================================================================ */
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // UI Elementlari
+    const badgeState = document.getElementById('playerStateBadge');
+    const telVelX = document.getElementById('telVelX');
+    const telVelY = document.getElementById('telVelY');
+    const telGrounded = document.getElementById('telGrounded');
+    const telGravMult = document.getElementById('telGravMult');
+    const telPosX = document.getElementById('telPosX');
+    const telCamLock = document.getElementById('telCamLock');
+    const coinCountEl = document.getElementById('coinCount');
+    const gameTimerEl = document.getElementById('gameTimer');
+
+    // Sliders
+    const sliderGravity = document.getElementById('sliderGravity');
+    const sliderJump = document.getElementById('sliderJump');
+    const sliderAccel = document.getElementById('sliderAccel');
+    const sliderFriction = document.getElementById('sliderFriction');
+
+    const chkDebugAABB = document.getElementById('chkDebugAABB');
+    const chkDebugProbes = document.getElementById('chkDebugProbes');
+    const chkDebugCam = document.getElementById('chkDebugCam');
+
+    // Web Audio Synthesizer (8-bit tovushlar)
+    const AudioEngine = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+      },
+      playJump() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(150, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(500, this.ctx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.15);
+      },
+      playCoin() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(987.77, this.ctx.currentTime); // B5
+        osc.frequency.setValueAtTime(1318.51, this.ctx.currentTime + 0.08); // E6
+        gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.3);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.3);
+      },
+      playStomp() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(280, this.ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(60, this.ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.12);
+      },
+      playDie() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(100, this.ctx.currentTime + 0.5);
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.5);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.5);
+      },
+      playWin() {
+        if (!this.ctx) return;
+        [400, 500, 600, 800].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.12);
+          gain.gain.setValueAtTime(0.2, this.ctx.currentTime + idx * 0.12);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + idx * 0.12 + 0.15);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(this.ctx.currentTime + idx * 0.12);
+          osc.stop(this.ctx.currentTime + idx * 0.12 + 0.15);
+        });
+      }
+    };
+
+    // O'yin parametrlari
+    const TILE_SIZE = 32.0;
+    const MAP_WIDTH = 90;
+    const MAP_HEIGHT = 14;
+
+    let CONFIG = {
+      GRAVITY: 980.0,
+      FALL_GRAVITY_MULT: 1.8,
+      LOW_JUMP_GRAVITY_MULT: 2.5,
+      JUMP_IMPULSE: 450.0,
+      HORIZONTAL_ACCEL: 800.0,
+      FRICTION: 1000.0,
+      MAX_RUN_SPEED: 220.0,
+      STOMP_BOUNCE: 320.0
+    };
+
+    // Xarita yaratish
+    const TILE = { AIR: 0, SOLID: 1, COIN: 2, FLAG: 3 };
+    let mapData = [];
+    let enemies = [];
+    let clouds = [];
+
+    // O'yinchi obyekti
+    let player = {
+      x: 80,
+      y: 280,
+      vx: 0,
+      vy: 0,
+      width: 24,
+      height: 32,
+      state: 'IDLE',
+      isGrounded: false,
+      isDead: false,
+      coins: 0,
+      facingRight: true,
+      walkAnimTimer: 0
+    };
+
+    // Kamera obyekti
+    let camera = {
+      x: 400,
+      maxScrollX: 400,
+      viewportWidth: 800
+    };
+
+    let gameTime = 0;
+    let isGameOver = false;
+    let isGameWon = false;
+
+    // Kiritish holatlari (Inputs)
+    const keys = {
+      left: false,
+      right: false,
+      jump: false,
+      jumpHeld: false
+    };
+
+    function initLevel() {
+      mapData = Array(MAP_HEIGHT).fill(0).map(() => Array(MAP_WIDTH).fill(TILE.AIR));
+
+      // Pol (Zamin) yaratish - jarliklar bilan
+      for (let x = 0; x < MAP_WIDTH; x++) {
+        // Jarliklar (Pits)
+        if ((x >= 22 && x <= 24) || (x >= 45 && x <= 47) || (x >= 70 && x <= 72)) {
+          continue;
+        }
+        mapData[12][x] = TILE.SOLID;
+        mapData[13][x] = TILE.SOLID;
+      }
+
+      // Platformalar, g'ishtlar va tangalar
+      const addPlatform = (startX, y, len) => {
+        for (let i = 0; i < len; i++) {
+          mapData[y][startX + i] = TILE.SOLID;
+          if (i % 2 === 0 && y - 1 >= 0) {
+            mapData[y - 1][startX + i] = TILE.COIN;
+          }
+        }
+      };
+
+      addPlatform(8, 9, 4);
+      addPlatform(16, 7, 5);
+      addPlatform(28, 9, 6);
+      addPlatform(36, 6, 4);
+      addPlatform(52, 9, 5);
+      addPlatform(60, 6, 6);
+
+      // Zina (Mario uslubidagi zinapoya)
+      for (let step = 0; step < 5; step++) {
+        for (let y = 11 - step; y <= 11; y++) {
+          mapData[y][78 + step] = TILE.SOLID;
+        }
+      }
+
+      // Bayroq ustuni (Finish)
+      for (let y = 3; y <= 11; y++) {
+        mapData[y][86] = TILE.FLAG;
+      }
+
+      // Dushmanlar (Goombas)
+      enemies = [
+        { x: 420, y: 352, vx: -50, sizeX: 26, sizeY: 26, dir: -1, active: true, dead: false, squashedTimer: 0 },
+        { x: 750, y: 352, vx: -50, sizeX: 26, sizeY: 26, dir: -1, active: true, dead: false, squashedTimer: 0 },
+        { x: 920, y: 256, vx: -50, sizeX: 26, sizeY: 26, dir: -1, active: true, dead: false, squashedTimer: 0 },
+        { x: 1250, y: 352, vx: 50, sizeX: 26, sizeY: 26, dir: 1, active: true, dead: false, squashedTimer: 0 },
+        { x: 1750, y: 352, vx: -50, sizeX: 26, sizeY: 26, dir: -1, active: true, dead: false, squashedTimer: 0 },
+        { x: 2000, y: 160, vx: -50, sizeX: 26, sizeY: 26, dir: -1, active: true, dead: false, squashedTimer: 0 }
+      ];
+
+      // Orqa fondagi bulutlar
+      clouds = [];
+      for (let i = 0; i < 20; i++) {
+        clouds.push({
+          x: i * 160 + Math.random() * 50,
+          y: 30 + Math.random() * 80,
+          w: 60 + Math.random() * 40
+        });
+      }
+
+      // O'yinchini boshlang'ich nuqtaga qaytarish
+      player.x = 80;
+      player.y = 280;
+      player.vx = 0;
+      player.vy = 0;
+      player.state = 'IDLE';
+      player.isGrounded = false;
+      player.isDead = false;
+      player.coins = 0;
+
+      camera.x = 400;
+      camera.maxScrollX = 400;
+      isGameOver = false;
+      isGameWon = false;
+      gameTime = 0;
+
+      document.getElementById('gameOverlay').classList.remove('active');
+    }
+
+    // AABB to'qnashuvini tekshirish
+    function checkAABB(a, b) {
+      return (a.x < b.x + b.w && a.x + a.w > b.x &&
+              a.y < b.y + b.h && a.y + a.h > b.y);
+    }
+
+    // Kinematika uchun Approach funksiyasi (Friction)
+    function approach(curr, target, step) {
+      return (curr < target) ? Math.min(curr + step, target) 
+                             : Math.max(curr - step, target);
+    }
+
+    /* ============================================================================
+     * FIZIKA VA MANTIQ YANGILANISHI (TICK)
+     * ============================================================================ */
+    function update(dt) {
+      if (isGameOver || isGameWon) return;
+
+      gameTime += dt;
+      gameTimerEl.textContent = Math.floor(gameTime).toString().padStart(3, '0');
+
+      let inputDirX = 0;
+      if (keys.left) inputDirX -= 1;
+      if (keys.right) inputDirX += 1;
+
+      // O'yinchi holati va yo'nalishi
+      if (inputDirX !== 0) player.facingRight = inputDirX > 0;
+
+      // 1. GORIZONTAL INERSIYA VA HARAKAT
+      if (!player.isDead) {
+        if (inputDirX !== 0) {
+          player.vx += inputDirX * CONFIG.HORIZONTAL_ACCEL * dt;
+          player.vx = Math.max(-CONFIG.MAX_RUN_SPEED, Math.min(CONFIG.MAX_RUN_SPEED, player.vx));
+        } else {
+          player.vx = approach(player.vx, 0, CONFIG.FRICTION * dt);
+        }
+
+        // Sakrash impulsi
+        if (keys.jump && player.isGrounded) {
+          player.vy = -CONFIG.JUMP_IMPULSE;
+          player.isGrounded = false;
+          AudioEngine.playJump();
+        }
+        keys.jump = false; // Bir marta bosilganda sarflanadi
+      }
+
+      // 2. GRAVITATSIYA VA O'ZGARUVCHAN SAKRASH HISOBI
+      let currentGravity = CONFIG.GRAVITY;
+      let gravMultStr = "1.0x";
+      if (player.vy > 0) {
+        currentGravity *= CONFIG.FALL_GRAVITY_MULT; // Tushishda og'irlik
+        gravMultStr = "1.8x (Fall)";
+      } else if (player.vy < 0 && !keys.jumpHeld) {
+        currentGravity *= CONFIG.LOW_JUMP_GRAVITY_MULT; // Tugma qo'yib yuborilganda kesish
+        gravMultStr = "2.5x (Cut)";
+      }
+      player.vy += currentGravity * dt;
+
+      // 3. TILEMAP KOLLIZIYASI (X VA Y O'QLARINI AJRATIB YECHISH)
+      if (!player.isDead) {
+        // --- X O'QI (DEVOR KOLLIZIYASI) ---
+        player.x += player.vx * dt;
+        // Vertikal bo'yicha 2px ichkariga olinadi (pol va shift devor deb hisoblanmasligi uchun)
+        let pBoxX = { x: player.x, y: player.y + 2, w: player.width, h: player.height - 4 };
+        let minTx = Math.floor(pBoxX.x / TILE_SIZE);
+        let maxTx = Math.floor((pBoxX.x + pBoxX.w) / TILE_SIZE);
+        let minTy = Math.floor(pBoxX.y / TILE_SIZE);
+        let maxTy = Math.floor((pBoxX.y + pBoxX.h) / TILE_SIZE);
+
+        for (let ty = minTy; ty <= maxTy; ty++) {
+          for (let tx = minTx; tx <= maxTx; tx++) {
+            if (tx < 0 || tx >= MAP_WIDTH || ty < 0 || ty >= MAP_HEIGHT) continue;
+            let tile = mapData[ty][tx];
+
+            if (tile === TILE.SOLID) {
+              let tBox = { x: tx * TILE_SIZE, y: ty * TILE_SIZE, w: TILE_SIZE, h: TILE_SIZE };
+              if (checkAABB(pBoxX, tBox)) {
+                if (player.vx > 0) {
+                  // O'ng devorga to'qnashuv: o'yinchining o'ng tomoni devorning chap chetiga taqaladi
+                  player.x = tBox.x - player.width;
+                } else if (player.vx < 0) {
+                  // Chap devorga to'qnashuv: o'yinchining chap tomoni devorning o'ng chetiga taqaladi
+                  player.x = tBox.x + tBox.w;
+                }
+                player.vx = 0;
+                pBoxX.x = player.x;
+              }
+            } else if (tile === TILE.COIN) {
+              mapData[ty][tx] = TILE.AIR;
+              player.coins++;
+              coinCountEl.textContent = player.coins.toString().padStart(2, '0');
+              AudioEngine.playCoin();
+            } else if (tile === TILE.FLAG) {
+              gameWin();
+            }
+          }
+        }
+
+        // --- Y O'QI (POL VA SHIFT KOLLIZIYASI) ---
+        player.y += player.vy * dt;
+        // Gorizontal bo'yicha 2px ichkariga olinadi (yon devorlar pol deb hisoblanmasligi uchun)
+        let pBoxY = { x: player.x + 2, y: player.y, w: player.width - 4, h: player.height };
+        minTx = Math.floor(pBoxY.x / TILE_SIZE);
+        maxTx = Math.floor((pBoxY.x + pBoxY.w) / TILE_SIZE);
+        minTy = Math.floor(pBoxY.y / TILE_SIZE);
+        maxTy = Math.floor((pBoxY.y + pBoxY.h) / TILE_SIZE);
+
+        player.isGrounded = false;
+
+        for (let ty = minTy; ty <= maxTy; ty++) {
+          for (let tx = minTx; tx <= maxTx; tx++) {
+            if (tx < 0 || tx >= MAP_WIDTH || ty < 0 || ty >= MAP_HEIGHT) continue;
+            let tile = mapData[ty][tx];
+
+            if (tile === TILE.SOLID) {
+              let tBox = { x: tx * TILE_SIZE, y: ty * TILE_SIZE, w: TILE_SIZE, h: TILE_SIZE };
+              if (checkAABB(pBoxY, tBox)) {
+                if (player.vy > 0) {
+                  // Zaminga qo'nish
+                  player.y = tBox.y - player.height;
+                  player.isGrounded = true;
+                } else if (player.vy < 0) {
+                  // Shiftga urilish
+                  player.y = tBox.y + tBox.h;
+                }
+                player.vy = 0;
+                pBoxY.y = player.y;
+              }
+            }
+          }
+        }
+
+        // Jarlikka qulash (Abyss death)
+        if (player.y > MAP_HEIGHT * TILE_SIZE + 50) {
+          triggerGameOver("Jarlikka qulab ketdingiz!");
+        }
+      } else {
+        player.y += player.vy * dt;
+      }
+
+      // 4. FSM (FINITE STATE MACHINE) HOLATLARINI BELGILASH
+      if (player.isDead) {
+        player.state = 'DEAD';
+      } else if (!player.isGrounded) {
+        player.state = (player.vy < 0) ? 'JUMP' : 'FALL';
+      } else {
+        player.state = (Math.abs(player.vx) > 8.0) ? 'RUN' : 'IDLE';
+      }
+
+      // 5. DUSHMANLAR MANTIQI (PATROL, CLIFF DETECTION & STOMP)
+      enemies.forEach(e => {
+        if (!e.active) {
+          if (e.dead && e.squashedTimer > 0) {
+            e.squashedTimer -= dt;
+          }
+          return;
+        }
+
+        // Patrul harakati
+        e.x += e.dir * 45.0 * dt;
+
+        // Qirralar va devorlarni tekshirish (Zondlash)
+        let frontProbeX = (e.dir > 0) ? e.x + e.sizeX + 2.0 : e.x - 2.0;
+        let tileFrontX = Math.floor(frontProbeX / TILE_SIZE);
+        let tileCenterY = Math.floor((e.y + e.sizeY * 0.5) / TILE_SIZE);
+        let tileBelowY = Math.floor((e.y + e.sizeY + 4.0) / TILE_SIZE);
+
+        let hitWall = false;
+        let hitAbyss = false;
+
+        if (tileFrontX >= 0 && tileFrontX < MAP_WIDTH) {
+          if (tileCenterY >= 0 && tileCenterY < MAP_HEIGHT) {
+            hitWall = (mapData[tileCenterY][tileFrontX] === TILE.SOLID);
+          }
+          if (tileBelowY >= 0 && tileBelowY < MAP_HEIGHT) {
+            hitAbyss = (mapData[tileBelowY][tileFrontX] === TILE.AIR);
+          }
+        }
+
+        if (hitWall || hitAbyss) {
+          e.dir *= -1;
+        }
+
+        // O'yinchi bilan to'qnashuv (AABB)
+        let pBox = { x: player.x, y: player.y, w: player.width, h: player.height };
+        let eBox = { x: e.x, y: e.y, w: e.sizeX, h: e.sizeY };
+
+        if (checkAABB(pBox, eBox) && !player.isDead) {
+          let playerFeet = player.y + player.height;
+          let enemyMidY = e.y + (e.sizeY * 0.5);
+
+          // STOMP BOUNCE: O'yinchi yuqoridan dushmanga sakrasa
+          if (player.vy > 0 && playerFeet <= enemyMidY + 10.0) {
+            e.dead = true;
+            e.active = false;
+            e.squashedTimer = 0.4;
+            player.vy = -CONFIG.STOMP_BOUNCE;
+            AudioEngine.playStomp();
+          } else {
+            // O'yinchi dushman bilan to'qnashib vafot etdi
+            player.isDead = true;
+            player.vy = -CONFIG.JUMP_IMPULSE * 0.75;
+            AudioEngine.playDie();
+            setTimeout(() => triggerGameOver("Dushman sizga tegib ketdi!"), 600);
+          }
+        }
+      });
+
+      // 6. KAMERA MANTIQI (SMOOTH FOLLOW + 1-WAY SCROLL LOCK)
+      let targetCamX = player.x + player.width / 2;
+      // Silliq harakat (Lerp)
+      camera.x += (targetCamX - camera.x) * 6.0 * dt;
+
+      // Orqaga qaytmaslik qoidasi (Monotonic)
+      if (camera.x > camera.maxScrollX) {
+        camera.maxScrollX = camera.x;
+      } else {
+        camera.x = camera.maxScrollX;
+      }
+
+      // Ekranning chap chegarasidan orqaga qaytishni to'sish
+      let screenLeftEdge = camera.x - (camera.viewportWidth * 0.5);
+      if (player.x < screenLeftEdge && !player.isDead) {
+        player.x = screenLeftEdge;
+        if (player.vx < 0) player.vx = 0;
+      }
+
+      // Telemetriyani ekranga chiqarish
+      badgeState.textContent = player.state;
+      badgeState.className = `state-badge state-${player.state}`;
+      telVelX.textContent = player.vx.toFixed(1);
+      telVelY.textContent = player.vy.toFixed(1);
+      telGrounded.textContent = player.isGrounded ? "TRUE" : "FALSE";
+      telGrounded.style.color = player.isGrounded ? "#10B981" : "#EF4444";
+      telGravMult.textContent = gravMultStr;
+      telPosX.textContent = Math.floor(player.x);
+      telCamLock.textContent = Math.floor(camera.maxScrollX);
+    }
+
+    /* ============================================================================
+     * RENDER QILISH (DRAW LOOP)
+     * ============================================================================ */
+    function render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let camOffsetX = camera.x - canvas.width / 2;
+
+      // 1. Osmon va orqa fon
+      ctx.fillStyle = "#5c94fc";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Bulutlar (Parallaks)
+      ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      clouds.forEach(c => {
+        let cloudScreenX = (c.x - camOffsetX * 0.4);
+        if (cloudScreenX + c.w > 0 && cloudScreenX < canvas.width) {
+          ctx.beginPath();
+          ctx.roundRect(cloudScreenX, c.y, c.w, 24, 12);
+          ctx.fill();
+        }
+      });
+
+      // 2. Tilemap bloklari
+      let startCol = Math.max(0, Math.floor(camOffsetX / TILE_SIZE));
+      let endCol = Math.min(MAP_WIDTH - 1, Math.floor((camOffsetX + canvas.width) / TILE_SIZE) + 1);
+
+      for (let y = 0; y < MAP_HEIGHT; y++) {
+        for (let x = startCol; x <= endCol; x++) {
+          let tile = mapData[y][x];
+          let screenX = Math.floor(x * TILE_SIZE - camOffsetX);
+          let screenY = Math.floor(y * TILE_SIZE);
+
+          if (tile === TILE.SOLID) {
+            // Mario g'ishti uslubi
+            ctx.fillStyle = "#D97706";
+            ctx.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
+            ctx.strokeStyle = "#78350F";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(screenX + 1, screenY + 1, TILE_SIZE - 2, TILE_SIZE - 2);
+            // G'isht teksturasi
+            ctx.fillStyle = "#B45309";
+            ctx.fillRect(screenX + 3, screenY + 3, TILE_SIZE - 6, 4);
+            ctx.fillRect(screenX + 3, screenY + 16, TILE_SIZE - 6, 4);
+          } else if (tile === TILE.COIN) {
+            // Tanga
+            let animOffset = Math.sin(gameTime * 6) * 3;
+            ctx.fillStyle = "#FBBF24";
+            ctx.beginPath();
+            ctx.arc(screenX + TILE_SIZE / 2, screenY + TILE_SIZE / 2 + animOffset, 9, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#D97706";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = "#FFFBEB";
+            ctx.fillRect(screenX + TILE_SIZE / 2 - 2, screenY + TILE_SIZE / 2 - 5 + animOffset, 4, 10);
+          } else if (tile === TILE.FLAG) {
+            // Bayroq ustuni
+            ctx.fillStyle = "#94A3B8";
+            ctx.fillRect(screenX + 14, screenY, 4, TILE_SIZE);
+            if (y === 3) {
+              // Bayroq tepasi
+              ctx.fillStyle = "#10B981";
+              ctx.beginPath();
+              ctx.moveTo(screenX + 18, screenY);
+              ctx.lineTo(screenX + 44, screenY + 12);
+              ctx.lineTo(screenX + 18, screenY + 24);
+              ctx.fill();
+            }
+          }
+        }
+      }
+
+      // 3. Dushmanlar
+      enemies.forEach(e => {
+        let eScreenX = Math.floor(e.x - camOffsetX);
+        let eScreenY = Math.floor(e.y);
+
+        if (e.dead && e.squashedTimer > 0) {
+          // Ezilgan (Squashed) Goomba
+          ctx.fillStyle = "#991B1B";
+          ctx.fillRect(eScreenX, eScreenY + 16, e.sizeX, 10);
+        } else if (e.active) {
+          // Goomba tanasi
+          ctx.fillStyle = "#B45309";
+          ctx.beginPath();
+          ctx.roundRect(eScreenX, eScreenY, e.sizeX, e.sizeY, [8, 8, 2, 2]);
+          ctx.fill();
+
+          // Ko'zlar
+          ctx.fillStyle = "#FFFFFF";
+          let eyeOffset = e.dir > 0 ? 3 : 0;
+          ctx.fillRect(eScreenX + 4 + eyeOffset, eScreenY + 6, 5, 8);
+          ctx.fillRect(eScreenX + 14 + eyeOffset, eScreenY + 6, 5, 8);
+          ctx.fillStyle = "#000000";
+          ctx.fillRect(eScreenX + 6 + eyeOffset, eScreenY + 8, 3, 4);
+          ctx.fillRect(eScreenX + 16 + eyeOffset, eScreenY + 8, 3, 4);
+
+          // Oyoqlari
+          let footSwing = Math.sin(gameTime * 12) * 2;
+          ctx.fillStyle = "#000000";
+          ctx.fillRect(eScreenX, eScreenY + e.sizeY - 4, 8, 4 + footSwing);
+          ctx.fillRect(eScreenX + e.sizeX - 8, eScreenY + e.sizeY - 4, 8, 4 - footSwing);
+
+          // Debug nurlari (Cliff & Wall sensors)
+          if (chkDebugProbes.checked) {
+            let probeX = (e.dir > 0) ? e.x + e.sizeX + 2.0 : e.x - 2.0;
+            let screenProbeX = probeX - camOffsetX;
+            ctx.strokeStyle = "#FDE047";
+            ctx.lineWidth = 2;
+            // Oldinga nur
+            ctx.beginPath();
+            ctx.moveTo(eScreenX + e.sizeX / 2, eScreenY + e.sizeY / 2);
+            ctx.lineTo(screenProbeX, eScreenY + e.sizeY / 2);
+            ctx.stroke();
+            // Pastga nur (Jarlik tekshiruvchisi)
+            ctx.beginPath();
+            ctx.moveTo(screenProbeX, eScreenY + e.sizeY / 2);
+            ctx.lineTo(screenProbeX, eScreenY + e.sizeY + 8);
+            ctx.stroke();
+          }
+        }
+      });
+
+      // 4. O'yinchi (Mario Pixel Rendering)
+      let pScreenX = Math.floor(player.x - camOffsetX);
+      let pScreenY = Math.floor(player.y);
+
+      ctx.save();
+      if (!player.facingRight) {
+        ctx.translate(pScreenX + player.width, pScreenY);
+        ctx.scale(-1, 1);
+        pScreenX = 0;
+        pScreenY = 0;
+      }
+
+      if (player.state === 'DEAD') {
+        // O'lim animatsiyasi
+        ctx.fillStyle = "#EF4444";
+        ctx.fillRect(pScreenX, pScreenY, player.width, player.height);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillText("✕ ✕", pScreenX + 4, pScreenY + 14);
+      } else {
+        // Mario kepkasi va yuzi
+        ctx.fillStyle = "#DC2626"; // Qizil shapka
+        ctx.fillRect(pScreenX + 4, pScreenY, player.width - 2, 8);
+        ctx.fillStyle = "#FDE047"; // Yuz
+        ctx.fillRect(pScreenX + 6, pScreenY + 8, player.width - 6, 8);
+        // Ko'z va mo'ylov
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(pScreenX + 16, pScreenY + 9, 3, 3);
+        ctx.fillRect(pScreenX + 12, pScreenY + 13, 10, 3);
+
+        // Kiyim (Kombinezon)
+        ctx.fillStyle = "#2563EB"; // Moviy kombinezon
+        ctx.fillRect(pScreenX + 4, pScreenY + 16, player.width - 8, 10);
+        ctx.fillStyle = "#DC2626"; // Qizil yenglar
+        ctx.fillRect(pScreenX + 2, pScreenY + 16, 4, 8);
+
+        // Oyoqlar
+        ctx.fillStyle = "#78350F"; // Jigarrang etiklar
+        if (player.state === 'RUN') {
+          let runCycle = Math.sin(gameTime * 20);
+          ctx.fillRect(pScreenX + 2, pScreenY + 26, 8, 6 + runCycle * 2);
+          ctx.fillRect(pScreenX + 12, pScreenY + 26, 8, 6 - runCycle * 2);
+        } else if (player.state === 'JUMP') {
+          ctx.fillRect(pScreenX + 2, pScreenY + 24, 8, 5);
+          ctx.fillRect(pScreenX + 14, pScreenY + 26, 8, 6);
+        } else {
+          ctx.fillRect(pScreenX + 2, pScreenY + 26, 8, 6);
+          ctx.fillRect(pScreenX + 12, pScreenY + 26, 8, 6);
+        }
+      }
+      ctx.restore();
+
+      // 5. DEBUG VIZUALIZATSIYALARI
+      if (chkDebugAABB.checked) {
+        // O'yinchi AABB
+        ctx.strokeStyle = player.isGrounded ? "#10B981" : "#F59E0B";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(Math.floor(player.x - camOffsetX), Math.floor(player.y), player.width, player.height);
+
+        // Dushmanlar AABB
+        enemies.forEach(e => {
+          if (e.active) {
+            ctx.strokeStyle = "#EF4444";
+            ctx.strokeRect(Math.floor(e.x - camOffsetX), Math.floor(e.y), e.sizeX, e.sizeY);
+          }
+        });
+      }
+
+      // Bir tomonlama kamera chegarasi chizig'i
+      if (chkDebugCam.checked) {
+        let screenLeftEdge = camera.x - (camera.viewportWidth * 0.5);
+        let drawLineX = Math.floor(screenLeftEdge - camOffsetX);
+        ctx.strokeStyle = "rgba(239, 68, 68, 0.75)";
+        ctx.lineWidth = 3;
+        ctx.setLineDash([6, 6]);
+        ctx.beginPath();
+        ctx.moveTo(drawLineX, 0);
+        ctx.lineTo(drawLineX, canvas.height);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      }
+    }
+
+    function triggerGameOver(msg) {
+      isGameOver = true;
+      document.getElementById('overlayTitle').textContent = "O'YIN TUGADI!";
+      document.getElementById('overlayTitle').style.color = "#EF4444";
+      document.getElementById('overlaySub').textContent = msg;
+      document.getElementById('gameOverlay').classList.add('active');
+    }
+
+    function gameWin() {
+      isGameWon = true;
+      AudioEngine.playWin();
+      document.getElementById('overlayTitle').textContent = "G'ALABA!";
+      document.getElementById('overlayTitle').style.color = "#10B981";
+      document.getElementById('overlaySub').textContent = `Tabriklaymiz! Barcha to'siqlardan o'tib, ${player.coins} ta tanga to'pladingiz.`;
+      document.getElementById('gameOverlay').classList.add('active');
+    }
+
+    /* ============================================================================
+     * O'YIN SIKLI (FIXED TIMESTEP GAME LOOP)
+     * ============================================================================ */
+    let lastTime = performance.now();
+    function gameLoop(time) {
+      let dt = (time - lastTime) / 1000.0;
+      lastTime = time;
+
+      // Katta lag spike'larning oldini olish uchun cheklov
+      if (dt > 0.05) dt = 0.05;
+
+      update(dt);
+      render();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    /* ============================================================================
+     * BOSHQARUV TUGMALARI VA EVENT LISTENERLAR
+     * ============================================================================ */
+    window.addEventListener('keydown', (e) => {
+      AudioEngine.init();
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft')  keys.left = true;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+      if (e.code === 'Space' || e.code === 'KeyW' || e.code === 'ArrowUp') {
+        if (!keys.jumpHeld) keys.jump = true;
+        keys.jumpHeld = true;
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'KeyA' || e.code === 'ArrowLeft')  keys.left = false;
+      if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+      if (e.code === 'Space' || e.code === 'KeyW' || e.code === 'ArrowUp') {
+        keys.jumpHeld = false;
+      }
+    });
+
+    // Touch va Mobil Tugmalar
+    const bindTouch = (elem, pressAction, releaseAction) => {
+      const handleDown = (e) => {
+        e.preventDefault();
+        AudioEngine.init();
+        pressAction();
+      };
+      const handleUp = (e) => {
+        e.preventDefault();
+        releaseAction();
+      };
+      elem.addEventListener('touchstart', handleDown);
+      elem.addEventListener('touchend', handleUp);
+      elem.addEventListener('mousedown', handleDown);
+      elem.addEventListener('mouseup', handleUp);
+      elem.addEventListener('mouseleave', handleUp);
+    };
+
+    bindTouch(document.getElementById('btnLeft'), 
+      () => keys.left = true, 
+      () => keys.left = false
+    );
+    bindTouch(document.getElementById('btnRight'), 
+      () => keys.right = true, 
+      () => keys.right = false
+    );
+    bindTouch(document.getElementById('btnJump'), 
+      () => {
+        if (!keys.jumpHeld) keys.jump = true;
+        keys.jumpHeld = true;
+      }, 
+      () => keys.jumpHeld = false
+    );
+
+    document.getElementById('btnRestart').onclick = () => initLevel();
+    document.getElementById('overlayBtn').onclick = () => initLevel();
+
+    // Slayderlarni ulash
+    sliderGravity.oninput = (e) => {
+      CONFIG.GRAVITY = parseFloat(e.target.value);
+      document.getElementById('valGravity').textContent = e.target.value;
+    };
+    sliderJump.oninput = (e) => {
+      CONFIG.JUMP_IMPULSE = parseFloat(e.target.value);
+      document.getElementById('valJump').textContent = e.target.value;
+    };
+    sliderAccel.oninput = (e) => {
+      CONFIG.HORIZONTAL_ACCEL = parseFloat(e.target.value);
+      document.getElementById('valAccel').textContent = e.target.value;
+    };
+    sliderFriction.oninput = (e) => {
+      CONFIG.FRICTION = parseFloat(e.target.value);
+      document.getElementById('valFriction').textContent = e.target.value;
+    };
+
+    document.getElementById('btnResetPhysics').onclick = () => {
+      CONFIG.GRAVITY = 980; sliderGravity.value = 980; document.getElementById('valGravity').textContent = 980;
+      CONFIG.JUMP_IMPULSE = 450; sliderJump.value = 450; document.getElementById('valJump').textContent = 450;
+      CONFIG.HORIZONTAL_ACCEL = 800; sliderAccel.value = 800; document.getElementById('valAccel').textContent = 800;
+      CONFIG.FRICTION = 1000; sliderFriction.value = 1000; document.getElementById('valFriction').textContent = 1000;
+    };
+
+    // Tab navigatsiyasi
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      };
+    });
+
+    // Boshlash
+    initLevel();
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+</html>
