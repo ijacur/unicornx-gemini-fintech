@@ -24,7 +24,7 @@ export interface ArcadeGame {
   type: GameType;
   url?: string;
   customCode?: string;
-  componentKey?: 'neon-shooter' | 'quantum-2048' | 'cyber-bazaar';
+  componentKey?: 'neon-shooter' | 'quantum-2048' | 'cyber-bazaar' | 'mulk-detective';
   playCount: number;
   rating: number; // 1 to 5
   likes: number;

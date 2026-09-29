@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
   Rocket,
   Gamepad2,
+  Building2,
   CheckCircle2,
   AlertCircle,
   FileText,
@@ -61,6 +62,7 @@ import { triggerConfetti } from './lib/utils'
 import { type Language, UI_TRANSLATIONS, MODULES_TRANSLATIONS, LOCALIZED_DEMO_PROJECT } from './lib/i18n'
 import { UnicornStudio } from './components/UnicornStudio/UnicornStudio'
 import { ArcadeHub } from './components/Arcade/ArcadeHub'
+import { MulkXHub } from './components/RealEstateEdu/MulkXHub'
 
 const JURY_RELOAD_AUDIT_KEY = 'launch_lab_21_jury_reload_audit'
 
@@ -150,8 +152,8 @@ export default function App() {
   const [activeRole, setActiveRole] = useState<'participant' | 'curator'>(() => loadUserRole())
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0)
   const [activeView, setActiveView] = useState<
-    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade'
-  >(() => (window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : 'arcade'))
+    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade' | 'mulk-detective'
+  >(() => (window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : 'mulk-detective'))
 
   const [activeReelIndex, setActiveReelIndex] = useState(0)
   const [doubleTapHeart, setDoubleTapHeart] = useState(false)
@@ -1095,6 +1097,26 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </span>
             <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
               GAMES 🕹️
+            </span>
+          </button>
+
+          <button
+            onClick={() => {
+              playBeep(640, 'sine', 0.08)
+              setActiveView('mulk-detective')
+            }}
+            className={`py-3 text-xs sm:text-sm font-bold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+              activeView === 'mulk-detective'
+                ? 'border-amber-400 text-white shadow-[0_4px_16px_rgba(251,191,36,0.35)]'
+                : 'border-transparent text-amber-400 hover:text-amber-300'
+            }`}
+          >
+            <Building2 className="w-4 h-4 text-amber-400 animate-pulse" />
+            <span className="bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-400 bg-clip-text text-transparent font-extrabold">
+              🏢 MULK DETEKTIVI
+            </span>
+            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-sm">
+              DOMLA DARSLARI 📜
             </span>
           </button>
 
@@ -2880,6 +2902,9 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
         {/* VIEW 8: NEXUS ARCADE & CREATOR HUB */}
         {activeView === 'arcade' && <ArcadeHub />}
+
+        {/* VIEW 9: MULK DETEKTIVI (REAL ESTATE & KADASTR DETECTIVE) */}
+        {activeView === 'mulk-detective' && <MulkXHub />}
       </main>
 
       {/* ========================================================================= */}

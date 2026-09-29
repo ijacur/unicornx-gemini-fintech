@@ -4,6 +4,7 @@ import type { ArcadeGame } from '../../types/arcade';
 import { NeonShooter } from './BuiltinGames/NeonShooter';
 import { Quantum2048 } from './BuiltinGames/Quantum2048';
 import { CyberBazaarGame } from '../UnicornStudio/CyberBazaarGame';
+import { MulkXHub } from '../RealEstateEdu/MulkXHub';
 import { triggerConfetti } from '../../lib/utils';
 
 interface GamePlayerModalProps {
@@ -108,6 +109,10 @@ export const GamePlayerModal: React.FC<GamePlayerModalProps> = ({ game, onClose,
           ) : game.componentKey === 'cyber-bazaar' ? (
             <div className="w-full h-full p-6 overflow-y-auto">
               <CyberBazaarGame />
+            </div>
+          ) : game.componentKey === 'mulk-detective' ? (
+            <div className="w-full h-full p-4 sm:p-6 overflow-y-auto">
+              <MulkXHub />
             </div>
           ) : game.type === 'iframe' && game.url ? (
             <iframe

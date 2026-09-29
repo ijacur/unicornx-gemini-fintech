@@ -90,6 +90,23 @@ export const DEFAULT_ARCADE_GAMES: ArcadeGame[] = [
     featured: true,
     createdAt: '2026-09-23',
   },
+  {
+    id: 'mulk-detective-game',
+    title: 'MulkX: Ko‘chmas Mulk & Kadastr Detektivi',
+    tagline: 'Samarqand Uy-Joy & Yer Firibgarligidan Himoya Simulyatori',
+    description: 'Instagramdagi soxta millioner quruvchilar, gazsiz domlar, tilxat balosi va qizil chiziq tuzoqlarini fosh eting!',
+    category: 'ai',
+    author: 'Samarqand Master-Klass',
+    thumbnail: '🏢',
+    type: 'custom',
+    componentKey: 'mulk-detective',
+    playCount: 15400,
+    rating: 5.0,
+    likes: 2450,
+    tags: ['Ekspertiza', 'Simulyator', 'Samarqand', 'Kadastr', 'Ta\'limiy'],
+    featured: true,
+    createdAt: '2026-09-29',
+  },
 ];
 
 export const INITIAL_PLAYER_STATS: PlayerStats = {
