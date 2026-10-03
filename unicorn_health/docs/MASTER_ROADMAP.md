@@ -244,8 +244,11 @@
   - [x] Kardiologik Tele-Reabilitatsiya & DAPT Stent Qalqoni Dvigateli (shared/cardiac_rehab_engine.py)
   - [x] DoriQuti Kardiologik Tele-Reabilitatsiya Portali (doriquti/cardiac_rehab_portal.html)
   - [x] Infarktdan keyingi 90 kunlik o'ta muhim oyna: Tikagrelor/Klopidogrel + Aspirin + Statin 40mg qadoqlangan paketlar, 64% narx tejovi va stent tromboziga qarshi 24/7 telemetriya
-  - [x] 145/145 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 56 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Bronxial Astma & SO'OK Inhalyator Qalqoni Dvigateli (shared/pulmonary_asthma_engine.py)
+  - [x] DoriQuti Bronxial Astma & SO'OK Inhalyator Portali (doriquti/pulmonary_asthma_portal.html)
+  - [x] Chang bo'ronlari va PM2.5 havoning ifloslanishida nafas qisishiga qarshi: Simbikort + Salbutamol + Bepul Spayser, 61% arzon obuna va pikfloumetriya zonasi
+  - [x] 147/147 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 57 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 

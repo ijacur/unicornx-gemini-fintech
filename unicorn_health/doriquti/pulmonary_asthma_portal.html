@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bronxial Astma & SO'OK Inhalyator Qalqoni | DoriQuti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --cyan: #06b6d4;
+            --cyan-glow: rgba(6, 182, 212, 0.2);
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --sky: #38bdf8;
+            --purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: var(--cyan);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(15, 25, 45, 0.9), rgba(6, 182, 212, 0.12));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 32px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: "🫁";
+            font-size: 190px;
+            position: absolute;
+            right: -20px;
+            bottom: -40px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .hero-h1 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff, #a5f3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .stat-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: rgba(7, 13, 24, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+            margin-bottom: 4px;
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            background: #070d18;
+            border: 1px solid var(--border);
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-select:focus, .form-input:focus {
+            border-color: var(--cyan);
+        }
+
+        .slider-control {
+            width: 100%;
+            accent-color: var(--cyan);
+            margin: 10px 0;
+        }
+
+        .comparison-box {
+            background: #070d18;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .comp-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .comp-row:last-child {
+            border-bottom: none;
+        }
+
+        .cost-bad {
+            color: var(--rose);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cost-good {
+            color: var(--emerald);
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+        }
+
+        .savings-highlight {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(16, 185, 129, 0.1));
+            border: 1px solid var(--cyan);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--cyan);
+            color: #070d18;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .btn-action:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .tag-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+        .tag-cyan { background: rgba(6, 182, 212, 0.15); color: var(--cyan); }
+        .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+        .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--rose); }
+
+        .alert-card {
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .alert-card.rose {
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid var(--rose);
+            color: #fecdd3;
+        }
+
+        .alert-card.emerald {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--emerald);
+            color: #a7f3d0;
+        }
+
+        .alert-card.amber {
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--amber);
+            color: #fde68a;
+        }
+
+        .tech-card {
+            background: #070d18;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .tech-icon {
+            font-size: 28px;
+            width: 44px;
+            height: 44px;
+            background: rgba(6, 182, 212, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero-banner { grid-template-columns: 1fr; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .stat-strip { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🫁</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">DoriQuti Bronxial Astma & SO'OK Qalqoni</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">SMART Inhalyator Obunasi, Pikfloumetriya & PM2.5 Chang Bo'roni Signali</p>
+            </div>
+            <span class="badge-pill">GINA 2024</span>
+        </div>
+        <div class="header-links">
+            <a href="../index.html">← Ekotizim Bosh Sahifasi</a>
+            <a href="index.html">DoriQuti</a>
+            <a href="../arzonlab/index.html">ArzonLab</a>
+            <a href="telehealth_consultation.html">Telemeditsina</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO BANNER -->
+        <section class="hero-banner">
+            <div>
+                <span class="badge-pill" style="margin-bottom: 12px; display: inline-block;">Chang Bo'ronlari & Nafas Qisishi Nazorati</span>
+                <h2 class="hero-h1">Bronxial Astma & SO'OK Inhalyator Terapiyasi: 61% Arzon va Xavfsiz</h2>
+                <p class="hero-p">
+                    O'zbekistonda mavsumiy chang bo'ronlari va PM2.5 havoning ifloslanishi tufayli 1.2M dan ortiq aholi nafas qisishidan aziyat chekadi. Qimmatbaho Simbikort va Salbutamol ingalyatorlarini antistatik spayser bilan birga 61% tejamkorlikda oling, pikfloumetr bilan nafas quvvatini kuzating va PM2.5 ogohlantirishlarini real vaqtda qabul qiling.
+                </p>
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <a href="#pef-sec" style="background: var(--cyan); color: #070d18; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 13px;">Pikfloumetriya Tahlili ↓</a>
+                    <a href="#pm25-sec" style="background: rgba(255,255,255,0.08); color: #ffffff; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 13px; border: 1px solid var(--border);">Havo Sifati (PM2.5) Tekshiruvi</a>
+                </div>
+            </div>
+            <div>
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <div class="stat-val">61.5%</div>
+                        <div class="stat-lbl">Yillik Dori Tejovi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">+68%</div>
+                        <div class="stat-lbl">Spayser Bilan Foyda</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">PM2.5</div>
+                        <div class="stat-lbl">Chang Xavfi Signali</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">GINA</div>
+                        <div class="stat-lbl">Oltin Standart</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN 2 COLUMNS: PEAK FLOW CALCULATOR + INHALER SAVINGS -->
+        <section class="grid-2col" id="pef-sec">
+            
+            <!-- PEAK FLOW CALCULATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🌬️</span>
+                        <span>Pikfloumetriya (PEF) & Nafas Quvvati Zonalari</span>
+                    </div>
+                    <span class="status-tag tag-cyan">ERS Standarti</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label">Jinsi</label>
+                        <select class="form-select" id="inputGender" onchange="calcPEF()">
+                            <option value="erkak">Erkak</option>
+                            <option value="ayol">Ayol</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Yoshi (Yil)</label>
+                        <input type="number" class="form-input" id="inputAge" value="42" oninput="calcPEF()">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Bo'yi (sm): <span id="heightVal" style="color: var(--cyan); font-weight: 800;">175</span> sm</label>
+                    <input type="range" min="140" max="205" value="175" class="slider-control" id="inputHeight" oninput="calcPEF()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Bugungi O'lchangan PEF: <span id="pefVal" style="color: #ffffff; font-weight: 800; font-family: 'JetBrains Mono', monospace;">460</span> L/min</label>
+                    <input type="range" min="100" max="750" value="460" class="slider-control" id="inputPEF" oninput="calcPEF()">
+                </div>
+
+                <div id="pefResultBox">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- INHALER PACKAGES & SAVINGS -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>💊</span>
+                        <span>SMART Inhalyator Obunasi & Yillik Iqtisodiyot</span>
+                    </div>
+                    <span class="status-tag tag-green">Bepul Spayser Qo'shiladi</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nafas Terapiyasi Protokoli</label>
+                    <select class="form-select" id="packageSelect" onchange="updateInhalerSavings()">
+                        <option value="asthma-smart-symbicort">🫁 Bronxial Astma SMART: Simbikort 160/4.5 (120 doza) + Salbutamol</option>
+                        <option value="copd-dual-spiriva">💨 SO'OK (COPD): Spiriva Respimat (Tiotropiy) + Formoterol</option>
+                    </select>
+                </div>
+
+                <div class="comparison-box">
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">Dorixonalarda oylik alohida narxi:</span>
+                        <span class="cost-bad" id="calcInhalerRetail">480,000 UZS</span>
+                    </div>
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">DoriQuti oylik obuna narxi:</span>
+                        <span class="cost-good" id="calcInhalerDoriquti">185,000 UZS</span>
+                    </div>
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">1 oylik toza tejov:</span>
+                        <span style="color: var(--emerald); font-weight: 700;" id="calcInhalerMonthlyDiff">295,000 UZS / oy</span>
+                    </div>
+                    <div class="comp-row" style="background: rgba(244, 63, 94, 0.05); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 700; color: #ffffff;">Dorixonada 1 yillik xarajat:</span>
+                        <span class="cost-bad" id="calcInhalerAnnualRetail">5,760,000 UZS</span>
+                    </div>
+                    <div class="comp-row" style="background: rgba(16, 185, 129, 0.08); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 800; color: #ffffff;">DoriQuti orqali 1 yillik to'lov:</span>
+                        <span class="cost-good" id="calcInhalerAnnualDoriquti">2,220,000 UZS</span>
+                    </div>
+                </div>
+
+                <div class="savings-highlight">
+                    <div style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--cyan); letter-spacing: 0.5px;">1 Yilda Bemor Oilasida Qoladigan Mablag':</div>
+                    <div style="font-size: 26px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #ffffff; margin: 4px 0;" id="calcInhalerNet">3,540,000 UZS (61.5%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Antistatik klapanli Spayser (AeroChamber) mutlaqo BEPUL qo'shib beriladi.</div>
+                </div>
+
+                <button class="btn-action" onclick="orderInhalerSubscription()">
+                    <span>💨</span>
+                    <span>Inhalyator Obunasini Ulanish</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- AIR QUALITY PM2.5 & SPRAY TECHNIQUE SECTION -->
+        <section class="grid-2col" id="pm25-sec">
+            
+            <!-- PM2.5 AIR TELEMETRY & DUST STORM SIMULATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🌫️</span>
+                        <span>O'zbekiston Shaharlari PM2.5 & Chang Bo'roni Telemetriyasi</span>
+                    </div>
+                    <span class="status-tag tag-amber">Real-Vaqt Simulyatsiyasi</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Shahar / Viloyat</label>
+                    <select class="form-select" id="citySelect" onchange="calcAirRisk()">
+                        <option value="Samarqand">Samarqand shahri & Urgut tumani</option>
+                        <option value="Toshkent">Toshkent shahri & Chilonzor</option>
+                        <option value="Buxoro">Buxoro (Cho'l shamollari hududi)</option>
+                        <option value="Nukus">Nukus & Orolbo'yi zonasi (Tuz-chang bo'ronlari)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">PM2.5 Havodagi Mayda Zarrachalar (µg/m³): <span id="pm25Val" style="color: var(--amber); font-weight: 800; font-family: 'JetBrains Mono', monospace;">112</span> µg/m³</label>
+                    <input type="range" min="10" max="320" value="112" class="slider-control" id="inputPm25" oninput="calcAirRisk()">
+                </div>
+
+                <div id="airResultBox">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- SPRAYER & INHALATION TECHNIQUE -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🎯</span>
+                        <span>Spayser Klapanli Kamera & Nafas Texnikasi</span>
+                    </div>
+                    <span class="status-tag tag-cyan">+68% O'pkaga Yetib Borish</span>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">❌</div>
+                    <div>
+                        <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Spaysersiz to'g'ridan-to'g'ri purkash</div>
+                        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Dori zarrachalarining 80% qismi tomoqqa urilib qoladi, kandidoz (ovoz xirillashi) chaqiradi va o'pkaga bormaydi.</div>
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">✅</div>
+                    <div>
+                        <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Antistatik Spayser (AeroChamber) orqali</div>
+                        <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Aerozol havo kamerasida sekinlashadi, xotirjam 4-5 chuqur nafas olinganda dorining 70% dan ortig'i mayda bronxiolalargacha yetib boradi.</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 16px; font-size: 12px; color: var(--text-muted); line-height: 1.6; background: #070d18; padding: 14px; border-radius: 12px; border: 1px solid var(--border);">
+                    💡 <strong>Oltin qoida:</strong> Purkashdan oldin boshni bir oz orqaga qiling, to'liq nafas chiqaring, purkagach 10 soniya nafasni ushlab turing, so'ngra og'izni iliq suv bilan chayqab tashlang.
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        const INHALER_DATA = {
+            "asthma-smart-symbicort": { retail: 480000, doriquti: 185000 },
+            "copd-dual-spiriva": { retail: 590000, doriquti: 220000 }
+        };
+
+        function calcPEF() {
+            const gender = document.getElementById('inputGender').value;
+            const age = parseInt(document.getElementById('inputAge').value) || 40;
+            const height = parseInt(document.getElementById('inputHeight').value) || 170;
+            const curPef = parseInt(document.getElementById('inputPEF').value) || 400;
+
+            document.getElementById('heightVal').innerText = height;
+            document.getElementById('pefVal').innerText = curPef;
+
+            let expected = (gender === 'erkak') 
+                ? (((height / 100.0) * 5.48) + 1.58 - (age * 0.041) * 60)
+                : (((height / 100.0) * 3.72) + 2.24 - (age * 0.030) * 60);
+
+            expected = Math.max(250, Math.min(750, Math.round(expected)));
+            const pct = Math.round((curPef / expected) * 100);
+
+            let alertClass = 'emerald';
+            let title = "Yashil Zona: Barqaror Nazorat ✅";
+            let desc = `Kutilgan me'yor: ${expected} L/min. Hozirgi ko'rsatkich: ${pct}%. Bronxlar ochiq, bazis terapiyani davom ettiring.`;
+
+            if (pct < 50) {
+                alertClass = 'rose';
+                title = "Qizil Zona: XAVFLI Bronxospazm! 🚨";
+                desc = `Hozirgi quvvat me'yordan atigi ${pct}%! Zudlik bilan spayser orqali 4 purkash Salbutamol oling va 103 tez yordamga qo'ng'iroq qiling!`;
+            } else if (pct < 80) {
+                alertClass = 'amber';
+                title = "Sariq Zona: Ehtiyot Bo'ling ⚠️";
+                desc = `Quvvat pasaygan (${pct}%). Bronxlar toraymoqda. Qo'shimcha 1-2 purkash Simbikort/Salbutamol tavsiya etiladi.`;
+            }
+
+            document.getElementById('pefResultBox').innerHTML = `
+                <div class="alert-card ${alertClass}">
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
+                        <div>${desc}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateInhalerSavings() {
+            const key = document.getElementById('packageSelect').value;
+            const data = INHALER_DATA[key];
+            const monthlyDiff = data.retail - data.doriquti;
+            const annualRetail = data.retail * 12;
+            const annualDoriquti = data.doriquti * 12;
+            const annualSaved = annualRetail - annualDoriquti;
+            const pct = Math.round((annualSaved / annualRetail) * 100);
+
+            document.getElementById('calcInhalerRetail').innerText = data.retail.toLocaleString() + ' UZS';
+            document.getElementById('calcInhalerDoriquti').innerText = data.doriquti.toLocaleString() + ' UZS';
+            document.getElementById('calcInhalerMonthlyDiff').innerText = monthlyDiff.toLocaleString() + ' UZS / oy';
+            document.getElementById('calcInhalerAnnualRetail').innerText = annualRetail.toLocaleString() + ' UZS';
+            document.getElementById('calcInhalerAnnualDoriquti').innerText = annualDoriquti.toLocaleString() + ' UZS';
+            document.getElementById('calcInhalerNet').innerText = annualSaved.toLocaleString() + ' UZS (' + pct + '%)';
+        }
+
+        function calcAirRisk() {
+            const pm25 = parseFloat(document.getElementById('inputPm25').value) || 50;
+            const city = document.getElementById('citySelect').value;
+            document.getElementById('pm25Val').innerText = pm25;
+
+            let alertClass = 'emerald';
+            let title = "Havo Toza (AQI Yaxshi) ✅";
+            let desc = `${city} shahrida atmosfera havosi me'yorda. Ochiq havoda sayr qilish mumkin.`;
+
+            if (pm25 > 150) {
+                alertClass = 'rose';
+                title = "FAVQULODDA: Kuchli Chang Bo'roni / Qizil Daraja! 🚨";
+                desc = `${city} hududida PM2.5 miqdori ${pm25} µg/m³! Derazalarni ochmang, ko'chaga faqat N95 respirator bilan chiqing, Salbutamol purkagichini cho'ntagingizda saqlang!`;
+            } else if (pm25 > 55) {
+                alertClass = 'amber';
+                title = "Ogohlantirish: Changli & Nosog'lom Havo ⚠️";
+                desc = `${city}da PM2.5 darajasi ${pm25} µg/m³. Astma va allergiyasi bor shaxslar og'ir jismoniy harakat qilmasligi kerak.`;
+            }
+
+            document.getElementById('airResultBox').innerHTML = `
+                <div class="alert-card ${alertClass}">
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
+                        <div>${desc}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function orderInhalerSubscription() {
+            alert("✅ Inhalyator obunasi qabul qilindi!\n\nTo'plamda:\n1. Asosiy ingalyator (Simbikort / Spiriva)\n2. Favqulodda yordam purkagichi (Salbutamol)\n3. Antistatik klapanli Spayser (0 UZS)\nHar oy bepul kuryer orqali yetkaziladi.");
+        }
+
+        // Init
+        calcPEF();
+        updateInhalerSavings();
+        calcAirRisk();
+    </script>
+</body>
+</html>

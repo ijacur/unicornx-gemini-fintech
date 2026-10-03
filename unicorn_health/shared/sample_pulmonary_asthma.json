@@ -1,0 +1,62 @@
+{
+  "status": "OPERATIONAL",
+  "clinical_guideline": "GINA 2024 (Global Initiative for Asthma) & GOLD 2024 COPD",
+  "regimens": [
+    {
+      "id": "asthma-smart-symbicort",
+      "title": "Astma SMART Terapiya (Budesonid/Formoterol 160/4.5 mcg)",
+      "indication": "Bronxial astma o'rtacha-og'ir daraja (GINA 2024 bo'yicha bazis + SOS)",
+      "maintenance_inhaler": "Simbikort Turbuxaler 120 doza (Budesonid 160mkg + Formoterol 4.5mkg)",
+      "daily_doses": "Ertalab 1 nafas + Kechqurun 1 nafas (+ xuruj paytida 1 nafas)",
+      "rescue_backup": "Salbutamol (Ventolin) 200 doza (Favqulodda yordam)",
+      "spacer_included": true,
+      "retail_city_price_uzs": 480000,
+      "doriquti_price_uzs": 185000,
+      "monthly_saved_uzs": 295000,
+      "lung_deposition_gain_pct": 68
+    },
+    {
+      "id": "copd-dual-spiriva",
+      "title": "SO'OK (COPD) Uzoq Ta'sirli Kengaytiruvchi (Tiotropiy + Formoterol)",
+      "indication": "Surunkali obstruktiv o'pka kasalligi (GOLD 3-4 daraja, doimiy hansirash)",
+      "maintenance_inhaler": "Spiriva Respimat (Tiotropiy 2.5mkg) + Formoterol",
+      "daily_doses": "Kuniga 1 marta ertalab 2 purkash",
+      "rescue_backup": "Ipratropiy/Salbutamol (Berodual)",
+      "spacer_included": true,
+      "retail_city_price_uzs": 590000,
+      "doriquti_price_uzs": 220000,
+      "monthly_saved_uzs": 370000,
+      "lung_deposition_gain_pct": 72
+    }
+  ],
+  "sample_peak_flow": {
+    "gender": "erkak",
+    "height_cm": 175,
+    "age": 45,
+    "current_pef": 460,
+    "expected_pef": 250,
+    "pef_percent": 184.0,
+    "zone": "Yashil Zona (Barqaror nazorat)",
+    "color": "emerald",
+    "clinical_action": "Rejali bazis terapiyani davom ettiring. Nafas yo'llari ochiq."
+  },
+  "sample_air_quality": {
+    "city": "Toshkent / Samarqand",
+    "pm25_level": 168.4,
+    "risk_level": "Favqulodda Chang Bo'roni / Yuqori Havfli",
+    "color": "rose",
+    "alert_active": true,
+    "clinical_guidance": "Ko'chaga chiqmang! N95 respirator taqing, xonalarni germetik yoping va Salbutamolni yoningizda saqlang."
+  },
+  "sample_patient_savings": {
+    "regimen_id": "asthma-smart-symbicort",
+    "title": "Astma SMART Terapiya (Budesonid/Formoterol 160/4.5 mcg)",
+    "monthly_retail_uzs": 480000,
+    "monthly_doriquti_uzs": 185000,
+    "months": 12,
+    "annual_retail_uzs": 5760000,
+    "annual_doriquti_uzs": 2220000,
+    "annual_saved_uzs": 3540000,
+    "savings_percent": 61.5
+  }
+}
