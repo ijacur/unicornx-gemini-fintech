@@ -1,0 +1,88 @@
+{
+  "patient_name": "Saidova Nilufar",
+  "primary_diagnosis": "Keng tarqalgan blyashkali psoriaz, o'rtacha-og'ir bosqich",
+  "pasi_assessment": {
+    "pasi_score": 39.0,
+    "severity_label": "Og'ir Psoriaz (Severe Psoriasis - PASI > 10)",
+    "biologics_indicated": true,
+    "phototherapy_indicated": true,
+    "recommendation": "Biologik terapiya (Sekukinumab / Anti-IL-17A) yoki tizimli immunosupressantlar + NB-UVB fototerapiya.",
+    "region_breakdown": {
+      "head": 1.8,
+      "upper_limbs": 6.4,
+      "trunk": 10.8,
+      "lower_limbs": 20.0
+    }
+  },
+  "selected_biologic": {
+    "id": "secukinumab-300mg",
+    "brand_name": "Cosentyx 300 mg (Sekukinumab)",
+    "generic_name": "Sekukinumab (Anti-IL-17A monoklonal antitanacha)",
+    "indication": "O'rta va og'ir darajadagi blyashkali psoriaz (PASI > 10)",
+    "administration": "Teri ostiga (Combopack 2x150mg yoki 1x300mg avto-shprits). Induksiya: 0, 1, 2, 3, 4-haftalarda, so'ngra har 4 haftada 1 marta.",
+    "storage": "+2°C..+8°C doimiy sovuq zanjir (muzlatilmasin, yorug'likdan himoyalangan)",
+    "retail_monthly_uzs": 4800000,
+    "doriquti_monthly_uzs": 1950000,
+    "saved_monthly_uzs": 2850000,
+    "savings_percent": 59.4
+  },
+  "steroid_tapering_schedule": [
+    {
+      "week": 1,
+      "title": "1-Hafta: Kundalik Boshqaruv & Barer Tiklash",
+      "morning": "Kuchli steroid malham (Klobetazol/Betametazon) - faqat blyashka ustiga yupqa qilib",
+      "midday": "Seramidli namlantiruvchi krem (DoriQuti Emollient)",
+      "evening": "Kuchli steroid malham",
+      "night": "Yotishdan oldin to'liq tana emollienti",
+      "clinical_goal": "O'tkir yallig'lanish va qizarishni tezda pasaytirish."
+    },
+    {
+      "week": 2,
+      "title": "2-Hafta: Dozani 50% Kamaytirish (Kun Oraliq)",
+      "morning": "Dushanba/Chorshanba/Juma: Steroid malham; Boshqa kunlari: Takrolimus 0.1% malham",
+      "midday": "Seramidli emollient",
+      "evening": "Takrolimus 0.1% (gormonsiz kalsinevrin blokatori)",
+      "night": "To'liq tana emollienti",
+      "clinical_goal": "Teri atrofiyasining oldini olish va terini gormonga qaramligini uzish."
+    },
+    {
+      "week": 3,
+      "title": "3-Hafta: Reboundga Qarshi 'Dam Olish Kunlari' Rejimi",
+      "morning": "Faqat Shanba va Yakshanba: Steroid malham; Hafta ichi: FAQAT Takrolimus 0.1%",
+      "midday": "Seramidli emollient",
+      "evening": "Takrolimus 0.1%",
+      "night": "To'liq tana emollienti",
+      "clinical_goal": "Gormonni to'xtatganda qizarish qayta 'portlashi' (rebound flare) to'sig'i."
+    },
+    {
+      "week": 4,
+      "title": "4-Hafta: To'liq Gormonsiz Proaktiv Terapiya",
+      "morning": "Takrolimus 0.1% (haftada 2 marta profilaktik surtish)",
+      "midday": "Seramidli emollient",
+      "evening": "DoriQuti Seramid Barer-Krem",
+      "night": "To'liq tana emollienti",
+      "clinical_goal": "100% gormonsiz remissiya va terining lipid qoplamini mustahkamlash."
+    }
+  ],
+  "financial_savings": {
+    "drug_name": "Cosentyx 300 mg (Sekukinumab)",
+    "med_retail_monthly_uzs": 4800000,
+    "med_doriquti_monthly_uzs": 1950000,
+    "med_monthly_saved_uzs": 2850000,
+    "uvb_sessions": 20,
+    "uvb_retail_course_uzs": 2400000,
+    "uvb_arzonlab_course_uzs": 900000,
+    "uvb_course_saved_uzs": 1500000,
+    "total_retail_uzs": 7200000,
+    "total_unicorn_uzs": 2850000,
+    "total_saved_uzs": 4350000,
+    "savings_percent": 60.4
+  },
+  "clinical_rules": [
+    "1. Biologik preparatni qabul qilishdan oldin Mantoux/Diaskintest (tuberkulyoz) va gepatit B/C tekshiruvi shart.",
+    "2. Sovuq zanjir (+2°C..+8°C) buzilsa, oqsil molekulalari parchalanadi va samarasiz bo'ladi.",
+    "3. Gormonli malhamlarni to'satdan tashlab yubormang; 4-haftalik sekin tushirish jadvaliga amal qiling.",
+    "4. NB-UVB 311 nm fototerapiyasi seansidan 2 soat oldin quyoshdan saqlovchi krem surtmang.",
+    "5. Har kuni cho'milgandan so'ng dastlabki 3 daqiqada teri namligini saqlash uchun seramidli emollient surting."
+  ]
+}

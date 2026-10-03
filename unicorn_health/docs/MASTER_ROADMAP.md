@@ -271,8 +271,11 @@
   - [x] Gastroenterologiya, Oshqozon Yarasi & H. pylori 14-Kunlik Eradikatsiya Qalqoni Dvigateli (shared/gastroenterology_hpylori_engine.py)
   - [x] DoriQuti Oshqozon Yarasi & H. pylori Eradikatsiya Qalqoni Portali (doriquti/gastroenterology_hpylori_portal.html)
   - [x] Maastricht VI 14 kunlik Bismutli Kvadroterapiya lentasi, qora najas xavfsizligi kafolati, ArzonLab 13C-UBT nafas testi va 530,000 UZS tejamkorlik
-  - [x] 163/163 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 65 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Dermatologiya, Psoriaz & Atopik Dermatit Biologik Qalqon Dvigateli (shared/dermatology_psoriasis_engine.py)
+  - [x] DoriQuti Dermatologiya, Psoriaz & Fototerapiya Portali (doriquti/dermatology_psoriasis_portal.html)
+  - [x] PASI kalkulyatori, 4-haftalik Steroid Tormozi (TSW oldini olish), Sekukinumab/Dupilumab +2°C..+8°C sovuq zanjir va ArzonLab 311nm fototerapiyada 4.35M UZS tejash
+  - [x] 165/165 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 66 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 
