@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qalqonsimon Bez & L-Tiroksin Qalqoni | DoriQuti & ArzonLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0e172a;
+            --surface-hover: #17243e;
+            --border: #1e2d4a;
+            --indigo: #6366f1;
+            --indigo-glow: rgba(99, 102, 241, 0.25);
+            --emerald: #10b981;
+            --sky: #0ea5e9;
+            --amber: #f59e0b;
+            --rose: #ef4444;
+            --purple: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(14, 23, 42, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid var(--indigo);
+            color: #a5b4fc;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: #a5b4fc;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 36px 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.08) 50%, rgba(14, 23, 42, 0) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 440px;
+            height: 440px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(to right, #f8fafc, #c7d2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 840px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .metric-card {
+            background: rgba(14, 23, 42, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .metric-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px;
+            font-weight: 800;
+            color: #c7d2fe;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            margin-bottom: 36px;
+        }
+
+        @media (max-width: 960px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 4px;
+            outline: none;
+            margin-top: 6px;
+            accent-color: var(--indigo);
+        }
+
+        .value-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 17px;
+            font-weight: 700;
+            color: #a5b4fc;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-indigo {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-indigo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+            border-color: var(--indigo);
+        }
+
+        /* Callout Cards */
+        .callout {
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 20px;
+            border-left: 4px solid;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .callout-optimal {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--emerald);
+            color: #d1fae5;
+        }
+
+        .callout-subclinical {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: var(--amber);
+            color: #fef3c7;
+        }
+
+        .callout-overdose {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: var(--rose);
+            color: #fee2e2;
+        }
+
+        /* Sunrise Protocol Box */
+        .sunrise-box {
+            background: #090f1e;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .absorption-bar-bg {
+            background: #1e293b;
+            border-radius: 8px;
+            height: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .absorption-bar-fill {
+            background: linear-gradient(90deg, #10b981, #06b6d4);
+            height: 100%;
+            width: 88%;
+            transition: width 0.3s;
+        }
+
+        /* Patient Table */
+        .patient-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .patient-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: #090f1e;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .patient-table td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--emerald);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Modal Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--indigo);
+            border-radius: 24px;
+            max-width: 540px;
+            width: 100%;
+            padding: 32px;
+            box-shadow: 0 20px 50px rgba(99, 102, 241, 0.3);
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🦋</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; letter-spacing: -0.3px;">UNICORN HEALTH: DoriQuti + ArzonLab</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">SamDTU & School 21 • Shukurov Jasur Otabek o'g'li</p>
+            </div>
+            <span class="badge-pill">Sprint 70 • Portal 64</span>
+        </div>
+        <nav class="header-links">
+            <a href="/">Bosh Sahifa</a>
+            <a href="/dialysis">Dializ Sevelamer</a>
+            <a href="/parkinson">Parkinson Levodopa</a>
+            <a href="/arthritis">Revmatologiya MTX</a>
+            <a href="/epilepsy">Epilepsiya TDM</a>
+            <a href="/tests/system_healthcheck.py" style="color: var(--emerald);">159/159 Tests Pass</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-title">Endokrinologiya, Gipoterioz & L-Tiroksin Tonggi Suv Qalqoni</div>
+            <p class="hero-subtitle">
+                O'zbekistonda 800,000 dan ortiq fuqaro (ayniqsa ayollar va bolalar) endemik buqoq, Xashimoto tireoiditi va gipoteriozdan aziyat chekadi. Oltin standart dori — <strong>Euthyrox / L-Tiroksin</strong> nozik so'rilish xususiyatiga ega: uni choy, kofe, sut bilan ichish yoki nonushtani 15 daqiqada qilish so'rilishni <strong>70% ga yo'qotadi</strong>! Temir va kalsiy esa kamida 4 soatdan keyin ichilishi shart. DoriQuti Sunrise paketlari va ArzonLab TSH paneli orqali energiya va gormonal muvozanat to'liq tiklanadi.
+            </p>
+
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <div class="metric-num">0.4 – 4.0 µIU/mL</div>
+                    <div class="metric-label">Optimal TSH Gormonal Maqsadli Koridori</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">Faqat 1 Stakan Suv</div>
+                    <div class="metric-label">Choy va Kofesiz 100% Sof So'rilish</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">4 Soatlik Oraliq</div>
+                    <div class="metric-label">Temir (Sorbifer) & Kalsiy Chelyatsiyasidan Himoya</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">992,000 UZS</div>
+                    <div class="metric-label">Yillik Dori va TSH Tahlillari Tejamkorligi</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN INTERACTIVE SECTION -->
+        <div class="grid-2">
+
+            <!-- LEFT: TSH EVALUATION & TITRATION CALCULATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🧪</span> TSH (TTG) Gormoni & Doza Korreksiyasi Kalkulyatori
+                    </div>
+                    <span id="tsh-badge" class="badge-pill" style="border-color: var(--emerald); color: var(--emerald);">TSH: 2.15 (Optimal)</span>
+                </div>
+
+                <!-- TSH Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Qon Zardobi TSH (TTG) Darajasi (µIU/mL)</span>
+                        <span id="tsh-display" class="value-display">2.15 µIU/mL</span>
+                    </div>
+                    <input type="range" id="tsh-slider" class="range-slider" min="0.1" max="15.0" step="0.05" value="2.15" oninput="calculateThyroid()">
+                </div>
+
+                <!-- Free T4 Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Erkin T4 (Free T4, Norma: 12.0 - 22.0 pmol/L)</span>
+                        <span id="ft4-display" class="value-display">16.4 pmol/L</span>
+                    </div>
+                    <input type="range" id="ft4-slider" class="range-slider" min="5.0" max="30.0" step="0.2" value="16.4" oninput="calculateThyroid()">
+                </div>
+
+                <!-- Dose Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Joriy Levotiroksin (Euthyrox) Dozasi (mkg)</span>
+                        <span id="dose-display" class="value-display">75 mkg</span>
+                    </div>
+                    <input type="range" id="dose-slider" class="range-slider" min="25" max="150" step="12.5" value="75" oninput="calculateThyroid()">
+                </div>
+
+                <!-- Pregnancy Checkbox -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; font-size: 13px;">
+                    <input type="checkbox" id="pregnant-check" onchange="calculateThyroid()">
+                    <label for="pregnant-check">Homiladorlik holati (1-trimestrda qat'iy TSH &lt; 2.5 talab etiladi)</label>
+                </div>
+
+                <!-- DYNAMIC CLINICAL EVALUATION BOX -->
+                <div id="status-callout" class="callout callout-optimal">
+                    <div style="font-weight: 700; font-size: 15px; margin-bottom: 6px;" id="callout-title">
+                        ✅ Optimal Gormonal Balans: TSH = 2.15 µIU/mL
+                    </div>
+                    <p id="callout-desc" style="font-size: 13px;">
+                        TSH a'lo darajada. Tavsiya etilgan oraliq: 0.4–4.0 µIU/mL. Bemor to'liq remissiyada, charchoq va moddalar almashinuvi barqaror. Tonggi intizomni davom ettiring.
+                    </p>
+                </div>
+
+                <!-- ORDER BUTTON -->
+                <div style="margin-top: 24px;">
+                    <button class="btn btn-indigo" onclick="openSubscriptionModal()">
+                        <span>📦</span> DoriQuti Sunrise Tiroksin Paketini Buyurtma Qilish (18,000 UZS/oy)
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: BEVERAGE INHIBITION & 4-HOUR CHELATION SHIELD -->
+            <div class="panel" style="border-color: rgba(99, 102, 241, 0.4);">
+                <div class="panel-header">
+                    <div class="panel-title" style="color: #c7d2fe;">
+                        <span>🌅</span> Tonggi So'rilish & 4 Soatlik Oraliq Simulyatori
+                    </div>
+                    <span class="badge-pill" style="border-color: #a5b4fc; color: #a5b4fc; background: rgba(99, 102, 241, 0.1);">Sof Suv Qoidasi</span>
+                </div>
+
+                <div class="sunrise-box">
+                    <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        💧 Qabul Qilinayotgan Ichimlikni Tanlang:
+                    </div>
+                    <select id="bev-select" style="width: 100%; background: #070d1a; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-size: 13px; margin-bottom: 12px;" onchange="updateBeverageSim()">
+                        <option value="water">✅ Xona haroratidagi toza suv (Ideal so'rilish: 88%)</option>
+                        <option value="tea">❌ Ko'k / Qora choy (Tanninlar dorini 60% yo'q qiladi)</option>
+                        <option value="coffee">❌ Qahva / Kofe (So'rilishni 55% ga tushiradi)</option>
+                        <option value="milk">❌ Sut / Qatiq (Kalsiy L-Tiroksinni erimaydigan qiladi)</option>
+                    </select>
+
+                    <div style="font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                        <span>Dorining Oshqozon-Ichakda So'rilish Samaradorligi:</span>
+                        <strong id="absorb-percent" style="color: var(--emerald);">88%</strong>
+                    </div>
+                    <div class="absorption-bar-bg">
+                        <div id="absorb-bar" class="absorption-bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- 4-HOUR TIMELINE SCHEME -->
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 14px; padding: 16px;">
+                    <div style="font-size: 13px; font-weight: 700; color: #c7d2fe; margin-bottom: 8px;">
+                        ⏰ Aniq Kunlik Vaqt Jadvali:
+                    </div>
+                    <ul style="font-size: 12px; color: var(--text-muted); line-height: 1.6; padding-left: 18px;">
+                        <li><strong>06:30 (Uyg'onish):</strong> Euthyrox + 1 stakan toza suv.</li>
+                        <li><strong>07:15 (45 daqiqa keyin):</strong> Nonushta, choy yoki kofe.</li>
+                        <li><strong>12:00 (4 soatdan so'ng):</strong> Temir (Sorbifer) yoki Kalsiy preparatlari.</li>
+                    </ul>
+                </div>
+
+                <!-- WARNING -->
+                <div style="font-size: 12px; color: var(--rose); margin-top: 14px; line-height: 1.5;">
+                    ⚠️ L-Tiroksin va Temir/Kalsiyni bir vaqtda ichish dorilarning bir-birini zararsizlantirib, ta'sirini 0 ga tushirishiga olib keladi.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ECONOMICS: DORI QUTI EUTHYROX & ARZONLAB THYROID PANEL -->
+        <div class="panel" style="margin-bottom: 36px;">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>💰</span> DoriQuti Euthyrox & ArzonLab Qalqonsimon Bez Paneli: Tejamkorlik
+                </div>
+                <span class="badge-pill" style="border-color: var(--emerald); color: var(--emerald);">Har Bir Oilaga Yiliga 1 Mln So'm Sof Foyda</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Euthyrox 50 mkg (Levotiroksin)</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 48,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">16,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 32,000 UZS tejamkorlik (-66.7%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>384,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Euthyrox 100 mkg (Levotiroksin)</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 58,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">19,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 39,000 UZS tejamkorlik (-67.2%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>468,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">ArzonLab Qalqonsimon Bez Paneli</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Xususiy klinikalar: 220,000 UZS</div>
+                    <div style="font-size: 22px; font-weight: 800; color: #a5b4fc; font-family: 'JetBrains Mono';">68,000 UZS</div>
+                    <div style="font-size: 12px; color: #c7d2fe; margin-top: 4px;">TSH + Erkin T4 + Anti-TPO (-69.1%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik (4 ta tahlil) tejovi: <strong>608,000 UZS</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVE PATIENT REGISTRY -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>📋</span> DoriQuti Qalqonsimon Bez Protokolidagi Bemorlar Reestri
+                </div>
+                <span class="badge-pill" style="border-color: #a5b4fc; color: #a5b4fc;">SamDTU Endokrinologiya Bazasi</span>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="patient-table">
+                    <thead>
+                        <tr>
+                            <th>Bemor Kodi & Yoshi</th>
+                            <th>Hudud</th>
+                            <th>Tashxis & Rejim</th>
+                            <th>TSH Ko'rsatkich</th>
+                            <th>Erkin T4</th>
+                            <th>Yillik Tejov</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient-table-body">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL ORDER SUBSCRIPTION -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">🌅</div>
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">DoriQuti Sunrise Tiroksin Obunasi Faollashtirildi</h3>
+            <p id="modal-desc" style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                Euthyrox (Tonggi 06:30 da faqat suv bilan) maxsus Sunrise paketlarida har oy yetkaziladi. Narxi: 18,000 UZS/oy (55,000 UZS o'rniga).
+            </p>
+            <div style="background: #090f1e; padding: 14px; border-radius: 12px; text-align: left; margin-bottom: 20px; font-size: 12px; color: var(--text-muted);">
+                <div>📅 <strong>1-Yetkazib Berish:</strong> Ertaga bepul kuryer orqali</div>
+                <div>🔔 <strong>Tonggi Eslatma:</strong> Har kuni 06:30 da "Suv bilan iching" eslatmasi</div>
+                <div>🧪 <strong>ArzonLab TSH Kuponi:</strong> 68,000 UZS ga biriktirildi</div>
+            </div>
+            <button class="btn btn-indigo" onclick="closeSubscriptionModal()">Tushundim, Rahmat</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const PATIENTS = [
+            {
+                code: "THY-UZ-6192",
+                age: "34 yosh",
+                region: "Samarqand shahri, So'g'diyona",
+                diagnosis: "Xashimoto Autoimmun Tireoiditi",
+                regimen: "Euthyrox 75 mkg (Tongda suv bilan)",
+                tsh: "2.15 µIU/mL (Optimal)",
+                ft4: "16.4 pmol/L",
+                saving: "1,016,000 UZS/yil"
+            },
+            {
+                code: "THY-UZ-7401",
+                age: "28 yosh",
+                region: "Jizzax viloyati, G'allaorol",
+                diagnosis: "Homiladorlikdagi Gipoterioz",
+                regimen: "Euthyrox 50 mkg",
+                tsh: "1.85 µIU/mL (Xavfsiz < 2.5)",
+                ft4: "18.2 pmol/L",
+                saving: "992,000 UZS/yil"
+            },
+            {
+                code: "THY-UZ-8910",
+                age: "42 yosh",
+                region: "Toshkent shahri, Sergeli",
+                diagnosis: "Endemik Tugunli Buqoq",
+                regimen: "Euthyrox 100 mkg",
+                tsh: "3.40 µIU/mL (Optimal)",
+                ft4: "15.1 pmol/L",
+                saving: "1,076,000 UZS/yil"
+            }
+        ];
+
+        function init() {
+            renderPatients();
+            calculateThyroid();
+        }
+
+        function renderPatients() {
+            const tbody = document.getElementById("patient-table-body");
+            tbody.innerHTML = PATIENTS.map(p => `
+                <tr>
+                    <td><strong>${p.code}</strong> (${p.age})</td>
+                    <td>${p.region}</td>
+                    <td>${p.diagnosis}<br><span style="font-size: 11px; color: #a5b4fc;">${p.regimen}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--emerald);">${p.tsh}</span></td>
+                    <td><span class="streak-badge">✓ ${p.ft4}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; color: #c7d2fe;">${p.saving}</span></td>
+                    <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 11px;" onclick="openSubscriptionModal()">Karta</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function calculateThyroid() {
+            const tsh = parseFloat(document.getElementById("tsh-slider").value);
+            const ft4 = parseFloat(document.getElementById("ft4-slider").value);
+            const dose = parseInt(document.getElementById("dose-slider").value);
+            const isPregnant = document.getElementById("pregnant-check").checked;
+
+            document.getElementById("tsh-display").innerText = `${tsh.toFixed(2)} µIU/mL`;
+            document.getElementById("ft4-display").innerText = `${ft4.toFixed(1)} pmol/L`;
+            document.getElementById("dose-display").innerText = `${dose} mkg`;
+
+            const badge = document.getElementById("tsh-badge");
+            const callout = document.getElementById("status-callout");
+            const calloutTitle = document.getElementById("callout-title");
+            const calloutDesc = document.getElementById("callout-desc");
+
+            const targetUpper = isPregnant ? 2.5 : 4.0;
+
+            if (tsh > 10.0) {
+                badge.innerText = `TSH: ${tsh} (Juda Yuqori)`;
+                badge.style.borderColor = "var(--rose)";
+                badge.style.color = "var(--rose)";
+                callout.className = "callout callout-overdose";
+                calloutTitle.innerHTML = `🚨 Yaqqol Gipoterioz: TSH = ${tsh} µIU/mL`;
+                calloutDesc.innerHTML = `TSH me'yordan bir necha barobar yuqori. Moddalar almashinuvi sekinlashgan, charchoq va shishlar kuchaygan. Dozani ${dose} mkg dan ${dose + 25} mkg ga oshirish va tonggi suv intizomini tekshirish tavsiya etiladi.`;
+            } else if (tsh > targetUpper) {
+                badge.innerText = `TSH: ${tsh} (Yuqori)`;
+                badge.style.borderColor = "var(--amber)";
+                badge.style.color = "var(--amber)";
+                callout.className = "callout callout-subclinical";
+                calloutTitle.innerHTML = `⚠️ Subklinik Gipoterioz: TSH = ${tsh} µIU/mL`;
+                calloutDesc.innerHTML = `TSH me'yoriy koridordan (0.4–${targetUpper}) yuqori. Bemor dorini choy yoki kofe bilan ichgani sababli dori so'rilmasligi mumkin. Avval tongda FAQAT SUV bilan ichish qoidasiga amal qiling.`;
+            } else if (tsh < 0.4) {
+                badge.innerText = `TSH: ${tsh} (Doza Oshgan)`;
+                badge.style.borderColor = "var(--rose)";
+                badge.style.color = "var(--rose)";
+                callout.className = "callout callout-overdose";
+                calloutTitle.innerHTML = `⚠️ Doza Haddan Tashqari Yuqori! (TSH: ${tsh} µIU/mL)`;
+                calloutDesc.innerHTML = `TSH 0.4 dan past. Dori dozasi oshib ketgan. Yurak urishi tezlashishi (taxikardiya) va titrash xavfi mavjud. Dozani kamaytirish lozim.`;
+            } else {
+                badge.innerText = `TSH: ${tsh} (Optimal)`;
+                badge.style.borderColor = "var(--emerald)";
+                badge.style.color = "var(--emerald)";
+                callout.className = "callout callout-optimal";
+                calloutTitle.innerHTML = `✅ Optimal Gormonal Balans: TSH = ${tsh} µIU/mL`;
+                calloutDesc.innerHTML = `TSH a'lo darajada. Tavsiya etilgan oraliq: 0.4–${targetUpper} µIU/mL. Bemor to'liq remissiyada. Joriy doza va tonggi suv intizomini davom ettiring.`;
+            }
+        }
+
+        function updateBeverageSim() {
+            const val = document.getElementById("bev-select").value;
+            const bar = document.getElementById("absorb-bar");
+            const text = document.getElementById("absorb-percent");
+
+            if (val === "water") {
+                bar.style.width = "88%";
+                bar.style.background = "linear-gradient(90deg, #10b981, #06b6d4)";
+                text.innerText = "88% (A'lo So'rilish)";
+                text.style.color = "var(--emerald)";
+            } else if (val === "tea") {
+                bar.style.width = "35%";
+                bar.style.background = "var(--amber)";
+                text.innerText = "35% (Tanninlar blokladi)";
+                text.style.color = "var(--amber)";
+            } else if (val === "coffee") {
+                bar.style.width = "30%";
+                bar.style.background = "var(--rose)";
+                text.innerText = "30% (Kofein so'rilishni buzdi)";
+                text.style.color = "var(--rose)";
+            } else {
+                bar.style.width = "22%";
+                bar.style.background = "var(--rose)";
+                text.innerText = "22% (Kalsiy erimaydigan qildi)";
+                text.style.color = "var(--rose)";
+            }
+        }
+
+        function openSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "flex";
+        }
+
+        function closeSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "none";
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

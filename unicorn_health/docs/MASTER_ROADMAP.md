@@ -265,8 +265,11 @@
   - [x] Nefrologiya, Surunkali Buyrak Yetishmovchiligi & Dializ Fosfat Bog'lovchilar Dvigateli (shared/nephrology_ckd_engine.py)
   - [x] DoriQuti Nefrologiya & Dializ Fosfat Qalqoni Portali (doriquti/nephrology_ckd_portal.html)
   - [x] Sevelamer 800mg "ovqatning 1-qoshig'i bilan" qabul stikerlari, Ca x P kalsifikatsiya indeksi va 60% arzonlashtirilgan ta'minot
-  - [x] 159/159 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 63 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Endokrinologiya, Gipoterioz & L-Tiroksin Tonggi Suv Qalqoni Dvigateli (shared/endocrinology_thyroid_engine.py)
+  - [x] DoriQuti Endokrinologiya & L-Tiroksin Qalqoni Portali (doriquti/endocrinology_thyroid_portal.html)
+  - [x] Euthyrox 06:30 tonggi toza suv lentasi, kofe/choy va 4 soatlik temir/kalsiy to'sig'i, TSH titrlash kalkulyatori va 67% arzon obuna
+  - [x] 161/161 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 64 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 
