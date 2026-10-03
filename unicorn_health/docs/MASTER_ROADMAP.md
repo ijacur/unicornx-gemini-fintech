@@ -274,8 +274,11 @@
   - [x] Dermatologiya, Psoriaz & Atopik Dermatit Biologik Qalqon Dvigateli (shared/dermatology_psoriasis_engine.py)
   - [x] DoriQuti Dermatologiya, Psoriaz & Fototerapiya Portali (doriquti/dermatology_psoriasis_portal.html)
   - [x] PASI kalkulyatori, 4-haftalik Steroid Tormozi (TSW oldini olish), Sekukinumab/Dupilumab +2°C..+8°C sovuq zanjir va ArzonLab 311nm fototerapiyada 4.35M UZS tejash
-  - [x] 165/165 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 66 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Urologiya, BPH Prostata Giperplaziyasi & PSA Onko-Korreksiya Dvigateli (shared/urology_bph_engine.py)
+  - [x] DoriQuti Urologiya BPH & PSA Onko-Qalqoni Portali (doriquti/urology_bph_portal.html)
+  - [x] IPSS shkalasi, Finasteridda saratonni o'tkazib yubormaslik uchun PSA x 2 korreksiyasi, Tamsulozin + Finasterid kechki dual lentasi va 3.15M UZS yillik tejamkorlik
+  - [x] 167/167 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 67 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 
