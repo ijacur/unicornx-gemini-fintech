@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ortopediya, Bo'g'imlar & Gialuron Inyeksiyalari | ArzonLab & DoriQuti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #090c14;
+            --surface: #111726;
+            --surface-hover: #192238;
+            --border: #212c47;
+            --amber: #f59e0b;
+            --amber-glow: rgba(245, 158, 11, 0.2);
+            --emerald: #10b981;
+            --sky: #38bdf8;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(17, 23, 38, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--amber);
+            color: var(--amber);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: var(--amber);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(17, 23, 38, 0.9), rgba(245, 158, 11, 0.12));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 32px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: "🦴";
+            font-size: 190px;
+            position: absolute;
+            right: -20px;
+            bottom: -40px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .hero-h1 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff, #fde68a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .stat-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: rgba(9, 12, 20, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--amber);
+            margin-bottom: 4px;
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            background: #090c14;
+            border: 1px solid var(--border);
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-select:focus, .form-input:focus {
+            border-color: var(--amber);
+        }
+
+        .slider-control {
+            width: 100%;
+            accent-color: var(--amber);
+            margin: 8px 0;
+        }
+
+        .comparison-box {
+            background: #090c14;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .comp-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .comp-row:last-child {
+            border-bottom: none;
+        }
+
+        .cost-bad {
+            color: var(--rose);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cost-good {
+            color: var(--emerald);
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+        }
+
+        .savings-highlight {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.1));
+            border: 1px solid var(--amber);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--amber);
+            color: #090c14;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .btn-action:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .tag-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+        .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+        .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--rose); }
+
+        .alert-card {
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .alert-card.rose {
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid var(--rose);
+            color: #fecdd3;
+        }
+
+        .alert-card.emerald {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--emerald);
+            color: #a7f3d0;
+        }
+
+        .alert-card.amber {
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--amber);
+            color: #fde68a;
+        }
+
+        .product-card {
+            background: #090c14;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover, .product-card.selected {
+            border-color: var(--amber);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .product-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media (max-width: 900px) {
+            .hero-banner { grid-template-columns: 1fr; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .stat-strip { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🦴</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">ArzonLab & DoriQuti Bo'g'imlar va Ortopediya</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">Gialuron Inyeksiyalari, Xondroprotektorlar & WOMAC Funksional Indeksi</p>
+            </div>
+            <span class="badge-pill">OARSI 2024</span>
+        </div>
+        <div class="header-links">
+            <a href="../index.html">← Ekotizim Bosh Sahifasi</a>
+            <a href="index.html">ArzonLab</a>
+            <a href="../doriquti/index.html">DoriQuti</a>
+            <a href="price_comparison_matrix.html">Narx Matritsasi</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO BANNER -->
+        <section class="hero-banner">
+            <div>
+                <span class="badge-pill" style="margin-bottom: 12px; display: inline-block;">Tizza Bo'g'imi Artrozi (Gonartroz) Nazorati</span>
+                <h2 class="hero-h1">Bo'g'im Ichiga Gialuron Inyeksiyalari & Xondroprotektorlar: 59% Arzon</h2>
+                <p class="hero-p">
+                    O'zbekistonda 2.8 milliondan ortiq fuqaro tizza bo'g'imlaridagi kuchli og'riq va qisirlashdan aziyat chekadi. Dorixonalarda 1,250,000 so'mgacha sotiladigan yuqori molekulyar gialuron shpritslarini ArzonLab orqali 520,000 so'mga oling, oshqozonga xavfsiz DoriQuti xondro-paketlari bilan boylamlarni tiklang va operatsiyaning oldini oling.
+                </p>
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <a href="#womac-sec" style="background: var(--amber); color: #090c14; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 13px;">WOMAC Testini O'tish ↓</a>
+                    <a href="#matrix-sec" style="background: rgba(255,255,255,0.08); color: #ffffff; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 13px; border: 1px solid var(--border);">Inyeksiyalar Narx Matritsasi</a>
+                </div>
+            </div>
+            <div>
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <div class="stat-val">58.4%</div>
+                        <div class="stat-lbl">Gialuron Tejovi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">12 Oy</div>
+                        <div class="stat-lbl">Bo'g'im Moylanishi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">0 Oshqozon</div>
+                        <div class="stat-lbl">Yarasi Xavfi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">WOMAC</div>
+                        <div class="stat-lbl">Xalqaro Shkala</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN 2 COLUMNS: WOMAC SCORE CALCULATOR + HYALURONIC MATRIX -->
+        <section class="grid-2col" id="womac-sec">
+            
+            <!-- WOMAC CALCULATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>📊</span>
+                        <span>WOMAC Tizza Bo'g'imi Funksional Indeksi</span>
+                    </div>
+                    <span class="status-tag tag-amber">Xalqaro Standart (0-96)</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Yurish paytidagi og'riq: <span id="valWalk" style="color: var(--amber); font-weight: 800;">12</span> / 20 ball</label>
+                    <input type="range" min="0" max="20" value="12" class="slider-control" id="inputWalk" oninput="calcWOMAC()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Zinadan ko'tarilish/tushishdagi og'riq: <span id="valStairs" style="color: var(--amber); font-weight: 800;">14</span> / 20 ball</label>
+                    <input type="range" min="0" max="20" value="14" class="slider-control" id="inputStairs" oninput="calcWOMAC()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ertalabki bo'g'im qotib qolishi (minut): <span id="valStiff" style="color: #ffffff; font-weight: 800;">35</span> daqiqa</label>
+                    <input type="range" min="0" max="90" value="35" class="slider-control" id="inputStiff" oninput="calcWOMAC()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Kundalik harakatdagi cheklanish darajasi: <span id="valDiff" style="color: #ffffff; font-weight: 800;">16</span> / 36 ball</label>
+                    <input type="range" min="0" max="36" value="16" class="slider-control" id="inputDiff" oninput="calcWOMAC()">
+                </div>
+
+                <div id="womacResultBox">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- INJECTION PRICE MATRIX & SAVINGS -->
+            <div class="panel" id="matrix-sec">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>💉</span>
+                        <span>Bo'g'im Ichiga Inyeksiyalar Narx Matritsasi</span>
+                    </div>
+                    <span class="status-tag tag-green">GMP Distribyutor Narxi</span>
+                </div>
+
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+                    Shahardagi dorixonalar ustama narxlarisiz, steril sovuq zanjir kafolati bilan:
+                </p>
+
+                <div id="injectionList">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div class="comparison-box">
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">Dorixonada Gialuron + 6 oylik xondro:</span>
+                        <span class="cost-bad" id="calcJointRetail">3,770,000 UZS</span>
+                    </div>
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">ArzonLab & DoriQuti kompleks to'plami:</span>
+                        <span class="cost-good" id="calcJointUnicorn">1,510,000 UZS</span>
+                    </div>
+                    <div class="comp-row" style="background: rgba(16, 185, 129, 0.08); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 800; color: #ffffff;">Bemor cho'ntagida qoladigan sof tejov:</span>
+                        <span class="cost-good" id="calcJointSaved">2,260,000 UZS (59.9%)</span>
+                    </div>
+                </div>
+
+                <button class="btn-action" onclick="bookJointInjectionVoucher()">
+                    <span>🏥</span>
+                    <span>SamDTU UZI Nazoratidagi Inyeksiyaga Vaucher Olish</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- CHONDRO-REHAB DAILY POUCH SHOWCASE -->
+        <section class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>💊</span>
+                    <span>DoriQuti Oshqozon-Himoyalangan Xondro-Reabilitatsiya Blisteri</span>
+                </div>
+                <span class="status-tag tag-green">0% Oshqozon Yarasi Xavfi</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+                <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
+                    <div style="font-size: 26px; margin-bottom: 6px;">🦴</div>
+                    <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Glukozamin 1500mg</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Tog'ay to'qimasi sintezi va yemirilishini sekinlashtirish</div>
+                </div>
+                <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
+                    <div style="font-size: 26px; margin-bottom: 6px;">💧</div>
+                    <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Xondroitin 1200mg</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Sinovial bo'g'im suyuqligi namligini ushlab turish</div>
+                </div>
+                <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
+                    <div style="font-size: 26px; margin-bottom: 6px;">🧬</div>
+                    <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Kollagen II Tipi 500mg</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Bo'g'im kapsulasi va boylamlarning elastikligi</div>
+                </div>
+                <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
+                    <div style="font-size: 26px; margin-bottom: 6px;">🛡️</div>
+                    <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Seleksoksib 100mg</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Selektiv COX-2 — an'anaviy diklofenakka qaraganda oshqozon qonash xavfi 4x kam</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const INJECTIONS = [
+            { id: "hyaluron-crosslinked-high", name: "Kross-Linklangan Gialuron Kislotasi (2.5%, 3.0 ml)", desc: "Gonartroz 2-3 bosqich • 12 oylik bo'g'im moylanishi", retail: 1250000, arzonlab: 520000 },
+            { id: "hyaluron-standard-linear", name: "Standart Chiziqli Natriy Gialuronat (1.0%, 2.0 ml x 3)", desc: "Gonartroz 1-2 bosqich • 6 oylik ta'sir", retail: 980000, arzonlab: 410000 },
+            { id: "prp-ortho-kit", name: "PRP Trombotsitlarga Boy Plazma To'plami", desc: "Boylamlar cho'zilishi va regenerativ terapiya", retail: 850000, arzonlab: 350000 }
+        ];
+
+        let selectedInj = INJECTIONS[0];
+
+        function renderInjections() {
+            const list = document.getElementById('injectionList');
+            list.innerHTML = '';
+            INJECTIONS.forEach(item => {
+                const isSel = item.id === selectedInj.id;
+                const div = document.createElement('div');
+                div.className = `product-card ${isSel ? 'selected' : ''}`;
+                div.onclick = () => { selectedInj = item; renderInjections(); calcWOMAC(); };
+                div.innerHTML = `
+                    <div class="product-title">
+                        <span>💉 ${item.name}</span>
+                        <span style="color: var(--emerald); font-family: 'JetBrains Mono', monospace; font-size: 14px;">${item.arzonlab.toLocaleString()} UZS</span>
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between;">
+                        <span>${item.desc}</span>
+                        <span style="text-decoration: line-through; color: var(--rose);">${item.retail.toLocaleString()} UZS</span>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function calcWOMAC() {
+            const walk = parseInt(document.getElementById('inputWalk').value) || 0;
+            const stairs = parseInt(document.getElementById('inputStairs').value) || 0;
+            const stiff = parseInt(document.getElementById('inputStiff').value) || 0;
+            const diff = parseInt(document.getElementById('inputDiff').value) || 0;
+
+            document.getElementById('valWalk').innerText = walk;
+            document.getElementById('valStairs').innerText = stairs;
+            document.getElementById('valStiff').innerText = stiff;
+            document.getElementById('valDiff').innerText = diff;
+
+            const stiffScore = Math.min(20, Math.round(stiff / 3.0));
+            const total = Math.min(96, walk + stairs + stiffScore + diff);
+
+            let alertClass = 'emerald';
+            let stage = "1-Bosqich: Boshlang'ich Artroz ✅";
+            let rec = "Konservativ parhez, bo'g'im mashqlari va 3 oylik DoriQuti xondro-paketi yetarli. Jarrohlik xavfi nol.";
+
+            if (total > 72) {
+                alertClass = 'rose';
+                stage = "4-Bosqich: Terminal Artroz (Ankiloz) 🚨";
+                rec = "Bo'g'im tog'ayi to'liq yemirilgan. SamDTU Travmatologiya markazida shoshilinch tizza bo'g'imini endoprotezlash ko'rsatilgan.";
+            } else if (total > 48) {
+                alertClass = 'rose';
+                stage = "3-Bosqich: Og'ir Gonartroz ⚠️";
+                rec = "Kross-linklangan Gialuron inyeksiyasi (3.0 ml) + UZI nazoratida bo'g'im punksiyasi va 6 oylik xondroprotektor shart.";
+            } else if (total > 24) {
+                alertClass = 'amber';
+                stage = "2-Bosqich: O'rtacha Gonartroz ⚠️";
+                rec = "Gialuron inyeksiyasi tavsiya etiladi. O'z vaqtida moylash operatsiyani 5-7 yilga kechiktiradi!";
+            }
+
+            document.getElementById('womacResultBox').innerHTML = `
+                <div class="alert-card ${alertClass}">
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">WOMAC: ${total} / 96 ball • ${stage}</div>
+                        <div>${rec}</div>
+                    </div>
+                </div>
+            `;
+
+            // Update calculations
+            const pouchRetail = 420000 * 6;
+            const pouchDoriquti = 165000 * 6;
+            const totalRetail = selectedInj.retail + pouchRetail;
+            const totalUnicorn = selectedInj.arzonlab + pouchDoriquti;
+            const netSaved = totalRetail - totalUnicorn;
+            const pct = Math.round((netSaved / totalRetail) * 100);
+
+            document.getElementById('calcJointRetail').innerText = totalRetail.toLocaleString() + ' UZS';
+            document.getElementById('calcJointUnicorn').innerText = totalUnicorn.toLocaleString() + ' UZS';
+            document.getElementById('calcJointSaved').innerText = netSaved.toLocaleString() + ' UZS (' + pct + '%)';
+        }
+
+        function bookJointInjectionVoucher() {
+            alert(`✅ ${selectedInj.name} uchun ArzonLab vaucheri rasmiylashtirildi!\n\nNarxi: ${selectedInj.arzonlab.toLocaleString()} UZS (Dorixonada: ${selectedInj.retail.toLocaleString()} UZS)\nManzil: SamDTU Travmatologiya va Ortopediya klinikasi\nInyeksiya: Mutaxassis shifokor tomonidan steril UZI nazorati ostida amalga oshiriladi.`);
+        }
+
+        // Init
+        renderInjections();
+        calcWOMAC();
+    </script>
+</body>
+</html>

@@ -247,8 +247,11 @@
   - [x] Bronxial Astma & SO'OK Inhalyator Qalqoni Dvigateli (shared/pulmonary_asthma_engine.py)
   - [x] DoriQuti Bronxial Astma & SO'OK Inhalyator Portali (doriquti/pulmonary_asthma_portal.html)
   - [x] Chang bo'ronlari va PM2.5 havoning ifloslanishida nafas qisishiga qarshi: Simbikort + Salbutamol + Bepul Spayser, 61% arzon obuna va pikfloumetriya zonasi
-  - [x] 147/147 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 57 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Ortopediya, Bo'g'imlar & Gialuron Inyeksiyalari Dvigateli (shared/orthopedic_joint_engine.py)
+  - [x] ArzonLab & DoriQuti Bo'g'imlar & Gialuron Inyeksiyalari Portali (arzonlab/orthopedic_joint_portal.html)
+  - [x] Tizza artrozi (gonartroz) operatsiyasini 5-7 yilga kechiktirish: 58% arzon kross-linklangan gialuron shpritslari, WOMAC shkalasi va oshqozon-xavfsiz xondroprotektor paketi
+  - [x] 149/149 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 58 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 
