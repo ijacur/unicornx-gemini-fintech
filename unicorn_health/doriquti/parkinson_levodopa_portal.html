@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parkinson & Levodopa On/Off Qalqoni | DoriQuti & ArzonLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d1a;
+            --surface: #0e172a;
+            --surface-hover: #17243e;
+            --border: #1e2d4a;
+            --teal: #14b8a6;
+            --teal-glow: rgba(20, 184, 166, 0.25);
+            --emerald: #10b981;
+            --sky: #0ea5e9;
+            --amber: #f59e0b;
+            --rose: #ef4444;
+            --purple: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(14, 23, 42, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(20, 184, 166, 0.15);
+            border: 1px solid var(--teal);
+            color: var(--teal);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: var(--teal);
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 36px 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(99, 102, 241, 0.08) 50%, rgba(14, 23, 42, 0) 100%);
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 440px;
+            height: 440px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(to right, #f8fafc, #5eead4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 840px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .metric-card {
+            background: rgba(14, 23, 42, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .metric-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px;
+            font-weight: 800;
+            color: #5eead4;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            margin-bottom: 36px;
+        }
+
+        @media (max-width: 960px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 4px;
+            outline: none;
+            margin-top: 6px;
+            accent-color: var(--teal);
+        }
+
+        .value-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--teal);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-teal {
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            color: white;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.35);
+        }
+
+        .btn-teal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+            border-color: var(--teal);
+        }
+
+        /* Callout Cards */
+        .callout {
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 20px;
+            border-left: 4px solid;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .callout-optimal {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--emerald);
+            color: #d1fae5;
+        }
+
+        .callout-moderate {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: var(--sky);
+            color: #e0f2fe;
+        }
+
+        .callout-dyskinesia {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: var(--amber);
+            color: #fef3c7;
+        }
+
+        .callout-wearing-off {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: var(--rose);
+            color: #fee2e2;
+        }
+
+        /* 4-Slot Timeline Box */
+        .slot-timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 18px 0;
+        }
+
+        @media (max-width: 640px) {
+            .slot-timeline {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .slot-card {
+            background: #090f1e;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .slot-card.active-slot {
+            border-color: var(--teal);
+            background: rgba(20, 184, 166, 0.12);
+        }
+
+        .slot-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 800;
+            color: #5eead4;
+            margin-bottom: 4px;
+        }
+
+        /* Tap Test Box */
+        .tap-box {
+            background: #090f1e;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .tap-btn {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #14b8a6, #0d9488);
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin: 12px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4);
+            user-select: none;
+        }
+
+        .tap-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* Patient Table */
+        .patient-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .patient-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: #090f1e;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .patient-table td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--emerald);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Modal Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--teal);
+            border-radius: 24px;
+            max-width: 540px;
+            width: 100%;
+            padding: 32px;
+            box-shadow: 0 20px 50px rgba(20, 184, 166, 0.3);
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(20, 184, 166, 0.2);
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🌿</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; letter-spacing: -0.3px;">UNICORN HEALTH: DoriQuti + ArzonLab</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">SamDTU & School 21 • Shukurov Jasur Otabek o'g'li</p>
+            </div>
+            <span class="badge-pill">Sprint 68 • Portal 62</span>
+        </div>
+        <nav class="header-links">
+            <a href="/">Bosh Sahifa</a>
+            <a href="/arthritis">Revmatologiya MTX</a>
+            <a href="/epilepsy">Epilepsiya TDM</a>
+            <a href="/cardio">Kardio Reab</a>
+            <a href="/glaucoma">Ko'z Glaukoma</a>
+            <a href="/tests/system_healthcheck.py" style="color: var(--emerald);">155/155 Tests Pass</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-title">Parkinson Kasalligi, Levodopa On/Off Fenomeni & Oqsil-Dori Vaqt Qalqoni</div>
+            <p class="hero-subtitle">
+                O'zbekistonda 65,000 dan ortiq fuqaro Parkinson kasalligidan aziyat chekadi. Oltin standart dori — <strong>Nakom / Madopar (Levodopa)</strong> qisqa yarim yemirilish davriga (90 daqiqa) ega bo'lib, kasallik rivojlangani sari bemorda <strong>"Wearing-Off" (harakat qotib qolishi)</strong> va <strong>"On-Off" tebranishlari</strong> yuzaga keladi. Eng jiddiy xato: dorini go'sht/oqsil bilan birga ichish uning so'rilishini 80% ga to'xtatadi! DoriQuti 4-slotli vaqtli paketlari orqali harakat erkinligi 100% tiklanadi.
+            </p>
+
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <div class="metric-num">07:00 • 11:00 • 15:00 • 19:00</div>
+                    <div class="metric-label">4-Slotli Aniq Vaqtli Levodopa Taqsimoti</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">Ovqatdan 45 Daqiqa Oldin</div>
+                    <div class="metric-label">LNAA Oqsil Raqobati To'sig'idan Himoya</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">59.2% Arzon</div>
+                    <div class="metric-label">Nakom & Madopar To'g'ridan-to'g'ri Ta'minot</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">2,264,000 UZS</div>
+                    <div class="metric-label">O'rtacha Yillik Dori va MRT Tejamkorligi</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN INTERACTIVE SECTION -->
+        <div class="grid-2">
+
+            <!-- LEFT: MOTOR FLUCTUATION & WEARING-OFF DIARY -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>⏱️</span> Kunlik Motor Fluktuatsiya (On/Off) Kundaligi
+                    </div>
+                    <span id="motor-badge" class="badge-pill" style="border-color: var(--teal); color: var(--teal);">On: 62.5% | Off: 25.0%</span>
+                </div>
+
+                <!-- Good On Hours Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Yaxshi Harakat Soatlari ("Good On" - Tremor yo'q, erkin yurish)</span>
+                        <span id="good-display" class="value-display">10.0 soat</span>
+                    </div>
+                    <input type="range" id="good-slider" class="range-slider" min="0" max="16" step="0.5" value="10.0" oninput="calculateFluctuations()">
+                </div>
+
+                <!-- On with Dyskinesia Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Majburiy Harakatlar Soatlari ("On with Dyskinesia" - Nojo'ya tebranish)</span>
+                        <span id="dysk-display" class="value-display" style="color: var(--amber);">2.0 soat</span>
+                    </div>
+                    <input type="range" id="dysk-slider" class="range-slider" min="0" max="8" step="0.5" value="2.0" oninput="calculateFluctuations()">
+                </div>
+
+                <!-- Frozen Off Hours Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Toshday Qotib Qolish Soatlari ("Off" - Harakatsizlik, kishanlangan holat)</span>
+                        <span id="off-display" class="value-display" style="color: var(--rose);">4.0 soat</span>
+                    </div>
+                    <input type="range" id="off-slider" class="range-slider" min="0" max="10" step="0.5" value="4.0" oninput="calculateFluctuations()">
+                </div>
+
+                <!-- DYNAMIC CLINICAL EVALUATION BOX -->
+                <div id="status-callout" class="callout callout-moderate">
+                    <div style="font-weight: 700; font-size: 15px; margin-bottom: 6px;" id="callout-title">
+                        ℹ️ O'rtacha Motor Tebranish: Ovqat-Dori Oralig'ini Nazorat Qiling
+                    </div>
+                    <p id="callout-desc" style="font-size: 13px;">
+                        'Off' holati 25.0% (4.0 soat). Ko'p hollarda bu ovqatdagi oqsil bilan dorining to'qnashuvidan kelib chiqadi. Go'shtli taomlarni faqat kechki ovqatga qoldirib, kunduzi Levodopani och qoringa ichish tavsiya etiladi.
+                    </p>
+                </div>
+
+                <!-- ORDER BUTTON -->
+                <div style="margin-top: 24px;">
+                    <button class="btn btn-teal" onclick="openSubscriptionModal()">
+                        <span>📦</span> DoriQuti 4-Slotli Parkinson Paketini Buyurtma Qilish (98,000 UZS/oy)
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: FOOD-DRUG TIMING SHIELD & 4-SLOT POUCH -->
+            <div class="panel" style="border-color: rgba(20, 184, 166, 0.4);">
+                <div class="panel-header">
+                    <div class="panel-title" style="color: #5eead4;">
+                        <span>🥩</span> Oqsil-Dori To'qnashuvi & 4-Slotli Taqsimot
+                    </div>
+                    <span class="badge-pill" style="border-color: var(--emerald); color: var(--emerald); background: rgba(16, 185, 129, 0.1);">LNAA Himoyasi</span>
+                </div>
+
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+                    Levodopa va go'sht tarkibidagi aminokislotalar ichakda bitta eshik (LNAA) orqali so'riladi. Agar bemor dorini ovqat bilan birga ichsa, dori qonga kirmaydi!
+                </p>
+
+                <!-- 4 SLOTS TIMELINE -->
+                <div class="slot-timeline">
+                    <div class="slot-card active-slot">
+                        <div class="slot-time">07:00</div>
+                        <strong>1-Slot</strong>
+                        <div style="color: var(--text-muted); font-size: 11px;">07:45 Nonushta</div>
+                    </div>
+                    <div class="slot-card active-slot">
+                        <div class="slot-time">11:00</div>
+                        <strong>2-Slot</strong>
+                        <div style="color: var(--text-muted); font-size: 11px;">11:45 Tushlik</div>
+                    </div>
+                    <div class="slot-card active-slot">
+                        <div class="slot-time">15:00</div>
+                        <strong>3-Slot</strong>
+                        <div style="color: var(--text-muted); font-size: 11px;">Choy/Peshin</div>
+                    </div>
+                    <div class="slot-card active-slot">
+                        <div class="slot-time">19:00</div>
+                        <strong>4-Slot</strong>
+                        <div style="color: var(--text-muted); font-size: 11px;">19:45 Kechki</div>
+                    </div>
+                </div>
+
+                <!-- FOOD TIMING SIMULATOR -->
+                <div style="margin-top: 18px; padding: 16px; background: #090f1e; border-radius: 14px; border: 1px solid var(--border);">
+                    <div style="font-size: 13px; font-weight: 700; color: #5eead4; margin-bottom: 8px;">
+                        🔬 Oqsil Vaqti Simulyatori:
+                    </div>
+                    <select id="food-sim-select" style="width: 100%; background: #070d1a; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-size: 13px;" onchange="updateFoodSim()">
+                        <option value="correct">✅ Qoidaga binoan: Nonushtadan 45 daqiqa oldin och qoringa</option>
+                        <option value="wrong">❌ Xato: Palov / Go'shtli ovqat bilan birga ichildi</option>
+                    </select>
+                    <div id="food-sim-result" style="font-size: 12px; color: #a7f3d0; margin-top: 10px; line-height: 1.5;">
+                        Dori bo'sh oshqozondan to'siqsiz so'rilib, miya qon to'sig'idan (BBB) o'tadi. Harakat erkinligi ta'minlanadi.
+                    </div>
+                </div>
+
+                <!-- TAP TEST SIMULATOR -->
+                <div class="tap-box">
+                    <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">
+                        📱 Motor Chaqqonlik & Tremor Testi (10 soniya)
+                    </div>
+                    <div id="tap-count-display" style="font-family: 'JetBrains Mono'; font-size: 28px; font-weight: 800; color: #5eead4; margin: 6px 0;">0 ta bosish</div>
+                    <button class="tap-btn" onclick="registerTap()">BOSING</button>
+                    <div style="font-size: 11px; color: var(--text-muted);">
+                        Barmoq chaqqonligi va motor tezligini baholash uchun navbatma-navbat bosing.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ECONOMICS: DORI QUTI NAKOM & ARZONLAB BRAIN DIAGNOSTICS -->
+        <div class="panel" style="margin-bottom: 36px;">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>💰</span> DoriQuti Levodopa & ArzonLab Neyrologik Paneli: Tejamkorlik
+                </div>
+                <span class="badge-pill" style="border-color: var(--emerald); color: var(--emerald);">Har Bir Oilaga Yiliga 2.2 – 5.3 Mln So'm Sof Foyda</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Nakom 250mg (Levodopa/Karbidopa)</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 240,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">98,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 142,000 UZS tejamkorlik (-59.2%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>1,704,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Madopar 200mg/50mg (Benserazid)</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 380,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">155,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 225,000 UZS tejamkorlik (-59.2%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>2,700,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">ArzonLab Bosh Miya MRT (1.5T/3.0T)</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Xususiy klinikalar: 580,000 UZS</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--teal); font-family: 'JetBrains Mono';">240,000 UZS</div>
+                    <div style="font-size: 12px; color: #5eead4; margin-top: 4px;">Neyrodegeneratsiya tekshiruvi (-58.6%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Bir martalik tejov: <strong>340,000 UZS</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVE PATIENT REGISTRY -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>📋</span> DoriQuti 4-Slotli Parkinson Reestri & Harakat Ko'rsatkichlari
+                </div>
+                <span class="badge-pill" style="border-color: var(--teal); color: var(--teal);">SamDTU Neyrologiya Bazasi</span>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="patient-table">
+                    <thead>
+                        <tr>
+                            <th>Bemor Kodi & Yoshi</th>
+                            <th>Hudud</th>
+                            <th>Tashxis & Rejim</th>
+                            <th>On / Off Balansi</th>
+                            <th>Oqsil Intizomi</th>
+                            <th>Yillik Tejov</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient-table-body">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL ORDER SUBSCRIPTION -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">📦</div>
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">DoriQuti 4-Slotli Parkinson Obunasi Faollashtirildi</h3>
+            <p id="modal-desc" style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                Nakom 250mg (07:00, 11:00, 15:00, 19:00) 4 mahal alohida muhrlangan hermetik paketlarda har oy yetkaziladi. Narxi: 98,000 UZS/oy (240,000 UZS o'rniga).
+            </p>
+            <div style="background: #090f1e; padding: 14px; border-radius: 12px; text-align: left; margin-bottom: 20px; font-size: 12px; color: var(--text-muted);">
+                <div>📅 <strong>1-Yetkazib Berish:</strong> Ertaga 09:00 - 11:00 da bepul kuryer</div>
+                <div>🔔 <strong>Telegram & Ovozli Qo'ng'iroq:</strong> Har bir slotdan 10 daqiqa oldin eslatma</div>
+                <div>🥩 <strong>Oqsil Ogohlantirishi:</strong> "Go'shtdan 45 daqiqa oldin iching" belgisi bilan</div>
+            </div>
+            <button class="btn btn-teal" onclick="closeSubscriptionModal()">Tushundim, Rahmat</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const PATIENTS = [
+            {
+                code: "PD-UZ-1940",
+                age: "67 yosh",
+                region: "Samarqand shahri, Registon",
+                diagnosis: "Parkinson 3-bosqich (Tremor)",
+                regimen: "Nakom 250mg (4 mahal)",
+                balance: "On: 11.5s | Off: 3.0s",
+                protein: "Nonushtadan 45 min oldin",
+                saving: "2,264,000 UZS/yil"
+            },
+            {
+                code: "PD-UZ-2851",
+                age: "72 yosh",
+                region: "Toshkent viloyati, Yangiyo'l",
+                diagnosis: "Akinetik-Rigid Shakl",
+                regimen: "Madopar 200mg (4 mahal)",
+                balance: "On: 12.0s | Off: 2.5s",
+                protein: "Oqsil kechga surilgan",
+                saving: "3,260,000 UZS/yil"
+            },
+            {
+                code: "PD-UZ-3490",
+                age: "61 yosh",
+                region: "Navoiy shahri",
+                diagnosis: "Motor Fluktuatsiyali Parkinson",
+                regimen: "Nakom + Pramipeksol",
+                balance: "On: 13.5s | Off: 1.5s",
+                protein: "100% vaqtli qabul",
+                saving: "5,324,000 UZS/yil"
+            }
+        ];
+
+        function init() {
+            renderPatients();
+            calculateFluctuations();
+        }
+
+        function renderPatients() {
+            const tbody = document.getElementById("patient-table-body");
+            tbody.innerHTML = PATIENTS.map(p => `
+                <tr>
+                    <td><strong>${p.code}</strong> (${p.age})</td>
+                    <td>${p.region}</td>
+                    <td>${p.diagnosis}<br><span style="font-size: 11px; color: var(--teal);">${p.regimen}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; font-weight: 700; color: #5eead4;">${p.balance}</span></td>
+                    <td><span class="streak-badge">✓ ${p.protein}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; color: #a7f3d0;">${p.saving}</span></td>
+                    <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 11px;" onclick="openSubscriptionModal()">Karta</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function calculateFluctuations() {
+            const good = parseFloat(document.getElementById("good-slider").value);
+            const dysk = parseFloat(document.getElementById("dysk-slider").value);
+            const off = parseFloat(document.getElementById("off-slider").value);
+
+            document.getElementById("good-display").innerText = `${good.toFixed(1)} soat`;
+            document.getElementById("dysk-display").innerText = `${dysk.toFixed(1)} soat`;
+            document.getElementById("off-display").innerText = `${off.toFixed(1)} soat`;
+
+            const total = Math.max(1, good + dysk + off);
+            const offPercent = ((off / total) * 100).toFixed(1);
+            const goodPercent = ((good / total) * 100).toFixed(1);
+
+            const badge = document.getElementById("motor-badge");
+            const callout = document.getElementById("status-callout");
+            const calloutTitle = document.getElementById("callout-title");
+            const calloutDesc = document.getElementById("callout-desc");
+
+            badge.innerText = `On: ${goodPercent}% | Off: ${offPercent}%`;
+
+            if (offPercent <= 15 && dysk <= 1.5) {
+                callout.className = "callout callout-optimal";
+                calloutTitle.innerHTML = "✅ A'lo Darajadagi Motor Nazorat: Minimal Qotib Qolish";
+                calloutDesc.innerHTML = `Kunlik 'Off' holati atigi ${offPercent}% (${off} soat). Bemor erkin va mustaqil harakatlanmoqda. DoriQuti 4-slotli rejimini aynan shu daqiqalarda davom ettiring.`;
+                badge.style.borderColor = "var(--emerald)";
+                badge.style.color = "var(--emerald)";
+            } else if (offPercent > 35) {
+                callout.className = "callout callout-wearing-off";
+                calloutTitle.innerHTML = "🚨 O'ta Yuqori Qotib Qolish ('Wearing-Off'): Dozalar Oralig'ini Qisqartirish Zarur";
+                calloutDesc.innerHTML = `Bemor kunning ${offPercent}% qismini (${off} soat) toshday qotib, kishanlangan holatda o'tkazmoqda. Levodopa dozasining ta'sir muddati 2.5-3 soatda tugamoqda. Dozalar oralig'ini 3.5 soatga tushirish yoki Pramipeksol qo'shish tavsiya etiladi.`;
+                badge.style.borderColor = "var(--rose)";
+                badge.style.color = "var(--rose)";
+            } else if (dysk > 2.5) {
+                callout.className = "callout callout-dyskinesia";
+                calloutTitle.innerHTML = "⚠️ Cho'qqi Doza Diskineziyasi: Nojo'ya Tebranishlar Ko'p";
+                calloutDesc.innerHTML = `Doza qonda cho'qqiga chiqqanda ${dysk} soat majburiy tartibsiz harakatlar (diskineziya) kuzatilmoqda. Bitta qabuldagi Levodopa dozasini kamaytirib, qabul sonini ko'paytirish maqsadga muvofiq.`;
+                badge.style.borderColor = "var(--amber)";
+                badge.style.color = "var(--amber)";
+            } else {
+                callout.className = "callout callout-moderate";
+                calloutTitle.innerHTML = "ℹ️ O'rtacha Motor Tebranish: Ovqat-Dori Oralig'ini Nazorat Qiling";
+                calloutDesc.innerHTML = `'Off' holati ${offPercent}% (${off} soat). Ko'p hollarda bu ovqatdagi oqsil bilan dorining to'qnashuvidan kelib chiqadi. Go'shtli taomlarni faqat kechki ovqatga qoldirib, kunduzi Levodopani och qoringa ichish tavsiya etiladi.`;
+                badge.style.borderColor = "var(--sky)";
+                badge.style.color = "var(--sky)";
+            }
+        }
+
+        function updateFoodSim() {
+            const val = document.getElementById("food-sim-select").value;
+            const res = document.getElementById("food-sim-result");
+
+            if (val === "correct") {
+                res.innerHTML = "✅ <strong>Zo'r intizom:</strong> Dori bo'sh oshqozondan to'siqsiz so'rilib, miya qon to'sig'idan (BBB) o'tadi. Harakat erkinligi ta'minlanadi.";
+                res.style.color = "#a7f3d0";
+            } else {
+                res.innerHTML = "❌ <strong>XAVF: OQSILLIK TO'SIQ!</strong> Go'sht va oqsil LNAA tashuvchilarini to'ldirib qo'ydi. Levodopa qonga kirmaydi va 0 ta'sir qiladi! Bemor 2 soat ichida qotib qoladi (Off).";
+                res.style.color = "#fca5a5";
+            }
+        }
+
+        let tapCount = 0;
+        function registerTap() {
+            tapCount++;
+            document.getElementById("tap-count-display").innerText = `${tapCount} ta bosish`;
+        }
+
+        function openSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "flex";
+        }
+
+        function closeSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "none";
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
