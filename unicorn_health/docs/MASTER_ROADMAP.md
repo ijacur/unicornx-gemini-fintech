@@ -279,8 +279,8 @@
   - [x] IPSS shkalasi, Finasteridda saratonni o'tkazib yubormaslik uchun PSA x 2 korreksiyasi, Tamsulozin + Finasterid kechki dual lentasi va 3.15M UZS yillik tejamkorlik
   - [x] 167/167 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
   - [x] 67 ta to'liq interaktiv ekotizim portali (index.html)
-  - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
-  - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
+  - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Serverless Production): https://unicorn-health-uzbekistan.vercel.app
+  - [x] 100% Bulutda Avtonom (MacBook o'chirilsa ham Vercel global CDN tarmog'ida 24/7 ishlaydi; mahalliy port 8080 to'xtatildi)
 
 ---
 *Status: Barcha 100 bosqichli poydevor to'liq ishchi holatda va kengaytirilgan. Har 5 daqiqada avtonom yangilanadi.*
