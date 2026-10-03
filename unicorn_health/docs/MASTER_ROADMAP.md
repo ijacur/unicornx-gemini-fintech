@@ -256,8 +256,11 @@
   - [x] Epilepsiya & Neyrologik Xurujlar Qalqoni va TDM Monitoringi Dvigateli (shared/epilepsy_tdm_engine.py)
   - [x] DoriQuti Epilepsiya & TDM Qalqoni Portali (doriquti/epilepsy_tdm_portal.html)
   - [x] Tor terapevtik indeksga (NTI) ega antikonvulsantlar intizomi (Depakin Chrono, Keppra 60% arzon), qondagi dori konsentratsiyasi (TDM) monitoringi va 103 shoshilinch xuruj taymeri
-  - [x] 153/153 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 60 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Revmatologiya, Revmatoid Artrit & Metotreksat Haftalik Xavfsizlik Qalqoni Dvigateli (shared/rheumatology_arthritis_engine.py)
+  - [x] DoriQuti Revmatologiya & MTX Xavfsizlik Qalqoni Portali (doriquti/rheumatology_arthritis_portal.html)
+  - [x] Metotreksat faqat haftada 1 kun (Juma) va Foliy kislotasi (Yakshanba) xavfsizlik taqsimoti, DAS28-CRP remissiya kalkulyatori va 60% arzon obuna
+  - [x] 155/155 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 61 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 

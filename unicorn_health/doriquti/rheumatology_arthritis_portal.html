@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revmatologiya & Metotreksat Xavfsizlik Qalqoni | DoriQuti & ArzonLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0e172a;
+            --surface-hover: #17243e;
+            --border: #1e2d4a;
+            --gold: #f59e0b;
+            --gold-glow: rgba(245, 158, 11, 0.25);
+            --emerald: #10b981;
+            --sky: #0ea5e9;
+            --rose: #ef4444;
+            --purple: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(14, 23, 42, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 36px 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(139, 92, 246, 0.08) 50%, rgba(14, 23, 42, 0) 100%);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 440px;
+            height: 440px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(to right, #f8fafc, #fcd34d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 840px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .metric-card {
+            background: rgba(14, 23, 42, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .metric-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px;
+            font-weight: 800;
+            color: #fcd34d;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            margin-bottom: 36px;
+        }
+
+        @media (max-width: 960px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 4px;
+            outline: none;
+            margin-top: 6px;
+            accent-color: var(--gold);
+        }
+
+        .value-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #0f172a;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.35);
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+            border-color: var(--gold);
+        }
+
+        .btn-red {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--rose);
+            color: var(--rose);
+        }
+
+        .btn-red:hover {
+            background: var(--rose);
+            color: white;
+        }
+
+        /* Callout Cards */
+        .callout {
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 20px;
+            border-left: 4px solid;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .callout-remission {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--emerald);
+            color: #d1fae5;
+        }
+
+        .callout-low {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: var(--sky);
+            color: #e0f2fe;
+        }
+
+        .callout-moderate {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: var(--gold);
+            color: #fef3c7;
+        }
+
+        .callout-high {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: var(--rose);
+            color: #fee2e2;
+        }
+
+        /* Weekly Safety Schedule Grid */
+        .calendar-week {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin: 18px 0;
+        }
+
+        @media (max-width: 640px) {
+            .calendar-week {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .day-box {
+            background: #090f1d;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 6px;
+            text-align: center;
+            font-size: 11px;
+            display: flex;
+            flex-col: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-box.gold-day {
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px solid var(--gold);
+            color: #fef08a;
+            font-weight: 800;
+        }
+
+        .day-box.green-day {
+            background: rgba(16, 185, 129, 0.15);
+            border: 2px solid var(--emerald);
+            color: #a7f3d0;
+            font-weight: 800;
+        }
+
+        .day-name {
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Patient Table */
+        .patient-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .patient-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: #090f1d;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .patient-table td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--emerald);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Modal Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--gold);
+            border-radius: 24px;
+            max-width: 540px;
+            width: 100%;
+            padding: 32px;
+            box-shadow: 0 20px 50px rgba(245, 158, 11, 0.3);
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🦴</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; letter-spacing: -0.3px;">UNICORN HEALTH: DoriQuti + ArzonLab</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">SamDTU & School 21 • Shukurov Jasur Otabek o'g'li</p>
+            </div>
+            <span class="badge-pill">Sprint 67 • Portal 61</span>
+        </div>
+        <nav class="header-links">
+            <a href="/">Bosh Sahifa</a>
+            <a href="/epilepsy">Epilepsiya TDM</a>
+            <a href="/glaucoma">Ko'z Glaukoma</a>
+            <a href="/asthma">Astma Qalqoni</a>
+            <a href="/ortho">Bo'g'im & Gialuron</a>
+            <a href="/tests/system_healthcheck.py" style="color: var(--emerald);">153/153 Tests Pass</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-title">Revmatologiya, Revmatoid Artrit & Metotreksat Haftalik Xavfsizlik Qalqoni</div>
+            <p class="hero-subtitle">
+                O'zbekistonda 140,000 dan ortiq bemor revmatoid artrit, Bexterev va autoimmun bo'g'im kasalliklaridan aziyat chekadi. Oltin standart dori — <strong>Metotreksat (MTX)</strong> qat'iy ravishda <strong>HAFTADA 1 MARTA</strong> olinishi shart! Uni adashib har kuni ichish o'limga olib keluvchi suyak ko'migi yetishmovchiligini chaqiradi. DoriQuti haftalik rangli paketlari va ArzonLab autoimmun tahlillari orqali xavfsizlik 100% kafolatlanadi.
+            </p>
+
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <div class="metric-num">Haftada 1 Kun</div>
+                    <div class="metric-label">Juma: Metotreksat / Yakshanba: Foliy Kislotasi</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">DAS28 &lt; 2.6</div>
+                    <div class="metric-label">Bo'g'im Remissiyasi & Erkin Harakat Maqsadi</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">58% – 60%</div>
+                    <div class="metric-label">Metotreksat & Metoject Narx Arzonligi</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">2,296,000 UZS</div>
+                    <div class="metric-label">O'rtacha Yillik Dori va Tahlil Tejamkorligi</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN INTERACTIVE SECTION -->
+        <div class="grid-2">
+
+            <!-- LEFT: DAS28-CRP CLINICAL CALCULATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>📊</span> DAS28-CRP Revmatoid Artrit Faollik Kalkulyatori
+                    </div>
+                    <span id="das28-badge" class="badge-pill" style="border-color: var(--gold); color: var(--gold);">DAS28: 3.77</span>
+                </div>
+
+                <!-- TJC Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Og'riqli Bo'g'imlar Soni (Tender Joints, 0 - 28)</span>
+                        <span id="tjc-display" class="value-display">4 ta bo'g'im</span>
+                    </div>
+                    <input type="range" id="tjc-slider" class="range-slider" min="0" max="28" step="1" value="4" oninput="calculateDAS28()">
+                </div>
+
+                <!-- SJC Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Shishgan Bo'g'imlar Soni (Swollen Joints, 0 - 28)</span>
+                        <span id="sjc-display" class="value-display">2 ta bo'g'im</span>
+                    </div>
+                    <input type="range" id="sjc-slider" class="range-slider" min="0" max="28" step="1" value="2" oninput="calculateDAS28()">
+                </div>
+
+                <!-- CRP Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>C-Reaktiv Oqsil (CRP Laboratoriya, mg/L)</span>
+                        <span id="crp-display" class="value-display">8.4 mg/L</span>
+                    </div>
+                    <input type="range" id="crp-slider" class="range-slider" min="0.1" max="60" step="0.5" value="8.4" oninput="calculateDAS28()">
+                </div>
+
+                <!-- PGA Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Bemorning Umumiy Ahvoli (PGA Visual Shkala, 0 - 100)</span>
+                        <span id="pga-display" class="value-display">35 ball</span>
+                    </div>
+                    <input type="range" id="pga-slider" class="range-slider" min="0" max="100" step="5" value="35" oninput="calculateDAS28()">
+                </div>
+
+                <!-- DYNAMIC CLINICAL EVALUATION BOX -->
+                <div id="status-callout" class="callout callout-moderate">
+                    <div style="font-weight: 700; font-size: 15px; margin-bottom: 6px;" id="callout-title">
+                        ⚠️ O'rtacha Faollik: Dozani Kuchaytirish Ko'rib Chiqilishi Kerak
+                    </div>
+                    <p id="callout-desc" style="font-size: 13px;">
+                        DAS28 3.77 (3.2 - 5.1 oralig'ida). Bo'g'imlarda yallig'lanish davom etmoqda. Davolovchi revmatolog bilan Metotreksat dozasini oshirish yoki Metoject teri osti shakliga o'tish tavsiya etiladi.
+                    </p>
+                </div>
+
+                <!-- ORDER BUTTON -->
+                <div style="margin-top: 24px;">
+                    <button class="btn btn-gold" onclick="openSubscriptionModal()">
+                        <span>📦</span> DoriQuti Haftalik MTX Xavfsizlik Paketini Buyurtma Qilish (58,000 UZS/oy)
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: WEEKLY MTX COLOR-CODED SAFETY SCHEDULE & OVERDOSE ALERT -->
+            <div class="panel" style="border-color: rgba(245, 158, 11, 0.4);">
+                <div class="panel-header">
+                    <div class="panel-title" style="color: #fde68a;">
+                        <span>📅</span> Haftalik Rangli MTX Xavfsizlik Taqsimoti
+                    </div>
+                    <span class="badge-pill" style="border-color: var(--emerald); color: var(--emerald); background: rgba(16, 185, 129, 0.1);">Xato-Chidamli</span>
+                </div>
+
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+                    Keksa yoshdagi bemorlar haftalik dorini oddiy bosim dori bilan adashtirib har kuni ichib qo'ymasliklari uchun DoriQuti har haftalik blisterlarni rangli ajratadi:
+                </p>
+
+                <!-- WEEK CALENDAR GRID -->
+                <div class="calendar-week">
+                    <div class="day-box">
+                        <div class="day-name">Dush</div>
+                        <div style="color: var(--text-muted);">0 MTX</div>
+                    </div>
+                    <div class="day-box">
+                        <div class="day-name">Sesh</div>
+                        <div style="color: var(--text-muted);">0 MTX</div>
+                    </div>
+                    <div class="day-box">
+                        <div class="day-name">Chor</div>
+                        <div style="color: var(--text-muted);">0 MTX</div>
+                    </div>
+                    <div class="day-box">
+                        <div class="day-name">Pay</div>
+                        <div style="color: var(--text-muted);">0 MTX</div>
+                    </div>
+                    <div class="day-box gold-day">
+                        <div class="day-name">JUMA</div>
+                        <div>MTX 15mg</div>
+                    </div>
+                    <div class="day-box">
+                        <div class="day-name">Shan</div>
+                        <div style="color: var(--text-muted);">Tanaffus</div>
+                    </div>
+                    <div class="day-box green-day">
+                        <div class="day-name">YAK</div>
+                        <div>Foliy 5mg</div>
+                    </div>
+                </div>
+
+                <!-- CRITICAL CLINICAL RULES -->
+                <div style="margin-top: 18px; padding: 16px; background: #090f1d; border-radius: 14px; border: 1px solid var(--border);">
+                    <div style="font-size: 13px; font-weight: 700; color: #fde68a; margin-bottom: 8px;">
+                        🚨 Muhim Qoidalar:
+                    </div>
+                    <ul style="font-size: 12px; color: var(--text-muted); line-height: 1.6; padding-left: 18px;">
+                        <li><strong>Juma Kuni:</strong> Faqat Metotreksat (10-20 mg). Boshqa og'riq qoldiruvchilarni kamaytiring.</li>
+                        <li><strong>Yakshanba Kuni:</strong> Foliy kislotasi (5mg) — stomatit (og'iz yarasi) va soch to'kilishining oldini oladi.</li>
+                        <li><strong>Qat'iy Taqiqlanadi:</strong> Foliy kislotasini Metotreksat bilan bir kunda ichish (dorining ta'sirini bekor qiladi).</li>
+                    </ul>
+                </div>
+
+                <!-- OVERDOSE SIMULATOR & EMERGENCY RESCUE -->
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-red" onclick="triggerOverdoseProtocol()">
+                        ⚠️ Simulyatsiya: Metotreksat adashib ketma-ket 3 kun ichilsa nima qilish kerak?
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ECONOMICS: DORI QUTI MTX & ARZONLAB DIAGNOSTICS -->
+        <div class="panel" style="margin-bottom: 36px;">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>💰</span> DoriQuti MTX & ArzonLab Autoimmun Paneli: Tejamkorlik
+                </div>
+                <span class="badge-pill" style="border-color: var(--emerald); color: var(--emerald);">Yiliga 2.3 Mln – 6.1 Mln So'm Sof Foyda</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                <div style="background: #090f1d; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Metotreksat-Ebewe 15mg</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 145,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">58,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 87,000 UZS tejamkorlik (-60.0%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>1,044,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1d; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Metoject 20mg Avto-shprits</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 880,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">368,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 512,000 UZS tejamkorlik (-58.2%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>6,144,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1d; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">ArzonLab Autoimmun Paneli</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Xususiy klinikalar: 340,000 UZS</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--gold); font-family: 'JetBrains Mono';">110,000 UZS</div>
+                    <div style="font-size: 12px; color: #fde68a; margin-top: 4px;">Anti-CCP + RF + CRP + ESR (-67.6%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik (4 ta tahlil) tejovi: <strong>920,000 UZS</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVE PATIENT REGISTRY -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>📋</span> DoriQuti MTX Protokolidagi Bemorlar Reestri
+                </div>
+                <span class="badge-pill" style="border-color: var(--gold); color: var(--gold);">SamDTU Revmatologiya Bazasi</span>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="patient-table">
+                    <thead>
+                        <tr>
+                            <th>Bemor Kodi & Yoshi</th>
+                            <th>Hudud</th>
+                            <th>Tashxis & Rejim</th>
+                            <th>DAS28-CRP Ko'rsatkich</th>
+                            <th>Holati</th>
+                            <th>Yillik Tejov</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient-table-body">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL ORDER SUBSCRIPTION -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">📦</div>
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">DoriQuti Haftalik MTX Obunasi Tasdiqlandi</h3>
+            <p id="modal-desc" style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                Metotreksat-Ebewe 15mg (Faqat Juma) va Foliy kislotasi 5mg (Yakshanba) rangli hermetik paketlarda har oy yetkaziladi. Narxi: 58,000 UZS/oy (145,000 UZS o'rniga).
+            </p>
+            <div style="background: #090f1d; padding: 14px; border-radius: 12px; text-align: left; margin-bottom: 20px; font-size: 12px; color: var(--text-muted);">
+                <div>📅 <strong>1-Yetkazib Berish:</strong> Ertaga bepul kuryer orqali</div>
+                <div>🔔 <strong>Haftalik Telegram Eslatma:</strong> Juma 08:30 da avtomatik ovozli bildirishnoma</div>
+                <div>🧪 <strong>ArzonLab Anti-CCP Kuponi:</strong> 110,000 UZS ga biriktirildi</div>
+            </div>
+            <button class="btn btn-gold" onclick="closeSubscriptionModal()">Tushundim, Rahmat</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const PATIENTS = [
+            {
+                code: "RA-UZ-4102",
+                age: "52 yosh",
+                region: "Samarqand shahri, Bog'ishamol",
+                diagnosis: "Revmatoid Artrit (Anti-CCP > 200)",
+                regimen: "Metotreksat 15mg (Juma)",
+                das28: "2.45 (Remissiya)",
+                status: "Ertalabki qotish yo'q",
+                saving: "2,296,000 UZS/yil"
+            },
+            {
+                code: "RA-UZ-5289",
+                age: "44 yosh",
+                region: "Buxoro viloyati, G'ijduvon",
+                diagnosis: "Ankilozlanuvchi Spondilit (Bexterev)",
+                regimen: "Metoject 20mg (Juma)",
+                das28: "3.12 (Past Faollik)",
+                status: "O'murtqa harakati yaxshi",
+                saving: "6,144,000 UZS/yil"
+            },
+            {
+                code: "RA-UZ-6190",
+                age: "38 yosh",
+                region: "Qashqadaryo viloyati, Qarshi",
+                diagnosis: "Erta Poliartikulyar Artrit",
+                regimen: "Metotreksat + Arava 20mg",
+                das28: "3.84 (O'rtacha Faollik)",
+                status: "Titrlash bosqichida",
+                saving: "3,228,000 UZS/yil"
+            }
+        ];
+
+        function init() {
+            renderPatients();
+            calculateDAS28();
+        }
+
+        function renderPatients() {
+            const tbody = document.getElementById("patient-table-body");
+            tbody.innerHTML = PATIENTS.map(p => `
+                <tr>
+                    <td><strong>${p.code}</strong> (${p.age})</td>
+                    <td>${p.region}</td>
+                    <td>${p.diagnosis}<br><span style="font-size: 11px; color: var(--gold);">${p.regimen}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--emerald);">${p.das28}</span></td>
+                    <td><span class="streak-badge">✓ ${p.status}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; color: #fcd34d;">${p.saving}</span></td>
+                    <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 11px;" onclick="openSubscriptionModal()">Karta</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function calculateDAS28() {
+            const tjc = parseInt(document.getElementById("tjc-slider").value);
+            const sjc = parseInt(document.getElementById("sjc-slider").value);
+            const crp = parseFloat(document.getElementById("crp-slider").value);
+            const pga = parseInt(document.getElementById("pga-slider").value);
+
+            document.getElementById("tjc-display").innerText = `${tjc} ta bo'g'im`;
+            document.getElementById("sjc-display").innerText = `${sjc} ta bo'g'im`;
+            document.getElementById("crp-display").innerText = `${crp.toFixed(1)} mg/L`;
+            document.getElementById("pga-display").innerText = `${pga} ball`;
+
+            // DAS28-CRP Formula: 0.56*sqrt(TJC) + 0.28*sqrt(SJC) + 0.36*ln(CRP+1) + 0.014*PGA + 0.96
+            const das28 = (
+                0.56 * Math.sqrt(tjc) +
+                0.28 * Math.sqrt(sjc) +
+                0.36 * Math.log(crp + 1.0) +
+                0.014 * pga +
+                0.96
+            ).toFixed(2);
+
+            const badge = document.getElementById("das28-badge");
+            const callout = document.getElementById("status-callout");
+            const calloutTitle = document.getElementById("callout-title");
+            const calloutDesc = document.getElementById("callout-desc");
+
+            badge.innerText = `DAS28: ${das28}`;
+
+            if (das28 < 2.6) {
+                callout.className = "callout callout-remission";
+                calloutTitle.innerHTML = "✅ Klinik Remissiya: Bo'g'imlarda Yallig'lanish To'xtagan";
+                calloutDesc.innerHTML = `DAS28 ${das28} (< 2.6). A'lo natija! Bo'g'imlarda deformatsiya to'xtagan. Joriy Metotreksat haftalik rejimini (faqat Juma) aynan shunday davom ettiring.`;
+                badge.style.borderColor = "var(--emerald)";
+                badge.style.color = "var(--emerald)";
+            } else if (das28 <= 3.2) {
+                callout.className = "callout callout-low";
+                calloutTitle.innerHTML = "ℹ️ Past Faollik Darajasi: Yaxshi Nazorat";
+                calloutDesc.innerHTML = `DAS28 ${das28} (2.6 - 3.2 oralig'ida). Bo'g'imlar barqaror. Shifokor tavsiyasi bilan har 3 oyda CRP va jigar fermentlarini tekshirib turing.`;
+                badge.style.borderColor = "var(--sky)";
+                badge.style.color = "var(--sky)";
+            } else if (das28 <= 5.1) {
+                callout.className = "callout callout-moderate";
+                calloutTitle.innerHTML = "⚠️ O'rtacha Faollik: Dozani Kuchaytirish Ko'rib Chiqilishi Kerak";
+                calloutDesc.innerHTML = `DAS28 ${das28} (3.2 - 5.1 oralig'ida). Bo'g'imlarda yallig'lanish davom etmoqda. Davolovchi revmatolog bilan Metotreksat dozasini oshirish yoki Metoject teri osti shakliga o'tish tavsiya etiladi.`;
+                badge.style.borderColor = "var(--gold)";
+                badge.style.color = "var(--gold)";
+            } else {
+                callout.className = "callout callout-high";
+                calloutTitle.innerHTML = "🚨 Yuqori Faollik: Shoshilinch Revmatolog & Biologik Terapiya!";
+                calloutDesc.innerHTML = `DAS28 ${das28} (> 5.1). O'ta yuqori bo'g'im yemirilishi xavfi! Shoshilinch kombinatsiyalangan DMARD yoki biologik preparatlar (Anti-TNF) tayinlash talab etiladi.`;
+                badge.style.borderColor = "var(--rose)";
+                badge.style.color = "var(--rose)";
+            }
+        }
+
+        function triggerOverdoseProtocol() {
+            alert("🚨 SHOSHILINCH XAVF PROTOKOLI: METOTREKSAT ZAHARLANISHI!\n\nBemor Metotreksatni ketma-ket har kuni ichgan taqdirda:\n1. Dorini DARHOL TO'XTATING!\n2. 103 ga qo'ng'iroq qiling: 'Metotreksat bilan zaharlanish' deb ayting.\n3. Kasalxonada zudlik bilan Antidot: Kalsiy Folinat (Leykovorin) talab qilinadi!\n4. Suyak ko'migi yetishmovchiligi (leykopeniya) oldini olish uchun qon tahlili olinadi.");
+        }
+
+        function openSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "flex";
+        }
+
+        function closeSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "none";
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
