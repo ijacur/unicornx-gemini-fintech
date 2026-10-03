@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nefrologiya & Dializ Fosfat Qalqoni | DoriQuti & ArzonLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d1a;
+            --surface: #0e172a;
+            --surface-hover: #17243e;
+            --border: #1e2d4a;
+            --cyan: #06b6d4;
+            --cyan-glow: rgba(6, 182, 212, 0.25);
+            --emerald: #10b981;
+            --sky: #0ea5e9;
+            --amber: #f59e0b;
+            --rose: #ef4444;
+            --indigo: #6366f1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(14, 23, 42, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: var(--cyan);
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 36px 20px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(99, 102, 241, 0.08) 50%, rgba(14, 23, 42, 0) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -15%;
+            width: 440px;
+            height: 440px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(to right, #f8fafc, #67e8f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            max-width: 840px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .metric-card {
+            background: rgba(14, 23, 42, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .metric-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 26px;
+            font-weight: 800;
+            color: #67e8f9;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 28px;
+            margin-bottom: 36px;
+        }
+
+        @media (max-width: 960px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .range-slider {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 4px;
+            outline: none;
+            margin-top: 6px;
+            accent-color: var(--cyan);
+        }
+
+        .value-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-cyan {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: #0f172a;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.35);
+        }
+
+        .btn-cyan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+            border-color: var(--cyan);
+        }
+
+        /* Callout Cards */
+        .callout {
+            border-radius: 14px;
+            padding: 18px;
+            margin-top: 20px;
+            border-left: 4px solid;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .callout-optimal {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--emerald);
+            color: #d1fae5;
+        }
+
+        .callout-warning {
+            background: rgba(239, 68, 68, 0.12);
+            border-color: var(--rose);
+            color: #fee2e2;
+        }
+
+        /* Meal Anchored Visual Box */
+        .meal-box {
+            background: #090f1e;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .meal-timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .meal-card {
+            background: rgba(14, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .meal-card.highlight {
+            border-color: var(--cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        /* Patient Table */
+        .patient-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .patient-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: #090f1e;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .patient-table td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--emerald);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Modal Dialog */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 20px;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--cyan);
+            border-radius: 24px;
+            max-width: 540px;
+            width: 100%;
+            padding: 32px;
+            box-shadow: 0 20px 50px rgba(6, 182, 212, 0.3);
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            background: rgba(6, 182, 212, 0.2);
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🫘</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; letter-spacing: -0.3px;">UNICORN HEALTH: DoriQuti + ArzonLab</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">SamDTU & School 21 • Shukurov Jasur Otabek o'g'li</p>
+            </div>
+            <span class="badge-pill">Sprint 69 • Portal 63</span>
+        </div>
+        <nav class="header-links">
+            <a href="/">Bosh Sahifa</a>
+            <a href="/parkinson">Parkinson Levodopa</a>
+            <a href="/arthritis">Revmatologiya MTX</a>
+            <a href="/epilepsy">Epilepsiya TDM</a>
+            <a href="/cardio">Kardio Reab</a>
+            <a href="/tests/system_healthcheck.py" style="color: var(--emerald);">157/157 Tests Pass</a>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-title">Nefrologiya, Dializ & Fosfat Bog'lovchilar (Sevelamer) Qalqoni</div>
+            <p class="hero-subtitle">
+                O'zbekistonda 250,000 dan ortiq fuqaro surunkali buyrak yetishmovchiligi (CKD) va gimodializdan aziyat chekadi. Dializdagi eng asosiy o'lim sababi — qondagi fosforning ortishi va tomirlar toshlanishi (kalsinoz). Fosfat bog'lovchi dori — <strong>Sevelamer (Renvela)</strong> qat'iy ravishda <strong>OVQATNING BIRINCHI QOSHIG'I BILAN</strong> ichilishi shart! Ovqatdan keyin ichilsa fosfat qonga o'tib ketadi. DoriQuti maxsus taqsimoti va ArzonLab dializ paneli orqali oilaga yiliga 8 mln so'mgacha tejov ta'minlanadi.
+            </p>
+
+            <div class="hero-metrics">
+                <div class="metric-card">
+                    <div class="metric-num">Ca x P &lt; 55</div>
+                    <div class="metric-label">Xavfsiz Kalsiy-Fosfor Ko'paytmasi Maqsadi</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">1-Qoshiq Bilan</div>
+                    <div class="metric-label">Ovqatdagi Fosforni Ichakda 100% Bloklash</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">60.5% Arzon</div>
+                    <div class="metric-label">Sevelamer 800mg To'g'ridan-to'g'ri Obuna</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-num">7,980,000 UZS</div>
+                    <div class="metric-label">Yillik Dori va Oylik Dializ Paneli Tejovi</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN INTERACTIVE SECTION -->
+        <div class="grid-2">
+
+            <!-- LEFT: CA X P CALCIFICATION & DIALYSIS LAB CALCULATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🧪</span> Ca x P Kalsinoz & Mineral Almashinuv Kalkulyatori
+                    </div>
+                    <span id="cap-badge" class="badge-pill" style="border-color: var(--emerald); color: var(--emerald);">Ca x P: 41.9 (Xavfsiz)</span>
+                </div>
+
+                <!-- Serum Phosphorus Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Qon Zardobi Fosfori (P, Target Dializ: 3.5 - 5.5 mg/dL)</span>
+                        <span id="p-display" class="value-display">4.6 mg/dL</span>
+                    </div>
+                    <input type="range" id="p-slider" class="range-slider" min="2.0" max="10.0" step="0.1" value="4.6" oninput="calculateMineralDisorder()">
+                </div>
+
+                <!-- Serum Calcium Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Qon Zardobi Kalsiysi (Ca, Norma: 8.4 - 10.2 mg/dL)</span>
+                        <span id="ca-display" class="value-display">9.1 mg/dL</span>
+                    </div>
+                    <input type="range" id="ca-slider" class="range-slider" min="7.0" max="12.0" step="0.1" value="9.1" oninput="calculateMineralDisorder()">
+                </div>
+
+                <!-- Hemoglobin Slider -->
+                <div class="form-group">
+                    <div class="form-label">
+                        <span>Gemoglobin (Hb, KDIGO Maqsad: 100 - 115 g/L)</span>
+                        <span id="hb-display" class="value-display" style="color: var(--emerald);">108 g/L</span>
+                    </div>
+                    <input type="range" id="hb-slider" class="range-slider" min="60" max="140" step="1" value="108" oninput="calculateMineralDisorder()">
+                </div>
+
+                <!-- DYNAMIC CLINICAL EVALUATION BOX -->
+                <div id="status-callout" class="callout callout-optimal">
+                    <div style="font-weight: 700; font-size: 15px; margin-bottom: 6px;" id="callout-title">
+                        ✅ Xavfsiz Mineral Balans: Ca x P = 41.9 (Norma &lt; 55)
+                    </div>
+                    <p id="callout-desc" style="font-size: 13px;">
+                        Kalsiy-fosfor balansi xavfsiz chegarada. Qon tomirlari kalsinozdan himoyalangan. Sevelamer taqsimotini har bir ovqatlanish vaqtida davom ettiring.
+                    </p>
+                </div>
+
+                <!-- ORDER BUTTON -->
+                <div style="margin-top: 24px;">
+                    <button class="btn btn-cyan" onclick="openSubscriptionModal()">
+                        <span>📦</span> DoriQuti Sevelamer 800mg Obunasini Buyurtma Qilish (245,000 UZS/oy)
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT: MEAL-ANCHORED BINDER SIMULATOR & DIETARY GUIDE -->
+            <div class="panel" style="border-color: rgba(6, 182, 212, 0.4);">
+                <div class="panel-header">
+                    <div class="panel-title" style="color: #67e8f9;">
+                        <span>🍽️</span> "Ovqatning 1-Qoshig'i Bilan" Qoidasi
+                    </div>
+                    <span class="badge-pill" style="border-color: var(--cyan); color: var(--cyan); background: rgba(6, 182, 212, 0.1);">Oshqozon Blokirovkasi</span>
+                </div>
+
+                <div class="meal-box">
+                    <div style="font-size: 13px; font-weight: 700; color: #f8fafc; margin-bottom: 6px;">
+                        Kunlik 3 Mahalliy Fosfat Bog'lovchi Rejimi:
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+                        Sevelamer tabletkalari faqat oshqozonda ovqat bilan aralashgandagina fosforni bog'lay oladi.
+                    </p>
+
+                    <div class="meal-timeline-grid">
+                        <div class="meal-card highlight">
+                            <strong style="color: #67e8f9;">Nonushta</strong>
+                            <div style="color: var(--text-muted); font-size: 11px; margin-top: 4px;">1-2 tabletka</div>
+                        </div>
+                        <div class="meal-card highlight">
+                            <strong style="color: #67e8f9;">Tushlik</strong>
+                            <div style="color: var(--text-muted); font-size: 11px; margin-top: 4px;">1-2 tabletka</div>
+                        </div>
+                        <div class="meal-card highlight">
+                            <strong style="color: #67e8f9;">Kechki Ovqat</strong>
+                            <div style="color: var(--text-muted); font-size: 11px; margin-top: 4px;">1-2 tabletka</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BINDER TIMING SIMULATOR -->
+                <div style="padding: 16px; background: #090f1e; border-radius: 14px; border: 1px solid var(--border); margin-bottom: 18px;">
+                    <div style="font-size: 13px; font-weight: 700; color: #67e8f9; margin-bottom: 8px;">
+                        ⏱️ Qabul Vaqti Simulyatori:
+                    </div>
+                    <select id="binder-sim-select" style="width: 100%; background: #070d1a; color: var(--text-main); border: 1px solid var(--border); padding: 10px; border-radius: 10px; font-size: 13px;" onchange="updateBinderSim()">
+                        <option value="correct">✅ To'g'ri: Ovqatning 1-qoshig'i bilan birga</option>
+                        <option value="wrong">❌ Xato: Ovqatlanib bo'lib 1-2 soatdan keyin</option>
+                    </select>
+                    <div id="binder-sim-result" style="font-size: 12px; color: #a7f3d0; margin-top: 10px; line-height: 1.5;">
+                        Sevelamer oshqozonda ovqatdagi fosforni ushlab qoldi va najas bilan chiqaradi. Qon tomirlar kalsinozdan himoyalandi!
+                    </div>
+                </div>
+
+                <!-- FORBIDDEN PHOSPHORUS FOODS -->
+                <div style="font-size: 12px; color: var(--text-muted); line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
+                    <strong style="color: var(--rose);">🚫 Dializda Mutlaqo Man Etilgan Taomlar:</strong>
+                    <br>• Kola, pepsi va gazli rangli ichimliklar (noorganik fosfat 100% so'riladi)
+                    <br>• Pishloq, sosiska va kolbasalar
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ECONOMICS: DORI QUTI SEVELAMER & ARZONLAB DIALYSIS LAB -->
+        <div class="panel" style="margin-bottom: 36px;">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>💰</span> DoriQuti Sevelamer & ArzonLab Oylik Dializ Paneli: Tejamkorlik
+                </div>
+                <span class="badge-pill" style="border-color: var(--emerald); color: var(--emerald);">Dializdagi Har Bir Oilaga Yiliga 8 Mln So'mgacha Tejov</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Sevelamer Karbonat 800mg (Renvela)</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 620,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">245,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 375,000 UZS tejamkorlik (-60.5%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>4,500,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">Epoetin alfa 4000 XB (Sovuq Zanjir)</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Shahar dorixonasi: 540,000 UZS/oy</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--emerald); font-family: 'JetBrains Mono';">210,000 UZS/oy</div>
+                    <div style="font-size: 12px; color: #a7f3d0; margin-top: 4px;">Oyiga 330,000 UZS tejamkorlik (-61.1%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik dori tejovi: <strong>3,960,000 UZS</strong>
+                    </div>
+                </div>
+
+                <div style="background: #090f1e; border: 1px solid var(--border); border-radius: 16px; padding: 20px;">
+                    <div style="font-weight: 700; font-size: 16px; margin-bottom: 8px;">ArzonLab Oylik Dializ Paneli</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Xususiy laboratoriyalar: 420,000 UZS</div>
+                    <div style="font-size: 22px; font-weight: 800; color: var(--cyan); font-family: 'JetBrains Mono';">130,000 UZS</div>
+                    <div style="font-size: 12px; color: #67e8f9; margin-top: 4px;">Fosfor + Kalsiy + PTH + Ferritin (-69.0%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
+                        Yillik (12 ta tahlil) tejovi: <strong>3,480,000 UZS</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVE PATIENT REGISTRY -->
+        <div class="panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <span>📋</span> DoriQuti Gimodializ & CKD Bemorlar Reestri
+                </div>
+                <span class="badge-pill" style="border-color: var(--cyan); color: var(--cyan);">SamDTU Dializ Markazi Hamkorligi</span>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="patient-table">
+                    <thead>
+                        <tr>
+                            <th>Bemor Kodi & Yoshi</th>
+                            <th>Hudud</th>
+                            <th>Tashxis & Rejim</th>
+                            <th>Fosfor & Kalsiy (Ca x P)</th>
+                            <th>Gemoglobin</th>
+                            <th>Yillik Tejov</th>
+                            <th>Amallar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patient-table-body">
+                        <!-- Rendered by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL ORDER SUBSCRIPTION -->
+    <div id="order-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon">📦</div>
+            <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 8px;">DoriQuti Dializ Sevelamer Obunasi Faollashtirildi</h3>
+            <p id="modal-desc" style="font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">
+                Sevelamer Karbonat 800mg (Har bir ovqatning 1-qoshig'i bilan) maxsus stikerli paketlarda har oy bepul yetkaziladi. Narxi: 245,000 UZS/oy (620,000 UZS o'rniga).
+            </p>
+            <div style="background: #090f1e; padding: 14px; border-radius: 12px; text-align: left; margin-bottom: 20px; font-size: 12px; color: var(--text-muted);">
+                <div>📅 <strong>1-Yetkazib Berish:</strong> Ertaga bepul kuryer orqali</div>
+                <div>🔔 <strong>SMS Eslatma:</strong> Har kuni 08:00, 13:00, 19:00 ovqat stikeri eslatmasi</div>
+                <div>🧪 <strong>ArzonLab Dializ Kuponi:</strong> 130,000 UZS ga biriktirildi</div>
+            </div>
+            <button class="btn btn-cyan" onclick="closeSubscriptionModal()">Tushundim, Rahmat</button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const PATIENTS = [
+            {
+                code: "CKD-UZ-8104",
+                age: "58 yosh",
+                region: "Samarqand shahri (SamDTU Dializ)",
+                diagnosis: "Terminal CKD (Dializ 3x/hafta)",
+                regimen: "Sevelamer 800mg + Epoetin",
+                cap: "Ca x P: 41.9 (Xavfsiz)",
+                hb: "108 g/L (Optimal)",
+                saving: "7,980,000 UZS/yil"
+            },
+            {
+                code: "CKD-UZ-9251",
+                age: "64 yosh",
+                region: "Andijon shahri, Bobur",
+                diagnosis: "CKD 4-bosqich (Diabetik)",
+                regimen: "Kalsiy Atsetat + Mircera",
+                cap: "Ca x P: 37.4 (Xavfsiz)",
+                hb: "104 g/L (Barqaror)",
+                saving: "4,820,000 UZS/yil"
+            },
+            {
+                code: "CKD-UZ-9840",
+                age: "49 yosh",
+                region: "Toshkent shahri, Olmazor",
+                diagnosis: "Surunkali Glomerulonefrit",
+                regimen: "Sevelamer + Epoetin 10000",
+                cap: "Ca x P: 47.4 (Xavfsiz)",
+                hb: "112 g/L (Optimal)",
+                saving: "8,400,000 UZS/yil"
+            }
+        ];
+
+        function init() {
+            renderPatients();
+            calculateMineralDisorder();
+        }
+
+        function renderPatients() {
+            const tbody = document.getElementById("patient-table-body");
+            tbody.innerHTML = PATIENTS.map(p => `
+                <tr>
+                    <td><strong>${p.code}</strong> (${p.age})</td>
+                    <td>${p.region}</td>
+                    <td>${p.diagnosis}<br><span style="font-size: 11px; color: var(--cyan);">${p.regimen}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; font-weight: 700; color: var(--emerald);">${p.cap}</span></td>
+                    <td><span class="streak-badge">✓ ${p.hb}</span></td>
+                    <td><span style="font-family: 'JetBrains Mono'; color: #67e8f9;">${p.saving}</span></td>
+                    <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 11px;" onclick="openSubscriptionModal()">Karta</button></td>
+                </tr>
+            `).join('');
+        }
+
+        function calculateMineralDisorder() {
+            const p = parseFloat(document.getElementById("p-slider").value);
+            const ca = parseFloat(document.getElementById("ca-slider").value);
+            const hb = parseInt(document.getElementById("hb-slider").value);
+
+            document.getElementById("p-display").innerText = `${p.toFixed(1)} mg/dL`;
+            document.getElementById("ca-display").innerText = `${ca.toFixed(1)} mg/dL`;
+            document.getElementById("hb-display").innerText = `${hb} g/L`;
+
+            const capProduct = (p * ca).toFixed(1);
+            const badge = document.getElementById("cap-badge");
+            const callout = document.getElementById("status-callout");
+            const calloutTitle = document.getElementById("callout-title");
+            const calloutDesc = document.getElementById("callout-desc");
+
+            badge.innerText = `Ca x P: ${capProduct}`;
+
+            if (capProduct >= 55.0) {
+                badge.style.borderColor = "var(--rose)";
+                badge.style.color = "var(--rose)";
+                badge.innerText = `Ca x P: ${capProduct} (XAVF: > 55)`;
+                callout.className = "callout callout-warning";
+                calloutTitle.innerHTML = `🚨 O'TA XAVFLI: Ca x P = ${capProduct} (Norma < 55)`;
+                calloutDesc.innerHTML = `Kalsiy va fosfor ko'paytmasi xavfli chegaradan oshgan! Qon tomirlar, yurak klapanlari va miya tomirlarida kalsifikatsiya (toshlanish), infarkt va insult xavfi keskin yuqori. Sevelamer dozasini oshirish va ovqatdagi fosforni qat'iy cheklash zarur.`;
+            } else {
+                badge.style.borderColor = "var(--emerald)";
+                badge.style.color = "var(--emerald)";
+                badge.innerText = `Ca x P: ${capProduct} (Xavfsiz)`;
+                callout.className = "callout callout-optimal";
+                calloutTitle.innerHTML = `✅ Xavfsiz Mineral Balans: Ca x P = ${capProduct} (< 55)`;
+                calloutDesc.innerHTML = `Kalsiy-fosfor balansi xavfsiz chegarada. Qon tomirlari toshlanishdan himoyalangan. Sevelamer taqsimotini har bir ovqatlanish vaqtida davom ettiring.`;
+            }
+        }
+
+        function updateBinderSim() {
+            const val = document.getElementById("binder-sim-select").value;
+            const res = document.getElementById("binder-sim-result");
+
+            if (val === "correct") {
+                res.innerHTML = "✅ Sevelamer oshqozonda ovqatdagi fosforni ushlab qoldi va najas bilan chiqaradi. Qon tomirlar kalsinozdan himoyalandi!";
+                res.style.color = "#a7f3d0";
+            } else {
+                res.innerHTML = "❌ <strong>XAVF: DORI BEHUDA KETDI!</strong> Ovqatdagi fosfor allaqachon qonga so'rilib bo'ldi. Sevelamerni ovqatdan 1-2 soat keyin ichish 0 ta'sir beradi! Faqat ovqat bilan iching.";
+                res.style.color = "#fca5a5";
+            }
+        }
+
+        function openSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "flex";
+        }
+
+        function closeSubscriptionModal() {
+            document.getElementById("order-modal").style.display = "none";
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

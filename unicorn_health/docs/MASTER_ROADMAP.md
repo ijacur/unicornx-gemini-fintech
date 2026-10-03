@@ -262,8 +262,11 @@
   - [x] Parkinson Kasalligi, Levodopa On/Off Fenomeni & Oqsil-Dori Vaqt Qalqoni Dvigateli (shared/parkinson_levodopa_engine.py)
   - [x] DoriQuti Parkinson Levodopa On/Off Qalqoni Portali (doriquti/parkinson_levodopa_portal.html)
   - [x] Nakom/Madopar 4-slotli (07:00, 11:00, 15:00, 19:00) och qoringa qabul paketlari, On/Off kundaligi va 59% arzon ta'minot
-  - [x] 157/157 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 62 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Nefrologiya, Surunkali Buyrak Yetishmovchiligi & Dializ Fosfat Bog'lovchilar Dvigateli (shared/nephrology_ckd_engine.py)
+  - [x] DoriQuti Nefrologiya & Dializ Fosfat Qalqoni Portali (doriquti/nephrology_ckd_portal.html)
+  - [x] Sevelamer 800mg "ovqatning 1-qoshig'i bilan" qabul stikerlari, Ca x P kalsifikatsiya indeksi va 60% arzonlashtirilgan ta'minot
+  - [x] 159/159 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 63 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 

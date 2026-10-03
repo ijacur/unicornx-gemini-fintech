@@ -16,14 +16,14 @@
       ]
     },
     {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
       "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
       ]
     },
     {
@@ -34,17 +34,6 @@
       "riskFactors": [
         "og'ir giperkalemiya",
         "aritmiya"
-      ]
-    },
-    {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
-      "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
       ]
     },
     {
@@ -65,12 +54,23 @@
         "oshqozon qonashi",
         "antikoagulyant sinergiyasi"
       ]
+    },
+    {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
+      ]
     }
   ],
   "edges": [
     {
-      "from": "enalapril",
-      "to": "spironolactone",
+      "from": "spironolactone",
+      "to": "enalapril",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
