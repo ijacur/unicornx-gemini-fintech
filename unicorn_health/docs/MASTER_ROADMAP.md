@@ -250,8 +250,11 @@
   - [x] Ortopediya, Bo'g'imlar & Gialuron Inyeksiyalari Dvigateli (shared/orthopedic_joint_engine.py)
   - [x] ArzonLab & DoriQuti Bo'g'imlar & Gialuron Inyeksiyalari Portali (arzonlab/orthopedic_joint_portal.html)
   - [x] Tizza artrozi (gonartroz) operatsiyasini 5-7 yilga kechiktirish: 58% arzon kross-linklangan gialuron shpritslari, WOMAC shkalasi va oshqozon-xavfsiz xondroprotektor paketi
-  - [x] 149/149 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 58 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Oftalmologiya, Glaukoma & Ko'rish Qalqoni Dvigateli (shared/ophthalmology_glaucoma_engine.py)
+  - [x] DoriQuti Glaukoma & Ko'rish Qalqoni Portali (doriquti/ophthalmology_glaucoma_portal.html)
+  - [x] Qaytmas ko'rlik profilaktikasi: har 28 kunda avtomatik yangilanuvchi steril Latanoprost/Timolol flakoni (62% arzon), 20:00 kechki eslatma va ko'z bosimi (IOP) nazorati
+  - [x] 151/151 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 59 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 

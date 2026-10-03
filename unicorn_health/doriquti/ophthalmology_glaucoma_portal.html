@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oftalmologiya, Glaukoma & Ko'z Qalqoni | DoriQuti & ArzonLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #060c18;
+            --surface: #0e1628;
+            --surface-hover: #15223c;
+            --border: #1d2e50;
+            --sky: #0ea5e9;
+            --sky-glow: rgba(14, 165, 233, 0.2);
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --indigo: #6366f1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(14, 22, 40, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid var(--sky);
+            color: var(--sky);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: var(--sky);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(14, 22, 40, 0.9), rgba(14, 165, 233, 0.12));
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 32px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: "👁️";
+            font-size: 190px;
+            position: absolute;
+            right: -20px;
+            bottom: -40px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .hero-h1 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff, #bae6fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .stat-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: rgba(6, 12, 24, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--sky);
+            margin-bottom: 4px;
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            background: #060c18;
+            border: 1px solid var(--border);
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-select:focus, .form-input:focus {
+            border-color: var(--sky);
+        }
+
+        .slider-control {
+            width: 100%;
+            accent-color: var(--sky);
+            margin: 8px 0;
+        }
+
+        .comparison-box {
+            background: #060c18;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .comp-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .comp-row:last-child {
+            border-bottom: none;
+        }
+
+        .cost-bad {
+            color: var(--rose);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cost-good {
+            color: var(--emerald);
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+        }
+
+        .savings-highlight {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(16, 185, 129, 0.1));
+            border: 1px solid var(--sky);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--sky);
+            color: #060c18;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .btn-action:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .tag-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+        .tag-sky { background: rgba(14, 165, 233, 0.15); color: var(--sky); }
+        .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+        .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--rose); }
+
+        .alert-card {
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .alert-card.rose {
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid var(--rose);
+            color: #fecdd3;
+        }
+
+        .alert-card.emerald {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--emerald);
+            color: #a7f3d0;
+        }
+
+        .alert-card.amber {
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--amber);
+            color: #fde68a;
+        }
+
+        .cycle-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 12px;
+        }
+
+        .cycle-step:last-child {
+            border-bottom: none;
+        }
+
+        .cycle-day {
+            width: 52px;
+            padding: 4px;
+            background: #060c18;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--sky);
+        }
+
+        @media (max-width: 900px) {
+            .hero-banner { grid-template-columns: 1fr; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .stat-strip { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">👁️</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">DoriQuti Glaukoma & Ko'rish Qalqoni</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">28-Kunlik Steril Tomchi Sikli, Ko'z Bosimi (IOP) & Ko'rlik Profilaktikasi</p>
+            </div>
+            <span class="badge-pill">EGS 2024</span>
+        </div>
+        <div class="header-links">
+            <a href="../index.html">← Ekotizim Bosh Sahifasi</a>
+            <a href="../arzonlab/index.html">ArzonLab</a>
+            <a href="index.html">DoriQuti</a>
+            <a href="telehealth_consultation.html">Telemeditsina</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO BANNER -->
+        <section class="hero-banner">
+            <div>
+                <span class="badge-pill" style="margin-bottom: 12px; display: inline-block;">Ko'ruv Nervi Atrofiyasidan 100% Himoya</span>
+                <h2 class="hero-h1">Glaukoma va Ko'z Ichki Bosimini Nazorat Qilish: 62% Arzon va Xavfsiz</h2>
+                <p class="hero-p">
+                    Glaukoma sezilarsiz rivojlanib, qaytmas ko'rlikka olib keluvchi #1 sababdir. Flakon ochilgach 28 kundan keyin mikrob tushib kuchi yo'qolishining oldini olish uchun DoriQuti har 28 kunda steril Latanoprost/Timolol flakonini uyingizga avtomatik yetkazadi va har kuni 20:00 da tomizishni eslatadi.
+                </p>
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <a href="#iop-sec" style="background: var(--sky); color: #060c18; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 13px;">Ko'z Bosimini Tekshirish ↓</a>
+                    <a href="#cycle-sec" style="background: rgba(255,255,255,0.08); color: #ffffff; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 13px; border: 1px solid var(--border);">28-Kunlik Steril Rejim</a>
+                </div>
+            </div>
+            <div>
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <div class="stat-val">62.3%</div>
+                        <div class="stat-lbl">Tomchi Xarajat Tejovi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">28 Kun</div>
+                        <div class="stat-lbl">Flakon Sterilligi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">&lt; 18</div>
+                        <div class="stat-lbl">Maqsadli Bosim (mmHg)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">20:00</div>
+                        <div class="stat-lbl">Oltin Vaqt Eslatmasi</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN 2 COLUMNS: IOP EVALUATION + EYE DROP SAVINGS -->
+        <section class="grid-2col" id="iop-sec">
+            
+            <!-- INTRAOCULAR PRESSURE (IOP) EVALUATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🩺</span>
+                        <span>Ko'z Ichki Bosimi (Tonometriya) & Flakon Nazorati</span>
+                    </div>
+                    <span class="status-tag tag-sky">Maklakov / Goldmann</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label">O'ng Ko'z Bosimi: <span id="valRight" style="color: var(--sky); font-weight: 800; font-family: 'JetBrains Mono', monospace;">16</span> mmHg</label>
+                        <input type="range" min="10" max="42" value="16" class="slider-control" id="inputRight" oninput="evalIOP()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Chap Ko'z Bosimi: <span id="valLeft" style="color: var(--sky); font-weight: 800; font-family: 'JetBrains Mono', monospace;">17</span> mmHg</label>
+                        <input type="range" min="10" max="42" value="17" class="slider-control" id="inputLeft" oninput="evalIOP()">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Hozirgi flakon ochilganiga necha kun bo'ldi? <span id="valDays" style="color: #ffffff; font-weight: 800; font-family: 'JetBrains Mono', monospace;">14</span> kun</label>
+                    <input type="range" min="1" max="45" value="14" class="slider-control" id="inputDays" oninput="evalIOP()">
+                </div>
+
+                <div id="iopResultBox">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- REGIMENS & ANNUAL SAVINGS -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>💰</span>
+                        <span>Antiglaukoma Tomchilari & Yillik Iqtisodiyot</span>
+                    </div>
+                    <span class="status-tag tag-green">To'g'ridan-To'g'ri Yetkazish</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tibbiy Protokol Tanlovi</label>
+                    <select class="form-select" id="dropRegimenSelect" onchange="updateDropSavings()">
+                        <option value="glaucoma-combo-prostaglandin">💧 Oltin Standart: Latanoprost 0.005% + Timolol 0.5% (Kechqurun 20:00)</option>
+                        <option value="glaucoma-triple-advanced">🛡️ 3-Komponentli Qalqon: Latanoprost + Timolol + Dorzolamid</option>
+                        <option value="retina-macula-support">👁️ To'r Parda & Quruq Ko'z: Natriy Gialuronat 0.15% + Lutein Makula</option>
+                    </select>
+                </div>
+
+                <div class="comparison-box">
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">Dorixonalarda oylik narxi:</span>
+                        <span class="cost-bad" id="calcDropRetail">260,000 UZS</span>
+                    </div>
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">DoriQuti avtomatik obuna narxi:</span>
+                        <span class="cost-good" id="calcDropDoriquti">98,000 UZS</span>
+                    </div>
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">1 oyda bemor cho'ntagida qoladi:</span>
+                        <span style="color: var(--emerald); font-weight: 700;" id="calcDropMonthlyDiff">162,000 UZS / oy</span>
+                    </div>
+                    <div class="comp-row" style="background: rgba(244, 63, 94, 0.05); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 700; color: #ffffff;">Dorixonada 1 yillik umumiy xarajat:</span>
+                        <span class="cost-bad" id="calcDropAnnualRetail">3,120,000 UZS</span>
+                    </div>
+                    <div class="comp-row" style="background: rgba(16, 185, 129, 0.08); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 800; color: #ffffff;">DoriQuti orqali 1 yillik to'lov:</span>
+                        <span class="cost-good" id="calcDropAnnualDoriquti">1,176,000 UZS</span>
+                    </div>
+                </div>
+
+                <div class="savings-highlight">
+                    <div style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--sky); letter-spacing: 0.5px;">Bemor Oilasiga 1 Yilda Qoladigan Sof Tejov:</div>
+                    <div style="font-size: 26px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #ffffff; margin: 4px 0;" id="calcDropNet">1,944,000 UZS (62.3%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Har 28 kunda yangi steril flakon uyingizga bepul kuryer orqali yetkaziladi.</div>
+                </div>
+
+                <button class="btn-action" onclick="orderEyeDropSubscription()">
+                    <span>👁️</span>
+                    <span>28-Kunlik Ko'z Qalqoni Obunasiga Ulanish</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- 28-DAY STERILE CYCLE & ARZONLAB SCREENING VOUCHERS -->
+        <section class="grid-2col" id="cycle-sec">
+            
+            <!-- 28-DAY CYCLE WORKFLOW -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🔄</span>
+                        <span>28-Kunlik Steril Rotatsiya Zanjiri</span>
+                    </div>
+                    <span class="status-tag tag-sky">Nol Bakterial Xavf</span>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-day">1-Kun</div>
+                    <div>
+                        <div style="font-weight: 700; color: #ffffff;">Flakon Ochildi & Boshlandi</div>
+                        <div style="color: var(--text-muted);">Har kuni kechqurun soat 20:00 da har bir ko'zga 1 tomchi (Latanoprost).</div>
+                    </div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-day">20-Kun</div>
+                    <div>
+                        <div style="font-weight: 700; color: #ffffff;">Avtomatik DoriQuti Ombor Signali</div>
+                        <div style="color: var(--text-muted);">Tizim yangi ishlab chiqarilgan partiyadan yangi steril flakonni qadoqlaydi.</div>
+                    </div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-day">24-Kun</div>
+                    <div>
+                        <div style="font-weight: 700; color: #ffffff;">Yangi Flakon Eshigingizda</div>
+                        <div style="color: var(--text-muted);">Eski flakon tugamasidan 4 kun oldin yangi flakon uyingizga yetib keladi (0 UZS yetkazish).</div>
+                    </div>
+                </div>
+
+                <div class="cycle-step">
+                    <div class="cycle-day">28-Kun</div>
+                    <div>
+                        <div style="font-weight: 700; color: #ffffff;">Eski Flakonni Almashtirish</div>
+                        <div style="color: var(--text-muted);">Eski flakon utilizatsiya qilinadi, yangi flakon ochiladi. Ko'ruv nervi doimiy xavfsiz!</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ARZONLAB OPHTHALMOLOGY SCREENING VOUCHERS -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🔬</span>
+                        <span>ArzonLab Oftalmologik Diagnostika Vaucherlari</span>
+                    </div>
+                    <span class="status-tag tag-green">SamDTU & Markazlar</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="background: #060c18; border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Ko'z Bosimi (Maklakov / Qalin Tonometriya)</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Har 3 oyda ko'z ichki bosimini aniq laborator tekshirish</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--emerald); font-weight: 800; font-family: 'JetBrains Mono', monospace;">25,000 UZS</div>
+                            <div style="text-decoration: line-through; color: var(--rose); font-size: 10px;">60,000 UZS</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #060c18; border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Optik Kogerent Tomografiya (OCT Diska)</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Ko'ruv nervi tolalari qalinligini mikron darajasida skanerlash</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--emerald); font-weight: 800; font-family: 'JetBrains Mono', monospace;">140,000 UZS</div>
+                            <div style="text-decoration: line-through; color: var(--rose); font-size: 10px;">320,000 UZS</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #060c18; border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Kompyuter Perimetriyasi (Ko'rish Maydoni)</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Chekka (periferik) ko'rish yo'qolishini erta aniqlash</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="color: var(--emerald); font-weight: 800; font-family: 'JetBrains Mono', monospace;">80,000 UZS</div>
+                            <div style="text-decoration: line-through; color: var(--rose); font-size: 10px;">180,000 UZS</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 14px; font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+                    💡 Vaucher xarid qilinganda SamDTU Oftalmologiya professori ko'rigi bepul taqdim etiladi.
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        const DROP_DATA = {
+            "glaucoma-combo-prostaglandin": { retail: 260000, doriquti: 98000 },
+            "glaucoma-triple-advanced": { retail: 380000, doriquti: 145000 },
+            "retina-macula-support": { retail: 310000, doriquti: 120000 }
+        };
+
+        function evalIOP() {
+            const r = parseInt(document.getElementById('inputRight').value) || 16;
+            const l = parseInt(document.getElementById('inputLeft').value) || 16;
+            const days = parseInt(document.getElementById('inputDays').value) || 1;
+
+            document.getElementById('valRight').innerText = r;
+            document.getElementById('valLeft').innerText = l;
+            document.getElementById('valDays').innerText = days;
+
+            const maxIop = Math.max(r, l);
+            let alertClass = 'emerald';
+            let title = "Ko'z Bosimi Barqaror Me'yorda ✅";
+            let desc = `Ko'z bosimi (${r} / ${l} mmHg) xavfsiz 10-21 oralig'ida. Optik nerv shikastlanishi xavfi minimal.`;
+
+            if (maxIop >= 30) {
+                alertClass = 'rose';
+                title = "QIZIL XAVF: O'tkir Glaukoma Xuruji Xavfi! 🚨";
+                desc = `Ko'z bosimi kritik baland (${maxIop} mmHg)! Ko'ruv nervi tolalari nobud bo'lishi mumkin. Darhol SamDTU oftalmologiga boring!`;
+            } else if (maxIop >= 22) {
+                alertClass = 'amber';
+                title = "Sariq Xavf: Ko'z Ichki Bosimi Yuqori ⚠️";
+                desc = `Bosim me'yordan oshgan (${maxIop} mmHg). Antiglaukoma tomchilari dozasini oshirish yoki kombinatsiyaga o'tish zarur.`;
+            }
+
+            if (days > 28) {
+                desc += ` <strong>DIQQAT:</strong> Flakon ochilganiga ${days} kun bo'ldi! 28 kundan keyin flakonda bakteriyalar ko'payadi va dori kuchi 40% yo'qoladi. Yangi flakondan foydalaning.`;
+                if (alertClass !== 'rose') alertClass = 'amber';
+            }
+
+            document.getElementById('iopResultBox').innerHTML = `
+                <div class="alert-card ${alertClass}">
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
+                        <div>${desc}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateDropSavings() {
+            const key = document.getElementById('dropRegimenSelect').value;
+            const data = DROP_DATA[key];
+            const monthlyDiff = data.retail - data.doriquti;
+            const annualRetail = data.retail * 12;
+            const annualDoriquti = data.doriquti * 12;
+            const annualSaved = annualRetail - annualDoriquti;
+            const pct = Math.round((annualSaved / annualRetail) * 100);
+
+            document.getElementById('calcDropRetail').innerText = data.retail.toLocaleString() + ' UZS';
+            document.getElementById('calcDropDoriquti').innerText = data.doriquti.toLocaleString() + ' UZS';
+            document.getElementById('calcDropMonthlyDiff').innerText = monthlyDiff.toLocaleString() + ' UZS / oy';
+            document.getElementById('calcDropAnnualRetail').innerText = annualRetail.toLocaleString() + ' UZS';
+            document.getElementById('calcDropAnnualDoriquti').innerText = annualDoriquti.toLocaleString() + ' UZS';
+            document.getElementById('calcDropNet').innerText = annualSaved.toLocaleString() + ' UZS (' + pct + '%)';
+        }
+
+        function orderEyeDropSubscription() {
+            alert("✅ 28-kunlik Glaukoma Ko'z Qalqoni Obunasi faollashtirildi!\n\n1. Har 28 kunda yangi steril flakon uyingizga yetkaziladi.\n2. Har kuni soat 20:00 da Telegram orqali tomizish eslatmasi keladi.\n3. Har 3 oyda bepul ArzonLab ko'z bosimi vaucheri taqdim etiladi.");
+        }
+
+        // Init
+        evalIOP();
+        updateDropSavings();
+    </script>
+</body>
+</html>

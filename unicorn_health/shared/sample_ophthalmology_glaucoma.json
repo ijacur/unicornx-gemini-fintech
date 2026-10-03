@@ -1,0 +1,81 @@
+{
+  "status": "OPERATIONAL",
+  "clinical_guideline": "EGS 2024 (European Glaucoma Society 5th Edition)",
+  "regimens": [
+    {
+      "id": "glaucoma-combo-prostaglandin",
+      "title": "Oltin Standart: Latanoprost 0.005% + Timolol 0.5%",
+      "indication": "Ochiq burchakli glaukoma & Ko'z gipertenziyasi (Ko'z bosimi > 22 mmHg)",
+      "drops": "Latanoprost + Timolol steril flakon (5 ml, 28 kunlik resurs)",
+      "instillation_schedule": "Har kuni kechqurun soat 20:00 da har bir ko'zga 1 tomchidan",
+      "retail_city_price_uzs": 260000,
+      "doriquti_price_uzs": 98000,
+      "monthly_saved_uzs": 162000,
+      "savings_percent": 62.3,
+      "expiry_policy": "Ochilgandan so'ng qat'iy 28 kun (avtomatik yangi flakon yetkaziladi)"
+    },
+    {
+      "id": "glaucoma-triple-advanced",
+      "title": "Uchta Komponentli Ilg'or Qalqon (Latanoprost + Timolol + Dorzolamid)",
+      "indication": "Refrakter glaukoma (bitta dori bilan bosim 18 dan tushmaganda)",
+      "drops": "Kombinatsiyalangan antiglaukoma tomchilari (Ertalab va Kechqurun)",
+      "instillation_schedule": "Ertalab 08:00 (Dorzolamid/Timolol) + Kechqurun 20:00 (Latanoprost)",
+      "retail_city_price_uzs": 380000,
+      "doriquti_price_uzs": 145000,
+      "monthly_saved_uzs": 235000,
+      "savings_percent": 61.8,
+      "expiry_policy": "28 kunlik steril rotatsiya"
+    },
+    {
+      "id": "retina-macula-support",
+      "title": "Ko'z To'r Pardasi & Quruq Ko'z Sindromi (Natriy Gialuronat + Lutein)",
+      "indication": "Yoshga bog'liq makulodistrofiya (AMD) va kompyuter/quruqlik sindromi",
+      "drops": "Konservantsiz Natriy Gialuronat 0.15% (tomchi) + Lutein/Zeaksantin (blister)",
+      "instillation_schedule": "Kuniga 3 mahal 1 tomchidan + Kuniga 1 tabletka Lutein",
+      "retail_city_price_uzs": 310000,
+      "doriquti_price_uzs": 120000,
+      "monthly_saved_uzs": 190000,
+      "savings_percent": 61.3,
+      "expiry_policy": "Ko'p dozali konservantsiz filtrli flakon"
+    }
+  ],
+  "sample_normal_eval": {
+    "iop_right_eye": 16,
+    "iop_left_eye": 17,
+    "max_iop": 17,
+    "clinical_status": "YASHIL: Ko'z Bosimi Barqaror Me'yorda ✅",
+    "color": "emerald",
+    "emergency_referral": false,
+    "days_since_opened": 12,
+    "bottle_sterility_valid": true,
+    "alerts": [
+      "Ko'z bosimi xavfsiz chegarada (16 / 17 mmHg). Har kuni soat 20:00 da tomizishni davom ettiring."
+    ]
+  },
+  "sample_warning_eval": {
+    "iop_right_eye": 26,
+    "iop_left_eye": 24,
+    "max_iop": 26,
+    "clinical_status": "SARIQ XAVF: Ko'z Ichki Gipertenziyasi ⚠️",
+    "color": "amber",
+    "emergency_referral": false,
+    "days_since_opened": 31,
+    "bottle_sterility_valid": false,
+    "alerts": [
+      "Ko'z bosimi me'yordan baland (26 mmHg, norma: 10-21 mmHg). Antiglaukoma tomchilari dozasini oshirish yoki kombinatsiyaga o'tish lozim.",
+      "XAVFLI: Flakon ochilganiga 31 kun bo'ldi! 28 kundan keyin flakonda bakteriyalar ko'payadi va dori kuchi 40% yo'qoladi. Yangi flakondan foydalaning."
+    ]
+  },
+  "sample_patient_savings": {
+    "regimen_id": "glaucoma-combo-prostaglandin",
+    "title": "Oltin Standart: Latanoprost 0.005% + Timolol 0.5%",
+    "monthly_retail_uzs": 260000,
+    "monthly_doriquti_uzs": 98000,
+    "months": 12,
+    "annual_retail_uzs": 3120000,
+    "annual_doriquti_uzs": 1176000,
+    "annual_saved_uzs": 1944000,
+    "savings_percent": 62.3,
+    "blindness_risk_reduction": "82% ga ko'rish qobiliyatini saqlab qolish ehtimoli oshadi"
+  }
+}
