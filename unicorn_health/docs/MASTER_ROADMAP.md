@@ -253,8 +253,11 @@
   - [x] Oftalmologiya, Glaukoma & Ko'rish Qalqoni Dvigateli (shared/ophthalmology_glaucoma_engine.py)
   - [x] DoriQuti Glaukoma & Ko'rish Qalqoni Portali (doriquti/ophthalmology_glaucoma_portal.html)
   - [x] Qaytmas ko'rlik profilaktikasi: har 28 kunda avtomatik yangilanuvchi steril Latanoprost/Timolol flakoni (62% arzon), 20:00 kechki eslatma va ko'z bosimi (IOP) nazorati
-  - [x] 151/151 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 59 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Epilepsiya & Neyrologik Xurujlar Qalqoni va TDM Monitoringi Dvigateli (shared/epilepsy_tdm_engine.py)
+  - [x] DoriQuti Epilepsiya & TDM Qalqoni Portali (doriquti/epilepsy_tdm_portal.html)
+  - [x] Tor terapevtik indeksga (NTI) ega antikonvulsantlar intizomi (Depakin Chrono, Keppra 60% arzon), qondagi dori konsentratsiyasi (TDM) monitoringi va 103 shoshilinch xuruj taymeri
+  - [x] 153/153 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 60 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 
