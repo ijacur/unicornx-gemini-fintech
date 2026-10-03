@@ -1,0 +1,1574 @@
+{
+  "patient_name": "Hamidov Botir",
+  "clinical_diagnosis": "Oshqozon va 12 barmoqli ichak eroziv yarasi, Helicobacter pylori musbat (+)",
+  "selected_regimen": {
+    "id": "bismuth_quadruple_14d",
+    "title": "Bismutli Kvadroterapiya (14 Kunlik Oltin Standart)",
+    "duration_days": 14,
+    "first_line_indication": "O'zbekistonda klaritromitsinga yuqori chidamlilik sharoitida 1-qator tanlov terapiyasi (Samaradorlik: 92-94%)",
+    "total_pouches": 56,
+    "retail_cost_uzs": 680000,
+    "doriquti_cost_uzs": 265000,
+    "saved_uzs": 415000,
+    "savings_percent": 61.0,
+    "components": [
+      {
+        "name": "Pantoprazol 40 mg (yoki Ezomeprazol 40 mg)",
+        "role": "Proton pompasi ingibitori (Kislota blokatori)",
+        "timing": "Kuniga 2 mahal: Tongda (07:30) va Kechqurun (19:00) ovqatdan 30 daqiqa oldin",
+        "purpose": "Oshqozon kislotasini neytrallab, antibiotiklarning maksimal antibakterial faolligini ta'minlaydi."
+      },
+      {
+        "name": "Bismut subtsitrat (De-Nol) 120 mg",
+        "role": "Gastroprotektor & Antibakterial qoplama",
+        "timing": "Kuniga 4 mahal: Tongda (07:30), Tushlikda (12:30), Kechqurun (19:00) va Uyqudan oldin (22:30)",
+        "purpose": "Bakteriya devorini parchalaydi va yara tubida kislotaga chidamli shilliq plyonka hosil qiladi."
+      },
+      {
+        "name": "Amoksitsillin (Flemoksin) 1000 mg",
+        "role": "Bakteritsid antibiotik",
+        "timing": "Kuniga 2 mahal: Nonushta va Kechki ovqatdan 10 daqiqa keyin",
+        "purpose": "H. pylori mikrobiga nisbatan chidamliligi minimal bo'lgan asosiy antibiotik."
+      },
+      {
+        "name": "Klaritromitsin 500 mg (yoki Metronidazol 500 mg)",
+        "role": "Makrolid antibiotik",
+        "timing": "Kuniga 2 mahal: Nonushta va Kechki ovqatdan 10 daqiqa keyin",
+        "purpose": "Bakteriya oqsil sintezini to'xtatadi."
+      }
+    ]
+  },
+  "calendar_14d": [
+    {
+      "day_number": 1,
+      "title": "1-kun Eradikatsiya Paketi",
+      "phase": "Boshlang'ich (Kun 1-3)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 2,
+      "title": "2-kun Eradikatsiya Paketi",
+      "phase": "Boshlang'ich (Kun 1-3)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 3,
+      "title": "3-kun Eradikatsiya Paketi",
+      "phase": "Boshlang'ich (Kun 1-3)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Og'riq 3-4 kunda qolsa ham to'xtatmang! Erta to'xtatish chidamli superbakteriya hosil qiladi."
+    },
+    {
+      "day_number": 4,
+      "title": "4-kun Eradikatsiya Paketi",
+      "phase": "Faol Eradikatsiya (Kun 4-10)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Og'riq 3-4 kunda qolsa ham to'xtatmang! Erta to'xtatish chidamli superbakteriya hosil qiladi."
+    },
+    {
+      "day_number": 5,
+      "title": "5-kun Eradikatsiya Paketi",
+      "phase": "Faol Eradikatsiya (Kun 4-10)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Og'riq 3-4 kunda qolsa ham to'xtatmang! Erta to'xtatish chidamli superbakteriya hosil qiladi."
+    },
+    {
+      "day_number": 6,
+      "title": "6-kun Eradikatsiya Paketi",
+      "phase": "Faol Eradikatsiya (Kun 4-10)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 7,
+      "title": "7-kun Eradikatsiya Paketi",
+      "phase": "Faol Eradikatsiya (Kun 4-10)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 8,
+      "title": "8-kun Eradikatsiya Paketi",
+      "phase": "Faol Eradikatsiya (Kun 4-10)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 9,
+      "title": "9-kun Eradikatsiya Paketi",
+      "phase": "Faol Eradikatsiya (Kun 4-10)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 10,
+      "title": "10-kun Eradikatsiya Paketi",
+      "phase": "Faol Eradikatsiya (Kun 4-10)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 11,
+      "title": "11-kun Eradikatsiya Paketi",
+      "phase": "Tugallash & Mustahkamlash (Kun 11-14)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 12,
+      "title": "12-kun Eradikatsiya Paketi",
+      "phase": "Tugallash & Mustahkamlash (Kun 11-14)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 13,
+      "title": "13-kun Eradikatsiya Paketi",
+      "phase": "Tugallash & Mustahkamlash (Kun 11-14)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    },
+    {
+      "day_number": 14,
+      "title": "14-kun Eradikatsiya Paketi",
+      "phase": "Tugallash & Mustahkamlash (Kun 11-14)",
+      "pouches": [
+        {
+          "slot": "Tonggi (07:30)",
+          "timing": "Nonushtadan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Nonushtadan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tushlik (12:30)",
+          "timing": "Tushlikdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Tushlikdan 2 soat so'ng (14:30)",
+            "items": [
+              {
+                "med": "Saccharomyces boulardii 250 mg",
+                "form": "Probiotik kapsula",
+                "rule": "Antibiotikdan 2 soat oraliq bilan"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Kechki (19:00)",
+          "timing": "Kechki ovqatdan 30 daqiqa oldin",
+          "items": [
+            {
+              "med": "Pantoprazol 40 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            },
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "Och qoringa suv bilan"
+            }
+          ],
+          "post_meal": {
+            "timing": "Kechki ovqatdan 10 daqiqa so'ng",
+            "items": [
+              {
+                "med": "Amoksitsillin 1000 mg",
+                "form": "Eruvchan tabletka",
+                "rule": "Ovqatdan so'ng darhol"
+              },
+              {
+                "med": "Klaritromitsin 500 mg",
+                "form": "Kapsula",
+                "rule": "Ovqatdan so'ng darhol"
+              }
+            ]
+          }
+        },
+        {
+          "slot": "Tungi (22:30)",
+          "timing": "Uyqudan 15-20 daqiqa oldin",
+          "items": [
+            {
+              "med": "De-Nol (Bismut) 120 mg",
+              "form": "Tabletka",
+              "rule": "1 qultum suv bilan, oshqozonni tuni bilan himoyalash"
+            }
+          ],
+          "post_meal": null
+        }
+      ],
+      "daily_note": "Najasning qoraligi - me'yoriy holat (bismut sulfid). Xavotir olmang."
+    }
+  ],
+  "financial_summary": {
+    "regimen_title": "Bismutli Kvadroterapiya (14 Kunlik Oltin Standart)",
+    "med_retail_uzs": 680000,
+    "med_doriquti_uzs": 265000,
+    "med_saved_uzs": 415000,
+    "lab_retail_uzs": 180000,
+    "lab_arzonlab_uzs": 65000,
+    "lab_saved_uzs": 115000,
+    "total_retail_uzs": 860000,
+    "total_unicorn_uzs": 330000,
+    "total_saved_uzs": 530000,
+    "savings_percent": 61.6
+  },
+  "side_effects_guide": [
+    {
+      "symptom": "Qora rangli najas va qora til (Black Stool & Tongue)",
+      "alarm_level": "XAVFSIZ (Zararsiz kimyoviy reaksiya)",
+      "color": "emerald",
+      "is_benign": true,
+      "explanation": "Bismut subtsitrat ichakdagi oltingugurt birikmalari bilan reaksiyaga kirishib, qora bismut sulfidiga aylanadi. Bu 100% zararsiz, og'riqsiz va dori to'xtatilgach 2-3 kunda o'tib ketadi. Bu oshqozon qon ketishi (melena) EMAS! Dorini to'xtatmang!",
+      "action": "Qo'rqmasdan 14 kunlik kursni davom ettiring."
+    },
+    {
+      "symptom": "Og'izda achchiq metall ta'mi (Bitter Metallic Taste)",
+      "alarm_level": "KUTILGAN NOJO'YA TA'SIR",
+      "color": "blue",
+      "is_benign": true,
+      "explanation": "Klaritromitsin va metronidazol so'lak bezlari orqali qisman ajralgani sababli og'izda achchiq yoki metall ta'mi paydo bo'ladi.",
+      "action": "Dorini ko'p suv bilan iching, taomdan so'ng limonli iliq suv iching yoki shakariz yalpizli konfet iste'mol qiling."
+    },
+    {
+      "symptom": "Yengil ko'ngil aynishi va ich surishi (Dysbiosis / Diarrhea)",
+      "alarm_level": "MODERATE",
+      "color": "amber",
+      "is_benign": true,
+      "explanation": "Bir vaqtning o'zida ikkita kuchli antibiotik qabul qilish ichak florasini vaqtincha buzadi.",
+      "action": "Antibiotik qabulidan kamida 2 soat keyin (soat 14:00 da) Saccharomyces boulardii (Enterol) probiotik qabul qiling. Dorilarni aslo och qoringa ichmang (PPI va Bismutdan tashqari)."
+    },
+    {
+      "symptom": "Qora qatronga o'xshash suyuq qonli ich ketishi va bosh aylanishi, hushdan ketish",
+      "alarm_level": "FAVQULODDA XAVF (103 Chaqiring!)",
+      "color": "red",
+      "is_benign": false,
+      "explanation": "Agar najas qoraligi bilan birga qattiq holsizlik, sovuq ter, qonli qusish yoki qon bosimi keskin tushishi kuzatilsa, bu yara qonashining belgisi bo'lishi mumkin.",
+      "action": "Zudlik bilan 103 ga qo'ng'iroq qiling va gastroenterologga murojaat qiling."
+    }
+  ],
+  "diagnostics": {
+    "ubt_13c_breath_test": {
+      "id": "ubt_13c_breath_test",
+      "name": "13C-Urea Nafas Testi (13C-UBT)",
+      "gold_standard": true,
+      "retail_uzs": 180000,
+      "arzonlab_uzs": 65000,
+      "saved_uzs": 115000,
+      "savings_percent": 63.9,
+      "description": "Og'riqsiz, zond yutmasdan (FGSsiz) 15 daqiqada mikrob faolligini aniqlovchi xalqaro oltin standart.",
+      "pre_test_rules": "Antibiotik tugaganidan 4 hafta, Omeprazol/Pantoprazol tugaganidan 2 hafta o'tib topshiriladi."
+    },
+    "stool_antigen_elisa": {
+      "id": "stool_antigen_elisa",
+      "name": "Najasda H. pylori Antigenni Aniqlash (IFA/ELISA)",
+      "gold_standard": false,
+      "retail_uzs": 120000,
+      "arzonlab_uzs": 45000,
+      "saved_uzs": 75000,
+      "savings_percent": 62.5,
+      "description": "Najas namunasi orqali mikrob antigenini yuqori aniqlikda tekshirish.",
+      "pre_test_rules": "Antibiotikdan 4 hafta, kislota ingibitoridan 14 kun keyin."
+    },
+    "gastric_pepsinogen_panel": {
+      "id": "gastric_pepsinogen_panel",
+      "name": "GastroPanel (Pepsinogen I/II & Gastrin-17 Onko-Xavf)",
+      "gold_standard": false,
+      "retail_uzs": 320000,
+      "arzonlab_uzs": 135000,
+      "saved_uzs": 185000,
+      "savings_percent": 57.8,
+      "description": "Oshqozon shilliq qavati atrofiyasi va onkologik xavfini baholovchi qon tahlili.",
+      "pre_test_rules": "Ertalab och qoringa qon topshiriladi."
+    }
+  },
+  "adherence_rules": [
+    "1. Hech qachon 14 kunlik kursni o'rtasida to'xtatmang.",
+    "2. Pantoprazol va De-Nol ovqatdan 30 daqiqa oldin qabul qilinadi.",
+    "3. Amoksitsillin va Klaritromitsin qorin to'ygandan so'ng darhol ichiladi.",
+    "4. Achchiq ta'm yoki qora najasdan qo'rqmang - bu dori ta'sirining isboti.",
+    "5. Davolash tugagach 4 hafta o'tib ArzonLab orqali 13C-UBT nafas testini topshiring."
+  ]
+}

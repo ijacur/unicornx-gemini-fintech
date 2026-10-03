@@ -268,8 +268,11 @@
   - [x] Endokrinologiya, Gipoterioz & L-Tiroksin Tonggi Suv Qalqoni Dvigateli (shared/endocrinology_thyroid_engine.py)
   - [x] DoriQuti Endokrinologiya & L-Tiroksin Qalqoni Portali (doriquti/endocrinology_thyroid_portal.html)
   - [x] Euthyrox 06:30 tonggi toza suv lentasi, kofe/choy va 4 soatlik temir/kalsiy to'sig'i, TSH titrlash kalkulyatori va 67% arzon obuna
-  - [x] 161/161 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 64 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Gastroenterologiya, Oshqozon Yarasi & H. pylori 14-Kunlik Eradikatsiya Qalqoni Dvigateli (shared/gastroenterology_hpylori_engine.py)
+  - [x] DoriQuti Oshqozon Yarasi & H. pylori Eradikatsiya Qalqoni Portali (doriquti/gastroenterology_hpylori_portal.html)
+  - [x] Maastricht VI 14 kunlik Bismutli Kvadroterapiya lentasi, qora najas xavfsizligi kafolati, ArzonLab 13C-UBT nafas testi va 530,000 UZS tejamkorlik
+  - [x] 163/163 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 65 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 
