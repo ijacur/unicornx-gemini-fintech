@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health — Chop Etish Uchun Flayerlar va QR Stendlar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    @media print {
+      body { background: white !important; }
+      .no-print { display: none !important; }
+      .page-break { page-break-after: always; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 p-4 md:p-8 text-slate-900">
+
+  <!-- CONTROLS (NO PRINT) -->
+  <div class="no-print max-w-4xl mx-auto mb-8 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+    <div>
+      <h2 class="font-extrabold text-base text-slate-900">Chop Etish Uchun Marketing To‘plami (Kit)</h2>
+      <p class="text-xs text-slate-500">Dorixonalar peshtaxtasi va klinikalar kutish zallariga qo‘yiladigan A5 flayerlar va QR-stendlar</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="text-xs font-bold text-slate-600 hover:underline">← Bosh sahifaga</a>
+      <button onclick="window.print()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center gap-1.5">
+        <span>🖨</span>
+        <span>Flayerlarni chop etish (PDF)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- FLYER 1: DORIQUTI (A5 SIZE) -->
+  <div class="max-w-xl mx-auto bg-white rounded-3xl p-8 border-2 border-emerald-500 shadow-xl mb-12 page-break relative overflow-hidden">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <div class="flex items-center space-x-2.5">
+        <span class="text-3xl">💊</span>
+        <span class="font-black text-2xl tracking-tight text-slate-900">Dori<span class="text-emerald-600">Quti</span>.uz</span>
+      </div>
+      <span class="text-[11px] font-extrabold bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full border border-emerald-200 uppercase">
+        Samarqand Shahri
+      </span>
+    </div>
+
+    <div class="space-y-4 mb-8">
+      <span class="text-xs font-black text-emerald-600 tracking-wider uppercase block">Ota-onangizga mehr ulashing</span>
+      <h3 class="text-3xl font-black text-slate-900 leading-tight">
+        Keksa ota-onangiz dorilarini adashtirmasdan, vaqtida ichsin!
+      </h3>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Biz har oyning 1-kunida 30 kunlik barcha dori vositalarini <strong>Ertalabki, Tushlikdagi va Kechki</strong> alohida lentali paketlarga saralab, uyingizgacha bepul yetkazib beramiz.
+      </p>
+    </div>
+
+    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-2 text-xs font-bold text-slate-700 mb-8">
+      <div class="flex items-center gap-2">
+        <span class="text-emerald-600 text-sm">✓</span>
+        <span>Dorixona chakana narxidan 10–15% arzonroq</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-emerald-600 text-sm">✓</span>
+        <span>Dori tugab qolish xavfi mutlaqo yo‘qoladi</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-emerald-600 text-sm">✓</span>
+        <span>Farzandlar uchun Telegram orqali har kunlik dori nazorati</span>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between border-t border-slate-100 pt-6">
+      <div>
+        <span class="text-[11px] text-slate-500 font-bold block">1 daqiqada quti tuzing:</span>
+        <span class="text-sm font-black text-slate-900">www.doriquti.uz</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">📞 +998 (90) 000-00-00</span>
+      </div>
+      <!-- QR CODE SIMULATION -->
+      <div class="w-24 h-24 border-2 border-slate-800 rounded-2xl p-2 bg-slate-50 flex flex-col items-center justify-center text-center">
+        <span class="text-3xl">📱</span>
+        <span class="text-[9px] font-black text-slate-800 mt-1 uppercase">Skaner qiling</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLYER 2: ARZONLAB (A5 SIZE) -->
+  <div class="max-w-xl mx-auto bg-white rounded-3xl p-8 border-2 border-blue-600 shadow-xl mb-12 relative overflow-hidden">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+      <div class="flex items-center space-x-2.5">
+        <span class="text-3xl">🔬</span>
+        <span class="font-black text-2xl tracking-tight text-slate-900">Arzon<span class="text-blue-600">Lab</span>.uz</span>
+      </div>
+      <span class="text-[11px] font-extrabold bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200 uppercase">
+        Diagnostika Portali
+      </span>
+    </div>
+
+    <div class="space-y-4 mb-8">
+      <span class="text-xs font-black text-blue-600 tracking-wider uppercase block">Tahlillarda 150 000 so‘mgacha tejang</span>
+      <h3 class="text-3xl font-black text-slate-900 leading-tight">
+        MRT, KT va Qon Tahlillarini 25% dan 35% gacha arzonroq o‘ting!
+      </h3>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Samarqanddagi nufuzli klinika va laboratoriyalarning bo‘sh turgan soatlariga bepul SMS-vaucher oling va kassada chegirmali narxda to‘lang.
+      </p>
+    </div>
+
+    <div class="bg-blue-50/50 rounded-2xl p-4 border border-blue-100 space-y-2.5 text-xs mb-8">
+      <div class="flex justify-between items-center font-bold">
+        <span class="text-slate-700">🧠 MRT Bosh Miya:</span>
+        <div>
+          <span class="line-through text-slate-400 mr-2">480 000 so‘m</span>
+          <span class="text-blue-600 font-black">330 000 so‘m</span>
+        </div>
+      </div>
+      <div class="flex justify-between items-center font-bold">
+        <span class="text-slate-700">🦴 MRT Bel-Umurtqa:</span>
+        <div>
+          <span class="line-through text-slate-400 mr-2">450 000 so‘m</span>
+          <span class="text-blue-600 font-black">315 000 so‘m</span>
+        </div>
+      </div>
+      <div class="flex justify-between items-center font-bold">
+        <span class="text-slate-700">🩸 Umumiy Qon Tahlili:</span>
+        <div>
+          <span class="line-through text-slate-400 mr-2">75 000 so‘m</span>
+          <span class="text-blue-600 font-black">50 000 so‘m</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between border-t border-slate-100 pt-6">
+      <div>
+        <span class="text-[11px] text-slate-500 font-bold block">Bepul vaucher olish:</span>
+        <span class="text-sm font-black text-blue-600">www.arzonlab.uz</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">Oldindan to‘lov talab etilmaydi</span>
+      </div>
+      <div class="w-24 h-24 border-2 border-blue-600 rounded-2xl p-2 bg-blue-50 flex flex-col items-center justify-center text-center">
+        <span class="text-3xl">🎟</span>
+        <span class="text-[9px] font-black text-blue-700 mt-1 uppercase">Vaucher QR</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

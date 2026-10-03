@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti.uz — Kuryer va Yetkazib Berish Dispetcheri</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.03); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- TOP BAR -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-emerald-200">
+            🚴‍♂️
+          </div>
+          <div>
+            <span class="font-extrabold text-lg text-slate-900">Dori<span class="text-emerald-600">Quti</span> • Yetkazib Berish</span>
+            <span class="text-[10px] block font-semibold text-slate-400 uppercase tracking-widest -mt-1">Samarqand Kuryer Hubi</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="hidden sm:flex items-center space-x-2 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl text-xs">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="font-bold text-emerald-800">Kuryer: Bekzod (Navbatchilikda)</span>
+        </div>
+        <a href="pharmacy_portal.html" class="text-xs font-bold text-slate-500 hover:text-emerald-600 transition">
+          Provizor Paneli →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
+
+    <!-- METRICS OVERVIEW -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white p-5 rounded-3xl border border-slate-200 card-shadow">
+        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Bugungi Reja</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-3xl font-black text-slate-900" id="totalPlanCount">18</span>
+          <span class="text-xs font-bold text-slate-500">ta quti</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1">Samarqand shahri bo‘yicha</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-3xl border border-slate-200 card-shadow">
+        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Topshirildi (Yetkazildi)</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-3xl font-black text-emerald-600" id="deliveredCount">14</span>
+          <span class="text-xs font-bold text-emerald-600">78%</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1">Bemorlar qabul qildi</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-3xl border border-slate-200 card-shadow">
+        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Hozir Yo‘lda</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-3xl font-black text-blue-600" id="inTransitCount">4</span>
+          <span class="text-xs font-bold text-blue-600">ta quti</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1">Spitamen va Dagbitskaya</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-3xl border border-slate-200 card-shadow">
+        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Yig‘ilgan To‘lov</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-2xl font-black text-slate-900">2,460k</span>
+          <span class="text-xs font-bold text-slate-400">so‘m</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1">Click / Payme / Naqd</p>
+      </div>
+    </div>
+
+    <!-- MAIN TWO COLUMNS: ROUTE LIST & PROOF OF DELIVERY -->
+    <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+      <!-- LEFT: ACTIVE DELIVERY ROUTE (8 COLS) -->
+      <div class="lg:col-span-8 bg-white p-6 md:p-8 rounded-3xl border border-slate-200 card-shadow space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h2 class="text-xl font-black text-slate-900">Bugungi Yetkazib Berish Marshruti</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Samarqand shahar Registon va Spitamen hududlari bo‘yicha tartiblangan</p>
+          </div>
+          <span class="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">Optimal Marshrut</span>
+        </div>
+
+        <!-- ROUTE ITEMS -->
+        <div class="space-y-4 text-xs font-medium" id="routeList">
+          
+          <!-- ITEM 1: DELIVERED -->
+          <div class="p-4 rounded-2xl bg-emerald-50/50 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="w-6 h-6 rounded-full bg-emerald-500 text-white font-black text-xs flex items-center justify-center">1</span>
+                <strong class="text-sm font-bold text-slate-900">Shukurov Otabek (62 yosh)</strong>
+                <span class="text-[10px] bg-white border border-emerald-300 text-emerald-800 px-2 py-0.5 rounded font-bold">Topshirildi ✅</span>
+              </div>
+              <p class="text-slate-600">📍 Registon ko‘chasi, 42-uy (SamDTU yonida)</p>
+              <p class="text-slate-500 text-[11px]">📦 To‘plam: <strong>Kardio & Bosim (4 xil dori)</strong> • To‘langan: Click</p>
+            </div>
+            <div class="text-right sm:text-right">
+              <span class="text-slate-400 text-[11px] block">Topshirilgan vaqt: 10:15</span>
+              <span class="text-emerald-700 font-bold text-xs">Tasdiq kodi: #4829</span>
+            </div>
+          </div>
+
+          <!-- ITEM 2: IN TRANSIT (ACTIVE NOW) -->
+          <div class="p-4 rounded-2xl bg-blue-50/50 border-2 border-blue-400 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-black text-xs flex items-center justify-center animate-bounce">2</span>
+                <strong class="text-sm font-bold text-slate-900">Umarova Nasiba opa (59 yosh)</strong>
+                <span class="text-[10px] bg-blue-600 text-white px-2 py-0.5 rounded font-bold">Yo‘lda 🚴‍♂️</span>
+              </div>
+              <p class="text-slate-600">📍 Spitamen shoh ko‘chasi, 88-uy, 14-xonadon</p>
+              <p class="text-slate-500 text-[11px]">📦 To‘plam: <strong>Qandli Diabet 2-tur (Insulin bilan)</strong> • ❄️ Sovuq zanjir (+4°C)</p>
+            </div>
+            <div class="flex sm:flex-col gap-2">
+              <button onclick="confirmDelivery('Umarova Nasiba', '#3921')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2 rounded-xl text-xs shadow-md transition">
+                Topshirildi deb belgilash
+              </button>
+              <a href="tel:+998901234567" class="bg-white border border-slate-300 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-center text-[11px] hover:bg-slate-50">
+                📞 Bemorga qo‘ng‘iroq
+              </a>
+            </div>
+          </div>
+
+          <!-- ITEM 3: PENDING -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="w-6 h-6 rounded-full bg-slate-400 text-white font-black text-xs flex items-center justify-center">3</span>
+                <strong class="text-sm font-bold text-slate-900">Xolmatov Botir aka (71 yosh)</strong>
+                <span class="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-bold">Kutilmoqda ⏳</span>
+              </div>
+              <p class="text-slate-600">📍 Dagbitskaya ko‘chasi, 15-uy</p>
+              <p class="text-slate-500 text-[11px]">📦 To‘plam: <strong>Ota-Onam Salomatligi (5 xil dori)</strong> • To‘lov eshikda (Naqd: 228,000 so‘m)</p>
+            </div>
+            <div>
+              <span class="text-slate-400 text-[11px] block">Kutilayotgan vaqt: 12:30</span>
+            </div>
+          </div>
+
+          <!-- ITEM 4: PENDING -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="w-6 h-6 rounded-full bg-slate-400 text-white font-black text-xs flex items-center justify-center">4</span>
+                <strong class="text-sm font-bold text-slate-900">Karimov Sanjar (Bemor: Otasi)</strong>
+                <span class="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-bold">Kutilmoqda ⏳</span>
+              </div>
+              <p class="text-slate-600">📍 So‘g‘diyona mavzesi, 14-bino, 22-xonadon</p>
+              <p class="text-slate-500 text-[11px]">📦 To‘plam: <strong>Insult & Qon-Tomir Tiklanish</strong> • To‘langan (Payme)</p>
+            </div>
+            <div>
+              <span class="text-slate-400 text-[11px] block">Kutilayotgan vaqt: 13:15</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: SAFETY & PROOF OF DELIVERY (4 COLS) -->
+      <div class="lg:col-span-4 space-y-6">
+
+        <!-- DIGITAL PROOF OF DELIVERY CARD -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="text-2xl">🔐</span>
+            <div>
+              <h3 class="font-extrabold text-sm text-slate-900">Raqamli Tasdiqlash</h3>
+              <p class="text-[11px] text-slate-500">Bemor SMS kodini kiritish</p>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-600">Qutini topshirayotganda bemor telefoniga borgan 4 xonali SMS kodini so‘rang va tasdiqlang:</p>
+
+          <form onsubmit="verifyProofCode(event)" class="space-y-3">
+            <input required type="text" id="proofInputCode" placeholder="Masalan: 3921" maxlength="6" class="w-full p-3 border border-slate-300 rounded-xl font-mono text-center text-lg font-black text-slate-900 tracking-widest outline-none focus:ring-2 focus:ring-emerald-500">
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs shadow-md transition">
+              Kodni tekshirish va tasdiqlash
+            </button>
+          </form>
+        </div>
+
+        <!-- COLD CHAIN COMPLIANCE -->
+        <div class="bg-slate-900 text-white p-6 rounded-3xl card-shadow space-y-3">
+          <div class="flex items-center space-x-2 text-xs font-bold text-blue-400">
+            <span>❄️</span>
+            <span>Sovuq Zanjir Nazorati (SanPin 0329-16)</span>
+          </div>
+          <p class="text-xs text-slate-300">Haroratga ta’sirchan dorilar (Insulin, gormonlar) termo-sumkada +2°C dan +8°C oralig‘ida saqlanishi shart.</p>
+          <div class="p-3 bg-slate-800 rounded-xl flex items-center justify-between text-xs">
+            <span class="text-slate-400">Termometr ko‘rsatkichi:</span>
+            <span class="text-emerald-400 font-black">+4.2°C (Me’yorda ✓)</span>
+          </div>
+        </div>
+
+        <!-- INSTRUCTION CHECKLIST -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow space-y-3 text-xs">
+          <h4 class="font-extrabold text-slate-900">Kuryer Eslatmasi:</h4>
+          <ul class="space-y-2 text-slate-600 text-[11px]">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span>Keksa kishilarga xushmuomala bo‘ling, qutini ochishda yordam bering.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span>Lentali paketdagi ertalabki/kechki bo‘limlarni qisqacha ko‘rsatib bering.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 font-bold">✓</span>
+              <span>DoriQuti eslatuvchi botini ochib ko‘rsatishni taklif eting.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-6 px-4 text-center text-xs text-slate-500">
+    © 2026 DoriQuti.uz • Samarqand Markaziy Logistika va Yetkazib Berish Xizmati.
+  </footer>
+
+  <script>
+    function confirmDelivery(name, code) {
+      alert(`✅ ${name} nomidagi buyurtma topshirildi deb belgilandi!\nFarzandning Oila Portaliga "Quti eshikka yetkazildi" deb bildirishnoma yuborildi.`);
+      
+      const inTransit = document.getElementById('inTransitCount');
+      const delivered = document.getElementById('deliveredCount');
+      inTransit.innerText = parseInt(inTransit.innerText) - 1;
+      delivered.innerText = parseInt(delivered.innerText) + 1;
+    }
+
+    function verifyProofCode(e) {
+      e.preventDefault();
+      const code = document.getElementById('proofInputCode').value.trim();
+      alert(`🎉 Kod ${code} muvaffaqiyatli tasdiqlandi!\nBemorga 30 kunlik quti topshirildi va obuna holati yangilandi.`);
+      document.getElementById('proofInputCode').value = '';
+    }
+  </script>
+</body>
+</html>

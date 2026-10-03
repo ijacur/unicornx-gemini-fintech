@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onko-Biopsiya & Raqamli Patomorfologiya | ArzonLab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --indigo: #6366f1;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid var(--purple);
+            color: #d8b4fe;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 36px 24px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(56, 189, 248, 0.08) 50%, rgba(16, 185, 129, 0.08) 100%);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #d8b4fe, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 920px;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: rgba(15, 25, 45, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--purple);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* Two column layout */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1.1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Specimens cards */
+        .specimen-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+
+        .specimen-card:hover {
+            border-color: var(--purple);
+            background: var(--surface-hover);
+        }
+
+        .specimen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .specimen-id {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #38bdf8;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .specimen-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: rgba(7, 13, 24, 0.6);
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 14px;
+        }
+
+        .specimen-info-grid span {
+            color: var(--text-muted);
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .specimen-info-grid strong {
+            color: #e2e8f0;
+        }
+
+        /* Pipeline Steps */
+        .pipeline-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .step-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .step-pill.done {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--emerald);
+            color: #6ee7b7;
+            font-weight: 700;
+        }
+
+        .step-pill.active {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: var(--purple);
+            color: #d8b4fe;
+            font-weight: 800;
+        }
+
+        /* Digital Slide Simulator Box */
+        .slide-simulator-box {
+            background: #0b1329;
+            border: 2px solid #1f3152;
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 24px;
+        }
+
+        .microscope-viewport {
+            height: 240px;
+            background: radial-gradient(circle, #381a3d 0%, #150918 70%, #050206 100%);
+            border-radius: 14px;
+            border: 2px solid rgba(168, 85, 247, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cell-nuclei {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(147, 51, 234, 0.6);
+            border: 1px solid rgba(216, 180, 254, 0.8);
+        }
+
+        .zoom-overlay {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #d8b4fe;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .markers-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .marker-tag {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+        .marker-tag strong {
+            display: block;
+            color: #6ee7b7;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Booking / Dispatch Form */
+        .dispatch-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: #070d18;
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--purple);
+        }
+
+        .btn-dispatch {
+            width: 100%;
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
+        }
+
+        .btn-dispatch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--purple);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.6rem;">🔬</span>
+            <div>
+                <strong style="font-size: 1.15rem; color: #fff;">ArzonLab &bull; Onko-Biopsiya & Patomorfologiya</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Formalin Fiksatsiya & Sovuq Zanjir &bull; SamDTU Second Opinion</span>
+            </div>
+            <span class="badge-pill">40x WSI Digital Slide &bull; IHC Paneli</span>
+        </div>
+        <nav class="nav-links">
+            <a href="../index.html">← Bosh Sahifa</a>
+            <a href="index.html">ArzonLab Hub</a>
+            <a href="../doriquti/index.html">DoriQuti</a>
+            <a href="../doriquti/smart_locker_portal.html">Med-Locker</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <h1>Onko-Biopsiya & Gistologiya: Natijalar 3 Hafta Emas, 3-5 Kunda!</h1>
+            <p>
+                Xususiy jarrohlik klinikalari va shifoxonalardan to'qima namunalarini 
+                <strong>10% buferlangan formalin termoboksida 45 daqiqada</strong> qabul qilib, 
+                SamDTU Markaziy Patomorfologiya laboratoriyasiga yetkazish. 
+                Raqamli mikroskop (Whole Slide Imaging) va professor konsiliumi orqali saraton subtipini 
+                Turkiya/Hindistonga yubormasdan <strong>50% arzonroqqa</strong> aniqlash!
+            </p>
+
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <div class="stat-val">45 Daqiqa</div>
+                    <div class="stat-lbl">Klinikadan Olib Ketish</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">3 - 5 Kun</div>
+                    <div class="stat-lbl">Gistologiya + IHC Xulosasi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">1,150,000 UZS</div>
+                    <div class="stat-lbl">Xorijga Nisbatan Tejov</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">40x Ultra-HD</div>
+                    <div class="stat-lbl">Raqamli Slayd Skaneri</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="layout-grid">
+            
+            <!-- Left: Active Specimens & Slide Viewer -->
+            <div>
+                <div class="section-title">
+                    <span>🧪</span>
+                    <span>Hozirda Tahlildagi Biopsiya Namunalari</span>
+                </div>
+
+                <!-- Specimen 1 -->
+                <div class="specimen-card">
+                    <div class="specimen-header">
+                        <div>
+                            <span class="specimen-id">#BIO-SAM-2026-8812</span>
+                            <div style="font-weight: 800; font-size: 1.05rem; color: #fff; margin-top: 2px;">
+                                Ismoilova Saodat (49 y.)
+                            </div>
+                        </div>
+                        <span class="status-badge">MIKROTOM KESIM TAYYOR</span>
+                    </div>
+
+                    <div class="specimen-info-grid">
+                        <div>
+                            <span>Klinika / Jarroh:</span>
+                            <strong>Viloyat Onkologiya / Dr. Yusupov</strong>
+                        </div>
+                        <div>
+                            <span>Organ / To'qima:</span>
+                            <strong>Sut bezi trepan-biopsiyasi</strong>
+                        </div>
+                        <div>
+                            <span>Fiksatsiya Holati:</span>
+                            <strong style="color: #6ee7b7;">10% Formalin (Cold Ischemia 42 min)</strong>
+                        </div>
+                        <div>
+                            <span>Tahlil Paneli:</span>
+                            <strong style="color: #d8b4fe;">IHC Ko'krak bezi (ER, PR, HER2, Ki67)</strong>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-steps">
+                        <div class="step-pill done">✓ Operatsiya</div>
+                        <div class="step-pill done">✓ Fiksatsiya</div>
+                        <div class="step-pill active">● Blok & Kesim</div>
+                        <div class="step-pill">IHC & Xulosa</div>
+                    </div>
+                </div>
+
+                <!-- Digital Slide Simulator -->
+                <div class="slide-simulator-box">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-weight: 700; font-size: 0.95rem; color: #d8b4fe;">🔬 Raqamli Tele-Patologiya Slaydi (#BIO-8812)</span>
+                        <span style="font-size: 0.75rem; color: #38bdf8;">Prof. Mahmudov O.M. Konsiliumi</span>
+                    </div>
+
+                    <div class="microscope-viewport" id="viewport">
+                        <div class="zoom-overlay">MAGNIFICATION: 40x WSI &bull; HE/IHC STAIN</div>
+                        <!-- Cells dots rendered by JS -->
+                    </div>
+
+                    <div class="markers-list">
+                        <div class="marker-tag">
+                            HER2 Onkogen
+                            <strong>3+ (Musbat)</strong>
+                        </div>
+                        <div class="marker-tag">
+                            Estrogen (ER)
+                            <strong>85% (Yuqori)</strong>
+                        </div>
+                        <div class="marker-tag">
+                            Ki-67 Indeksi
+                            <strong style="color: #f43f5e;">35% (Agressiv)</strong>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right: Clinic Booking / Dispatch Form -->
+            <div>
+                <div class="section-title">
+                    <span>📋</span>
+                    <span>Yangi Biopsiya Namunasi Uchun Kuryer Chaqirish</span>
+                </div>
+
+                <div class="dispatch-card">
+                    <div class="form-group">
+                        <label>Klinika / Shifoxona Nomi:</label>
+                        <input type="text" id="clinicInput" class="form-input" value="SamDTU 1-Klinikasi Jarrohlik Bo'limi">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Operatsiya Qilgan Jarroh:</label>
+                        <input type="text" id="surgeonInput" class="form-input" value="Dotsent Hamrayev S.A.">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Bemor F.I.Sh:</label>
+                        <input type="text" id="patientInput" class="form-input" value="Karimov Boburjon Ergashovich">
+                    </div>
+
+                    <div class="form-group">
+                        <label>A'zo / Olingan To'qima Turi:</label>
+                        <input type="text" id="organInput" class="form-input" value="Oshqozon shilliq qavati (Endoskopik 4 bo'lak)">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kerakli Tahlil Paneli:</label>
+                        <select id="panelSelect" class="form-select" onchange="updatePrice()">
+                            <option value="GISTO_STANDARD">Standart Gistologiya H&E (3 kun) — 420,000 UZS</option>
+                            <option value="IHC_BREAST_PANEL" selected>IHC Ko'krak Bezi Paneli (5 kun) — 1,250,000 UZS</option>
+                            <option value="IHC_LYMPHOMA">IHC Limfoma Paneli (6 kun) — 1,550,000 UZS</option>
+                            <option value="CITO_FROZEN_SECTION">Shoshilinch Cito! Muzlatilgan Kesim (20 daqiqa) — 650,000 UZS</option>
+                        </select>
+                    </div>
+
+                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 12px; margin-bottom: 16px; font-size: 0.85rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                            <span style="color: var(--text-muted);">ArzonLab Narxi:</span>
+                            <strong style="color: #6ee7b7;" id="priceLabel">1,250,000 so'm</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-muted);">Xorijga nisbatan tejov:</span>
+                            <strong style="color: #38bdf8;" id="savingsLabel">1,150,000 so'm tejash</strong>
+                        </div>
+                    </div>
+
+                    <button class="btn-dispatch" onclick="submitPickup()">
+                        🚀 Termoboksli Maxsus Kuryerni Chaqirish (25 daqiqa)
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">📦</div>
+            <h2 style="font-size: 1.4rem; color: #a855f7; margin-bottom: 8px;">Biopsiya Kuryeri Yo'lga Chiqdi!</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 18px;">
+                Formalin 10% buferlangan konteynerli maxsus termoboks kuryeri #BIO-04 operatsiya xonangizga 
+                <strong>25 daqiqada</strong> yetib boradi. Shtrix-kodli zanjir faollashtirildi.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; font-size: 0.8rem; text-align: left; margin-bottom: 20px;">
+                <div><strong>Kuzatuv ID:</strong> <span id="mId" style="color:#38bdf8; font-family:monospace;">#BIO-SAM-2026-9941</span></div>
+                <div><strong>Bemor:</strong> <span id="mPatient">Karimov Boburjon</span></div>
+                <div><strong>Laboratoriya:</strong> SamDTU Markaziy Patomorfologiya</div>
+            </div>
+            <button class="btn-dispatch" onclick="closeOrderModal()">Tushundim, Rahmat!</button>
+        </div>
+    </div>
+
+    <script>
+        const PRICES = {
+            "GISTO_STANDARD": { price: "420,000 so'm", savings: "330,000 so'm tejash" },
+            "IHC_BREAST_PANEL": { price: "1,250,000 so'm", savings: "1,150,000 so'm tejash" },
+            "IHC_LYMPHOMA": { price: "1,550,000 so'm", savings: "1,350,000 so'm tejash" },
+            "CITO_FROZEN_SECTION": { price: "650,000 so'm", savings: "550,000 so'm tejash" }
+        };
+
+        function updatePrice() {
+            const val = document.getElementById("panelSelect").value;
+            document.getElementById("priceLabel").innerText = PRICES[val].price;
+            document.getElementById("savingsLabel").innerText = PRICES[val].savings;
+        }
+
+        function submitPickup() {
+            const pName = document.getElementById("patientInput").value;
+            const rndId = `BIO-SAM-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+            document.getElementById("mId").innerText = `#${rndId}`;
+            document.getElementById("mPatient").innerText = pName;
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+        function closeOrderModal() {
+            document.getElementById("orderModal").style.display = "none";
+        }
+
+        // Render synthetic cell nuclei inside microscope viewport
+        function renderMicroscopeCells() {
+            const vp = document.getElementById("viewport");
+            for (let i = 0; i < 40; i++) {
+                const cell = document.createElement("div");
+                cell.className = "cell-nuclei";
+                const size = Math.floor(14 + Math.random() * 26);
+                cell.style.width = `${size}px`;
+                cell.style.height = `${size}px`;
+                cell.style.left = `${Math.floor(Math.random() * 90)}%`;
+                cell.style.top = `${Math.floor(Math.random() * 80)}%`;
+                vp.appendChild(cell);
+            }
+        }
+
+        renderMicroscopeCells();
+        updatePrice();
+    </script>
+</body>
+</html>

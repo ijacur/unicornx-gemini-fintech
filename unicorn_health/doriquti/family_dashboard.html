@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti.uz — Oila va Farzand Nazorati Portali</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.03); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- TOP BAR -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-indigo-200">
+            👨‍👩‍👧
+          </div>
+          <div>
+            <span class="font-extrabold text-lg text-slate-900">Dori<span class="text-indigo-600">Quti</span> • Oila Nazorati</span>
+            <span class="text-[10px] block font-semibold text-slate-400 uppercase tracking-widest -mt-1">Farzandlar uchun xotirjamlik</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="hidden sm:flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-3 py-1.5 rounded-xl">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
+          <span class="text-xs font-bold text-indigo-800">2 ta profil ulangan</span>
+        </div>
+        <div class="flex items-center space-x-2 pl-2 border-l border-slate-200">
+          <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-800 font-bold flex items-center justify-center text-xs">
+            JS
+          </div>
+          <div class="text-left hidden md:block">
+            <p class="text-xs font-bold text-slate-800 leading-tight">Jasur Shukurov</p>
+            <p class="text-[10px] text-slate-500">Toshkent (Masofaviy)</p>
+          </div>
+        </div>
+        <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-indigo-600 transition">
+          Asosiy sayt →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
+
+    <!-- HERO PROMISE -->
+    <div class="bg-gradient-to-r from-indigo-900 via-indigo-800 to-slate-900 text-white rounded-3xl p-6 md:p-8 card-shadow relative overflow-hidden">
+      <div class="max-w-2xl relative z-10">
+        <span class="text-xs bg-indigo-500/30 text-indigo-200 font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block">Masofadan g‘amxo‘rlik</span>
+        <h1 class="text-2xl md:text-3xl font-black mb-2">Qayerda bo‘lmang, ota-onangiz dori ichganidan doim xabardor bo‘lasiz.</h1>
+        <p class="text-xs md:text-sm text-indigo-200">Dorilarni saralash, kalendarlash va oylik yetkazib berish bizning zimmamizda. Siz har kuni Telegram orqali xotirjam tasdiq olasiz.</p>
+      </div>
+      <div class="absolute right-4 bottom-2 text-8xl opacity-10 select-none hidden lg:block">
+        ❤️
+      </div>
+    </div>
+
+    <!-- PROFILE TABS (DADAM VA OYIM) -->
+    <div class="flex space-x-3 border-b border-slate-200 pb-2">
+      <button onclick="switchProfile('father')" id="tabFather" class="profile-tab active bg-indigo-600 text-white px-5 py-2.5 rounded-xl font-bold text-xs flex items-center space-x-2 transition shadow-md shadow-indigo-600/20">
+        <span>👴</span>
+        <span>Dadam (Otabek aka • 62 yosh)</span>
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      </button>
+
+      <button onclick="switchProfile('mother')" id="tabMother" class="profile-tab bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 px-5 py-2.5 rounded-xl font-bold text-xs flex items-center space-x-2 transition">
+        <span>👵</span>
+        <span>Oyim (Gulchehra opa • 58 yosh)</span>
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      </button>
+
+      <button onclick="alert('Yangi oila a\'zosi qo\'shish darchasi')" class="text-slate-500 hover:text-indigo-600 border border-dashed border-slate-300 px-4 py-2.5 rounded-xl font-bold text-xs flex items-center space-x-1.5 transition">
+        <span>➕ Yangi profil qo‘shish</span>
+      </button>
+    </div>
+
+    <!-- PROFILE VIEW: DADAM (ACTIVE) -->
+    <div id="profileFather" class="grid lg:grid-cols-12 gap-8 items-start">
+
+      <!-- LEFT: TODAY'S STATUS & PILL TIMELINE (7 COLS) -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- TODAY SUMMARY -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div>
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Bugungi holat • Shanba, 3-Oktabr</span>
+              <h3 class="text-xl font-black text-slate-900">Kunlik Dori Qabuli</h3>
+            </div>
+            <span class="bg-emerald-100 text-emerald-800 text-xs font-black px-3 py-1 rounded-full flex items-center space-x-1">
+              <span>✅</span>
+              <span>Intizom: 100%</span>
+            </span>
+          </div>
+
+          <!-- TIME SLOTS -->
+          <div class="space-y-3">
+            <!-- MORNING -->
+            <div class="p-4 rounded-2xl bg-emerald-50/50 border border-emerald-200 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-lg font-bold shadow-sm">
+                  ☀️
+                </div>
+                <div>
+                  <h4 class="font-extrabold text-xs text-slate-900">Ertalabki paket (08:00)</h4>
+                  <p class="text-[11px] text-slate-600">Lozap 50mg, Bisoprolol 5mg</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-xs font-extrabold text-emerald-700 bg-white border border-emerald-300 px-2.5 py-1 rounded-lg shadow-sm">08:14 da ichildi ✅</span>
+                <span class="text-[10px] text-slate-400 block mt-0.5">Telegram orqali tasdiqlandi</span>
+              </div>
+            </div>
+
+            <!-- NOON -->
+            <div class="p-4 rounded-2xl bg-blue-50/50 border border-blue-200 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-xl bg-blue-500 text-white flex items-center justify-center text-lg font-bold shadow-sm">
+                  🍲
+                </div>
+                <div>
+                  <h4 class="font-extrabold text-xs text-slate-900">Tushlik paketi (13:00)</h4>
+                  <p class="text-[11px] text-slate-600">Omega-3 Kardio 1000mg</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-xs font-extrabold text-blue-700 bg-white border border-blue-300 px-2.5 py-1 rounded-lg shadow-sm">Kutilmoqda ⏳</span>
+                <span class="text-[10px] text-slate-400 block mt-0.5">Eslatma: 13:00 da</span>
+              </div>
+            </div>
+
+            <!-- EVENING -->
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+              <div class="flex items-center space-x-3.5">
+                <div class="w-10 h-10 rounded-xl bg-slate-400 text-white flex items-center justify-center text-lg font-bold shadow-sm">
+                  🌙
+                </div>
+                <div>
+                  <h4 class="font-extrabold text-xs text-slate-900">Kechki paket (21:00)</h4>
+                  <p class="text-[11px] text-slate-600">Kardiomagnil 75mg, Atorvastatin 20mg</p>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-xs font-semibold text-slate-500 bg-white border border-slate-200 px-2.5 py-1 rounded-lg">Rejada (21:00)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-2xl flex items-center justify-between text-xs">
+            <span class="text-indigo-800 font-semibold">📲 Telegram eslatmalari otangizning botiga ulangan: <strong>@DoriQutiBot</strong></span>
+            <button onclick="alert('Sinov xabari otangizning Telegramiga yuborildi')" class="text-indigo-600 font-bold hover:underline">Sinov SMS yuborish</button>
+          </div>
+        </div>
+
+        <!-- 30-DAY ADHERENCE HEATMAP -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="font-extrabold text-sm text-slate-900">Oxirgi 30 kunlik intizom kalendari</h4>
+            <span class="text-xs text-emerald-600 font-bold">29/30 kun o‘z vaqtida (97%)</span>
+          </div>
+          <div class="grid grid-cols-10 gap-2">
+            <!-- 30 pills simulation -->
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center" title="1-kun: 100%">1</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">2</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">3</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">4</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">5</div>
+            <div class="h-8 bg-amber-400 rounded-lg text-white font-bold text-[10px] flex items-center justify-center" title="6-kun: Kechikkan">6</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">7</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">8</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">9</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">10</div>
+
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">11</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">12</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">13</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">14</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">15</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">16</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">17</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">18</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">19</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">20</div>
+
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">21</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">22</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">23</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">24</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">25</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">26</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">27</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">28</div>
+            <div class="h-8 bg-emerald-500 rounded-lg text-white font-bold text-[10px] flex items-center justify-center">29</div>
+            <div class="h-8 border-2 border-indigo-600 bg-indigo-50 text-indigo-900 rounded-lg font-black text-[10px] flex items-center justify-center">Bugun</div>
+          </div>
+          <div class="flex items-center space-x-4 text-[10px] text-slate-500 pt-1">
+            <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-sm"></span><span>Vaqtida ichilgan</span></span>
+            <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-amber-400 rounded-sm"></span><span>Kechikkan (1 soatdan so‘ng)</span></span>
+            <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 bg-slate-200 rounded-sm"></span><span>Kutilayotgan kunlar</span></span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: REFILL & AUTO-PAYMENT CARD (5 COLS) -->
+      <div class="lg:col-span-5 space-y-6">
+
+        <!-- NEXT BOX REFILL -->
+        <div class="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 card-shadow space-y-5">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div>
+              <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Avtomatik ta’minot</span>
+              <h3 class="text-lg font-black text-slate-900">Keyingi Oylik DoriQuti</h3>
+            </div>
+            <span class="text-xs bg-indigo-100 text-indigo-800 font-extrabold px-2.5 py-1 rounded-full">Yetkazilish: 1-Noyabr</span>
+          </div>
+
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-2.5">
+            <div class="flex justify-between text-slate-600">
+              <span>Manzil:</span>
+              <strong class="text-slate-900">Samarqand sh., Registon ko‘chasi, 42-uy</strong>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span>Qabul qiluvchi:</span>
+              <strong class="text-slate-900">Otabek Shukurov (+998 90 987 65 43)</strong>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span>Dorilar to‘plami:</span>
+              <strong class="text-slate-900">Kardio & Gipertoniya (4 ta dori)</strong>
+            </div>
+            <div class="flex justify-between text-slate-600">
+              <span>Oylik to‘lov:</span>
+              <strong class="text-emerald-600 text-sm font-black">143,000 so‘m</strong>
+            </div>
+          </div>
+
+          <!-- AUTO-PAY TOGGLE -->
+          <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between">
+            <div>
+              <h5 class="font-extrabold text-xs text-emerald-900">Avtomatik oylik uzaytirish</h5>
+              <p class="text-[10px] text-emerald-700">Har oyning 28-sanasida kartadan yechiladi</p>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" checked class="sr-only peer">
+              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+            </label>
+          </div>
+
+          <button onclick="alert('To\'lov tizimiga yo\'naltirilmoqda (Click / Payme / Uzum)')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-black py-4 rounded-xl text-xs shadow-lg shadow-indigo-600/30 transition flex items-center justify-center space-x-2">
+            <span>💳 Oylik obunani hozir to‘lash (143,000 so‘m)</span>
+          </button>
+        </div>
+
+        <!-- DOCTOR CONTACT & SUPPORT -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow space-y-4">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-lg">
+              🩺
+            </div>
+            <div>
+              <h4 class="font-extrabold text-xs text-slate-900">Biriktirilgan shifokor</h4>
+              <p class="text-[11px] text-slate-500">Dr. Jasur Shukurov • SamDTU Kardiologiya</p>
+            </div>
+          </div>
+          <p class="text-xs text-slate-600">Agar otangizda qon bosimi ko‘tarilsa yoki nojo‘ya ta’sir sezilsa, shifokor bilan to‘g‘ridan-to‘g‘ri maslahatlashing.</p>
+
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <button onclick="alert('Shifokorga qo\'ng\'iroq qilinmoqda: +998 90 000 00 00')" class="bg-slate-100 hover:bg-slate-200 font-bold py-2.5 rounded-xl text-slate-800 transition">
+              📞 Qo‘ng‘iroq qilish
+            </button>
+            <button onclick="alert('Shifokorga Telegram orqali xabar yozish')" class="bg-emerald-100 hover:bg-emerald-200 font-bold py-2.5 rounded-xl text-emerald-800 transition">
+              💬 Xabar yozish
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-6 px-4 text-center text-xs text-slate-500">
+    © 2026 DoriQuti.uz • Farzandlar uchun ota-ona salomatligini masofadan nazorat qilish portali.
+  </footer>
+
+  <script>
+    function switchProfile(profile) {
+      if (profile === 'mother') {
+        alert("Oyim (Gulchehra opa) profiliga o'tildi. Hozirda 3 xil qandli diabet dorilari qutisi faol.");
+      }
+    }
+  </script>
+</body>
+</html>

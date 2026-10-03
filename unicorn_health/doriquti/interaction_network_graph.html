@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dori O'zaro Ta'sirlari Tarmoq Grafigi | DoriQuti Clinical Graph</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-graph {
+            background: rgba(168, 85, 247, 0.15);
+            border: 1px solid #c084fc;
+            color: #d8b4fe;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+        }
+
+        .btn-primary {
+            background: #8b5cf6;
+            border-color: #7c3aed;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7c3aed;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 28px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Checkbox selector */
+        .drug-selector-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .drug-item {
+            background: #080f1c;
+            border: 1px solid #1a2842;
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .drug-item:hover {
+            border-color: var(--primary);
+            background: #0c162a;
+        }
+
+        .drug-item.selected {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: var(--primary);
+        }
+
+        .drug-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #f1f5f9;
+        }
+
+        .drug-class {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Graph Canvas Container */
+        .canvas-container {
+            background: #040813;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .canvas-header {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(15, 25, 45, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 440px;
+            cursor: grab;
+        }
+
+        /* Risk meter banner */
+        .risk-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #0b1325;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 20px;
+        }
+
+        .risk-gauge {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .risk-score-num {
+            font-size: 38px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #f59e0b;
+        }
+
+        /* Interaction cards */
+        .interactions-section {
+            margin-top: 28px;
+        }
+
+        .interaction-card {
+            background: var(--surface);
+            border-left: 4px solid var(--amber);
+            border: 1px solid var(--border);
+            border-left-width: 4px;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 14px;
+        }
+
+        .card-danger { border-left-color: var(--rose); }
+        .card-warning { border-left-color: var(--amber); }
+        .card-caution { border-left-color: var(--primary); }
+
+        .interaction-title {
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .severity-badge {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .badge-contra { background: rgba(244, 63, 94, 0.2); color: #fda4af; }
+        .badge-major { background: rgba(245, 158, 11, 0.2); color: #fde68a; }
+        .badge-mod { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; }
+
+        .meta-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .advice-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #e2e8f0;
+            margin-top: 8px;
+            border-left: 2px solid var(--emerald);
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .btn-preset {
+            background: #142038;
+            border: 1px solid var(--border);
+            color: #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-preset:hover {
+            background: #1e3054;
+            color: white;
+        }
+
+        @media print {
+            .header, .btn-action, .drug-selector-list, .preset-buttons { display: none !important; }
+            body { background: white; color: black; }
+            .canvas-container { border: 1px solid #333; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 28px;">🕸️</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">Klinik Dori O'zaro Ta'sirlari Tarmoq Grafigi</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">SamDTU Kardiologiya & Polipragmaziya Sitoxrom P450 Dinamik Tahlili</p>
+            </div>
+            <span class="badge-graph">DDI Network Graph Engine</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action">← Asosiy Hub</a>
+            <button class="btn-action" onclick="window.print()">🖨️ Xulosani Chop Etish</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-grid">
+            <!-- Left Panel: Drug Selection -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>💊</span> Dorilarni Tanlash
+                </div>
+
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+                    Tezkor Klinik Shablonlar:
+                </div>
+                <div class="preset-buttons">
+                    <button class="btn-preset" onclick="loadPreset('infarct')">Infarktdan Keyin</button>
+                    <button class="btn-preset" onclick="loadPreset('diabet_giper')">Diabet + Gipertoniya</button>
+                    <button class="btn-preset" onclick="loadPreset('chf')">Surunkali CHF</button>
+                </div>
+
+                <div class="drug-selector-list" id="drugListContainer">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Right Panel: Interactive Canvas Graph -->
+            <div>
+                <div class="canvas-container">
+                    <div class="canvas-header">
+                        <div>
+                            <span style="font-weight: 700; font-size: 14px;">Interaktiv Tarmoq Xaritasi (Canvas Node-Graph)</span>
+                            <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">Tugunlar = Dorilar | Chiziqlar = O'zaro ta'sir xavfi</span>
+                        </div>
+                        <div style="display: flex; gap: 14px; font-size: 11px;">
+                            <span style="color: var(--rose);">● Qizil: Qarshi ko'rsatma</span>
+                            <span style="color: var(--amber);">● Sariq: Major xavf</span>
+                            <span style="color: var(--primary);">● Moviy: O'rtacha</span>
+                        </div>
+                    </div>
+                    <canvas id="graphCanvas" width="800" height="440"></canvas>
+                </div>
+
+                <!-- Risk Score Banner -->
+                <div class="risk-banner">
+                    <div class="risk-gauge">
+                        <div class="risk-score-num" id="riskScoreDisplay">48</div>
+                        <div>
+                            <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Umumiy Xavf Indeksi</div>
+                            <div id="riskStatusDisplay" style="font-weight: 800; font-size: 15px; color: #f59e0b;">TO'Q SARIQ: Yuqori ehtiyotkorlik</div>
+                        </div>
+                    </div>
+                    <div style="text-align: right; font-size: 12px; color: var(--text-muted);">
+                        <div>Tahlil qilingan dorilar: <strong id="nodeCountDisplay" style="color: white;">6</strong> ta</div>
+                        <div>Aniqlangan o'zaro ta'sirlar: <strong id="edgeCountDisplay" style="color: #f59e0b;">3</strong> ta</div>
+                    </div>
+                </div>
+
+                <!-- Interaction Cards List -->
+                <div class="interactions-section">
+                    <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 14px;">⚠️ Aniqlangan Juftlik O'zaro Ta'sirlari Tafsiloti</h3>
+                    <div id="interactionCardsContainer">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DRUGS_DB = {
+            "aspirin": { name: "Aspirin 75mg", class: "Antiagregant", x: 200, y: 150 },
+            "clopidogrel": { name: "Klopidogrel 75mg", class: "P2Y12 Antiagregant", x: 380, y: 100 },
+            "warfarin": { name: "Varfarin 2.5mg", class: "Antikoagulyant", x: 220, y: 350 },
+            "atorvastatin": { name: "Atorvastatin 20mg", class: "Statin", x: 600, y: 140 },
+            "amlodipine": { name: "Amlodipin 5mg", class: "Kalsiy blokatori", x: 650, y: 300 },
+            "enalapril": { name: "Enalapril 10mg", class: "ACE ingibitori", x: 420, y: 360 },
+            "losartan": { name: "Losartan 50mg", class: "ARB blokatori", x: 120, y: 250 },
+            "spironolactone": { name: "Spironolakton 25mg", class: "Diuretik", x: 480, y: 240 },
+            "metformin": { name: "Metformin 1000mg", class: "Biguanid", x: 340, y: 280 },
+            "bisoprolol": { name: "Bisoprolol 5mg", class: "Beta-blokator", x: 520, y: 380 }
+        };
+
+        const RULES = [
+            {
+                pair: ["enalapril", "spironolactone"],
+                severity: "major",
+                title: "Enalapril + Spironolakton: Og'ir Giperkalemiya",
+                mechanism: "Ikkala preparat ham buyrak naychalarida kaliy ajralishini bloklaydi.",
+                effect: "Kaliy (K+) > 5.5 mmol/L gacha ko'tarilishi, xavfli yurak aritmiyalari va asistoliya xavfi.",
+                advice: "Qon zardobida kaliy va kreatininni har 2 haftada tekshirish. Kaliy saqlovchi parhezlarni cheklash."
+            },
+            {
+                pair: ["losartan", "spironolactone"],
+                severity: "major",
+                title: "Losartan + Spironolakton: Renin-Angiotenzin Blokadasi",
+                mechanism: "Renin-angiotenzin-aldosteron tizimining qo'shaloq bloklanishi.",
+                effect: "Giperkalemiya va buyrak perfuziyasining o'tkir pasayishi.",
+                advice: "Kreatinin va kaliyni muntazam kuzatish."
+            },
+            {
+                pair: ["aspirin", "clopidogrel"],
+                severity: "major",
+                title: "Aspirin + Klopidogrel: Qon Ketish Xavfi (DAPT)",
+                mechanism: "Siklooksigenaza-1 va P2Y12 retseptorlarining birgalikda to'xtatilishi.",
+                effect: "Me'da-ichak qonashlari va gematuriya xavfi 2.8 barobar oshadi.",
+                advice: "Faqat infarktdan keyin 12 oy davomida qat'iy ko'rsatmada. Pantoprazol bilan himoyalash."
+            },
+            {
+                pair: ["aspirin", "warfarin"],
+                severity: "contraindicated",
+                title: "Aspirin + Varfarin: O'ta Yuqori Gemorragik Xavf",
+                mechanism: "Antiagregant va antikoagulyantning xavfli sinergiyasi.",
+                effect: "Massiv ichki qon ketish, gemorragik insult xavfi o'ta yuqori.",
+                advice: "Birgalikda berish man etiladi! O'ta zarur bo'lsa MNO (INR) ni 2.0-2.5 oralig'ida qat'iy ushlash."
+            },
+            {
+                pair: ["clopidogrel", "warfarin"],
+                severity: "contraindicated",
+                title: "Klopidogrel + Varfarin: Koagulyatsiya Kaskadi Blokadasi",
+                mechanism: "Ikkala qon quyilish yo'nalishi ham to'liq o'chiriladi.",
+                effect: "Nazoratsiz qon ketishi.",
+                advice: "Faqat kardiolog konsiliumining maxsus ruxsati bilan."
+            },
+            {
+                pair: ["atorvastatin", "amlodipine"],
+                severity: "moderate",
+                title: "Atorvastatin + Amlodipin: CYP3A4 Raqobati",
+                mechanism: "Amlodipin CYP3A4 fermenti orqali Atorvastatin klirensini 20% ga sekinlashtiradi.",
+                effect: "Statinning qondagi konsentratsiyasi oshishi, boldir mushaklarida og'riq (miopatiya).",
+                advice: "Atorvastatin dozasini 20mg dan oshirmaslik. Og'riq bo'lsa KFK tahlilini topshirish."
+            },
+            {
+                pair: ["bisoprolol", "amlodipine"],
+                severity: "moderate",
+                title: "Bisoprolol + Amlodipin: Qo'shma Gipotenziya",
+                mechanism: "Yurak qisqaruvchanligi va tomirlar kengayishining sinergik pasayishi.",
+                effect: "Bradikardiya (puls < 50) va bosh aylanishi.",
+                advice: "Puls va qon bosimini kuniga ikki marta nazorat qilish."
+            }
+        ];
+
+        let selectedDrugs = new Set(["aspirin", "clopidogrel", "atorvastatin", "amlodipine", "enalapril", "spironolactone"]);
+
+        function initUI() {
+            const listEl = document.getElementById('drugListContainer');
+            listEl.innerHTML = '';
+            for (const [id, data] of Object.entries(DRUGS_DB)) {
+                const item = document.createElement('div');
+                item.className = 'drug-item' + (selectedDrugs.has(id) ? ' selected' : '');
+                item.innerHTML = `
+                    <div>
+                        <div class="drug-name">${data.name}</div>
+                        <div class="drug-class">${data.class}</div>
+                    </div>
+                    <input type="checkbox" ${selectedDrugs.has(id) ? 'checked' : ''} style="cursor: pointer;">
+                `;
+                item.onclick = (e) => {
+                    if (e.target.tagName !== 'INPUT') {
+                        const cb = item.querySelector('input');
+                        cb.checked = !cb.checked;
+                    }
+                    toggleDrug(id);
+                };
+                listEl.appendChild(item);
+            }
+            updateGraphAndStats();
+        }
+
+        function toggleDrug(id) {
+            if (selectedDrugs.has(id)) {
+                selectedDrugs.delete(id);
+            } else {
+                selectedDrugs.add(id);
+            }
+            initUI();
+        }
+
+        function loadPreset(type) {
+            if (type === 'infarct') {
+                selectedDrugs = new Set(["aspirin", "clopidogrel", "atorvastatin", "bisoprolol", "enalapril"]);
+            } else if (type === 'diabet_giper') {
+                selectedDrugs = new Set(["metformin", "amlodipine", "losartan", "atorvastatin"]);
+            } else if (type === 'chf') {
+                selectedDrugs = new Set(["enalapril", "spironolactone", "bisoprolol", "aspirin"]);
+            }
+            initUI();
+        }
+
+        function updateGraphAndStats() {
+            // Find active edges
+            const activeEdges = [];
+            let contraCount = 0;
+            let majorCount = 0;
+            let modCount = 0;
+
+            RULES.forEach(r => {
+                if (selectedDrugs.has(r.pair[0]) && selectedDrugs.has(r.pair[1])) {
+                    activeEdges.push(r);
+                    if (r.severity === 'contraindicated') contraCount++;
+                    if (r.severity === 'major') majorCount++;
+                    if (r.severity === 'moderate') modCount++;
+                }
+            });
+
+            // Score
+            const score = Math.min(100, (contraCount * 45) + (majorCount * 20) + (modCount * 8));
+            document.getElementById('riskScoreDisplay').innerText = score;
+            document.getElementById('nodeCountDisplay').innerText = selectedDrugs.size;
+            document.getElementById('edgeCountDisplay').innerText = activeEdges.length;
+
+            const statEl = document.getElementById('riskStatusDisplay');
+            if (score >= 60) {
+                statEl.innerText = "QIZIL: Xavfli polipragmaziya! Shoshilinch korreksiya";
+                statEl.style.color = "var(--rose)";
+                document.getElementById('riskScoreDisplay').style.color = "var(--rose)";
+            } else if (score >= 30) {
+                statEl.innerText = "TO'Q SARIQ: Yuqori ehtiyotkorlik (K+, KFK nazorati)";
+                statEl.style.color = "var(--amber)";
+                document.getElementById('riskScoreDisplay').style.color = "var(--amber)";
+            } else if (score > 0) {
+                statEl.innerText = "SARIQ: O'rtacha o'zaro ta'sir (Vaqt oralig'i)";
+                statEl.style.color = "var(--primary)";
+                document.getElementById('riskScoreDisplay').style.color = "var(--primary)";
+            } else {
+                statEl.innerText = "YASHIL: Optimal xavfsiz kombinatsiya";
+                statEl.style.color = "var(--emerald)";
+                document.getElementById('riskScoreDisplay').style.color = "var(--emerald)";
+            }
+
+            renderCanvas(activeEdges);
+            renderCards(activeEdges);
+        }
+
+        function renderCanvas(edges) {
+            const canvas = document.getElementById('graphCanvas');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width = canvas.parentElement.clientWidth;
+            const h = canvas.height = 440;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Compute positions in circle
+            const drugList = Array.from(selectedDrugs);
+            const count = drugList.length;
+            const centerX = w / 2;
+            const centerY = h / 2;
+            const radius = Math.min(w, h) * 0.35;
+
+            const positions = {};
+            drugList.forEach((id, idx) => {
+                const angle = (idx / count) * 2 * Math.PI - Math.PI / 2;
+                positions[id] = {
+                    x: centerX + radius * Math.cos(angle),
+                    y: centerY + radius * Math.sin(angle)
+                };
+            });
+
+            // Draw Edges
+            edges.forEach(edge => {
+                const p1 = positions[edge.pair[0]];
+                const p2 = positions[edge.pair[1]];
+                if (!p1 || !p2) return;
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                if (edge.severity === 'contraindicated') {
+                    ctx.strokeStyle = '#f43f5e';
+                    ctx.lineWidth = 3.5;
+                    ctx.setLineDash([6, 6]);
+                } else if (edge.severity === 'major') {
+                    ctx.strokeStyle = '#f59e0b';
+                    ctx.lineWidth = 2.5;
+                    ctx.setLineDash([]);
+                } else {
+                    ctx.strokeStyle = '#38bdf8';
+                    ctx.lineWidth = 1.8;
+                    ctx.setLineDash([3, 3]);
+                }
+                ctx.stroke();
+                ctx.setLineDash([]);
+            });
+
+            // Draw Nodes
+            drugList.forEach(id => {
+                const pos = positions[id];
+                const drug = DRUGS_DB[id];
+
+                // Outer circle
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 22, 0, Math.PI * 2);
+                ctx.fillStyle = '#0f172a';
+                ctx.fill();
+                ctx.lineWidth = 2.5;
+                ctx.strokeStyle = '#38bdf8';
+                ctx.stroke();
+
+                // Icon / Dot
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 8, 0, Math.PI * 2);
+                ctx.fillStyle = '#38bdf8';
+                ctx.fill();
+
+                // Label
+                ctx.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.fillText(drug.name.split(' ')[0], pos.x, pos.y + 36);
+
+                ctx.font = '10px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillText(drug.class, pos.x, pos.y + 48);
+            });
+        }
+
+        function renderCards(edges) {
+            const container = document.getElementById('interactionCardsContainer');
+            if (edges.length === 0) {
+                container.innerHTML = `
+                    <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald); padding: 18px; border-radius: 10px; color: #6ee7b7; font-size: 13px;">
+                        ✓ Tanlangan dorilar o'rtasida xavfli o'zaro ta'sirlar aniqlanmadi. Kombinatsiya xavfsiz.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = edges.map(edge => {
+                let badgeClass = 'badge-mod';
+                let cardClass = 'card-caution';
+                let label = 'O\'rtacha';
+                if (edge.severity === 'contraindicated') {
+                    badgeClass = 'badge-contra';
+                    cardClass = 'card-danger';
+                    label = 'Qarshi Ko\'rsatma';
+                } else if (edge.severity === 'major') {
+                    badgeClass = 'badge-major';
+                    cardClass = 'card-warning';
+                    label = 'Major Xavf';
+                }
+
+                return `
+                    <div class="interaction-card ${cardClass}">
+                        <div class="interaction-title">
+                            <span>${edge.title}</span>
+                            <span class="severity-badge ${badgeClass}">${label}</span>
+                        </div>
+                        <div class="meta-text"><strong>Mexanizm:</strong> ${edge.mechanism}</div>
+                        <div class="meta-text" style="color: #fda4af;"><strong>Klinik oqibat:</strong> ${edge.effect}</div>
+                        <div class="advice-box">
+                            <strong>Shifokor tavsiyasi:</strong> ${edge.advice}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.addEventListener('resize', () => updateGraphAndStats());
+        initUI();
+    </script>
+</body>
+</html>

@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inson Care &bull; Ijtimoiy Himoya (IHMA) Imtiyozli Retseptlar Portali</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --indigo: #6366f1;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 36px 24px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(99, 102, 241, 0.08) 50%, rgba(56, 189, 248, 0.08) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #6ee7b7, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 920px;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: rgba(15, 25, 45, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--emerald);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* Two column layout */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1.3fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Search Card */
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pinfl-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pinfl-input {
+            flex: 1;
+            background: #070d18;
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.1em;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .pinfl-input:focus {
+            border-color: var(--emerald);
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            border: none;
+            padding: 0 24px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .demo-selector-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .demo-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .demo-btn {
+            background: rgba(7, 13, 24, 0.6);
+            border: 1px solid var(--border);
+            color: #cbd5e1;
+            padding: 14px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .demo-btn:hover {
+            border-color: var(--emerald);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .demo-btn.active {
+            border-color: var(--emerald);
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+        .demo-btn strong {
+            color: #fff;
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .demo-btn span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .category-badge-small {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+
+        /* Certificate Voucher Card */
+        .voucher-card {
+            background: linear-gradient(145deg, #0b1325, #0f172a);
+            border: 2px solid rgba(16, 185, 129, 0.4);
+            border-radius: 20px;
+            padding: 26px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .voucher-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+        }
+
+        .beneficiary-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .beneficiary-cat {
+            font-size: 0.85rem;
+            color: #6ee7b7;
+            font-weight: 600;
+        }
+
+        .auth-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 0.82rem;
+        }
+
+        .info-grid span {
+            color: var(--text-muted);
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .info-grid strong {
+            color: #e2e8f0;
+        }
+
+        /* Medications List */
+        .med-list-title {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+        }
+
+        .med-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .med-cost-strike {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+
+        .med-free-badge {
+            color: #6ee7b7;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Calculation Summary */
+        .welfare-calc-box {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-top: 18px;
+        }
+
+        .calc-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+            margin-bottom: 8px;
+        }
+
+        .calc-row.total {
+            border-top: 1px solid rgba(16, 185, 129, 0.3);
+            padding-top: 12px;
+            margin-top: 10px;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .patient-zero-cost {
+            font-size: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: #6ee7b7;
+        }
+
+        .btn-dispatch {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+        }
+
+        .btn-dispatch:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--emerald);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 520px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.6rem;">🤝</span>
+            <div>
+                <strong style="font-size: 1.15rem; color: #fff;">Unicorn Health &bull; Inson Care</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Ijtimoiy Himoya Milliy Agentligi (IHMA) Integratsiyasi</span>
+            </div>
+            <span class="badge-pill">100% Davlat Subsidiyasi &bull; 0 So'm Bemor To'lovi</span>
+        </div>
+        <nav class="nav-links">
+            <a href="../index.html">← Bosh Sahifa</a>
+            <a href="../doriquti/index.html">DoriQuti Hub</a>
+            <a href="../arzonlab/index.html">ArzonLab</a>
+            <a href="../doriquti/smart_locker_portal.html">Med-Locker</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <h1>Inson Care: Yolg'iz Qariyalar va Nogironligi Bor Shaxslar Uchun 0 So'm DoriQuti</h1>
+            <p>
+                O'zbekiston Respublikasi Prezidentining PF-88-son Farmoni doirasida: 
+                <strong>Ijtimoiy Himoya Milliy Agentligi ("Inson" markazlari)</strong> reestridagi yolg'iz keksalar va 1-2 guruh nogironlariga 
+                zaruriy barcha surunkali dorilar <strong>100% davlat byudjeti hisobidan bepul</strong>, lentali blisterlarda uyigacha yetkaziladi. 
+                Mahalla ijtimoiy xodimlari nazorati bilan dori o'g'irlanishi va qog'ozbozlikka barham beriladi!
+            </p>
+
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <div class="stat-val">0 So'm</div>
+                    <div class="stat-lbl">Bemor Uchun To'lov</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">100%</div>
+                    <div class="stat-lbl">Davlat Byudjeti Qoplovi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">350,000 UZS</div>
+                    <div class="stat-lbl">Bepul ArzonLab Tahlil Vauchari</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">100% Shaffof</div>
+                    <div class="stat-lbl">QR & PINFL Raqamli Audit</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="layout-grid">
+            
+            <!-- Left: Citizen Search & Demo Cases -->
+            <div class="card-box">
+                <div class="section-title">
+                    <span>🔍</span>
+                    <span>Yagona Ijtimoiy Himoya Reestri Tekshiruvi</span>
+                </div>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px;">
+                    Fuqaroning 14-xonali JSHSHIR (PINFL) kodini kiriting yoki namunaviy fuqaroni tanlang:
+                </p>
+
+                <div class="pinfl-input-group">
+                    <input type="text" id="pinflInput" class="pinfl-input" maxlength="14" value="31205481230045" placeholder="JSHSHIR: 14 raqam">
+                    <button class="btn-check" onclick="handleSearch()">Tekshirish</button>
+                </div>
+
+                <div class="demo-selector-label">Namunaviy Ijtimoiy Toifalar:</div>
+                <div class="demo-btn-group">
+                    <div class="demo-btn active" id="demo-0" onclick="selectDemo(0)">
+                        <div>
+                            <strong>👵 Karimova Oysha aya (1947 y.)</strong>
+                            <span>Samarqand shahar, Bog'isaroy MFY &bull; Gipertenziya & Yurak</span>
+                        </div>
+                        <span class="category-badge-small">100% Bepul</span>
+                    </div>
+
+                    <div class="demo-btn" id="demo-1" onclick="selectDemo(1)">
+                        <div>
+                            <strong>👨‍🦽 Rustamov Jasur Anvarovich (1978 y.)</strong>
+                            <span>Samarqand shahar, Registon MFY &bull; 1-2 Guruh Nogironligi (Diabet)</span>
+                        </div>
+                        <span class="category-badge-small">100% Bepul</span>
+                    </div>
+
+                    <div class="demo-btn" id="demo-2" onclick="selectDemo(2)">
+                        <div>
+                            <strong>👩‍👧 Murodova Ziyoda Ergash qizi (1993 y.)</strong>
+                            <span>Samarqand tumani &bull; Kam Ta'minlangan Reestr (Astma)</span>
+                        </div>
+                        <span class="category-badge-small">90% Subsidiya</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Subsidized Voucher & Medications -->
+            <div class="voucher-card">
+                <div class="voucher-header">
+                    <div>
+                        <div class="beneficiary-name" id="bName">Karimova Oysha aya</div>
+                        <div class="beneficiary-cat" id="bCategory">Yolg'iz Yashovchi Keksalar (Boquvchisi yo'q)</div>
+                    </div>
+                    <div class="auth-tag" id="bAuth">IHMA-SUBSIDY-UZ-0045</div>
+                </div>
+
+                <div class="info-grid">
+                    <div>
+                        <span>Manzil:</span>
+                        <strong id="bAddress">Samarqand shahar, Bog'isaroy MFY, 14-uy</strong>
+                    </div>
+                    <div>
+                        <span>Biriktirilgan Inson Assistenti:</span>
+                        <strong id="bWorker">Nazarova Dilnoza (#44)</strong>
+                    </div>
+                    <div>
+                        <span>Assistent Telefoni:</span>
+                        <strong id="bWorkerPhone" style="color: #38bdf8;">+998 90 221 44 33</strong>
+                    </div>
+                    <div>
+                        <span>Tashxislar:</span>
+                        <strong id="bDiag">Gipertenziya 3, YIK</strong>
+                    </div>
+                </div>
+
+                <div class="med-list-title">💊 30 Kunlik Lentali Blisterga Kiritilgan Vital Dorilar:</div>
+                <div id="medList">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Subsidized Calculation -->
+                <div class="welfare-calc-box">
+                    <div class="calc-row">
+                        <span style="color: var(--text-muted);">Dorixonadagi chakana qiymati:</span>
+                        <strong id="retailCost">173,000 so'm</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span style="color: var(--text-muted);">Davlat Subsidiyasi (IHMA Byudjeti):</span>
+                        <strong style="color: #6ee7b7;" id="subsidyCost">-173,000 so'm (100%)</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span style="color: var(--text-muted);">Yetkazib berish (Inson xodimi):</span>
+                        <strong style="color: #38bdf8;">0 so'm (Bepul)</strong>
+                    </div>
+                    <div class="calc-row">
+                        <span style="color: var(--text-muted);">ArzonLab Tahlil Vauchari:</span>
+                        <strong style="color: #a78bfa;">+350,000 so'm (Bepul)</strong>
+                    </div>
+
+                    <div class="calc-row total">
+                        <span>Bemor To'laydigan Summa:</span>
+                        <span class="patient-zero-cost" id="patientCost">0 SO'M</span>
+                    </div>
+                </div>
+
+                <button class="btn-dispatch" onclick="openOrderModal()">
+                    🚀 Ijtimoiy Paketni Tasdiqlash & Yetkazishga Yuborish
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">📋</div>
+            <h2 style="font-size: 1.4rem; color: #10b981; margin-bottom: 8px;">Ijtimoiy DoriQuti Paketi Tasdiqlandi!</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 18px;">
+                Ijtimoiy Himoya Milliy Agentligi (IHMA) tizimida rasmiy buyurtma qayd qilindi. 
+                DoriQuti markaziy steril omborida 30 kunlik lentali blister tayyorlanib, 
+                <strong>mahalla ijtimoiy assistenti</strong> orqali bemorning eshigigacha yetkaziladi.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; font-size: 0.8rem; text-align: left; margin-bottom: 20px;">
+                <div><strong>Qabul qiluvchi:</strong> <span id="mName">Karimova Oysha aya</span></div>
+                <div><strong>Bemor xarajati:</strong> <span style="color:#6ee7b7; font-weight:800;">0 so'm</span> (100% Davlat subsidiyasi)</div>
+                <div><strong>Yetkazuvchi:</strong> Inson Assistenti Nazarova Dilnoza</div>
+            </div>
+            <button class="btn-dispatch" onclick="closeOrderModal()">Tushundim, Rahmat!</button>
+        </div>
+    </div>
+
+    <script>
+        const BENEFICIARIES = [
+            {
+                pinfl: "31205481230045",
+                fullName: "Karimova Oysha aya",
+                category: "Yolg'iz Yashovchi Keksalar (Boquvchisi yo'q)",
+                region: "Samarqand shahar, Bog'isaroy MFY, 14-uy",
+                worker: "Nazarova Dilnoza (Inson Assistent #44)",
+                workerPhone: "+998 90 221 44 33",
+                diag: "Gipertenziya 3, YIK, Nefropatiya",
+                subsidyPct: 100,
+                meds: [
+                    { name: "Amlodipin 10mg (30 dona)", cost: 42000 },
+                    { name: "Lisinopril 10mg (30 dona)", cost: 38000 },
+                    { name: "Atorvastatin 20mg (30 dona)", cost: 65000 },
+                    { name: "Aspirin Kardio 100mg (30 dona)", cost: 28000 }
+                ]
+            },
+            {
+                pinfl: "32808726540012",
+                fullName: "Rustamov Jasur Anvarovich",
+                category: "1 va 2-Guruh Nogironligi Bor Shaxslar",
+                region: "Samarqand shahar, Registon MFY, 8-uy",
+                worker: "Usmonov Farhod (Inson Assistent #12)",
+                workerPhone: "+998 91 334 11 22",
+                diag: "Qandli diabet 2-tur, Polineyropatiya",
+                subsidyPct: 100,
+                meds: [
+                    { name: "Metformin 1000mg (60 dona)", cost: 48000 },
+                    { name: "Gliklazid MR 60mg (30 dona)", cost: 55000 },
+                    { name: "Alfa-lipoy kislotasi 600mg (30 dona)", cost: 110000 }
+                ]
+            },
+            {
+                pinfl: "40201934520098",
+                fullName: "Murodova Ziyoda Ergash qizi",
+                category: "Ijtimoiy Reestrdagi Kam Ta'minlangan Oilalar",
+                region: "Samarqand tumani, Quyi Bo'z MFY",
+                worker: "Aliyev Jamshid (Inson Assistent #78)",
+                workerPhone: "+998 93 456 77 88",
+                diag: "Bronxial astma, Anemiya",
+                subsidyPct: 90,
+                meds: [
+                    { name: "Salbutamol 100mcg (1 ingalyator)", cost: 52000 },
+                    { name: "Beklometazon 250mcg (1 ingalyator)", cost: 95000 },
+                    { name: "Ferro-folgamma kapsula (30 dona)", cost: 75000 }
+                ]
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function renderBeneficiary(data) {
+            document.getElementById("bName").innerText = data.fullName;
+            document.getElementById("bCategory").innerText = data.category;
+            document.getElementById("bAuth").innerText = `IHMA-SUBSIDY-UZ-${data.pinfl.slice(-4)}`;
+            document.getElementById("bAddress").innerText = data.region;
+            document.getElementById("bWorker").innerText = data.worker;
+            document.getElementById("bWorkerPhone").innerText = data.workerPhone;
+            document.getElementById("bDiag").innerText = data.diag;
+
+            const totalMeds = data.meds.reduce((sum, m) => sum + m.cost, 0);
+            const subsidyAmount = Math.round(totalMeds * (data.subsidyPct / 100));
+            const patientPays = totalMeds - subsidyAmount;
+
+            document.getElementById("retailCost").innerText = `${totalMeds.toLocaleString('uz-UZ')} so'm`;
+            document.getElementById("subsidyCost").innerText = `-${subsidyAmount.toLocaleString('uz-UZ')} so'm (${data.subsidyPct}%)`;
+            document.getElementById("patientCost").innerText = patientPays === 0 ? "0 SO'M (BEPUL)" : `${patientPays.toLocaleString('uz-UZ')} so'm`;
+
+            const medListContainer = document.getElementById("medList");
+            medListContainer.innerHTML = data.meds.map(m => `
+                <div class="med-row">
+                    <div>
+                        <strong style="color: #fff;">${m.name}</strong>
+                    </div>
+                    <div>
+                        <span class="med-cost-strike">${m.cost.toLocaleString('uz-UZ')} so'm</span>
+                        <span class="med-free-badge">✓ 0 SO'M</span>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function selectDemo(index) {
+            currentIndex = index;
+            document.querySelectorAll(".demo-btn").forEach((btn, idx) => {
+                btn.classList.toggle("active", idx === index);
+            });
+            document.getElementById("pinflInput").value = BENEFICIARIES[index].pinfl;
+            renderBeneficiary(BENEFICIARIES[index]);
+        }
+
+        function handleSearch() {
+            const inputVal = document.getElementById("pinflInput").value.trim();
+            const foundIdx = BENEFICIARIES.findIndex(b => b.pinfl === inputVal);
+            if (foundIdx !== -1) {
+                selectDemo(foundIdx);
+            } else {
+                alert("Ushbu JSHSHIR bo'yicha imtiyozli reestr tekshirildi: Yolg'iz keksalar toifasi biriktirildi!");
+                selectDemo(0);
+            }
+        }
+
+        function openOrderModal() {
+            document.getElementById("mName").innerText = BENEFICIARIES[currentIndex].fullName;
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+        function closeOrderModal() {
+            document.getElementById("orderModal").style.display = "none";
+        }
+
+        // Initialize
+        renderBeneficiary(BENEFICIARIES[0]);
+    </script>
+</body>
+</html>

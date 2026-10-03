@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti - Hamshira Oygul: Mehribon Ovozli Suhbatdosh & Eslatuvchi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes wave-pulse {
+      0%, 100% { height: 12px; }
+      50% { height: 48px; }
+    }
+    .wave-bar-1 { animation: wave-pulse 1.2s infinite ease-in-out; }
+    .wave-bar-2 { animation: wave-pulse 1.0s infinite ease-in-out 0.2s; }
+    .wave-bar-3 { animation: wave-pulse 1.4s infinite ease-in-out 0.4s; }
+    .wave-bar-4 { animation: wave-pulse 0.9s infinite ease-in-out 0.1s; }
+    .wave-bar-5 { animation: wave-pulse 1.3s infinite ease-in-out 0.3s; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">👵</span>
+          <span class="text-xl font-bold tracking-tight">Hamshira Oygul</span>
+        </a>
+        <span class="text-xs bg-pink-500/20 text-pink-300 border border-pink-500/30 px-2.5 py-1 rounded-full font-semibold">
+          Mehribon Ovozli Eslatuvchi
+        </span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="playGreetingSpeech()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
+          <span>🔊</span> Ovozni Tinglash
+        </button>
+        <a href="../index.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          ← Bosh Sahifa
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Central Avatar & Speaking Visualizer Card -->
+    <div class="bg-gradient-to-b from-slate-800 to-slate-950 border border-slate-700 rounded-3xl p-6 md:p-10 shadow-2xl text-center mb-8 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+
+      <!-- Avatar & Glow -->
+      <div class="relative inline-block mb-4">
+        <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-tr from-emerald-500 to-pink-500 p-1 mx-auto shadow-2xl shadow-emerald-500/20">
+          <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-5xl md:text-6xl border-4 border-slate-800">
+            👩‍⚕️
+          </div>
+        </div>
+        <span class="absolute bottom-1 right-2 bg-emerald-500 border-2 border-slate-900 w-5 h-5 rounded-full" title="Onlayn"></span>
+      </div>
+
+      <h1 class="text-2xl md:text-3xl font-black text-white mb-1">Hamshira Oygul</h1>
+      <p class="text-xs md:text-sm text-pink-300 font-medium mb-6">Samarqand Mahalla Hamshirasi & DoriQuti G'amxo'ri</p>
+
+      <!-- Audio Waveform Visualizer -->
+      <div class="flex items-center justify-center space-x-2 h-14 mb-6">
+        <div class="w-2 bg-emerald-400 rounded-full wave-bar-1"></div>
+        <div class="w-2 bg-emerald-400 rounded-full wave-bar-2"></div>
+        <div class="w-2 bg-pink-400 rounded-full wave-bar-3"></div>
+        <div class="w-2 bg-emerald-400 rounded-full wave-bar-4"></div>
+        <div class="w-2 bg-emerald-400 rounded-full wave-bar-5"></div>
+      </div>
+
+      <!-- Current Spoken Dialogue Bubble -->
+      <div class="bg-slate-900/90 border border-slate-700/80 rounded-2xl p-5 max-w-2xl mx-auto shadow-xl text-left">
+        <div class="text-[11px] text-slate-400 uppercase tracking-widest font-mono mb-1 flex items-center justify-between">
+          <span>Ovozli Xabar:</span>
+          <span class="text-emerald-400">● Jonli Nutq</span>
+        </div>
+        <p class="text-base md:text-lg font-bold text-white leading-relaxed" id="speech-bubble-text">
+          "Assalomu alaykum Otabek ota! Xayrli tong. Ertalabki Kardio doringizni 1 stakan iliq suv bilan ichib oling, otaxon. Qon bosimingiz bugun necha chiqdi?"
+        </p>
+      </div>
+
+      <!-- Repeat / Voice Button -->
+      <div class="mt-6 flex justify-center gap-3">
+        <button onclick="playGreetingSpeech()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-2xl text-xs md:text-sm shadow-xl transition transform active:scale-95 flex items-center gap-2">
+          <span>🔊</span> Oygul Xola Ovozini Qayta Tinglash
+        </button>
+      </div>
+    </div>
+
+    <!-- Grandparent 1-Tap Response Actions Grid -->
+    <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8 shadow-xl mb-8">
+      <h2 class="text-base md:text-lg font-bold text-white mb-2 text-center">
+        Otabek Ota, Javob Berish Uchun Bitta Tugmani Bosing:
+      </h2>
+      <p class="text-xs text-slate-400 text-center mb-6">Yozish shart emas — bitta bosish kifoya</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Button 1: Took Medicine -->
+        <button onclick="patientReply('DORILARNI_ICHDIM')" class="bg-emerald-600/20 hover:bg-emerald-600/30 border-2 border-emerald-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
+          <div>
+            <div class="text-2xl mb-1">💊</div>
+            <div class="text-lg font-black text-white group-hover:text-emerald-400">"Dorilarni ichdim, qizim"</div>
+            <div class="text-xs text-emerald-300">Ertalabki quti qabul qilindi deb belgilanadi</div>
+          </div>
+          <span class="text-2xl">✅</span>
+        </button>
+
+        <!-- Button 2: Normal Pressure -->
+        <button onclick="patientReply('BOSIM_YAXSHI')" class="bg-blue-600/20 hover:bg-blue-600/30 border-2 border-blue-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
+          <div>
+            <div class="text-2xl mb-1">🩺</div>
+            <div class="text-lg font-black text-white group-hover:text-blue-400">"Bosimim 125/80 (Yaxshi)"</div>
+            <div class="text-xs text-blue-300">Normadagi qon bosimi qayd etiladi</div>
+          </div>
+          <span class="text-2xl">👍</span>
+        </button>
+
+        <!-- Button 3: Pressure High / Unwell -->
+        <button onclick="patientReply('BOSHIM_OGRIYAPTI')" class="bg-amber-600/20 hover:bg-amber-600/30 border-2 border-amber-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
+          <div>
+            <div class="text-2xl mb-1">🤕</div>
+            <div class="text-lg font-black text-white group-hover:text-amber-400">"Biroz boshim og'riyapti"</div>
+            <div class="text-xs text-amber-300">Shifokorga SMS ogohlantirish yuboriladi</div>
+          </div>
+          <span class="text-2xl">⚠️</span>
+        </button>
+
+        <!-- Button 4: Emergency 103 -->
+        <button onclick="patientReply('TEZKOR_103')" class="bg-red-600/20 hover:bg-red-600/30 border-2 border-red-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
+          <div>
+            <div class="text-2xl mb-1">🚨</div>
+            <div class="text-lg font-black text-white group-hover:text-red-400">"Tezkor Yordam (103)"</div>
+            <div class="text-xs text-red-300">Farzandlar va shifokorga favqulodda signal</div>
+          </div>
+          <span class="text-2xl">📞</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Family Telegram Notification Feed Simulator -->
+    <div class="bg-slate-850 bg-slate-800/80 border border-slate-700 rounded-3xl p-6 shadow-xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>📲</span> Farzandlarning Telegramiga Ketgan Xotirjamlik Hisoboti
+        </h3>
+        <span class="text-xs bg-blue-500/20 text-blue-300 px-2.5 py-0.5 rounded font-mono font-bold">@jasur_shukurov</span>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-xs space-y-2 font-mono text-slate-300" id="telegram-feed">
+        <div class="text-emerald-400 font-bold">📩 [08:32] DoriQuti Xabarnomasi:</div>
+        <div>"Otangiz Otabek ota ertalabki Kardio qutisini qabul qildilar. Qon bosimi: <strong>125/80 mmHg</strong> (Normada). Hamshira Oygul bilan ovozli suhbat yakunlandi."</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
+    <span>✅</span> <span id="toast-text">Xabar jo'natildi!</span>
+  </div>
+
+  <script>
+    function playGreetingSpeech() {
+      const text = "Assalomu alaykum Otabek ota! Xayrli tong. Ertalabki Kardio doringizni 1 stakan iliq suv bilan ichib oling, otaxon. Qon bosimingiz bugun necha chiqdi?";
+      speakUzbek(text);
+      document.getElementById('speech-bubble-text').innerText = `"${text}"`;
+      showToast("Oygul xola gapirmoqda...");
+    }
+
+    function patientReply(type) {
+      let replySpeech = "";
+      let feedText = "";
+
+      if (type === 'DORILARNI_ICHDIM') {
+        replySpeech = "Barakalla otaxon! Dorilarni ichganingizni daftarga belgilab qo'ydim. Salomat bo'ling, kuningiz xayrli o'tsin!";
+        feedText = "Otangiz ertalabki Kardio dorilarini to'liq qabul qildilar ✅ Adherence: 100%.";
+      } else if (type === 'BOSIM_YAXSHI') {
+        replySpeech = "Mashalloh! Bosimingiz 125 ga 80 — a'lo darajada me'yorda. O'g'lingiz Jasurga xotirjamlik xabari yuborildi.";
+        feedText = "Otangizning qon bosimi me'yorda: 125/80 mmHg. Xavotirga o'rin yo'q.";
+      } else if (type === 'BOSHIM_OGRIYAPTI') {
+        replySpeech = "Otaxon, xavotir olmang. Iltimos, divanga yotib dam oling. Men davolovchi shifokor Dr. Rustamovga xabar berdim, tezda siz bilan bog'lanadilar.";
+        feedText = "⚠️ DIQQAT: Otangiz bosh og'rig'idan shikoyat qildilar. SamDTU shifokoriga signal yuborildi.";
+      } else if (type === 'TEZKOR_103') {
+        replySpeech = "Otaxon, xotirjam bo'ling! 103 Tez Yordam va farzandlaringizga favqulodda signal jo'natildi. Hozir yetib kelishadi!";
+        feedText = "🚨 SHOSHILINCH: Otangiz 103 Tez Yordam signalini berdilar! Manzil: Dahbed 35.";
+      }
+
+      document.getElementById('speech-bubble-text').innerText = `"${replySpeech}"`;
+      speakUzbek(replySpeech);
+
+      const feed = document.getElementById('telegram-feed');
+      feed.innerHTML = `
+        <div class="text-emerald-400 font-bold">📩 [${new Date().toLocaleTimeString()}] DoriQuti Xabarnomasi:</div>
+        <div>"${feedText}"</div>
+      `;
+
+      showToast("Javobingiz qabul qilindi va farzandlaringizga yuborildi!");
+    }
+
+    function speakUzbek(text) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'uz-UZ';
+        utter.rate = 0.95; // Slightly slower, calm pace for elderly
+        utter.pitch = 1.1; // Friendly warm pitch
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>

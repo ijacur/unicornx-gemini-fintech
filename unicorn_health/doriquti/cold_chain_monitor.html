@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insulin & Sovuq Zanjir (Cold-Chain) IoT Telemetriyasi | DoriQuti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #07101e;
+            --surface: #0f1c34;
+            --surface-hover: #172a4d;
+            --border: #1d355e;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 28, 52, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-cold {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid var(--cyan);
+            color: #a5f3fc;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .banner {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), rgba(16, 185, 129, 0.12));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--cyan);
+        }
+
+        .stat-card.emerald::after { background: var(--emerald); }
+        .stat-card.amber::after { background: var(--amber); }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .stat-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px;
+            margin-bottom: 28px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .thermal-box-card {
+            background: #061122;
+            border: 2px solid #0284c7;
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .temp-display-large {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(2, 132, 199, 0.1);
+            border: 1px solid rgba(2, 132, 199, 0.3);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin: 16px 0;
+        }
+
+        .temp-val {
+            font-size: 44px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #38bdf8;
+        }
+
+        .graph-container {
+            background: #020813;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            height: 180px;
+            position: relative;
+            margin-top: 16px;
+        }
+
+        .safe-corridor {
+            position: absolute;
+            left: 40px;
+            right: 16px;
+            top: 40px;
+            bottom: 40px;
+            background: rgba(16, 185, 129, 0.08);
+            border-top: 1px dashed rgba(16, 185, 129, 0.4);
+            border-bottom: 1px dashed rgba(16, 185, 129, 0.4);
+            pointer-events: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .shipment-row {
+            background: rgba(10, 18, 32, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">❄️</span>
+            <div>
+                <div style="font-size: 19px; font-weight: 800; color: #ffffff;">Insulin & Sovuq Zanjir (Cold-Chain) IoT Telemetriyasi</div>
+                <div style="font-size: 12px; color: var(--text-muted);">DoriQuti +2°C..+8°C Termo-Boks Kuryer Fargati & Raqamli Kafolati</div>
+            </div>
+            <span class="badge-cold">USP &lt;1079&gt; & GMP Standarti</span>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">🏠 Bosh Menyu</a>
+            <a href="/doriquti/delivery_portal.html" class="btn btn-outline" style="text-decoration: none;">🚴‍♂️ Kuryer Portali</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <div>
+                <strong style="color: #38bdf8; font-size: 15px;">☀️ Yozgi +45°C Issiqlikda Insulinni Saqlab Qolish Kafolati:</strong>
+                <p style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+                    O'zbekiston yozida havo +42°C gacha qiziydi. Insulin va biologik dorilar +25°C dan oshsa yoki 0°C da muzlasa, o'z ta'sirini butunlay yo'qotadi. DoriQuti vakuumli termo-bokslar va Bluetooth IoT datchiklar orqali haroratni real vaqtda +4.5°C da barqaror ushlab turadi.
+                </p>
+            </div>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #34d399; background: rgba(16, 185, 129, 0.1); padding: 6px 14px; border-radius: 8px; border: 1px solid #10b981;">
+                STANDART: +2°C..+8°C PROTOKOL
+            </span>
+        </div>
+
+        <!-- Macro Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Faol IoT Termo-Bokslar</div>
+                <div class="stat-value">38 ta</div>
+                <div class="stat-desc">Vakuumli izolyatsiya + PCM gel</div>
+            </div>
+            <div class="stat-card emerald">
+                <div class="stat-label">Sovuq Zanjir Butunligi</div>
+                <div class="stat-value">99.86%</div>
+                <div class="stat-desc">Nolinchi termal buzilish holati</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">O'rtacha Ichki Harorat</div>
+                <div class="stat-value">+4.6°C</div>
+                <div class="stat-desc">Tashqi havo +41.8°C bo'lganda</div>
+            </div>
+            <div class="stat-card amber">
+                <div class="stat-label">Bugungi Insulin Buyurtmalari</div>
+                <div class="stat-value">142 ta</div>
+                <div class="stat-desc">Lantus, NovoRapid, Apidra</div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Left: Live Telemetry & Graph -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>📡</span> Jonli Termo-Boks Telemetriyasi (#VB-09)
+                        </div>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #38bdf8;">GPS: Samarqand, Registon ko'chasi • 14:30:15</span>
+                    </div>
+
+                    <div class="thermal-box-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <span style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Yetkazilayotgan Dori:</span>
+                                <div style="font-size: 17px; font-weight: 800; color: #ffffff; margin-top: 2px;">
+                                    Lantus SoloStar 100 U/ml (Glargin) • 5 shprits-ruchka
+                                </div>
+                            </div>
+                            <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 700; font-size: 12px; padding: 4px 10px; border-radius: 6px;">
+                                Batareya: 94% 🔋
+                            </span>
+                        </div>
+
+                        <div class="temp-display-large">
+                            <div>
+                                <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Ichki Datchik Harorati</div>
+                                <div class="temp-val" id="currentTemp">+4.5°C</div>
+                                <div style="font-size: 12px; color: #34d399;">Xavfsiz hudud (+2°C dan +8°C gacha)</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Tashqi Ko'cha Harorati</div>
+                                <div style="font-size: 32px; font-weight: 800; color: #f87171; font-family: 'JetBrains Mono', monospace;">+41.8°C</div>
+                                <div style="font-size: 12px; color: var(--text-muted);">Termal farq: -37.3°C</div>
+                            </div>
+                        </div>
+
+                        <!-- Graph -->
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 4px;">
+                            60 DAQIQALIK TRANZIT GRAFIGI (USP MKT: +4.52°C):
+                        </div>
+                        <div class="graph-container">
+                            <div class="safe-corridor">
+                                <span style="position: absolute; right: 10px; top: 2px; font-size: 10px; color: #10b981; font-family: 'JetBrains Mono', monospace;">Maksimal ruxsat: +8.0°C</span>
+                                <span style="position: absolute; right: 10px; bottom: 2px; font-size: 10px; color: #10b981; font-family: 'JetBrains Mono', monospace;">Minimal ruxsat: +2.0°C</span>
+                            </div>
+                            <!-- SVG Temperature Curve -->
+                            <svg width="100%" height="100%" style="overflow: visible;">
+                                <polyline
+                                    fill="none"
+                                    stroke="#38bdf8"
+                                    stroke-width="3"
+                                    points="
+                                        50,95
+                                        90,92
+                                        130,90
+                                        170,93
+                                        210,88
+                                        250,85
+                                        290,87
+                                        330,83
+                                        370,89
+                                        410,91
+                                        450,92
+                                        490,90
+                                    "
+                                />
+                                <circle cx="490" cy="90" r="5" fill="#38bdf8" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>📋</span> Bugungi Sovuq Zanjirli Yetkazishlar Jurnali
+                        </div>
+                    </div>
+                    <div class="shipment-row">
+                        <div>
+                            <strong>NovoRapid FlexPen (Insulin Aspart)</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">Qabul qiluvchi: Farhod K. • Pastdarg'om tumani</div>
+                        </div>
+                        <span style="color: #34d399; font-weight: 700; font-size: 13px;">O'rtacha +4.3°C • YETKAZILDI</span>
+                    </div>
+                    <div class="shipment-row">
+                        <div>
+                            <strong>Ozempic 1mg/doza (Semaglutid GLP-1)</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">Qabul qiluvchi: Nilufar S. • Samarqand shahar</div>
+                        </div>
+                        <span style="color: #34d399; font-weight: 700; font-size: 13px;">O'rtacha +4.7°C • YETKAZILDI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Cryptographic Verification Stamp -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>🛡️</span> Bemor Uchun Raqamli Kafolat
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(10, 18, 32, 0.7); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; margin-bottom: 20px;">
+                        <div style="width: 80px; height: 80px; background: rgba(56, 189, 248, 0.1); border: 2px solid #38bdf8; border-radius: 18px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 38px;">
+                            ❄️
+                        </div>
+                        <div style="font-size: 18px; font-weight: 800; color: #ffffff;">Sovuq Zanjir Butunligi Tasdiqlandi</div>
+                        <div style="font-size: 12px; color: #34d399; font-family: 'JetBrains Mono', monospace; margin: 6px 0 14px;">
+                            SERINGA KODI: COLD-UZ-82522
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; text-align: left;">
+                            Ushbu dori ombordan xonadoningizgacha bo'lgan butun masofada (34 daqiqa) me'yoriy +2°C dan +8°C gacha bo'lgan haroratda saqlangan. Biologik quvvati 100% kafolatlanadi.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(10, 18, 32, 0.7); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 20px;">
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Klinik Audit Parametrlari</div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                            <span>MKT (Mean Kinetic Temp):</span>
+                            <strong style="color: #38bdf8;">+4.52°C</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                            <span>Qayd etilgan minimal harorat:</span>
+                            <strong>+4.2°C</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+                            <span>Qayd etilgan maksimal harorat:</span>
+                            <strong>+4.9°C</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                            <span>Sovuq zanjir xatolari (Excursion):</span>
+                            <strong style="color: #34d399;">0 ta (Nolinchi)</strong>
+                        </div>
+                    </div>
+
+                    <button class="btn" style="width: 100%; justify-content: center;" onclick="downloadColdChainCertificate()">
+                        📄 Harorat Sertifikatini Yuklab Olish (PDF)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadColdChainCertificate() {
+            alert("📄 Sovuq Zanjir Sertifikati yuklab olindi!\n\nPartiya: #VB-09\nKriptografik hash: COLD-UZ-82522\nStatus: +2°C..+8°C doirasida 100% biologik faollik saqlangan.");
+        }
+    </script>
+</body>
+</html>

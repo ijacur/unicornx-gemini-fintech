@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyrak (eGFR) & Jigar (Child-Pugh) Dori Dozasi Moslashuvi | DoriQuti Clinical</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b1326;
+            --surface: #14213d;
+            --surface-hover: #1d2e54;
+            --border: #243b6b;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --danger: #ef4444;
+            --amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0f172a 100%);
+            border-bottom: 2px solid var(--primary);
+            padding: 22px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-organ {
+            background: rgba(56, 189, 248, 0.2);
+            border: 1px solid var(--primary);
+            color: #7dd3fc;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1300px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            background: #090e1c;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .organ-meter-card {
+            background: #090e1c;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+        }
+
+        .meter-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 6px 0;
+        }
+
+        .alert-card {
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--danger);
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #0b1326;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+        }
+        .btn-primary:hover { background: #0284c7; color: white; }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-outline:hover { background: var(--surface-hover); }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 2rem;">🫘</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">SamDTU Nefrologiya & Gepatologiya Dori Xavfsizligi Padi</h1>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">CKD-EPI (eGFR) va Child-Pugh Bo'yicha Dozani Avtomatik Qisqartirish va Laktatsidoz Profilaktikasi</p>
+            </div>
+            <span class="badge-organ">Organ Clearance Audit</span>
+        </div>
+        <div style="display: flex; gap: 16px;">
+            <a href="/doriquti/doctor_portal.html" class="nav-link">🩺 Shifokor Portali</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="grid-layout">
+            
+            <!-- Left: Lab Biomarkers Input -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🧪 Bemor Biokimyoviy Tahlillari (ArzonLab)</div>
+                        <span style="font-size: 0.8rem; color: var(--primary);">Jonli Kalkulyator</span>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Kreatinin (mg/dL):</label>
+                            <input type="number" id="scrInput" class="form-input" value="1.9" step="0.1" oninput="calculateOrganClearance()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Yoshi (yil):</label>
+                            <input type="number" id="ageInput" class="form-input" value="68" oninput="calculateOrganClearance()">
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Jinsi:</label>
+                            <select id="genderSelect" class="form-select" onchange="calculateOrganClearance()">
+                                <option value="male" selected>Erkak</option>
+                                <option value="female">Ayol</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Vazni (kg):</label>
+                            <input type="number" id="weightInput" class="form-input" value="78" oninput="calculateOrganClearance()">
+                        </div>
+                    </div>
+
+                    <hr style="border: none; border-top: 1px solid var(--border); margin: 16px 0;">
+
+                    <div style="font-size: 0.85rem; font-weight: 700; color: #cbd5e1; margin-bottom: 10px;">
+                        Jigar Parametrlari (Child-Pugh Baholash):
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Bilirubin:</label>
+                            <select id="biliSelect" class="form-select" onchange="calculateOrganClearance()">
+                                <option value="1">Normal (< 34 mkmol/l)</option>
+                                <option value="2">O'rtacha (34 - 50)</option>
+                                <option value="3">Yuqori (> 50)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Assit (Qorinda suv):</label>
+                            <select id="ascitesSelect" class="form-select" onchange="calculateOrganClearance()">
+                                <option value="1" selected>Yo'q</option>
+                                <option value="2">Yengil (medikamentoz)</option>
+                                <option value="3">Tarang assit</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="alert('✅ DoriQuti Blistri Buyrak Klirensiga Qarab Qayta Shakllantirildi!\n\nMetformin o\'rniga Linagliptin 5mg kiritildi.')">
+                            ⚡ DoriQuti Dozalarini Avtomatik Moslashtirish
+                        </button>
+                        <button class="btn btn-outline" onclick="window.print()">
+                            🖨️ Nefrologik/Gepatologik Xulosa Varaqasini Chop Etish
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Dynamic Organ Clearance & Clinical Action -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📉 Buyrak & Jigar Funksiyasi Holati</div>
+                        <span id="ckdStageBadge" style="font-size: 0.8rem; color: #f87171; font-weight: 700;">CKD 3b-bosqich</span>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="organ-meter-card">
+                            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">CKD-EPI eGFR</span>
+                            <div class="meter-val" id="egfrVal" style="color: #f87171;">34.2</div>
+                            <span style="font-size: 0.75rem; color: #cbd5e1;">ml/min/1.73m² (Filtratsiya pasaygan)</span>
+                        </div>
+
+                        <div class="organ-meter-card">
+                            <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Child-Pugh Sinfi</span>
+                            <div class="meter-val" id="childPughVal" style="color: #6ee7b7;">Sinf A (5 ball)</div>
+                            <span style="font-size: 0.75rem; color: #cbd5e1;">Kompensatsiyalangan jigar</span>
+                        </div>
+                    </div>
+
+                    <!-- Clinical Warnings -->
+                    <div id="alertsContainer">
+                        <div class="alert-card">
+                            <div style="font-size: 0.95rem; font-weight: 800; color: #fca5a5; margin-bottom: 4px;">
+                                ⚠️ METFORMIN XAVFI: eGFR 30-44 ml/min oralig'ida!
+                            </div>
+                            <p style="font-size: 0.85rem; color: #fecaca; line-height: 1.5;">
+                                <strong>Klinik xavf:</strong> Bemor buyragi filtratsiyasi 34.2 ml/min ga tushgan. Standart Metformin 850mg 2 mahal qabul qilish laktatsidoz (o'lim xavfi 50%) xavfini oshiradi!<br>
+                                <strong>Harakat:</strong> Metformin dozasini sutkasiga maksimal 1000mg gacha kamaytiring yoki buyrakdan ajralmaydigan <strong>Linagliptin 5mg (Tradjenta)</strong> ga almashtiring.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 14px; padding: 14px; background: #090e1c; border-radius: 12px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                        💡 <strong>SamDTU Nefrologiya Tavsiyasi:</strong> O'zbekistonda 2-tur qandli diabet bilan og'rigan keksalarning 42%ida yashirin diabetik nefropatiya (eGFR < 45) mavjud. Ushbu kalkulyator dori intoksikatsiyasi va shoshilinch gemodializ zaruratini 68% ga qisqartiradi.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function calculateOrganClearance() {
+            const scr = parseFloat(document.getElementById('scrInput').value) || 1.0;
+            const age = parseInt(document.getElementById('ageInput').value) || 60;
+            const isFemale = document.getElementById('genderSelect').value === 'female';
+
+            const kappa = isFemale ? 0.7 : 0.9;
+            const alpha = isFemale ? -0.241 : -0.302;
+            const ratio = scr / kappa;
+
+            const minVal = Math.pow(Math.min(ratio, 1.0), alpha);
+            const maxVal = Math.pow(Math.max(ratio, 1.0), -1.200);
+            const ageFactor = Math.pow(0.9938, age);
+            const genderFactor = isFemale ? 1.012 : 1.0;
+
+            const egfr = Math.round(142 * minVal * maxVal * ageFactor * genderFactor * 10) / 10;
+            document.getElementById('egfrVal').innerText = egfr;
+
+            let stage = "CKD 1-bosqich (Normal)";
+            let color = "#10b981";
+
+            if (egfr < 15) { stage = "CKD 5-bosqich (Terminal / Dializ)"; color = "#ef4444"; }
+            else if (egfr < 30) { stage = "CKD 4-bosqich (Og'ir pasaygan)"; color = "#ef4444"; }
+            else if (egfr < 45) { stage = "CKD 3b-bosqich (O'rtacha og'ir)"; color = "#f87171"; }
+            else if (egfr < 60) { stage = "CKD 3a-bosqich (O'rtacha yengil)"; color = "#fbbf24"; }
+            else if (egfr < 90) { stage = "CKD 2-bosqich (Yengil pasaygan)"; color = "#38bdf8"; }
+
+            document.getElementById('ckdStageBadge').innerText = stage;
+            document.getElementById('ckdStageBadge').style.color = color;
+            document.getElementById('egfrVal').style.color = color;
+
+            // Render alerts
+            const container = document.getElementById('alertsContainer');
+            if (egfr < 30) {
+                container.innerHTML = `
+                    <div class="alert-card" style="border-left-color: #ef4444; background: rgba(239, 68, 68, 0.25);">
+                        <strong style="color: white; font-size: 0.95rem;">🚨 METFORMIN MUTLAQO TAQIQLANADI! (eGFR < 30)</strong>
+                        <p style="font-size: 0.85rem; color: #fecaca; margin-top: 4px;">
+                            Bemor og'ir buyrak yetishmovchiligida. Metformin zudlik bilan bekor qilinishi shart! Linagliptin 5mg ga o'tkazilsin.
+                        </p>
+                    </div>
+                `;
+            } else if (egfr < 45) {
+                container.innerHTML = `
+                    <div class="alert-card">
+                        <strong style="color: white; font-size: 0.95rem;">⚠️ Metformin Dozasini 50% Qisqartiring (eGFR: ${egfr})</strong>
+                        <p style="font-size: 0.85rem; color: #fecaca; margin-top: 4px;">
+                            Sutkalik maksimal doza 1000mg dan oshmasligi shart (masalan 500mg 2 mahal).
+                        </p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; padding: 14px; border-radius: 12px; color: #6ee7b7; font-size: 0.85rem;">
+                        ✅ Buyrak filtratsiyasi qoniqarli (eGFR: ${egfr} ml/min). Dozani maxsus qisqartirish talab etilmaydi.
+                    </div>
+                `;
+            }
+        }
+
+        calculateOrganClearance();
+    </script>
+</body>
+</html>

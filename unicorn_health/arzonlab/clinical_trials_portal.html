@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klinik Tadqiqotlar & Ilg'or Terapiya Portali | ArzonLab & SamDTU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-trials {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+        }
+
+        .btn-primary {
+            background: #0284c7;
+            border-color: #0369a1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0369a1;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 28px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            background: #080f1c;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
+
+        /* Trial Cards */
+        .trial-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .trial-card:hover {
+            border-color: var(--primary);
+        }
+
+        .trial-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .trial-id-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(56, 189, 248, 0.15);
+            color: #7dd3fc;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .match-badge {
+            font-size: 13px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .match-100 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid var(--emerald); }
+        .match-borderline { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid var(--amber); }
+
+        .trial-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: white;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .trial-center {
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .benefits-box {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 16px;
+        }
+
+        .benefits-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6ee7b7;
+            margin-bottom: 4px;
+        }
+
+        .benefits-text {
+            font-size: 13px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        .criteria-list {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .btn-apply {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-apply:hover {
+            background: #0369a1;
+        }
+
+        @media print {
+            .header, .btn-action, .panel { display: none !important; }
+            body { background: white; color: black; }
+            .trial-card { border: 1px solid #333; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 28px;">🔬</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">SamDTU Klinik Tadqiqotlar & Bepul Terapiya Portali</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">SamDTU Ilmiy Klinikalari & Respublika Markazlaridagi Phase III/IV Dasturlar</p>
+            </div>
+            <span class="badge-trials">IRB/Etika Qo'mitasi Tasdiqlagan</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action">← Asosiy Hub</a>
+            <button class="btn-action" onclick="window.print()">🖨️ Chop Etish</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="layout-grid">
+            <!-- Left Panel: Patient Screening Form -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>📋</span> Bemor Ko'rsatkichlari (Skrining)
+                </div>
+
+                <div class="form-group">
+                    <label>Bemor Yoshi</label>
+                    <input type="number" id="patientAge" value="58" oninput="runEvaluation()">
+                </div>
+
+                <div class="form-group">
+                    <label>Asosiy Klinik Tashxis</label>
+                    <select id="diagnosisSelect" onchange="runEvaluation()">
+                        <option value="diabet_type_2" selected>2-tur Qandli Diabet (Nefropatiya bilan)</option>
+                        <option value="giperlipidemiya_chss">Og'ir Giperxolesterinemiya (Statin chidamsiz)</option>
+                        <option value="lung_cancer_egfr">O'pka Karsinomasi (EGFR mutatsiya)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Glikirlangan Gemoglobin (HbA1c, %)</label>
+                    <input type="number" step="0.1" id="hba1cInput" value="8.8" oninput="runEvaluation()">
+                </div>
+
+                <div class="form-group">
+                    <label>Buyrak Filtratsiyasi (eGFR, mL/min)</label>
+                    <input type="number" step="1" id="egfrInput" value="72" oninput="runEvaluation()">
+                </div>
+
+                <div class="form-group">
+                    <label>Zichligi Past Lipoprotein (LDL, mmol/L)</label>
+                    <input type="number" step="0.1" id="ldlInput" value="4.2" oninput="runEvaluation()">
+                </div>
+
+                <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 12px; font-size: 11px; color: #7dd3fc; line-height: 1.4;">
+                    ℹ️ <strong>Bemor Huquqlari:</strong> Barcha klinik tadqiqotlar O'zbekiston Respublikasi Qonunchiligi va Xelsinki Deklaratsiyasiga muvofiq 100% ixtiyoriy. Bemor istalgan vaqtda tadqiqotdan chiqish huquqiga ega.
+                </div>
+            </div>
+
+            <!-- Right Panel: Matched Trials List -->
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <h3 style="font-size: 18px; font-weight: 800;">
+                        Mos Kelgan Klinik Tadqiqotlar Dasturi
+                    </h3>
+                    <span style="font-size: 12px; color: var(--text-muted);">SamDTU Ilmiy Markazlari</span>
+                </div>
+
+                <div id="trialsContainer">
+                    <!-- Rendered dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TRIALS = [
+            {
+                id: "CT-UZ-2026-DIAB",
+                title: "2-tur Qandli Diabet va Nefropatiyada Yangi Avlod SGLT2 + GLP-1 RA",
+                phase: "Phase III (Xalqaro Tadqiqot)",
+                center: "SamDTU 1-son Klinikasi Endokrinologiya Bo'limi",
+                diagnosis: "diabet_type_2",
+                minAge: 35, maxAge: 75,
+                minHba1c: 7.5, maxHba1c: 11.0,
+                minEgfr: 30,
+                benefits: "12 oy bepul original preparat, oylik 1,200,000 UZS transport kompensatsiyasi, har chorakda bepul to'liq biokimyo va mikroalbuminuriya tahlillari."
+            },
+            {
+                id: "CT-UZ-2026-LIPID",
+                title: "Statinlarga Rezistent Giperxolesterinemiyada PCSK9 Monoklonal Antitanachalar",
+                phase: "Phase IIIb",
+                center: "Samarqand Kardiologiya Dispanseri & SamDTU",
+                diagnosis: "giperlipidemiya_chss",
+                minAge: 40, maxAge: 80,
+                minLdl: 3.5,
+                minEgfr: 30,
+                benefits: "Oylik 2,800,000 UZS lik bepul PCSK9 in'eksiyasi, bepul Lipidogramma va Karotid qon tomirlar UTT skriningi."
+            },
+            {
+                id: "CT-UZ-2026-ONCO",
+                title: "O'pka Kuchsiz Hujayrali Karsinomasida 3-Avlod EGFR Tirozin-Kinaza Ingibitori",
+                phase: "Phase IV",
+                center: "Samarqand Viloyat Onkologiya Dispanseri",
+                diagnosis: "lung_cancer_egfr",
+                minAge: 18, maxAge: 85,
+                minEgfr: 40,
+                benefits: "Bepul maqsadli (target) dori terapiyasi, har 6 haftada bepul 1.5T Bosh va Ko'krak qafasi MRT/KT tekshiruvi."
+            }
+        ];
+
+        function runEvaluation() {
+            const age = parseInt(document.getElementById('patientAge').value) || 0;
+            const diag = document.getElementById('diagnosisSelect').value;
+            const hba1c = parseFloat(document.getElementById('hba1cInput').value) || 0;
+            const egfr = parseFloat(document.getElementById('egfrInput').value) || 0;
+            const ldl = parseFloat(document.getElementById('ldlInput').value) || 0;
+
+            const container = document.getElementById('trialsContainer');
+            container.innerHTML = '';
+
+            TRIALS.forEach(t => {
+                let score = 0;
+                let reasons = [];
+
+                if (t.diagnosis === diag) {
+                    score += 40;
+                    reasons.push("✓ Tashxis to'liq mos keladi");
+                } else {
+                    reasons.push("✕ Tashxis boshqa profilga tegishli");
+                }
+
+                if (age >= t.minAge && age <= t.maxAge) {
+                    score += 20;
+                    reasons.push(`✓ Yosh mos (${t.minAge}-${t.maxAge} yosh)`);
+                } else {
+                    reasons.push(`✕ Yosh chegarasiga mos emas`);
+                }
+
+                if (t.minHba1c) {
+                    if (hba1c >= t.minHba1c && hba1c <= t.maxHba1c) {
+                        score += 30;
+                        reasons.push(`✓ HbA1c ${hba1c}% mos`);
+                    } else {
+                        reasons.push(`✕ HbA1c talabga to'g'ri kelmadi`);
+                    }
+                }
+
+                if (t.minLdl) {
+                    if (ldl >= t.minLdl) {
+                        score += 30;
+                        reasons.push(`✓ LDL ${ldl} mmol/L mos`);
+                    } else {
+                        reasons.push(`✕ LDL talabga to'g'ri kelmadi`);
+                    }
+                }
+
+                if (egfr >= t.minEgfr) {
+                    score += 10;
+                    reasons.push(`✓ Buyrak filtratsiyasi (eGFR ${egfr}) xavfsiz`);
+                }
+
+                const badgeClass = score >= 80 ? 'match-100' : 'match-borderline';
+                const statusText = score >= 80 ? `${score}% To'liq Mos` : `${score}% Shartli Mos`;
+
+                const card = `
+                    <div class="trial-card">
+                        <div class="trial-card-header">
+                            <span class="trial-id-badge">${t.id} • ${t.phase}</span>
+                            <span class="match-badge ${badgeClass}">${statusText}</span>
+                        </div>
+                        <h4 class="trial-title">${t.title}</h4>
+                        <div class="trial-center">🏛️ ${t.center}</div>
+
+                        <div class="benefits-box">
+                            <div class="benefits-title">🎁 Bemor Imtiyozlari:</div>
+                            <div class="benefits-text">${t.benefits}</div>
+                        </div>
+
+                        <div class="criteria-list">
+                            ${reasons.map(r => `<div>${r}</div>`).join('')}
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 12px; color: var(--emerald); font-weight: 700;">✓ Bemor uchun mutlaqo bepul</span>
+                            <button class="btn-apply" onclick="applyTrial('${t.id}')">
+                                📝 Tadqiqotga Ariza Topshirish
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', card);
+            });
+        }
+
+        function applyTrial(trialId) {
+            alert(`✓ Tabriklaymiz! Sizning arizangiz #${trialId} klinik protokoli bo'yicha qabul qilindi.\n\nSamDTU Ilmiy Koordinatori 24 soat ichida telefon orqali bepul dastlabki konsiliumga taklif qiladi.`);
+        }
+
+        // Initialize
+        runEvaluation();
+    </script>
+</body>
+</html>

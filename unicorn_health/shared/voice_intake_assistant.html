@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ovozli Retsept & Audio Yordamchi — Unicorn Health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAV -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🦄</span>
+          <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
+        </a>
+        <span class="text-xs text-slate-500">/</span>
+        <span class="text-xs bg-rose-500/20 text-rose-400 font-bold px-2.5 py-0.5 rounded-full border border-rose-500/30 flex items-center gap-1">
+          <span>🎙️</span>
+          <span>Ovozli Yordamchi</span>
+        </span>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-4 text-xs font-semibold text-slate-400">
+        <a href="../index.html" class="hover:text-white transition">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400 transition">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400 transition">ArzonLab</a>
+        <a href="health_passport.html" class="hover:text-cyan-400 transition">Pasport</a>
+        <a href="savings_calculator.html" class="hover:text-amber-400 transition">Tejamkorlik</a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <a href="https://t.me" target="_blank" class="bg-sky-500 hover:bg-sky-400 text-slate-950 px-3.5 py-2 rounded-xl font-black text-xs transition shadow-lg shadow-sky-500/20 flex items-center gap-1.5">
+          <span>✈️</span>
+          <span>Telegram Botda Sinash</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
+    <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-4">
+      <span>👵</span>
+      <span>Keksa Ota-Onaxonlar va Yozishga Qiynaluvchi Bemorlar Uchun</span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+      Yozish shart emas. <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-400 via-amber-300 to-emerald-400">Ovoz bilan gapiring</span> — DoriQuti tushunadi.
+    </h1>
+    <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+      O‘zbek tilidagi ovozli xabarlarni avtomatik taniydi, dorilarni ajratib oladi va retseptni 30 kunlik qutiga joylaydi.
+    </p>
+  </section>
+
+  <!-- MAIN VOICE STUDIO & ANALYZER -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- LEFT: VOICE RECORDER & AUDIO SAMPLES (5 COLS) -->
+    <div class="lg:col-span-5 space-y-6">
+      
+      <!-- RECORDER WIDGET -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl text-center space-y-5">
+        <span class="text-xs font-black uppercase tracking-wider text-rose-400 block">
+          Jonli Mikrofon Simulyatori
+        </span>
+
+        <!-- BIG RECORD BUTTON -->
+        <div class="relative inline-block">
+          <button onclick="toggleRecord()" id="btnRecord" class="w-24 h-24 rounded-full bg-gradient-to-tr from-rose-600 to-amber-500 text-white text-3xl flex items-center justify-center mx-auto shadow-2xl transition transform hover:scale-105 active:scale-95">
+            🎙️
+          </button>
+          <span id="recordingRipple" class="hidden absolute inset-0 rounded-full bg-rose-500 animate-ping opacity-40 pointer-events-none"></span>
+        </div>
+
+        <div>
+          <span id="recordStatus" class="font-bold text-white text-sm block">Mikrofonni bosing va gapiring</span>
+          <span class="text-xs text-slate-400">yoki quyidagi tayyor ovozli xabarlarni tanlang</span>
+        </div>
+
+        <!-- AUDIO WAVEFORM -->
+        <div id="waveform" class="h-8 flex items-center justify-center space-x-1.5 opacity-40">
+          <span class="w-1.5 h-3 bg-rose-500 rounded-full"></span>
+          <span class="w-1.5 h-6 bg-rose-500 rounded-full"></span>
+          <span class="w-1.5 h-4 bg-rose-500 rounded-full"></span>
+          <span class="w-1.5 h-7 bg-rose-500 rounded-full"></span>
+          <span class="w-1.5 h-3 bg-rose-500 rounded-full"></span>
+          <span class="w-1.5 h-5 bg-rose-500 rounded-full"></span>
+        </div>
+      </div>
+
+      <!-- PRESET VOICE SAMPLES -->
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl shadow-xl space-y-3">
+        <span class="text-[11px] font-black uppercase tracking-wider text-slate-400 block">
+          Haqiqiy Ovozli Xabarlar Namunalari:
+        </span>
+
+        <button onclick="loadVoice(0)" class="w-full p-3.5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 text-left transition flex items-center justify-between group">
+          <div class="flex items-center space-x-3">
+            <span class="text-xl">👵</span>
+            <div>
+              <span class="font-bold text-white text-xs block group-hover:text-emerald-400">Hamida xola (Samarqand)</span>
+              <span class="text-[10px] text-slate-400">Lozap + Kardiomagnil buyurtmasi • 18 soniya</span>
+            </div>
+          </div>
+          <span class="text-xs text-emerald-400 font-bold">Tahlil →</span>
+        </button>
+
+        <button onclick="loadVoice(1)" class="w-full p-3.5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-blue-500/40 text-left transition flex items-center justify-between group">
+          <div class="flex items-center space-x-3">
+            <span class="text-xl">👴</span>
+            <div>
+              <span class="font-bold text-white text-xs block group-hover:text-blue-400">Bahodir aka</span>
+              <span class="text-[10px] text-slate-400">Glukofaj + Atoris arzon analogi • 14 soniya</span>
+            </div>
+          </div>
+          <span class="text-xs text-blue-400 font-bold">Tahlil →</span>
+        </button>
+
+        <button onclick="loadVoice(2)" class="w-full p-3.5 rounded-2xl bg-rose-950/20 border border-rose-800/40 hover:border-rose-500 text-left transition flex items-center justify-between group">
+          <div class="flex items-center space-x-3">
+            <span class="text-xl">🚨</span>
+            <div>
+              <span class="font-bold text-rose-300 text-xs block">Favqulodda Triage Namoyishi</span>
+              <span class="text-[10px] text-rose-400">Yurak sanchishi va hushdan ketish • 8 soniya</span>
+            </div>
+          </div>
+          <span class="text-xs text-rose-400 font-bold">103 Triage →</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: AI TRANSCRIPT & ORDER EXTRACTION (7 COLS) -->
+    <div class="lg:col-span-7 space-y-6">
+      
+      <!-- TRANSCRIPTION CARD -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-black uppercase tracking-wider text-slate-400">
+            Avtomatik Matnga Aylantirish (Speech-to-Text)
+          </span>
+          <span id="transStatusBadge" class="text-[10px] font-bold bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">
+            Muvaffaqiyatli Tandi
+          </span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-sm leading-relaxed text-slate-200 italic" id="transcriptText">
+          "Assalomu alaykum bolam. Men Samarqand Registondanman. Har kuni ertalab Lozap ichaman, kechqurun esa Kardiomagnil ichishim kerak. Shuni 30 kunlik qutisini uyimga yetkazib bersangiz bo'ladimi?"
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-400">
+          <span>Bemor telefoni: <strong id="patientPhone" class="text-white">+998 93 331 44 55</strong></span>
+          <span>Shahar: <strong id="detectedCity" class="text-cyan-400">Samarqand</strong></span>
+        </div>
+      </div>
+
+      <!-- DETECTED MEDICATIONS & ORDER -->
+      <div id="orderCard" class="bg-slate-900 border-2 border-emerald-500/40 p-6 rounded-3xl shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+            <span>💊</span>
+            <span>Ovozdan Aniqlangan Dori Retsepti:</span>
+          </h3>
+          <span id="medsCountBadge" class="text-xs font-bold text-white bg-slate-800 px-2.5 py-0.5 rounded-full">
+            2 ta dori aniqlandi
+          </span>
+        </div>
+
+        <div id="detectedMedsList" class="space-y-2.5 text-xs">
+          <!-- Populated via JS -->
+        </div>
+
+        <div id="triageActionBox" class="p-3.5 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-xs text-slate-300 flex items-center justify-between">
+          <span>Provizor tekshiruvi: <strong>Litsenziyalangan Olam Pharm</strong></span>
+          <span class="text-emerald-400 font-bold">15% chegirma bilan</span>
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row gap-3">
+          <button onclick="confirmVoiceOrder()" id="btnConfirmOrder" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-500/20">
+            DoriQutini Tasdiqlash & Yetkazish →
+          </button>
+          <button onclick="callPatientBack()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-3 rounded-xl text-xs transition border border-slate-700 flex items-center justify-center gap-1.5">
+            <span>📞</span>
+            <span>Bemorga qo‘ng‘iroq qilish</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2026 Unicorn Health Voice AI. Samarqand Davlat Tibbiyot Universiteti.</div>
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="hover:text-white">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400">ArzonLab</a>
+        <a href="../docs/MASTER_ROADMAP.md" class="hover:text-white">Yo‘l xaritasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const voiceSamples = [
+      {
+        name: "Hamida xola (Samarqand)",
+        phone: "+998 93 331 44 55",
+        city: "Samarqand",
+        isEmergency: false,
+        transcript: '"Assalomu alaykum bolam. Men Samarqand Registondanman. Har kuni ertalab Lozap ichaman, kechqurun esa Kardiomagnil ichishim kerak. Shuni 30 kunlik qutisini uyimga yetkazib bersangiz bo\'ladimi?"',
+        meds: [
+          { name: "Lozap (Losartan) 50mg", timing: "1x Ertalab", cat: "Qon bosimi" },
+          { name: "Kardiomagnil 75mg", timing: "1x Kechqurun", cat: "Yurak" }
+        ]
+      },
+      {
+        name: "Bahodir aka",
+        phone: "+998 90 700 88 11",
+        city: "Toshkent",
+        isEmergency: false,
+        transcript: '"Ertalab qandim 8.5 chiqdi. Glukofaj 850 bilan Atoris 20mg kerak edi. Narxini arzon analogi bormi?"',
+        meds: [
+          { name: "Glukofaj (Metformin) 850mg", timing: "1x Ertalab + Kechqurun", cat: "Qandli Diabet" },
+          { name: "Atoris (Atorvastatin) 20mg", timing: "1x Kechqurun", cat: "Xolesterin" }
+        ]
+      },
+      {
+        name: "Noma'lum bemor",
+        phone: "+998 97 123 45 67",
+        city: "Samarqand",
+        isEmergency: true,
+        transcript: '"Yuragim qattiq sanchyapti, nafas ololmayapman, hushimdan ketyapman, tez yordam!"',
+        meds: []
+      }
+    ];
+
+    function loadVoice(idx) {
+      const v = voiceSamples[idx];
+      document.getElementById('transcriptText').innerText = v.transcript;
+      document.getElementById('patientPhone').innerText = v.phone;
+      document.getElementById('detectedCity').innerText = v.city;
+
+      const orderCard = document.getElementById('orderCard');
+      const medsList = document.getElementById('detectedMedsList');
+      const actionBox = document.getElementById('triageActionBox');
+      const confirmBtn = document.getElementById('btnConfirmOrder');
+
+      if (v.isEmergency) {
+        orderCard.className = 'bg-rose-950/30 border-2 border-rose-500 p-6 rounded-3xl shadow-xl space-y-4';
+        document.getElementById('transStatusBadge').innerText = '🚨 FAVQULODDA VAZIYAT';
+        document.getElementById('transStatusBadge').className = 'text-[10px] font-black bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded border border-rose-500/30';
+        document.getElementById('medsCountBadge').innerText = '0 ta dori';
+        medsList.innerHTML = `
+          <div class="p-3.5 rounded-2xl bg-rose-950/60 border border-rose-500/50 text-rose-200 font-bold">
+            ⚠️ O‘tkir kardiologik simptomlar aniqlandi! Bemor shoshilinch tez yordamga muhtoj.
+          </div>
+        `;
+        actionBox.innerHTML = `<span>Harakat: <strong>103 Tez Yordam va SamDTU Navbatchi reanimatologiga zudlik bilan yo‘naltirildi!</strong></span>`;
+        confirmBtn.innerText = '🚨 103 Tez Yordamni Chaqirish';
+        confirmBtn.className = 'flex-1 bg-rose-600 hover:bg-rose-500 text-white font-black py-3 rounded-xl text-xs transition shadow-lg shadow-rose-600/30';
+      } else {
+        orderCard.className = 'bg-slate-900 border-2 border-emerald-500/40 p-6 rounded-3xl shadow-xl space-y-4';
+        document.getElementById('transStatusBadge').innerText = 'Muvaffaqiyatli Tandi';
+        document.getElementById('transStatusBadge').className = 'text-[10px] font-bold bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20';
+        document.getElementById('medsCountBadge').innerText = `${v.meds.length} ta dori aniqlandi`;
+
+        medsList.innerHTML = v.meds.map(m => `
+          <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-white block">${m.name}</span>
+              <span class="text-[10px] text-slate-500">${m.cat}</span>
+            </div>
+            <span class="font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+              ${m.timing}
+            </span>
+          </div>
+        `).join('');
+
+        actionBox.innerHTML = `
+          <span>Provizor tekshiruvi: <strong>Litsenziyalangan Olam Pharm</strong></span>
+          <span class="text-emerald-400 font-bold">15% chegirma bilan</span>
+        `;
+        confirmBtn.innerText = 'DoriQutini Tasdiqlash & Yetkazish →';
+        confirmBtn.className = 'flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-500/20';
+      }
+    }
+
+    let isRecording = false;
+    function toggleRecord() {
+      isRecording = !isRecording;
+      const ripple = document.getElementById('recordingRipple');
+      const status = document.getElementById('recordStatus');
+      const wave = document.getElementById('waveform');
+
+      if (isRecording) {
+        ripple.classList.remove('hidden');
+        status.innerText = "Yozilmoqda... O'zbek tilida gapiring";
+        wave.classList.remove('opacity-40');
+        setTimeout(() => {
+          toggleRecord();
+          loadVoice(0);
+        }, 3000);
+      } else {
+        ripple.classList.add('hidden');
+        status.innerText = "Yozib olindi! Tahlil qilindi.";
+        wave.classList.add('opacity-40');
+      }
+    }
+
+    function confirmVoiceOrder() {
+      alert("✅ Ovozli buyurtma muvaffaqiyatli rasmiylashtirildi! Samarqand provizoriga uzatildi va bemorga SMS tasdiq kodi yuborildi.");
+    }
+
+    function callPatientBack() {
+      alert("📞 Bemor telefoniga avtomatik qo'ng'iroq yo'naltirildi (+998 93 331 44 55).");
+    }
+
+    // Init
+    loadVoice(0);
+  </script>
+</body>
+</html>

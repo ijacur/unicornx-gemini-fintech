@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti & SamDTU - Shifokor CME Ballari & Toifa Attestatsiyasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      body * { visibility: hidden; }
+      #printable-certificate, #printable-certificate * { visibility: visible; }
+      #printable-certificate { position: absolute; left: 0; top: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">🎓</span>
+          <span class="text-xl font-bold tracking-tight">SamDTU CME Vault</span>
+        </a>
+        <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-semibold">
+          Davomiy Tibbiy Ta'lim & Toifa
+        </span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="openCertificateModal()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
+          <span>📜</span> Rasmiy Sertifikatni Ko'rish
+        </button>
+        <a href="doctor_portal.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          ← Retsept Portali
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Doctor Profile Bar -->
+    <div class="bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-5 mb-6 flex flex-wrap items-center justify-between gap-4 shadow-xl">
+      <div class="flex items-center space-x-4">
+        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl font-black border border-emerald-500/30">
+          🩺
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-bold text-white">Dr. Rustamov Jamshid Karimovich</h2>
+            <span class="text-[11px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-medium">Oliy toifali kardiolog</span>
+          </div>
+          <p class="text-xs text-slate-400">SamDTU 1-son Ko'p Tarmoqli Klinikasi • Kardiologiya Bo'limi</p>
+          <div class="text-[11px] text-emerald-400 font-mono mt-0.5">Litsenziya: № SAM-DOC-77401 • Akkreditatsiya ID: CME-SAMDTU-2026-0841</div>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <div class="text-xs text-slate-400 mb-0.5">Yillik CME Maqsadi: <strong>50 ball</strong></div>
+        <div class="text-2xl font-black text-emerald-400 font-mono">37 / 50 ball (74%)</div>
+        <div class="w-48 bg-slate-700 h-2 rounded-full overflow-hidden mt-1.5">
+          <div class="bg-emerald-500 h-full rounded-full transition-all duration-700" style="width: 74%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">Nazoratdagi Surunkali Bemorlar</div>
+        <div class="text-2xl font-bold text-white font-mono">28 nafar</div>
+        <div class="text-[11px] text-emerald-400 mt-1">Har oy DoriQuti qabul qilmoqda</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">Kohorta Adherence (Intizom)</div>
+        <div class="text-2xl font-bold text-emerald-400 font-mono">94.2%</div>
+        <div class="text-[11px] text-emerald-300 mt-1">Standart o'rtacha: 41%</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">Oldi Olingan Xavfli Interaksiyalar</div>
+        <div class="text-2xl font-bold text-blue-400 font-mono">14 ta</div>
+        <div class="text-[11px] text-blue-300 mt-1">Polipragmaziya xavfi nolga teng</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">Kasalxonaga Yotqizilish Pasayishi</div>
+        <div class="text-2xl font-bold text-purple-400 font-mono">-67.4%</div>
+        <div class="text-[11px] text-purple-300 mt-1">Tejalgan tibbiy budjet: 84M UZS</div>
+      </div>
+    </div>
+
+    <!-- Main Grid: CME Breakdown & Patient Cohort -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- CME Point Breakdown (5 cols) -->
+      <div class="lg:col-span-5 bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>📊</span> CME Ballari Jamg'armasi Tafsilotlari
+            </h3>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-bold">+37 Ball</span>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+              <div>
+                <strong class="text-white block">Surunkali bemorlar oylik kursi</strong>
+                <span class="text-slate-400">28 ta faol DoriQuti obunasi (1 bemor = 1 ball)</span>
+              </div>
+              <span class="text-emerald-400 font-bold font-mono text-sm">+28 ball</span>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+              <div>
+                <strong class="text-white block">Yuqori Adherence Bonusi (&gt;90%)</strong>
+                <span class="text-slate-400">Kohortaning 94.2% dori qabul intizomi uchun</span>
+              </div>
+              <span class="text-emerald-400 font-bold font-mono text-sm">+5 ball</span>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+              <div>
+                <strong class="text-white block">Polipragmaziya Xavfsizlik Bonusi</strong>
+                <span class="text-slate-400">14 ta dori-dori to'qnashuvi oldi olingani uchun</span>
+              </div>
+              <span class="text-emerald-400 font-bold font-mono text-sm">+4 ball</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-slate-700">
+          <button onclick="submitToAttestation()" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3 rounded-xl text-xs shadow-lg transition flex items-center justify-center gap-2">
+            <span>🏛️</span> SamDTU Attestatsiya Komissiyasiga Jo'natish
+          </button>
+          <p class="text-[10px] text-slate-400 text-center mt-2">
+            O'zbekiston SSV Uzluksiz kasbiy ta'lim standarti bo'yicha toifani tasdiqlash uchun qabul qilinadi
+          </p>
+        </div>
+      </div>
+
+      <!-- Active Patient Adherence Cohort (7 cols) -->
+      <div class="lg:col-span-7 bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>👥</span> Dr. Rustamov Nazoratidagi Surunkali Kohorta
+            </h3>
+            <p class="text-xs text-slate-400">Bemorlarning dori ichish intizomi va qon bosimi monitoringi</p>
+          </div>
+          <span class="text-xs text-slate-400">28 bemordan so'nggi 4 tasi</span>
+        </div>
+
+        <div class="space-y-2.5 text-xs">
+          <!-- Patient 1 -->
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white">Karimov Baxtiyor (58 yosh)</div>
+              <div class="text-[11px] text-slate-400">Tashxis: Gipertoniya II-bosqich • Kardio Qutisi</div>
+            </div>
+            <div class="text-right">
+              <span class="text-emerald-400 font-bold font-mono">96.7% Adherence</span>
+              <div class="text-[10px] text-slate-400">Qon bosimi: 125/80 mmHg (Barqaror)</div>
+            </div>
+          </div>
+
+          <!-- Patient 2 -->
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white">Ziyayeva Gulchehra opa (64 yosh)</div>
+              <div class="text-[11px] text-slate-400">Tashxis: Qandli diabet 2-tur + Gipertoniya</div>
+            </div>
+            <div class="text-right">
+              <span class="text-emerald-400 font-bold font-mono">93.3% Adherence</span>
+              <div class="text-[10px] text-slate-400">Glitsirlangan gemoglobin (HbA1c): 6.8%</div>
+            </div>
+          </div>
+
+          <!-- Patient 3 -->
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white">Oripov Shuhrat aka (71 yosh)</div>
+              <div class="text-[11px] text-slate-400">Tashxis: Disirkulyator ensefalopatiya • Neyro Qutisi</div>
+            </div>
+            <div class="text-right">
+              <span class="text-emerald-400 font-bold font-mono">90.0% Adherence</span>
+              <div class="text-[10px] text-slate-400">Xotira ko'rsatkichi yaxshilangan</div>
+            </div>
+          </div>
+
+          <!-- Patient 4 -->
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+            <div>
+              <div class="font-bold text-white">Rustamova Dilnoza (49 yosh)</div>
+              <div class="text-[11px] text-slate-400">Tashxis: Bosh miya qon aylanishi yetishmovchiligi</div>
+            </div>
+            <div class="text-right">
+              <span class="text-emerald-400 font-bold font-mono">96.7% Adherence</span>
+              <div class="text-[10px] text-slate-400">Klinik shikoyatlar kamaygan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Certificate Modal -->
+  <div id="modal-certificate" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-3xl max-w-2xl w-full p-6 text-slate-200 shadow-2xl">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-700 pb-3">
+        <h3 class="text-base font-bold text-white">Rasmiy Davomiy Tibbiy Ta'lim Sertifikati</h3>
+        <button onclick="closeCertificateModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+
+      <!-- Printable Certificate Body -->
+      <div id="printable-certificate" class="bg-amber-50 text-slate-900 p-8 rounded-2xl border-4 border-double border-amber-600 font-serif text-center relative shadow-inner mb-5">
+        <div class="text-xs uppercase font-sans font-bold tracking-widest text-amber-900 mb-1">
+          O'ZBEKISTON RESPUBLIKASI SOG'LIQNI SAQLASH VAZIRLIGI
+        </div>
+        <div class="text-sm font-bold text-slate-800 mb-4 font-sans">
+          SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI
+        </div>
+
+        <h1 class="text-2xl font-bold text-amber-900 uppercase tracking-wider mb-2">SERTIFIKAT</h1>
+        <p class="text-xs italic text-slate-600 mb-4">№ CME-SAMDTU-2026-0841</p>
+
+        <p class="text-xs text-slate-700 mb-2">Ushbu sertifikat tasdiqlaydi:</p>
+        <h2 class="text-xl font-bold text-slate-900 border-b border-slate-400 pb-2 mb-3 inline-block px-8">
+          Dr. Rustamov Jamshid Karimovich
+        </h2>
+
+        <p class="text-xs text-slate-700 leading-relaxed max-w-lg mx-auto mb-4 font-sans">
+          SamDTU 1-son klinikasi kardiologi sifatida surunkali bemorlarning dori intizomi (adherence) monitoringini muvaffaqiyatli amalga oshirgani va polipragmaziyani bartaraf etgani uchun <strong>37 Davomiy Tibbiy Ta'lim (CME) kredit ballari</strong> bilan taqdirlanadi.
+        </p>
+
+        <div class="grid grid-cols-2 text-xs text-slate-700 font-sans mt-6 pt-4 border-t border-slate-300">
+          <div class="text-left">
+            <div>Sana: <strong>03.10.2026</strong></div>
+            <div>Akkreditatsiya: <strong>SamDTU UKTM</strong></div>
+          </div>
+          <div class="text-right">
+            <div>Rektorat / Attestatsiya: <strong>Tasdiqlangan</strong></div>
+            <div class="text-amber-800 font-bold font-serif italic">[Muhr o'rni]</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex space-x-3">
+        <button onclick="closeCertificateModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-slate-300 py-2.5 rounded-xl font-medium text-xs transition">
+          Yopish
+        </button>
+        <button onclick="window.print()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold text-xs shadow-lg transition flex items-center justify-center gap-1.5">
+          <span>🖨️</span> Sertifikatni Chop Etish (PDF)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
+    <span>✅</span> <span id="toast-text">Amal muvaffaqiyatli bajarildi!</span>
+  </div>
+
+  <script>
+    function openCertificateModal() {
+      document.getElementById('modal-certificate').classList.remove('hidden');
+    }
+
+    function closeCertificateModal() {
+      document.getElementById('modal-certificate').classList.add('hidden');
+    }
+
+    function submitToAttestation() {
+      showToast('Dr. Rustamovning 37 CME ballari SamDTU Attestatsiya bazasiga yuborildi!');
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>

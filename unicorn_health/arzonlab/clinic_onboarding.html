@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArzonLab.uz — Klinika va Diagnostika Markazlarini Ulash Portali</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.03); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-blue-200">
+            🏢
+          </div>
+          <div>
+            <span class="font-extrabold text-lg text-slate-900">Arzon<span class="text-blue-600">Lab</span> • Hamkorlik</span>
+            <span class="text-[10px] block font-semibold text-slate-400 uppercase tracking-widest -mt-1">Klinika & Diagnostika Dasturi</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-4 text-xs font-bold">
+        <a href="lab_portal.html" class="text-slate-600 hover:text-blue-600 transition">
+          Registrator Paneli →
+        </a>
+        <a href="index.html" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-4 py-2 rounded-xl transition">
+          Bosh sahifaga qaytish
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-4 py-10 flex-1 w-full space-y-12">
+
+    <!-- HERO VALUE PROP -->
+    <div class="text-center max-w-3xl mx-auto space-y-4">
+      <span class="text-xs bg-blue-100 text-blue-800 font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block">
+        Klinika Direktorlari va Bosh Shifokorlar Uchun
+      </span>
+      <h1 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+        MRT va KT apparatlaringiz bo‘sh turgan soatlarida <span class="text-blue-600 underline decoration-blue-200 decoration-wavy">oyiga +30M so‘m</span> qo‘shimcha tushum oling.
+      </h1>
+      <p class="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
+        Kechki yoki tushlikdagi bo‘sh darchalaringizga yangi bemorlar oqimini yo‘naltiramiz. Hech qanday oldindan to‘lov yo‘q — faqat kelgan real mijoz uchun 15% muvaffaqiyat to‘lovi.
+      </p>
+    </div>
+
+    <!-- BENEFIT CARDS -->
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl font-bold mb-4">
+          📈
+        </div>
+        <h3 class="font-extrabold text-base text-slate-900 mb-2">Apparat unumdorligini 85%+ ga oshirish</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Kechki (20:00 - 23:00) yoki erta tonggi soatlarda xodimlar va uskunalar oylik amortizatsiyasi ketadi, lekin foyda bermaydi. ArzonLab bu soatlarni to‘liq to‘ldiradi.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl font-bold mb-4">
+          💵
+        </div>
+        <h3 class="font-extrabold text-base text-slate-900 mb-2">0-Xatarli Biznes Modeli (Risk-Free)</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Siz qimmat reklama agentliklariga pul sarflamaysiz. Bemor kelib kassa to‘lovini amalga oshirgandagina biz belgilangan komissiyani hisoblaymiz.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow">
+        <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center text-2xl font-bold mb-4">
+          ⚡️
+        </div>
+        <h3 class="font-extrabold text-base text-slate-900 mb-2">Oddiy Registratura Integratsiyasi</h3>
+        <p class="text-xs text-slate-600 leading-relaxed">
+          Murakkab IT tizimlari shart emas. Registrator shunchaki bemor aytgan 4 xonali <strong>#ARZON-XXXX</strong> kodini brauzerga kiritib, 3 soniyada tasdiqlaydi.
+        </p>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE ROI CALCULATOR -->
+    <div class="bg-slate-900 text-white rounded-3xl p-8 card-shadow grid lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 space-y-6">
+        <div>
+          <span class="text-xs text-blue-400 font-extrabold uppercase tracking-wider block mb-1">Interaktiv Daromad Kalkulyatori</span>
+          <h2 class="text-2xl font-black">Klinikangiz oylik qo‘shimcha tushumini hisoblang</h2>
+        </div>
+
+        <div class="space-y-4 text-xs">
+          <div>
+            <div class="flex justify-between font-bold mb-2">
+              <span class="text-slate-300">Kunlik bo‘sh MRT / KT tekshiruvlar soni:</span>
+              <span class="text-blue-400 text-sm font-black" id="slotsDisplay">4 ta tekshiruv / kun</span>
+            </div>
+            <input type="range" id="slotsSlider" min="1" max="12" value="4" oninput="calculateROI()" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500">
+          </div>
+
+          <div>
+            <div class="flex justify-between font-bold mb-2">
+              <span class="text-slate-300">Tahlilning o‘rtacha chakana narxi:</span>
+              <span class="text-blue-400 text-sm font-black" id="priceDisplay">450,000 so‘m</span>
+            </div>
+            <input type="range" id="priceSlider" min="200000" max="800000" step="25000" value="450000" oninput="calculateROI()" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500">
+          </div>
+
+          <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700 text-slate-400 text-[11px]">
+            *Hisob-kitob 25% chegirmali narx va ArzonLab’ning 15% xizmat komissiyasi chegirilgandan keyin klinikaga sof qoladigan mablag‘ni ko‘rsatadi.
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-center space-y-4 shadow-xl">
+        <span class="text-xs uppercase font-extrabold text-blue-200 tracking-wider">Klinikangizga Sof Oylik Qo‘shimcha Foyda:</span>
+        <div class="text-4xl md:text-5xl font-black text-white" id="monthlyNetIncome">
+          +34,425,000 so‘m
+        </div>
+        <p class="text-xs text-blue-100 font-semibold">
+          Yillik qo‘shimcha sof tushum: <br>
+          <strong class="text-white text-base font-black" id="annualNetIncome">+413,100,000 so‘m/yil</strong>
+        </p>
+
+        <a href="#onboardingForm" class="block bg-white text-slate-900 font-black py-3 rounded-xl text-xs hover:bg-blue-50 transition shadow-lg">
+          Klinikani hoziroq ulash →
+        </a>
+      </div>
+    </div>
+
+    <!-- 3-STEP ONBOARDING FORM -->
+    <div id="onboardingForm" class="bg-white rounded-3xl border border-slate-200 card-shadow p-6 md:p-10 space-y-8">
+      <div class="border-b border-slate-100 pb-4">
+        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Hamkorlik Shartnomasi Tuzish</span>
+        <h3 class="text-2xl font-black text-slate-900">Klinika va Diagnostika Uskunalarini Ro‘yxatdan O‘tkazish</h3>
+        <p class="text-xs text-slate-500 mt-1">Ma’lumotlarni to‘ldiring, tizim bir zumda rasmiy hamkorlik ommaviy ofertasi va listingini shakllantiradi.</p>
+      </div>
+
+      <form onsubmit="submitClinic(event)" class="space-y-6 text-xs font-semibold">
+        
+        <!-- STEP 1: CLINIC DETAILS -->
+        <div class="space-y-4">
+          <h4 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs">1</span>
+            <span>Klinika Rekvizitlari</span>
+          </h4>
+
+          <div class="grid sm:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-slate-700 mb-1">Klinika / Markaz nomi:</label>
+              <input required id="clinicName" type="text" placeholder="Masalan: Jack MRT Samarqand" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-700 mb-1">Shahar:</label>
+              <select id="clinicCity" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                <option value="Samarqand">Samarqand</option>
+                <option value="Toshkent">Toshkent</option>
+                <option value="Buxoro">Buxoro</option>
+                <option value="Farg‘ona">Farg‘ona</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-700 mb-1">Tibbiy litsenziya raqami:</label>
+              <input required id="clinicLicense" type="text" placeholder="№ 12345-T" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-700 mb-1">Aniq manzil (mo‘ljal bilan):</label>
+              <input required id="clinicAddress" type="text" placeholder="Registon ko‘chasi, 12-bino (SamDTU ro‘parasi)" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+            <div>
+              <label class="block text-slate-700 mb-1">Direktor / Bosh vrach telefoni:</label>
+              <input required id="clinicPhone" type="tel" placeholder="+998 90 123 45 67" class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: EQUIPMENT & TESTS -->
+        <div class="space-y-4 pt-4 border-t border-slate-100">
+          <h4 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs">2</span>
+            <span>Uskunalar va Chegirma Beriladigan Bo‘sh Soatlar</span>
+          </h4>
+
+          <div class="grid sm:grid-cols-3 gap-3">
+            <label class="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex items-center space-x-3 cursor-pointer hover:border-blue-400">
+              <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded">
+              <div>
+                <strong class="block text-slate-900">MRT 1.5 Tesla</strong>
+                <span class="text-[11px] text-slate-500 font-normal">Miya, Umurtqa, Bo‘g‘imlar</span>
+              </div>
+            </label>
+
+            <label class="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex items-center space-x-3 cursor-pointer hover:border-blue-400">
+              <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded">
+              <div>
+                <strong class="block text-slate-900">MSKT (64/128 qatlam)</strong>
+                <span class="text-[11px] text-slate-500 font-normal">O‘pka, Qorin bo‘shlig‘i</span>
+              </div>
+            </label>
+
+            <label class="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex items-center space-x-3 cursor-pointer hover:border-blue-400">
+              <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+              <div>
+                <strong class="block text-slate-900">Klinik Laboratoriya</strong>
+                <span class="text-[11px] text-slate-500 font-normal">Biokimyo, Gormonlar, Qon</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-slate-700 mb-1">Bo‘sh turadigan soatlar (Chegirmali vaqt):</label>
+              <select class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                <option>Kechki vaqt: 20:00 — 23:30 (Eng yuqori talab)</option>
+                <option>Tushlik vaqti: 13:00 — 15:30</option>
+                <option>Erta tonggi: 07:30 — 09:00</option>
+                <option>Dam olish kunlari (To‘liq kun)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-700 mb-1">Mijozga taqdim etiladigan chegirma foizi:</label>
+              <select class="w-full p-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none">
+                <option>25% chegirma (Standart)</option>
+                <option>30% chegirma (Tavsiya etiladi)</option>
+                <option>35% chegirma (Kechki soatlar uchun maksimal oqim)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-sm shadow-xl shadow-blue-600/30 transition">
+          🚀 Hamkorlik Shartnomasini Tuzish va Listingni Faollashtirish
+        </button>
+      </form>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div id="successModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl max-w-lg w-full p-8 card-shadow text-center space-y-4">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto">
+          ✅
+        </div>
+        <h3 class="text-2xl font-black text-slate-900">Hamkorlik Muvaffaqiyatli O‘rnatildi!</h3>
+        <p class="text-xs text-slate-600" id="successDetailText">
+          Klinikangiz ArzonLab bazasiga kiritildi. Registratura uchun maxsus kirish kodi SMS orqali yuborildi.
+        </p>
+
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-left text-xs font-mono space-y-1">
+          <p class="text-slate-500 text-[10px] uppercase font-sans font-bold">Klinika Kabineti:</p>
+          <p class="text-slate-900 font-bold">URL: arzonlab.uz/lab_portal.html</p>
+          <p class="text-slate-900 font-bold">Hamkorlik ID: #PARTNER-SAM-849</p>
+          <p class="text-emerald-600 font-bold">Holat: Faol (Mijozlar oqimi yo‘naltirilmoqda)</p>
+        </div>
+
+        <div class="flex gap-3">
+          <a href="lab_portal.html" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-xs transition">
+            Registrator Paneli
+          </a>
+          <button onclick="document.getElementById('successModal').classList.add('hidden')" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-xs transition">
+            Yopish
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-6 px-4 text-center text-xs text-slate-500">
+    © 2026 ArzonLab.uz • Klinika va Diagnostika Markazlari bilan B2B Hamkorlik Portali.
+  </footer>
+
+  <script>
+    function calculateROI() {
+      const slots = parseInt(document.getElementById('slotsSlider').value);
+      const price = parseInt(document.getElementById('priceSlider').value);
+
+      document.getElementById('slotsDisplay').innerText = `${slots} ta tekshiruv / kun`;
+      document.getElementById('priceDisplay').innerText = `${price.toLocaleString()} so‘m`;
+
+      // 25% discount, 15% platform fee
+      // Discounted price = price * 0.75
+      // Clinic net share = discounted price * 0.85 = price * 0.6375
+      const netPerTest = price * 0.75 * 0.85;
+      const monthlyNet = Math.round(slots * 30 * netPerTest);
+      const annualNet = Math.round(monthlyNet * 12);
+
+      document.getElementById('monthlyNetIncome').innerText = `+${monthlyNet.toLocaleString()} so‘m`;
+      document.getElementById('annualNetIncome').innerText = `+${annualNet.toLocaleString()} so‘m/yil`;
+    }
+
+    function submitClinic(e) {
+      e.preventDefault();
+      const name = document.getElementById('clinicName').value;
+      const city = document.getElementById('clinicCity').value;
+      const phone = document.getElementById('clinicPhone').value;
+
+      document.getElementById('successDetailText').innerText = `"${name}" (${city}) markazi ArzonLab bazasiga kiritildi. Shartnoma nusxasi va registrator kodi ${phone} raqamiga yuborildi.`;
+      document.getElementById('successModal').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

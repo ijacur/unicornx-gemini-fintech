@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MRT & Laboratoriya Narx Solishtirish Matritsasi | ArzonLab (GoodRx Model)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f1a2e;
+            --surface-hover: #162640;
+            --border: #1e3355;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --blue: #2563eb;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 26, 46, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-goodrx {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--primary);
+            color: #bae6fd;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .banner {
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.15), rgba(16, 185, 129, 0.12));
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .stat-card.emerald::after { background: var(--emerald); }
+        .stat-card.amber::after { background: var(--amber); }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .stat-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .matrix-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .clinic-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .clinic-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+        }
+
+        .clinic-table td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 14px;
+        }
+
+        .price-strike {
+            text-decoration: line-through;
+            color: #94a3b8;
+            font-size: 13px;
+            margin-right: 8px;
+        }
+
+        .price-arzon {
+            color: #34d399;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+        }
+
+        .badge-discount {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid #10b981;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🔬</span>
+            <div>
+                <div style="font-size: 19px; font-weight: 800; color: #ffffff;">MRT & Laboratoriya Narx Solishtirish Matritsasi</div>
+                <div style="font-size: 12px; color: var(--text-muted);">ArzonLab — O'zbekiston Klinikalarining Bo'sh Soatlari Birjasi (GoodRx Model)</div>
+            </div>
+            <span class="badge-goodrx">25% — 35% Chegirma Vaucherlari</span>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">🏠 Bosh Menyu</a>
+            <a href="/arzonlab/index.html" class="btn btn-outline" style="text-decoration: none;">🔍 ArzonLab Bosh Sahifa</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <div>
+                <strong style="color: #38bdf8; font-size: 15px;">💡 GoodRx Modeli: Qimmat MRT va Tahlillarga 100,000+ So'm Tejang:</strong>
+                <p style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+                    MRT apparatlari va laboratoriyalar tushdan keyin (14:00 - 18:00) 40% bo'sh turadi. ArzonLab klinikalarning ushbu bo'sh vaqtlarini 30% arzonlashtirilgan vaucher sifatida odamlarga taqdim etadi. Soliq.uz 1% keshbek va 12% daromad solig'i qaytarilishi bilan tejash yanada ortadi.
+                </p>
+            </div>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #34d399; background: rgba(16, 185, 129, 0.1); padding: 6px 14px; border-radius: 8px; border: 1px solid #10b981;">
+                SOLIQ KODEKSI 378-MODDA (12% TAX REFUND)
+            </span>
+        </div>
+
+        <!-- Macro Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Ulangan Diagnostika Markazlari</div>
+                <div class="stat-value">48 ta</div>
+                <div class="stat-desc">Samarqand, Toshkent, Navoiy</div>
+            </div>
+            <div class="stat-card emerald">
+                <div class="stat-label">O'rtacha Bemor Tejamkorligi</div>
+                <div class="stat-value">28.4%</div>
+                <div class="stat-desc">85,000 — 105,000 UZS har bir tekshiruvda</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Faol Vaucherlar</div>
+                <div class="stat-value">1,840 ta</div>
+                <div class="stat-desc">Bir zumda SMS va QR orqali beriladi</div>
+            </div>
+            <div class="stat-card amber">
+                <div class="stat-label">Soliq Imtiyozi Potensiali</div>
+                <div class="stat-value">12% + 1%</div>
+                <div class="stat-desc">To'langan chek bo'yicha daromad solig'i qaytishi</div>
+            </div>
+        </div>
+
+        <!-- Section 1: MRT Matrix -->
+        <div class="matrix-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 14px;">
+                <div>
+                    <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">🧠 MRT Bosh Miya (Kontrastsiz 1.5 Tesla)</h3>
+                    <div style="font-size: 12px; color: var(--text-muted);">Eng ko'p buyuriladigan neyrologik tekshiruv • Narxlar solishtiruvi:</div>
+                </div>
+                <span class="badge-discount">30.4% gacha tejamkorlik</span>
+            </div>
+
+            <table class="clinic-table">
+                <thead>
+                    <tr>
+                        <th>Klinika & Manzil</th>
+                        <th>Masofa</th>
+                        <th>Bo'sh Vaqt (Off-Peak)</th>
+                        <th>Oddiy Narx vs ArzonLab</th>
+                        <th>Tejamkorlik</th>
+                        <th>Harakat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>SamDTU Neyroxirurgiya Klinikasi</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">Samarqand, Dahbed ko'chasi • Reyting: 4.9 ⭐</div>
+                        </td>
+                        <td>2.4 km</td>
+                        <td><span style="color: #38bdf8;">Bugun 15:30</span></td>
+                        <td>
+                            <span class="price-strike">280,000 UZS</span>
+                            <span class="price-arzon">195,000 UZS</span>
+                        </td>
+                        <td><span class="badge-discount">+85,000 UZS tejash</span></td>
+                        <td>
+                            <button class="btn" onclick="claimVoucher('MRT Bosh Miya', 'SamDTU Neyroxirurgiya', 195000, 85000)">
+                                🎟️ Vaucherni Olish
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Vitamed Medical Tashxis</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">Samarqand shahar • Reyting: 4.7 ⭐</div>
+                        </td>
+                        <td>5.8 km</td>
+                        <td><span style="color: #38bdf8;">Ertaga 09:00</span></td>
+                        <td>
+                            <span class="price-strike">390,000 UZS</span>
+                            <span class="price-arzon">290,000 UZS</span>
+                        </td>
+                        <td><span class="badge-discount">+100,000 UZS tejash</span></td>
+                        <td>
+                            <button class="btn" onclick="claimVoucher('MRT Bosh Miya', 'Vitamed Medical', 290000, 100000)">
+                                🎟️ Vaucherni Olish
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Akfa Medline Samarqand Filiali</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">Samarqand, Gagarin ko'chasi • Reyting: 4.8 ⭐</div>
+                        </td>
+                        <td>4.1 km</td>
+                        <td><span style="color: #38bdf8;">Bugun 17:00</span></td>
+                        <td>
+                            <span class="price-strike">420,000 UZS</span>
+                            <span class="price-arzon">315,000 UZS</span>
+                        </td>
+                        <td><span class="badge-discount">+105,000 UZS tejash</span></td>
+                        <td>
+                            <button class="btn" onclick="claimVoucher('MRT Bosh Miya', 'Akfa Medline', 315000, 105000)">
+                                🎟️ Vaucherni Olish
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 2: Laboratory Biochemistry Matrix -->
+        <div class="matrix-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 14px;">
+                <div>
+                    <h3 style="font-size: 18px; font-weight: 800; color: #ffffff;">🧪 Jigar Fermentlari & Biokimyo (ALT, AST, Bilirubin, GGT)</h3>
+                    <div style="font-size: 12px; color: var(--text-muted);">Surunkali gepatit va dorilar intoksikatsiyasi tekshiruvi:</div>
+                </div>
+                <span class="badge-discount">31.6% gacha tejamkorlik</span>
+            </div>
+
+            <table class="clinic-table">
+                <thead>
+                    <tr>
+                        <th>Laboratoriya</th>
+                        <th>Natija Vaqti (TAT)</th>
+                        <th>Oddiy Narx vs ArzonLab</th>
+                        <th>Tejamkorlik</th>
+                        <th>Harakat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>SamDTU Markaziy Laboratoriyasi</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">Samarqand Davlat Tibbiyot Universiteti Bazasida</div>
+                        </td>
+                        <td><span style="color: #34d399;">2 soatda tayyor</span></td>
+                        <td>
+                            <span class="price-strike">95,000 UZS</span>
+                            <span class="price-arzon">65,000 UZS</span>
+                        </td>
+                        <td><span class="badge-discount">+30,000 UZS tejash</span></td>
+                        <td>
+                            <button class="btn" onclick="claimVoucher('Jigar Fermentlari', 'SamDTU Laboratoriyasi', 65000, 30000)">
+                                🎟️ Vaucherni Olish
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Invitro Samarqand</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">Xalqaro akkreditatsiyalangan tarmoq</div>
+                        </td>
+                        <td>4 soatda tayyor</td>
+                        <td>
+                            <span class="price-strike">140,000 UZS</span>
+                            <span class="price-arzon">105,000 UZS</span>
+                        </td>
+                        <td><span class="badge-discount">+35,000 UZS tejash</span></td>
+                        <td>
+                            <button class="btn" onclick="claimVoucher('Jigar Fermentlari', 'Invitro Samarqand', 105000, 35000)">
+                                🎟️ Vaucherni Olish
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function claimVoucher(testName, clinicName, priceUzs, savingsUzs) {
+            const voucherCode = "ARZON-" + Math.floor(10000 + Math.random() * 90000);
+            const soliqCashback = Math.round(priceUzs * 0.01);
+            const taxRefund = Math.round(priceUzs * 0.12);
+
+            alert(
+                `🎉 VAUCHER MUVOFAQIYATLI FAOLIKDA!\n\n` +
+                `🎫 Vaucher Kodi: ${voucherCode}\n` +
+                `🔬 Tekshiruv: ${testName}\n` +
+                `🏥 Klinika: ${clinicName}\n` +
+                `💰 ArzonLab Narxi: ${priceUzs.toLocaleString()} UZS\n` +
+                `💵 To'g'ridan-to'g'ri tejash: ${savingsUzs.toLocaleString()} UZS\n\n` +
+                `🎁 Soliq Keshbeki (1%): ${soliqCashback.toLocaleString()} UZS\n` +
+                `🏛️ Daromad Solig'i Qaytishi (12%): ${taxRefund.toLocaleString()} UZS (SK 378-modda)\n\n` +
+                `Klinika qabulxonasida ushbu kodni aytib, chegirmadan foydalaning!`
+            );
+        }
+    </script>
+</body>
+</html>

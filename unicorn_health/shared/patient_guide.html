@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health — Bemor va Oila Yo‘riqnomasi & Tez-tez So‘raladigan Savollar (FAQ)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.03); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-emerald-200">
+            📖
+          </div>
+          <div>
+            <span class="font-extrabold text-lg text-slate-900">Salomatlik<span class="text-emerald-600">Yo‘riqnomasi</span></span>
+            <span class="text-[10px] block font-semibold text-slate-400 uppercase tracking-widest -mt-1">Bemorlar & Oilalar Uchun Qo‘llanma</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-3 text-xs font-bold">
+        <a href="../doriquti/index.html" class="text-slate-600 hover:text-emerald-600 transition">💊 DoriQuti</a>
+        <a href="../arzonlab/index.html" class="text-slate-600 hover:text-blue-600 transition">🔬 ArzonLab</a>
+        <a href="../index.html" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-1.5 rounded-xl transition">
+          Bosh Sahifa
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-6xl mx-auto px-4 py-10 flex-1 w-full space-y-10">
+
+    <!-- HERO SEARCH SECTION -->
+    <div class="bg-gradient-to-r from-emerald-800 via-teal-900 to-slate-900 text-white rounded-3xl p-8 md:p-12 card-shadow text-center space-y-5">
+      <span class="text-xs bg-emerald-400/20 text-emerald-300 font-extrabold px-3.5 py-1.5 rounded-full uppercase tracking-wider inline-block">
+        SamDTU Shifokorlari Tavsiyalari va Bilimlar Bazasi
+      </span>
+      <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight max-w-3xl mx-auto">
+        Sizda qanday savol bor?
+      </h1>
+      <p class="text-xs md:text-sm text-emerald-100 max-w-xl mx-auto">
+        Dorilarni to‘g‘ri qabul qilish, MRT/KT tahlillariga tayyorgarlik va buyurtmalar bo‘yicha to‘liq javoblar.
+      </p>
+
+      <div class="max-w-2xl mx-auto relative">
+        <input type="text" id="faqSearch" oninput="filterFAQ()" placeholder="Savolingizni yozing (masalan: unutilgan dori, MRT tayyorgarlik, yetkazish)..." class="w-full pl-12 pr-4 py-4 rounded-2xl bg-white text-slate-900 font-bold text-xs md:text-sm outline-none shadow-xl focus:ring-4 focus:ring-emerald-400/30">
+        <span class="absolute left-4 top-4 text-slate-400 text-lg">🔍</span>
+      </div>
+    </div>
+
+    <!-- CATEGORY FILTER BUTTONS -->
+    <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs font-bold" id="faqCatFilter">
+      <button onclick="setFaqCategory('all')" class="faq-tab active bg-slate-900 text-white px-4 py-2 rounded-xl whitespace-nowrap">Barcha Savollar</button>
+      <button onclick="setFaqCategory('doriquti')" class="faq-tab bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl whitespace-nowrap">💊 DoriQuti (Obuna)</button>
+      <button onclick="setFaqCategory('arzonlab')" class="faq-tab bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl whitespace-nowrap">🔬 ArzonLab (MRT/KT)</button>
+      <button onclick="setFaqCategory('delivery')" class="faq-tab bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl whitespace-nowrap">📦 Yetkazish va To‘lov</button>
+      <button onclick="setFaqCategory('clinical')" class="faq-tab bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl whitespace-nowrap">🩺 Tibbiy Xavfsizlik</button>
+    </div>
+
+    <!-- FAQ ACCORDION LIST -->
+    <div class="space-y-3" id="faqAccordion">
+
+      <!-- ITEM 1 -->
+      <div class="faq-item bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden" data-category="doriquti clinical">
+        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-extrabold text-sm text-slate-900 hover:text-emerald-700 transition">
+          <span>1. Ota-onam ertalabki dorini ichishni unutib qoysa, nima qilish kerak?</span>
+          <span class="faq-icon text-slate-400 text-xl font-normal transition-transform">+</span>
+        </button>
+        <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 space-y-2 border-t border-slate-100 pt-3">
+          <p><strong>Klinik qoida:</strong> Hech qachon o‘tkazib yuborilgan doza o‘rniga birdaniga ikkita doza (ikki baravar miqdor) ichilmasligi shart! Bu qon bosimining keskin tushib ketishiga yoki gipoglikemiyaga olib kelishi mumkin.</p>
+          <p>Agar eslagan vaqtingiz keyingi qabul vaqtiga hali 4-6 soatdan ko‘p bo‘lsa — dorini darhol ichish mumkin. Agar keyingi qabul vaqti (masalan, kechki doza) yaqinlashib qolgan bo‘lsa — o‘tkazib yuborilgan dozani qoldirib, rejadagi navbatdagi dozani o‘z vaqtida ichish tavsiya etiladi.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="faq-item bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden" data-category="doriquti">
+        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-extrabold text-sm text-slate-900 hover:text-emerald-700 transition">
+          <span>2. DoriQuti lentali paketlari qanday ishlaydi va narxi qanday arzon bo‘ladi?</span>
+          <span class="faq-icon text-slate-400 text-xl font-normal transition-transform">+</span>
+        </button>
+        <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 space-y-2 border-t border-slate-100 pt-3">
+          <p>DoriQuti tizimida litsenziyalangan provizor shifokor retseptiga asosan bemorning 30 kunlik tabletkalarini maxsus germetik lentaga qadoqlaydi. Har bir paketda sana, hafta kuni va vaqti (Ertalab, Tushlik, Kechqurun) yozilgan bo‘ladi.</p>
+          <p>Biz dorilarni chakana dorixona orqali emas, to‘g‘ridan-to‘g‘ri litsenziyalangan yirik distribyutorlardan ulgurji narxda olganimiz uchun, narx odatdagi dorixonalardan <strong>10% dan 15% gacha arzonroq</strong> bo‘ladi. Saralash va qadoqlash esa mijoz uchun bepul.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="faq-item bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden" data-category="arzonlab clinical">
+        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-extrabold text-sm text-slate-900 hover:text-blue-700 transition">
+          <span>3. MRT tekshiruviga kirishdan oldin nimalarga qat’iy e’tibor berish lozim?</span>
+          <span class="faq-icon text-slate-400 text-xl font-normal transition-transform">+</span>
+        </button>
+        <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 space-y-2 border-t border-slate-100 pt-3">
+          <p><strong>1. Metall buyumlar:</strong> Barcha soat, uzuk, tilla-kumush taqinchoqlar, kamar to‘qalari, telefon va metall tugmali kiyimlar yechilishi shart.</p>
+          <p><strong>2. Qarshi ko‘rsatmalar:</strong> Tanada kardiostimulyator (yurak sun’iy motori), ferromagnit tomir qisqichlari yoki elektron implantlar bo‘lsa, MRT mutlaqo man etiladi (bunday holatda KT yoki MSKT buyuriladi).</p>
+          <p><strong>3. Qorin bo‘shlig‘i MRT tekshiruvi:</strong> Tekshiruvdan kamida 4-6 soat oldin ovqatlanmaslik (och qoringa bo‘lish) lozim.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 4 -->
+      <div class="faq-item bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden" data-category="arzonlab">
+        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-extrabold text-sm text-slate-900 hover:text-blue-700 transition">
+          <span>4. ArzonLab nima uchun tahlillarni 25-35% arzon taqdim eta oladi?</span>
+          <span class="faq-icon text-slate-400 text-xl font-normal transition-transform">+</span>
+        </button>
+        <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 space-y-2 border-t border-slate-100 pt-3">
+          <p>Xususiy klinikalardagi qimmat MRT va KT apparatlari kunning o‘rtacha 35-40% vaqtida (ayniqsa kechki 20:00 dan 23:00 gacha yoki erta tongda) bo‘sh turadi.</p>
+          <p>ArzonLab klinika egalari bilan maxsus kelishuv tuzadi: ular bo‘sh turgan soatlariga yangi bemor berganimiz uchun 30% chegirma taqdim etishadi. Bu klinikaga qo‘shimcha sof tushum, bemorga esa yuz minglab so‘m tejov beradi.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 5 -->
+      <div class="faq-item bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden" data-category="delivery">
+        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-extrabold text-sm text-slate-900 hover:text-emerald-700 transition">
+          <span>5. Samarqand va boshqa shaharlarga yetkazib berish qanday amalga oshiriladi?</span>
+          <span class="faq-icon text-slate-400 text-xl font-normal transition-transform">+</span>
+        </button>
+        <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 space-y-2 border-t border-slate-100 pt-3">
+          <p>Samarqand va Toshkent shaharlari bo‘ylab har oyning 1-sanasida (yoki siz tanlagan kunda) shaxsiy kuryerlarimiz 30 kunlik qutini to‘g‘ridan-to‘g‘ri eshikka yetkazadi. Shahar ichida yetkazish bepul.</p>
+          <p>Viloyat tumanlariga esa 24 soat ichida BTS yoki O‘zbekiston Pochtasi orqali yetkazib beriladi.</p>
+        </div>
+      </div>
+
+      <!-- ITEM 6 -->
+      <div class="faq-item bg-white rounded-2xl border border-slate-200 card-shadow overflow-hidden" data-category="clinical">
+        <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex items-center justify-between font-extrabold text-sm text-slate-900 hover:text-emerald-700 transition">
+          <span>6. Dorilarni qanday suyuqlik bilan ichish to‘g‘ri hisoblanadi?</span>
+          <span class="faq-icon text-slate-400 text-xl font-normal transition-transform">+</span>
+        </button>
+        <div class="faq-content hidden px-5 pb-5 text-xs text-slate-600 space-y-2 border-t border-slate-100 pt-3">
+          <p><strong>Faqat oddiy xona haroratidagi toza suv bilan!</strong></p>
+          <p>• <strong>Choy va qahva bilan ichmaslik kerak:</strong> Tarkibidagi tanninlar kardiologik va temir dorilarining so‘rilishini 70% ga pasaytiradi.</p>
+          <p>• <strong>Greypfrut sharbati:</strong> Qon bosimi va xolesterin (statinlar) preparatlari bilan birga ichilganda dori konsentratsiyasini xavfli darajada oshirib yuborishi mumkin.</p>
+          <p>• <strong>Sut bilan:</strong> Ba’zi antibiotiklar kalsiy bilan birikib, ta’sirini yo‘qotadi.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRINTABLE FRIDGE HEALTH MEMO (A4 CARD) -->
+    <div class="bg-white rounded-3xl border-2 border-dashed border-emerald-400 p-6 md:p-8 card-shadow space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+        <div>
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block">Ota-Onangiz Uchun Muzlatgichga Eslatma</span>
+          <h3 class="text-lg font-black text-slate-900">Salomatlik va Dori Ichish Eslatmasi (A4 Chop etish)</h3>
+        </div>
+        <button onclick="window.print()" class="bg-slate-900 hover:bg-slate-800 text-white font-black px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition">
+          <span>🖨</span>
+          <span>Chop etish / PDF</span>
+        </button>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-4 text-xs">
+        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
+          <strong class="text-amber-900 block mb-1">☀️ Ertalabki Qoida:</strong>
+          <p class="text-amber-800 text-[11px]">Nonushtadan keyin toza suv bilan iching. Bosimni o‘lchab, daftarga yozib boring.</p>
+        </div>
+
+        <div class="p-3 bg-blue-50 rounded-xl border border-blue-200">
+          <strong class="text-blue-900 block mb-1">🍲 Tushlik Qoidasi:</strong>
+          <p class="text-blue-800 text-[11px]">Ovqat vaqtida vitamin yoki fermentlarni qabul qiling. Yog‘li taomlarni kamaytiring.</p>
+        </div>
+
+        <div class="p-3 bg-purple-50 rounded-xl border border-purple-200">
+          <strong class="text-purple-900 block mb-1">🌙 Kechki Qoida:</strong>
+          <p class="text-purple-800 text-[11px]">Yotishdan 30 daqiqa oldin kardiomagnil va statinlarni ichish yurakni tunda asraydi.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIRECT EMERGENCY CALL CENTER -->
+    <div class="bg-slate-900 text-white rounded-3xl p-6 md:p-8 card-shadow flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-1 text-center md:text-left">
+        <h4 class="text-lg font-black text-white">Qo‘shimcha savollaringiz bormi?</h4>
+        <p class="text-xs text-slate-400">SamDTU shifokor-konsultantlari va provizorlarimiz har kuni yordam berishga tayyor.</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="tel:+998900000000" class="bg-white text-slate-950 hover:bg-slate-100 font-bold px-5 py-3 rounded-xl text-xs transition">
+          📞 +998 (90) 000-00-00
+        </a>
+        <a href="https://t.me/DoriQutiBot" target="_blank" class="bg-[#229ED9] hover:bg-[#1f8ec4] text-white font-bold px-5 py-3 rounded-xl text-xs transition">
+          ✈️ Telegram Maslahat
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-6 px-4 text-center text-xs text-slate-500">
+    © 2026 Unicorn Health • Samarqand Davlat Tibbiyot Universiteti (SamDTU) Ilmiy Ko‘magida.
+  </footer>
+
+  <script>
+    function toggleFaq(btn) {
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.innerText = "−";
+      } else {
+        content.classList.add('hidden');
+        icon.innerText = "+";
+      }
+    }
+
+    function setFaqCategory(cat) {
+      document.querySelectorAll('.faq-tab').forEach(b => {
+        b.className = "faq-tab bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 px-4 py-2 rounded-xl whitespace-nowrap";
+      });
+      event.currentTarget.className = "faq-tab active bg-slate-900 text-white px-4 py-2 rounded-xl whitespace-nowrap";
+
+      const items = document.querySelectorAll('.faq-item');
+      items.forEach(it => {
+        if (cat === 'all' || it.dataset.category.includes(cat)) {
+          it.classList.remove('hidden');
+        } else {
+          it.classList.add('hidden');
+        }
+      });
+    }
+
+    function filterFAQ() {
+      const q = document.getElementById('faqSearch').value.toLowerCase().trim();
+      const items = document.querySelectorAll('.faq-item');
+      items.forEach(it => {
+        const text = it.innerText.toLowerCase();
+        if (text.includes(q)) {
+          it.classList.remove('hidden');
+        } else {
+          it.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+</body>
+</html>

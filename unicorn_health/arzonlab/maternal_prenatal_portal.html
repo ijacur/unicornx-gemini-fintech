@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onalik Qalqoni & Prenatal Trimestr Skriningi | Unicorn Health</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --pink: #ec4899;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(236, 72, 153, 0.15);
+            border: 1px solid var(--pink);
+            color: #f472b6;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--pink);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 36px 24px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.12) 0%, rgba(168, 85, 247, 0.08) 50%, rgba(56, 189, 248, 0.08) 100%);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #f472b6, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 920px;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: rgba(15, 25, 45, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--pink);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* Two column layout */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1.1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Week Slider */
+        .slider-box {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .week-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #f472b6;
+            margin-bottom: 4px;
+        }
+
+        .fruit-comparison {
+            font-size: 1rem;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .week-range-input {
+            width: 100%;
+            accent-color: var(--pink);
+            height: 8px;
+            cursor: pointer;
+        }
+
+        /* Daily Pouch Visualizer */
+        .prenatal-pouch-card {
+            background: linear-gradient(145deg, #1f1124, #0d0714);
+            border: 2px dashed rgba(236, 72, 153, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .pouch-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .pouch-pill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .pouch-pill-item strong {
+            color: #fce7f3;
+        }
+
+        .pouch-pill-item span {
+            color: #94a3b8;
+            font-size: 0.78rem;
+        }
+
+        /* Pre-eclampsia Risk Checker */
+        .bp-check-card {
+            background: rgba(244, 63, 94, 0.08);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 20px;
+        }
+
+        .bp-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .bp-input-field {
+            background: #070d18;
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .btn-check-bp {
+            width: 100%;
+            background: var(--rose);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* Screenings List */
+        .screening-card {
+            background: rgba(7, 13, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .screening-card strong {
+            font-size: 0.9rem;
+            color: #fff;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .screening-card span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .screening-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: #6ee7b7;
+            font-weight: 800;
+            text-align: right;
+        }
+
+        .btn-order-prenatal {
+            width: 100%;
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: 14px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.35);
+        }
+
+        .btn-order-prenatal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--pink);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.6rem;">🌸</span>
+            <div>
+                <strong style="font-size: 1.15rem; color: #fff;">Unicorn Health &bull; Onalik Qalqoni</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Homiladorlik Trimestr Blisteri & Pre-Eklampsiya Skriningi</span>
+            </div>
+            <span class="badge-pill">62% Tejov &bull; SamDTU Perinatal</span>
+        </div>
+        <nav class="nav-links">
+            <a href="../index.html">← Bosh Sahifa</a>
+            <a href="index.html">ArzonLab Hub</a>
+            <a href="../doriquti/index.html">DoriQuti</a>
+            <a href="biopsy_pathology_portal.html">Onko-Biopsiya</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <h1>Onalik Qalqoni: 900,000 Chaqaloq Uchun Sog'lom Boshlanish</h1>
+            <p>
+                Homiladorlik haftasiga mos ravishda saralangan <strong>kunlik DoriQuti prenatal blister xaltachalari</strong> 
+                (Metilfolat, ich qotirmaydigan Temir Xelat, Omega-3 DHA). 
+                Qimmat import bankalar o'rniga <strong>62% tejov</strong>, bepul pre-eklampsiya qon bosimi nazorati 
+                va ArzonLab arzonlashtirilgan genetik UTT/TORCH skrining vaucherlari.
+            </p>
+
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <div class="stat-val">1 - 40 Hafta</div>
+                    <div class="stat-lbl">Individual Dastur</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">175,000 UZS</div>
+                    <div class="stat-lbl">Oylik Prenatal To'plam</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">62% Tejov</div>
+                    <div class="stat-lbl">Import Komplekslarga Nisbatan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">0 Asorat</div>
+                    <div class="stat-lbl">Pre-Eklampsiya Qalqoni</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="layout-grid">
+            
+            <!-- Left: Week Slider & Daily Pouch -->
+            <div>
+                <div class="section-title">
+                    <span>📅</span>
+                    <span>Homiladorlik Haftasini Tanlang:</span>
+                </div>
+
+                <div class="slider-box">
+                    <div class="week-number" id="weekDisplay">16-Hafta</div>
+                    <div class="fruit-comparison" id="fruitDisplay">
+                        Chaqaloq o'lchami: <strong>Mango (uzunligi 27 sm, 430 g)</strong>
+                    </div>
+                    <input type="range" min="1" max="40" value="16" class="week-range-input" id="weekRange" oninput="updateWeek(this.value)">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-top: 8px;">
+                        <span>1-Trimestr (1–13 h.)</span>
+                        <span>2-Trimestr (14–27 h.)</span>
+                        <span>3-Trimestr (28–40 h.)</span>
+                    </div>
+                </div>
+
+                <!-- Daily Pouch Card -->
+                <div class="prenatal-pouch-card">
+                    <div class="pouch-head">
+                        <div>
+                            <strong style="color: #f472b6; font-size: 0.95rem;">DoriQuti &bull; PRENATAL POUCH</strong>
+                            <div style="font-size: 0.72rem; color: #94a3b8;" id="pouchSubtitle">2-Trimestr Miya & Suyak Rivojlanishi</div>
+                        </div>
+                        <span style="background: rgba(236, 72, 153, 0.2); color: #f472b6; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">STERIL MUHR</span>
+                    </div>
+
+                    <div id="pouchPillsList">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px;">
+                        <div>
+                            <span style="font-size: 0.75rem; color: var(--rose); text-decoration: line-through;" id="oldPriceLabel">520,000 so'm</span>
+                            <strong style="font-size: 1.15rem; color: #6ee7b7; font-family: monospace; display: block;" id="newPriceLabel">195,000 so'm/oy</strong>
+                        </div>
+                        <span style="font-size: 0.78rem; color: #f472b6; font-weight: 700;">✓ 325,000 so'm tejash</span>
+                    </div>
+                </div>
+
+                <button class="btn-order-prenatal" onclick="openOrderModal()">
+                    🌸 Ushbu Oylik Prenatal To'plamga Obuna Bo'lish
+                </button>
+            </div>
+
+            <!-- Right: Screenings & Pre-eclampsia Tracker -->
+            <div>
+                <div class="section-title">
+                    <span>🔬</span>
+                    <span>Ushbu Trimestrda Tavsiya Qilingan Tahlillar:</span>
+                </div>
+
+                <div id="screeningsList">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Pre-eclampsia BP Checker -->
+                <div class="bp-check-card">
+                    <div style="font-weight: 800; color: #fda4af; font-size: 0.95rem; margin-bottom: 2px;">
+                        🩸 Pre-Eklampsiya Qon Bosimi Nazorati
+                    </div>
+                    <div style="font-size: 0.78rem; color: #cbd5e1;">
+                        Bosim 140/90 dan yuqori bo'lsa, zudlik bilan shifokor nazorati talab etiladi.
+                    </div>
+
+                    <div class="bp-inputs">
+                        <div>
+                            <label style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 4px;">SISTOLIK (Yuqori):</label>
+                            <input type="number" id="sysBp" class="bp-input-field" value="115" placeholder="115">
+                        </div>
+                        <div>
+                            <label style="font-size: 0.7rem; color: var(--text-muted); display: block; margin-bottom: 4px;">DIASTOLIK (Pastki):</label>
+                            <input type="number" id="diaBp" class="bp-input-field" value="75" placeholder="75">
+                        </div>
+                    </div>
+
+                    <button class="btn-check-bp" onclick="checkBpRisk()">Xavfni Tekshirish</button>
+                    <div id="bpStatusText" style="margin-top: 10px; font-size: 0.8rem; font-weight: 700; color: #6ee7b7; text-align: center;">
+                        ✓ Bosim me'yorda (115/75 mmHg)
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">👶</div>
+            <h2 style="font-size: 1.4rem; color: #ec4899; margin-bottom: 8px;">Prenatal Obuna Qabul Qilindi!</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 18px;">
+                Tanlangan trimestr uchun 30 kunlik alohida lentali steril blisterlar 
+                Samarqand omboridan eshikkacha yoki Smart Med-Lockerga yetkaziladi.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; font-size: 0.8rem; text-align: left; margin-bottom: 20px;">
+                <div><strong>Trimestr:</strong> <span id="mTrimester">2-Trimestr (16-hafta)</span></div>
+                <div><strong>Yetkazish:</strong> 0 so'm (Med-Locker orqali)</div>
+                <div><strong>Keshbek:</strong> 1% Humo/Uzcard keshbek</div>
+            </div>
+            <button class="btn-order-prenatal" onclick="closeOrderModal()">Tushundim, Rahmat!</button>
+        </div>
+    </div>
+
+    <script>
+        const TRIMESTERS = {
+            1: {
+                title: "1-Trimestr: Organogenez & Neyral Naycha Himoyasi",
+                oldCost: "480,000 so'm",
+                newCost: "175,000 so'm/oy",
+                fruit: "Limon (uzunligi 7.4 sm, 23 g)",
+                pills: [
+                    { name: "Metilfolat (Faol L-Metilfolat) 400 mcg", desc: "Spina bifida nuqsoniga qarshi" },
+                    { name: "Yod (Kaliy yodid) 200 mcg", desc: "Chaqaloq intellekti & qalqonsimon bezi" },
+                    { name: "Vitamin B6 25 mg", desc: "Erta ko'ngil aynishini yengish" },
+                    { name: "Vitamin D3 2000 IU", desc: "Immunitet & suyak asosi" }
+                ],
+                screenings: [
+                    { title: "1-Trimestr Biokimyoviy Skrining (PAPP-A + beta-hCG)", desc: "Daun va Edvard sindromlari erta xavfi", price: "260,000 UZS" },
+                    { title: "Ekspert UTT (11–13 hafta)", desc: "Bo'yin burmasi va burun suyagi", price: "180,000 UZS" },
+                    { title: "TORCH Infeksiyalar Paneli (IgM/IgG)", desc: "Toksoplazmoz, qizilcha, gerpes", price: "340,000 UZS" }
+                ]
+            },
+            2: {
+                title: "2-Trimestr: Miya & Suyak Rivojlanishi",
+                oldCost: "520,000 so'm",
+                newCost: "195,000 so'm/oy",
+                fruit: "Mango / Banan (uzunligi 27 sm, 430 g)",
+                pills: [
+                    { name: "Temir Xelat (Bisglisinat) 30 mg", desc: "Ich qotirmaydi, gemoglobin ko'taradi" },
+                    { name: "Omega-3 DHA 200 mg", desc: "Chaqaloq ko'z to'r pardasi va miya o'sishi" },
+                    { name: "Kalsiy Xelat + D3 500 mg", desc: "Suyak skeleti va ona tishlari himoyasi" },
+                    { name: "Yod 200 mcg", desc: "Gormonal muvozanat" }
+                ],
+                screenings: [
+                    { title: "Anatomik 2-Trimestr Ekspert UTT Doppler", desc: "Yurak, miya va qon aylanishi", price: "190,000 UZS" },
+                    { title: "Glyukoza Tolerantlik Testi (GTT)", desc: "Gestatsion diabet skriningi (24–28 hafta)", price: "85,000 UZS" },
+                    { title: "Ferritin & Umumiy Qon Tahlili", desc: "Anemiya erta darajasini aniqlash", price: "95,000 UZS" }
+                ]
+            },
+            3: {
+                title: "3-Trimestr: Tug'ruqqa Tayyorgarlik & Tinchlik",
+                oldCost: "490,000 so'm",
+                newCost: "185,000 so'm/oy",
+                fruit: "Qovun / Tarvuz (uzunligi 46 sm, 2.3 kg)",
+                pills: [
+                    { name: "Magniy B6 Xelat 400 mg", desc: "Bachadon tonusi va oyoq tortishishiga qarshi" },
+                    { name: "Temir Xelat 30 mg", desc: "Tug'ruqdagi qon yo'qotish profilaktikasi" },
+                    { name: "Omega-3 DHA 200 mg", desc: "Miya to'qimasi yakuniy pishishi" },
+                    { name: "Vitamin D3 2000 IU + K2 50 mcg", desc: "Kalsiyning to'g'ri taqsimlanishi" }
+                ],
+                screenings: [
+                    { title: "KTG (Kardiotokografiya)", desc: "Homila yurak urishi va kislorod yetishi", price: "75,000 UZS" },
+                    { title: "Koagulogramma (Qon ivishi)", desc: "Tug'ruqdan oldingi qon ketish xavfi", price: "120,000 UZS" },
+                    { title: "UTT Dopplerometriya 3-Trimestr", desc: "Yo'ldosh yetilishi va qon oqimi", price: "180,000 UZS" }
+                ]
+            }
+        };
+
+        function updateWeek(w) {
+            document.getElementById("weekDisplay").innerText = `${w}-Hafta`;
+            const trimester = w <= 13 ? 1 : (w <= 27 ? 2 : 3);
+            const data = TRIMESTERS[trimester];
+
+            document.getElementById("fruitDisplay").innerHTML = `Chaqaloq o'lchami: <strong>${data.fruit}</strong>`;
+            document.getElementById("pouchSubtitle").innerText = data.title;
+            document.getElementById("oldPriceLabel").innerText = data.oldCost;
+            document.getElementById("newPriceLabel").innerText = data.newCost;
+
+            const pillsList = document.getElementById("pouchPillsList");
+            pillsList.innerHTML = data.pills.map(p => `
+                <div class="pouch-pill-item">
+                    <div>
+                        <strong>${p.name}</strong>
+                        <div style="font-size:0.75rem; color:#fbcfe8;">${p.desc}</div>
+                    </div>
+                    <span>1 dona</span>
+                </div>
+            `).join("");
+
+            const scrList = document.getElementById("screeningsList");
+            scrList.innerHTML = data.screenings.map(s => `
+                <div class="screening-card">
+                    <div>
+                        <strong>${s.title}</strong>
+                        <span>${s.desc}</span>
+                    </div>
+                    <div class="screening-price">${s.price}</div>
+                </div>
+            `).join("");
+        }
+
+        function checkBpRisk() {
+            const sys = parseInt(document.getElementById("sysBp").value) || 120;
+            const dia = parseInt(document.getElementById("diaBp").value) || 80;
+            const statusEl = document.getElementById("bpStatusText");
+
+            if (sys >= 140 || dia >= 90) {
+                statusEl.style.color = "#f43f5e";
+                statusEl.innerHTML = `🚨 XAVF: Yuqori bosim (${sys}/${dia} mmHg)! Zudlik bilan shifokorga murojaat qiling!`;
+            } else {
+                statusEl.style.color = "#6ee7b7";
+                statusEl.innerHTML = `✓ Bosim me'yorda (${sys}/${dia} mmHg). Pre-eklampsiya xavfi yo'q.`;
+            }
+        }
+
+        function openOrderModal() {
+            const w = document.getElementById("weekRange").value;
+            const t = w <= 13 ? 1 : (w <= 27 ? 2 : 3);
+            document.getElementById("mTrimester").innerText = `${t}-Trimestr (${w}-hafta)`;
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+        function closeOrderModal() {
+            document.getElementById("orderModal").style.display = "none";
+        }
+
+        // Initialize with week 16
+        updateWeek(16);
+    </script>
+</body>
+</html>

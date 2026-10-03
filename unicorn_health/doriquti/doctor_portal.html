@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti.uz — Shifokorlar va Klinik Rezidentlar Portali</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.03); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- TOP BAR -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="index.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-emerald-200">
+            🩺
+          </div>
+          <div>
+            <span class="font-extrabold text-lg text-slate-900">Dori<span class="text-emerald-600">Quti</span> • Shifokor Portali</span>
+            <span class="text-[10px] block font-semibold text-slate-400 uppercase tracking-widest -mt-1">SamDTU Klinik Hamkorligi</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <div class="hidden sm:flex items-center space-x-2 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-xs font-bold text-emerald-800">SamDTU 1-Klinika: Faol</span>
+        </div>
+        <div class="flex items-center space-x-2 pl-2 border-l border-slate-200">
+          <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center text-xs">
+            JS
+          </div>
+          <div class="text-left hidden md:block">
+            <p class="text-xs font-bold text-slate-800 leading-tight">Dr. Jasur Shukurov</p>
+            <p class="text-[10px] text-slate-500">Kardiologiya va Terapiya</p>
+          </div>
+        </div>
+        <a href="index.html" class="text-xs font-bold text-slate-500 hover:text-emerald-600 transition">
+          Bosh sahifaga qaytish →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full space-y-8">
+
+    <!-- METRICS CARDS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 card-shadow">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Mening Bemorlarim</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-3xl font-black text-slate-900" id="totalPatientsCount">28</span>
+          <span class="text-xs font-bold text-emerald-600">+4 bu hafta</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1">Faol dori qutisi oluvchilar</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 card-shadow">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">O‘rtacha Intizom (Adherence)</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-3xl font-black text-emerald-600">92.4%</span>
+          <span class="text-xs font-semibold text-slate-400">vs 41% shahar</span>
+        </div>
+        <p class="text-[11px] text-emerald-700 mt-1 font-semibold">Tugash va adashish xavfi minimal</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 card-shadow">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Ilmiy CME Ballari</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-3xl font-black text-indigo-600">420</span>
+          <span class="text-xs font-bold text-indigo-500">ball</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1">SamDTU konferensiya granti uchun</p>
+      </div>
+
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 card-shadow">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Taqriz va Retseptlar</span>
+        <div class="flex items-baseline space-x-2">
+          <span class="text-3xl font-black text-slate-900">34</span>
+          <span class="text-xs font-bold text-emerald-600">ta</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-1">Elektron tasdiqlangan</p>
+      </div>
+    </div>
+
+    <!-- MAIN TWO COLUMNS -->
+    <div class="grid lg:grid-cols-12 gap-8 items-start">
+
+      <!-- LEFT: E-PRESCRIPTION DISPATCHER (7 COLS) -->
+      <div class="lg:col-span-7 bg-white p-6 md:p-8 rounded-3xl border border-slate-200 card-shadow space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h2 class="text-xl font-black text-slate-900">Bemorga DoriQuti retseptini biriktirish</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Retsept asosida 30 kunlik quti shakllantirilib, bemor telefoniga SMS havola yuboriladi.</p>
+          </div>
+          <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">E-Retsept #RX-9082</span>
+        </div>
+
+        <form id="rxForm" onsubmit="event.preventDefault(); dispatchPrescription();" class="space-y-4 text-xs">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Bemorning F.I.Sh:</label>
+              <input type="text" id="patientName" required placeholder="Masalan: Qodirov Akramjon" class="w-full p-3 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Telefon raqami (SMS uchun):</label>
+              <input type="tel" id="patientPhone" required placeholder="+998 90 123 45 67" class="w-full p-3 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Asosiy Klinik Tashxis:</label>
+              <select id="patientDiagnosis" class="w-full p-3 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
+                <option value="Arterial gipertoniya II-bosqich">Arterial gipertoniya II-bosqich</option>
+                <option value="2-tur Qandli diabet">2-tur Qandli diabet</option>
+                <option value="Yurak ishemik kasalligi (YUK)">Yurak ishemik kasalligi (YUK)</option>
+                <option value="Insultdan keyingi tiklanish">Insultdan keyingi tiklanish</option>
+                <option value="Birlamchi profilaktika / Keksa yosh">Birlamchi profilaktika / Keksa yosh</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Davomiyligi (Kurs):</label>
+              <select class="w-full p-3 border border-slate-300 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-emerald-500 outline-none">
+                <option>Doimiy (Har oylik obuna)</option>
+                <option>3 oylik intensiv kurs</option>
+                <option>6 oylik nazorat kursi</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- MEDICINE SELECTION CHECKLIST -->
+          <div>
+            <label class="block font-bold text-slate-700 mb-2">Buyuriladigan surunkali dorilar (30 kunlik qutiga):</label>
+            <div class="grid sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto p-3 bg-slate-50 border border-slate-200 rounded-2xl">
+              <label class="flex items-center space-x-2 p-2 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-emerald-400">
+                <input type="checkbox" checked value="Lozap 50mg" class="rx-med w-4 h-4 text-emerald-600 rounded">
+                <span class="text-xs font-semibold text-slate-800">Lozap 50mg (Ertalab)</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-emerald-400">
+                <input type="checkbox" checked value="Bisoprolol 5mg" class="rx-med w-4 h-4 text-emerald-600 rounded">
+                <span class="text-xs font-semibold text-slate-800">Bisoprolol 5mg (Ertalab)</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-emerald-400">
+                <input type="checkbox" checked value="Kardiomagnil 75mg" class="rx-med w-4 h-4 text-emerald-600 rounded">
+                <span class="text-xs font-semibold text-slate-800">Kardiomagnil 75mg (Kechki)</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-emerald-400">
+                <input type="checkbox" checked value="Atorvastatin 20mg" class="rx-med w-4 h-4 text-emerald-600 rounded">
+                <span class="text-xs font-semibold text-slate-800">Atorvastatin 20mg (Kechki)</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-emerald-400">
+                <input type="checkbox" value="Metformin 850mg" class="rx-med w-4 h-4 text-emerald-600 rounded">
+                <span class="text-xs font-semibold text-slate-800">Metformin 850mg (Ert+Kech)</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-emerald-400">
+                <input type="checkbox" value="Omega-3 Kardio" class="rx-med w-4 h-4 text-emerald-600 rounded">
+                <span class="text-xs font-semibold text-slate-800">Omega-3 Kardio (Tushlik)</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Shifokorning maxsus ko‘rsatmasi (bemorga eslatma):</label>
+            <textarea id="doctorNotes" rows="2" placeholder="Masalan: Dorilarni ovqatdan 20 daqiqa keyin ichish, har kuni ertalab qon bosimini o'lchab turish tavsiya etiladi." class="w-full p-3 border border-slate-300 rounded-xl text-xs font-medium focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-xl text-sm shadow-lg shadow-emerald-600/30 transition flex items-center justify-center space-x-2">
+              <span>📲 Bemorga Shaxsiy DoriQuti SMS-Havolasini Yuborish</span>
+            </button>
+            <p class="text-[11px] text-slate-400 text-center mt-2">Bemorga havola boradi, u 1 ta tugma bilan to‘lov qilib, tayyor qutini uyiga qabul qilib oladi.</p>
+          </div>
+        </form>
+      </div>
+
+      <!-- RIGHT: CLINICAL ADHERENCE & SCIENTIFIC VALUE (5 COLS) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- CLINICAL EVIDENCE CARD -->
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 rounded-3xl card-shadow">
+          <div class="flex items-center space-x-3 mb-4">
+            <span class="text-2xl">📊</span>
+            <div>
+              <h3 class="font-extrabold text-sm">SamDTU Ilmiy Isboti: Qadoqlashning kuchi</h3>
+              <p class="text-[11px] text-slate-400">O‘zbekiston kardiologik bemorlari tahlili</p>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <div class="flex justify-between mb-1 font-semibold">
+                <span class="text-slate-300">Odatdagi blister dorilar:</span>
+                <span class="text-red-400">41% intizom</span>
+              </div>
+              <div class="w-full bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                <div class="bg-red-500 h-full rounded-full" style="width: 41%"></div>
+              </div>
+              <p class="text-[10px] text-slate-400 mt-1">Bemorlar 59% holatda dorini unutadi yoki o'zboshimchalik bilan to'xtatadi.</p>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1 font-semibold">
+                <span class="text-slate-300">DoriQuti lentali kunlik paketlar:</span>
+                <span class="text-emerald-400 font-bold">92.4% intizom</span>
+              </div>
+              <div class="w-full bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                <div class="bg-emerald-500 h-full rounded-full" style="width: 92.4%"></div>
+              </div>
+              <p class="text-[10px] text-emerald-300 mt-1">Kun va vaqt aniq yozilgani tufayli takroriy gospitalizatsiya 3.2 baravarga kamayadi.</p>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between text-[11px] text-slate-400">
+            <span>🛡 WHO Adherence Study 2024</span>
+            <span class="text-emerald-400 font-bold">SamDTU Kardiologiya</span>
+          </div>
+        </div>
+
+        <!-- DOCTOR REWARDS / CME GRANT CARD -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200 card-shadow space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="font-extrabold text-sm text-slate-900">Shifokor Reytingi & CME Imtiyozlari</h4>
+            <span class="text-xs bg-indigo-50 text-indigo-700 font-black px-2.5 py-1 rounded-lg">Top-5 Shifokor</span>
+          </div>
+          <p class="text-xs text-slate-600">Bemorlarining 90%+ intizomi bilan davolanishini ta'minlagan shifokorlarga SamDTU tomonidan ilmiy grantlar va malaka oshirish imkoniyatlari taqdim etiladi.</p>
+
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
+              <span class="font-semibold text-slate-700">Xalqaro Kardiologiya Kongressi (Almati)</span>
+              <span class="text-emerald-600 font-bold">Erishildi ✅</span>
+            </div>
+            <div class="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl">
+              <span class="font-semibold text-slate-700">Klinik Tadqiqotlar Hammuallifligi</span>
+              <span class="text-indigo-600 font-bold">420/500 ball</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PATIENT ADHERENCE MONITORING TABLE -->
+    <div class="bg-white rounded-3xl border border-slate-200 card-shadow p-6 md:p-8">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h3 class="text-lg font-black text-slate-900">Mening Nazoratimdagi Bemorlar Jadvali</h3>
+          <p class="text-xs text-slate-500">Bemorlarning dorilarni qabul qilish intizomi va navbatdagi oylik qutisi holati</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-bold text-slate-500">Filtr:</span>
+          <button class="text-xs font-bold bg-emerald-100 text-emerald-800 px-3 py-1 rounded-lg">Barchasi (28)</button>
+          <button class="text-xs font-bold bg-slate-100 text-slate-600 px-3 py-1 rounded-lg hover:bg-slate-200">Xavf guruhidagi (2)</button>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-extrabold border-b border-slate-200">
+            <tr>
+              <th class="py-3 px-4">Bemor F.I.Sh</th>
+              <th class="py-3 px-4">Tashxis</th>
+              <th class="py-3 px-4">Dorilar soni</th>
+              <th class="py-3 px-4">Intizom (Adherence)</th>
+              <th class="py-3 px-4">Bugungi qabul</th>
+              <th class="py-3 px-4">Keyingi quti</th>
+              <th class="py-3 px-4">Harakat</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 font-medium text-slate-800" id="patientsTableBody">
+            <tr class="hover:bg-slate-50/80">
+              <td class="py-3.5 px-4 font-bold text-slate-900">Qodirov Akramjon (64 yosh)</td>
+              <td class="py-3.5 px-4 text-slate-600">Arterial gipertoniya II</td>
+              <td class="py-3.5 px-4">4 ta dori</td>
+              <td class="py-3.5 px-4"><span class="bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded">98% (A’lo)</span></td>
+              <td class="py-3.5 px-4 text-emerald-600 font-bold">08:15 da ichildi ✅</td>
+              <td class="py-3.5 px-4 text-slate-500">1-noyabr</td>
+              <td class="py-3.5 px-4"><button onclick="alert('Bemor bilan aloqaga chiqildi: +998 91 520 11 22')" class="text-emerald-600 hover:underline font-bold">Bog‘lanish</button></td>
+            </tr>
+            <tr class="hover:bg-slate-50/80">
+              <td class="py-3.5 px-4 font-bold text-slate-900">Umarova Nasiba opa (59 yosh)</td>
+              <td class="py-3.5 px-4 text-slate-600">2-tur Qandli diabet</td>
+              <td class="py-3.5 px-4">3 ta dori</td>
+              <td class="py-3.5 px-4"><span class="bg-emerald-100 text-emerald-800 font-extrabold px-2 py-0.5 rounded">94% (Yaxshi)</span></td>
+              <td class="py-3.5 px-4 text-emerald-600 font-bold">08:40 da ichildi ✅</td>
+              <td class="py-3.5 px-4 text-slate-500">5-noyabr</td>
+              <td class="py-3.5 px-4"><button onclick="alert('Bemor bilan aloqaga chiqildi')" class="text-emerald-600 hover:underline font-bold">Bog‘lanish</button></td>
+            </tr>
+            <tr class="hover:bg-slate-50/80">
+              <td class="py-3.5 px-4 font-bold text-slate-900">Xolmatov Botir aka (71 yosh)</td>
+              <td class="py-3.5 px-4 text-slate-600">Yurak ishemiyasi, Stenokardiya</td>
+              <td class="py-3.5 px-4">5 ta dori</td>
+              <td class="py-3.5 px-4"><span class="bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded">78% (O‘rtacha)</span></td>
+              <td class="py-3.5 px-4 text-amber-600 font-bold">Kechikmoqda ⚠️</td>
+              <td class="py-3.5 px-4 text-slate-500">28-oktabr</td>
+              <td class="py-3.5 px-4"><button onclick="alert('Eslatma SMS yuborildi')" class="text-amber-600 hover:underline font-bold">Eslatish</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- SMS SENT MODAL -->
+  <div id="smsModal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 card-shadow border border-emerald-100 text-center">
+      <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto mb-4">
+        📲
+      </div>
+      <h3 class="text-xl font-black text-slate-900 mb-2">E-Retsept SMS yuborildi!</h3>
+      <p class="text-xs text-slate-600 mb-4" id="smsDetailText">Bemorga DoriQuti buyurtmasi havolasi yuborildi.</p>
+
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-left mb-6 font-mono text-[11px] text-slate-700">
+        <p class="text-[10px] text-slate-400 font-sans mb-1 uppercase font-bold">Yuborilgan SMS matni:</p>
+        <span id="smsPreviewContent">"Hurmatli bemor, shifokoringiz Dr. Shukurov sizga 30 kunlik saralangan DoriQuti to‘plamini tayyorladi..."</span>
+      </div>
+
+      <button onclick="document.getElementById('smsModal').classList.add('hidden')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl text-xs transition">
+        Tushunarli, darchani yopish
+      </button>
+    </div>
+  </div>
+
+  <footer class="border-t border-slate-200 bg-white py-6 px-4 text-center text-xs text-slate-500">
+    © 2026 DoriQuti.uz • Samarqand Davlat Tibbiyot Universiteti (SamDTU) Ilmiy & Klinik Hamkorligi.
+  </footer>
+
+  <script>
+    function dispatchPrescription() {
+      const name = document.getElementById('patientName').value.trim();
+      const phone = document.getElementById('patientPhone').value.trim();
+      const diag = document.getElementById('patientDiagnosis').value;
+      const notes = document.getElementById('doctorNotes').value.trim();
+
+      const selectedMeds = Array.from(document.querySelectorAll('.rx-med:checked')).map(cb => cb.value);
+
+      if (selectedMeds.length === 0) {
+        alert("Iltimos, kamida bitta dori vositasini belgilang.");
+        return;
+      }
+
+      // Add to table
+      const tbody = document.getElementById('patientsTableBody');
+      const newRow = document.createElement('tr');
+      newRow.className = "hover:bg-slate-50/80 bg-emerald-50/30";
+      newRow.innerHTML = `
+        <td class="py-3.5 px-4 font-bold text-slate-900">${name} (Yangi)</td>
+        <td class="py-3.5 px-4 text-slate-600">${diag}</td>
+        <td class="py-3.5 px-4">${selectedMeds.length} ta dori</td>
+        <td class="py-3.5 px-4"><span class="bg-blue-100 text-blue-800 font-extrabold px-2 py-0.5 rounded">Yuborildi</span></td>
+        <td class="py-3.5 px-4 text-slate-500 font-bold">SMS kutilmoqda</td>
+        <td class="py-3.5 px-4 text-slate-500">Bugun</td>
+        <td class="py-3.5 px-4"><button onclick="alert('Bemorga qayta SMS yuborildi')" class="text-emerald-600 hover:underline font-bold">Qayta yuborish</button></td>
+      `;
+      tbody.prepend(newRow);
+
+      // Update counters
+      const countEl = document.getElementById('totalPatientsCount');
+      countEl.innerText = parseInt(countEl.innerText) + 1;
+
+      // Show SMS modal
+      document.getElementById('smsDetailText').innerText = `${name} (${phone}) raqamiga shaxsiy havola yuborildi.`;
+      document.getElementById('smsPreviewContent').innerText = `"Hurmatli ${name}, shifokoringiz Dr. Shukurov sizga ${selectedMeds.length} xil dori uchun 30 kunlik saralangan DoriQuti paketini tayyorladi. 15% chegirma va bepul yetkazish bilan buyurtma berish: https://doriquti.uz/rx?id=9082"`;
+      document.getElementById('smsModal').classList.remove('hidden');
+
+      // Reset form
+      document.getElementById('rxForm').reset();
+    }
+  </script>
+</body>
+</html>

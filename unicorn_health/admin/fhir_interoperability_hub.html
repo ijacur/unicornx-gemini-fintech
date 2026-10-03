@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HL7 FHIR R4 Interoperability Hub | SSV DMED & EHR Integratsiyasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-fhir {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--primary);
+            color: #7dd3fc;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-live {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--emerald);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-sub {
+            color: var(--emerald);
+            font-size: 12px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 24px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(22, 36, 63, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-list {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-item:hover {
+            background: var(--surface-hover);
+            border-color: var(--border);
+        }
+
+        .nav-item.active {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: var(--primary);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .nav-item-badge {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .active .nav-item-badge {
+            background: rgba(56, 189, 248, 0.25);
+            color: var(--primary);
+        }
+
+        .endpoints-list {
+            padding: 16px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .endpoint-card {
+            background: #080f1c;
+            border: 1px solid #1a2842;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 12px;
+        }
+
+        .endpoint-name {
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .endpoint-url {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            font-size: 11px;
+            word-break: break-all;
+        }
+
+        .code-container {
+            position: relative;
+            background: #050912;
+            padding: 20px;
+            min-height: 480px;
+            overflow: auto;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .json-key { color: #38bdf8; }
+        .json-string { color: #a5f3fc; }
+        .json-num { color: #fbbf24; }
+        .json-bool { color: #c084fc; }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+            border-color: #475569;
+        }
+
+        .btn-primary {
+            background: #0284c7;
+            border-color: #0369a1;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0369a1;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .validator-box {
+            padding: 20px;
+            background: #0a1120;
+            border-top: 1px solid var(--border);
+        }
+
+        textarea.validator-input {
+            width: 100%;
+            height: 120px;
+            background: #050912;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #f1f5f9;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            padding: 12px;
+            resize: vertical;
+        }
+
+        .audit-trail {
+            margin-top: 28px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+            font-size: 13px;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #16243f;
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-200 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .status-201 { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.3); }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🌐</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">HL7® FHIR® R4 Interoperability Hub</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">O'zbekiston SSV DMED, MedData va Shifoxonalar EHR Integratsiya Markazi</p>
+            </div>
+            <span class="badge-fhir">FHIR v4.0.1 (JSON)</span>
+            <span class="badge-live"><span class="pulse-dot"></span> SSV DMED Shlyuzi Jonli</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action" style="text-decoration: none;">← Boshqaruv Paneliga Qaytish</a>
+            <button class="btn-action btn-primary" onclick="simulateDMEDSync()">
+                <span>⚡</span> SSV DMED Sinxronizatsiyasini Yuborish
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Live Metrics Grid -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Sinxron Bemorlar (Patients)</div>
+                <div class="metric-value">1,420</div>
+                <div class="metric-sub">✓ JSHSHIR (PINFL) 100% verifikatsiya</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Retseptlar (MedicationRequests)</div>
+                <div class="metric-value">4,890</div>
+                <div class="metric-sub">✓ MXIK & INN kodlari biriktirilgan</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Tarqatilgan Xaltalar (Dispenses)</div>
+                <div class="metric-value">142,500</div>
+                <div class="metric-sub">✓ 4K Optik nazoratdan o'tgan</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">MRT/KT & Tahlillar (DiagnosticReports)</div>
+                <div class="metric-value">840</div>
+                <div class="metric-sub">✓ LOINC & DICOM bog'langan</div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Sidebar Navigation -->
+            <div class="panel">
+                <div class="panel-header">
+                    <span class="panel-title"><span>📂</span> FHIR Resurslari</span>
+                </div>
+                <div class="nav-list">
+                    <div class="nav-item active" onclick="switchResource('bundle')">
+                        <span>📦 To'liq Ekosistema Bundle</span>
+                        <span class="nav-item-badge">Bundle</span>
+                    </div>
+                    <div class="nav-item" onclick="switchResource('patient')">
+                        <span>👤 Bemor Profili</span>
+                        <span class="nav-item-badge">Patient</span>
+                    </div>
+                    <div class="nav-item" onclick="switchResource('medreq')">
+                        <span>💊 Shifokor Retsepti</span>
+                        <span class="nav-item-badge">MedRequest</span>
+                    </div>
+                    <div class="nav-item" onclick="switchResource('meddisp')">
+                        <span>📦 DoriQuti Blister Tarqatish</span>
+                        <span class="nav-item-badge">MedDispense</span>
+                    </div>
+                    <div class="nav-item" onclick="switchResource('servicereq')">
+                        <span>🩺 ArzonLab MRT Yo'llanmasi</span>
+                        <span class="nav-item-badge">ServiceReq</span>
+                    </div>
+                    <div class="nav-item" onclick="switchResource('diagrep')">
+                        <span>📋 MRT & Tahlil Xulosasi</span>
+                        <span class="nav-item-badge">DiagReport</span>
+                    </div>
+                    <div class="nav-item" onclick="switchResource('observation')">
+                        <span>🩸 Laboratoriya Biomarkeri</span>
+                        <span class="nav-item-badge">Observation</span>
+                    </div>
+                </div>
+
+                <!-- API Endpoints -->
+                <div class="endpoints-list">
+                    <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px;">
+                        Jonli FHIR REST API Shlyuzlari
+                    </div>
+                    <div class="endpoint-card">
+                        <div class="endpoint-name">
+                            <span>SSV DMED Gateway</span>
+                            <span style="color: var(--emerald);">● 200 OK</span>
+                        </div>
+                        <div class="endpoint-url">https://dmed.ssv.uz/fhir/r4/Bundle</div>
+                    </div>
+                    <div class="endpoint-card">
+                        <div class="endpoint-name">
+                            <span>SamDTU 1-Klinika EHR</span>
+                            <span style="color: var(--emerald);">● Connected</span>
+                        </div>
+                        <div class="endpoint-url">https://ehr.samdtu.uz/api/fhir/v4</div>
+                    </div>
+                    <div class="endpoint-card">
+                        <div class="endpoint-name">
+                            <span>ArzonLab PACS/DICOM</span>
+                            <span style="color: var(--emerald);">● Streaming</span>
+                        </div>
+                        <div class="endpoint-url">https://pacs.arzonlab.uz/dicom-web</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Viewer & Validator -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="panel-title" id="resourceHeaderTitle"><span>📦</span> To'liq Ekosistema HL7 FHIR Bundle (JSON)</span>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-action" onclick="copyCurrentJSON()">
+                            <span>📋</span> Nusxa olish
+                        </button>
+                        <button class="btn-action" onclick="downloadJSON()">
+                            <span>💾</span> .json yuklab olish
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Code Block -->
+                <div class="code-container">
+                    <pre id="jsonViewer"><code>Yuklanmoqda...</code></pre>
+                </div>
+
+                <!-- Live Validator Console -->
+                <div class="validator-box">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 13px; font-weight: 700; color: #cbd5e1;">🔍 Jonli HL7 FHIR R4 Sintaksis & Standart Validatori</span>
+                        <span id="validatorStatus" style="font-size: 12px; color: var(--emerald); font-weight: 700;">✓ R4 Sxema Talablariga 100% Mos</span>
+                    </div>
+                    <textarea class="validator-input" id="validatorInput" placeholder="Sinash uchun ixtiyoriy FHIR JSON kodini kiriting..." oninput="validateInputJSON()"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Trail -->
+        <div class="audit-trail">
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">🛡️ Oxirgi HL7 FHIR Tranzaksiyalari Auditi (AuditEvent Log)</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">O'zbekiston Respublikasi "Shaxsga doir ma'lumotlar to'g'risida"gi Qonuni (O'RQ-547) va SSV xavfsizlik protokoli bo'yicha shifrlangan loglar.</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tranzaksiya ID</th>
+                        <th>Resurs Turi</th>
+                        <th>Bemor JSHSHIR</th>
+                        <th>Klinika / Manba</th>
+                        <th>Vaqt (Toshkent)</th>
+                        <th>HTTP Holat</th>
+                    </tr>
+                </thead>
+                <tbody id="auditTableBody">
+                    <tr>
+                        <td style="font-family: 'JetBrains Mono', monospace; color: var(--primary);">TX-990214</td>
+                        <td>Bundle (MedicationRequest + Dispense)</td>
+                        <td>31204953820019</td>
+                        <td>SamDTU 1-Klinika → DoriQuti</td>
+                        <td>Bugun, 14:32:10</td>
+                        <td><span class="status-pill status-201">201 Created</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'JetBrains Mono', monospace; color: var(--primary);">TX-990213</td>
+                        <td>DiagnosticReport (Bosh Miya MRT)</td>
+                        <td>31204953820019</td>
+                        <td>SamDTU Diagnostika → ArzonLab</td>
+                        <td>Bugun, 14:15:45</td>
+                        <td><span class="status-pill status-200">200 OK</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-family: 'JetBrains Mono', monospace; color: var(--primary);">TX-990212</td>
+                        <td>Observation (eGFR 88.5 mL/min)</td>
+                        <td>30811924110023</td>
+                        <td>SamDTU Lab → DoriQuti Shield</td>
+                        <td>Bugun, 13:50:22</td>
+                        <td><span class="status-pill status-201">201 Created</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="toast" id="toastMessage">Nusxa olindi!</div>
+
+    <script>
+        const FHIR_DATA = {
+            patient: {
+                "resourceType": "Patient",
+                "id": "PAT-UZ-882104",
+                "meta": {
+                    "profile": ["http://hl7.org/fhir/StructureDefinition/Patient"],
+                    "lastUpdated": "2026-10-03T09:40:00Z"
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "system": "urn:oid:2.16.860.1.1.1.1",
+                        "value": "31204953820019",
+                        "type": {
+                            "coding": [{ "system": "http://terminology.hl7.org/CodeSystem/v2-0203", "code": "NNUZB", "display": "O'zbekiston JSHSHIR / PINFL" }]
+                        }
+                    },
+                    {
+                        "use": "secondary",
+                        "system": "urn:oid:2.16.860.1.1.1.2",
+                        "value": "AB1234567"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "family": "Shukurov",
+                        "given": ["Jasur", "Otabek o'g'li"],
+                        "text": "Shukurov Jasur Otabek o'g'li"
+                    }
+                ],
+                "telecom": [
+                    { "system": "phone", "value": "+998901234567", "use": "mobile" }
+                ],
+                "gender": "male",
+                "birthDate": "1995-04-12",
+                "address": [
+                    {
+                        "use": "home",
+                        "type": "both",
+                        "line": ["Spitamen shoh ko'chasi, 42-uy"],
+                        "city": "Samarqand shahri",
+                        "state": "Samarqand viloyati",
+                        "country": "UZB"
+                    }
+                ]
+            },
+            medreq: {
+                "resourceType": "MedicationRequest",
+                "id": "RX-2026-9912",
+                "meta": {
+                    "profile": ["http://hl7.org/fhir/StructureDefinition/MedicationRequest"],
+                    "lastUpdated": "2026-10-03T09:40:00Z"
+                },
+                "status": "active",
+                "intent": "order",
+                "medicationCodeableConcept": {
+                    "coding": [
+                        { "system": "https://tasnif.soliq.uz/mxik", "code": "02105001001000000", "display": "Atorvastatin 20mg" },
+                        { "system": "http://www.whocc.no/atc", "display": "Atorvastatinum" }
+                    ],
+                    "text": "Atorvastatin 20mg (Atorvastatinum)"
+                },
+                "subject": { "reference": "Patient/PAT-UZ-882104" },
+                "authoredOn": "2026-10-03",
+                "requester": {
+                    "display": "Dr. Shukurov Jasur Otabek o'g'li (SamDTU 1-Klinika)",
+                    "identifier": { "system": "urn:oid:2.16.860.1.1.1.doctor", "value": "UZ-MD-88412" }
+                },
+                "dosageInstruction": [
+                    {
+                        "text": "1 tabletkadan kechqurun, Har kuni 20:00 da ovqatdan keyin",
+                        "timing": { "repeat": { "frequency": 1, "period": 1, "periodUnit": "d" } }
+                    }
+                ],
+                "dispenseRequest": {
+                    "numberOfRepeatsAllowed": 3,
+                    "expectedSupplyDuration": { "value": 30, "unit": "days", "system": "http://unitsofmeasure.org", "code": "d" }
+                }
+            },
+            meddisp: {
+                "resourceType": "MedicationDispense",
+                "id": "DSP-2026-4019",
+                "meta": {
+                    "profile": ["http://hl7.org/fhir/StructureDefinition/MedicationDispense"],
+                    "lastUpdated": "2026-10-03T09:41:00Z"
+                },
+                "status": "completed",
+                "authorizingPrescription": [{ "reference": "MedicationRequest/RX-2026-9912" }],
+                "subject": { "reference": "Patient/PAT-UZ-882104" },
+                "performer": [
+                    {
+                        "actor": {
+                            "display": "Provizor: Nargiza Salimova",
+                            "identifier": { "system": "urn:oid:2.16.860.1.1.pharmacy", "value": "GMP-SAM-089" }
+                        }
+                    }
+                ],
+                "quantity": {
+                    "value": 30,
+                    "unit": "unit-dose blister pouches",
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+                    "code": "POUCH"
+                },
+                "whenHandedOver": "2026-10-03T09:41:00Z",
+                "note": [
+                    { "text": "DoriQuti 30 kunlik kalendar blister to'plami. Partiya: BATCH-ATV-2026A, Yaroqlilik: 2027-11-01. 4K Optik AI nazoratidan o'tgan: Ha." }
+                ]
+            },
+            servicereq: {
+                "resourceType": "ServiceRequest",
+                "id": "SRV-2026-7731",
+                "meta": { "profile": ["http://hl7.org/fhir/StructureDefinition/ServiceRequest"] },
+                "status": "active",
+                "intent": "order",
+                "code": {
+                    "coding": [{ "system": "https://arzonlab.uz/services", "code": "MRT-BRAIN-01", "display": "Bosh Miya MRT (1.5 Tesla)" }],
+                    "text": "Bosh Miya MRT (1.5 Tesla)"
+                },
+                "subject": { "reference": "Patient/PAT-UZ-882104" },
+                "performer": [{ "display": "SamDTU Diagnostika Markazi" }],
+                "note": [{ "text": "ArzonLab Onlayn 30% vaucheri: ARZON-MRT-30. Narxi: 245,000 so'm." }]
+            },
+            diagrep: {
+                "resourceType": "DiagnosticReport",
+                "id": "REP-2026-5521",
+                "meta": { "profile": ["http://hl7.org/fhir/StructureDefinition/DiagnosticReport"] },
+                "status": "final",
+                "code": {
+                    "coding": [{ "system": "http://loinc.org", "code": "24627-2", "display": "Bosh Miya MRT Tekshiruvi" }],
+                    "text": "Bosh Miya MRT Tekshiruvi"
+                },
+                "subject": { "reference": "Patient/PAT-UZ-882104" },
+                "basedOn": [{ "reference": "ServiceRequest/SRV-2026-7731" }],
+                "effectiveDateTime": "2026-10-03T10:00:00Z",
+                "issued": "2026-10-03T10:30:00Z",
+                "performer": [{ "display": "Radiolog/Vrach: Dr. Bekzod Aliyev" }],
+                "conclusion": "Patologik o'choqli o'zgarishlar aniqlanmadi. Yoshga doir me'yorda.",
+                "presentedForm": [{
+                    "contentType": "application/dicom+web",
+                    "url": "https://pacs.arzonlab.uz/viewer/study-99214",
+                    "title": "DICOM Web Viewer Havolasi"
+                }]
+            },
+            observation: {
+                "resourceType": "Observation",
+                "id": "OBS-2026-1102",
+                "meta": { "profile": ["http://hl7.org/fhir/StructureDefinition/Observation"] },
+                "status": "final",
+                "code": {
+                    "coding": [{ "system": "http://loinc.org", "code": "33914-3", "display": "Koptokchalar Filtratsiyasi Tezligi (eGFR CKD-EPI)" }],
+                    "text": "eGFR CKD-EPI"
+                },
+                "subject": { "reference": "Patient/PAT-UZ-882104" },
+                "effectiveDateTime": "2026-10-03T09:30:00Z",
+                "valueQuantity": {
+                    "value": 88.5,
+                    "unit": "mL/min/1.73m2",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mL/min/1.73m2"
+                },
+                "interpretation": [{ "coding": [{ "code": "N", "display": "Normal" }] }],
+                "referenceRange": [{ "low": { "value": 60.0, "unit": "mL/min/1.73m2" }, "high": { "value": 120.0, "unit": "mL/min/1.73m2" } }]
+            }
+        };
+
+        // Construct full bundle
+        FHIR_DATA.bundle = {
+            "resourceType": "Bundle",
+            "id": "BUNDLE-UNICORN-HEALTH-001",
+            "meta": { "lastUpdated": new Date().toISOString() },
+            "type": "collection",
+            "total": 6,
+            "entry": [
+                { "fullUrl": "urn:uuid:pat-882104", "resource": FHIR_DATA.patient },
+                { "fullUrl": "urn:uuid:rx-9912", "resource": FHIR_DATA.medreq },
+                { "fullUrl": "urn:uuid:dsp-4019", "resource": FHIR_DATA.meddisp },
+                { "fullUrl": "urn:uuid:srv-7731", "resource": FHIR_DATA.servicereq },
+                { "fullUrl": "urn:uuid:rep-5521", "resource": FHIR_DATA.diagrep },
+                { "fullUrl": "urn:uuid:obs-1102", "resource": FHIR_DATA.observation }
+            ]
+        };
+
+        let currentActiveKey = 'bundle';
+
+        function switchResource(key) {
+            currentActiveKey = key;
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const titleMap = {
+                bundle: "<span>📦</span> To'liq Ekosistema HL7 FHIR Bundle (JSON)",
+                patient: "<span>👤</span> HL7 FHIR Patient Resursi (JSHSHIR / PINFL)",
+                medreq: "<span>💊</span> HL7 FHIR MedicationRequest (Elektron Retsept)",
+                meddisp: "<span>📦</span> HL7 FHIR MedicationDispense (DoriQuti Blister Qadoqlash)",
+                servicereq: "<span>🩺</span> HL7 FHIR ServiceRequest (ArzonLab Diagnostika)",
+                diagrep: "<span>📋</span> HL7 FHIR DiagnosticReport (MRT & Tahlil Xulosasi)",
+                observation: "<span>🩸</span> HL7 FHIR Observation (Laboratoriya Biomarkeri)"
+            };
+
+            document.getElementById('resourceHeaderTitle').innerHTML = titleMap[key] || "FHIR Resursi";
+            renderJSON(FHIR_DATA[key]);
+            document.getElementById('validatorInput').value = JSON.stringify(FHIR_DATA[key], null, 2);
+            validateInputJSON();
+        }
+
+        function renderJSON(obj) {
+            const jsonStr = JSON.stringify(obj, null, 2);
+            document.getElementById('jsonViewer').innerHTML = syntaxHighlight(jsonStr);
+        }
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+                let cls = 'json-num';
+                if (/^"/.test(match)) {
+                    if (/:$/.test(match)) {
+                        cls = 'json-key';
+                    } else {
+                        cls = 'json-string';
+                    }
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-bool';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        function copyCurrentJSON() {
+            const dataToCopy = JSON.stringify(FHIR_DATA[currentActiveKey], null, 2);
+            navigator.clipboard.writeText(dataToCopy).then(() => {
+                showToast("JSON buferga muvaffaqiyatli nusxalandi!");
+            });
+        }
+
+        function downloadJSON() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(FHIR_DATA[currentActiveKey], null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `doriquti_fhir_${currentActiveKey}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            showToast("Fayl yuklab olindi!");
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById('toastMessage');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        function validateInputJSON() {
+            const valInput = document.getElementById('validatorInput').value.trim();
+            const statusEl = document.getElementById('validatorStatus');
+            try {
+                if (!valInput) {
+                    statusEl.innerHTML = "<span style='color: var(--text-muted);'>Matn kiritilmadi</span>";
+                    return;
+                }
+                const parsed = JSON.parse(valInput);
+                if (!parsed.resourceType) {
+                    statusEl.innerHTML = "<span style='color: var(--rose);'>✕ Xato: 'resourceType' maydoni yetishmaydi!</span>";
+                } else {
+                    statusEl.innerHTML = `<span style='color: var(--emerald);'>✓ FHIR R4 Mos: [${parsed.resourceType}] Resursi tasdiqlandi</span>`;
+                }
+            } catch (e) {
+                statusEl.innerHTML = "<span style='color: var(--rose);'>✕ JSON Sintaksis xatosi</span>";
+            }
+        }
+
+        function simulateDMEDSync() {
+            const newTxId = 'TX-' + Math.floor(100000 + Math.random() * 900000);
+            const timeStr = "Hozir, " + new Date().toLocaleTimeString('uz-UZ');
+            const tbody = document.getElementById('auditTableBody');
+            
+            const newRow = `
+                <tr style="background: rgba(56, 189, 248, 0.08);">
+                    <td style="font-family: 'JetBrains Mono', monospace; color: var(--primary); font-weight: bold;">${newTxId}</td>
+                    <td>Bundle (SSV DMED Direct Push)</td>
+                    <td>31204953820019</td>
+                    <td>DoriQuti Cloud → SSV DMED Server</td>
+                    <td>${timeStr}</td>
+                    <td><span class="status-pill status-201">201 Created</span></td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('afterbegin', newRow);
+            showToast(`SSV DMED ga ${newTxId} yuborildi: 201 Created!`);
+        }
+
+        // Initial setup
+        renderJSON(FHIR_DATA.bundle);
+        document.getElementById('validatorInput').value = JSON.stringify(FHIR_DATA.bundle, null, 2);
+    </script>
+</body>
+</html>

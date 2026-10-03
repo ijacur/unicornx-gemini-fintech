@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti & ArzonLab - Klinik Biomarkerlar & Dori Dozasi Auditi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">🔬</span>
+          <span class="text-xl font-bold tracking-tight">Klinik Audit Sandbox</span>
+        </a>
+        <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-full font-semibold">
+          Phase 2 AI Doza Korreksiyasi
+        </span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="runAudit()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
+          <span>⚡</span> Auditni Bajarish
+        </button>
+        <a href="../index.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          ← Bosh Sahifa
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Hero / Info Banner -->
+    <div class="bg-gradient-to-r from-purple-950/60 via-slate-900 to-slate-900 border border-purple-500/30 rounded-3xl p-6 mb-8">
+      <div class="max-w-4xl">
+        <span class="text-xs font-bold text-purple-400 uppercase tracking-widest block mb-2">ArzonLab Diagnostikasi + DoriQuti Farmakoterapiyasi Sinergiyasi</span>
+        <h1 class="text-2xl md:text-3xl font-black text-white mb-2">Klinik Tahlillar va Dori Dozasi Mutanosibligi Auditi</h1>
+        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+          Surunkali bemorlar dorilarni tahlillarsiz yillar davomida bir xil dozada qabul qilishi buyrak (nefrotoksiklik) yoki jigar yetishmovchiligiga sabab bo'ladi. ArzonLab laboratoriya tahlillari to'g'ridan-to'g'ri DoriQuti buyurtmasiga bog'lanadi va xavfsiz doza hisoblanadi.
+        </p>
+      </div>
+    </div>
+
+    <!-- Main Grid: Lab Inputs + Meds Selector + Audit Results -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Input Controls (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- Lab Biomarkers Card -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🩸</span> 1. Laboratoriya Biomarkerlari
+            </h3>
+            <button onclick="loadDemoLabData()" class="text-[11px] text-purple-400 hover:text-purple-300 font-medium">
+              Demo Ma'lumotlarni Yuklash
+            </button>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between mb-1">
+                <label class="text-slate-300 font-medium">eGFR (Buyrak koptokchalar filtratsiyasi):</label>
+                <span class="text-slate-400 font-mono">Norma &gt; 60 ml/min</span>
+              </div>
+              <input type="number" id="input-egfr" value="41" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-purple-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1">
+                <label class="text-slate-300 font-medium">Qon Kreatinini (µmol/L):</label>
+                <span class="text-slate-400 font-mono">Norma 62 - 115</span>
+              </div>
+              <input type="number" id="input-creatinine" value="142" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-purple-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1">
+                <label class="text-slate-300 font-medium">Qon Zardobi Kaliy (mmol/L):</label>
+                <span class="text-slate-400 font-mono">Norma 3.5 - 5.0</span>
+              </div>
+              <input type="number" step="0.1" id="input-potassium" value="5.3" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-purple-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1">
+                <label class="text-slate-300 font-medium">Jigar ALT (Alaninaminotransferaza U/L):</label>
+                <span class="text-slate-400 font-mono">Norma &lt; 35 U/L</span>
+              </div>
+              <input type="number" id="input-alt" value="42" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-purple-500">
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-1">
+                <label class="text-slate-300 font-medium">HbA1c (Glikozillangan gemoglobin %):</label>
+                <span class="text-slate-400 font-mono">Maqsad &lt; 7.0%</span>
+              </div>
+              <input type="number" step="0.1" id="input-hba1c" value="7.4" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-purple-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Prescribed Meds Selector -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+          <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
+            <span>💊</span> 2. Qabul Qilinayotgan Dorilar
+          </h3>
+
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center space-x-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-700/60 cursor-pointer">
+              <input type="checkbox" id="med-metformin" checked class="rounded bg-slate-800 border-slate-600 text-emerald-500 focus:ring-0">
+              <span class="text-white font-medium">Metformin 850 mg (Gliformin)</span>
+            </label>
+
+            <label class="flex items-center space-x-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-700/60 cursor-pointer">
+              <input type="checkbox" id="med-enalapril" checked class="rounded bg-slate-800 border-slate-600 text-emerald-500 focus:ring-0">
+              <span class="text-white font-medium">Enalapril 10 mg (Enap)</span>
+            </label>
+
+            <label class="flex items-center space-x-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-700/60 cursor-pointer">
+              <input type="checkbox" id="med-spiro" checked class="rounded bg-slate-800 border-slate-600 text-emerald-500 focus:ring-0">
+              <span class="text-white font-medium">Spironolakton 25 mg (Veroshpiron)</span>
+            </label>
+
+            <label class="flex items-center space-x-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-700/60 cursor-pointer">
+              <input type="checkbox" id="med-atorva" checked class="rounded bg-slate-800 border-slate-600 text-emerald-500 focus:ring-0">
+              <span class="text-white font-medium">Atorvastatin 20 mg (Atoris)</span>
+            </label>
+
+            <label class="flex items-center space-x-2.5 p-2 rounded-lg bg-slate-900/60 border border-slate-700/60 cursor-pointer">
+              <input type="checkbox" id="med-amlo" class="rounded bg-slate-800 border-slate-600 text-emerald-500 focus:ring-0">
+              <span class="text-white font-medium">Amlodipin 5 mg (Amlotop)</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Audit Results & Clinical Output (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Score & Status Card -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl" id="results-card">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <span class="text-xs text-slate-400 uppercase tracking-wider block mb-1">Xavfsizlik & Mutanosiblik Bali</span>
+              <div class="text-4xl font-black font-mono" id="score-text">65 / 100</div>
+            </div>
+            <span class="text-xs px-3 py-1.5 rounded-full font-bold font-mono" id="status-badge">
+              OGOHLANTIRISH (Korreksiya kerak)
+            </span>
+          </div>
+
+          <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden mb-6 border border-slate-700">
+            <div id="score-bar" class="bg-amber-500 h-full rounded-full transition-all duration-700" style="width: 65%;"></div>
+          </div>
+
+          <!-- Alert Cards Container -->
+          <div class="space-y-3" id="alerts-container">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-6 pt-5 border-t border-slate-700 flex flex-wrap gap-3">
+            <button onclick="sendDoctorTelegramSummary()" class="flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl text-xs shadow-lg transition flex items-center justify-center gap-2">
+              <span>📲</span> Davolovchi Shifokorga Xabar Yuborish
+            </button>
+            <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold px-4 py-3 rounded-xl text-xs transition border border-slate-600 flex items-center gap-1.5">
+              <span>🖨️</span> PDF Hisobot
+            </button>
+          </div>
+        </div>
+
+        <!-- Clinical Guidelines Reference -->
+        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 text-xs text-slate-400 space-y-2">
+          <h4 class="font-bold text-white flex items-center gap-1.5">
+            <span>📚</span> Klinik Standartlar Grounding:
+          </h4>
+          <p>• <strong>KDIGO 2024:</strong> eGFR &lt; 45 ml/min bo'lganda Metformin dozasini 50% ga kamaytirish, eGFR &lt; 30 bo'lganda butunlay to'xtatish shart.</p>
+          <p>• <strong>ESC/ESH Gipertoniya 2024:</strong> Zardob kaliyi &gt; 5.2 mmol/L da kaliy saqlovchi diuretiklar (Spironolakton) vaqtinchalik to'xtatiladi.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
+    <span>✅</span> <span id="toast-text">Audit muvaffaqiyatli bajarildi!</span>
+  </div>
+
+  <script>
+    function runAudit() {
+      const egfr = parseFloat(document.getElementById('input-egfr').value) || 90;
+      const creatinine = parseFloat(document.getElementById('input-creatinine').value) || 80;
+      const k = parseFloat(document.getElementById('input-potassium').value) || 4.2;
+      const alt = parseFloat(document.getElementById('input-alt').value) || 25;
+      const hba1c = parseFloat(document.getElementById('input-hba1c').value) || 6.0;
+
+      const hasMetformin = document.getElementById('med-metformin').checked;
+      const hasEnalapril = document.getElementById('med-enalapril').checked;
+      const hasSpiro = document.getElementById('med-spiro').checked;
+      const hasAtorva = document.getElementById('med-atorva').checked;
+
+      let score = 100;
+      const alerts = [];
+
+      // 1. Renal + Metformin
+      if (hasMetformin && egfr < 45) {
+        const isCritical = egfr < 30;
+        score -= isCritical ? 30 : 15;
+        alerts.push({
+          title: "Buyrak Yetishmovchiligi & Metformin Laktat-Atsidozi Xavfi",
+          severity: isCritical ? "CRITICAL" : "WARNING",
+          biomarker: `eGFR = ${egfr} ml/min (Kreatinin: ${creatinine} µmol/L)`,
+          med: "Metformin 850 mg",
+          action: "Metformin dozasini 500 mg ga kamaytiring yoki DPP-4 ingibitoriga (Vildagliptin) almashtiring."
+        });
+      }
+
+      // 2. Potassium + RAAS/Spiro
+      if (k >= 5.2 && (hasEnalapril || hasSpiro)) {
+        score -= 20;
+        alerts.push({
+          title: "Giperkaliemiya & Aritmiya Xavfi",
+          severity: "WARNING",
+          biomarker: `Zardob Kaliy = ${k} mmol/L (Norma: 3.5 - 5.0)`,
+          med: "Enalapril / Spironolakton",
+          action: "Spironolaktonni vaqtincha to'xtatish va EKG monitoringini o'tkazish tavsiya etiladi."
+        });
+      }
+
+      // 3. ALT + Statin
+      if (alt > 105 && hasAtorva) {
+        score -= 25;
+        alerts.push({
+          title: "Gepatotoksiklik (ALT 3 barobar yuqori)",
+          severity: "WARNING",
+          biomarker: `ALT = ${alt} U/L (Yuqori norma < 35 U/L)`,
+          med: "Atorvastatin 20 mg",
+          action: "Statin dozasini 2 barobar kamaytirish yoki 4 haftaga to'xtatib qayta ALT/AST topshirish."
+        });
+      }
+
+      // Update UI
+      score = Math.max(0, score);
+      document.getElementById('score-text').innerText = `${score} / 100`;
+      
+      const scoreBar = document.getElementById('score-bar');
+      scoreBar.style.width = `${score}%`;
+
+      const badge = document.getElementById('status-badge');
+      if (score >= 85) {
+        document.getElementById('score-text').className = "text-4xl font-black font-mono text-emerald-400";
+        scoreBar.className = "bg-emerald-500 h-full rounded-full transition-all duration-700";
+        badge.className = "text-xs px-3 py-1.5 rounded-full font-bold font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        badge.innerText = "XAVFSIZ (Mos keladi)";
+      } else if (score >= 60) {
+        document.getElementById('score-text').className = "text-4xl font-black font-mono text-amber-400";
+        scoreBar.className = "bg-amber-500 h-full rounded-full transition-all duration-700";
+        badge.className = "text-xs px-3 py-1.5 rounded-full font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        badge.innerText = "OGOHLANTIRISH (Korreksiya kerak)";
+      } else {
+        document.getElementById('score-text').className = "text-4xl font-black font-mono text-red-400";
+        scoreBar.className = "bg-red-500 h-full rounded-full transition-all duration-700";
+        badge.className = "text-xs px-3 py-1.5 rounded-full font-bold font-mono bg-red-500/20 text-red-300 border border-red-500/30";
+        badge.innerText = "XAVFLI (Doza qayta ko'rilsin)";
+      }
+
+      const container = document.getElementById('alerts-container');
+      container.innerHTML = '';
+
+      if (alerts.length === 0) {
+        container.innerHTML = `
+          <div class="bg-emerald-950/20 border border-emerald-500/30 p-4 rounded-xl text-emerald-300 text-xs flex items-center gap-3">
+            <span class="text-xl">✅</span>
+            <div>Barcha laboratoriya tahlillari qabul qilinayotgan dorilar dozasi bilan to'liq mutanosib! Xavflar aniqlanmadi.</div>
+          </div>
+        `;
+      } else {
+        alerts.forEach(a => {
+          const isCrit = a.severity === "CRITICAL";
+          const card = document.createElement('div');
+          card.className = `p-4 rounded-xl border text-xs space-y-1.5 ${
+            isCrit ? 'bg-red-950/20 border-red-500/40' : 'bg-amber-950/20 border-amber-500/40'
+          }`;
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold ${isCrit ? 'text-red-400' : 'text-amber-400'} flex items-center gap-1.5">
+                <span>⚠️</span> ${a.title}
+              </h4>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded font-bold ${isCrit ? 'bg-red-500/30 text-red-300' : 'bg-amber-500/30 text-amber-300'}">${a.severity}</span>
+            </div>
+            <div class="text-slate-300"><span class="text-slate-400">Tahlil:</span> <strong>${a.biomarker}</strong> | <span class="text-slate-400">Dori:</span> <strong>${a.med}</strong></div>
+            <div class="text-slate-200 bg-slate-900/60 p-2 rounded border border-slate-800"><span class="text-emerald-400 font-semibold">Tavsiya:</span> ${a.action}</div>
+          `;
+          container.appendChild(card);
+        });
+      }
+    }
+
+    function loadDemoLabData() {
+      document.getElementById('input-egfr').value = 41;
+      document.getElementById('input-creatinine').value = 142;
+      document.getElementById('input-potassium').value = 5.3;
+      document.getElementById('input-alt').value = 42;
+      document.getElementById('input-hba1c').value = 7.4;
+      runAudit();
+      showToast('ArzonLab demo biomarkerlari yuklandi!');
+    }
+
+    function sendDoctorTelegramSummary() {
+      showToast('Klinik doza korreksiyasi SamDTU kardiologiga Telegram orqali yuborildi!');
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // Init
+    runAudit();
+  </script>
+</body>
+</html>

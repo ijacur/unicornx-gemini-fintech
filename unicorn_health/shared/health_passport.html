@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raqamli Salomatlik Pasporti (Health Passport) — Unicorn Health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .print-card-wrap { box-shadow: none !important; border: 1px solid #ccc !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAV -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 no-print">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🦄</span>
+          <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
+        </a>
+        <span class="text-xs text-slate-500">/</span>
+        <span class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
+          <span>🪪</span>
+          <span>Raqamli Pasport</span>
+        </span>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-4 text-xs font-semibold text-slate-400">
+        <a href="../index.html" class="hover:text-white transition">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400 transition">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400 transition">ArzonLab</a>
+        <a href="../doriquti/family_dashboard.html" class="hover:text-indigo-400 transition">Oila Nazorati</a>
+        <a href="savings_calculator.html" class="hover:text-amber-400 transition">Tejamkorlik</a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl font-bold text-xs transition border border-slate-700 flex items-center gap-1.5">
+          <span>🖨️</span>
+          <span>Mini-Kartani Chop Etish</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- LEFT: DIGITAL ID BADGE / CARD (5 COLS) -->
+    <div class="lg:col-span-5 space-y-6">
+      
+      <!-- PLASTIC SMART CARD SIMULATOR -->
+      <div class="print-card-wrap bg-gradient-to-br from-slate-900 via-slate-900 to-emerald-950/80 border-2 border-emerald-500/40 p-6 rounded-3xl shadow-2xl relative overflow-hidden space-y-5">
+        <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-xl">🦄</span>
+            <span class="text-xs font-black tracking-wider uppercase text-white">Unicorn Health ID</span>
+          </div>
+          <span class="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+            ELEKTRON PASPORT
+          </span>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 p-0.5 flex-shrink-0">
+            <div class="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center text-3xl">
+              👴
+            </div>
+          </div>
+          <div>
+            <h2 class="text-base font-black text-white leading-tight">Otabek Shukurov</h2>
+            <span class="text-xs text-slate-400">1968-yil (58 yosh) • Erkak</span>
+            <span class="text-[11px] font-mono font-bold text-emerald-400 block mt-0.5">ID: #UH-ID-9941-SAM</span>
+          </div>
+        </div>
+
+        <!-- BLOOD & ALLERGY FLAGS -->
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-500 block text-[10px]">Qon guruhi:</span>
+            <span class="font-extrabold text-rose-400 text-sm">A(II) Rh+ (Musbat)</span>
+          </div>
+          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800">
+            <span class="text-slate-500 block text-[10px]">Dori intizomi (Adherence):</span>
+            <span class="font-extrabold text-emerald-400 text-sm">94.2% (A’lo)</span>
+          </div>
+        </div>
+
+        <!-- ALLERGY CRITICAL WARNING -->
+        <div class="p-3 rounded-2xl bg-rose-950/40 border border-rose-500/50 text-xs flex items-center space-x-2.5">
+          <span class="text-2xl">⚠️</span>
+          <div>
+            <span class="font-bold text-rose-300 block">Klinik Allergiya Mavjud!</span>
+            <span class="text-slate-300 text-[11px]">Penitsillin guruhi antibiotiklari, Sul’fanilamidlar</span>
+          </div>
+        </div>
+
+        <!-- EMERGENCY QR & CONTACTS -->
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+          <div class="space-y-1 text-[11px]">
+            <span class="text-slate-500 block text-[10px]">Favqulodda aloqa:</span>
+            <span class="text-white font-bold block">Jasur (O‘g‘li): <a href="tel:+998905051122" class="text-emerald-400">+998 90 505 11 22</a></span>
+            <span class="text-slate-400 block">Shifokor: Dr. Rustamov (SamDTU)</span>
+          </div>
+          <div class="text-center font-mono text-[9px] bg-white text-black p-2 rounded-xl font-bold leading-tight">
+            [ QR SCAN ]<br>
+            UH.UZ/EM/9941
+          </div>
+        </div>
+
+      </div>
+
+      <!-- EXPORT ACTIONS (NO PRINT) -->
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-3 no-print">
+        <button onclick="sharePassport()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs transition border border-slate-700 flex items-center justify-center gap-2">
+          <span>✈️</span>
+          <span>Telegram orqali shifokorga yuborish</span>
+        </button>
+        <button onclick="downloadJsonData()" class="w-full bg-slate-950 hover:bg-slate-800 text-slate-400 font-semibold py-2 rounded-xl text-xs transition border border-slate-800 flex items-center justify-center gap-1.5">
+          <span>💾</span>
+          <span>JSON Klinik Ma’lumotlarni Yuklab Olish</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: CLINICAL VAULT & TIMELINE (7 COLS) -->
+    <div class="lg:col-span-7 space-y-6">
+      
+      <!-- CARD 1: SURUNKALI TASHXISLAR VA NAZORAT -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center justify-between">
+          <span>🩺 Surunkali Tashxislar va Ambulator Holat</span>
+          <span class="text-[10px] text-cyan-400 font-mono">SamDTU Ko‘p Tarmoqli Klinikasi</span>
+        </h3>
+
+        <div class="space-y-2.5 text-xs">
+          <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-white block">Arterial Gipertoniya II bosqich, xavf 3</span>
+              <span class="text-slate-500 text-[11px]">2019-yildan beri nazoratda • Kompensatsiya bosqichi</span>
+            </div>
+            <span class="text-[10px] font-bold bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded border border-emerald-500/20">
+              Barqaror
+            </span>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-white block">Surunkali yurak ishemiyasi (IBS)</span>
+              <span class="text-slate-500 text-[11px]">2021-yildan beri • Muntazam kardiolog ko‘rigi</span>
+            </div>
+            <span class="text-[10px] font-bold bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded border border-blue-500/20">
+              Nazoratda
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: DORI-QUTI FAOL KUNLIK KURSI -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+            <span>💊</span>
+            <span>Hozirgi DoriQuti Oylik Kursi (30 kunlik quti)</span>
+          </h3>
+          <span class="text-[10px] text-slate-400 font-mono">Box: #DQ-SAM-8812</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
+            <span class="text-emerald-400 font-bold block mb-1 text-[11px]">🌅 Ertalab (08:00)</span>
+            <ul class="text-slate-300 text-[11px] space-y-1">
+              <li>• Lozap 50mg (1 dona)</li>
+              <li>• Konkor 5mg (1 dona)</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
+            <span class="text-amber-400 font-bold block mb-1 text-[11px]">☀️ Tushlik (13:00)</span>
+            <ul class="text-slate-300 text-[11px] space-y-1">
+              <li>• Pankreatin 10000 (1 dona)</li>
+            </ul>
+          </div>
+
+          <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800">
+            <span class="text-indigo-400 font-bold block mb-1 text-[11px]">🌙 Kechqurun (20:00)</span>
+            <ul class="text-slate-300 text-[11px] space-y-1">
+              <li>• Kardiomagnil 75mg (1 dona)</li>
+              <li>• Atoris 20mg (1 dona)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-2 flex items-center justify-between text-xs text-slate-400 no-print">
+          <span>Har bir dori alohida muhrlangan lentali paketda.</span>
+          <a href="../doriquti/index.html" class="text-emerald-400 hover:text-emerald-300 font-bold">
+            Qutini o‘zgartirish →
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 3: ARZONLAB TAHLIL VA TEKSHIRUVLAR TARIXI -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+        <h3 class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center justify-between">
+          <span>🔬 ArzonLab Diagnostika & Tahlil Xulosalari</span>
+          <a href="../arzonlab/index.html" class="text-[10px] text-blue-400 hover:underline no-print">+ Yangi tahlil</a>
+        </h3>
+
+        <div class="space-y-2.5 text-xs">
+          <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-white block">Umumiy qon tahlili va biokimyo</span>
+              <span class="text-slate-500 text-[11px]">2026-yil 18-sentabr • BioTest Samarqand • Hb: 142 g/l</span>
+            </div>
+            <span class="font-bold text-emerald-400">Normal (Norma)</span>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-white block">Bosh miya MRT 1.5T (Siemens)</span>
+              <span class="text-slate-500 text-[11px]">2026-yil 12-avgust • SamDTU MRT Markazi • 30% chegirma bilan</span>
+            </div>
+            <span class="font-bold text-emerald-400">Me’yorda</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2026 Unicorn Health Electronic Records. Samarqand Davlat Tibbiyot Universiteti.</div>
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="hover:text-white">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400">ArzonLab</a>
+        <a href="../docs/MASTER_ROADMAP.md" class="hover:text-white">Yo‘l xaritasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function sharePassport() {
+      const url = encodeURIComponent("https://passport.unicornhealth.uz/em/UH-ID-9941-SAM");
+      const text = encodeURIComponent("🪪 Otabek Shukurovning Unicorn Raqamli Salomatlik Pasporti (Qon guruhi: A(II) Rh+, Allergiyalar, Faol DoriQuti kursi va tahlillari): ");
+      window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+    }
+
+    function downloadJsonData() {
+      const data = {
+        patient_id: "UH-ID-9941-SAM",
+        full_name: "Otabek Shukurov",
+        birth_year: 1968,
+        blood_group: "A(II) Rh+",
+        allergies: ["Penitsillin guruhi", "Sulfanilamidlar"],
+        adherence_rate: "94.2%",
+        box_id: "DQ-SAM-8812"
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "UH_HEALTH_PASSPORT_9941.json";
+      a.click();
+    }
+  </script>
+</body>
+</html>

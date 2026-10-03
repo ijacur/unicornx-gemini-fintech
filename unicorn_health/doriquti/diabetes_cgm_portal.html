@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes CGM Shield & Sovuq Zanjir Insulin | DoriQuti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --indigo: #6366f1;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--primary);
+            color: #7dd3fc;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 36px 24px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(16, 185, 129, 0.08) 50%, rgba(168, 85, 247, 0.08) 100%);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #7dd3fc, #6ee7b7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 920px;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: rgba(15, 25, 45, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* Two column layout */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Live CGM Monitor Box */
+        .cgm-monitor-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .live-dial-card {
+            background: linear-gradient(145deg, #020617, #0b1329);
+            border: 2px solid #1e293b;
+            border-radius: 18px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .glucose-value {
+            font-size: 4rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #6ee7b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .glucose-unit {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .trend-arrow {
+            font-size: 3rem;
+            color: #38bdf8;
+        }
+
+        .target-range-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            font-size: 0.82rem;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 999px;
+            margin-top: 6px;
+        }
+
+        /* 24h Graph Canvas */
+        .graph-container {
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 180px;
+            display: block;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .metric-cell {
+            background: rgba(7, 13, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .metric-val {
+            font-size: 1.15rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #f8fafc;
+        }
+
+        .metric-lbl {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .btn-hypo-test {
+            width: 100%;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid var(--rose);
+            color: #fda4af;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-hypo-test:hover {
+            background: var(--rose);
+            color: #fff;
+        }
+
+        /* Subscription Cards Column */
+        .subscription-column {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .plan-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .plan-card:hover {
+            border-color: var(--primary);
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+        }
+
+        .plan-card.active {
+            border-color: var(--primary);
+            background: rgba(56, 189, 248, 0.08);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .plan-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .plan-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+        }
+
+        .plan-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 14px;
+        }
+
+        .plan-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 12px;
+        }
+
+        .plan-price-now {
+            font-size: 1.3rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #6ee7b7;
+        }
+
+        .plan-price-old {
+            font-size: 0.8rem;
+            color: var(--rose);
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .btn-subscribe {
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            margin-top: 14px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
+        }
+
+        .btn-subscribe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.6rem;">🩸</span>
+            <div>
+                <strong style="font-size: 1.15rem; color: #fff;">DoriQuti &bull; Diabetes CGM Shield</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Doimiy Qand Sensori & Sovuq Zanjir Insulin Obunasi</span>
+            </div>
+            <span class="badge-pill">Freestyle / Dexcom NFC &bull; 24/7 Hypo-Alarm</span>
+        </div>
+        <nav class="nav-links">
+            <a href="../index.html">← Bosh Sahifa</a>
+            <a href="index.html">DoriQuti Hub</a>
+            <a href="vitamin_unit_dose_portal.html">Dona Vitamin</a>
+            <a href="smart_locker_portal.html">Med-Locker</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <h1>Diabet Qalqoni: Teshishlarsiz 24/7 Qand Nazorati & Arzonlashtirilgan Insulin</h1>
+            <p>
+                1-tur bolalar va 2-tur diabet bilan yashovchi insonlar uchun: 
+                ignasiz Continuous Glucose Monitoring (CGM) sensori har 5 daqiqada qandni o'lchaydi. 
+                Tungi gipoglikemiyada (< 3.9 mmol/L) ota-onaga zudlik bilan avtomatik Telegram signal beriladi. 
+                Ulgurji xarid orqali oylik xarajat <strong>2,350,000 so'mdan 1,150,000 so'mga (51% tejov)</strong> tushirildi!
+            </p>
+
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <div class="stat-val">5 Daqiqa</div>
+                    <div class="stat-lbl">Avtomatik O'lchov</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">84.2%</div>
+                    <div class="stat-lbl">TIR (Maqsadli Oraliq)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">1,200,000 UZS</div>
+                    <div class="stat-lbl">Oylik Tejamkorlik</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">+2°C..+8°C</div>
+                    <div class="stat-lbl">Sovuq Zanjir Insulin</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="grid-layout">
+            
+            <!-- Left: Live CGM Dial & 24h Graph -->
+            <div class="cgm-monitor-box">
+                <div class="section-title">
+                    <span>📡 Jonli CGM Sensori Telemetriyasi</span>
+                    <span style="font-size: 0.75rem; color: #6ee7b7;">● SENSOR ONLINE (Freestyle NFC)</span>
+                </div>
+
+                <div class="live-dial-card">
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">Qondagi glyukoza (Oxirgi o'lchov: 2 daqiqa oldin):</div>
+                    <div class="glucose-value" id="glucoseVal">
+                        <span id="curNum">6.2</span>
+                        <span class="trend-arrow" id="trendArrow">→</span>
+                    </div>
+                    <div class="glucose-unit">mmol/L</div>
+                    <div class="target-range-badge" id="targetBadge">✓ Me'yorda (3.9 - 10.0 mmol/L)</div>
+                </div>
+
+                <!-- 24h Graph Canvas -->
+                <div class="graph-container">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">
+                        <span>24 Soatlik Glyukoza Egri Chizig'i</span>
+                        <span style="color: #6ee7b7;">Yashil Zona: 3.9 - 10.0 mmol/L</span>
+                    </div>
+                    <canvas id="cgmCanvas" width="600" height="180"></canvas>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-cell">
+                        <div class="metric-val" id="tirVal" style="color: #6ee7b7;">84.2%</div>
+                        <div class="metric-lbl">TIR (Maqsad > 70%)</div>
+                    </div>
+                    <div class="metric-cell">
+                        <div class="metric-val" id="avgVal">6.4</div>
+                        <div class="metric-lbl">O'rtacha mmol/L</div>
+                    </div>
+                    <div class="metric-cell">
+                        <div class="metric-val" id="hba1cVal" style="color: #38bdf8;">6.1%</div>
+                        <div class="metric-lbl">Taxminiy HbA1c</div>
+                    </div>
+                    <div class="metric-cell">
+                        <div class="metric-val" id="hypoVal" style="color: #cbd5e1;">0 ta</div>
+                        <div class="metric-lbl">Gipo Xuruji</div>
+                    </div>
+                </div>
+
+                <button class="btn-hypo-test" onclick="simulateHypo()">
+                    🚨 Tungi Gipoglikemiya Signalini Sinash (3.2 mmol/L SOS Alert)
+                </button>
+            </div>
+
+            <!-- Right: Subscription Tiers -->
+            <div class="subscription-column">
+                <div class="section-title" style="margin-bottom: 4px;">
+                    <span>📦 Oylik Kompleks Obuna Rejalari</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
+                    CGM sensorlari + Sovuq zanjirli insulin + Bepul ignalar va ota-ona Telegram signali
+                </p>
+
+                <!-- Plan 1: Pediatric -->
+                <div class="plan-card active" id="plan-0" onclick="selectPlan(0)">
+                    <div class="plan-header">
+                        <div class="plan-title">👶 Bolalar 1-Tur Diabet Qalqoni</div>
+                        <span class="plan-badge">51% Tejov</span>
+                    </div>
+                    <div class="plan-desc">
+                        2x 14-kunlik CGM sensori + Sovuq zanjir Lantus/Novorapid + 100x ignalar + Ota-ona 24/7 Telegram Hypo-Alarm
+                    </div>
+                    <div class="plan-pricing">
+                        <div>
+                            <span class="plan-price-old">2,350,000 so'm</span>
+                            <span class="plan-price-now">1,150,000 so'm</span>
+                            <small style="color: var(--text-muted); font-size: 0.75rem;">/ oy</small>
+                        </div>
+                        <span style="font-size: 0.75rem; color: #6ee7b7; font-weight: 700;">1.2M so'm tejash</span>
+                    </div>
+                </div>
+
+                <!-- Plan 2: Adult Type 2 -->
+                <div class="plan-card" id="plan-1" onclick="selectPlan(1)">
+                    <div class="plan-header">
+                        <div class="plan-title">🧑 Kattalar 2-Tur Glikemik Balans</div>
+                        <span class="plan-badge">55% Tejov</span>
+                    </div>
+                    <div class="plan-desc">
+                        1x CGM sensori + Metformin/Januvia oylik lentali blisterlari + ArzonLab 3 oylik bepul HbA1c tahlili
+                    </div>
+                    <div class="plan-pricing">
+                        <div>
+                            <span class="plan-price-old">1,280,000 so'm</span>
+                            <span class="plan-price-now">580,000 so'm</span>
+                            <small style="color: var(--text-muted); font-size: 0.75rem;">/ oy</small>
+                        </div>
+                        <span style="font-size: 0.75rem; color: #6ee7b7; font-weight: 700;">700k so'm tejash</span>
+                    </div>
+                </div>
+
+                <!-- Plan 3: Gestational -->
+                <div class="plan-card" id="plan-2" onclick="selectPlan(2)">
+                    <div class="plan-header">
+                        <div class="plan-title">🤰 Homiladorlik Gestatsion Diabet</div>
+                        <span class="plan-badge">54% Tejov</span>
+                    </div>
+                    <div class="plan-desc">
+                        2x CGM sensori (qat'iy 3.9 - 7.8 mmol/L normada ushlab turish) + Perinatolog haftalik konsultatsiyasi
+                    </div>
+                    <div class="plan-pricing">
+                        <div>
+                            <span class="plan-price-old">1,950,000 so'm</span>
+                            <span class="plan-price-now">890,000 so'm</span>
+                            <small style="color: var(--text-muted); font-size: 0.75rem;">/ oy</small>
+                        </div>
+                        <span style="font-size: 0.75rem; color: #6ee7b7; font-weight: 700;">1.06M so'm tejash</span>
+                    </div>
+                </div>
+
+                <button class="btn-subscribe" onclick="openOrderModal()">
+                    🚀 Tanlangan Obunani Faollashtirish (Sovuq Zanjir)
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">📦</div>
+            <h2 style="font-size: 1.4rem; color: #38bdf8; margin-bottom: 8px;">Diabet Obunasi Faollashtirildi!</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 18px;">
+                Freestyle Libre CGM sensori va +4°C sovuq zanjirli insulin paketi 
+                Samarqand markaziy omboridan eng yaqin Smart Med-Locker yoki Yandex Go kuryeriga topshirilmoqda.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; font-size: 0.8rem; text-align: left; margin-bottom: 20px;">
+                <div><strong>Obuna turi:</strong> <span id="mPlan">Bolalar 1-Tur Diabet Qalqoni</span></div>
+                <div><strong>Telegram Hypo-Alarm:</strong> Ulangan (@doriquti_hypo_bot)</div>
+                <div><strong>Soliq keshbek:</strong> 1% Humo/Uzcard ga o'tkaziladi</div>
+            </div>
+            <button class="btn-subscribe" onclick="closeOrderModal()">Tushundim, Rahmat!</button>
+        </div>
+    </div>
+
+    <!-- Hypo Alert Modal -->
+    <div class="modal-overlay" id="hypoModal">
+        <div class="modal-box" style="border-color: var(--rose);">
+            <div style="font-size: 3.5rem; margin-bottom: 8px;">🚨</div>
+            <h2 style="font-size: 1.5rem; color: var(--rose); margin-bottom: 6px;">DIQQAT: GIPOGLIKEMIYA (3.2 mmol/L)!</h2>
+            <p style="color: #fda4af; font-size: 0.9rem; line-height: 1.5; margin-bottom: 16px;">
+                Qondagi qand xavfli darajaga tushdi! Ota-onaning telefoniga va SamDTU navbatchi endokrinologiga signal yuborildi.
+            </p>
+            <div style="background: rgba(244, 63, 94, 0.15); border: 1px solid var(--rose); padding: 12px; border-radius: 10px; text-align: left; font-size: 0.85rem; margin-bottom: 18px;">
+                <strong>Zudlik bilan choralar:</strong><br>
+                1. 1 dona DoriQuti glyukoza gelini bering yoki 150ml sharbat ichiring.<br>
+                2. 15 daqiqadan so'ng qandni sensorda qayta tekshiring.<br>
+                3. Bemor hushida bo'lmasa, zudlik bilan 103 chaqiring!
+            </div>
+            <button class="btn-hypo-test" style="background: var(--rose); color:#fff;" onclick="closeHypoModal()">Qand Oshirildi, Xavf O'tdi</button>
+        </div>
+    </div>
+
+    <script>
+        const PLANS = [
+            { title: "Bolalar 1-Tur Diabet Qalqoni", price: "1,150,000 so'm" },
+            { title: "Kattalar 2-Tur Glikemik Balans", price: "580,000 so'm" },
+            { title: "Homiladorlik Gestatsion Diabet", price: "890,000 so'm" }
+        ];
+
+        let selectedPlanIdx = 0;
+
+        function selectPlan(idx) {
+            selectedPlanIdx = idx;
+            document.querySelectorAll(".plan-card").forEach((c, i) => {
+                c.classList.toggle("active", i === idx);
+            });
+        }
+
+        function openOrderModal() {
+            document.getElementById("mPlan").innerText = PLANS[selectedPlanIdx].title;
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+        function closeOrderModal() {
+            document.getElementById("orderModal").style.display = "none";
+        }
+
+        function simulateHypo() {
+            document.getElementById("curNum").innerText = "3.2";
+            document.getElementById("curNum").style.color = "#f43f5e";
+            document.getElementById("trendArrow").innerText = "↓↓";
+            document.getElementById("trendArrow").style.color = "#f43f5e";
+            document.getElementById("targetBadge").innerText = "🚨 XAVF: GIPOGLIKEMIYA (< 3.9)";
+            document.getElementById("targetBadge").style.borderColor = "#f43f5e";
+            document.getElementById("targetBadge").style.color = "#f43f5e";
+            document.getElementById("hypoModal").style.display = "flex";
+        }
+
+        function closeHypoModal() {
+            document.getElementById("hypoModal").style.display = "none";
+            document.getElementById("curNum").innerText = "6.2";
+            document.getElementById("curNum").style.color = "#6ee7b7";
+            document.getElementById("trendArrow").innerText = "→";
+            document.getElementById("trendArrow").style.color = "#38bdf8";
+            document.getElementById("targetBadge").innerText = "✓ Me'yorda (3.9 - 10.0 mmol/L)";
+            document.getElementById("targetBadge").style.borderColor = "#10b981";
+            document.getElementById("targetBadge").style.color = "#6ee7b7";
+        }
+
+        // Draw 24h Canvas Curve
+        function drawCanvas() {
+            const canvas = document.getElementById("cgmCanvas");
+            if (!canvas) return;
+            const ctx = canvas.getContext("2d");
+            const w = canvas.width;
+            const h = canvas.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Target zone background (3.9 - 10.0) -> mapped to pixels
+            const y10 = h - (10.0 / 16.0) * h;
+            const y39 = h - (3.9 / 16.0) * h;
+
+            ctx.fillStyle = "rgba(16, 185, 129, 0.12)";
+            ctx.fillRect(0, y10, w, y39 - y10);
+
+            // Target zone border lines
+            ctx.strokeStyle = "rgba(16, 185, 129, 0.4)";
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 4]);
+
+            ctx.beginPath();
+            ctx.moveTo(0, y10);
+            ctx.lineTo(w, y10);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(0, y39);
+            ctx.lineTo(w, y39);
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+
+            // Draw continuous line
+            ctx.beginPath();
+            ctx.strokeStyle = "#38bdf8";
+            ctx.lineWidth = 2.5;
+
+            const points = 48;
+            for (let i = 0; i <= points; i++) {
+                const x = (i / points) * w;
+                // Realistic diurnal curve
+                let val = 6.2 + Math.sin(i / 3) * 1.8 + Math.cos(i / 5) * 1.1;
+                if (i === 12 || i === 24 || i === 36) val += 2.4; // meals
+                val = Math.max(3.2, Math.min(14.0, val));
+                const y = h - (val / 16.0) * h;
+
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        drawCanvas();
+    </script>
+</body>
+</html>

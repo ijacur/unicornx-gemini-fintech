@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tezkor Qon Donorligi & Transfuziya Markazi | ArzonLab & SamDTU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-blood {
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid var(--rose);
+            color: #fda4af;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+        }
+
+        .btn-danger {
+            background: #e11d48;
+            border-color: #be123c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #be123c;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 28px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        select, input {
+            width: 100%;
+            background: #080f1c;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--rose);
+        }
+
+        /* Blood Types Grid */
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .type-pill {
+            background: #080f1c;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .type-pill:hover {
+            border-color: var(--rose);
+        }
+
+        .type-pill.active {
+            background: rgba(244, 63, 94, 0.2);
+            border-color: var(--rose);
+            color: #fda4af;
+        }
+
+        /* Donor Cards */
+        .donor-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .donor-card:hover {
+            border-color: var(--rose);
+        }
+
+        .donor-type-badge {
+            width: 48px;
+            height: 48px;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid var(--rose);
+            color: #fda4af;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .donor-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .donor-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .btn-call {
+            background: #e11d48;
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-call:hover {
+            background: #be123c;
+        }
+
+        .broadcast-banner {
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid var(--rose);
+            border-radius: 14px;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 28px;">🩸</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">Tezkor Qon Donorligi & Oltin Soat Transfuziya Markazi</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">SamDTU Shoshilinch Jarrohlik & Respublika Qon Markazi Dispetcheri</p>
+            </div>
+            <span class="badge-blood">Oltin Soat Protokoli (Golden Hour)</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action">← Asosiy Hub</a>
+            <button class="btn-action" onclick="registerAsDonor()">❤️ Ko'ngilli Donor Bo'lish</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Broadcast Alert Bar -->
+        <div class="broadcast-banner">
+            <div>
+                <div style="font-size: 16px; font-weight: 800; color: #fda4af; margin-bottom: 4px;">
+                    🚨 Shoshilinch Qon Quyish Dispetcheri Faol
+                </div>
+                <div style="font-size: 13px; color: #cbd5e1;">
+                    Samarqand shahri va atrofidagi ko'ngilli donorlar bazasi bilan zudlik bilan aloqa o'rnatish.
+                </div>
+            </div>
+            <button class="btn-action btn-danger" onclick="broadcastEmergencyAlert()">
+                📢 Tezkor Favqulodda Signal Tarqatish
+            </button>
+        </div>
+
+        <div class="layout-grid">
+            <!-- Left: Filter -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>💉</span> Bemor Qon Guruhini Tanlang
+                </div>
+
+                <div class="type-grid" id="bloodTypeGrid">
+                    <div class="type-pill" onclick="selectBloodType('O-', this)">O-</div>
+                    <div class="type-pill" onclick="selectBloodType('O+', this)">O+</div>
+                    <div class="type-pill" onclick="selectBloodType('A-', this)">A-</div>
+                    <div class="type-pill" onclick="selectBloodType('A+', this)">A+</div>
+                    <div class="type-pill" onclick="selectBloodType('B-', this)">B-</div>
+                    <div class="type-pill" onclick="selectBloodType('B+', this)">B+</div>
+                    <div class="type-pill active" onclick="selectBloodType('AB-', this)">AB-</div>
+                    <div class="type-pill" onclick="selectBloodType('AB+', this)">AB+</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Zarur Qon Komponenti</label>
+                    <select id="componentSelect">
+                        <option value="red_cells" selected>Eritrotsitar Massa (Qon Ketishda)</option>
+                        <option value="platelets">Aferez Trombotsitlari (Leykoz / Ximioterapiya)</option>
+                        <option value="plasma">Yangi Muzlatilgan Plazma (Koagulopatiya)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Qabul Qiluvchi Shifoxona</label>
+                    <select id="hospitalSelect">
+                        <option selected>SamDTU 1-son Klinikasi (Shoshilinch Jarrohlik)</option>
+                        <option>Samarqand Viloyat Onkologiya Dispanseri</option>
+                        <option>Respublika Shoshilinch Tibbiy Yordam Samarqand Filiali</option>
+                    </select>
+                </div>
+
+                <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 8px; padding: 12px; font-size: 11px; color: #fda4af; line-height: 1.4;">
+                    ℹ️ <strong>Transfuziya Xavfsizligi:</strong> Har bir donor qoni OITS, Gepatit B/C va Sifilisga tezkor PCR tahlilidan o'tkaziladi.
+                </div>
+            </div>
+
+            <!-- Right: Matched Donors -->
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <h3 style="font-size: 18px; font-weight: 800;">
+                        Eng Yaqin Mos Donorlar (<span id="matchedCount">0</span> nafar)
+                    </h3>
+                    <span style="font-size: 12px; color: var(--text-muted);">SamDTU Geolocation Radar</span>
+                </div>
+
+                <div id="donorsContainer">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DONORS = [
+            { name: "Alisher Qodirov", blood: "O-", city: "Samarqand shahri", dist: 2.4, phone: "+998901112233" },
+            { name: "Madina Usmanova", blood: "B-", city: "Samarqand shahri", dist: 3.5, phone: "+998975556677" },
+            { name: "Gulnoza Rahimova", blood: "AB-", city: "Samarqand shahri", dist: 4.1, phone: "+998912223344" },
+            { name: "Dilshod Karimov", blood: "A-", city: "Pastdarg'om tumani", dist: 12.0, phone: "+998934445566" },
+            { name: "Jasur Shukurov", blood: "O+", city: "Samarqand shahri", dist: 1.8, phone: "+998901234567" }
+        ];
+
+        const COMPATIBILITY = {
+            "O-": ["O-"],
+            "O+": ["O-", "O+"],
+            "A-": ["O-", "A-"],
+            "A+": ["O-", "O+", "A-", "A+"],
+            "B-": ["O-", "B-"],
+            "B+": ["O-", "O+", "B-", "B+"],
+            "AB-": ["O-", "A-", "B-", "AB-"],
+            "AB+": ["O-", "O+", "A-", "A+", "B-", "B+", "AB-", "AB+"]
+        };
+
+        let selectedType = 'AB-';
+
+        function selectBloodType(type, el) {
+            selectedType = type;
+            document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('active'));
+            el.classList.add('active');
+            renderDonors();
+        }
+
+        function renderDonors() {
+            const allowed = COMPATIBILITY[selectedType] || ["O-"];
+            const container = document.getElementById('donorsContainer');
+            container.innerHTML = '';
+
+            const matched = DONORS.filter(d => allowed.includes(d.blood)).sort((a, b) => a.dist - b.dist);
+            document.getElementById('matchedCount').innerText = matched.length;
+
+            matched.forEach(d => {
+                const card = `
+                    <div class="donor-card">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div class="donor-type-badge">${d.blood}</div>
+                            <div>
+                                <div class="donor-name">${d.name}</div>
+                                <div class="donor-meta">📍 ${d.city} (${d.dist} km) • Oxirgi donatsiya: 4 oy oldin (Faol)</div>
+                            </div>
+                        </div>
+                        <a href="tel:${d.phone}" class="btn-call">
+                            📞 Bog'lanish (${d.phone})
+                        </a>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', card);
+            });
+        }
+
+        function broadcastEmergencyAlert() {
+            alert("📢 FAVQULODDA SIGNAL YUBORILDI!\n\nSamarqanddagi 4 nafar mos donorga SMS va Telegram orqali shoshilinch chaqiruv jo'natildi.\nSamDTU 1-Klinika Qon Quyish punkti tayyor holatga keltirildi.");
+        }
+
+        function registerAsDonor() {
+            alert("❤️ Rahmat! Siz O'zbekiston Qon Donorlari Milliy Reyestriga kiritildingiz.\nKamyob ehtiyoj paydo bo'lganda siz bilan bog'lanamiz.");
+        }
+
+        renderDonors();
+    </script>
+</body>
+</html>

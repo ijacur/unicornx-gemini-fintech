@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arzon Generik va Bioekvivalent Analoglar Qidiruvi — Unicorn Health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAV -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🦄</span>
+          <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
+        </a>
+        <span class="text-xs text-slate-500">/</span>
+        <span class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
+          <span>🔄</span>
+          <span>Arzon Analoglar (GoodRx)</span>
+        </span>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-4 text-xs font-semibold text-slate-400">
+        <a href="../index.html" class="hover:text-white transition">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400 transition">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400 transition">ArzonLab</a>
+        <a href="savings_calculator.html" class="hover:text-amber-400 transition">Tejamkorlik</a>
+        <a href="health_passport.html" class="hover:text-cyan-400 transition">Pasport</a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <a href="../doriquti/index.html" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3.5 py-2 rounded-xl font-black text-xs transition shadow-lg shadow-emerald-500/20">
+          DoriQutiga O‘tish →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
+    <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-4">
+      <span>💡</span>
+      <span>100% Bioekvivalent • SSV Sertifikatlangan • GMP Standarti</span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+      Qimmat xorijiy dorilarga <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-400">3–4 barobar ortiqcha</span> to‘lamang
+    </h1>
+    <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+      Bir xil ta’sir etuvchi modda (INN), bir xil terapevtik samara. Mahalliylashtirilgan sifatli generiklar yordamida oylik dori xarajatlaringizni 75% gacha tejang.
+    </p>
+
+    <!-- LIVE SEARCH BAR -->
+    <div class="mt-8 max-w-2xl mx-auto relative">
+      <span class="absolute left-4 top-3.5 text-slate-400 text-base">🔍</span>
+      <input type="text" id="searchInput" oninput="filterAlternatives()" placeholder="Qimmat dori nomi (Plavix, Lipitor, Concor, Glucophage...)" class="w-full bg-slate-900 border-2 border-slate-700 hover:border-emerald-500 focus:border-emerald-500 rounded-2xl pl-12 pr-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none transition shadow-xl font-medium">
+    </div>
+  </section>
+
+  <!-- MAIN COMPARISON GRID & BASKET SAVINGS -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- LEFT: ALTERNATIVES LIST (8 COLS) -->
+    <div class="lg:col-span-8 space-y-4" id="alternativesList">
+      <!-- Populated dynamically via JS -->
+    </div>
+
+    <!-- RIGHT: TOTAL BASKET SAVINGS SIMULATOR (4 COLS) -->
+    <div class="lg:col-span-4 space-y-6">
+      
+      <!-- SAVINGS SUMMARY CARD -->
+      <div class="bg-gradient-to-br from-emerald-950/60 via-slate-900 to-slate-900 border-2 border-emerald-500/40 p-6 rounded-3xl shadow-2xl space-y-5 sticky top-24">
+        
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <span class="text-xs font-black uppercase tracking-wider text-emerald-400">
+            Kompilyatsiya & Tejamkorlik
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">Barcha 5 ta analog</span>
+        </div>
+
+        <div>
+          <span class="text-xs text-slate-400 block mb-1">Xorijiy brendlar bilan 1 oylik narx:</span>
+          <span class="text-base font-bold text-slate-400 line-through">568 000 so‘m</span>
+        </div>
+
+        <div>
+          <span class="text-xs text-slate-400 block mb-1">Mahalliy GMP generiklar bilan:</span>
+          <span class="text-3xl font-black text-white">143 000 so‘m</span>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-xs">
+          <span class="text-emerald-400 font-black text-lg block mb-0.5">
+            + 425 000 so‘m / oy
+          </span>
+          <span class="text-slate-300">Yillik oilaviy sof tejamkorlik: <strong class="text-white">5 100 000 so‘m!</strong></span>
+        </div>
+
+        <div class="border-t border-slate-800 pt-4 space-y-2 text-xs">
+          <div class="flex justify-between text-slate-300">
+            <span>Tejamkorlik nisbati:</span>
+            <span class="font-extrabold text-emerald-400">74.8% tejaldi</span>
+          </div>
+          <div class="flex justify-between text-slate-300">
+            <span>Bioekvivalentlik:</span>
+            <span class="font-bold text-cyan-400">100% Tasdiqlangan</span>
+          </div>
+        </div>
+
+        <a href="../doriquti/index.html" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition text-center block shadow-lg shadow-emerald-500/20">
+          Ushbu Analoglarni DoriQutiga Yig‘ish →
+        </a>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2026 Unicorn Health Bioequivalence Database. Samarqand Davlat Tibbiyot Universiteti.</div>
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="hover:text-white">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400">ArzonLab</a>
+        <a href="../docs/MASTER_ROADMAP.md" class="hover:text-white">Yo‘l xaritasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const alternativesData = [
+      {
+        id: 1,
+        inn: "Clopidogrel 75mg",
+        cat: "Kardiologiya / Tromb profilaktikasi",
+        brandName: "Plavix 75mg",
+        brandMaker: "Sanofi (Frantsiya, Import)",
+        brandPrice: 210000,
+        genericName: "Klopidogrel-Nobel 75mg",
+        genericMaker: "Nobel Pharmsanoat (O‘zbekiston, GMP)",
+        genericPrice: 48000,
+        saved: 162000,
+        savedPct: 77,
+        bioeq: "SSV Litsenziyasi № 019482"
+      },
+      {
+        id: 2,
+        inn: "Atorvastatin 20mg",
+        cat: "Xolesterin / Ateroskleroz",
+        brandName: "Lipitor 20mg",
+        brandMaker: "Pfizer (AQSh / Germaniya)",
+        brandPrice: 190000,
+        genericName: "Atoris / Atorvastatin 20mg",
+        genericMaker: "Jurabek Laboratories QK (O‘zbekiston, GMP)",
+        genericPrice: 47000,
+        saved: 143000,
+        savedPct: 75,
+        bioeq: "SSV Litsenziyasi № 014811"
+      },
+      {
+        id: 3,
+        inn: "Amlodipine 5mg",
+        cat: "Kardiologiya / Qon bosimi",
+        brandName: "Norvasc 5mg",
+        brandMaker: "Pfizer (AQSh, Import)",
+        brandPrice: 85000,
+        genericName: "Amlodipin-Dentafill 5mg",
+        genericMaker: "Dentafill Plyus (O‘zbekiston, GMP)",
+        genericPrice: 18000,
+        saved: 67000,
+        savedPct: 78,
+        bioeq: "SSV Litsenziyasi № 021004"
+      },
+      {
+        id: 4,
+        inn: "Metformin 850mg",
+        cat: "Endokrinologiya / Qandli Diabet",
+        brandName: "Glucophage 850mg",
+        brandMaker: "Merck Sante (Frantsiya, Import)",
+        brandPrice: 38000,
+        genericName: "Metformin-Remedy 850mg",
+        genericMaker: "Remedy Group (O‘zbekiston, Mahalliy)",
+        genericPrice: 14000,
+        saved: 24000,
+        savedPct: 63,
+        bioeq: "SSV Litsenziyasi № 008912"
+      },
+      {
+        id: 5,
+        inn: "Bisoprolol 5mg",
+        cat: "Kardiologiya / Puls va Bosim",
+        brandName: "Concor 5mg",
+        brandMaker: "Merck KGaA (Germaniya, Import)",
+        brandPrice: 45000,
+        genericName: "Bisoprolol-Samarqand 5mg",
+        genericMaker: "Samarqand Dori-Darmon AJ (O‘zbekiston)",
+        genericPrice: 16000,
+        saved: 29000,
+        savedPct: 64,
+        bioeq: "SSV Litsenziyasi № 003412"
+      }
+    ];
+
+    function renderList(items) {
+      const container = document.getElementById('alternativesList');
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center bg-slate-900 border border-slate-800 rounded-3xl">
+            <span class="text-3xl block mb-2">🔍</span>
+            <p class="text-white font-bold text-sm">Bunday dori topilmadi</p>
+            <p class="text-slate-400 text-xs mt-1">Plavix, Lipitor, Concor yoki Norvasc so‘zlarini kiritib ko‘ring.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(item => `
+        <div class="bg-slate-900 border border-slate-800 hover:border-emerald-500/40 p-5 rounded-3xl shadow-xl transition space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-2">
+            <div>
+              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                ${item.cat}
+              </span>
+              <span class="text-xs font-mono text-slate-400 ml-2">Ta’sir etuvchi modda: <strong>${item.inn}</strong></span>
+            </div>
+            <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+              -${item.savedPct}% Tejamkorlik
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <!-- BRAND -->
+            <div class="bg-slate-950 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
+              <span class="text-[10px] text-slate-500 block">Qimmat xorijiy brend:</span>
+              <h4 class="font-extrabold text-white text-sm">${item.brandName}</h4>
+              <p class="text-[11px] text-slate-400">${item.brandMaker}</p>
+              <div class="pt-1 text-slate-300 font-bold">
+                Narxi: <span class="text-rose-400 font-black">${item.brandPrice.toLocaleString('uz-UZ')} so‘m</span>
+              </div>
+            </div>
+
+            <!-- GENERIC -->
+            <div class="bg-gradient-to-br from-emerald-950/40 to-slate-950 p-3.5 rounded-2xl border-2 border-emerald-500/40 space-y-1">
+              <div class="flex justify-between items-center">
+                <span class="text-[10px] text-emerald-400 font-bold">Arzon Bioekvivalent Analog:</span>
+                <span class="text-[9px] bg-emerald-500/20 text-emerald-300 font-black px-1.5 py-0.2 rounded">GMP</span>
+              </div>
+              <h4 class="font-extrabold text-white text-sm">${item.genericName}</h4>
+              <p class="text-[11px] text-slate-300">${item.genericMaker}</p>
+              <div class="pt-1 text-slate-300 font-bold flex justify-between items-center">
+                <span>Narxi: <span class="text-emerald-400 font-black">${item.genericPrice.toLocaleString('uz-UZ')} so‘m</span></span>
+                <span class="text-[10px] text-emerald-300">Tejash: <strong>${item.saved.toLocaleString('uz-UZ')} so‘m</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-1 flex items-center justify-between text-xs">
+            <span class="text-[10px] text-slate-500">100% bir xil molekula • ${item.bioeq}</span>
+            <a href="../doriquti/index.html" class="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1">
+              DoriQutiga qo‘shish →
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterAlternatives() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = alternativesData.filter(i => 
+        i.brandName.toLowerCase().includes(q) ||
+        i.genericName.toLowerCase().includes(q) ||
+        i.inn.toLowerCase().includes(q) ||
+        i.cat.toLowerCase().includes(q)
+      );
+      renderList(filtered);
+    }
+
+    // Init
+    renderList(alternativesData);
+  </script>
+</body>
+</html>

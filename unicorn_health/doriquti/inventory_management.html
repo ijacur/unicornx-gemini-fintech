@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti - Dorixona Ombori & Yaroqlilik Muddatlari Boshqaruvi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">📦</span>
+          <span class="text-xl font-bold tracking-tight">DoriQuti</span>
+        </a>
+        <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-full font-semibold">
+          Provizor & FEFO Ombor Tizimi
+        </span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="openAddBatchModal()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
+          <span>➕</span> Yangi Partiyani Kirim Qilish
+        </button>
+        <a href="pharmacy_portal.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          ← Provizor Qadoqlash
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Top Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">Jami SKU Turlari</div>
+        <div class="text-2xl font-bold text-white font-mono" id="stat-sku">5 ta preparat</div>
+        <div class="text-[11px] text-slate-400 mt-1">SamDTU Hamkor Dorixonasi #1</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">Ombor Tovar Qiymati</div>
+        <div class="text-2xl font-bold text-emerald-400 font-mono" id="stat-val">12,261,500 so'm</div>
+        <div class="text-[11px] text-emerald-300 mt-1">Ulgurji narxlar asosida</div>
+      </div>
+
+      <div class="bg-slate-800 border border-red-500/40 bg-red-950/20 rounded-xl p-4">
+        <div class="text-xs text-red-300 mb-1">Yaroqlilik Xavfi (&lt;90 kun)</div>
+        <div class="text-2xl font-bold text-red-400 font-mono" id="stat-expiry">2 ta partiya</div>
+        <div class="text-[11px] text-red-300 mt-1">FEFO bo'yicha birinchi jo'natish</div>
+      </div>
+
+      <div class="bg-slate-800 border border-amber-500/40 bg-amber-950/20 rounded-xl p-4">
+        <div class="text-xs text-amber-300 mb-1">Qayta Buyurtma Talab Etiladi</div>
+        <div class="text-2xl font-bold text-amber-400 font-mono" id="stat-reorder">2 ta dori</div>
+        <div class="text-[11px] text-amber-300 mt-1">Xavfsiz zaxiradan past</div>
+      </div>
+    </div>
+
+    <!-- Reorder Notification Banner if needed -->
+    <div class="bg-amber-900/30 border border-amber-500/40 rounded-2xl p-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <span class="text-2xl">⚠️</span>
+        <div>
+          <h4 class="text-sm font-bold text-amber-300">Avtomatik Ishlab Chiqaruvchi Talabnomasi Tayyorlandi</h4>
+          <p class="text-xs text-amber-200/80">Atorvastatin va Bisoprolol zaxirasi 7 kunga yetadi. Mahalliy zavodlarga (Nobel, Remedy) rasmiy talabnoma yuborish tavsiya etiladi.</p>
+        </div>
+      </div>
+      <button onclick="generatePurchaseOrder()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold px-4 py-2 rounded-xl transition shadow">
+        📄 Talabnoma Hujjatini Chiqarish (PO)
+      </button>
+    </div>
+
+    <!-- Inventory Filter & Table -->
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-base font-bold text-white flex items-center gap-2">
+            <span>📋</span> Dori Partiyalari va Yaroqlilik Nazorati (FEFO)
+          </h2>
+          <p class="text-xs text-slate-400">Har bir blister seriya raqami va UzPharma davlat ro'yxatidan o'tgan kodi bilan saqlanadi</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <input type="text" id="search-input" oninput="filterInventory()" placeholder="Dori yoki seriya qidirish..." class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
+          <select id="filter-status" onchange="filterInventory()" class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+            <option value="all">Barcha partiyalar</option>
+            <option value="critical">Yaroqlilik xavfi (&lt;90 kun)</option>
+            <option value="reorder">Qoldig'i kamaygan</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-900/80 text-slate-400 uppercase tracking-wider font-mono border-b border-slate-700">
+            <tr>
+              <th class="py-3 px-3">Dori Nomi & Ishlab Chiqaruvchi</th>
+              <th class="py-3 px-3">Seriya / Partiya</th>
+              <th class="py-3 px-3">UzPharma Reg №</th>
+              <th class="py-3 px-3 text-right">Qoldiq (Blister)</th>
+              <th class="py-3 px-3 text-right">Zaxira (Kun)</th>
+              <th class="py-3 px-3">Yaroqlilik Sanasi</th>
+              <th class="py-3 px-3">Holati</th>
+              <th class="py-3 px-3 text-center">Harakat</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-700/60" id="inventory-tbody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Purchase Order Modal -->
+  <div id="modal-po" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 text-slate-200 shadow-2xl">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-700 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📄</span>
+          <div>
+            <h3 class="text-base font-bold text-white">Rasmiy Ulgurji Talabnoma (PO #DQ-2026-042)</h3>
+            <p class="text-xs text-slate-400">SamDTU & DoriQuti Hamkorlik Dorixonasi nomidan</p>
+          </div>
+        </div>
+        <button onclick="closePoModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+
+      <div class="space-y-4 text-xs mb-5">
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex justify-between items-center font-mono">
+          <div>
+            <span class="text-slate-400">Buyurtmachi:</span> <strong class="text-white">DoriQuti Logistics LLC / SamDTU</strong><br>
+            <span class="text-slate-400">Yetkazish manzili:</span> <strong class="text-white">Dahbed ko'chasi 35, Samarqand</strong>
+          </div>
+          <div class="text-right">
+            <span class="text-slate-400">Sana:</span> <strong class="text-white">03.10.2026</strong><br>
+            <span class="text-slate-400">To'lov shakli:</span> <strong class="text-emerald-400">Bank o'tkazmasi (100%)</strong>
+          </div>
+        </div>
+
+        <table class="w-full text-left text-xs border border-slate-700">
+          <thead class="bg-slate-900 text-slate-400">
+            <tr>
+              <th class="p-2">№</th>
+              <th class="p-2">Preparat Nomi</th>
+              <th class="p-2">Ishlab Chiqaruvchi</th>
+              <th class="p-2 text-right">Miqdor</th>
+              <th class="p-2 text-right">Ulgurji Summa (UZS)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-700 font-mono">
+            <tr>
+              <td class="p-2">1</td>
+              <td class="p-2 text-white font-sans">Atorvastatin 20 mg (Atoris)</td>
+              <td class="p-2">Nobel Pharmsanoat</td>
+              <td class="p-2 text-right">565 blister</td>
+              <td class="p-2 text-right text-emerald-400">8,192,500</td>
+            </tr>
+            <tr>
+              <td class="p-2">2</td>
+              <td class="p-2 text-white font-sans">Bisoprolol 5 mg (Bisokor)</td>
+              <td class="p-2">Remedy Group</td>
+              <td class="p-2 text-right">480 blister</td>
+              <td class="p-2 text-right text-emerald-400">2,928,000</td>
+            </tr>
+            <tr class="bg-slate-900/80 font-bold">
+              <td colspan="4" class="p-2 text-right font-sans text-slate-300">Jami Ulgurji Qiymat:</td>
+              <td class="p-2 text-right text-emerald-400 text-sm">11,120,500 so'm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex space-x-3">
+        <button onclick="closePoModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-slate-300 py-2.5 rounded-xl font-medium text-xs transition">
+          Yopish
+        </button>
+        <button onclick="sendPoToSuppliers()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold text-xs shadow-lg transition flex items-center justify-center gap-1.5">
+          <span>📨</span> Zavodlarga Yuborish & Chop Etish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Batch Modal -->
+  <div id="modal-batch" class="fixed inset-0 bg-black/75 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-md w-full p-6 text-slate-200 shadow-2xl">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
+          <span>➕</span> Yangi Partiyani Kirim Qilish
+        </h3>
+        <button onclick="closeAddBatchModal()" class="text-slate-400 hover:text-white text-lg">&times;</button>
+      </div>
+
+      <div class="space-y-3 text-xs mb-5">
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Dori Nomi & Dozasi:</label>
+          <input type="text" id="new-name" placeholder="Masalan: Lozartan 50 mg" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Partiya / Seriya №:</label>
+            <input type="text" id="new-batch" placeholder="JB-2025-101" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">UzPharma Reg №:</label>
+            <input type="text" id="new-reg" placeholder="DV/X 09540/01/23" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Miqdor (blister):</label>
+            <input type="number" id="new-stock" value="250" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:outline-none focus:border-emerald-500">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Yaroqlilik Sanasi:</label>
+            <input type="date" id="new-expiry" value="2027-12-31" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+          </div>
+        </div>
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Ishlab Chiqaruvchi:</label>
+          <input type="text" id="new-manufacturer" placeholder="Jurabek Laboratories" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-emerald-500">
+        </div>
+      </div>
+
+      <div class="flex space-x-3">
+        <button onclick="closeAddBatchModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-slate-300 py-2.5 rounded-xl font-medium text-xs transition">
+          Bekor qilish
+        </button>
+        <button onclick="saveNewBatch()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2.5 rounded-xl font-bold text-xs shadow-lg transition">
+          Omborga Kirim Qilish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
+    <span>✅</span> <span id="toast-text">Amal muvaffaqiyatli bajarildi!</span>
+  </div>
+
+  <script>
+    let inventory = [
+      { id: 1, name: "Amlodipin 5 mg (Amlotop)", mfg: "Jurabek Laboratories", batch: "JB-2024-884", reg: "DV/X 08421/04/21", stock: 320, daysSupply: 11.4, expiry: "2027-11-20", daysToExpiry: 420, status: "safe", needsReorder: false },
+      { id: 2, name: "Atorvastatin 20 mg (Atoris)", mfg: "Nobel Pharmsanoat", batch: "NB-2024-319", reg: "DV/X 09102/09/22", stock: 95, daysSupply: 4.3, expiry: "2027-07-10", daysToExpiry: 280, status: "safe", needsReorder: true },
+      { id: 3, name: "Metformin 850 mg (Gliformin)", mfg: "Dentafill Plyus", batch: "DF-2023-702", reg: "DV/X 06554/03/20", stock: 480, daysSupply: 13.7, expiry: "2026-11-30", daysToExpiry: 58, status: "warn", needsReorder: false },
+      { id: 4, name: "Bisoprolol 5 mg (Bisokor)", mfg: "Remedy Group", batch: "RM-2024-112", reg: "DV/X 07832/08/21", stock: 60, daysSupply: 3.3, expiry: "2026-10-27", daysToExpiry: 24, status: "critical", needsReorder: true },
+      { id: 5, name: "Insulin Novorapid FlexPen", mfg: "Novo Nordisk", batch: "NN-2024-904", reg: "DV/X 10321/11/23", stock: 45, daysSupply: 11.2, expiry: "2027-08-09", daysToExpiry: 310, status: "safe", needsReorder: false }
+    ];
+
+    function renderTable(items = inventory) {
+      const tbody = document.getElementById('inventory-tbody');
+      tbody.innerHTML = '';
+
+      items.forEach(item => {
+        let statusBadge = '';
+        if (item.status === 'critical') {
+          statusBadge = '<span class="bg-red-500/20 text-red-300 border border-red-500/30 px-2 py-0.5 rounded font-mono font-bold">XAVFLI (&lt;30 kun)</span>';
+        } else if (item.status === 'warn') {
+          statusBadge = '<span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded font-mono font-bold">OGOHLANTIRISH (&lt;90 kun)</span>';
+        } else {
+          statusBadge = '<span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-semibold">XAVFSIZ</span>';
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-800/60 transition';
+        tr.innerHTML = `
+          <td class="py-3 px-3">
+            <div class="font-bold text-white">${item.name}</div>
+            <div class="text-[11px] text-slate-400">${item.mfg}</div>
+          </td>
+          <td class="py-3 px-3 font-mono text-slate-300">${item.batch}</td>
+          <td class="py-3 px-3 font-mono text-slate-400 text-[11px]">${item.reg}</td>
+          <td class="py-3 px-3 text-right font-mono font-bold ${item.needsReorder ? 'text-amber-400' : 'text-white'}">
+            ${item.stock} ta
+          </td>
+          <td class="py-3 px-3 text-right font-mono text-slate-300">
+            ${item.daysSupply} kun
+          </td>
+          <td class="py-3 px-3 font-mono ${item.daysToExpiry <= 90 ? 'text-red-400 font-bold' : 'text-slate-300'}">
+            ${item.expiry} (${item.daysToExpiry} kun)
+          </td>
+          <td class="py-3 px-3">
+            ${statusBadge}
+          </td>
+          <td class="py-3 px-3 text-center">
+            <button onclick="handleBatchAction(${item.id})" class="text-[11px] bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded transition border border-slate-600">
+              FEFO Taxtlash
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterInventory() {
+      const q = document.getElementById('search-input').value.toLowerCase();
+      const status = document.getElementById('filter-status').value;
+
+      let filtered = inventory.filter(item => {
+        const matchesQuery = item.name.toLowerCase().includes(q) || item.batch.toLowerCase().includes(q) || item.mfg.toLowerCase().includes(q);
+        if (status === 'critical') {
+          return matchesQuery && (item.status === 'critical' || item.status === 'warn');
+        } else if (status === 'reorder') {
+          return matchesQuery && item.needsReorder;
+        }
+        return matchesQuery;
+      });
+
+      renderTable(filtered);
+    }
+
+    function generatePurchaseOrder() {
+      document.getElementById('modal-po').classList.remove('hidden');
+    }
+
+    function closePoModal() {
+      document.getElementById('modal-po').classList.add('hidden');
+    }
+
+    function sendPoToSuppliers() {
+      closePoModal();
+      showToast('Rasmiy Ulgurji Talabnoma Nobel va Remedy zavodlariga E-Hujjat orqali jo\'natildi!');
+    }
+
+    function openAddBatchModal() {
+      document.getElementById('modal-batch').classList.remove('hidden');
+    }
+
+    function closeAddBatchModal() {
+      document.getElementById('modal-batch').classList.add('hidden');
+    }
+
+    function saveNewBatch() {
+      const name = document.getElementById('new-name').value || "Lozartan 50 mg";
+      const batch = document.getElementById('new-batch').value || "JB-2025-101";
+      const reg = document.getElementById('new-reg').value || "DV/X 09540/01/23";
+      const stock = parseInt(document.getElementById('new-stock').value) || 250;
+      const expiry = document.getElementById('new-expiry').value || "2027-12-31";
+      const mfg = document.getElementById('new-manufacturer').value || "Jurabek Laboratories";
+
+      inventory.unshift({
+        id: inventory.length + 1,
+        name: name,
+        mfg: mfg,
+        batch: batch,
+        reg: reg,
+        stock: stock,
+        daysSupply: 12.5,
+        expiry: expiry,
+        daysToExpiry: 450,
+        status: "safe",
+        needsReorder: false
+      });
+
+      closeAddBatchModal();
+      renderTable();
+      showToast(`Yangi partiya #${batch} omborga kirim qilindi!`);
+    }
+
+    function handleBatchAction(id) {
+      showToast(`Partiya #${id} FEFO bo'yicha birinchi jo'natiladigan qutilar qatoriga qo'shildi!`);
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // Init
+    renderTable();
+  </script>
+</body>
+</html>

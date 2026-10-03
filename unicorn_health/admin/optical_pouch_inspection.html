@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optik Blister Tekshiruvi & GMP Sifat Nazorati (QA) | DoriQuti Packaging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-qa {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .banner {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(56, 189, 248, 0.12));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .stat-card.emerald::after { background: var(--emerald); }
+        .stat-card.amber::after { background: var(--amber); }
+        .stat-card.purple::after { background: var(--purple); }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .stat-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px;
+            margin-bottom: 28px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pouch-camera-viewport {
+            background: #020617;
+            border: 2px dashed #38bdf8;
+            border-radius: 20px;
+            height: 340px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #38bdf8;
+            box-shadow: 0 0 15px #38bdf8;
+            animation: scanAnim 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes scanAnim {
+            0% { top: 0%; }
+            100% { top: 98%; }
+        }
+
+        .sachet-boundary {
+            width: 280px;
+            height: 240px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            position: relative;
+            padding: 16px;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        .pill-bbox {
+            position: absolute;
+            border: 2px solid var(--emerald);
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .pill-tag {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2px 6px;
+            border-radius: 4px;
+            position: absolute;
+            top: -18px;
+            white-space: nowrap;
+            color: #34d399;
+            font-size: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+        }
+
+        .audit-item {
+            background: rgba(10, 18, 32, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🔍</span>
+            <div>
+                <div style="font-size: 19px; font-weight: 800; color: #ffffff;">Optik Blister Tekshiruvi & GMP Sifat Nazorati (QA)</div>
+                <div style="font-size: 12px; color: var(--text-muted);">SamDTU & DoriQuti Avtomatlashtirilgan Video-Inspeksiya Stantsiyasi</div>
+            </div>
+            <span class="badge-qa">GMP & O'zDSt Standartlariga 100% Muvofiq</span>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">🏠 Bosh Menyu</a>
+            <a href="/doriquti/pharmacy_portal.html" class="btn btn-outline" style="text-decoration: none;">🏥 Provizor Portali</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <div>
+                <strong style="color: #6ee7b7; font-size: 15px;">🛡️ Nolinchi Xatolik Kafolati (Zero-Defect Blister Packaging):</strong>
+                <p style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+                    Har bir DoriQuti lentali paketi germetik yopilishidan oldin yuqori aniqlikdagi optik sensorlar orqali tekshiriladi. Mashina retseptdagi haplar soni, shakli, diametri (mm) va butunligini 42 millisekundda tahlil qilib, insoniy xatolikni butkul istisno etadi.
+                </p>
+            </div>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 6px 14px; border-radius: 8px; border: 1px solid #10b981;">
+                STANDART: GMP ANNEX 1 QA
+            </span>
+        </div>
+
+        <!-- Macro Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Bugun Tekshirilgan Paketlar</div>
+                <div class="stat-value">12,840</div>
+                <div class="stat-desc">Samarqand GMP qadoqlash liniyasi</div>
+            </div>
+            <div class="stat-card emerald">
+                <div class="stat-label">Muvaffaqiyat Ko'rsatkichi (Pass)</div>
+                <div class="stat-value">99.82%</div>
+                <div class="stat-desc">Xatolik bilan rad etilgan: 0.18%</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-label">Skrining Tezligi</div>
+                <div class="stat-value">42 ms</div>
+                <div class="stat-desc">Har bir paketga sarflangan vaqt</div>
+            </div>
+            <div class="stat-card amber">
+                <div class="stat-label">Tasdiqlovchi Provizor</div>
+                <div class="stat-value">N. Rustamov</div>
+                <div class="stat-desc">Elektron raqamli imzo bilan tasdiqlangan</div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="main-grid">
+            <!-- Left: High-Speed Camera Viewport -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>📷</span> Optik Kamera Telemetriyasi (Jonli Skrining)
+                        </div>
+                        <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #38bdf8;">FPS: 120 | 4K Macro Sensor</span>
+                    </div>
+
+                    <div class="pouch-camera-viewport">
+                        <div class="scan-line"></div>
+                        <div class="sachet-boundary" id="sachetBox">
+                            <!-- Simulated detected pill 1 -->
+                            <div class="pill-bbox" id="pillBox1" style="width: 70px; height: 70px; top: 40px; left: 35px; border-radius: 50%;">
+                                <div class="pill-tag">Telmisartan 8.1mm</div>
+                                <span>⚪ T40</span>
+                            </div>
+
+                            <!-- Simulated detected pill 2 -->
+                            <div class="pill-bbox" id="pillBox2" style="width: 80px; height: 55px; top: 120px; left: 140px; border-radius: 30px;">
+                                <div class="pill-tag" style="color: #fde047;">Amlodipin 9.4mm</div>
+                                <span style="color: #fef08a;">🟡 AML5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
+                        <button class="btn" onclick="testNormalPouch()">
+                            ✅ Oddiy Standart Paketni Tekshirish
+                        </button>
+                        <button class="btn btn-danger" onclick="testDefectivePouch()">
+                            ⚠️ Xatolik Sinovi (Singan hap / Doza xatosi)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>📑</span> Liniyadagi Oxirgi Partiyalar
+                        </div>
+                    </div>
+                    <div class="audit-item" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>Partiya #LOT-UZ-2026-882</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">2,400 paket (Diabet formulatsiyasi) • Provizor: N. Rustamov</div>
+                        </div>
+                        <span style="color: #34d399; font-weight: 700; font-size: 13px;">GMP PASSED 100%</span>
+                    </div>
+                    <div class="audit-item" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong>Partiya #LOT-UZ-2026-881</strong>
+                            <div style="font-size: 12px; color: var(--text-muted);">1,800 paket (Kardio formulatsiyasi) • Provizor: N. Rustamov</div>
+                        </div>
+                        <span style="color: #34d399; font-weight: 700; font-size: 13px;">GMP PASSED 100%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Inspection Result Card -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>📋</span> Tekshiruv Xulosasi
+                        </div>
+                    </div>
+
+                    <div class="audit-item">
+                        <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Paket Identifikatori</div>
+                        <div style="font-size: 18px; font-weight: 800; color: #38bdf8; font-family: 'JetBrains Mono', monospace; margin: 4px 0;" id="txtPouchId">
+                            BLISTER-POUCH-94821
+                        </div>
+                        <div style="font-size: 13px; color: #ffffff;" id="txtRxMatch">
+                            Shifokor retsepti: Telmisartan 40mg + Amlodipin 5mg
+                        </div>
+                    </div>
+
+                    <div class="audit-item">
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Optik Tekshiruv Natijalari</div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
+                            <span>Aniqlangan tabletkalar:</span>
+                            <strong id="txtCount">2 / 2 ta (100% mos)</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
+                            <span>Geometriya & Diametr:</span>
+                            <strong style="color: #34d399;" id="txtGeo">Standartga mos (±0.2mm)</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
+                            <span>Tabletka butunligi:</span>
+                            <strong style="color: #34d399;" id="txtIntegrity">99.2% (Yoriqsiz)</strong>
+                        </div>
+                    </div>
+
+                    <div class="audit-item">
+                        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">GMP Sertifikat Holati</div>
+                        <div style="font-size: 20px; font-weight: 800; color: #10b981;" id="txtStatusBadge">
+                            ✅ GMP SIFAT NAZORATIDAN O'TDI
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-top: 6px;" id="txtStamp">
+                            Sertifikat: SAM-GMP-QA-06130
+                        </div>
+                    </div>
+
+                    <button class="btn" style="width: 100%; justify-content: center;" onclick="printQACertificate()">
+                        🖨️ GMP Sifat Sertifikatini Chop Etish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testNormalPouch() {
+            document.getElementById('txtPouchId').textContent = "BLISTER-POUCH-94821";
+            document.getElementById('txtRxMatch').textContent = "Shifokor retsepti: Telmisartan 40mg + Amlodipin 5mg";
+            document.getElementById('txtCount').textContent = "2 / 2 ta (100% mos)";
+            document.getElementById('txtGeo').textContent = "Standartga mos (±0.2mm)";
+            document.getElementById('txtGeo').style.color = "#34d399";
+            document.getElementById('txtIntegrity').textContent = "99.2% (Yoriqsiz)";
+            document.getElementById('txtIntegrity').style.color = "#34d399";
+            document.getElementById('txtStatusBadge').textContent = "✅ GMP SIFAT NAZORATIDAN O'TDI";
+            document.getElementById('txtStatusBadge').style.color = "#10b981";
+            document.getElementById('txtStamp').textContent = "Sertifikat: SAM-GMP-QA-06130";
+
+            const p1 = document.getElementById('pillBox1');
+            const p2 = document.getElementById('pillBox2');
+            p1.style.borderColor = "#10b981";
+            p2.style.borderColor = "#10b981";
+            p1.style.display = "flex";
+            p2.style.display = "flex";
+            alert("✅ Oddiy namunali paket tekshirildi!\nBarcha ko'rsatkichlar me'yorda va germetik yopishga ruxsat etildi.");
+        }
+
+        function testDefectivePouch() {
+            document.getElementById('txtPouchId').textContent = "BLISTER-POUCH-94899";
+            document.getElementById('txtRxMatch').textContent = "Shifokor retsepti: Telmisartan 40mg + Amlodipin 5mg";
+            document.getElementById('txtCount').textContent = "1 / 2 ta (1 ta dori yetishmaydi!)";
+            document.getElementById('txtGeo').textContent = "Nomuvofiqlik aniqlandi";
+            document.getElementById('txtGeo').style.color = "#f43f5e";
+            document.getElementById('txtIntegrity').textContent = "81.4% (Sinish aniqlandi!)";
+            document.getElementById('txtIntegrity').style.color = "#f43f5e";
+            document.getElementById('txtStatusBadge').textContent = "❌ RAD ETILDI (NUQSONLI)";
+            document.getElementById('txtStatusBadge').style.color = "#f43f5e";
+            document.getElementById('txtStamp').textContent = "Sertifikat berilmadi • Qadoq bekor qilindi";
+
+            const p1 = document.getElementById('pillBox1');
+            const p2 = document.getElementById('pillBox2');
+            p1.style.borderColor = "#f43f5e";
+            p2.style.display = "none";
+            alert("⚠️ DIQQAT! Mashina nuqsonli paketni aniqladi va konveyerdan chiqarib tashladi!\nSabab: Amlodipin yetishmaydi va 1 ta tabletka singan.");
+        }
+
+        function printQACertificate() {
+            alert("🖨️ GMP Sifat Sertifikati printerga uzatildi!\nProvizor elektron imzosi va QR nazorat kodi bilan tasdiqlandi.");
+        }
+    </script>
+</body>
+</html>

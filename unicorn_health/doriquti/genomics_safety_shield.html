@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmakogenomika & Nojo'ya Ta'sir Xavfsizlik Qalqoni | DoriQuti Precision</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b1329;
+            --surface: #132247;
+            --surface-hover: #1c3268;
+            --border: #233e7d;
+            --primary: #38bdf8;
+            --cyan: #06b6d4;
+            --danger: #ef4444;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            border-bottom: 2px solid var(--primary);
+            padding: 22px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-dna {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--primary);
+            color: #7dd3fc;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1300px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            background: #070d1e;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .gene-tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .gene-tag {
+            background: #070d1e;
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .gene-tag.active {
+            border-color: var(--primary);
+            background: rgba(56, 189, 248, 0.2);
+            color: #7dd3fc;
+            font-weight: 700;
+        }
+
+        .alert-card {
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid transparent;
+        }
+
+        .alert-critical {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--danger);
+            color: #fca5a5;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: var(--amber);
+            color: #fde68a;
+        }
+
+        .alert-title {
+            font-size: 1rem;
+            font-weight: 800;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .rec-pill {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #0b1329;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+        }
+        .btn-primary:hover { background: #0284c7; color: white; }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-outline:hover { background: var(--surface-hover); }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 2rem;">🧬</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">SamDTU Klinik Farmakogenomika & Shaxsiy Tibbiyot Qalqoni</h1>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Genetik Mutatsiyalar Asosida DoriQuti Dozalarini Moslashtirish va Nojo'ya Ta'sirlarni Bartaraf Etish</p>
+            </div>
+            <span class="badge-dna">Precision Medicine</span>
+        </div>
+        <div style="display: flex; gap: 16px;">
+            <a href="/doriquti/doctor_portal.html" class="nav-link">🩺 Shifokor Portali</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="grid-layout">
+            
+            <!-- Left: Patient Genetics & Current Rx -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🔬 Bemor Genetik Profili (ArzonLab DNK)</div>
+                        <span style="font-size: 0.8rem; color: #38bdf8; font-family: 'JetBrains Mono';">DNA-UZ-4912</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Bemor F.I.Sh:</label>
+                        <input type="text" class="form-input" value="Rahmonov Baxtiyor Olimovich (68 yosh, Post-STEMI)" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Aniqlangan Genetik Polimorfizmlar:</label>
+                        <div class="gene-tag-list">
+                            <div class="gene-tag active" id="tagCYP2C19" onclick="toggleGene('CYP2C19')">
+                                🧬 CYP2C19 (*2/*3 Quyi Metabolizator)
+                            </div>
+                            <div class="gene-tag active" id="tagSLCO1B1" onclick="toggleGene('SLCO1B1')">
+                                🧬 SLCO1B1 (*5 Statin Miopatiyasi Xavfi)
+                            </div>
+                            <div class="gene-tag" id="tagVKORC1" onclick="toggleGene('VKORC1')">
+                                🧬 CYP2C9/VKORC1 (Varfaringa O'ta Sezuvchan)
+                            </div>
+                            <div class="gene-tag" id="tagHLA" onclick="toggleGene('HLA')">
+                                🧬 HLA-B*58:01 (Allopurinol Toksikligi)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="form-label">Hozirgi DoriQuti Retsepti:</label>
+                        <div style="background: #070d1e; padding: 12px; border-radius: 10px; font-size: 0.85rem; color: #e2e8f0; line-height: 1.6;">
+                            • <strong>Klopidogrel 75mg (Plavix)</strong> — Ertalab<br>
+                            • <strong>Atorvastatin 40mg</strong> — Kechqurun<br>
+                            • Bisoprolol 5mg — Ertalab
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="adaptGenomicRx()">
+                            🛡️ Genetik Xavfsiz DoriQuti Formulatsiyasiga O'tkazish
+                        </button>
+                        <button class="btn btn-outline" onclick="window.print()">
+                            🖨️ Shaxsiy Genetik Xulosa Varaqasini Chop Etish
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Real-time Genetic Risk Warnings & Action Plan -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">⚠️ Genetik Moslik & Profilaktik Yechimlar</div>
+                        <span style="font-size: 0.8rem; color: var(--danger); font-weight: 700;">2 ta kritik mutatsiya topildi</span>
+                    </div>
+
+                    <!-- Risk 1: CYP2C19 & Clopidogrel -->
+                    <div class="alert-card alert-critical" id="boxCYP2C19">
+                        <div class="alert-title">
+                            <span>🚨 CYP2C19 *2/*3: Klopidogrel Samaradorligi Yo'q!</span>
+                            <span style="font-size: 0.75rem; background: var(--danger); color: white; padding: 2px 8px; border-radius: 4px;">KRITIK XAVF</span>
+                        </div>
+                        <p style="font-size: 0.85rem; line-height: 1.5;">
+                            <strong>Klinik oqibat:</strong> Bemor jigari fermenti mutatsiyaga uchraganligi sababli Klopidogrel faol moddaga aylanmaydi. Qon suyulmaydi, stent trombozi va qayta infarkt xavfi 3.5 barobar oshadi!
+                        </p>
+                        <div class="rec-pill">
+                            ✅ <strong>Tavsiya:</strong> Klopidogrelni zudlik bilan <strong>Tikagrelor 90mg (Brilinta) 2 mahal</strong>ga almashtiring.
+                        </div>
+                    </div>
+
+                    <!-- Risk 2: SLCO1B1 & Atorvastatin -->
+                    <div class="alert-card alert-warning" id="boxSLCO1B1">
+                        <div class="alert-title">
+                            <span>⚡ SLCO1B1 *5: Yuqori Statin Miopatiyasi Xavfi</span>
+                            <span style="font-size: 0.75rem; background: var(--amber); color: #0b1329; padding: 2px 8px; border-radius: 4px;">YUQORI XAVF</span>
+                        </div>
+                        <p style="font-size: 0.85rem; line-height: 1.5;">
+                            <strong>Klinik oqibat:</strong> OATP1B1 transportatori oqsilining sustligi oqibatida 40mg Atorvastatin qonda xavfli to'planib, og'ir mushak og'riqlari va rabdomioliz keltirib chiqaradi.
+                        </p>
+                        <div class="rec-pill" style="background: rgba(245, 158, 11, 0.2); border-color: var(--amber); color: #fde68a;">
+                            ✅ <strong>Tavsiya:</strong> Atorvastatin 40mg ni <strong>Rozuvastatin 10mg</strong> ga almashtiring.
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; background: #070d1e; padding: 14px; border-radius: 12px;">
+                        💡 <strong>SamDTU Ilmiy Xulosasi:</strong> O‘zbekistonda stent qo‘yilgan bemorlarning 28% qismida CYP2C19 sekin metabolizmi uchraydi. DoriQuti genetika qalqoni qayta infarkt va o'lim holatlarini 82% ga qisqartiradi.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleGene(geneKey) {
+            const tag = document.getElementById(`tag${geneKey}`);
+            tag.classList.toggle('active');
+            alert(`Genetik marker holati o'zgartirildi: ${geneKey}`);
+        }
+
+        function adaptGenomicRx() {
+            alert("🛡️ DoriQuti Shaxsiy Genetik Retsepti Yangilandi!\n\n1. Klopidogrel ➔ Tikagrelor 90mg (Brilinta) ga almashtirildi.\n2. Atorvastatin 40mg ➔ Rozuvastatin 10mg ga almashtirildi.\n\nBemor oylik qutisi xavfsiz genetik moslashtirilgan tabletkalar bilan qadoqlashga yuborildi!");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Davlat Tibbiy Sug'urtasi (DSJF) Qoplash & Reyestr Auditori | DoriQuti State Gateway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09101d;
+            --surface: #131e36;
+            --surface-hover: #1c2b4d;
+            --border: #233760;
+            --primary: #10b981;
+            --emerald-dark: #047857;
+            --sky: #38bdf8;
+            --gold: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+            border-bottom: 2px solid var(--primary);
+            padding: 20px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-dsjf {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--primary);
+            color: #6ee7b7;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            position: relative;
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .kpi-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kpi-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .kpi-sub {
+            font-size: 0.8rem;
+            color: #6ee7b7;
+            font-weight: 600;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .claim-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        .claim-table th, .claim-table td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .claim-table th {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .badge-subsidy {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #09101d;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+        .btn-primary:hover { background: #059669; }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-outline:hover { background: var(--surface-hover); }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.8rem;">🏛️</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">Davlat Tibbiy Sug'urtasi Jamg'armasi (DSJF) Integratsiya Qalqoni</h1>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Surunkali Dori Vositalarini Davlat Tomonidan 80% Gacha Qoplab Berish (Reimbursement) Portali</p>
+            </div>
+            <span class="badge-dsjf">DSJF Samarqand Shlyuzi</span>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <a href="/admin/executive_cockpit.html" class="nav-link">💼 C-Suite Cockpit</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Top Metrics -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-title">
+                    <span>Davlat Byudjeti Qoplagan Ulush</span>
+                    <span>🏦</span>
+                </div>
+                <div class="kpi-val">80.7%</div>
+                <div class="kpi-sub">Samarqand pilot hududi surunkali ro'yxati bo'yicha</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">
+                    <span>Oylik Davlat Kompensatsiyasi</span>
+                    <span>💰</span>
+                </div>
+                <div class="kpi-val">123,400 UZS</div>
+                <div class="kpi-sub">Bemor boshiga o'rtacha davlat to'lagan summa</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">
+                    <span>Bemor Hamto'lovi (Copay)</span>
+                    <span>💳</span>
+                </div>
+                <div class="kpi-val" style="color: #38bdf8;">29,600 UZS</div>
+                <div class="kpi-sub">153,000 so'm o'rniga bemor to'laydigan qoldiq</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-title">
+                    <span>Reyestr Holati (DSJF API)</span>
+                    <span>⚡</span>
+                </div>
+                <div class="kpi-val" style="color: #fde68a;">FAOL</div>
+                <div class="kpi-sub">Prezident Qarori PQ-4114 ijrosi doirasida</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            
+            <!-- Left: Prescribed Medicines & Reimbursement Audit -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🧾 Oylik DoriQuti Retseptining Davlat Qoplash Auditi</div>
+                    <span style="font-family: 'JetBrains Mono'; font-size: 0.8rem; color: #10b981;">CLAIM-DSJF-SAM-48219</span>
+                </div>
+
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+                    Bemor JSHSHIR (PINFL): <strong style="color: white;">31205581234567</strong> | SamDTU 1-Klinika Kardiologiya
+                </div>
+
+                <table class="claim-table">
+                    <thead>
+                        <tr>
+                            <th>INN Preparat</th>
+                            <th>Bozor Narxi</th>
+                            <th>DSJF Qoplashi</th>
+                            <th>Bemor To'lovi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong style="color: white;">Metformin 850mg (30 tab)</strong>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">Diabet (E11) • 80% qoplash</div>
+                            </td>
+                            <td>36,000</td>
+                            <td style="color: #10b981; font-weight: 700;">25,600 so'm</td>
+                            <td>10,400 so'm</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: white;">Bisoprolol 5mg (30 tab)</strong>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">Gipertoniya (I10) • 85% qoplash</div>
+                            </td>
+                            <td>42,000</td>
+                            <td style="color: #10b981; font-weight: 700;">32,300 so'm</td>
+                            <td>9,700 so'm</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: white;">Atorvastatin 20mg (30 tab)</strong>
+                                <div style="font-size: 0.7rem; color: var(--text-muted);">IBS / Xolesterin • 70% qoplash</div>
+                            </td>
+                            <td>75,000</td>
+                            <td style="color: #10b981; font-weight: 700;">65,500 so'm</td>
+                            <td>9,500 so'm</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px; display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="submitDSJFRegistry()">
+                        🚀 DSJF Elektron Reyestriga Yuborish (1-Klik API)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: State Insurance Impact & Print -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🏛️ Davlat-Xususiy Hamkorlik Mexanizmi</div>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">SSV Akkreditatsiyasi</span>
+                </div>
+
+                <div style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+                    <p style="margin-bottom: 12px;">
+                        Davlat Tibbiy Sug'urtasi Jamg'armasi (DSJF) faqat retsept bo'yicha beriladigan tasdiqlangan dori vositalarini kompensatsiya qiladi. DoriQuti blistrlari har bir tabletka qabul qilinganligini raqamli qayd etgani (PDC 94.2%) sababli, davlat mablag'lari maqsadsiz sarflanmasligini 100% kafolatlaydi.
+                    </p>
+                    <div style="background: #09101d; padding: 14px; border-radius: 12px; border: 1px dashed var(--primary); margin-bottom: 16px;">
+                        <span style="font-size: 0.8rem; font-weight: 700; color: #6ee7b7;">💡 Natija:</span>
+                        <p style="font-size: 0.8rem; color: #cbd5e1; margin-top: 4px;">
+                            Bemor 153,000 so'mlik dori uchun atigi <strong>29,600 so'm</strong> to'laydi. Qolgan 123,400 so'm esa to'g'ridan-to'g'ri DSJF davlat byudjetidan platforma hisob raqamiga kelib tushadi.
+                        </p>
+                    </div>
+                </div>
+
+                <button class="btn btn-outline" onclick="window.print()">
+                    🖨️ Rasmiy DSJF Qoplash Kvitansiyasini Chop Etish
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function submitDSJFRegistry() {
+            alert("🚀 DSJF Elektron Reyestriga Muvaffaqiyatli Yuborildi!\n\n• Reyestr raqami: CLAIM-DSJF-SAM-48219\n• Davlat qoplagan summa: 123,400 UZS (Moliya Vazirligi to'lovi)\n• Bemor to'lagan hamto'lov: 29,600 UZS (Humo/Uzcard orqali yechildi)\n\nTranzaksiya Soliq.uz va DSJF serverlarida tasdiqlandi!");
+        }
+    </script>
+</body>
+</html>

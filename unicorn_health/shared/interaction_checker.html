@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dori Mosligi & O‘zaro Ta’sir Tahlili — Unicorn Health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .print-card { border: 1px solid #ccc !important; box-shadow: none !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAV -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 no-print">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🦄</span>
+          <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
+        </a>
+        <span class="text-xs bg-rose-500/20 text-rose-400 font-bold px-2.5 py-0.5 rounded-full border border-rose-500/30 flex items-center gap-1">
+          <span>🛡️</span>
+          <span>Dori Xavfsizlik Tizimi</span>
+        </span>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-4 text-xs font-semibold text-slate-400">
+        <a href="../index.html" class="hover:text-white transition">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400 transition">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400 transition">ArzonLab</a>
+        <a href="savings_calculator.html" class="hover:text-amber-400 transition">Oila Kalkulyatori</a>
+        <a href="partner_network_directory.html" class="hover:text-cyan-400 transition">Hamkorlar</a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl font-bold text-xs transition border border-slate-700 flex items-center gap-1.5">
+          <span>🖨️</span>
+          <span>Hisobotni Chop Etish</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center no-print">
+    <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-4">
+      <span>💊</span>
+      <span>SamDTU Klinik Standartlari & Farmakologik Nazorat</span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+      Surunkali dorilarning <span class="bg-clip-text text-transparent bg-gradient-to-r from-rose-400 via-amber-300 to-emerald-400">o‘zaro mosligini</span> tekshiring
+    </h1>
+    <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+      Katta yoshdagi bemorlar bir vaqtning o‘zida 4–8 xil dori ichishadi. Ba’zi dorilar birgalikda nojo‘ya ta’sir ko‘rsatishi mumkin. O‘z ro‘yxatingizni belgilang va xavfsizlik darajasini bilib oling.
+    </p>
+  </section>
+
+  <!-- MAIN INTERACTION INTERFACE -->
+  <main class="max-w-6xl mx-auto px-4 py-4 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- LEFT COLUMN: SELECTION (NO PRINT) -->
+    <div class="lg:col-span-5 space-y-5 no-print">
+      
+      <!-- QUICK PRESETS -->
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-[11px] font-black uppercase tracking-wider text-slate-400 block mb-2">
+          Tezkor Klinik Namunalar:
+        </span>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <button onclick="applyPreset('cardio')" class="bg-slate-950 hover:bg-slate-800 text-slate-300 p-2 rounded-xl border border-slate-800 text-left font-semibold transition">
+            ❤️ Gipertoniya + Infarkt
+          </button>
+          <button onclick="applyPreset('diabetes')" class="bg-slate-950 hover:bg-slate-800 text-slate-300 p-2 rounded-xl border border-slate-800 text-left font-semibold transition">
+            🩸 Qandli Diabet + Bosim
+          </button>
+          <button onclick="applyPreset('polypharmacy')" class="bg-slate-950 hover:bg-slate-800 text-slate-300 p-2 rounded-xl border border-slate-800 text-left font-semibold transition">
+            👵 5 ta Murakkab Dori
+          </button>
+          <button onclick="clearAllMeds()" class="bg-rose-950/30 hover:bg-rose-900/40 text-rose-300 p-2 rounded-xl border border-rose-800/40 text-center font-bold transition">
+            ✕ Tozalash
+          </button>
+        </div>
+      </div>
+
+      <!-- MEDICINES CHECKLIST -->
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-xs font-black uppercase tracking-wider text-emerald-400">
+            Dorilar Ro‘yxati (Tanlang):
+          </h2>
+          <span id="selectedCountBadge" class="text-xs font-bold text-white bg-slate-800 px-2.5 py-0.5 rounded-full border border-slate-700">
+            0 ta tanlandi
+          </span>
+        </div>
+
+        <div id="medicinesChecklist" class="space-y-2 max-h-[460px] overflow-y-auto pr-1 text-xs">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: CLINICAL ANALYSIS & REPORT -->
+    <div class="lg:col-span-7 space-y-6">
+      
+      <!-- HERO SCORE CARD -->
+      <div id="scoreCard" class="print-card bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-slate-800 p-6 md:p-8 rounded-3xl shadow-xl">
+        
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <span class="text-[11px] font-black uppercase tracking-widest text-slate-400 block mb-1">
+              Farmakologik Xavfsizlik Reytingi
+            </span>
+            <h3 id="safetyStatusText" class="text-2xl font-black text-white">
+              Dorilar tanlanmagan
+            </h3>
+          </div>
+          <div id="scoreBadge" class="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex flex-col items-center justify-center">
+            <span id="scoreNumber" class="text-2xl font-black text-white">--</span>
+            <span class="text-[9px] uppercase font-bold text-slate-400">/ 100</span>
+          </div>
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-800 mb-4">
+          <div id="scoreProgressBar" class="h-3 rounded-full transition-all duration-500 bg-slate-700" style="width: 0%"></div>
+        </div>
+
+        <!-- SUMMARY STATS -->
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
+            <span class="text-slate-500 block text-[10px]">Tanlangan dorilar</span>
+            <span id="statMedsCount" class="font-extrabold text-white text-sm">0 ta</span>
+          </div>
+          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
+            <span class="text-rose-400 block text-[10px]">Yuqori xavf (High)</span>
+            <span id="statHighCount" class="font-extrabold text-rose-400 text-sm">0 ta</span>
+          </div>
+          <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80">
+            <span class="text-amber-400 block text-[10px]">O‘rtacha xavf (Mod)</span>
+            <span id="statModCount" class="font-extrabold text-amber-400 text-sm">0 ta</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- DETECTED INTERACTIONS LIST -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl print-card">
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
+          <span>🔬</span>
+          <span>Topilgan O‘zaro Ta’sirlar va Tavsiyalar:</span>
+        </h3>
+
+        <div id="interactionsContainer" class="space-y-3">
+          <div class="text-center py-8 text-slate-500 text-xs">
+            Ro‘yxatdan kamida 2 ta dori tanlang yoki yuqoridagi tayyor namunalardan birini bosing.
+          </div>
+        </div>
+      </div>
+
+      <!-- TIME SCHEDULE ADHERENCE RECOMMENDATION -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl print-card">
+        <h3 class="text-xs font-black uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-2">
+          <span>⏰</span>
+          <span>DoriQuti Tavsiya Etiladigan Kunlik Qabul Tartibi:</span>
+        </h3>
+
+        <div class="grid grid-cols-3 gap-3 text-xs">
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-emerald-400 font-bold block mb-1 text-[11px]">🌅 Ertalab (08:00)</span>
+            <div id="morningSlot" class="text-slate-300 text-[11px] space-y-1">--</div>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-amber-400 font-bold block mb-1 text-[11px]">☀️ Tushlik (13:00)</span>
+            <div id="lunchSlot" class="text-slate-300 text-[11px] space-y-1">--</div>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-indigo-400 font-bold block mb-1 text-[11px]">🌙 Kechqurun (20:00)</span>
+            <div id="eveningSlot" class="text-slate-300 text-[11px] space-y-1">--</div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between no-print">
+          <span class="text-[11px] text-slate-400">Ushbu dorilarni lentali 30 kunlik qutiga joylashtirmoqchimisiz?</span>
+          <a href="../doriquti/index.html" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-3.5 py-1.5 rounded-xl text-xs transition">
+            DoriQutini Rasmiylashtirish →
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2026 Unicorn Health Ecosystem. Samarqand, O‘zbekiston.</div>
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="hover:text-white">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400">ArzonLab</a>
+        <a href="../docs/MASTER_ROADMAP.md" class="hover:text-white">Yo‘l xaritasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const medicinesCatalog = [
+      { id: 1, name: "Lozap (Losartan) 50mg", key: "losartan", timing: "Ertalab", cat: "Bosim" },
+      { id: 2, name: "Metformin 850mg (Glukofaj)", key: "metformin", timing: "Ertalab + Kechki", cat: "Diabet" },
+      { id: 3, name: "Kardiomagnil 75mg (Aspirin)", key: "kardiomagnil", timing: "Kechqurun", cat: "Yurak" },
+      { id: 4, name: "Atorvastatin 20mg (Atoris)", key: "atorvastatin", timing: "Kechqurun", cat: "Xolesterin" },
+      { id: 5, name: "Bisoprolol (Konkor) 5mg", key: "bisoprolol", timing: "Ertalab", cat: "Yurak/Bosim" },
+      { id: 6, name: "Amlodipin 5mg", key: "amlodipine", timing: "Ertalab", cat: "Bosim" },
+      { id: 7, name: "Spironolakton (Veroshpiron) 25mg", key: "spironolactone", timing: "Ertalab", cat: "Diuretik" },
+      { id: 8, name: "Enalapril 10mg (Enap)", key: "enalapril", timing: "Ertalab", cat: "Bosim" },
+      { id: 9, name: "Omeprazol 20mg (Omez)", key: "omeprazole", timing: "Ertalab", cat: "Oshqozon" },
+      { id: 10, name: "Klopidogrel 75mg (Plaviks)", key: "clopidogrel", timing: "Kechqurun", cat: "Yurak" },
+      { id: 11, name: "Pankreatin 10 000 (Kreom)", key: "pankreatin", timing: "Tushlik", cat: "Hazm" },
+      { id: 12, name: "Indapamid 1.5mg", key: "indapamid", timing: "Ertalab", cat: "Diuretik" }
+    ];
+
+    const ddiRules = [
+      {
+        pair: ["losartan", "spironolactone"],
+        severity: "HIGH",
+        title: "Giperkaliyemiya xavfi (Qonda kaliyning xavfli oshishi)",
+        mechanism: "Losartan va Spironolakton birgalikda kaliyning buyraklar orqali chiqarilishini to‘xtatib, qonda to‘planishiga sabab bo‘ladi.",
+        risk: "Yurak aritmiyasi, bradikardiya va qon bosimining keskin tushib ketishi.",
+        action: "Kaliy (K+) va kreatinin darajasini laboratoriyada nazorat qilish zarur."
+      },
+      {
+        pair: ["enalapril", "spironolactone"],
+        severity: "HIGH",
+        title: "Og‘ir giperkaliyemiya va buyrak zo‘riqishi",
+        mechanism: "APF ingibitori (Enalapril) va kaliy tejovchi diuretik birga kaliy ushlanishini haddan tashqari oshiradi.",
+        risk: "Kardiogen aritmiya va kutilmagan yurak to‘xtashi xavfi.",
+        action: "E-Retseptda dozani minimalga tushirish yoki diuretik turini almashtirish."
+      },
+      {
+        pair: ["kardiomagnil", "clopidogrel"],
+        severity: "HIGH",
+        title: "Oshqozon-ichakdan qon ketish xavfi oshishi",
+        mechanism: "Ikkita kuchli antiaregant birga trombotsitlar ivishini kuchli susaytiradi.",
+        risk: "Mikrogemorragiyalar, oshqozon yarasi ochilishi.",
+        action: "Faqat infarktdan keyingi birinchi oylarda shifokor qat’iy ko‘rsatmasi bilan qabul qilinishi va Omeprazol bilan himoyalanishi lozim."
+      },
+      {
+        pair: ["amlodipine", "atorvastatin"],
+        severity: "MODERATE",
+        title: "Atorvastatin konsentratsiyasi oshishi (Miopatiya xavfi)",
+        mechanism: "Amlodipin jigarda statinlarning parchalanishini sekinlashtiradi.",
+        risk: "Mushaklarda og‘riq (mialgiya) va jigar fermentlarining ko‘tarilishi.",
+        action: "Atorvastatinni 20 mg dan oshirmaslik va Amlodipinni ertalab, Atorvastatinni esa kechqurun qabul qilish."
+      },
+      {
+        pair: ["metformin", "bisoprolol"],
+        severity: "MODERATE",
+        title: "Gipoglikemiya alomatlarining yashirilishi",
+        mechanism: "Beta-blokatorlar gipoglikemiyadagi yurak urishi va titroqni sezdirmaydi.",
+        risk: "Bemor qand miqdori xavfli darajaga tushganini kech payqaydi.",
+        action: "Qand miqdorini glyukometrda doimiy o‘lchab borish."
+      },
+      {
+        pair: ["omeprazole", "clopidogrel"],
+        severity: "HIGH",
+        title: "Klopidogrel samaradorligining pasayishi",
+        mechanism: "Omeprazol Klopidogrelning jigar orqali faol holatga aylanishini bloklaydi.",
+        risk: "Tromb va takroriy infarkt xavfi oshadi.",
+        action: "Omeprazol o‘rniga Pantoprazol buyurish maqsadga muvofiq."
+      },
+      {
+        pair: ["losartan", "kardiomagnil"],
+        severity: "LOW",
+        title: "Gipotenziv ta’sirning biroz sustlashishi",
+        mechanism: "Aspirin buyrak prostaglandinlarini kamaytirishi mumkin.",
+        risk: "Bosimning to‘liq nazoratga olinmasligi.",
+        action: "Kardiomagnil dozasini 75 mg kardioprotektiv me’yorda ushlab turish."
+      }
+    ];
+
+    let selectedMedIds = new Set([1, 7, 3, 4, 6]); // Default loaded polypharmacy
+
+    function renderChecklist() {
+      const container = document.getElementById('medicinesChecklist');
+      container.innerHTML = medicinesCatalog.map(m => `
+        <label class="flex items-center justify-between p-2.5 rounded-xl border ${selectedMedIds.has(m.id) ? 'bg-emerald-950/30 border-emerald-500/40 text-white' : 'bg-slate-950 border-slate-800 text-slate-300'} cursor-pointer hover:border-slate-700 transition">
+          <div class="flex items-center space-x-2.5">
+            <input type="checkbox" onchange="toggleMed(${m.id})" ${selectedMedIds.has(m.id) ? 'checked' : ''} class="rounded accent-emerald-500 w-4 h-4">
+            <div>
+              <span class="font-bold block">${m.name}</span>
+              <span class="text-[10px] text-slate-500">${m.cat} • ${m.timing}</span>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-400">
+            ID #${m.id}
+          </span>
+        </label>
+      `).join('');
+
+      document.getElementById('selectedCountBadge').innerText = `${selectedMedIds.size} ta tanlandi`;
+    }
+
+    function toggleMed(id) {
+      if (selectedMedIds.has(id)) {
+        selectedMedIds.delete(id);
+      } else {
+        selectedMedIds.add(id);
+      }
+      renderChecklist();
+      analyzeSafety();
+    }
+
+    function applyPreset(key) {
+      selectedMedIds.clear();
+      if (key === 'cardio') {
+        selectedMedIds.add(1); // Losartan
+        selectedMedIds.add(3); // Kardiomagnil
+        selectedMedIds.add(4); // Atorvastatin
+        selectedMedIds.add(5); // Bisoprolol
+      } else if (key === 'diabetes') {
+        selectedMedIds.add(2); // Metformin
+        selectedMedIds.add(5); // Bisoprolol
+        selectedMedIds.add(1); // Losartan
+        selectedMedIds.add(4); // Atorvastatin
+      } else if (key === 'polypharmacy') {
+        selectedMedIds.add(1); // Losartan
+        selectedMedIds.add(7); // Spironolakton
+        selectedMedIds.add(3); // Kardiomagnil
+        selectedMedIds.add(4); // Atorvastatin
+        selectedMedIds.add(6); // Amlodipin
+      }
+      renderChecklist();
+      analyzeSafety();
+    }
+
+    function clearAllMeds() {
+      selectedMedIds.clear();
+      renderChecklist();
+      analyzeSafety();
+    }
+
+    function analyzeSafety() {
+      const selectedMeds = medicinesCatalog.filter(m => selectedMedIds.has(m.id));
+      document.getElementById('statMedsCount').innerText = `${selectedMeds.length} ta`;
+
+      if (selectedMeds.length < 2) {
+        document.getElementById('safetyStatusText').innerText = selectedMeds.length === 1 ? 'Yagona dori (O‘zaro ta’sir yo‘q)' : 'Dorilar tanlanmagan';
+        document.getElementById('scoreNumber').innerText = selectedMeds.length === 1 ? '100' : '--';
+        document.getElementById('scoreProgressBar').style.width = selectedMeds.length === 1 ? '100%' : '0%';
+        document.getElementById('scoreProgressBar').className = 'h-3 rounded-full bg-emerald-500';
+        document.getElementById('statHighCount').innerText = '0 ta';
+        document.getElementById('statModCount').innerText = '0 ta';
+        document.getElementById('interactionsContainer').innerHTML = `
+          <div class="text-center py-6 text-slate-500 text-xs">
+            O‘zaro ta’sirni aniqlash uchun kamida 2 ta dori tanlang.
+          </div>
+        `;
+        updateSchedule(selectedMeds);
+        return;
+      }
+
+      // Check pairs
+      const found = [];
+      for (let i = 0; i < selectedMeds.length; i++) {
+        for (let j = i + 1; j < selectedMeds.length; j++) {
+          const m1 = selectedMeds[i];
+          const m2 = selectedMeds[j];
+
+          for (const rule of ddiRules) {
+            if (rule.pair.includes(m1.key) && rule.pair.includes(m2.key)) {
+              found.push({
+                med1: m1.name,
+                med2: m2.name,
+                ...rule
+              });
+              break;
+            }
+          }
+        }
+      }
+
+      const highCount = found.filter(f => f.severity === 'HIGH').length;
+      const modCount = found.filter(f => f.severity === 'MODERATE').length;
+      const lowCount = found.filter(f => f.severity === 'LOW').length;
+
+      document.getElementById('statHighCount').innerText = `${highCount} ta`;
+      document.getElementById('statModCount').innerText = `${modCount} ta`;
+
+      let score = 100 - (highCount * 30 + modCount * 15 + lowCount * 5);
+      score = Math.max(10, Math.min(100, score));
+
+      document.getElementById('scoreNumber').innerText = score;
+      document.getElementById('scoreProgressBar').style.width = score + '%';
+
+      if (highCount > 0) {
+        document.getElementById('safetyStatusText').innerText = 'Yuqori Xavfli Kombinatsiya!';
+        document.getElementById('safetyStatusText').className = 'text-2xl font-black text-rose-400';
+        document.getElementById('scoreProgressBar').className = 'h-3 rounded-full bg-rose-500';
+        document.getElementById('scoreBadge').className = 'w-16 h-16 rounded-2xl bg-rose-950/40 border border-rose-500/50 flex flex-col items-center justify-center';
+      } else if (modCount > 0) {
+        document.getElementById('safetyStatusText').innerText = 'Ehtiyotkorlik Talab Etiladi';
+        document.getElementById('safetyStatusText').className = 'text-2xl font-black text-amber-400';
+        document.getElementById('scoreProgressBar').className = 'h-3 rounded-full bg-amber-500';
+        document.getElementById('scoreBadge').className = 'w-16 h-16 rounded-2xl bg-amber-950/40 border border-amber-500/50 flex flex-col items-center justify-center';
+      } else {
+        document.getElementById('safetyStatusText').innerText = 'Xavfsiz Kombinatsiya';
+        document.getElementById('safetyStatusText').className = 'text-2xl font-black text-emerald-400';
+        document.getElementById('scoreProgressBar').className = 'h-3 rounded-full bg-emerald-500';
+        document.getElementById('scoreBadge').className = 'w-16 h-16 rounded-2xl bg-emerald-950/40 border border-emerald-500/50 flex flex-col items-center justify-center';
+      }
+
+      // Render Interactions List
+      const container = document.getElementById('interactionsContainer');
+      if (found.length === 0) {
+        container.innerHTML = `
+          <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-3">
+            <span class="text-2xl">✅</span>
+            <div>
+              <strong class="block font-bold">Hech qanday xavfli o‘zaro ta’sir aniqlanmadi</strong>
+              <span>Tanlangan dorilar birgalikda qabul qilish uchun farmakologik jihatdan mos keladi.</span>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = found.map(item => `
+          <div class="p-4 rounded-2xl ${item.severity === 'HIGH' ? 'bg-rose-950/30 border-rose-500/40' : item.severity === 'MODERATE' ? 'bg-amber-950/30 border-amber-500/40' : 'bg-blue-950/30 border-blue-500/40'} border text-xs space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-white text-xs">
+                ${item.med1} + ${item.med2}
+              </span>
+              <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded ${item.severity === 'HIGH' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
+                ${item.severity === 'HIGH' ? '🔴 Xavfli' : '🟡 O‘rtacha'}
+              </span>
+            </div>
+
+            <div class="font-semibold text-slate-200">${item.title}</div>
+            <p class="text-slate-400 text-[11px] leading-relaxed">${item.mechanism}</p>
+
+            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-300">
+              <strong class="text-emerald-400">Klinik Tavsiya:</strong> ${item.action}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      updateSchedule(selectedMeds);
+    }
+
+    function updateSchedule(selectedMeds) {
+      const morning = selectedMeds.filter(m => m.timing.includes('Ertalab'));
+      const lunch = selectedMeds.filter(m => m.timing.includes('Tushlik'));
+      const evening = selectedMeds.filter(m => m.timing.includes('Kech'));
+
+      document.getElementById('morningSlot').innerHTML = morning.length ? morning.map(m => `• ${m.name}`).join('<br>') : '<span class="text-slate-600">Dori yo‘q</span>';
+      document.getElementById('lunchSlot').innerHTML = lunch.length ? lunch.map(m => `• ${m.name}`).join('<br>') : '<span class="text-slate-600">Dori yo‘q</span>';
+      document.getElementById('eveningSlot').innerHTML = evening.length ? evening.map(m => `• ${m.name}`).join('<br>') : '<span class="text-slate-600">Dori yo‘q</span>';
+    }
+
+    // Init
+    renderChecklist();
+    analyzeSafety();
+  </script>
+</body>
+</html>

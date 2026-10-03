@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health — 3 Yillik Moliyaviy Model va Cap Table Simulyatori</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .card-shadow { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.3), 0 8px 10px -6px rgba(0,0,0,0.2); }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased min-h-screen flex flex-col p-4 md:p-8">
+
+  <!-- TOP BAR -->
+  <header class="max-w-7xl mx-auto w-full border-b border-slate-800 pb-4 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-blue-600 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-emerald-500/20">
+        📊
+      </div>
+      <div>
+        <h1 class="text-lg font-black text-white">Unicorn Health • Institutsional Moliyaviy Model</h1>
+        <p class="text-[10px] text-slate-400 uppercase tracking-widest font-extrabold">3-Year Pro-Forma P&L & Cap Table Waterfall</p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-3 text-xs font-bold">
+      <a href="PITCH_DECK.html" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 px-3 py-1.5 rounded-xl border border-slate-700 transition">
+        🎯 Pitch Deck
+      </a>
+      <a href="INVESTOR_ONE_PAGER.md" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl border border-slate-700 transition">
+        📄 One-Pager
+      </a>
+      <a href="../index.html" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3.5 py-1.5 rounded-xl transition">
+        Portalga Qaytish
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto w-full py-8 flex-1 space-y-10">
+
+    <!-- HERO ASSUMPTION SUMMARY -->
+    <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-800 border border-slate-800 p-6 md:p-8 rounded-3xl card-shadow flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div class="space-y-2 max-w-2xl">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 inline-block">
+          Pre-Seed Bosqichi: $250,000 / $2.5M Post-Money Cap
+        </span>
+        <h2 class="text-2xl md:text-3xl font-black text-white">
+          3 yilda $24M+ GMV va $60M Baholanishga Chiqish Modeli
+        </h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          O‘zbekistonda 60%+ o‘lim surunkali kasalliklar sababli. DoriQuti (PillPack obunasi) va ArzonLab (GoodRx MRT komissiyasi) orqali Markaziy Osiyodagi birinchi sog‘liqni saqlash unicornini qurish traektoriyasi.
+        </p>
+      </div>
+
+      <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 text-right min-w-[240px] space-y-1">
+        <span class="text-[11px] text-slate-500 font-bold block uppercase">Pre-Seed Investor ROI:</span>
+        <div class="text-3xl font-black text-emerald-400" id="exitMultiple">
+          400x Qaytim
+        </div>
+        <p class="text-[10px] text-slate-400">$250k sarmoya -> $100M ulush ($1B baholanishda)</p>
+      </div>
+    </div>
+
+    <!-- DYNAMIC CONTROLS (SLIDERS) -->
+    <div class="grid md:grid-cols-3 gap-6 bg-slate-900/70 border border-slate-800 p-6 rounded-3xl">
+      
+      <!-- SLIDER 1 -->
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between font-bold">
+          <span class="text-slate-300">1-Yil DoriQuti Obunachilari:</span>
+          <span class="text-emerald-400 font-black text-sm" id="subscribersDisplay">2,500 oila</span>
+        </div>
+        <input type="range" id="subscribersSlider" min="500" max="10000" step="500" value="2500" oninput="recalcModel()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
+        <p class="text-[10px] text-slate-500">Samarqand va Toshkentdagi surunkali bemor oilalari</p>
+      </div>
+
+      <!-- SLIDER 2 -->
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between font-bold">
+          <span class="text-slate-300">Oylik O‘rtacha Dori Cheki (AOV):</span>
+          <span class="text-blue-400 font-black text-sm" id="aovDisplay">185,000 so‘m</span>
+        </div>
+        <input type="range" id="aovSlider" min="120000" max="350000" step="10000" value="185000" oninput="recalcModel()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500">
+        <p class="text-[10px] text-slate-500">30 kunlik saralangan paket chakana oylik to‘lovi</p>
+      </div>
+
+      <!-- SLIDER 3 -->
+      <div class="space-y-2 text-xs">
+        <div class="flex justify-between font-bold">
+          <span class="text-slate-300">ArzonLab Oylik MRT/Tahlillar:</span>
+          <span class="text-amber-400 font-black text-sm" id="labTestsDisplay">1,800 ta/oy</span>
+        </div>
+        <input type="range" id="labTestsSlider" min="300" max="6000" step="300" value="1800" oninput="recalcModel()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500">
+        <p class="text-[10px] text-slate-500">O‘rtacha komissiya: 45,000 so‘m / tahlil</p>
+      </div>
+
+    </div>
+
+    <!-- 3-YEAR P&L FINANCIAL TABLE -->
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 card-shadow space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+        <div>
+          <h3 class="text-lg font-black text-white">3 Yillik Pro-Forma Daromadlar va Xarajatlar Rejasi (P&L)</h3>
+          <p class="text-xs text-slate-400">Valyuta: AQSh Dollari ($) va O‘zbekiston So‘mi (UZS)</p>
+        </div>
+        <span class="text-xs bg-slate-800 px-3 py-1 rounded-xl text-slate-300 font-bold border border-slate-700">
+          Kurs: 1 USD = 12,500 UZS
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-slate-950/80 text-slate-400 uppercase font-extrabold tracking-wider border-b border-slate-800">
+            <tr>
+              <th class="py-3.5 px-4">Moliyaviy Ko‘rsatkich (Metrika)</th>
+              <th class="py-3.5 px-4 text-right">1-Yil (Samarqand + Toshkent)</th>
+              <th class="py-3.5 px-4 text-right">2-Yil (O‘zbekiston 5 Viloyat)</th>
+              <th class="py-3.5 px-4 text-right">3-Yil (Markaziy Osiyo)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 font-medium">
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">DoriQuti Faol Obunachilari</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableSubsY1">2,500 ta</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableSubsY2">12,000 ta</td>
+              <td class="py-3 px-4 text-right text-emerald-400 font-bold" id="tableSubsY3">45,000 ta</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-white">ArzonLab Yillik Tahlillari</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableLabsY1">21,600 ta</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableLabsY2">85,000 ta</td>
+              <td class="py-3 px-4 text-right text-blue-400 font-bold" id="tableLabsY3">280,000 ta</td>
+            </tr>
+            <tr class="bg-slate-950/40">
+              <td class="py-3.5 px-4 font-black text-white">Jami Platforma GMV (Umumiy aylanma)</td>
+              <td class="py-3.5 px-4 text-right font-black text-slate-200" id="tableGmvY1">$1,150,000</td>
+              <td class="py-3.5 px-4 text-right font-black text-slate-200" id="tableGmvY2">$5,400,000</td>
+              <td class="py-3.5 px-4 text-right font-black text-emerald-400 text-sm" id="tableGmvY3">$24,200,000</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-slate-400 pl-8">DoriQuti Sof Daromadi (15% ulgurji spred)</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableRevDoriY1">$66,600</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableRevDoriY2">$320,000</td>
+              <td class="py-3 px-4 text-right text-slate-200" id="tableRevDoriY3">$1,200,000</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-slate-400 pl-8">ArzonLab Sof Komissiyasi (18% avg)</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableRevLabY1">$77,700</td>
+              <td class="py-3 px-4 text-right text-slate-300" id="tableRevLabY2">$306,000</td>
+              <td class="py-3 px-4 text-right text-slate-200" id="tableRevLabY3">$1,008,000</td>
+            </tr>
+            <tr class="bg-emerald-500/10 border-t border-emerald-500/20">
+              <td class="py-3.5 px-4 font-black text-emerald-400">Jami Sof Tushum (Net Revenue / ARR)</td>
+              <td class="py-3.5 px-4 text-right font-black text-emerald-400" id="tableNetRevY1">$144,300</td>
+              <td class="py-3.5 px-4 text-right font-black text-emerald-400" id="tableNetRevY2">$626,000</td>
+              <td class="py-3.5 px-4 text-right font-black text-emerald-300 text-sm" id="tableNetRevY3">$2,208,000</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 text-slate-400">Operatsion Xarajatlar (OPEX: Jamoa, Logistika, IT)</td>
+              <td class="py-3 px-4 text-right text-slate-400" id="tableOpexY1">($92,000)</td>
+              <td class="py-3 px-4 text-right text-slate-400" id="tableOpexY2">($310,000)</td>
+              <td class="py-3 px-4 text-right text-slate-400" id="tableOpexY3">($840,000)</td>
+            </tr>
+            <tr class="bg-slate-950 font-bold border-t border-slate-700">
+              <td class="py-3.5 px-4 text-white">EBITDA (Operatsion Sof Foyda)</td>
+              <td class="py-3.5 px-4 text-right text-emerald-400" id="tableEbitdaY1">+$52,300 (36%)</td>
+              <td class="py-3.5 px-4 text-right text-emerald-400" id="tableEbitdaY2">+$316,000 (50%)</td>
+              <td class="py-3.5 px-4 text-right text-emerald-400 text-sm font-black" id="tableEbitdaY3">+$1,368,000 (62%)</td>
+            </tr>
+            <tr class="bg-gradient-to-r from-blue-950/40 to-slate-900 border-t-2 border-blue-500/40">
+              <td class="py-3.5 px-4 font-black text-blue-300">Kompaniya Baholanishi (15x-25x ARR Multiple)</td>
+              <td class="py-3.5 px-4 text-right font-black text-blue-300" id="tableValY1">$2,500,000</td>
+              <td class="py-3.5 px-4 text-right font-black text-blue-300" id="tableValY2">$12,000,000</td>
+              <td class="py-3.5 px-4 text-right font-black text-blue-400 text-sm" id="tableValY3">$55,000,000+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CAP TABLE WATERFALL -->
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 card-shadow space-y-6">
+      <div class="border-b border-slate-800 pb-4">
+        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block mb-1">Ulushlar Taqsimoti (Cap Table Waterfall)</span>
+        <h3 class="text-lg font-black text-white">Investitsiya Bosqichlari va Asoschi Ulushini Saqlash</h3>
+        <p class="text-xs text-slate-400 mt-0.5">Pre-Seed dan $1B Unicorn bosqichigacha bo‘lgan kapital taqsimoti.</p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 text-xs font-semibold">
+        <!-- ROUND 1 -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="text-[10px] text-emerald-400 uppercase font-black block">Hozirgi Bosqich (Pre-Seed)</span>
+          <h4 class="text-sm font-black text-white">$250,000 jalb qilinmoqda</h4>
+          <p class="text-slate-400 text-[11px]">Baholanish: $2.5M Post-Money</p>
+          <div class="pt-2 border-t border-slate-800 space-y-1 text-[11px]">
+            <div class="flex justify-between"><span>Asoschi & Jamoa:</span><strong class="text-white">80%</strong></div>
+            <div class="flex justify-between"><span>ESOP (Xodimlar):</span><strong class="text-slate-300">10%</strong></div>
+            <div class="flex justify-between"><span>Pre-Seed Investor:</span><strong class="text-emerald-400 font-bold">10%</strong></div>
+          </div>
+        </div>
+
+        <!-- ROUND 2 -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="text-[10px] text-blue-400 uppercase font-black block">18-Oydan So‘ng (Seed)</span>
+          <h4 class="text-sm font-black text-white">$1,500,000 kutilmoqda</h4>
+          <p class="text-slate-400 text-[11px]">Baholanish: $12.0M Post-Money</p>
+          <div class="pt-2 border-t border-slate-800 space-y-1 text-[11px]">
+            <div class="flex justify-between"><span>Asoschi & Jamoa:</span><strong class="text-white">70%</strong></div>
+            <div class="flex justify-between"><span>ESOP Pool:</span><strong class="text-slate-300">10%</strong></div>
+            <div class="flex justify-between"><span>Barcha Investorlar:</span><strong class="text-blue-400 font-bold">20%</strong></div>
+          </div>
+        </div>
+
+        <!-- ROUND 3 -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+          <span class="text-[10px] text-purple-400 uppercase font-black block">3-Yil (Series A)</span>
+          <h4 class="text-sm font-black text-white">$8,000,000 kengayish</h4>
+          <p class="text-slate-400 text-[11px]">Baholanish: $60.0M Post-Money</p>
+          <div class="pt-2 border-t border-slate-800 space-y-1 text-[11px]">
+            <div class="flex justify-between"><span>Asoschi & Jamoa:</span><strong class="text-white">58%</strong></div>
+            <div class="flex justify-between"><span>ESOP Pool:</span><strong class="text-slate-300">12%</strong></div>
+            <div class="flex justify-between"><span>VC Fondlar:</span><strong class="text-purple-400 font-bold">30%</strong></div>
+          </div>
+        </div>
+
+        <!-- UNICORN EXIT -->
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-950/40 to-slate-950 border border-amber-500/40 space-y-2">
+          <span class="text-[10px] text-amber-400 uppercase font-black block">Unicorn Exit ($1.0B)</span>
+          <h4 class="text-sm font-black text-amber-300">IPO / Strategik Sotuv</h4>
+          <p class="text-slate-400 text-[11px]">Baholanish: $1,000,000,000</p>
+          <div class="pt-2 border-t border-slate-800 space-y-1 text-[11px]">
+            <div class="flex justify-between"><span>Jasur Shukurov ulushi:</span><strong class="text-emerald-400 font-bold">~$450,000,000</strong></div>
+            <div class="flex justify-between"><span>Pre-Seed Investor ulushi:</span><strong class="text-amber-400 font-bold">~$70,000,000</strong></div>
+            <div class="flex justify-between"><span>Kesh Qaytimi:</span><strong class="text-white">280x - 400x ROI</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-7xl mx-auto w-full border-t border-slate-800 pt-6 text-center text-xs text-slate-500">
+    © 2026 Unicorn Health (DoriQuti + ArzonLab). Maxfiy Investor Hujjati. Samarqand, O‘zbekiston.
+  </footer>
+
+  <script>
+    function recalcModel() {
+      const subsY1 = parseInt(document.getElementById('subscribersSlider').value);
+      const aov = parseInt(document.getElementById('aovSlider').value);
+      const labsMonth = parseInt(document.getElementById('labTestsSlider').value);
+
+      document.getElementById('subscribersDisplay').innerText = `${subsY1.toLocaleString()} oila`;
+      document.getElementById('aovDisplay').innerText = `${aov.toLocaleString()} so‘m`;
+      document.getElementById('labTestsDisplay').innerText = `${labsMonth.toLocaleString()} ta/oy`;
+
+      // Year 1 calculations
+      const doriGmvY1 = Math.round((subsY1 * aov * 12) / 12500); // in USD
+      const labGmvY1 = Math.round((labsMonth * 350000 * 12) / 12500);
+      const totalGmvY1 = doriGmvY1 + labGmvY1;
+
+      const doriNetRevY1 = Math.round(doriGmvY1 * 0.15);
+      const labNetRevY1 = Math.round(labGmvY1 * 0.18);
+      const totalNetRevY1 = doriNetRevY1 + labNetRevY1;
+
+      // Update Table Y1
+      document.getElementById('tableSubsY1').innerText = `${subsY1.toLocaleString()} ta`;
+      document.getElementById('tableLabsY1').innerText = `${(labsMonth * 12).toLocaleString()} ta`;
+      document.getElementById('tableGmvY1').innerText = `$${totalGmvY1.toLocaleString()}`;
+      document.getElementById('tableRevDoriY1').innerText = `$${doriNetRevY1.toLocaleString()}`;
+      document.getElementById('tableRevLabY1').innerText = `$${labNetRevY1.toLocaleString()}`;
+      document.getElementById('tableNetRevY1').innerText = `$${totalNetRevY1.toLocaleString()}`;
+
+      // EBITDA
+      const opexY1 = Math.round(totalNetRevY1 * 0.65);
+      const ebitdaY1 = totalNetRevY1 - opexY1;
+      document.getElementById('tableOpexY1').innerText = `($${opexY1.toLocaleString()})`;
+      document.getElementById('tableEbitdaY1').innerText = `+$${ebitdaY1.toLocaleString()} (${Math.round(ebitdaY1/totalNetRevY1*100)}%)`;
+    }
+  </script>
+</body>
+</html>

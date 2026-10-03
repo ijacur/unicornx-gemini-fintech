@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArzonLab.uz — Tibbiy Tahlillar va MRT/KT ni 25-35% Arzonroq Bron Qiling</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .hero-glow { background: radial-gradient(100% 100% at 50% 0%, #e0f2fe 0%, #f8fafc 100%); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="border-b border-slate-200 bg-white sticky top-0 z-50 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-extrabold text-xl shadow-md shadow-blue-200">
+          🔬
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-slate-900">Arzon<span class="text-blue-600">Lab</span>.uz</span>
+          <span class="text-[10px] block font-semibold text-slate-400 uppercase tracking-widest -mt-1">The GoodRx of Uzbekistan</span>
+        </div>
+      </div>
+
+      <!-- CITY SWITCHER -->
+      <div class="flex items-center space-x-1.5 bg-slate-100 p-1 rounded-xl text-xs font-bold text-slate-700" id="citySwitcher">
+        <button onclick="setCity('Samarqand')" id="btnSam" class="bg-white px-3 py-1.5 rounded-lg shadow-sm text-blue-700">📍 Samarqand</button>
+        <button onclick="setCity('Toshkent')" id="btnTosh" class="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900">📍 Toshkent</button>
+      </div>
+
+      <div class="flex items-center space-x-3">
+        <button onclick="document.getElementById('decoderModal').classList.remove('hidden')" class="bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+          <span>🧠</span>
+          <span>Tahlil Dekoderi (AI)</span>
+        </button>
+        <a href="clinic_onboarding.html" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1">
+          <span>🏢</span>
+          <span>Klinikalar uchun</span>
+        </a>
+        <a href="lab_portal.html" class="hidden md:inline bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl text-xs font-bold transition">
+          Registrator
+        </a>
+        <a href="../doriquti/index.html" class="hidden sm:inline text-xs font-bold text-emerald-600 hover:underline">💊 DoriQuti.uz</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO & SEARCH SECTION -->
+  <section class="hero-glow pt-12 pb-16 px-4 border-b border-slate-200">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 text-blue-800 text-xs px-3.5 py-1.5 rounded-full font-bold mb-6">
+        <span>⚡️ 40+ hamkor laboratoriyalar va diagnostika markazlari</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">
+        Tahlillar va MRT tekshiruvini <br>
+        <span class="text-blue-600">25% dan 35% gacha arzonroq</span> o‘ting
+      </h1>
+      <p class="text-slate-600 text-base md:text-lg max-w-2xl mx-auto mb-8">
+        Laboratoriyalar va MRT apparatlarining bo‘sh turgan soatlarini bron qiling. Xuddi o‘sha sifatli natija, faqat ancha hamyonbop narxda!
+      </p>
+
+      <!-- SEARCH INPUT -->
+      <div class="bg-white p-3 rounded-2xl shadow-xl border border-slate-200 flex flex-col md:flex-row items-center gap-3 max-w-2xl mx-auto" id="search">
+        <div class="flex items-center space-x-3 w-full px-3">
+          <span class="text-xl">🔍</span>
+          <input type="text" id="searchInput" oninput="filterTests()" placeholder="Tahlil yoki MRT nomini kiriting (masalan: MRT Bosh miya, Gormonlar, Qon tahlili)..." class="w-full text-sm font-semibold outline-none py-2 text-slate-800">
+        </div>
+        <button onclick="filterTests()" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-xl font-bold text-sm whitespace-nowrap shadow-md shadow-blue-500/20 transition">
+          Qidirish
+        </button>
+      </div>
+
+      <!-- POPULAR TAGS -->
+      <div class="flex flex-wrap items-center justify-center gap-2 mt-4 text-xs font-semibold text-slate-500">
+        <span>Kategoriyalar:</span>
+        <button onclick="setCategory('Barchasi')" class="cat-pill bg-blue-600 text-white px-2.5 py-1 rounded-lg">Barchasi</button>
+        <button onclick="setCategory('MRT')" class="cat-pill bg-white px-2.5 py-1 rounded-lg border border-slate-200 hover:border-blue-500 text-slate-700 transition">🧠 MRT</button>
+        <button onclick="setCategory('Qon')" class="cat-pill bg-white px-2.5 py-1 rounded-lg border border-slate-200 hover:border-blue-500 text-slate-700 transition">🩸 Qon tahlili</button>
+        <button onclick="setCategory('Gormon')" class="cat-pill bg-white px-2.5 py-1 rounded-lg border border-slate-200 hover:border-blue-500 text-slate-700 transition">🦋 Gormonlar</button>
+        <button onclick="setCategory('Biokimyo')" class="cat-pill bg-white px-2.5 py-1 rounded-lg border border-slate-200 hover:border-blue-500 text-slate-700 transition">🧪 Biokimyo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEST LISTING SECTION -->
+  <section class="py-12 px-4 max-w-6xl mx-auto flex-1 w-full">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-black text-slate-900" id="sectionCityTitle">Mavjud Tahlillar — Samarqand</h2>
+        <p class="text-xs text-slate-500 mt-1">Belgilangan chegirmali soatlar va amaldagi narxlar</p>
+      </div>
+      <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100" id="resultsCount">Yuklanmoqda...</span>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div class="grid md:grid-cols-2 gap-6" id="testsGrid">
+      <!-- rendered dynamically -->
+    </div>
+  </section>
+
+  <!-- VOUCHER MODAL -->
+  <div id="voucherModal" class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 relative text-center">
+      <button onclick="document.getElementById('voucherModal').classList.add('hidden')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      
+      <div class="w-16 h-16 rounded-full bg-blue-50 text-blue-600 mx-auto flex items-center justify-center text-3xl mb-3 border border-blue-100">
+        🎟
+      </div>
+
+      <span class="text-xs uppercase font-extrabold tracking-widest text-blue-600 block mb-1">Chegirma Vaucheri</span>
+      <h3 class="text-lg font-black text-slate-900 mb-1" id="modalTestName">MRT Bosh miya</h3>
+      <p class="text-xs text-slate-500 mb-4" id="modalLabName">Samarqand Diagnostika Markazi</p>
+
+      <div class="bg-slate-50 rounded-2xl p-4 border border-dashed border-slate-300 mb-6 text-left space-y-2 text-xs">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Klinika kassa narxi:</span>
+          <span class="line-through font-bold text-slate-600" id="modalOriginalPrice">450 000 so‘m</span>
+        </div>
+        <div class="flex justify-between text-blue-600 font-extrabold text-sm">
+          <span>ArzonLab narxi:</span>
+          <span id="modalDiscountPrice">320 000 so‘m</span>
+        </div>
+        <div class="flex justify-between text-emerald-600 font-bold">
+          <span>Siz tejaysiz:</span>
+          <span id="modalSavedPrice">130 000 so‘m (29%)</span>
+        </div>
+      </div>
+
+      <form onsubmit="getVoucher(event)" class="space-y-3 text-left">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Ism va Familiyangiz:</label>
+          <input required id="userName" type="text" placeholder="Jasur Shukurov" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Telefon raqamingiz (SMS-kod uchun):</label>
+          <input required id="userPhone" type="tel" placeholder="+998 90 000 00 00" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Qulay vaqt darchasini tanlang (Chegirmali soatlar):</label>
+          <select id="userSlot" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 text-xs outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+            <option value="Bugun 20:00 — 21:00 (Kechki -35%)">Bugun 20:00 — 21:00 (Kechki -35%)</option>
+            <option value="Bugun 21:30 — 22:30 (Kechki -35%)">Bugun 21:30 — 22:30 (Kechki -35%)</option>
+            <option value="Ertaga 07:30 — 08:30 (Tonggi -30%)">Ertaga 07:30 — 08:30 (Tonggi -30%)</option>
+            <option value="Ertaga 13:30 — 14:30 (Tushlik -25%)">Ertaga 13:30 — 14:30 (Tushlik -25%)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-bold text-sm shadow-lg shadow-blue-600/30 transition mt-2">
+          Vaucherni bepul olish (SMS)
+        </button>
+        <p class="text-[10px] text-center text-slate-400">Hech qanday oldindan to‘lov talab qilinmaydi. To‘lovni tahlildan so‘ng klinika kassasiga chegirmali qilasiz.</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- DIGITAL VOUCHER PASS MODAL (QR PASS) -->
+  <div id="digitalVoucherModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 card-shadow border border-blue-200 relative overflow-hidden">
+      <!-- TOP DECORATION -->
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white -m-6 mb-5 p-5 text-center relative">
+        <button onclick="document.getElementById('digitalVoucherModal').classList.add('hidden')" class="absolute top-4 right-4 text-white/80 hover:text-white font-black text-xl">&times;</button>
+        <span class="text-[10px] uppercase font-extrabold tracking-widest text-blue-200 block mb-0.5">ArzonLab • Rasmiy Chegirma Yo‘llanmasi</span>
+        <h3 class="text-xl font-black text-white" id="passVoucherCode">#ARZON-7842</h3>
+        <p class="text-[11px] text-blue-100">Klinika registratoriga ushbu kodni ko‘rsating</p>
+      </div>
+
+      <!-- VOUCHER PASS DETAILS -->
+      <div class="space-y-3 text-xs mb-5">
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+          <div class="flex justify-between">
+            <span class="text-slate-500">Bemor:</span>
+            <strong class="text-slate-900" id="passPatientName">Jasur Shukurov</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Telefon:</span>
+            <strong class="text-slate-900" id="passPatientPhone">+998 90 000 00 00</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Tahlil / Diagnostika:</span>
+            <strong class="text-blue-700 text-right" id="passTestName">MRT Bosh miya</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Markaz:</span>
+            <strong class="text-slate-900 text-right" id="passLabName">Jack MRT Samarqand</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Bron qilingan vaqt:</span>
+            <strong class="text-indigo-700" id="passSlot">Bugun 20:00 — 21:00</strong>
+          </div>
+        </div>
+
+        <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between font-bold">
+          <div>
+            <span class="text-slate-500 text-[11px] line-through block" id="passOriginalPrice">450,000 so‘m</span>
+            <span class="text-emerald-700 text-base font-black" id="passDiscountPrice">320,000 so‘m</span>
+          </div>
+          <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-lg">Tejovingiz: 130,000 so‘m</span>
+        </div>
+
+        <!-- SIMULATED QR & BARCODE -->
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-2xl text-center space-y-1">
+          <div class="font-mono text-2xl tracking-widest text-slate-800 font-black">|||| | | ||| || ||||| |||</div>
+          <p class="text-[10px] text-slate-400">Tekshirish: arzonlab.uz/lab_portal.html</p>
+        </div>
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="space-y-2">
+        <button onclick="window.print()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl text-xs transition flex items-center justify-center gap-2">
+          <span>🖨</span>
+          <span>Yo‘llanmani chop etish / PDF saqlash</span>
+        </button>
+        <button onclick="document.getElementById('digitalVoucherModal').classList.add('hidden')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-xs transition">
+          Yopish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAB RESULTS DECODER MODAL (AI) -->
+  <div id="decoderModal" class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 md:p-8 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="document.getElementById('decoderModal').classList.add('hidden')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      
+      <div class="flex items-center space-x-3 mb-3">
+        <span class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl">🧠</span>
+        <div>
+          <h3 class="text-xl font-black text-slate-900">AI Tahlil Natijalari Dekoderi</h3>
+          <p class="text-xs text-slate-500">Tahlil natijalaringizni me’yor bilan solishtirib, oddiy tilda tushuntirib beradi.</p>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 mb-6 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-700">Asosiy ko‘rsatkichlar:</span>
+          <button onclick="fillSampleLabData()" type="button" class="text-xs font-bold text-blue-600 hover:underline">
+            ✨ Namunaviy tahlilni to‘ldirish (Demo)
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-xs">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Glyukoza (qand):</label>
+            <input id="inputGlyuk" type="number" step="0.1" placeholder="Masalan: 5.2" class="w-full border border-slate-300 rounded-xl px-3 py-1.5 outline-none text-xs">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Gemoglobin (Hb):</label>
+            <input id="inputGemog" type="number" placeholder="Masalan: 135" class="w-full border border-slate-300 rounded-xl px-3 py-1.5 outline-none text-xs">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Xolesterin:</label>
+            <input id="inputXolest" type="number" step="0.1" placeholder="Masalan: 5.0" class="w-full border border-slate-300 rounded-xl px-3 py-1.5 outline-none text-xs">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Leykotsitlar:</label>
+            <input id="inputLeyko" type="number" step="0.1" placeholder="Masalan: 6.5" class="w-full border border-slate-300 rounded-xl px-3 py-1.5 outline-none text-xs">
+          </div>
+        </div>
+
+        <button onclick="runLabDecoder()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-bold text-xs shadow-md transition">
+          Natijalarni Tushuntirib Berish →
+        </button>
+      </div>
+
+      <!-- RESULTS CONTAINER -->
+      <div id="decoderResults" class="hidden space-y-3">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNER MODAL -->
+  <div id="partnerModal" class="hidden fixed inset-0 z-50 bg-black/65 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 relative">
+      <button onclick="document.getElementById('partnerModal').classList.add('hidden')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      <h3 class="text-xl font-black text-slate-900 mb-2">Laboratoriya va Klinikalarga</h3>
+      <p class="text-xs text-slate-600 mb-6">MRT, KT apparatlaringiz yoki laboratoriyangiz bo‘sh turgan soatlariga yangi mijozlar oqimini yo‘naltiramiz. Faqat kelgan real mijoz uchun komissiya to‘laysiz.</p>
+      
+      <form onsubmit="alert('Rahmat! Tez orada siz bilan hamkorlik shartnomasi tuzish uchun bog‘lanamiz.'); document.getElementById('partnerModal').classList.add('hidden'); return false;" class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Klinika / Laboratoriya nomi:</label>
+          <input required type="text" placeholder="Masalan: Samarqand Med Diagnostika" class="w-full border border-slate-300 rounded-xl px-4 py-2 text-xs outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Direktor yoki mas’ul telefon raqami:</label>
+          <input required type="tel" placeholder="+998 90 123 45 67" class="w-full border border-slate-300 rounded-xl px-4 py-2 text-xs outline-none">
+        </div>
+        <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-xl font-bold text-xs transition">
+          Hamkor bo‘lish arizasini qoldirish
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-200 bg-white py-8 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        © 2026 ArzonLab.uz. Barcha tibbiy xizmatlar litsenziyalangan hamkor klinikalar tomonidan ko‘rsatiladi.
+      </div>
+      <div class="flex items-center space-x-6 font-semibold">
+        <a href="../index.html" class="text-blue-600 hover:underline">Ekotizim Portali</a>
+        <a href="../doriquti/index.html" class="hover:underline">DoriQuti.uz</a>
+        <span>Aloqa: +998 (90) 000-00-00</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let allDiagnostics = [];
+    let activeCity = "Samarqand";
+    let activeCategory = "Barchasi";
+
+    async function loadDiagnostics() {
+      try {
+        const res = await fetch('../shared/diagnostics_data.json');
+        allDiagnostics = await res.json();
+        renderDiagnostics();
+      } catch (err) {
+        console.error("Failed to load diagnostics:", err);
+      }
+    }
+
+    function renderDiagnostics() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      
+      const filtered = allDiagnostics.filter(t => {
+        const matchCity = t.city === activeCity;
+        const matchCat = activeCategory === "Barchasi" || t.category.includes(activeCategory);
+        const matchQ = t.title.toLowerCase().includes(q) || t.category.toLowerCase().includes(q) || t.lab.toLowerCase().includes(q);
+        return matchCity && matchCat && matchQ;
+      });
+
+      document.getElementById('sectionCityTitle').innerText = `Mavjud Tahlillar — ${activeCity}`;
+      document.getElementById('resultsCount').innerText = `${filtered.length} ta tahlil topildi`;
+
+      const container = document.getElementById('testsGrid');
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-12 bg-white rounded-3xl border border-slate-200">
+            <span class="text-3xl block mb-2">🔎</span>
+            <h4 class="font-extrabold text-slate-800">Ushbu shahar yoki filtr bo‘yicha tahlillar topilmadi</h4>
+            <p class="text-xs text-slate-500 mt-1">Boshqa filtrni tanlang yoki qidiruv so‘zini o‘zgartiring.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(t => `
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 hover:border-blue-400 hover:shadow-xl transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="bg-blue-50 text-blue-700 text-[11px] font-extrabold px-3 py-1 rounded-full border border-blue-100">${t.category}</span>
+              <span class="bg-red-50 text-red-600 text-[11px] font-black px-2.5 py-0.5 rounded-full border border-red-100">-${t.discountPercent}% CHEGIRMA</span>
+            </div>
+            <h3 class="font-extrabold text-sm md:text-base text-slate-900 mb-1">${t.title}</h3>
+            <p class="text-xs font-bold text-slate-600 flex items-center gap-1.5 mb-1">
+              <span>🏥 ${t.lab}</span>
+            </p>
+            <p class="text-[11px] text-slate-400 mb-3">${t.address}</p>
+            
+            <div class="bg-slate-50 p-2.5 rounded-xl text-xs text-slate-600 font-medium mb-4 flex items-center gap-2">
+              <span>⏰</span>
+              <span>${t.hours}</span>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-100 pt-4 flex items-center justify-between mt-auto">
+            <div>
+              <span class="text-[11px] text-slate-400 line-through block">${t.originalPrice.toLocaleString()} so‘m</span>
+              <span class="text-xl font-black text-blue-600">${t.discountPrice.toLocaleString()} so‘m</span>
+            </div>
+            <button onclick="openVoucherModal(${t.id})" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-md shadow-blue-500/20 transition transform active:scale-95">
+              Vaucher olish →
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function setCity(city) {
+      activeCity = city;
+      if (city === "Samarqand") {
+        document.getElementById('btnSam').className = "bg-white px-3 py-1.5 rounded-lg shadow-sm text-blue-700";
+        document.getElementById('btnTosh').className = "px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900";
+      } else {
+        document.getElementById('btnTosh').className = "bg-white px-3 py-1.5 rounded-lg shadow-sm text-blue-700";
+        document.getElementById('btnSam').className = "px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-900";
+      }
+      renderDiagnostics();
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        if (btn.innerText.includes(cat) || (cat === "Barchasi" && btn.innerText === "Barchasi")) {
+          btn.className = "cat-pill bg-blue-600 text-white px-2.5 py-1 rounded-lg";
+        } else {
+          btn.className = "cat-pill bg-white px-2.5 py-1 rounded-lg border border-slate-200 hover:border-blue-500 text-slate-700 transition";
+        }
+      });
+      renderDiagnostics();
+    }
+
+    function filterTests() {
+      renderDiagnostics();
+    }
+
+    let currentSelectedTest = null;
+
+    function openVoucherModal(id) {
+      const t = allDiagnostics.find(item => item.id === id);
+      if (!t) return;
+      currentSelectedTest = t;
+      document.getElementById('modalTestName').innerText = t.title;
+      document.getElementById('modalLabName').innerText = `🏥 ${t.lab} • ${t.address}`;
+      document.getElementById('modalOriginalPrice').innerText = t.originalPrice.toLocaleString() + ' so‘m';
+      document.getElementById('modalDiscountPrice').innerText = t.discountPrice.toLocaleString() + ' so‘m';
+      
+      const saved = t.originalPrice - t.discountPrice;
+      document.getElementById('modalSavedPrice').innerText = `${saved.toLocaleString()} so‘m (${t.discountPercent}%)`;
+
+      document.getElementById('voucherModal').classList.remove('hidden');
+    }
+
+    function getVoucher(e) {
+      e.preventDefault();
+      const name = document.getElementById('userName').value.trim();
+      const phone = document.getElementById('userPhone').value.trim();
+      const slot = document.getElementById('userSlot').value;
+      const randomCode = Math.floor(1000 + Math.random() * 9000);
+      const voucherCode = `#ARZON-${randomCode}`;
+
+      // Populate Digital Voucher Pass
+      document.getElementById('passVoucherCode').innerText = voucherCode;
+      document.getElementById('passPatientName').innerText = name;
+      document.getElementById('passPatientPhone').innerText = phone;
+      document.getElementById('passSlot').innerText = slot;
+
+      if (currentSelectedTest) {
+        document.getElementById('passTestName').innerText = currentSelectedTest.title;
+        document.getElementById('passLabName').innerText = `${currentSelectedTest.lab} (${currentSelectedTest.city})`;
+        document.getElementById('passOriginalPrice').innerText = currentSelectedTest.originalPrice.toLocaleString() + ' so‘m';
+        document.getElementById('passDiscountPrice').innerText = currentSelectedTest.discountPrice.toLocaleString() + ' so‘m';
+      }
+
+      document.getElementById('voucherModal').classList.add('hidden');
+      document.getElementById('digitalVoucherModal').classList.remove('hidden');
+    }
+
+    function fillSampleLabData() {
+      document.getElementById('inputGlyuk').value = "7.4";
+      document.getElementById('inputGemog').value = "108";
+      document.getElementById('inputXolest').value = "5.8";
+      document.getElementById('inputLeyko').value = "6.5";
+      runLabDecoder();
+    }
+
+    function runLabDecoder() {
+      const glyuk = parseFloat(document.getElementById('inputGlyuk').value) || 0;
+      const gemog = parseFloat(document.getElementById('inputGemog').value) || 0;
+      const xolest = parseFloat(document.getElementById('inputXolest').value) || 0;
+      const leyko = parseFloat(document.getElementById('inputLeyko').value) || 0;
+
+      const resultsDiv = document.getElementById('decoderResults');
+      resultsDiv.classList.remove('hidden');
+
+      const items = [];
+      if (glyuk > 0) {
+        items.push({
+          name: "Qon Glyukozasi (Qand)",
+          val: `${glyuk} mmol/l`,
+          norm: "3.9 – 5.9",
+          isAlert: glyuk > 5.9,
+          status: glyuk > 5.9 ? "Baland ↑" : "Me’yorda ✓",
+          desc: glyuk > 5.9 ? "Qand miqdori me’yordan yuqori. Endokrinolog ko‘rigi tavsiya etiladi." : "Qand miqdori me’yorda."
+        });
+      }
+      if (gemog > 0) {
+        items.push({
+          name: "Gemoglobin (Hb)",
+          val: `${gemog} g/l`,
+          norm: "120 – 160",
+          isAlert: gemog < 120,
+          status: gemog < 120 ? "Past ↓" : "Me’yorda ✓",
+          desc: gemog < 120 ? "Anemiya (kamqonlik) belgisi. Holsizlik keltirishi mumkin." : "Gemoglobin xavfsiz chegarada."
+        });
+      }
+      if (xolest > 0) {
+        items.push({
+          name: "Umumiy Xolesterin",
+          val: `${xolest} mmol/l`,
+          norm: "3.0 – 5.2",
+          isAlert: xolest > 5.2,
+          status: xolest > 5.2 ? "Baland ↑" : "Me’yorda ✓",
+          desc: xolest > 5.2 ? "Xolesterin me’yordan biroz baland. Yog‘li ovqatlarni cheklash va kardiolog maslahati maqsadga muvofiq." : "Xolesterin xavfsiz me’yorda."
+        });
+      }
+
+      resultsDiv.innerHTML = `
+        <h4 class="font-extrabold text-xs text-slate-800 uppercase tracking-wider mb-2">Ko‘rsatkichlar Tahlili:</h4>
+        <div class="space-y-2">
+          ${items.map(it => `
+            <div class="p-3 rounded-xl border ${it.isAlert ? 'border-amber-300 bg-amber-50/50' : 'border-emerald-200 bg-emerald-50/30'} flex items-start justify-between text-xs">
+              <div>
+                <strong class="text-slate-900 block">${it.name}: ${it.val}</strong>
+                <span class="text-[11px] text-slate-500 block">Me’yor: ${it.norm}</span>
+                <p class="text-[11px] text-slate-600 mt-1">${it.desc}</p>
+              </div>
+              <span class="font-bold px-2 py-0.5 rounded text-[10px] ${it.isAlert ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">${it.status}</span>
+            </div>
+          `).join('')}
+        </div>
+        <div class="p-3 bg-blue-50 rounded-xl border border-blue-200 text-xs text-blue-900 mt-3">
+          <strong>Tavsiya qilinadigan mutaxassis:</strong> Endokrinolog yoki Terapevt.<br>
+          <span class="text-[11px] text-blue-700">Shifokorga aytish uchun: "Qand va xolesterin ko‘rsatkichlarim bo‘yicha qo‘shimcha parhez yoki tekshiruv kerakmi?"</span>
+        </div>
+      `;
+    }
+
+    // Init
+    loadDiagnostics();
+  </script>
+</body>
+</html>

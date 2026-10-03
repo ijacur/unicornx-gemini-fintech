@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B2B Hamkorlik Shartnomasi Generatori — Unicorn Health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Times+New+Roman&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .contract-sheet {
+      font-family: 'Times New Roman', Times, serif;
+      line-height: 1.5;
+    }
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .contract-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+  <!-- TOP HEADER / NAV (NO PRINT) -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 no-print">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🦄</span>
+          <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
+        </a>
+        <span class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">
+          B2B Yuridik Generator
+        </span>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-4 text-xs font-semibold text-slate-400">
+        <a href="../index.html" class="hover:text-white transition">Bosh sahifa</a>
+        <a href="../arzonlab/clinic_onboarding.html" class="hover:text-blue-400 transition">Klinika Onboarding</a>
+        <a href="PARTNER_CALCULATOR.html" class="hover:text-emerald-400 transition">ROI Kalkulyator</a>
+        <a href="FINANCIAL_MODEL.html" class="hover:text-purple-400 transition">Moliyaviy Model</a>
+        <a href="PITCH_DECK.html" class="hover:text-amber-400 transition">Pitch Deck</a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="window.print()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-4 py-2 rounded-xl font-black text-xs transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
+          <span>🖨️</span>
+          <span>Chop etish / PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER (SPLIT SCREEN: CONTROLS & LIVE CONTRACT) -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 w-full">
+    
+    <!-- LEFT COLUMN: CONTROLS (NO PRINT) -->
+    <aside class="lg:col-span-4 space-y-6 no-print">
+      
+      <!-- CARD 1: TYPE & PRESETS -->
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl">
+        <h2 class="text-xs font-black uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-1.5">
+          <span>⚙️</span>
+          <span>Shartnoma Turi va Namunalar</span>
+        </h2>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">Yo‘nalishni tanlang:</label>
+            <select id="agreementType" onchange="applyAgreementType()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500">
+              <option value="clinic">🔬 ArzonLab — Diagnostika / MRT Markazi (Marketing)</option>
+              <option value="pharmacy">💊 DoriQuti — Ulgurji Dorixona Tarmog‘i (Agentlik)</option>
+            </select>
+          </div>
+
+          <div>
+            <span class="block text-xs font-bold text-slate-300 mb-1.5">Tezkor namunalar (1-klik):</span>
+            <div class="grid grid-cols-2 gap-2">
+              <button onclick="loadPreset('samdtu')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
+                🏥 SamDTU Klinikasi
+              </button>
+              <button onclick="loadPreset('intermed')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
+                🔬 Intermed Scan MChJ
+              </button>
+              <button onclick="loadPreset('olampharm')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
+                💊 Olam Pharm MChJ
+              </button>
+              <button onclick="loadPreset('davam')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
+                🏪 Dori-Darmon AK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: REKVIZITLAR FORMASI -->
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-4">
+        <h2 class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
+          <span>🏢</span>
+          <span>Hamkor Korxona Ma’lumotlari</span>
+        </h2>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Yuridik shaxs to‘liq nomi:</label>
+            <input type="text" id="partnerLegalName" oninput="updateContract()" value='"SAMARQAND SCAN MEDIKAL" MChJ' class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-medium focus:border-blue-500 focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block font-semibold text-slate-400 mb-1">STIR / INN (9 xonali):</label>
+              <input type="text" id="partnerInn" oninput="updateContract()" value="308 945 120" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono font-medium focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-400 mb-1">Litsenziya №:</label>
+              <input type="text" id="partnerLicense" oninput="updateContract()" value="№ 049812-SSV" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono font-medium focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Rahbar F.I.Sh. va Lavozimi:</label>
+            <input type="text" id="partnerDirector" oninput="updateContract()" value="Direktor: Karimov Shuxrat Aliyevich" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-medium focus:border-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Yuridik manzil:</label>
+            <input type="text" id="partnerAddress" oninput="updateContract()" value="Samarqand shahri, Mirzo Ulug‘bek ko‘chasi, 74-uy" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-medium focus:border-blue-500 focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-3 gap-2">
+            <div class="col-span-2">
+              <label class="block font-semibold text-slate-400 mb-1">H/r (20 xonali):</label>
+              <input type="text" id="partnerAccount" oninput="updateContract()" value="20208000400561234001" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono font-medium focus:border-blue-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-400 mb-1">MFO:</label>
+              <input type="text" id="partnerMfo" oninput="updateContract()" value="00445" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-mono font-medium focus:border-blue-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Xizmat ko‘rsatuvchi bank:</label>
+            <input type="text" id="partnerBank" oninput="updateContract()" value='ATB "Kapitalbank" Samarqand amaliyot filiali' class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-medium focus:border-blue-500 focus:outline-none">
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: TIJORIY SHARTLAR -->
+      <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3 text-xs">
+        <h2 class="text-xs font-black uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
+          <span>💰</span>
+          <span>Moliyaviy & Tijoriy Shartlar</span>
+        </h2>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Platforma komissiyasi / diskont:</label>
+            <select id="commissionRate" onchange="updateContract()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-bold focus:border-purple-500 focus:outline-none">
+              <option value="15%">15% (Standart B2B)</option>
+              <option value="12%">12% (Katta hajm)</option>
+              <option value="18%">18% (Eksklyuziv)</option>
+              <option value="10%">10% (Dorixona ulgurji)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-400 mb-1">Hisob-kitob davriyligi:</label>
+            <select id="payoutTerms" onchange="updateContract()" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white font-semibold focus:border-purple-500 focus:outline-none">
+              <option value="Har hafta dushanba kuniga qadar">Haftalik (Dushanba)</option>
+              <option value="Har oyning 5-sanasiga qadar">Oylik (Har oy 5-sanasi)</option>
+              <option value="Har 3 ish kunida">Har 3 ish kunida</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+          <span class="text-slate-400 font-medium">Elektron imzo (E-IMZO):</span>
+          <span class="text-emerald-400 font-bold flex items-center gap-1">
+            <span>🛡️</span>
+            <span>ERI / QR Tayyor</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- CARD 4: ACTIONS -->
+      <div class="bg-gradient-to-br from-emerald-950/40 to-slate-900 border border-emerald-500/30 p-5 rounded-2xl shadow-xl space-y-3">
+        <button onclick="signContractModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2">
+          <span>✍️</span>
+          <span>Raqamli Tasdiqlash va Muhrlash</span>
+        </button>
+
+        <button onclick="copyContractText()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2 rounded-xl text-xs transition border border-slate-700 flex items-center justify-center gap-2">
+          <span>📋</span>
+          <span>Matnni nusxalash (Word uchun)</span>
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- RIGHT COLUMN: LIVE A4 PRINTABLE CONTRACT PAPER -->
+    <section class="lg:col-span-8 flex justify-center">
+      <div id="printableContract" class="contract-sheet bg-white text-black p-8 md:p-12 rounded-xl shadow-2xl border border-slate-300 w-full max-w-[800px] text-justify text-[13.5px] leading-relaxed">
+        
+        <!-- HEADER EMBLEM & NUMBER -->
+        <div class="text-center mb-6 border-b border-black/20 pb-4">
+          <div class="text-xs uppercase tracking-widest text-slate-600 font-sans font-semibold mb-1">
+            O‘zbekiston Respublikasi Fuqarolik Kodeksi (832-849-moddalar)
+          </div>
+          <h1 class="text-base md:text-lg font-bold uppercase tracking-tight text-black">
+            HAMKORLIK VA AXBOROT-VOSITACHILIK (AGENTLIK) SHARTNOMASI
+          </h1>
+          <div class="text-xs font-semibold mt-1">
+            № <span id="docNumber">UH-SAM-2026/042</span>
+          </div>
+          <div class="flex justify-between items-center text-xs font-bold mt-3 px-2">
+            <span>Samarqand shahri</span>
+            <span id="docDate">2026-yil 3-oktabr</span>
+          </div>
+        </div>
+
+        <!-- PREAMBULA -->
+        <div class="mb-4">
+          <p class="indent-8">
+            Bir tomondan, O‘zbekiston Respublikasi qonunlariga muvofiq faoliyat yurituvchi, keyingi o‘rinlarda <strong>"Platforma Operatori"</strong> yoki <strong>"Agent"</strong> deb yuritiluvchi <strong>"UNICORN HEALTH TECHNOLOGIES" MChJ</strong> nomidan Ustav asosida ish ko‘ruvchi Bosh direktor <strong>Shukurov Jasur Otabek o‘g‘li</strong>, va ikkinchi tomondan, Sog‘liqni saqlash vazirligi tomonidan berilgan <span id="cLicense" class="font-bold underline">№ 049812-SSV</span>-sonli Litsenziya asosida faoliyat yurituvchi, keyingi o‘rinlarda <strong>"Hamkor"</strong> yoki <strong>"Prinsipal"</strong> deb yuritiluvchi <strong id="cLegalName" class="underline">"SAMARQAND SCAN MEDIKAL" MChJ</strong> nomidan Ustav asosida ish ko‘ruvchi <span id="cDirector" class="font-bold">Direktor: Karimov Shuxrat Aliyevich</span>, birgalikda <strong>"Tomonlar"</strong>, alohida esa <strong>"Tomon"</strong> deb ataluvchilar, quyidagilar to‘g‘risida mazkur Shartnomani tuzdilar:
+          </p>
+        </div>
+
+        <!-- 1. SHARTNOMA PREDMETI -->
+        <div class="mb-4">
+          <h2 class="font-bold text-center uppercase text-xs mb-1">1. SHARTNOMA PREDMETI</h2>
+          <p class="indent-8 mb-1.5">
+            1.1. Mazkur Shartnomaga muvofiq, Platforma Operatori o‘zining axborot-texnologik resurslari (veb-sayt, mobil interfeys va Telegram Mini App) orqali Hamkorning diagnostika xizmatlari va apparat imkoniyatlarini ommalashtirish, bo‘sh apparat soatlari uchun bemorlar oqimini jalb qilish hamda qabulni avtomatlashtirilgan raqamli vaucherlar orqali tashkil etish (arzonlashtirilgan off-peak tariflari bo‘yicha vositachilik) xizmatlarini ko‘rsatish majburiyatini oladi.
+          </p>
+          <p class="indent-8">
+            1.2. Hamkor Platforma Operatori tomonidan taqdim etilgan vaucherlar asosida murojaat qilgan bemorlarga yuqori sifatli tibbiy-diagnostika xizmatlarini ko‘rsatish hamda ushbu Shartnomada kelishilgan miqdorda vositachilik mukofotini to‘lash yoki kelishilgan diskontni taqdim etish majburiyatini oladi.
+          </p>
+        </div>
+
+        <!-- 2. TOMONLARNING HUQUQ VA MAJBURIYATLARI -->
+        <div class="mb-4">
+          <h2 class="font-bold text-center uppercase text-xs mb-1">2. TOMONLARNING HUQUQ VA MAJBURIYATLARI</h2>
+          <p class="font-bold text-xs mb-1">2.1. Platforma Operatorining majburiyatlari:</p>
+          <ul class="list-disc pl-8 space-y-1 mb-2 text-[13px]">
+            <li>Hamkorning diagnostika apparatlari (MRT, KT, UTT, Laboratoriya) bo‘yicha amaldagi narxlari va bo‘sh vaqt darchalarini tizimga joylashtirish va har kuni yangilab borish;</li>
+            <li>Bemorlar tomonidan rasmiylashtirilgan har bir qabul uchun yagona QR-kodli Raqamli Tibbiy Vaucher shakllantirish va Hamkorning Registrator Portaliga real vaqtda uzatish;</li>
+            <li>Bemorlarga qabul vaqti, tayyorgarlik choralari (och qoringa kelish, metall buyumlarni yechish) haqida avtomatik SMS va bildirishnomalar yetkazish.</li>
+          </ul>
+
+          <p class="font-bold text-xs mb-1">2.2. Hamkorning majburiyatlari:</p>
+          <ul class="list-disc pl-8 space-y-1 text-[13px]">
+            <li>Platforma vaucheri bilan kelgan bemorlarni navbatsiz va belgilangan chegirmali narx bo‘yicha to‘siqlarsiz qabul qilish;</li>
+            <li>Tibbiy xizmatlarni O‘zbekiston Respublikasi SSV standartlari va sanitariya me’yorlariga to‘liq rioya qilgan holda, malakali mutaxassislar tomonidan amalga oshirish;</li>
+            <li>Apparatlarning rejali profilaktika yoki nosozlik holatlari haqida Platforma Operatorini kamida 24 soat oldin xabardor qilish.</li>
+          </ul>
+        </div>
+
+        <!-- 3. HISOB-KITOBLAR VA KOMISSIYA HAQI -->
+        <div class="mb-4">
+          <h2 class="font-bold text-center uppercase text-xs mb-1">3. HISOB-KITOBLAR TARTIBI VA VOSITACHILIK MUKOFOTI</h2>
+          <p class="indent-8 mb-1.5">
+            3.1. Mazkur Shartnoma bo‘yicha Platforma Operatorining vositachilik xizmati haqi (komissiya) Hamkor tomonidan xizmat ko‘rsatilgan har bir bemor to‘lovining <strong id="cCommission" class="underline">15%</strong> miqdorida belgilanadi.
+          </p>
+          <p class="indent-8 mb-1.5">
+            3.2. Bemorlar tomonidan to‘lovlar bevosita klinika kassasiga (naqd, Uzcard, Humo) yoki Platforma orqali onlayn (Click, Payme) amalga oshirilishi mumkin.
+          </p>
+          <p class="indent-8">
+            3.3. O‘zaro hisob-kitoblar va solishtirma dalolatnomalar (Akt sverki) <span id="cPayout" class="font-bold">Har hafta dushanba kuniga qadar</span> elektron tarzda shakllantiriladi va Hamkor hisob-kitob varag‘i orqali to‘liq qoplanadi.
+          </p>
+        </div>
+
+        <!-- 4. MAXFIYLIK VA SHAXSIY MA’LUMOTLAR -->
+        <div class="mb-4">
+          <h2 class="font-bold text-center uppercase text-xs mb-1">4. MAXFIYLIK VA TIBBIY SIRNI SAQLASH</h2>
+          <p class="indent-8 mb-1.5">
+            4.1. Tomonlar O‘zbekiston Respublikasining "Shaxsga doir ma’lumotlar to‘g‘risida"gi hamda "Fuqarolar sog‘lig‘ini saqlash to‘g‘risida"gi Qonunlariga muvofiq, bemorlarning shaxsiy ma’lumotlari va tibbiy tahlil natijalari maxfiyligini qat’iy ta’minlash majburiyatini oladilar.
+          </p>
+          <p class="indent-8">
+            4.2. Platforma Operatorida bemorlarning faqat yo‘llanma va logistika ma’lumotlari qayta ishlanadi; klinik tashxis va xulosa uchun to‘liq javobgarlik Hamkor shifokorlari zimmasida qoladi.
+          </p>
+        </div>
+
+        <!-- 5. NIZOLAR VA AMAL QILISH MUDDATI -->
+        <div class="mb-6">
+          <h2 class="font-bold text-center uppercase text-xs mb-1">5. NIZOLARNI HAL QILISH VA MUDDATI</h2>
+          <p class="indent-8 mb-1.5">
+            5.1. Ushbu Shartnomadan kelib chiqadigan barcha nizolar muzokaralar yo‘li bilan hal etiladi. Kelishuvga erishilmagan taqdirda, nizo Samarqand tumanlararo iqtisodiy sudida ko‘rib chiqiladi.
+          </p>
+          <p class="indent-8">
+            5.2. Mazkur Shartnoma imzolangan kundan e’tiboran 1 (bir) yil muddatga tuziladi va agar Tomonlardan biri muddat tugashidan 30 kun oldin yozma xabar bermasa, keyingi bir yilga avtomatik uzaytiriladi.
+          </p>
+        </div>
+
+        <!-- 6. TOMONLARNING REKVIZITLARI VA IMZOLARI -->
+        <div class="border-t-2 border-black pt-4">
+          <h2 class="font-bold text-center uppercase text-xs mb-4">6. TOMONLARNING YURIDIK MANZILLARI VA BANK REKVIZITLARI</h2>
+          
+          <div class="grid grid-cols-2 gap-6 text-[12px] leading-snug">
+            <!-- AGENT REKVIZITLARI -->
+            <div class="border-r border-black/30 pr-4">
+              <div class="font-bold uppercase mb-1">PLATFORMA OPERATORI:</div>
+              <div class="font-bold text-slate-900">"UNICORN HEALTH TECHNOLOGIES" MChJ</div>
+              <div>Yuridik manzil: Samarqand sh., Ibn Sino ko‘chasi, SamDTU Innovatsion Markazi, 12-bino</div>
+              <div>STIR: 309 812 774</div>
+              <div>H/r: 20208000900598765001</div>
+              <div>Bank: ATB "Ipak Yo‘li Banki" Samarqand b.</div>
+              <div>MFO: 00412</div>
+              <div>Tel: +998 (66) 233-00-11</div>
+              
+              <div class="mt-8 pt-4">
+                <div class="flex items-center justify-between">
+                  <span>Bosh direktor:</span>
+                  <span class="font-bold">J. O. Shukurov</span>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Imzo: ________________</span>
+                  <span class="border border-slate-400 px-2 py-0.5 rounded text-[10px] text-emerald-800 font-bold">M.O‘. (Muhr)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- HAMKOR REKVIZITLARI -->
+            <div>
+              <div class="font-bold uppercase mb-1">HAMKOR (PRINSIPAL):</div>
+              <div id="rLegalName" class="font-bold text-slate-900">"SAMARQAND SCAN MEDIKAL" MChJ</div>
+              <div>Yuridik manzil: <span id="rAddress">Samarqand sh., Mirzo Ulug‘bek ko‘chasi, 74-uy</span></div>
+              <div>STIR: <span id="rInn">308 945 120</span></div>
+              <div>H/r: <span id="rAccount">20208000400561234001</span></div>
+              <div>Bank: <span id="rBank">ATB "Kapitalbank" Samarqand amaliyot filiali</span></div>
+              <div>MFO: <span id="rMfo">00445</span></div>
+              <div>Litsenziya: <span id="rLicense">№ 049812-SSV</span></div>
+              
+              <div class="mt-8 pt-4">
+                <div class="flex items-center justify-between">
+                  <span id="rDirectorLabel">Direktor:</span>
+                  <span id="rDirectorName" class="font-bold">Sh. A. Karimov</span>
+                </div>
+                <div class="mt-4 flex items-center justify-between text-[11px] text-slate-500">
+                  <span>Imzo: ________________</span>
+                  <span class="border border-slate-400 px-2 py-0.5 rounded text-[10px] text-blue-800 font-bold">M.O‘. (Muhr)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DIGITAL SEAL (VERIFIED STAMP) -->
+        <div id="digitalSeal" class="hidden mt-8 p-3 border-2 border-dashed border-emerald-600 rounded-xl bg-emerald-50 text-emerald-950 flex items-center justify-between text-xs">
+          <div class="flex items-center space-x-3">
+            <span class="text-3xl">🛡️</span>
+            <div>
+              <div class="font-black uppercase tracking-wider text-[11px] text-emerald-800">
+                O‘ZBEKISTON RESPUBLIKASI ELEKTRON RAQAMLI IMZO BILAN TASDIQLANGAN
+              </div>
+              <div class="text-[11px] font-mono">
+                ERI Seriyasi: UZ-2026-B2B-9841 • Vaqt: 2026-10-03 12:10:00 • Status: QONUNIY KUCHGA EGA
+              </div>
+            </div>
+          </div>
+          <div class="text-center font-mono text-[10px] font-bold bg-white border border-emerald-400 p-1.5 rounded">
+            [ QR VERIFIED ]<br>
+            UH.UZ/V/9841
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: DIGITAL SIGNING -->
+  <div id="signModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="font-black text-white text-base flex items-center gap-2">
+          <span>✍️</span>
+          <span>E-IMZO bilan Tasdiqlash</span>
+        </h3>
+        <button onclick="closeSignModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Mazkur B2B Hamkorlik shartnomasi <span class="text-emerald-400 font-bold">"Unicorn Health Technologies" MChJ</span> va Sizning korxonangiz o‘rtasida O‘zbekiston Respublikasi "Elektron raqamli imzo to‘g‘risida"gi Qonuniga muvofiq rasmiylashtiriladi.
+      </p>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">Mas’ul shaxs telefoni (SMS tasdiq kodi):</label>
+          <input type="text" value="+998 (90) 505-11-22" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-mono font-bold focus:border-emerald-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1">SMS Tasdiq Kodingiz (4 xonali):</label>
+          <input type="text" id="smsInput" placeholder="Masalan: 7421" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-center text-lg tracking-widest font-black text-emerald-400 focus:border-emerald-500 focus:outline-none">
+        </div>
+      </div>
+
+      <div class="pt-2 flex items-center space-x-2">
+        <button onclick="confirmDigitalSignature()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-xl text-xs transition">
+          Shartnomani Muhrlash (Aktivlashtirish)
+        </button>
+        <button onclick="closeSignModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold">
+          Bekor qilish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const presets = {
+      samdtu: {
+        legalName: '"SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI KO‘P TARMOQLI KLINIKASI" DUK',
+        inn: '201 458 962',
+        license: '№ 012480-SSV',
+        director: 'Bosh shifokor: Prof. Yusupov O. M.',
+        address: 'Samarqand shahri, Ishtixon ko‘chasi, 2-uy',
+        account: '23402000300100054001',
+        mfo: '00014',
+        bank: 'Markaziy Bank Samarqand Bosh Boshqarmasi',
+        type: 'clinic',
+        rate: '12%',
+        payout: 'Har hafta dushanba kuniga qadar'
+      },
+      intermed: {
+        legalName: '"INTERMED SCAN DIAGNOSTICS" MChJ',
+        inn: '308 945 120',
+        license: '№ 049812-SSV',
+        director: 'Direktor: Karimov Shuxrat Aliyevich',
+        address: 'Samarqand shahri, Mirzo Ulug‘bek ko‘chasi, 74-uy',
+        account: '20208000400561234001',
+        mfo: '00445',
+        bank: 'ATB "Kapitalbank" Samarqand amaliyot filiali',
+        type: 'clinic',
+        rate: '15%',
+        payout: 'Har hafta dushanba kuniga qadar'
+      },
+      olampharm: {
+        legalName: '"OLAM PHARM LOGISTICS" MChJ',
+        inn: '309 112 458',
+        license: '№ 098441-FARMA',
+        director: 'Bosh direktor: Vohidov Rustam Ilhomovich',
+        address: 'Samarqand shahri, Sanoat zonasi, 18-bino',
+        account: '20208000700812999001',
+        mfo: '00412',
+        bank: 'ATB "Ipak Yo‘li Banki" Samarqand filiali',
+        type: 'pharmacy',
+        rate: '10%',
+        payout: 'Har 3 ish kunida'
+      },
+      davam: {
+        legalName: '"SAMARQAND DORI-DARMON" Aksiyadorlik Jamiyati',
+        inn: '200 981 334',
+        license: '№ 001209-FARMA',
+        director: 'Boshqaruv Raisi: Rahimov Bekzod Tohirovich',
+        address: 'Samarqand shahri, Gagarin ko‘chasi, 110-uy',
+        account: '20210000800123456001',
+        mfo: '00084',
+        bank: 'TIF Milliy Bank Samarqand viloyat filiali',
+        type: 'pharmacy',
+        rate: '12%',
+        payout: 'Har hafta dushanba kuniga qadar'
+      }
+    };
+
+    function loadPreset(key) {
+      const p = presets[key];
+      if (!p) return;
+      document.getElementById('partnerLegalName').value = p.legalName;
+      document.getElementById('partnerInn').value = p.inn;
+      document.getElementById('partnerLicense').value = p.license;
+      document.getElementById('partnerDirector').value = p.director;
+      document.getElementById('partnerAddress').value = p.address;
+      document.getElementById('partnerAccount').value = p.account;
+      document.getElementById('partnerMfo').value = p.mfo;
+      document.getElementById('partnerBank').value = p.bank;
+      document.getElementById('agreementType').value = p.type;
+      document.getElementById('commissionRate').value = p.rate;
+      document.getElementById('payoutTerms').value = p.payout;
+
+      updateContract();
+    }
+
+    function applyAgreementType() {
+      const type = document.getElementById('agreementType').value;
+      if (type === 'pharmacy') {
+        document.getElementById('commissionRate').value = '10%';
+      } else {
+        document.getElementById('commissionRate').value = '15%';
+      }
+      updateContract();
+    }
+
+    function updateContract() {
+      const legalName = document.getElementById('partnerLegalName').value;
+      const inn = document.getElementById('partnerInn').value;
+      const license = document.getElementById('partnerLicense').value;
+      const director = document.getElementById('partnerDirector').value;
+      const address = document.getElementById('partnerAddress').value;
+      const account = document.getElementById('partnerAccount').value;
+      const mfo = document.getElementById('partnerMfo').value;
+      const bank = document.getElementById('partnerBank').value;
+      const rate = document.getElementById('commissionRate').value;
+      const payout = document.getElementById('payoutTerms').value;
+
+      document.getElementById('cLegalName').innerText = legalName;
+      document.getElementById('cLicense').innerText = license;
+      document.getElementById('cDirector').innerText = director;
+      document.getElementById('cCommission').innerText = rate;
+      document.getElementById('cPayout').innerText = payout;
+
+      document.getElementById('rLegalName').innerText = legalName;
+      document.getElementById('rAddress').innerText = address;
+      document.getElementById('rInn').innerText = inn;
+      document.getElementById('rAccount').innerText = account;
+      document.getElementById('rBank').innerText = bank;
+      document.getElementById('rMfo').innerText = mfo;
+      document.getElementById('rLicense').innerText = license;
+
+      // Extract short name
+      const parts = director.split(':');
+      if (parts.length > 1) {
+        document.getElementById('rDirectorLabel').innerText = parts[0].trim() + ':';
+        document.getElementById('rDirectorName').innerText = parts[1].trim();
+      } else {
+        document.getElementById('rDirectorLabel').innerText = 'Rahbar:';
+        document.getElementById('rDirectorName').innerText = director;
+      }
+    }
+
+    function signContractModal() {
+      document.getElementById('signModal').classList.remove('hidden');
+    }
+
+    function closeSignModal() {
+      document.getElementById('signModal').classList.add('hidden');
+    }
+
+    function confirmDigitalSignature() {
+      document.getElementById('digitalSeal').classList.remove('hidden');
+      closeSignModal();
+      alert("✅ Shartnoma O‘zbekiston Respublikasi E-IMZO tizimi orqali muvaffaqiyatli tasdiqlandi va raqamli muhr qo‘yildi!");
+    }
+
+    function copyContractText() {
+      const contractEl = document.getElementById('printableContract');
+      navigator.clipboard.writeText(contractEl.innerText).then(() => {
+        alert("📋 Shartnoma matni to‘liq nusxalandi! Microsoft Word yoki Google Docs-ga joylashingiz (paste) mumkin.");
+      });
+    }
+
+    // Initialize
+    updateContract();
+  </script>
+</body>
+</html>

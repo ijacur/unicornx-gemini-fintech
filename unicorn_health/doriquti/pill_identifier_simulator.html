@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vizual Tabletka Aniqlagich | DoriQuti Pill Identifier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--amber);
+            color: #fcd34d;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+        }
+
+        .btn-primary {
+            background: #d97706;
+            border-color: #b45309;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b45309;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 28px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            background: #080f1c;
+            border: 1px solid var(--border);
+            color: #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chip:hover {
+            border-color: var(--primary);
+        }
+
+        .chip.active {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: var(--amber);
+            color: #fcd34d;
+            font-weight: 700;
+        }
+
+        .search-input {
+            width: 100%;
+            background: #080f1c;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--amber);
+        }
+
+        /* Pill Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 18px;
+        }
+
+        .pill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .pill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .pill-graphic-box {
+            background: #050912;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .pill-confidence-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .pill-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .pill-inn {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .pill-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .caution-box {
+            background: rgba(244, 63, 94, 0.1);
+            border-left: 3px solid var(--rose);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #fda4af;
+            margin-bottom: 14px;
+        }
+
+        .btn-add-pouch {
+            width: 100%;
+            background: #142038;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 9px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-add-pouch:hover {
+            background: #1e3054;
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* SVG Pill Visualizations */
+        .svg-pill {
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 28px;">🔍</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">Vizual Tabletka & Kapsula Aniqlagich</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">Paketdan tushib qolgan yoki blisteri kesilgan dorilarni adashmasdan aniqlash</p>
+            </div>
+            <span class="badge-pill">Medication Safety AI-Ready</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action">← Asosiy Hub</a>
+            <a href="index.html" class="btn-action btn-primary">💊 DoriQuti Blisteriga O'tish</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="layout-grid">
+            <!-- Left Panel: Filters -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>🎛️</span> Vizual Belgilar Filtri
+                </div>
+
+                <!-- 1. Color -->
+                <div class="filter-group">
+                    <span class="filter-label">Tabletka Rangi</span>
+                    <div class="chip-grid" id="colorFilter">
+                        <div class="chip active" onclick="setColor('all', this)">Barchasi</div>
+                        <div class="chip" onclick="setColor('oq', this)">⚪ Oq</div>
+                        <div class="chip" onclick="setColor('sariq', this)">🟡 Sariq</div>
+                        <div class="chip" onclick="setColor('olovrang', this)">🟠 Olovrang</div>
+                    </div>
+                </div>
+
+                <!-- 2. Shape -->
+                <div class="filter-group">
+                    <span class="filter-label">Tabletka Shakli</span>
+                    <div class="chip-grid" id="shapeFilter">
+                        <div class="chip active" onclick="setShape('all', this)">Barchasi</div>
+                        <div class="chip" onclick="setShape('dumaloq', this)">⭕ Dumaloq</div>
+                        <div class="chip" onclick="setShape('yuraksimon', this)">❤️ Yuraksimon</div>
+                        <div class="chip" onclick="setShape('oval', this)">⬭ Oval / Uzunchoq</div>
+                        <div class="chip" onclick="setShape('sakkizburchak', this)">🛑 Sakkizburchak</div>
+                    </div>
+                </div>
+
+                <!-- 3. Scoring Line -->
+                <div class="filter-group">
+                    <span class="filter-label">Bo'linish Chizig'i (Chiziqcha)</span>
+                    <div class="chip-grid" id="scoringFilter">
+                        <div class="chip active" onclick="setScoring('all', this)">Barchasi</div>
+                        <div class="chip" onclick="setScoring('yes', this)">Chizig'i bor (Bo'linadi)</div>
+                        <div class="chip" onclick="setScoring('no', this)">Chizig'i yo'q (Butun)</div>
+                    </div>
+                </div>
+
+                <!-- 4. Text / Imprint search -->
+                <div class="filter-group">
+                    <span class="filter-label">Gravirovka / Raqam Qidiruvi</span>
+                    <input type="text" class="search-input" id="imprintInput" placeholder="Masalan: 1000, 20, AML, yurak..." oninput="filterPills()">
+                </div>
+
+                <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 12px; font-size: 11px; color: #fde68a; line-height: 1.4;">
+                    ⚠️ <strong>Ogohlantirish:</strong> Agar dorining nomi va muddati to'liq aniqlanmasa, uni iste'mol qilmang. Har doim DoriQuti provizoriga ko'rsating.
+                </div>
+            </div>
+
+            <!-- Right Panel: Matched Pills -->
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <h3 style="font-size: 18px; font-weight: 800;">
+                        Topilgan Mos Dorilar (<span id="resultsCount">0</span> ta)
+                    </h3>
+                    <span style="font-size: 12px; color: var(--text-muted);">O'zbekistonda ro'yxatdan o'tgan surunkali preparatlar bazasi</span>
+                </div>
+
+                <div class="cards-grid" id="pillCardsContainer">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PILLS = [
+            {
+                id: "concor_5",
+                name: "Konkor 5mg",
+                inn: "Bisoprololum",
+                color: "sariq",
+                shape: "yuraksimon",
+                scoring: true,
+                imprint: "yurak",
+                caution: "Puls 50 dan past bo'lsa ichilmaydi (taxikardiya va bosimga qarshi).",
+                renderSvg: `
+                    <svg width="70" height="70" viewBox="0 0 100 100" class="svg-pill">
+                        <path d="M 50,30 A 18,18 0 0,0 20,48 C 20,70 50,88 50,88 C 50,88 80,70 80,48 A 18,18 0 0,0 50,30 Z" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
+                        <line x1="50" y1="36" x2="50" y2="78" stroke="#ca8a04" stroke-width="2" stroke-dasharray="2,2"/>
+                    </svg>
+                `
+            },
+            {
+                id: "concor_10",
+                name: "Konkor 10mg",
+                inn: "Bisoprololum",
+                color: "olovrang",
+                shape: "yuraksimon",
+                scoring: true,
+                imprint: "yurak",
+                caution: "Kattaroq doza. Puls va qon bosimi doimiy nazorati shart.",
+                renderSvg: `
+                    <svg width="70" height="70" viewBox="0 0 100 100" class="svg-pill">
+                        <path d="M 50,30 A 18,18 0 0,0 20,48 C 20,70 50,88 50,88 C 50,88 80,70 80,48 A 18,18 0 0,0 50,30 Z" fill="#fb923c" stroke="#ea580c" stroke-width="3"/>
+                        <line x1="50" y1="36" x2="50" y2="78" stroke="#ea580c" stroke-width="2" stroke-dasharray="2,2"/>
+                    </svg>
+                `
+            },
+            {
+                id: "amlodipine_5",
+                name: "Amlodipin 5mg (Norvask)",
+                inn: "Amlodipinum",
+                color: "oq",
+                shape: "sakkizburchak",
+                scoring: true,
+                imprint: "AML-5",
+                caution: "Qon tomirlarni kengaytiradi. To'piq shishi kuzatilishi mumkin.",
+                renderSvg: `
+                    <svg width="70" height="70" viewBox="0 0 100 100" class="svg-pill">
+                        <polygon points="30,15 70,15 85,30 85,70 70,85 30,85 15,70 15,30" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+                        <line x1="50" y1="20" x2="50" y2="80" stroke="#cbd5e1" stroke-width="2"/>
+                        <text x="50" y="55" font-size="12" font-family="monospace" font-weight="bold" fill="#64748b" text-anchor="middle">AML 5</text>
+                    </svg>
+                `
+            },
+            {
+                id: "glucophage_1000",
+                name: "Glyukofaj 1000mg",
+                inn: "Metforminum",
+                color: "oq",
+                shape: "oval",
+                scoring: true,
+                imprint: "1000",
+                caution: "2-tur diabet. Ovqat paytida yoki ovqatdan keyin butun ichiladi.",
+                renderSvg: `
+                    <svg width="95" height="55" viewBox="0 0 130 70" class="svg-pill">
+                        <rect x="10" y="15" width="110" height="40" rx="20" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+                        <line x1="65" y1="18" x2="65" y2="52" stroke="#cbd5e1" stroke-width="2"/>
+                        <text x="65" y="40" font-size="14" font-family="monospace" font-weight="bold" fill="#64748b" text-anchor="middle">1000</text>
+                    </svg>
+                `
+            },
+            {
+                id: "aspirin_cardio_100",
+                name: "Aspirin Kardio 100mg",
+                inn: "Acidum acetylsalicylicum",
+                color: "oq",
+                shape: "dumaloq",
+                scoring: false,
+                imprint: "yurak",
+                caution: "Ichakda eruvchi qobiq. Chaynash taqiqlanadi! Tromb hosil bo'lishiga qarshi.",
+                renderSvg: `
+                    <svg width="65" height="65" viewBox="0 0 100 100" class="svg-pill">
+                        <circle cx="50" cy="50" r="38" fill="#ffffff" stroke="#94a3b8" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="28" fill="none" stroke="#e2e8f0" stroke-width="1.5"/>
+                        <text x="50" y="55" font-size="12" font-family="monospace" font-weight="bold" fill="#64748b" text-anchor="middle">100</text>
+                    </svg>
+                `
+            },
+            {
+                id: "atorvastatin_20",
+                name: "Atorvastatin 20mg (Liprimar)",
+                inn: "Atorvastatinum",
+                color: "oq",
+                shape: "dumaloq",
+                scoring: false,
+                imprint: "20",
+                caution: "Xolesterin pasaytiruvchi. Kechqurun 20:00 da qabul qilinadi.",
+                renderSvg: `
+                    <svg width="65" height="65" viewBox="0 0 100 100" class="svg-pill">
+                        <circle cx="50" cy="50" r="38" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+                        <text x="50" y="56" font-size="16" font-family="monospace" font-weight="bold" fill="#64748b" text-anchor="middle">20</text>
+                    </svg>
+                `
+            },
+            {
+                id: "cardiket_20",
+                name: "Kardiket 20mg",
+                inn: "Isosorbidi dinitras",
+                color: "oq",
+                shape: "dumaloq",
+                scoring: true,
+                imprint: "IR 20",
+                caution: "Yurak qon-tomirlarini kengaytiradi. Bosh og'rig'i berishi mumkin.",
+                renderSvg: `
+                    <svg width="65" height="65" viewBox="0 0 100 100" class="svg-pill">
+                        <circle cx="50" cy="50" r="38" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+                        <line x1="50" y1="15" x2="50" y2="85" stroke="#cbd5e1" stroke-width="2"/>
+                        <text x="35" y="55" font-size="10" font-family="monospace" font-weight="bold" fill="#64748b" text-anchor="middle">IR</text>
+                        <text x="65" y="55" font-size="10" font-family="monospace" font-weight="bold" fill="#64748b" text-anchor="middle">20</text>
+                    </svg>
+                `
+            }
+        ];
+
+        let selectedColor = 'all';
+        let selectedShape = 'all';
+        let selectedScoring = 'all';
+
+        function setColor(val, el) {
+            selectedColor = val;
+            document.querySelectorAll('#colorFilter .chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            filterPills();
+        }
+
+        function setShape(val, el) {
+            selectedShape = val;
+            document.querySelectorAll('#shapeFilter .chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            filterPills();
+        }
+
+        function setScoring(val, el) {
+            selectedScoring = val;
+            document.querySelectorAll('#scoringFilter .chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            filterPills();
+        }
+
+        function filterPills() {
+            const kw = document.getElementById('imprintInput').value.toLowerCase().trim();
+            const container = document.getElementById('pillCardsContainer');
+
+            const filtered = PILLS.filter(pill => {
+                if (selectedColor !== 'all' && pill.color !== selectedColor) return false;
+                if (selectedShape !== 'all' && pill.shape !== selectedShape) return false;
+                if (selectedScoring === 'yes' && !pill.scoring) return false;
+                if (selectedScoring === 'no' && pill.scoring) return false;
+                if (kw && !pill.imprint.toLowerCase().includes(kw) && !pill.name.toLowerCase().includes(kw)) return false;
+                return true;
+            });
+
+            document.getElementById('resultsCount').innerText = filtered.length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; background: #0b1324; border: 1px solid var(--border); padding: 32px; border-radius: 14px; text-align: center; color: var(--text-muted);">
+                        🔍 Ushbu mezonlarga mos keluvchi tabletka topilmadi.<br>
+                        Filtrlarni o'zgartiring yoki bevosita DoriQuti provizoriga suratini jo'nating.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(p => `
+                <div class="pill-card">
+                    <div>
+                        <div class="pill-graphic-box">
+                            <span class="pill-confidence-badge">98% Mos</span>
+                            ${p.renderSvg}
+                        </div>
+                        <div class="pill-title">${p.name}</div>
+                        <div class="pill-inn">${p.inn}</div>
+                        <div class="pill-desc">
+                            <strong>Shakl:</strong> ${p.shape.toUpperCase()}, ${p.color.toUpperCase()} | 
+                            <strong>Chiziq:</strong> ${p.scoring ? "Mavjud (bo'linadi)" : "Yo'q (butun)"}
+                        </div>
+                        <div class="caution-box">
+                            ⚠️ <strong>Klinik qoida:</strong> ${p.caution}
+                        </div>
+                    </div>
+                    <button class="btn-add-pouch" onclick="addToBlister('${p.name}')">
+                        + DoriQuti Blisteriga Qo'shish
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addToBlister(drugName) {
+            alert(`✓ ${drugName} sizning oylik DoriQuti kalendar blisteringizga qo'shildi!`);
+        }
+
+        // Initialize
+        filterPills();
+    </script>
+</body>
+</html>

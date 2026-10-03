@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolalar Surunkali Dozasi & Xavfsizlik Kalkulyatori | DoriQuti Pediatric</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0fdf4;
+            --surface: #ffffff;
+            --border: #bbf7d0;
+            --primary: #059669;
+            --teal: #0d9488;
+            --violet: #7c3aed;
+            --danger: #dc2626;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #065f46 0%, #0f766e 100%);
+            color: white;
+            padding: 22px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-kids {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: #ccfbf1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1200px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .form-select:focus, .form-input:focus {
+            border-color: var(--primary);
+        }
+
+        .slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .dose-result-box {
+            background: #ecfdf5;
+            border: 2px solid #a7f3d0;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dose-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #065f46;
+            margin: 6px 0;
+        }
+
+        .warning-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-top: 18px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+        }
+        .btn-primary:hover { background: #047857; }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            margin-top: 10px;
+        }
+        .btn-outline:hover { background: #f8fafc; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 2rem;">👶</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">SamDTU Bolalar Klinikasi Dozalash & Xavfsizlik Padi</h1>
+                <p style="font-size: 0.8rem; color: #ccfbf1;">Vazn (mg/kg) Asosida Aniq Dozalash va Kattalar Tabletasini Pichoqda Bo'lish Xavfini Yo'qotish</p>
+            </div>
+            <span class="badge-kids">Pediatric Care</span>
+        </div>
+        <div style="display: flex; gap: 16px;">
+            <a href="/doriquti/doctor_portal.html" class="nav-link">🩺 Shifokor Portali</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="grid-layout">
+            
+            <!-- Left: Child Parameters & Diagnosis -->
+            <div class="card">
+                <div class="card-title">⚖️ Bola Parametrlari va Kasallik</div>
+
+                <div class="form-group">
+                    <label class="form-label">Bola F.I.Sh:</label>
+                    <input type="text" class="form-input" value="Sirojiddinov Amirbek (4 yosh)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Surunkali Tashxis va Dori:</label>
+                    <select id="drugSelect" class="form-select" onchange="recalcDose()">
+                        <option value="VALPROATE">Bolalar Tutqanog'i (Epilepsiya) — Natriy Valproat (20mg/kg)</option>
+                        <option value="MONTELUKAST">Bronxial Astma & Allergiya — Montelukast (4mg / 5mg)</option>
+                        <option value="SPIRONOLACTONE">Tug'ma Yurak Nuqsoni — Spironolakton (1.5mg/kg)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="display: flex; justify-content: space-between;">
+                        <span>Bolaning Joriy Vazni:</span>
+                        <strong id="weightDisplay" style="color: var(--primary); font-size: 1.1rem;">16.0 kg</strong>
+                    </label>
+                    <input type="range" id="weightSlider" class="slider" min="5" max="45" step="0.5" value="16" oninput="recalcDose()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Bolaning Yoshi:</label>
+                    <input type="number" id="ageInput" class="form-input" value="4" min="1" max="17" onchange="recalcDose()">
+                </div>
+
+                <button class="btn btn-primary" onclick="alert('✅ DoriQuti Bolalar Qutisi Qabul Qilindi!\n\nHar oy bola vazni o\'zgarganda doza avtomatik yangilanadi.')">
+                    📦 Bolalar Oylik Mikro-Paketini Rasmiylashtirish
+                </button>
+                <button class="btn btn-outline" onclick="window.print()">
+                    🖨️ Dozalash Varaqasini Chop Etish
+                </button>
+            </div>
+
+            <!-- Right: Exact Dose & Safety Warnings -->
+            <div class="card">
+                <div class="card-title">🎯 Tekshirilgan Bolalar Dozasi</div>
+
+                <div class="dose-result-box">
+                    <div style="font-size: 0.85rem; color: #065f46; font-weight: 700;">TAVSIYA ETILADIGAN SUTKALIK DOZA:</div>
+                    <div class="dose-val" id="dailyDose">320 mg/kun</div>
+                    <div style="font-size: 0.85rem; color: #047857;" id="doseSplit">
+                        Ertalab: 160 mg • Kechqurun: 160 mg
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.8rem; color: #0f766e; font-weight: 600;" id="formTip">
+                        Forma: DoriQuti o'lchangan mikro-granulasi (chaynash / suyuqlikda eritish)
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>⚠️ Nega Kattalar Tabletasini Bo'lish XAVFLI?</strong>
+                    <p style="margin-top: 6px;">
+                        Ota-onalar uyda 500mg kattalar tabletkasini pichoq bilan 1/4 bo'lganda, parchalanish notekis bo'lib <strong>±35% xatolik</strong> yuzaga keladi. Bu tutqanoq qaytalanishi yoki jigar intoksikatsiyasiga olib keladi. DoriQuti bolalar uchun har bir sachetni analitik tarozi va mikro-dozada qadoqlaydi.
+                    </p>
+                </div>
+
+                <div style="margin-top: 16px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                    🏛️ <strong>SamDTU Kafedrasi Xulosasi:</strong> JSST bolalar farmakopeyasi standartiga 100% muvofiq.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function recalcDose() {
+            const drug = document.getElementById('drugSelect').value;
+            const weight = parseFloat(document.getElementById('weightSlider').value);
+            const age = parseInt(document.getElementById('ageInput').value);
+
+            document.getElementById('weightDisplay').innerText = `${weight.toFixed(1)} kg`;
+
+            if (drug === 'VALPROATE') {
+                const total = Math.round(weight * 20);
+                const half = Math.round(total / 2);
+                document.getElementById('dailyDose').innerText = `${total} mg/kuniga`;
+                document.getElementById('doseSplit').innerText = `Ertalab: ${half} mg • Kechqurun: ${half} mg`;
+                document.getElementById('formTip').innerText = `Forma: ${age < 6 ? "Sirop / mikro-shprits" : "Depakine Chronosphere bir martalik paketi"}`;
+            } else if (drug === 'MONTELUKAST') {
+                const dose = age < 6 ? "4 mg" : (age < 15 ? "5 mg" : "10 mg");
+                document.getElementById('dailyDose').innerText = `${dose}/kuniga`;
+                document.getElementById('doseSplit').innerText = `Kechqurun yotishdan oldin 1 marta chaynash`;
+                document.getElementById('formTip').innerText = `Forma: Mazali chaynash tabletkasi (suvsiz qabul qilinadi)`;
+            } else if (drug === 'SPIRONOLACTONE') {
+                const total = (weight * 1.5).toFixed(1);
+                document.getElementById('dailyDose').innerText = `${total} mg/kuniga`;
+                document.getElementById('doseSplit').innerText = `Ertalab nonushta bilan 1 marta`;
+                document.getElementById('formTip').innerText = `Forma: DoriQuti maxsus mikro-dozalangan suspenziyasi`;
+            }
+        }
+
+        recalcDose();
+    </script>
+</body>
+</html>

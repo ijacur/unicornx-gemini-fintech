@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health — Klinika va Dorixona Kioski (Touch Screen POS)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; user-select: none; }
+    .card-shadow { box-shadow: 0 10px 30px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04); }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased min-h-screen flex flex-col justify-between p-4 md:p-8">
+
+  <!-- KIOSK TOP HEADER -->
+  <header class="flex items-center justify-between border-b border-slate-800 pb-4">
+    <div class="flex items-center space-x-3">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-emerald-500/20">
+        🦄
+      </div>
+      <div>
+        <h1 class="text-xl font-black text-white">Unicorn Health • Tezkor Xizmat Kioski</h1>
+        <p class="text-xs text-slate-400">SamDTU 1-Klinika va Hamkor Dorixonalar Tarmog‘i</p>
+      </div>
+    </div>
+
+    <!-- TERMINAL INFO -->
+    <div class="flex items-center space-x-3">
+      <div class="bg-slate-800 border border-slate-700 px-3.5 py-1.5 rounded-xl text-right text-xs">
+        <span class="text-slate-400 block text-[10px]">Terminal ID: #KIOSK-SAM-01</span>
+        <span class="text-emerald-400 font-bold">● Onlayn (Faol)</span>
+      </div>
+      <a href="../index.html" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-3 py-2 rounded-xl transition">
+        Chiqish ✕
+      </a>
+    </div>
+  </header>
+
+  <!-- KIOSK MAIN INTERACTIVE AREA -->
+  <main class="my-auto py-6 max-w-5xl mx-auto w-full space-y-8">
+    
+    <!-- WELCOME TITLE -->
+    <div class="text-center space-y-2">
+      <span class="text-xs uppercase font-extrabold tracking-widest text-emerald-400 bg-emerald-500/10 px-3.5 py-1.5 rounded-full border border-emerald-500/20 inline-block">
+        Sensorli Ekran Orqali 1 Daqiqada Rasmiylashtirish
+      </span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-white">
+        Sizga qanday xizmat kerak?
+      </h2>
+      <p class="text-xs md:text-sm text-slate-400 max-w-xl mx-auto">
+        Klinika qabulida chegirmali vaucher oling yoki surunkali kasalliklar uchun oylik dori qutisini buyurtma qiling.
+      </p>
+    </div>
+
+    <!-- 2 MAIN INTERACTIVE CHOICES -->
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- CHOICE 1: ARZONLAB VOUCHER -->
+      <div onclick="selectKioskMode('voucher')" class="bg-gradient-to-b from-slate-800 to-slate-900 border-2 border-blue-500/40 hover:border-blue-400 p-8 rounded-3xl cursor-pointer transition transform active:scale-98 hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between group">
+        <div>
+          <div class="flex items-center justify-between mb-6">
+            <span class="text-4xl">🔬</span>
+            <span class="bg-blue-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+              -35% CHEGIRMA
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-black text-white group-hover:text-blue-400 transition mb-2">
+            MRT, KT va Laboratoriya
+          </h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-6">
+            Bugungi bo‘sh soatlarga tahlillarni 25% dan 35% gacha arzon narxda bron qiling va navbatsiz o‘ting.
+          </p>
+        </div>
+
+        <div class="pt-6 border-t border-slate-700/60 flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-400">100 000+ so‘m tejash</span>
+          <button class="bg-blue-600 group-hover:bg-blue-500 text-white font-black px-6 py-3 rounded-2xl text-xs transition shadow-lg shadow-blue-600/30">
+            Vaucher Olish →
+          </button>
+        </div>
+      </div>
+
+      <!-- CHOICE 2: DORIQUTI SUBSCRIPTION -->
+      <div onclick="selectKioskMode('doriquti')" class="bg-gradient-to-b from-slate-800 to-slate-900 border-2 border-emerald-500/40 hover:border-emerald-400 p-8 rounded-3xl cursor-pointer transition transform active:scale-98 hover:shadow-2xl hover:shadow-emerald-500/10 flex flex-col justify-between group">
+        <div>
+          <div class="flex items-center justify-between mb-6">
+            <span class="text-4xl">💊</span>
+            <span class="bg-emerald-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+              Ota-Onam Salomatligi
+            </span>
+          </div>
+
+          <h3 class="text-2xl font-black text-white group-hover:text-emerald-400 transition mb-2">
+            30 Kunlik DoriQuti Obunasi
+          </h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-6">
+            Qon bosimi, qandli diabet va yurak dorilarini kunlar bo‘yicha saralangan qutida har oy eshikka qabul qiling.
+          </p>
+        </div>
+
+        <div class="pt-6 border-t border-slate-700/60 flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-400">15% ulgurji tejov</span>
+          <button class="bg-emerald-600 group-hover:bg-emerald-500 text-slate-950 font-black px-6 py-3 rounded-2xl text-xs transition shadow-lg shadow-emerald-500/30">
+            Quti Buyurtma Qilish →
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TOUCH INPUT MODAL -->
+    <div id="kioskModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 md:p-8 card-shadow space-y-6 text-center">
+        
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div class="text-left">
+            <h3 class="text-xl font-black text-white" id="modalTitle">Tezkor Vaucher Olish</h3>
+            <p class="text-xs text-slate-400" id="modalSubtitle">Telefon raqamingizni kiriting</p>
+          </div>
+          <button onclick="document.getElementById('kioskModal').classList.add('hidden')" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-400 hover:text-white font-black text-lg">
+            ✕
+          </button>
+        </div>
+
+        <!-- FORM -->
+        <div class="space-y-4 text-left text-xs font-semibold">
+          <div>
+            <label class="block text-slate-300 mb-1">Ism va Familiyangiz:</label>
+            <input type="text" id="kioskPatientName" placeholder="Jasur Shukurov" class="w-full p-3.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-bold outline-none focus:border-blue-500 text-sm">
+          </div>
+
+          <div>
+            <label class="block text-slate-300 mb-1">Telefon raqamingiz (SMS uchun):</label>
+            <input type="tel" id="kioskPatientPhone" placeholder="+998 90 123 45 67" class="w-full p-3.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-bold outline-none focus:border-blue-500 text-sm">
+          </div>
+
+          <div id="serviceSelectDiv">
+            <label class="block text-slate-300 mb-1">Kerakli tahlil yoki paket:</label>
+            <select id="kioskServiceSelect" class="w-full p-3.5 bg-slate-950 border border-slate-700 rounded-xl text-white font-bold outline-none focus:border-blue-500 text-xs">
+              <option value="MRT Bosh miya (Jack MRT) — 320,000 so‘m">MRT Bosh miya (Jack MRT) — 320,000 so‘m (chegirma -29%)</option>
+              <option value="MSKT Ko‘krak qafasi — 240,000 so‘m">MSKT Ko‘krak qafasi — 240,000 so‘m (chegirma -31%)</option>
+              <option value="Kardio & Bosim Dori Qutisi — 143,000 so‘m">Kardio & Bosim Dori Qutisi — 143,000 so‘m/oy</option>
+              <option value="Qandli Diabet Dori Qutisi — 243,000 so‘m">Qandli Diabet Dori Qutisi — 243,000 so‘m/oy</option>
+            </select>
+          </div>
+
+          <button onclick="submitKioskRequest()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-2xl text-sm transition shadow-lg shadow-emerald-500/20">
+            🖨 Chek va SMS Havolani Chiqarish
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TICKET PRINTED SUCCESS SCREEN -->
+    <div id="ticketModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+      <div class="bg-white text-slate-900 rounded-3xl max-w-sm w-full p-6 card-shadow text-center space-y-4 font-mono">
+        <div class="border-b-2 border-dashed border-slate-300 pb-3">
+          <p class="text-xs uppercase font-extrabold tracking-widest text-slate-400">UNICORN HEALTH POS</p>
+          <h4 class="text-lg font-black text-slate-900">Rasmiy Qabul Cheki</h4>
+          <p class="text-[10px] text-slate-500" id="receiptDate">2026-10-03 • SamDTU 1-Klinika</p>
+        </div>
+
+        <div class="text-left text-xs space-y-1.5">
+          <p>Bemor: <strong id="receiptName">Jasur Shukurov</strong></p>
+          <p>Telefon: <strong id="receiptPhone">+998 90 123 45 67</strong></p>
+          <p>Xizmat: <strong id="receiptService" class="text-blue-700">MRT Bosh miya</strong></p>
+          <p>Vaucher kodi: <strong class="text-emerald-700 text-sm">#KIOSK-8924</strong></p>
+        </div>
+
+        <div class="border-t-2 border-dashed border-slate-300 pt-3">
+          <div class="text-2xl font-black tracking-widest">|||| | | ||| || ||||</div>
+          <p class="text-[10px] text-slate-500 mt-1">Ushbu chekni registratura yoki provizorga ko‘rsating.</p>
+        </div>
+
+        <button onclick="closeKioskAll()" class="w-full bg-slate-900 text-white font-bold py-3 rounded-xl text-xs font-sans">
+          Tayyor / Yangi mijoz
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- KIOSK FOOTER -->
+  <footer class="border-t border-slate-800 pt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+    <div>
+      © 2026 Unicorn Health • O‘zbekiston Sog‘liqni Saqlash Standartlari Asosida.
+    </div>
+    <div class="flex items-center space-x-4 mt-2 sm:mt-0 font-bold">
+      <span class="text-emerald-400">Call-markaz: +998 (90) 000-00-00</span>
+      <span>SamDTU Hamkorligi</span>
+    </div>
+  </footer>
+
+  <script>
+    let activeMode = "voucher";
+
+    function selectKioskMode(mode) {
+      activeMode = mode;
+      const modal = document.getElementById('kioskModal');
+      const title = document.getElementById('modalTitle');
+      const sub = document.getElementById('modalSubtitle');
+
+      if (mode === 'voucher') {
+        title.innerText = "ArzonLab — Diagnostika Vaucheri";
+        sub.innerText = "Klinika qabulida chegirmali tahlildan o‘tish uchun";
+      } else {
+        title.innerText = "DoriQuti — 30 Kunlik Dori Obunasi";
+        sub.innerText = "Ota-onangiz dori vositalarini uyga buyurtma qilish uchun";
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function submitKioskRequest() {
+      const name = document.getElementById('kioskPatientName').value.trim() || "Bemor";
+      const phone = document.getElementById('kioskPatientPhone').value.trim() || "+998 90 000 00 00";
+      const srv = document.getElementById('kioskServiceSelect').value;
+
+      document.getElementById('receiptName').innerText = name;
+      document.getElementById('receiptPhone').innerText = phone;
+      document.getElementById('receiptService').innerText = srv.split('—')[0];
+
+      document.getElementById('kioskModal').classList.add('hidden');
+      document.getElementById('ticketModal').classList.remove('hidden');
+    }
+
+    function closeKioskAll() {
+      document.getElementById('ticketModal').classList.add('hidden');
+      document.getElementById('kioskPatientName').value = '';
+      document.getElementById('kioskPatientPhone').value = '';
+    }
+  </script>
+</body>
+</html>

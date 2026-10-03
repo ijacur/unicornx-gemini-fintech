@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klinik Depreskraybing & Polipragmaziya Bekor Qilish Padi | SamDTU Farmakologiya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #047857;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --border: #e2e8f0;
+            --card: #ffffff;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%);
+            color: white;
+            padding: 22px 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-beers {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #6ee7b7;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1300px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .med-checkbox-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+            background: #f8fafc;
+        }
+
+        .med-checkbox-item.flagged {
+            border-color: #fca5a5;
+            background: #fef2f2;
+        }
+
+        .recommendation-card {
+            border-left: 4px solid var(--warning);
+            background: #fffbeb;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #fef3c7;
+            border-left-width: 5px;
+        }
+
+        .recommendation-card.danger {
+            border-left-color: var(--danger);
+            background: #fef2f2;
+            border-color: #fee2e2;
+        }
+
+        .rec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .saving-badge {
+            font-family: 'JetBrains Mono', monospace;
+            background: #dcfce7;
+            color: #15803d;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid var(--border);
+            color: var(--dark);
+            margin-top: 10px;
+        }
+        .btn-outline:hover { background: #f8fafc; }
+
+        .stat-banner {
+            display: flex;
+            justify-content: space-around;
+            background: #0f172a;
+            color: white;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #34d399;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.8rem;">🌿</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">SamDTU Klinik Depreskraybing & Polipragmaziya Auditi</h1>
+                <p style="font-size: 0.8rem; color: #cbd5e1;">Beers & STOPP/START Kriteriyalari Asosida Keraksiz Dorilarni Bosqichma-bosqich Bekor Qilish</p>
+            </div>
+            <span class="badge-beers">Beers Criteria 2024 UZ</span>
+        </div>
+        <div style="display: flex; gap: 16px;">
+            <a href="/doriquti/doctor_portal.html" class="nav-link">🩺 Shifokor Portali</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="grid-layout">
+            
+            <!-- Left: Patient Meds Input -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">💊 Bemorning Qabul Qilayotgan Dorilar Ro'yxati</div>
+                        <span style="font-size: 0.8rem; color: var(--danger); font-weight: 700;">6 ta dori (Polipragmaziya)</span>
+                    </div>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">
+                        Keksa bemor (Rahmonov B.O., 68 yosh) turli shifokorlar tomonidan yozilgan quyidagi dorilarni bir vaqtda ichmoqda:
+                    </p>
+
+                    <div id="medList">
+                        <div class="med-checkbox-item">
+                            <span>✅ Kardiomagnil 75mg (Zaruriy antitrombotsitar)</span>
+                            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;">SAQLANSIN</span>
+                        </div>
+                        <div class="med-checkbox-item flagged">
+                            <span>⚠️ Omeprazol 20mg (kundalik, >3 oy davomida)</span>
+                            <span style="font-size: 0.75rem; color: var(--danger); font-weight: 700;">BEKOR QILISH</span>
+                        </div>
+                        <div class="med-checkbox-item">
+                            <span>✅ Bisoprolol 5mg (Gipertoniya/IBS bazis)</span>
+                            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;">SAQLANSIN</span>
+                        </div>
+                        <div class="med-checkbox-item flagged">
+                            <span>⚠️ Diklofenak 50mg + Nimesil (NYAQV dublikati)</span>
+                            <span style="font-size: 0.75rem; color: var(--danger); font-weight: 700;">XAVFLI DUBLIKAT</span>
+                        </div>
+                        <div class="med-checkbox-item flagged">
+                            <span>⚠️ Riboksin 200mg (Isbotsiz qo'shimcha)</span>
+                            <span style="font-size: 0.75rem; color: var(--danger); font-weight: 700;">BEKOR QILISH</span>
+                        </div>
+                        <div class="med-checkbox-item">
+                            <span>✅ Atorvastatin 20mg (Lipid korreksiya)</span>
+                            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;">SAQLANSIN</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="applyDeprescribingPlan()">
+                            ⚡ Depreskraybing Rejasini Tasdiqlash & Yangilash
+                        </button>
+                        <button class="btn btn-outline" onclick="window.print()">
+                            🖨️ Bemor Uchun Bekor Qilish Jadvalini Chop Etish
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Deprescribing Recommendations & Financial Impact -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📉 Klinik Tavsiyalar & Iqtisodiy Tejamkorlik</div>
+                        <span style="font-size: 0.8rem; color: var(--primary); font-weight: 700;">3 ta dori bekor qilinadi</span>
+                    </div>
+
+                    <!-- Impact Banner -->
+                    <div class="stat-banner">
+                        <div>
+                            <div class="stat-val" id="monthlySavings">290,000 UZS</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8;">Oylik Tejalgan Mablag'</div>
+                        </div>
+                        <div style="border-left: 1px solid #334155;"></div>
+                        <div>
+                            <div class="stat-val">-54%</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8;">Asoratlar & Yiqilish Xavfi</div>
+                        </div>
+                        <div style="border-left: 1px solid #334155;"></div>
+                        <div>
+                            <div class="stat-val" style="color: #60a5fa;">3 ta dori</div>
+                            <div style="font-size: 0.75rem; color: #94a3b8;">DoriQuti Ixcham Blisteri</div>
+                        </div>
+                    </div>
+
+                    <!-- Recommendation 1: PPI -->
+                    <div class="recommendation-card">
+                        <div class="rec-header">
+                            <strong style="color: #92400e;">1. Omeprazol 20mg ni bosqichma-bosqich to'xtatish</strong>
+                            <span class="saving-badge">+65,000 so'm/oy</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #78350f; margin-top: 4px; line-height: 1.4;">
+                            <strong>Klinik sabab:</strong> 8 haftadan ortiq asossiz profilaktika keksalarda gipomagniemiya va son suyagi sinishi xavfini 2.1 barobar oshiradi.<br>
+                            <strong>Reja:</strong> 1 hafta kunora ichiladi, so'ngra to'liq to'xtatiladi.
+                        </p>
+                    </div>
+
+                    <!-- Recommendation 2: NSAID Duplicate -->
+                    <div class="recommendation-card danger">
+                        <div class="rec-header">
+                            <strong style="color: #991b1b;">2. NYAQV dublikatini zudlik bilan to'xtatish (Nimesil)</strong>
+                            <span class="saving-badge">+85,000 so'm/oy</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #7f1d1d; margin-top: 4px; line-height: 1.4;">
+                            <strong>Klinik sabab:</strong> Bemor Kardiomagnil ichayotganda bir vaqtning o'zida Diklofenak va Nimesil qabul qilishi oshqozondan qon ketish xavfini 4.8 barobar oshiradi.<br>
+                            <strong>Reja:</strong> Nimesil zudlik bilan bekor qilinadi. Bo'g'im og'rig'iga mahalliy gel tavsiya etiladi.
+                        </p>
+                    </div>
+
+                    <!-- Recommendation 3: Ineffective Supplements -->
+                    <div class="recommendation-card">
+                        <div class="rec-header">
+                            <strong style="color: #92400e;">3. Riboksin va samarasiz polivitaminlarni bekor qilish</strong>
+                            <span class="saving-badge">+140,000 so'm/oy</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #78350f; margin-top: 4px; line-height: 1.4;">
+                            <strong>Klinik sabab:</strong> Xalqaro kardiologiya protokollarida (ESC/AHA) Riboksinning samarasi isbotlanmagan, faqat jigar-buyraklarga ortiqcha yuklama beradi.<br>
+                            <strong>Reja:</strong> Butunlay to'xtatiladi. Bemor faqat isbotlangan Kardiomagnil, Bisoprolol va Atorvastatin ichadi.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function applyDeprescribingPlan() {
+            alert("✅ SamDTU Klinik Depreskraybing Rejasi Muvaffaqiyatli Tasdiqlandi!\n\n• Bekor qilindi: Omeprazol (taper), Nimesil, Riboksin\n• Bemorga yillik sof tejash: 3,480,000 UZS\n• Yangi DoriQuti blistri: Faqat 3 ta zarur dori bilan yangilandi!");
+        }
+    </script>
+</body>
+</html>

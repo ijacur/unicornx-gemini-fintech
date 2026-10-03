@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamkor Klinikalar va Dorixonalar Tarmog‘i — Unicorn Health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAV -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🦄</span>
+          <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
+        </a>
+        <span class="text-xs bg-blue-500/20 text-blue-400 font-bold px-2.5 py-0.5 rounded-full border border-blue-500/30">
+          Hamkorlar Tarmog‘i
+        </span>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-4 text-xs font-semibold text-slate-400">
+        <a href="../index.html" class="hover:text-white transition">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400 transition">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400 transition">ArzonLab</a>
+        <a href="savings_calculator.html" class="hover:text-amber-400 transition">Oila Kalkulyatori</a>
+        <a href="../arzonlab/clinic_onboarding.html" class="hover:text-white transition">Klinikani ulash</a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <a href="../arzonlab/clinic_onboarding.html" class="bg-blue-600 hover:bg-blue-500 text-white px-3.5 py-2 rounded-xl font-extrabold text-xs transition shadow-lg shadow-blue-500/20">
+          + Hamkor bo‘lish
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="max-w-6xl mx-auto px-4 pt-10 pb-6 text-center">
+    <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-4">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>Samarqand va Toshkent bo‘yicha 14 ta rasmiy litsenziyalangan markaz</span>
+    </div>
+    <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
+      Eng yaqin <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400">ArzonLab va DoriQuti</span> nuqtalari
+    </h1>
+    <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+      Bo‘sh vaqt darchalarida 20–30% arzonlashtirilgan MRT/KT apparatlari hamda 30 kunlik quti tarqatuvchi rasmiy dorixonalar tarmog‘i.
+    </p>
+
+    <!-- METRICS BANNER -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto mt-8 text-left">
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-[11px] text-slate-500 block font-semibold">Hamkor markazlar:</span>
+        <span class="text-xl font-black text-white">14 ta</span>
+      </div>
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-[11px] text-slate-500 block font-semibold">MRT va KT apparatlari:</span>
+        <span class="text-xl font-black text-blue-400">8 ta yuqori aniqlikda</span>
+      </div>
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-[11px] text-slate-500 block font-semibold">Bugungi bo‘sh slotlar:</span>
+        <span class="text-xl font-black text-emerald-400">38 ta darcha</span>
+      </div>
+      <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-[11px] text-slate-500 block font-semibold">O‘rtacha kutish vaqti:</span>
+        <span class="text-xl font-black text-purple-400">6 daqiqa (Navbatsiz)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH & FILTER BAR -->
+  <section class="max-w-6xl mx-auto px-4 py-4 w-full">
+    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-xl flex flex-col md:flex-row gap-4 items-center justify-between">
+      
+      <!-- SEARCH INPUT -->
+      <div class="relative w-full md:w-96">
+        <span class="absolute left-3.5 top-2.5 text-slate-400 text-sm">🔍</span>
+        <input type="text" id="searchInput" oninput="filterPartners()" placeholder="Klinika, dori, MRT, ko‘cha nomi..." class="w-full bg-slate-950 border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-xs font-medium text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+      </div>
+
+      <!-- FILTER BUTTONS -->
+      <div class="flex flex-wrap gap-2 w-full md:w-auto text-xs font-semibold">
+        <button onclick="setCityFilter('all')" id="btnCityAll" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white transition">Barchasi</button>
+        <button onclick="setCityFilter('Samarqand')" id="btnCitySam" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition">📍 Samarqand</button>
+        <button onclick="setCityFilter('Toshkent')" id="btnCityTosh" class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition">📍 Toshkent</button>
+        
+        <select id="typeFilter" onchange="filterPartners()" class="bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-blue-500">
+          <option value="all">Barcha toifalar</option>
+          <option value="mri">🧲 MRT & KT Markazlari</option>
+          <option value="pharmacy">💊 Ulgurji Dorixonalar</option>
+          <option value="lab">🧪 Qon & Laboratoriya</option>
+        </select>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PARTNERS DIRECTORY GRID -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
+    <div id="partnersGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <!-- DYNAMIC ITEMS POPULATED VIA JS -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2026 Unicorn Health Ecosystem. Samarqand, O‘zbekiston.</div>
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="hover:text-white">Bosh sahifa</a>
+        <a href="../doriquti/index.html" class="hover:text-emerald-400">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400">ArzonLab</a>
+        <a href="../docs/MASTER_ROADMAP.md" class="hover:text-white">Yo‘l xaritasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const partnersData = [
+      {
+        id: 1,
+        name: "SamDTU Ko‘p Tarmoqli Klinikasi MRT Markazi",
+        city: "Samarqand",
+        type: "mri",
+        category: "Klinik Diagnostika",
+        address: "Ishtixon ko‘chasi, 2-uy (SamDTU bazasi)",
+        phone: "+998 (66) 233-14-15",
+        equipment: "Siemens Magnetom Avanto 1.5T",
+        discountTag: "30% chegirma (Off-peak)",
+        slotsAvailable: 6,
+        rating: "4.9 ★ (120+ sharh)",
+        badge: "Davlat / SamDTU Hamkori",
+        link: "../arzonlab/index.html?clinic=samdtu"
+      },
+      {
+        id: 2,
+        name: "Intermed Scan Medical Samarqand",
+        city: "Samarqand",
+        type: "mri",
+        category: "MRT & KT Markazi",
+        address: "Mirzo Ulug‘bek ko‘chasi, 74-uy",
+        phone: "+998 (66) 210-44-00",
+        equipment: "GE Optima MR360 1.5T & KT 64-kesim",
+        discountTag: "25% chegirma (14:00-16:00)",
+        slotsAvailable: 4,
+        rating: "4.8 ★ (85 sharh)",
+        badge: "Litsenziyalangan Xususiy Markaz",
+        link: "../arzonlab/index.html?clinic=intermed"
+      },
+      {
+        id: 3,
+        name: "Olam Pharm Ulgurji Hub (DoriQuti Markazi)",
+        city: "Samarqand",
+        type: "pharmacy",
+        category: "Ulgurji & Chakana Dorixona",
+        address: "Sanoat hududi, 18-bino",
+        phone: "+998 (90) 505-11-22",
+        equipment: "Avtomatlashtirilgan Lentali Saralash",
+        discountTag: "15% ulgurji diskont",
+        slotsAvailable: 12,
+        rating: "5.0 ★ (240+ buyurtma)",
+        badge: "DoriQuti Bosh Provizor Markazi",
+        link: "../doriquti/index.html"
+      },
+      {
+        id: 4,
+        name: "Samarqand Dori-Darmon AK Bosh Dorixonasi",
+        city: "Samarqand",
+        type: "pharmacy",
+        category: "Aksiyadorlik Dorixona Tarmog‘i",
+        address: "Gagarin ko‘chasi, 110-uy",
+        phone: "+998 (66) 222-30-00",
+        equipment: "24/7 Dori Qabul qilish & Tarqatish",
+        discountTag: "12% diskont & E-Retsept",
+        slotsAvailable: 8,
+        rating: "4.7 ★ (150+ sharh)",
+        badge: "24/7 Ochiq",
+        link: "../doriquti/index.html"
+      },
+      {
+        id: 5,
+        name: "BioTest Central Laboratoriyasi",
+        city: "Samarqand",
+        type: "lab",
+        category: "Klinik Biokimyo & Gormonlar",
+        address: "Amir Temur ko‘chasi, 45-uy",
+        phone: "+998 (91) 555-88-22",
+        equipment: "Roche Cobas 6000 Analizator",
+        discountTag: "20% keshbek va chegirma",
+        slotsAvailable: 15,
+        rating: "4.9 ★ (310+ tahlil)",
+        badge: "Raqamli Natijalar (Telegram)",
+        link: "../arzonlab/index.html?test=qon"
+      },
+      {
+        id: 6,
+        name: "Medion Diagnostic Clinic Toshkent",
+        city: "Toshkent",
+        type: "mri",
+        category: "Premium Diagnostika",
+        address: "Zulfiyaxonim ko‘chasi, 18-uy",
+        phone: "+998 (71) 200-00-10",
+        equipment: "Philips Ingenia 3.0T MRT",
+        discountTag: "20% tungi chegirma (20:00-08:00)",
+        slotsAvailable: 5,
+        rating: "4.9 ★ (420+ sharh)",
+        badge: "3.0T Ultra Yuqori Aniqlik",
+        link: "../arzonlab/index.html?clinic=medion"
+      },
+      {
+        id: 7,
+        name: "Akfa Medline Universiteti Klinikasi",
+        city: "Toshkent",
+        type: "mri",
+        category: "Ko‘p Tarmoqli Tibbiyot Markazi",
+        address: "Olmazor tumani, Kichik halqa yo‘li, 5A",
+        phone: "+998 (71) 203-30-03",
+        equipment: "Siemens Somatom 128-kesim KT & MRT",
+        discountTag: "15% off-peak chegirma",
+        slotsAvailable: 7,
+        rating: "4.8 ★ (580+ sharh)",
+        badge: "Akkreditatsiyalangan Markaz",
+        link: "../arzonlab/index.html?clinic=akfa"
+      },
+      {
+        id: 8,
+        name: "Grand Pharm Toshkent Markaziy Filiali",
+        city: "Toshkent",
+        type: "pharmacy",
+        category: "Ulgurji & Chakana Hub",
+        address: "Chilonzor tumani, Bunyodkor shoh ko‘chasi, 15",
+        phone: "+998 (71) 202-00-55",
+        equipment: "Sovuq Zanjir (+2°C..+8°C) Ombori",
+        discountTag: "15% oylik to‘plam diskonti",
+        slotsAvailable: 20,
+        rating: "4.9 ★ (650+ bemor)",
+        badge: "DoriQuti Toshkent Logistika",
+        link: "../doriquti/index.html"
+      }
+    ];
+
+    let currentCity = 'all';
+
+    function setCityFilter(city) {
+      currentCity = city;
+      document.getElementById('btnCityAll').className = city === 'all' ? 'px-3 py-1.5 rounded-lg bg-blue-600 text-white transition' : 'px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      document.getElementById('btnCitySam').className = city === 'Samarqand' ? 'px-3 py-1.5 rounded-lg bg-blue-600 text-white transition' : 'px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      document.getElementById('btnCityTosh').className = city === 'Toshkent' ? 'px-3 py-1.5 rounded-lg bg-blue-600 text-white transition' : 'px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+      filterPartners();
+    }
+
+    function renderPartners(items) {
+      const container = document.getElementById('partnersGrid');
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-12 bg-slate-900/60 rounded-3xl border border-slate-800 p-8">
+            <span class="text-4xl block mb-2">🔍</span>
+            <h3 class="text-white font-bold text-sm">Hech qanday markaz topilmadi</h3>
+            <p class="text-slate-400 text-xs mt-1">Boshqa so‘z yoki filtrni tanlab ko‘ring.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(p => `
+        <div class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-2xl transition shadow-lg flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                ${p.city} • ${p.category}
+              </span>
+              <span class="text-[11px] font-bold text-amber-400">
+                ${p.rating}
+              </span>
+            </div>
+
+            <h3 class="font-extrabold text-sm text-white group-hover:text-blue-400 transition mb-1 leading-snug">
+              ${p.name}
+            </h3>
+
+            <p class="text-xs text-slate-400 mb-3 flex items-start gap-1">
+              <span>📍</span>
+              <span>${p.address}</span>
+            </p>
+
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800/80 space-y-1.5 mb-4 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500 text-[11px]">Apparat / Imkoniyat:</span>
+                <span class="text-slate-300 font-semibold text-[11px]">${p.equipment}</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500 text-[11px]">Maxsus imtiyoz:</span>
+                <span class="text-emerald-400 font-bold text-[11px]">${p.discountTag}</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-500 text-[11px]">Bugungi bo‘sh slotlar:</span>
+                <span class="text-blue-400 font-bold text-[11px]">🟢 ${p.slotsAvailable} ta darcha</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+            <a href="tel:${p.phone}" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-1">
+              <span>📞</span>
+              <span>Qo‘ng‘iroq</span>
+            </a>
+            <a href="${p.link}" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-extrabold py-2 px-3 rounded-xl text-xs text-center transition shadow-md shadow-blue-500/20">
+              Vaucher olish →
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterPartners() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const type = document.getElementById('typeFilter').value;
+
+      const filtered = partnersData.filter(p => {
+        const matchesCity = (currentCity === 'all') || (p.city === currentCity);
+        const matchesType = (type === 'all') || (p.type === type);
+        const matchesQuery = p.name.toLowerCase().includes(q) ||
+                             p.address.toLowerCase().includes(q) ||
+                             p.equipment.toLowerCase().includes(q) ||
+                             p.category.toLowerCase().includes(q);
+        return matchesCity && matchesType && matchesQuery;
+      });
+
+      renderPartners(filtered);
+    }
+
+    // Init
+    renderPartners(partnersData);
+  </script>
+</body>
+</html>

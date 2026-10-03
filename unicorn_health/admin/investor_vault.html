@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venture Data Room & Investor Diligence Vault | DoriQuti Unicorn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #07090e;
+            --surface: #10141f;
+            --surface-hover: #171d2d;
+            --border: #1f273d;
+            --gold: #f59e0b;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --purple: #c084fc;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(16, 20, 31, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 22px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-vc {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--gold);
+            color: #fde68a;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1400px;
+            margin: 32px auto;
+            padding: 0 24px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            position: relative;
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+        .kpi-gold::after { background: var(--gold); }
+        .kpi-emerald::after { background: var(--emerald); }
+        .kpi-primary::after { background: var(--primary); }
+        .kpi-purple::after { background: var(--purple); }
+
+        .kpi-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kpi-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .kpi-sub {
+            font-size: 0.8rem;
+            color: #6ee7b7;
+            font-weight: 600;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .folder-item {
+            background: #07090e;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .folder-item:hover {
+            border-color: #3b82f6;
+            background: #0d121c;
+        }
+
+        .folder-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .folder-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .cap-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            background: #07090e;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: #07090e;
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+        }
+        .btn-gold:hover { background: #d97706; }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-outline:hover { background: var(--surface-hover); }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 2rem;">💎</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">DoriQuti & ArzonLab Yagona Investor Data Room</h1>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Venture Capital, Seed/Series A Due Diligence va Korporativ Ma'lumotlar Ombori</p>
+            </div>
+            <span class="badge-vc">Institutional Data Room</span>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <a href="/admin/executive_cockpit.html" class="nav-link">💼 C-Suite Cockpit</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Top Valuation Metrics -->
+        <div class="kpi-grid">
+            <div class="kpi-card kpi-gold">
+                <div class="kpi-title">
+                    <span>Target Seed Round</span>
+                    <span>💰</span>
+                </div>
+                <div class="kpi-val">$1,500,000</div>
+                <div class="kpi-sub">Pre-Money: $8.5M • Post-Money: $10.0M</div>
+            </div>
+
+            <div class="kpi-card kpi-emerald">
+                <div class="kpi-title">
+                    <span>LTV / CAC Ratio</span>
+                    <span>📈</span>
+                </div>
+                <div class="kpi-val">11.25x</div>
+                <div class="kpi-sub">Koxorta sodiqligi: 86.4% M12 retention</div>
+            </div>
+
+            <div class="kpi-card kpi-primary">
+                <div class="kpi-title">
+                    <span>Joriy Konsolidatsiyalangan MRR</span>
+                    <span>⚡</span>
+                </div>
+                <div class="kpi-val">91.94M UZS</div>
+                <div class="kpi-sub">Samarqand (53.3M) + Toshkent (38.6M)</div>
+            </div>
+
+            <div class="kpi-card kpi-purple">
+                <div class="kpi-title">
+                    <span>Unicorn Traektoriyasi ($1B)</span>
+                    <span>🦄</span>
+                </div>
+                <div class="kpi-val">2029-yil</div>
+                <div class="kpi-sub">Markaziy Osiyodagi 1-Tibbiyot Yakkashoxi</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            
+            <!-- Left: Cap Table & Founders -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📊 Cap Table & Aksiyadorlar Tuzilmasi</div>
+                        <span style="font-size: 0.8rem; color: #10b981; font-weight: 700;">Seed Bosqichi</span>
+                    </div>
+
+                    <div class="cap-row">
+                        <div>
+                            <strong style="color: white; font-size: 0.95rem;">Jasur Shukurov</strong>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Asoschi & CEO (SamDTU / School 21)</div>
+                        </div>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 1.1rem; color: var(--gold);">82.0%</span>
+                    </div>
+
+                    <div class="cap-row">
+                        <div>
+                            <strong style="color: white; font-size: 0.95rem;">ESOP Pool</strong>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Bosh shifokorlar va dasturchilar optioni</div>
+                        </div>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 1.1rem; color: var(--primary);">10.0%</span>
+                    </div>
+
+                    <div class="cap-row">
+                        <div>
+                            <strong style="color: white; font-size: 0.95rem;">Strategik Farishta Investorlar</strong>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Farmatsevtika va tibbiyot rahbarlari</div>
+                        </div>
+                        <span style="font-family: 'JetBrains Mono'; font-weight: 800; font-size: 1.1rem; color: #c084fc;">8.0%</span>
+                    </div>
+
+                    <div style="margin-top: 24px;">
+                        <button class="btn btn-gold" onclick="exportDataRoomJSON()">
+                            📁 To'liq Data Room Fayllarini Yuklash (JSON/ZIP)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Due Diligence Folders -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🗂️ Due Diligence Hujjatlar Indeksi</div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">28 ta Portal & Aktivlar</span>
+                    </div>
+
+                    <div class="folder-item">
+                        <div class="folder-title">⚖️ 1. Yuridik & Regulyator Baza</div>
+                        <div class="folder-desc">
+                            Fuqarolik Kodeksi 832-849-moddalar (axborot-vositachilik modeli, litsenziyasiz toza platforma), Soliq Kodeksi 378-moddasi (12% JSHDS qaytarimi), tovar belgilari va E-IMZO integratsiyasi.
+                        </div>
+                    </div>
+
+                    <div class="folder-item">
+                        <div class="folder-title">📈 2. Moliyaviy & Unit-Iqtisodiyot Auditi</div>
+                        <div class="folder-desc">
+                            CAC: 84,000 UZS, LTV: 945,000 UZS (11.25x), Churn: 3.4%, 12 oylik Retention: 86.4%, PDC: 94.2%, Soliq.uz MXIK fiskal cheklari va 53.3M Samarqand MRR.
+                        </div>
+                    </div>
+
+                    <div class="folder-item">
+                        <div class="folder-title">🏥 3. Klinik Hamkorliklar & Shartnomalar</div>
+                        <div class="folder-desc">
+                            SamDTU klinikalari, Samarqand Onkologiya dispanseri, 103 Tez Yordam Triage integratsiyasi, Nobel/Jurabek zavodlari auksioni va Davlat Tibbiy Sug'urtasi (DSJF) 80% qoplash shartnomalari.
+                        </div>
+                    </div>
+
+                    <div class="folder-item">
+                        <div class="folder-title">💻 4. Texnologik Aktivlar & Intellektual Mulk</div>
+                        <div class="folder-desc">
+                            100% oflayn PWA Service Worker arxitekturasi, IoT sovuq zanjir termo-datchiklari, Beers Criteria depreskraybing dvigateli va CYP2C19 Farmakogenomika algoritmi.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function exportDataRoomJSON() {
+            const data = {
+                entity: "Unicorn Health Uzbekistan (DoriQuti.uz / ArzonLab.uz)",
+                valuation: { pre: 8500000, post: 10000000, raise: 1500000 },
+                founder: "Shukurov Jasur Otabek o'g'li",
+                academic_base: "Samarkand State Medical University (SamDTU) & School 21",
+                metrics: { mrr_uzs: 91940000, ltv_cac: 11.25, adherence_pdc: 0.942, retention_m12: 0.864 },
+                portals_count: 30,
+                export_timestamp: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Unicorn_Health_DataRoom_Diligence_${Date.now()}.json`;
+            a.click();
+        }
+    </script>
+</body>
+</html>

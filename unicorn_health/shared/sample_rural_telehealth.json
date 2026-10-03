@@ -1,0 +1,205 @@
+{
+  "status": "OPERATIONAL",
+  "active_bus_fleet": 1,
+  "bus_model": "Isuzu NP64 / Mercedes Sprinter Solar-Lab",
+  "coverage_districts": 5,
+  "hubs": [
+    {
+      "id": "hub-urgut-01",
+      "district": "Urgut tumani",
+      "village": "Qoratepa qishlog'i",
+      "qvp_name": "Qoratepa Oila Shifokorlik Punkti (QOP #14)",
+      "distance_km": 48,
+      "population": 7400,
+      "chronic_patients_est": 820,
+      "next_visit_date": "2026-10-06",
+      "status": "Rejalashtirilgan",
+      "power_source": "Solar PV (3.2 kW) + EcoFlow LiFePO4"
+    },
+    {
+      "id": "hub-urgut-02",
+      "district": "Urgut tumani",
+      "village": "Pochvon qishlog'i (Tog'li zona)",
+      "qvp_name": "Pochvon QVP #21",
+      "distance_km": 64,
+      "population": 5100,
+      "chronic_patients_est": 560,
+      "next_visit_date": "2026-10-08",
+      "status": "Rejalashtirilgan",
+      "power_source": "Solar PV + Generator"
+    },
+    {
+      "id": "hub-pastdargom-01",
+      "district": "Pastdarg'om tumani",
+      "village": "Go'zalkent shaharchasi",
+      "qvp_name": "Go'zalkent QOP #5",
+      "distance_km": 36,
+      "population": 9200,
+      "chronic_patients_est": 1150,
+      "next_visit_date": "2026-10-10",
+      "status": "Rejalashtirilgan",
+      "power_source": "Solar PV + Mahalla Grid"
+    },
+    {
+      "id": "hub-qoshrabot-01",
+      "district": "Qo'shrabot tumani",
+      "village": "Zarkent qishlog'i (Cho'l/Qir mintaqasi)",
+      "qvp_name": "Zarkent QVP #3",
+      "distance_km": 112,
+      "population": 4300,
+      "chronic_patients_est": 490,
+      "next_visit_date": "2026-10-13",
+      "status": "Rejalashtirilgan",
+      "power_source": "Solar PV + Starlink Satellite"
+    },
+    {
+      "id": "hub-payariq-01",
+      "district": "Payariq tumani",
+      "village": "Chelak yaqini, Tomosha qishlog'i",
+      "qvp_name": "Tomosha QOP #9",
+      "distance_km": 52,
+      "population": 6800,
+      "chronic_patients_est": 730,
+      "next_visit_date": "2026-10-15",
+      "status": "Rejalashtirilgan",
+      "power_source": "Solar PV + EcoFlow"
+    }
+  ],
+  "equipment": [
+    {
+      "device_id": "poct-hba1c",
+      "name": "Bio-Rad / Afinion 2 Tezkor HbA1c Analizatori",
+      "sample_type": "1 tomchi kapillyar qon (barmoqdan)",
+      "turnaround_minutes": 5,
+      "clinical_role": "Qandli diabet kompensatsiyasini baholash"
+    },
+    {
+      "device_id": "poct-lipid",
+      "name": "CardioChek Plus Tezkor Lipid Paneli",
+      "sample_type": "Kapillyar qon",
+      "turnaround_minutes": 3,
+      "clinical_role": "Xolesterin, triglitserid, YZX, PZX (infarkt/insult xavfi)"
+    },
+    {
+      "device_id": "tele-ecg",
+      "name": "Edan 12-Kanalli Raqamli Tele-EKG (Bluetooth/Cloud)",
+      "sample_type": "Elektrodlar (ko'krak/qo'l-oyoq)",
+      "turnaround_minutes": 4,
+      "clinical_role": "SamDTU Kardiologiya kafedrasiga to'g'ridan-to'g'ri bulutli EKG"
+    },
+    {
+      "device_id": "pocus-uzi",
+      "name": "Butterfly iQ+ Portativ Ultratovush (POCUS)",
+      "sample_type": "Qorin bo'shlig'i / Buyrak / Qalqonsimon bez / Homila",
+      "turnaround_minutes": 10,
+      "clinical_role": "Mobil UZI tekshiruvi va raqamli video arxivi"
+    },
+    {
+      "device_id": "fundus-cam",
+      "name": "Optomed Aurora Portativ Raqamli Fundus-Kamera",
+      "sample_type": "Ko'z tubi (qorachiqni kengaytirmasdan)",
+      "turnaround_minutes": 3,
+      "clinical_role": "Diabetik retinopatiya va gipertonik angiopatiya"
+    }
+  ],
+  "packages": [
+    {
+      "id": "rural-cardio-metabolic",
+      "title": "Kardio-Metabolik Qishloq Skrining Paketi",
+      "tests": [
+        "HbA1c (5 min)",
+        "Lipid paneli (Xolesterin/TG)",
+        "12-kanalli Tele-EKG",
+        "Qon bosimi & BMI",
+        "SamDTU Kardiolog Tele-Xulosa"
+      ],
+      "city_retail_uzs": 420000,
+      "bus_subsidized_uzs": 120000,
+      "taxi_saved_uzs": 80000,
+      "icon": "❤️"
+    },
+    {
+      "id": "rural-renal-diabetes",
+      "title": "Diabet & Buyrak Xavfsizligi Paketi",
+      "tests": [
+        "HbA1c tezkor",
+        "Kreatinin & eGFR",
+        "Siydik mikroalbuminuriya",
+        "Buyrak POCUS UZI",
+        "Ko'z tubi kamerasi"
+      ],
+      "city_retail_uzs": 480000,
+      "bus_subsidized_uzs": 140000,
+      "taxi_saved_uzs": 85000,
+      "icon": "🩸"
+    },
+    {
+      "id": "rural-maternal-fetal",
+      "title": "Homilador Ayollar Qishloq Tele-Skriningi",
+      "tests": [
+        "POCUS Akusherlik UZI (homila o'lchami & yurak urishi)",
+        "Ekspress Gemoglobin (Anemiya)",
+        "Siydik oqsili ekspress",
+        "Arterial bosim & Preeklampsiya xavfi"
+      ],
+      "city_retail_uzs": 390000,
+      "bus_subsidized_uzs": 95000,
+      "taxi_saved_uzs": 90000,
+      "icon": "🤰"
+    },
+    {
+      "id": "rural-senior-comprehensive",
+      "title": "Nuroniylar & Pensiyadagilar Umumiy Skriningi",
+      "tests": [
+        "Tele-EKG",
+        "Lipid & glyukoza ekspress",
+        "POCUS Jigar/O't pufagi UZI",
+        "Polipragmaziya Dori Taxtasi",
+        "30 kunlik DoriQuti buyurtmasi"
+      ],
+      "city_retail_uzs": 510000,
+      "bus_subsidized_uzs": 130000,
+      "taxi_saved_uzs": 95000,
+      "icon": "👴"
+    }
+  ],
+  "sample_patient_savings": {
+    "package_id": "rural-cardio-metabolic",
+    "package_title": "Kardio-Metabolik Qishloq Skrining Paketi",
+    "distance_km": 64,
+    "is_inson_welfare": false,
+    "city_clinical_cost_uzs": 420000,
+    "city_roundtrip_taxi_uzs": 115200,
+    "total_city_expense_uzs": 535200,
+    "mobile_bus_cost_uzs": 120000,
+    "net_money_saved_uzs": 415200,
+    "savings_percent": 77.6,
+    "travel_hours_saved": 6.2,
+    "pouch_delivery_drop_point": "QVP/QOP Hamshira xonasi (0 UZS yetkazish)"
+  },
+  "sample_welfare_patient_savings": {
+    "package_id": "rural-senior-comprehensive",
+    "package_title": "Nuroniylar & Pensiyadagilar Umumiy Skriningi",
+    "distance_km": 112,
+    "is_inson_welfare": true,
+    "city_clinical_cost_uzs": 510000,
+    "city_roundtrip_taxi_uzs": 201600,
+    "total_city_expense_uzs": 711600,
+    "mobile_bus_cost_uzs": 0,
+    "net_money_saved_uzs": 711600,
+    "savings_percent": 100.0,
+    "travel_hours_saved": 8.9,
+    "pouch_delivery_drop_point": "QVP/QOP Hamshira xonasi (0 UZS yetkazish)"
+  },
+  "sample_triage_result": {
+    "urgency_level": "Sariq (O'rtacha xavf: Arterial gipertenziya)",
+    "color": "amber",
+    "alerts": [
+      "Yuqori qon bosimi: 165/98 mmHg. Gipotenziya dorilari dozasini titrlash lozim.",
+      "Suboptimal qand nazorati: HbA1c 8.8%. Parhez va metformin dozasini optimallashtirish."
+    ],
+    "referral_needed": false,
+    "telehealth_recommended": true,
+    "doriquti_pouch_recommendation": "Surunkali 30-kunlik qadoqlash rejimiga o'tkazish tavsiya etiladi."
+  }
+}

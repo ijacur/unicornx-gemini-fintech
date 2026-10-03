@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health — Telegram Mini App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-2 sm:p-4">
+
+  <!-- PHONE MOCKUP SHELL -->
+  <div class="w-full max-w-md bg-slate-950 rounded-[40px] border-4 border-slate-800 shadow-2xl overflow-hidden flex flex-col h-[750px]">
+    
+    <!-- STATUS BAR -->
+    <div class="bg-slate-900 px-6 py-2 flex items-center justify-between text-[11px] text-slate-400 border-b border-slate-800">
+      <span>09:41</span>
+      <div class="flex items-center space-x-1.5">
+        <span>📶</span>
+        <span>5G</span>
+        <span>🔋 100%</span>
+      </div>
+    </div>
+
+    <!-- TELEGRAM APP BAR -->
+    <div class="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-emerald-500 to-blue-600 flex items-center justify-center font-black text-sm">
+          🦄
+        </div>
+        <div>
+          <h4 class="font-extrabold text-sm leading-tight">Unicorn Health Bot</h4>
+          <span class="text-[10px] text-emerald-400 block font-semibold">bot • mini app</span>
+        </div>
+      </div>
+      <button onclick="window.close()" class="text-slate-400 hover:text-white font-bold text-xs bg-slate-800 px-2.5 py-1 rounded-lg">
+        Yopish
+      </button>
+    </div>
+
+    <!-- TABS SWITCHER -->
+    <div class="grid grid-cols-2 p-1.5 bg-slate-900 border-b border-slate-800 text-xs font-bold text-center">
+      <button onclick="switchTab('doriquti')" id="tabDori" class="py-2 rounded-xl bg-emerald-500 text-slate-950 transition">
+        💊 DoriQuti (PillPack)
+      </button>
+      <button onclick="switchTab('arzonlab')" id="tabLab" class="py-2 rounded-xl text-slate-400 hover:text-white transition">
+        🔬 ArzonLab (GoodRx)
+      </button>
+    </div>
+
+    <!-- IFRAME CONTAINER (RUNS THE LIVE APPS EMBEDDED) -->
+    <div class="flex-1 w-full bg-white relative overflow-hidden">
+      <iframe id="appFrame" src="../doriquti/index.html" class="w-full h-full border-none"></iframe>
+    </div>
+
+    <!-- TELEGRAM BOTTOM BAR -->
+    <div class="bg-slate-900 px-4 py-2 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800">
+      <button onclick="historyBack()" class="hover:text-white">◀ Orqaga</button>
+      <span class="font-mono text-[10px] text-slate-500">Telegram WebApp v6.9</span>
+      <button onclick="refreshFrame()" class="hover:text-white">🔄 Yangilash</button>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      const frame = document.getElementById('appFrame');
+      const tabDori = document.getElementById('tabDori');
+      const tabLab = document.getElementById('tabLab');
+
+      if (tab === 'doriquti') {
+        frame.src = '../doriquti/index.html';
+        tabDori.className = "py-2 rounded-xl bg-emerald-500 text-slate-950 transition";
+        tabLab.className = "py-2 rounded-xl text-slate-400 hover:text-white transition";
+      } else {
+        frame.src = '../arzonlab/index.html';
+        tabLab.className = "py-2 rounded-xl bg-blue-600 text-white transition";
+        tabDori.className = "py-2 rounded-xl text-slate-400 hover:text-white transition";
+      }
+    }
+
+    function historyBack() {
+      const frame = document.getElementById('appFrame');
+      frame.contentWindow.history.back();
+    }
+
+    function refreshFrame() {
+      const frame = document.getElementById('appFrame');
+      frame.src = frame.src;
+    }
+
+    // Init Telegram WebApp if inside Telegram
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+  </script>
+</body>
+</html>

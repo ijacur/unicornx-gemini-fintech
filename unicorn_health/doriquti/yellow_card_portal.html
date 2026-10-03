@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sariq Xarita (Yellow Card) Farmakonazorat Portali | DoriQuti & SSV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #090e17;
+            --surface: #111a2e;
+            --surface-hover: #192642;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(17, 26, 46, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-yellow-card {
+            background: rgba(245, 158, 11, 0.18);
+            border: 1px solid var(--amber);
+            color: #fcd34d;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 9px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+        }
+
+        .btn-primary {
+            background: #d97706;
+            border-color: #b45309;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b45309;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 28px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 14px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, select, textarea {
+            background: #080e1c;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            padding: 10px 14px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--amber);
+        }
+
+        /* Naranjo Questions List */
+        .naranjo-item {
+            background: #0b1324;
+            border: 1px solid #1a2842;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .naranjo-text {
+            font-size: 13px;
+            color: #e2e8f0;
+            line-height: 1.4;
+        }
+
+        .naranjo-options {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .btn-radio {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: #142038;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .btn-radio.active-yes {
+            background: rgba(16, 185, 129, 0.25);
+            border-color: var(--emerald);
+            color: #6ee7b7;
+        }
+
+        .btn-radio.active-no {
+            background: rgba(244, 63, 94, 0.25);
+            border-color: var(--rose);
+            color: #fda4af;
+        }
+
+        .btn-radio.active-unk {
+            background: rgba(148, 163, 184, 0.25);
+            border-color: #64748b;
+            color: #f1f5f9;
+        }
+
+        /* Score Gauge */
+        .score-card {
+            background: #0e172a;
+            border: 2px solid var(--amber);
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            position: sticky;
+            top: 100px;
+        }
+
+        .score-value {
+            font-size: 54px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #fcd34d;
+            margin: 10px 0;
+        }
+
+        .score-verdict {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .score-advice {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+
+        /* Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #16243f;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .pill-danger { background: rgba(244, 63, 94, 0.2); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .pill-warning { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .pill-success { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+        /* Printable form style */
+        @media print {
+            body { background: white; color: black; }
+            .header, .btn-action, .naranjo-options, .score-card { display: none !important; }
+            .card { border: 1px solid #000; box-shadow: none; page-break-inside: avoid; }
+            .grid-layout { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 28px;">📋</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">Milliy Farmakonazorat & Sariq Xarita Portali</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">SSV Dori Vositalari Ekspertizasi Davlat Markazi & JSST-UMC Standarti</p>
+            </div>
+            <span class="badge-yellow-card">O'zbekiston SSV Buyrug'i №275</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action">← Asosiy Panel</a>
+            <button class="btn-action" onclick="window.print()">🖨️ Shaklni Chop Etish</button>
+            <button class="btn-action btn-primary" onclick="submitYellowCard()">
+                <span>⚡</span> SSV Markaziga Yuborish (#ADR-2026-UZ)
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Main Form Grid -->
+        <div class="grid-layout">
+            <div>
+                <!-- 1. Bemor va Dori Vositasi -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title"><span>👤</span> 1. Bemor & Shubhali Dori Vositasi</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">Maxfiy O'RQ-547 himoyasi</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Bemor Bosh Harflari (Inisial)</label>
+                            <input type="text" id="patientInitials" value="J.Sh. (Jasur Shukurov)">
+                        </div>
+                        <div class="form-group">
+                            <label>Yoshi va Jinsi</label>
+                            <input type="text" id="patientAgeGender" value="58 yosh, Erkak">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Shubhali Dori Vositasi (Savdo Nomi)</label>
+                            <input type="text" id="drugTrade" value="Atorvastatin 40mg (Nobel Pharmsanoat)">
+                        </div>
+                        <div class="form-group">
+                            <label>Xalqaro Patentlanmagan Nomi (XPN/INN)</label>
+                            <input type="text" id="drugInn" value="Atorvastatinum (C10AA05)">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ishlab chiqarish partiyasi (Batch/Lot)</label>
+                            <input type="text" id="drugBatch" value="BATCH-ATV-2026A" style="font-family: 'JetBrains Mono'; color: #fcd34d;">
+                        </div>
+                        <div class="form-group">
+                            <label>DoriQuti Blister Qadoqlash Sanasi</label>
+                            <input type="text" id="dispenseDate" value="2026-09-10 (30 kunlik blister)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>MedDRA Bo'yicha Nojo'ya Ta'sir Tasnifi</label>
+                        <select id="meddraSelect" onchange="updateMeddraInfo()">
+                            <option value="myopathy" selected>Mushak og'rig'i va miopatiya (KFK oshishi) [10028641]</option>
+                            <option value="rhabdomyolysis">Rabdomioliz - O'tkir mioglobinemiya [10039020]</option>
+                            <option value="angioedema">Kvinke shishi / Angioedema [10002424]</option>
+                            <option value="cough">Quruq bezovta qiluvchi yo'tal [10011224]</option>
+                            <option value="peripheral_edema">Periferik boldir shishi [10034570]</option>
+                            <option value="hypoglycemia">Gipoglikemiya (< 3.3 mmol/L) [10020993]</option>
+                            <option value="lactic_acidosis">Laktatatsidoz [10023631]</option>
+                            <option value="hepatotoxicity">Gepatotoksiklik (ALT/AST 3x) [10019805]</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Klinik Tavsif va Laboratoriya Ko'rsatkichlari</label>
+                        <textarea rows="3">Bemor Atorvastatin 40mg qabul qilgach, son va boldir mushaklarida simmetrik kuchli og'riq paydo bo'ldi. Siydik rangi to'q sariq. Qon tahlilida KFK 850 U/L (norma < 190 U/L), ALT 48 U/L. Dori bekor qilingach 4 kunda og'riqlar kamaydi.</textarea>
+                    </div>
+                </div>
+
+                <!-- 2. Naranjo Causality Assessment Scale -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title"><span>⚖️</span> 2. Naranjo Sabab-Oqibat Algoritmi (10 Klinik Mezon)</span>
+                        <span style="font-size: 12px; color: var(--primary);">JSST Standart shkalasi</span>
+                    </div>
+
+                    <div id="naranjoQuestionsContainer">
+                        <!-- Questions dynamically rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- 3. Partiyalar Xavfsizlik Reyestri & Recall Status -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title"><span>🚨</span> 3. Dorixona Omborlari & Partiyalarni Chaqirib Olish (Batch Recall)</span>
+                        <span style="font-size: 11px; color: var(--text-muted);">SamDTU & DoriQuti Hub</span>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Partiya №</th>
+                                <th>Dori vositasi</th>
+                                <th>Hisobotlar</th>
+                                <th>Status</th>
+                                <th>Chora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(244, 63, 94, 0.08);">
+                                <td style="font-family: 'JetBrains Mono'; font-weight: 700; color: #fda4af;">BATCH-ATV-2026A</td>
+                                <td>Atorvastatin 40mg</td>
+                                <td style="font-weight: bold; color: var(--rose);">3 ta qayd</td>
+                                <td><span class="pill pill-danger">QIZIL: CHAQIRIB OLISH</span></td>
+                                <td style="font-size: 12px; color: #fda4af;">Omborlarda muzlatildi</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: 'JetBrains Mono'; font-weight: 700; color: #fcd34d;">BATCH-AML-2026C</td>
+                                <td>Amlodipin 5mg</td>
+                                <td>1 ta qayd</td>
+                                <td><span class="pill pill-warning">SARIQ: KUZATUV</span></td>
+                                <td style="font-size: 12px; color: var(--text-muted);">Monitoringda</td>
+                            </tr>
+                            <tr>
+                                <td style="font-family: 'JetBrains Mono'; font-weight: 700; color: #6ee7b7;">BATCH-MET-2026F</td>
+                                <td>Metformin 1000mg</td>
+                                <td>0 ta qayd</td>
+                                <td><span class="pill pill-success">YASHIL: XAVFSIZ</span></td>
+                                <td style="font-size: 12px; color: var(--emerald);">Sotuvda</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sticky Right Sidebar: Score Gauge -->
+            <div>
+                <div class="score-card">
+                    <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">
+                        Naranjo Algoritmi Balli
+                    </div>
+                    <div class="score-value" id="scoreDisplay">10</div>
+                    <div class="score-verdict" id="verdictDisplay" style="color: var(--rose);">Aniq (Definite)</div>
+                    <div class="score-advice" id="adviceDisplay">
+                        Nojo'ya ta'sir dori vositasi bilan to'g'ridan-to'g'ri bog'liq! Dorini zudlik bilan bekor qilish, xavfsiz analog bilan almashtirish va SSV ga tezkor xabar berish shart.
+                    </div>
+
+                    <div style="text-align: left; background: #080e1c; padding: 14px; border-radius: 8px; border: 1px solid var(--border); font-size: 12px; margin-bottom: 16px;">
+                        <div style="font-weight: 700; color: #cbd5e1; margin-bottom: 6px;">SSV Rasmylashtiruvi:</div>
+                        <div>• Xabar ID: <span style="color: var(--primary); font-family: 'JetBrains Mono';">YC-UZ-2026-0042</span></div>
+                        <div>• Registrator: Dr. Shukurov Jasur (SamDTU)</div>
+                        <div>• Holat: Shoshilinch farmakonazorat</div>
+                    </div>
+
+                    <button class="btn-action btn-primary" style="width: 100%; justify-content: center;" onclick="submitYellowCard()">
+                        <span>📤</span> Sariq Xaritani Tasdiqlash
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const NARANJO_DATA = [
+            { id: 1, text: "1. Ushbu nojo'ya ta'sir haqida avval tasdiqlangan ilmiy xabarlar bormi?", yes: 1, no: 0, unk: 0, default: 'yes' },
+            { id: 2, text: "2. Nojo'ya ta'sir dori qabulidan keyin paydo bo'ldimi?", yes: 2, no: -1, unk: 0, default: 'yes' },
+            { id: 3, text: "3. Dori to'xtatilganda yoki antidot berilganda holat yaxshilandimi?", yes: 1, no: 0, unk: 0, default: 'yes' },
+            { id: 4, text: "4. Dori qayta qabul qilinganda xuddi shu reaksiya qaytalandimi?", yes: 2, no: -1, unk: 0, default: 'unk' },
+            { id: 5, text: "5. Holatni keltirib chiqaruvchi boshqa muqobil kasalliklar yo'qmi?", yes: -1, no: 2, unk: 0, default: 'no' },
+            { id: 6, text: "6. Platsebo berilganda ham reaksiya kuzatildimi?", yes: -1, no: 1, unk: 0, default: 'no' },
+            { id: 7, text: "7. Dori qonda toksik konsentratsiyada aniqlandimi?", yes: 1, no: 0, unk: 0, default: 'yes' },
+            { id: 8, text: "8. Doza oshirilganda kuchayib, kamaytirilganda pasaydimi?", yes: 1, no: 0, unk: 0, default: 'yes' },
+            { id: 9, text: "9. Bemor o'tmishda shunday doriga o'xshash reaksiya bildirganmi?", yes: 1, no: 0, unk: 0, default: 'unk' },
+            { id: 10, text: "10. Nojo'ya ta'sir ob'ektiv laboratoriya tahlillari bilan tasdiqlandimi?", yes: 1, no: 0, unk: 0, default: 'yes' }
+        ];
+
+        let userAnswers = {};
+
+        function renderNaranjoQuestions() {
+            const container = document.getElementById('naranjoQuestionsContainer');
+            container.innerHTML = '';
+
+            NARANJO_DATA.forEach(q => {
+                userAnswers[q.id] = q.default;
+                const div = document.createElement('div');
+                div.className = 'naranjo-item';
+                div.innerHTML = `
+                    <div class="naranjo-text">${q.text}</div>
+                    <div class="naranjo-options">
+                        <button type="button" class="btn-radio ${q.default === 'yes' ? 'active-yes' : ''}" onclick="setAnswer(${q.id}, 'yes', this)">Ha</button>
+                        <button type="button" class="btn-radio ${q.default === 'no' ? 'active-no' : ''}" onclick="setAnswer(${q.id}, 'no', this)">Yo'q</button>
+                        <button type="button" class="btn-radio ${q.default === 'unk' ? 'active-unk' : ''}" onclick="setAnswer(${q.id}, 'unk', this)">Noma'lum</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            recalcScore();
+        }
+
+        function setAnswer(qid, ans, btn) {
+            userAnswers[qid] = ans;
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.btn-radio').forEach(b => {
+                b.className = 'btn-radio';
+            });
+            if (ans === 'yes') btn.classList.add('active-yes');
+            if (ans === 'no') btn.classList.add('active-no');
+            if (ans === 'unk') btn.classList.add('active-unk');
+            recalcScore();
+        }
+
+        function recalcScore() {
+            let total = 0;
+            NARANJO_DATA.forEach(q => {
+                const ans = userAnswers[q.id];
+                total += q[ans];
+            });
+
+            document.getElementById('scoreDisplay').innerText = total;
+            const verdictEl = document.getElementById('verdictDisplay');
+            const adviceEl = document.getElementById('adviceDisplay');
+
+            if (total >= 9) {
+                verdictEl.innerText = "Aniq (Definite)";
+                verdictEl.style.color = "var(--rose)";
+                adviceEl.innerText = "Nojo'ya ta'sir dori vositasi bilan to'g'ridan-to'g'ri bog'liq! Dorini zudlik bilan bekor qilish, xavfsiz analog bilan almashtirish va SSV ga tezkor xabar berish shart.";
+            } else if (total >= 5) {
+                verdictEl.innerText = "Ehtimoli Yuqori (Probable)";
+                verdictEl.style.color = "#f59e0b";
+                adviceEl.innerText = "Bog'liqlik ehtimoli juda yuqori. Dorini to'xtatish yoki muqobil dori berish tavsiya qilinadi.";
+            } else if (total >= 1) {
+                verdictEl.innerText = "Bo'lishi Mumkin (Possible)";
+                verdictEl.style.color = "#38bdf8";
+                adviceEl.innerText = "Nojo'ya ta'sir bo'lishi mumkin, ammo bemorning qo'shimcha kasalliklari ham sabab bo'lishi ehtimoldan xoli emas.";
+            } else {
+                verdictEl.innerText = "Shubhali / Inkor Etilgan (Doubtful)";
+                verdictEl.style.color = "#94a3b8";
+                adviceEl.innerText = "Reaksiya dori vositasiga bog'liq emasligi ehtimoli katta. Boshqa sabablarni tekshiring.";
+            }
+        }
+
+        function updateMeddraInfo() {
+            // Dropdown changed
+        }
+
+        function submitYellowCard() {
+            alert("✓ 'Sariq Xarita' #YC-UZ-2026-0042 O'zbekiston Respublikasi SSV Farmatsevtika mahsulotlari xavfsizligi markazi hamda JSST-UMC bazasiga muvaffaqiyatli jo'natildi!\n\nBATCH-ATV-2026A partiyasi dorixonalar tarmog'ida vaqtincha muzlatildi.");
+        }
+
+        // Initialize
+        renderNaranjoQuestions();
+    </script>
+</body>
+</html>

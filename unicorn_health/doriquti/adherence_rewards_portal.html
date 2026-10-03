@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dori Intizomi & Mukofotlar Portali | DoriQuti Adherence Streak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-streak {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid var(--amber);
+            color: #fcd34d;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+        }
+
+        .btn-primary {
+            background: #059669;
+            border-color: #047857;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #047857;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        /* Top Streak Hero */
+        .hero-banner {
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            border: 1px solid #3730a3;
+            border-radius: 18px;
+            padding: 28px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .streak-pill {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid var(--amber);
+            color: #fcd34d;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 16px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .hero-desc {
+            font-size: 13px;
+            color: #cbd5e1;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .cashback-box {
+            text-align: right;
+        }
+
+        .cashback-amount {
+            font-size: 36px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--emerald);
+        }
+
+        /* Grid Layout */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 28px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 30-Day Blister Punch Grid */
+        .blister-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+        }
+
+        .blister-cell {
+            background: #080f1c;
+            border: 1px solid #1a2842;
+            border-radius: 12px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .blister-cell:hover {
+            border-color: var(--primary);
+            transform: scale(1.03);
+        }
+
+        .cell-day {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cell-status {
+            font-size: 20px;
+        }
+
+        .cell-taken {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--emerald);
+        }
+
+        .cell-missed {
+            background: rgba(244, 63, 94, 0.15);
+            border-color: var(--rose);
+        }
+
+        /* Milestone Cards */
+        .milestone-item {
+            background: #080f1c;
+            border: 1px solid #1a2842;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .milestone-unlocked {
+            border-color: var(--emerald);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .milestone-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .milestone-perk {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .milestone-badge {
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .badge-done { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+        .badge-lock { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+
+        .alert-box {
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid var(--rose);
+            border-radius: 10px;
+            padding: 16px;
+            color: #fda4af;
+            font-size: 13px;
+            line-height: 1.4;
+            display: none;
+            margin-top: 18px;
+        }
+
+        .alert-box.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 28px;">🏆</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">Dori Intizomi & Mukofotlar Markazi (Adherence Streak)</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">Har kungi intizom uchun real keshbek va oilaviy xavfsizlik nazorati</p>
+            </div>
+            <span class="badge-streak">O'yinlashtirilgan Farmakoterapiya</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action">← Asosiy Hub</a>
+            <button class="btn-action btn-primary" onclick="withdrawCashback()">
+                💳 Keshbekni Yechish (Humo/Uzcard)
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Streak Banner -->
+        <div class="hero-banner">
+            <div>
+                <div class="hero-title">
+                    <span>🔥 Uzluksiz Intizom Zanjiri:</span>
+                    <span class="streak-pill" id="streakDisplay">24 Kunlik Zanjir</span>
+                </div>
+                <p class="hero-desc">
+                    Siz 24 kundan buyon oylik DoriQuti kalendar blisteridan barcha tabletkalarni o'z vaqtida qabul qilmoqdasiz. Oltin Qalqon (30 kun) darajasiga erishish uchun yana <strong>6 kun</strong> qoldi!
+                </p>
+            </div>
+            <div class="cashback-box">
+                <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Jamg'arilgan Keshbek:</div>
+                <div class="cashback-amount" id="cashbackDisplay">35,000 UZS</div>
+                <div style="font-size: 11px; color: var(--emerald); font-weight: 600;">✓ Yechib olishga tayyor</div>
+            </div>
+        </div>
+
+        <div class="layout-grid">
+            <!-- Left: 30-Day Blister Punch Grid -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>📅</span> Oylik Kalendar Blister — Kunlik Qabul Belgisi (30 Kun)
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+                    Kunlik xaltachani ochganingizda ustiga bosing (Yashil ✓ = ichildi, Qizil ✕ = o'tkazib yuborildi):
+                </p>
+
+                <div class="blister-grid" id="blisterGrid">
+                    <!-- Populated via JS -->
+                </div>
+
+                <div class="alert-box" id="familyAlertBox">
+                    🚨 <strong>OGOHLANTIRISH:</strong> Ketma-ket 2 kun dori qabul qilinmadi! Oila a'zolaringizga (Farzandingiz Telegram hisobiga) favqulodda xabar yuborildi: <em>"Otangiz dori ichishni 2 marta o'tkazib yubordilar!"</em>
+                </div>
+            </div>
+
+            <!-- Right: Rewards & Badges -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>🎁</span> Mukofot Bosqichlari & Imtiyozlar
+                </div>
+
+                <div class="milestone-item milestone-unlocked">
+                    <div>
+                        <div class="milestone-title">🥉 7 Kunlik Bronza Zanjir</div>
+                        <div class="milestone-perk">+10,000 UZS vaucher berildi</div>
+                    </div>
+                    <span class="milestone-badge badge-done">Erishildi ✓</span>
+                </div>
+
+                <div class="milestone-item milestone-unlocked">
+                    <div>
+                        <div class="milestone-title">🥈 14 Kunlik Kumush Zanjir</div>
+                        <div class="milestone-perk">+25,000 UZS & Bepul EKG teletahlili</div>
+                    </div>
+                    <span class="milestone-badge badge-done">Erishildi ✓</span>
+                </div>
+
+                <div class="milestone-item" id="goldMilestone">
+                    <div>
+                        <div class="milestone-title">🥇 30 Kunlik Oltin Qalqon (100% PDC)</div>
+                        <div class="milestone-perk">+50,000 UZS & Bepul kuryer yetkazish</div>
+                    </div>
+                    <span class="milestone-badge badge-lock" id="goldStatus">6 kun qoldi</span>
+                </div>
+
+                <div style="background: #080f1c; border: 1px solid #1a2842; border-radius: 10px; padding: 16px; margin-top: 20px;">
+                    <div style="font-size: 12px; font-weight: 700; color: #cbd5e1; margin-bottom: 8px;">👨‍👩‍👧 Oila Himoyasi (Family Guardian):</div>
+                    <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">
+                        Telegram: <strong>@jasur_son</strong> (Ulangan)<br>
+                        Oxirgi sinxronizatsiya: <strong>Bugun, 08:00</strong><br>
+                        Xolat: <strong>Faol himoyada</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DAYS_COUNT = 30;
+        let dayStatuses = [];
+
+        // Dastlabki 24 kun ichilgan, 25-30 hali kelmagan
+        for (let i = 1; i <= DAYS_COUNT; i++) {
+            if (i <= 24) {
+                dayStatuses.push('taken');
+            } else {
+                dayStatuses.push('pending');
+            }
+        }
+
+        function renderBlister() {
+            const grid = document.getElementById('blisterGrid');
+            grid.innerHTML = '';
+
+            dayStatuses.forEach((status, idx) => {
+                const dayNum = idx + 1;
+                const cell = document.createElement('div');
+                cell.className = 'blister-cell';
+                if (status === 'taken') cell.classList.add('cell-taken');
+                if (status === 'missed') cell.classList.add('cell-missed');
+
+                let icon = '⚪';
+                if (status === 'taken') icon = '✓';
+                if (status === 'missed') icon = '✕';
+
+                cell.innerHTML = `
+                    <span class="cell-day">${dayNum}-kun</span>
+                    <span class="cell-status">${icon}</span>
+                `;
+
+                cell.onclick = () => toggleDay(idx);
+                grid.appendChild(cell);
+            });
+
+            updateStreakAndCashback();
+        }
+
+        function toggleDay(idx) {
+            if (dayStatuses[idx] === 'taken') {
+                dayStatuses[idx] = 'missed';
+            } else if (dayStatuses[idx] === 'missed') {
+                dayStatuses[idx] = 'pending';
+            } else {
+                dayStatuses[idx] = 'taken';
+            }
+            renderBlister();
+        }
+
+        function updateStreakAndCashback() {
+            let streak = 0;
+            let missedConsecutive = 0;
+            let maxMissed = 0;
+
+            for (let i = 0; i < dayStatuses.length; i++) {
+                if (dayStatuses[i] === 'taken') {
+                    streak++;
+                    missedConsecutive = 0;
+                } else if (dayStatuses[i] === 'missed') {
+                    streak = 0;
+                    missedConsecutive++;
+                    if (missedConsecutive > maxMissed) maxMissed = missedConsecutive;
+                } else {
+                    break;
+                }
+            }
+
+            document.getElementById('streakDisplay').innerText = `${streak} Kunlik Zanjir`;
+
+            // Cashback calculation
+            let cashback = 0;
+            if (streak >= 7) cashback += 10000;
+            if (streak >= 14) cashback += 25000;
+            if (streak >= 30) cashback += 50000;
+
+            document.getElementById('cashbackDisplay').innerText = `${cashback.toLocaleString()} UZS`;
+
+            // Gold status
+            const goldEl = document.getElementById('goldMilestone');
+            const goldStatus = document.getElementById('goldStatus');
+            if (streak >= 30) {
+                goldEl.classList.add('milestone-unlocked');
+                goldStatus.className = 'milestone-badge badge-done';
+                goldStatus.innerText = 'Erishildi ✓';
+            } else {
+                goldEl.classList.remove('milestone-unlocked');
+                goldStatus.className = 'milestone-badge badge-lock';
+                goldStatus.innerText = `${30 - streak} kun qoldi`;
+            }
+
+            // Family alert
+            const alertBox = document.getElementById('familyAlertBox');
+            if (maxMissed >= 2) {
+                alertBox.classList.add('show');
+            } else {
+                alertBox.classList.remove('show');
+            }
+        }
+
+        function withdrawCashback() {
+            alert("✓ 35,000 UZS keshbek sizning Humo/Uzcard kartangizga muvaffaqiyatli o'tkazildi!");
+        }
+
+        renderBlister();
+    </script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti.uz — Ota-onangiz uchun har oylik saralangan dori qutisi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .gradient-hero { background: radial-gradient(120% 120% at 50% 10%, #eff6ff 0%, #ffffff 100%); }
+    .card-shadow { box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.03); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col">
+
+  <!-- TOP BANNER -->
+  <aside aria-label="E'lon" class="bg-emerald-600 text-white text-xs md:text-sm py-2 px-4 text-center font-medium">
+    ✨ Samarqand va Toshkent shaharlarida dastlabki 100 ta oila uchun <strong>birinchi oylik yetkazib berish va qadoqlash 100% bepul!</strong>
+  </aside>
+
+  <!-- NAVBAR -->
+  <header class="border-b border-slate-200 bg-white/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-extrabold text-xl shadow-md shadow-emerald-200">
+          💊
+        </div>
+        <div>
+          <span class="font-extrabold text-xl tracking-tight text-slate-900">Dori<span class="text-emerald-600">Quti</span>.uz</span>
+          <span class="text-[10px] block font-semibold text-slate-400 uppercase tracking-widest -mt-1">PillPack for Uzbekistan</span>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-600">
+        <a href="#how" class="hover:text-emerald-600 transition">Qanday ishlaydi?</a>
+        <a href="#calc" class="hover:text-emerald-600 transition">Quti tuzish</a>
+        <a href="doctor_portal.html" class="hover:text-emerald-600 transition text-emerald-700 font-bold">🩺 Shifokor Portali</a>
+        <a href="family_dashboard.html" class="hover:text-emerald-600 transition text-indigo-700 font-bold">👨‍👩‍👧 Oila Portali</a>
+        <a href="pharmacy_portal.html" class="hover:text-emerald-600 transition">🏪 Dorixonalar</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-600 transition">ArzonLab.uz 🔬</a>
+      </nav>
+      <div class="flex items-center space-x-3">
+        <a href="#calc" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-emerald-600/20 transition transform active:scale-95">
+          Qutini hisoblash
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="gradient-hero pt-12 pb-20 px-4 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center space-x-2 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs px-3.5 py-1.5 rounded-full font-bold mb-6">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Surunkali kasalligi bor ota-onalar salomatligi uchun</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.15] mb-6">
+          Ota-onangiz dorilarini <br class="hidden sm:inline">
+          <span class="text-emerald-600 underline decoration-emerald-200 decoration-wavy">hech qachon adashtirmasin.</span>
+        </h1>
+        <p class="text-base md:text-lg text-slate-600 mb-8 leading-relaxed">
+          Har oyning 1-sanasida 30 kunlik barcha dorilar kunlar va soatlar (Ertalab, Tushlik, Kechqurun) bo‘yicha alohida lentali paketlarga saralanib, uyingizgacha yetkaziladi.
+        </p>
+
+        <!-- BENEFIT BULLETS -->
+        <div class="space-y-3 mb-8">
+          <div class="flex items-center space-x-3">
+            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">✓</span>
+            <span class="text-sm font-semibold text-slate-700">Dorixona narxidan 10–15% arzonroq to‘g‘ridan-to‘g‘ri ulgurji bazadan</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">✓</span>
+            <span class="text-sm font-semibold text-slate-700">Dori tugab qolish yoki noto‘g‘ri ichish xavfi mutlaqo yo‘qoladi</span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">✓</span>
+            <span class="text-sm font-semibold text-slate-700">Farzandlar uchun har oylik xotirjamlik va avtomatik nazorat</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#calc" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-xl font-bold text-base shadow-xl shadow-emerald-600/30 text-center transition">
+            📦 Quti tuzishni boshlash
+          </a>
+          <button onclick="document.getElementById('uploadModal').classList.remove('hidden')" class="bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-800 px-6 py-4 rounded-xl font-bold text-base text-center transition">
+            📄 Retsept rasmini yuborish
+          </button>
+        </div>
+      </div>
+
+      <!-- VISUAL DEMO BOX -->
+      <div class="relative">
+        <div class="bg-white rounded-3xl p-6 md:p-8 card-shadow border border-emerald-100 relative overflow-hidden">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
+            <div>
+              <span class="text-xs uppercase font-extrabold text-emerald-600 tracking-wider">Namuna: 30 Kunlik Oylik Paket</span>
+              <h3 class="text-xl font-black text-slate-900">Salomatlik Qutisi #4829</h3>
+            </div>
+            <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-extrabold">Faol obuna</span>
+          </div>
+
+          <!-- PACKET STRIP SIMULATION -->
+          <div class="space-y-3 mb-6">
+            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-between">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">☀️</span>
+                  <span class="font-extrabold text-sm text-amber-900">Dushanba • 08:00 (Ertalabki)</span>
+                </div>
+                <p class="text-xs text-amber-700 mt-1">Lozap 50mg, Metformin 850mg, Bisoprolol 5mg</p>
+              </div>
+              <span class="text-xs font-bold bg-white text-amber-800 px-2.5 py-1 rounded-lg border border-amber-200 shadow-sm">3 ta dori</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-between">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">🍲</span>
+                  <span class="font-extrabold text-sm text-blue-900">Dushanba • 13:00 (Tushlikda)</span>
+                </div>
+                <p class="text-xs text-blue-700 mt-1">Pankreatin 10 000, Omega-3 Kardio</p>
+              </div>
+              <span class="text-xs font-bold bg-white text-blue-800 px-2.5 py-1 rounded-lg border border-blue-200 shadow-sm">2 ta dori</span>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-purple-50 border border-purple-200 flex items-center justify-between">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg">🌙</span>
+                  <span class="font-extrabold text-sm text-purple-900">Dushanba • 21:00 (Kechqurun)</span>
+                </div>
+                <p class="text-xs text-purple-700 mt-1">Kardiomagnil 75mg, Atorvastatin 20mg</p>
+              </div>
+              <span class="text-xs font-bold bg-white text-purple-800 px-2.5 py-1 rounded-lg border border-purple-200 shadow-sm">2 ta dori</span>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 rounded-2xl p-4 flex items-center justify-between text-xs text-slate-500">
+            <span>🛡 Sertifikatlangan Samarqand bazasi</span>
+            <span class="font-bold text-slate-800">Har oyning 1-kunida bepul yetkazish</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE BOX BUILDER & CALCULATOR -->
+  <section id="calc" class="py-16 px-4 bg-white border-b border-slate-200">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-3xl font-black text-slate-900">Oylik dori qutisini hisoblang</h2>
+        <p class="text-slate-600 mt-2 text-sm">Kerakli dorilarni tanlang yoki qidiring. Tizim 30 kunlik aniq narxni tejash foizi bilan ko‘rsatadi.</p>
+      </div>
+
+      <!-- 1-CLICK CURATED CHRONIC BUNDLES -->
+      <div class="mb-8 bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 border border-emerald-200/80 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-2">
+            <span class="text-xl">🌟</span>
+            <h3 class="font-extrabold text-sm md:text-base text-slate-900">Mashhur Tayyor To‘plamlar (1-klikda to‘ldirish)</h3>
+          </div>
+          <span class="text-xs text-emerald-700 font-bold bg-white px-2.5 py-1 rounded-lg border border-emerald-200 shadow-sm hidden sm:inline">SamDTU kardiologlari tavsiyasi</span>
+        </div>
+        <p class="text-xs text-slate-600 mb-4">Ota-onangiz yoki o‘zingizning kasallik profiliga mos to‘plamni tanlang, tizim avtomatik 30 kunlik qutini shakllantiradi:</p>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <button onclick="applyBundle('kardio')" class="bundle-btn bg-white hover:border-emerald-500 border border-slate-200 p-3 rounded-xl text-left transition hover:shadow-md group">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🫀</span>
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-1.5 py-0.5 rounded">4 ta dori</span>
+            </div>
+            <h4 class="font-extrabold text-xs text-slate-900 group-hover:text-emerald-700">Kardio & Qon Bosimi</h4>
+            <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">Lozap, Konkor, Kardiomagnil, Atoris</p>
+            <div class="mt-2 text-xs font-black text-emerald-600">143,000 so‘m/oy</div>
+          </button>
+
+          <button onclick="applyBundle('diabet')" class="bundle-btn bg-white hover:border-emerald-500 border border-slate-200 p-3 rounded-xl text-left transition hover:shadow-md group">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🩸</span>
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-1.5 py-0.5 rounded">4 ta dori</span>
+            </div>
+            <h4 class="font-extrabold text-xs text-slate-900 group-hover:text-emerald-700">Qandli Diabet 2-tur</h4>
+            <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">Metformin, Diabeton MR, Omega-3, Magne B6</p>
+            <div class="mt-2 text-xs font-black text-emerald-600">243,000 so‘m/oy</div>
+          </button>
+
+          <button onclick="applyBundle('parents')" class="bundle-btn bg-white hover:border-emerald-500 border border-slate-200 p-3 rounded-xl text-left transition hover:shadow-md group">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">👵</span>
+              <span class="text-[10px] bg-indigo-100 text-indigo-800 font-extrabold px-1.5 py-0.5 rounded">5 ta dori</span>
+            </div>
+            <h4 class="font-extrabold text-xs text-slate-900 group-hover:text-indigo-700">Ota-Onam Salomatligi</h4>
+            <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">Lozap, Amlodipin, Kardiomagnil, Omega-3, Magne B6</p>
+            <div class="mt-2 text-xs font-black text-indigo-600">228,000 so‘m/oy</div>
+          </button>
+
+          <button onclick="applyBundle('neuro')" class="bundle-btn bg-white hover:border-emerald-500 border border-slate-200 p-3 rounded-xl text-left transition hover:shadow-md group">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-lg">🧠</span>
+              <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-1.5 py-0.5 rounded">4 ta dori</span>
+            </div>
+            <h4 class="font-extrabold text-xs text-slate-900 group-hover:text-emerald-700">Insult & Qon-Tomir</h4>
+            <p class="text-[11px] text-slate-500 line-clamp-1 mt-0.5">Preduktal OD, Rozuvastatin, Kardiomagnil, Konkor</p>
+            <div class="mt-2 text-xs font-black text-emerald-600">235,000 so‘m/oy</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- SEARCH & FILTER BAR -->
+      <div class="mb-6 flex flex-col md:flex-row gap-3 items-center justify-between">
+        <div class="relative w-full md:w-96">
+          <input type="text" id="medSearch" oninput="filterMeds()" placeholder="Dori nomini qidiring (masalan: Lozap, Metformin)..." class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl text-xs font-semibold outline-none focus:ring-2 focus:ring-emerald-500">
+          <span class="absolute left-3.5 top-3 text-slate-400 text-sm">🔍</span>
+        </div>
+
+        <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 text-xs font-bold" id="catFilter">
+          <button onclick="setCategory('Barchasi')" class="cat-btn active bg-emerald-600 text-white px-3 py-1.5 rounded-lg whitespace-nowrap">Barchasi</button>
+          <button onclick="setCategory('Qon bosimi')" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg whitespace-nowrap">Qon bosimi</button>
+          <button onclick="setCategory('Qandli diabet')" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg whitespace-nowrap">Qandli diabet</button>
+          <button onclick="setCategory('Yurak')" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg whitespace-nowrap">Yurak</button>
+          <button onclick="setCategory('Xolesterin')" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg whitespace-nowrap">Xolesterin</button>
+          <button onclick="setCategory('Vitaminlar')" class="cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg whitespace-nowrap">Vitaminlar</button>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- SELECTOR (2 COLS) -->
+        <div class="md:col-span-2 space-y-3" id="medList">
+          <!-- items rendered via JS -->
+        </div>
+
+        <!-- SUMMARY CARD (1 COL) -->
+        <div class="bg-slate-900 text-white p-6 md:p-8 rounded-3xl h-fit sticky top-24 shadow-2xl">
+          <h4 class="font-extrabold text-lg mb-4 text-white flex items-center justify-between">
+            <span>Oylik Quti Narxi</span>
+            <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-full font-bold" id="badgeSelectedCount">4 ta dori tanlandi</span>
+          </h4>
+
+          <div class="space-y-3 border-b border-slate-800 pb-4 mb-4 text-xs max-h-52 overflow-y-auto" id="selectedMedsSummary">
+            <!-- summary rows -->
+          </div>
+
+          <div class="space-y-2 text-xs text-slate-400 mb-6">
+            <div class="flex justify-between">
+              <span>Dorixona chakana narxi:</span>
+              <span class="line-through text-slate-500" id="originalPrice">0 so‘m</span>
+            </div>
+            <div class="flex justify-between text-emerald-400 font-bold">
+              <span>DoriQuti chegirmasi (~15%):</span>
+              <span id="discountAmount">-0 so‘m</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Saralash va lentali qadoq:</span>
+              <span class="text-emerald-400 font-bold">BEPUL</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Samarqand bo‘ylab yetkazish:</span>
+              <span class="text-emerald-400 font-bold">BEPUL</span>
+            </div>
+          </div>
+
+          <div class="border-t border-slate-800 pt-4 mb-6">
+            <span class="text-xs text-slate-400 block mb-1">Jami oylik obuna to‘lovi:</span>
+            <span class="text-3xl font-black text-white" id="finalTotal">0 so‘m</span>
+          </div>
+
+          <button onclick="openOrderModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 py-3.5 rounded-xl font-black text-sm transition transform active:scale-95 text-center block">
+            Obunani rasmiylashtirish →
+          </button>
+          <p class="text-[11px] text-center text-slate-500 mt-3">Hech qanday majburiyatsiz, istalgan paytda to‘xtatish mumkin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER MODAL WITH PAYMENT SIMULATION -->
+  <div id="orderModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 relative">
+      <button onclick="document.getElementById('orderModal').classList.add('hidden')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      <h3 class="text-2xl font-black text-slate-900 mb-2">Buyurtmani tasdiqlash</h3>
+      <p class="text-xs text-slate-600 mb-6">Qutini kimga yetkazishimiz va to‘lov usulini tanlang.</p>
+
+      <form onsubmit="submitOrder(event)" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Ota-onangiz (bemor) ismi:</label>
+          <input required id="patientName" type="text" placeholder="Masalan: Shukurov Otabek aka" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Sizning telefon raqamingiz (buyurtmachi):</label>
+          <input required id="clientPhone" type="tel" placeholder="+998 90 123 45 67" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Yetkazib berish manzili:</label>
+          <input required id="clientAddress" type="text" placeholder="Shahar, tuman, ko‘cha, xonadon raqami" class="w-full border border-slate-300 rounded-xl px-4 py-2.5 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-2">To‘lov usuli:</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="border-2 border-emerald-500 bg-emerald-50/30 rounded-xl p-3 flex items-center space-x-2 cursor-pointer">
+              <input type="radio" name="payMethod" checked class="text-emerald-600">
+              <span class="font-bold text-slate-800">📲 Click / Payme</span>
+            </label>
+            <label class="border border-slate-200 rounded-xl p-3 flex items-center space-x-2 cursor-pointer">
+              <input type="radio" name="payMethod" class="text-emerald-600">
+              <span class="font-bold text-slate-800">💵 Naqd (Qabulda)</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600">
+          💡 Buyurtmadan so‘ng farmatsevt-mutaxassisimiz 15 daqiqada siz bilan bog‘lanib, dorilarning aniq dozasini tasdiqlaydi.
+        </div>
+
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl font-bold text-sm shadow-lg shadow-emerald-600/30 transition">
+          Buyurtmani tasdiqlash va Qutini shakllantirish
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- UPLOAD MODAL -->
+  <div id="uploadModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 relative text-center">
+      <button onclick="document.getElementById('uploadModal').classList.add('hidden')" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+      <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center text-2xl mb-4">
+        📷
+      </div>
+      <h3 class="text-xl font-black text-slate-900 mb-2">Retsept qog‘ozini yuklang</h3>
+      <p class="text-xs text-slate-600 mb-6">Shifokor yozib bergan retsept yoki dorilar ro‘yxatini rasmga olib yuboring. Biz o‘zimiz hisoblab, sizga quti narxini aytamiz.</p>
+      
+      <div class="border-2 border-dashed border-slate-300 rounded-2xl p-6 mb-4 hover:border-emerald-500 transition cursor-pointer">
+        <input type="file" id="fileInput" class="hidden" onchange="fileSelected(this)">
+        <label for="fileInput" class="cursor-pointer block">
+          <span class="text-3xl block mb-2">📤</span>
+          <span class="text-xs font-bold text-slate-700 block">Rasmni tanlang yoki shu yerga tashlang</span>
+          <span class="text-[11px] text-slate-400">JPG, PNG, PDF (10 MB gacha)</span>
+        </label>
+      </div>
+
+      <div id="fileSuccess" class="hidden text-xs text-emerald-600 font-bold mb-4">
+        ✓ Fayl muvaffaqiyatli tanlandi! Mutaxassisimiz bog‘lanadi.
+      </div>
+
+      <div class="space-y-2">
+        <button onclick="runAIDemoParse()" type="button" class="w-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-800 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition">
+          <span>✨</span>
+          <span>Namunaviy retseptni AI bilan o‘qish (Tezkor Demo)</span>
+        </button>
+        <button onclick="alert('Retsept qabul qilindi! Farmatsevt siz bilan 15 daqiqada bog‘lanadi.'); document.getElementById('uploadModal').classList.add('hidden');" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm">
+          Retseptni yuborish
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-200 bg-white py-8 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        © 2026 DoriQuti.uz. O‘zbekiston Respublikasi bo‘ylab litsenziyalangan dorixonalar bazasida faoliyat yuritadi.
+      </div>
+      <div class="flex items-center space-x-6 font-semibold">
+        <a href="../index.html" class="text-emerald-600 hover:underline">Ekotizim Portali</a>
+        <a href="../arzonlab/index.html" class="hover:underline">ArzonLab.uz</a>
+        <span>Aloqa: +998 (90) 000-00-00</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let medicines = [];
+    let currentCategory = "Barchasi";
+
+    async function loadMedicines() {
+      try {
+        const res = await fetch('../shared/medicines_data.json');
+        medicines = await res.json();
+        // default select first 4
+        medicines.forEach((m, idx) => m.selected = idx < 4);
+        renderMedicines();
+      } catch (err) {
+        console.error("Failed to load medicines:", err);
+      }
+    }
+
+    function renderMedicines() {
+      const q = document.getElementById('medSearch').value.toLowerCase().trim();
+      const filtered = medicines.filter(m => {
+        const matchCat = currentCategory === "Barchasi" || m.category.includes(currentCategory);
+        const matchQ = m.name.toLowerCase().includes(q) || m.category.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      const container = document.getElementById('medList');
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center bg-slate-50 rounded-2xl border border-slate-200">
+            <span class="text-2xl block mb-1">🔍</span>
+            <p class="text-xs font-bold text-slate-700">Dori topilmadi</p>
+            <p class="text-[11px] text-slate-400">Retseptingizni rasmga olib yuklang, biz o‘zimiz topib beramiz.</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = filtered.map(m => `
+          <div class="p-3.5 rounded-2xl border ${m.selected ? 'border-emerald-500 bg-emerald-50/30' : 'border-slate-200 bg-white'} flex items-center justify-between transition cursor-pointer hover:border-emerald-300" onclick="toggleMed(${m.id})">
+            <div class="flex items-center space-x-3.5">
+              <input type="checkbox" ${m.selected ? 'checked' : ''} class="w-4 h-4 text-emerald-600 rounded border-slate-300 pointer-events-none">
+              <div>
+                <h5 class="font-extrabold text-xs md:text-sm text-slate-900">${m.name}</h5>
+                <div class="flex items-center space-x-2 text-[11px] text-slate-500 mt-0.5">
+                  <span class="bg-slate-100 px-2 py-0.5 rounded font-semibold text-slate-700">${m.category}</span>
+                  <span>• Vaqti: <strong class="text-slate-700">${m.timing}</strong></span>
+                  <span class="hidden sm:inline text-slate-400">(${m.manufacturer})</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="block text-xs md:text-sm font-black text-slate-900">${m.ourPrice.toLocaleString()} so‘m</span>
+              <span class="text-[10px] text-slate-400 line-through">${m.retailPrice.toLocaleString()} so‘m</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      updateSummary();
+    }
+
+    function toggleMed(id) {
+      const item = medicines.find(m => m.id === id);
+      if (item) item.selected = !item.selected;
+      renderMedicines();
+    }
+
+    function applyBundle(type) {
+      medicines.forEach(m => m.selected = false);
+
+      let targetIds = [];
+      if (type === 'kardio') {
+        targetIds = [1, 3, 4, 5]; // Lozap, Kardiomagnil, Atorvastatin, Bisoprolol
+      } else if (type === 'diabet') {
+        targetIds = [2, 7, 8, 15]; // Metformin, Diabeton MR, Omega-3, Magne B6
+      } else if (type === 'parents') {
+        targetIds = [1, 3, 8, 9, 15]; // Lozap, Kardiomagnil, Omega-3, Amlodipin, Magne B6
+      } else if (type === 'neuro') {
+        targetIds = [3, 5, 13, 14]; // Kardiomagnil, Bisoprolol, Preduktal, Rozuvastatin
+      }
+
+      medicines.forEach(m => {
+        if (targetIds.includes(m.id)) m.selected = true;
+      });
+
+      renderMedicines();
+
+      document.querySelectorAll('.bundle-btn').forEach(btn => {
+        btn.classList.remove('ring-2', 'ring-emerald-500', 'bg-emerald-50');
+      });
+      if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('ring-2', 'ring-emerald-500', 'bg-emerald-50');
+      }
+    }
+
+    function filterMeds() {
+      renderMedicines();
+    }
+
+    function setCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.innerText.includes(cat)) {
+          btn.className = "cat-btn active bg-emerald-600 text-white px-3 py-1.5 rounded-lg whitespace-nowrap";
+        } else {
+          btn.className = "cat-btn bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-1.5 rounded-lg whitespace-nowrap";
+        }
+      });
+      renderMedicines();
+    }
+
+    function updateSummary() {
+      const selected = medicines.filter(m => m.selected);
+      const originalTotal = selected.reduce((sum, m) => sum + m.retailPrice, 0);
+      const ourTotal = selected.reduce((sum, m) => sum + m.ourPrice, 0);
+      const discount = originalTotal - ourTotal;
+
+      document.getElementById('badgeSelectedCount').innerText = `${selected.length} ta dori tanlandi`;
+
+      const summaryContainer = document.getElementById('selectedMedsSummary');
+      if (selected.length === 0) {
+        summaryContainer.innerHTML = '<span class="text-xs text-slate-500 italic">Hech qanday dori tanlanmadi</span>';
+      } else {
+        summaryContainer.innerHTML = selected.map(m => `
+          <div class="flex justify-between items-center text-xs">
+            <span class="truncate max-w-[170px] text-slate-300">${m.name}</span>
+            <span class="font-bold text-slate-200">${m.ourPrice.toLocaleString()} so‘m</span>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('originalPrice').innerText = originalTotal.toLocaleString() + ' so‘m';
+      document.getElementById('discountAmount').innerText = '-' + discount.toLocaleString() + ' so‘m';
+      document.getElementById('finalTotal').innerText = ourTotal.toLocaleString() + ' so‘m';
+    }
+
+    function openOrderModal() {
+      const selected = medicines.filter(m => m.selected);
+      if (selected.length === 0) {
+        alert("Iltimos, avval kamida 1 ta dori tanlang.");
+        return;
+      }
+      document.getElementById('orderModal').classList.remove('hidden');
+    }
+
+    function submitOrder(e) {
+      e.preventDefault();
+      const patient = document.getElementById('patientName').value;
+      const phone = document.getElementById('clientPhone').value;
+      alert(`🎉 Rahmat! ${patient} uchun oylik DoriQuti buyurtmasi qabul qilindi.\n15 daqiqada ${phone} raqamiga farmatsevtimiz qo‘ng‘iroq qilib, retseptni tasdiqlaydi.`);
+      document.getElementById('orderModal').classList.add('hidden');
+    }
+
+    function fileSelected(input) {
+      if (input.files && input.files[0]) {
+        document.getElementById('fileSuccess').classList.remove('hidden');
+      }
+    }
+
+    function runAIDemoParse() {
+      // Simulates Phase 2 AI OCR parsing of a complex prescription
+      const recognizedIds = [1, 2, 3, 4, 8]; // Lozap, Metformin, Kardiomagnil, Atorvastatin, Omega-3
+      medicines.forEach(m => {
+        m.selected = recognizedIds.includes(m.id);
+      });
+      renderMedicines();
+      document.getElementById('uploadModal').classList.add('hidden');
+      alert("✨ AI Retseptni muvaffaqiyatli tahlil qildi!\n\nAniqlangan dorilar:\n1. Lozap 50mg (Ertalab)\n2. Metformin 850mg (Ertalab/Kechqurun)\n3. Kardiomagnil 75mg (Kechqurun)\n4. Atorvastatin 20mg (Kechqurun)\n5. Omega-3 1000mg (Tushlik)\n\n30 kunlik qutingiz avtomatik shakllantirildi!");
+    }
+
+    // Initialize
+    loadMedicines();
+  </script>
+</body>
+</html>

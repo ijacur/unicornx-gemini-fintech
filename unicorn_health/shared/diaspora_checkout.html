@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health - Chet Eldagi Farzandlar Uchun Ota-onaga G'amxo'rlik (Diaspora Care)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">🌍</span>
+          <span class="text-xl font-bold tracking-tight">Diaspora Care</span>
+        </a>
+        <span class="text-xs bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2.5 py-1 rounded-full font-semibold">
+          Xalqaro To'lov & Yetkazish
+        </span>
+      </div>
+
+      <!-- Language & Currency Selectors -->
+      <div class="flex items-center space-x-3">
+        <!-- Currency -->
+        <div class="flex items-center bg-slate-900 border border-slate-700 rounded-lg p-1 text-xs">
+          <button onclick="setCurrency('UZS')" id="btn-uzs" class="px-2 py-1 rounded font-bold transition bg-emerald-600 text-white">UZS</button>
+          <button onclick="setCurrency('USD')" id="btn-usd" class="px-2 py-1 rounded font-bold transition text-slate-400 hover:text-white">USD ($)</button>
+          <button onclick="setCurrency('RUB')" id="btn-rub" class="px-2 py-1 rounded font-bold transition text-slate-400 hover:text-white">RUB (₽)</button>
+        </div>
+
+        <!-- Language -->
+        <div class="flex items-center bg-slate-900 border border-slate-700 rounded-lg p-1 text-xs">
+          <button onclick="setLanguage('uz')" id="btn-lang-uz" class="px-2 py-1 rounded font-bold transition bg-indigo-600 text-white">UZ</button>
+          <button onclick="setLanguage('ru')" id="btn-lang-ru" class="px-2 py-1 rounded font-bold transition text-slate-400 hover:text-white">RU</button>
+          <button onclick="setLanguage('en')" id="btn-lang-en" class="px-2 py-1 rounded font-bold transition text-slate-400 hover:text-white">EN</button>
+        </div>
+
+        <a href="../index.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          ← Bosh sahifa
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Hero Banner -->
+    <div class="bg-gradient-to-r from-indigo-900/60 via-purple-900/40 to-slate-900 border border-indigo-500/30 rounded-3xl p-6 md:p-8 mb-8 relative overflow-hidden">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold text-indigo-400 tracking-wider uppercase mb-2 block" id="txt-badge">
+          Xorijdagi Vatandoshlar Uchun Maxsus Xizmat
+        </span>
+        <h1 class="text-2xl md:text-4xl font-black text-white mb-3" id="txt-hero-title">
+          Ota-onangiz O'zbekistonda, Siz Chet Eldamisiz? Ularning Salomatligini Ta'minlang!
+        </h1>
+        <p class="text-xs md:text-sm text-slate-300 leading-relaxed mb-6" id="txt-hero-desc">
+          Rossiya, AQSh, Turkiya, BAA yoki Yevropadan turib ota-onangizga oylik saralangan dori qutisini (DoriQuti) yoki Samarqand/Toshkentdagi xususiy klinika MRT vaucherini xalqaro Visa, Mastercard, Mir kartalari orqali sovg'a qiling.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-300">
+          <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
+            <span class="text-emerald-400">✓</span> <span>Visa, Mastercard, Mir, Apple Pay</span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
+            <span class="text-emerald-400">✓</span> <span>Samarqand & Toshkent eshikkacha yetkazish</span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-700">
+            <span class="text-emerald-400">✓</span> <span>Telegram orqali fotosuratli hisobot</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid: Package Selector & Checkout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Package Selection (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <span>📦</span> <span id="txt-select-package">1. Ota-onangiz uchun salomatlik paketini tanlang</span>
+        </h2>
+
+        <div class="space-y-4" id="packages-list">
+          <!-- Card 1: Kardio Bundle -->
+          <div onclick="selectPackage(1)" id="pkg-card-1" class="border-2 border-emerald-500 bg-slate-800/80 rounded-2xl p-5 cursor-pointer transition shadow-lg relative">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span class="text-[11px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold font-mono">ENG MASHHUR</span>
+                <h3 class="text-base font-bold text-white mt-1">Ota-onam Kardio & Gipertoniya Qutisi (30 kun)</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-mono font-bold text-emerald-400" id="price-pkg-1">185 000 so'm</span>
+                <div class="text-[10px] text-slate-400">Oylik obuna</div>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mb-3">
+              Yurak qon-bosimi, xolesterin va qon suyultirish dorilari (Amlodipin, Atorvastatin, Kardiomagnil) 30 kunlik lentali paketlarda.
+            </p>
+            <div class="text-[11px] text-emerald-300 flex items-center gap-1">
+              <span>●</span> <span>Kuryer ota-onangizga topshirganda sizga Telegramda rasm yuboriladi</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Diabet Bundle -->
+          <div onclick="selectPackage(2)" id="pkg-card-2" class="border border-slate-700 bg-slate-800/40 hover:border-slate-600 rounded-2xl p-5 cursor-pointer transition relative">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span class="text-[11px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold font-mono">SOVUQ ZANJIR</span>
+                <h3 class="text-base font-bold text-white mt-1">Ota-onam Qandli Diabet Kompleksi (30 kun)</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-mono font-bold text-blue-400" id="price-pkg-2">260 000 so'm</span>
+                <div class="text-[10px] text-slate-400">Oylik obuna</div>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mb-3">
+              Metformin 850mg, glyukometr test-tasmachalari (50 dona) va kerak bo'lsa Novorapid insulin termo-qutida yetkaziladi.
+            </p>
+          </div>
+
+          <!-- Card 3: Checkup & MRI Voucher -->
+          <div onclick="selectPackage(3)" id="pkg-card-3" class="border border-slate-700 bg-slate-800/40 hover:border-slate-600 rounded-2xl p-5 cursor-pointer transition relative">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <span class="text-[11px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-bold font-mono">ARZONLAB VAUCHERI</span>
+                <h3 class="text-base font-bold text-white mt-1">Keksa Yoshi To'liq Tekshiruv & MRT Tomografiya</h3>
+              </div>
+              <div class="text-right">
+                <span class="text-lg font-mono font-bold text-purple-400" id="price-pkg-3">380 000 so'm</span>
+                <div class="text-[10px] text-slate-400">Bir martalik vaucher</div>
+              </div>
+            </div>
+            <p class="text-xs text-slate-400 mb-3">
+              Samarqand yoki Toshkent klinikasida Bosh miya yoki Umurtqa MRT si + Umumiy qon tahlili va kardiolog maslahati (30% chegirma bilan).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkout & Delivery Form (5 cols) -->
+      <div class="lg:col-span-5 bg-slate-800 border border-slate-700 rounded-3xl p-6 shadow-2xl h-fit">
+        <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <span>💳</span> <span id="txt-checkout-title">2. Yetkazish va To'lov</span>
+        </h2>
+
+        <div class="space-y-4 text-xs">
+          <!-- Parent Info -->
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1" id="lbl-parent-name">O'zbekistondagi ota-onangiz F.I.Sh:</label>
+            <input type="text" id="parent-name" value="Shukurov Otabek (Otam)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1" id="lbl-city">Shahar / Viloyat:</label>
+              <select id="parent-city" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+                <option value="Samarqand">Samarqand sh.</option>
+                <option value="Toshkent">Toshkent sh.</option>
+                <option value="Buxoro">Buxoro sh.</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-300 font-semibold mb-1" id="lbl-phone">Ota-onangiz telefoni:</label>
+              <input type="text" id="parent-phone" value="+998 90 123-45-67" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-indigo-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1" id="lbl-address">Aniq manzil:</label>
+            <input type="text" id="parent-address" value="Dahbed ko'chasi 35-uy, 4-xonadon" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+          </div>
+
+          <!-- Diaspora Sender Info -->
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1" id="lbl-sender-tg">Sizning chet eldagi Telegramingiz (Hisobot uchun):</label>
+            <input type="text" id="sender-tg" value="@jasur_shukurov (+7 / +1 / +90)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+          </div>
+
+          <!-- Total Calculation -->
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl space-y-1.5 my-4">
+            <div class="flex justify-between text-slate-400">
+              <span id="lbl-subtotal">Paket narxi:</span>
+              <span id="calc-subtotal" class="font-mono text-white">185 000 so'm</span>
+            </div>
+            <div class="flex justify-between text-slate-400">
+              <span id="lbl-delivery">Eshikkacha kuryer:</span>
+              <span class="text-emerald-400 font-bold" id="lbl-free">BEPUL (0 UZS)</span>
+            </div>
+            <div class="border-t border-slate-800 pt-2 flex justify-between text-sm font-bold text-white">
+              <span id="lbl-total">Jami To'lov:</span>
+              <span id="calc-total" class="text-emerald-400 font-mono text-base">185 000 so'm</span>
+            </div>
+          </div>
+
+          <!-- Pay Button -->
+          <button onclick="processDiasporaPayment()" class="w-full bg-gradient-to-r from-indigo-600 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white font-extrabold py-3.5 rounded-2xl shadow-xl transition transform active:scale-95 flex items-center justify-center gap-2 text-sm">
+            <span>🔒</span> <span id="btn-pay-text">Xalqaro Karta Bilan To'lash (Visa / Mastercard)</span>
+          </button>
+
+          <p class="text-[11px] text-slate-500 text-center" id="txt-security-note">
+            Stripe & Xalqaro xavfsiz 3D-Secure shifrlangan to'lov tizimi. Ota-onangizga har oy belgilangan sanada dori yetkaziladi.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div id="modal-success" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-3xl max-w-md w-full p-6 text-slate-200 shadow-2xl text-center">
+      <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4 border border-emerald-500/30">
+        🎉
+      </div>
+      <h3 class="text-lg font-bold text-white mb-2" id="modal-title">To'lov Muvaffaqiyatli Qabul Qilindi!</h3>
+      <p class="text-xs text-slate-300 leading-relaxed mb-4" id="modal-desc">
+        Ota-onangiz uchun oylik DoriQuti obunasi faollashdi. Samarqanddagi dorixona logistika markazimiz qutini jamlashni boshladi.
+      </p>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-3 text-left font-mono text-xs mb-5 space-y-1">
+        <div>Buyurtma ID: <strong class="text-emerald-400">#DIASPORA-9912</strong></div>
+        <div>Qabul qiluvchi: <strong class="text-white" id="modal-parent">Shukurov Otabek</strong></div>
+        <div>To'lov summasi: <strong class="text-emerald-400" id="modal-amount">$14.43 (185,000 UZS)</strong></div>
+        <div>Kuryer yetkazish vaqti: <strong class="text-white">Ertaga 10:00</strong></div>
+      </div>
+
+      <button onclick="closeSuccessModal()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl transition text-xs shadow-lg">
+        Tushunarli & Telegramda Kuzatish
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentCurrency = 'UZS';
+    let currentLang = 'uz';
+    let selectedPackageId = 1;
+
+    const packages = {
+      1: { name: "Kardio & Gipertoniya", uzs: 185000 },
+      2: { name: "Qandli Diabet Kompleksi", uzs: 260000 },
+      3: { name: "Checkup & MRT Tomografiya", uzs: 380000 }
+    };
+
+    const currencyRates = {
+      UZS: { rate: 1.0, symbol: "so'm", prefix: false },
+      USD: { rate: 0.000078, symbol: "$", prefix: true },
+      RUB: { rate: 0.0072, symbol: "₽", prefix: false }
+    };
+
+    function formatPrice(uzsAmount) {
+      const c = currencyRates[currentCurrency];
+      const val = uzsAmount * c.rate;
+      if (currentCurrency === 'USD') {
+        return `$${val.toFixed(2)}`;
+      } else if (currentCurrency === 'RUB') {
+        return `${Math.round(val).toLocaleString()} ₽`;
+      } else {
+        return `${Math.round(val).toLocaleString()} so'm`;
+      }
+    }
+
+    function updatePrices() {
+      document.getElementById('price-pkg-1').innerText = formatPrice(packages[1].uzs);
+      document.getElementById('price-pkg-2').innerText = formatPrice(packages[2].uzs);
+      document.getElementById('price-pkg-3').innerText = formatPrice(packages[3].uzs);
+
+      const activePkg = packages[selectedPackageId];
+      document.getElementById('calc-subtotal').innerText = formatPrice(activePkg.uzs);
+      document.getElementById('calc-total').innerText = formatPrice(activePkg.uzs);
+    }
+
+    function setCurrency(curr) {
+      currentCurrency = curr;
+      ['uzs', 'usd', 'rub'].forEach(c => {
+        const btn = document.getElementById(`btn-${c}`);
+        if (c.toUpperCase() === curr) {
+          btn.className = "px-2 py-1 rounded font-bold transition bg-emerald-600 text-white";
+        } else {
+          btn.className = "px-2 py-1 rounded font-bold transition text-slate-400 hover:text-white";
+        }
+      });
+      updatePrices();
+    }
+
+    function selectPackage(id) {
+      selectedPackageId = id;
+      for (let i = 1; i <= 3; i++) {
+        const card = document.getElementById(`pkg-card-${i}`);
+        if (i === id) {
+          card.className = "border-2 border-emerald-500 bg-slate-800/80 rounded-2xl p-5 cursor-pointer transition shadow-lg relative";
+        } else {
+          card.className = "border border-slate-700 bg-slate-800/40 hover:border-slate-600 rounded-2xl p-5 cursor-pointer transition relative";
+        }
+      }
+      updatePrices();
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      ['uz', 'ru', 'en'].forEach(l => {
+        const btn = document.getElementById(`btn-lang-${l}`);
+        if (l === lang) {
+          btn.className = "px-2 py-1 rounded font-bold transition bg-indigo-600 text-white";
+        } else {
+          btn.className = "px-2 py-1 rounded font-bold transition text-slate-400 hover:text-white";
+        }
+      });
+
+      if (lang === 'ru') {
+        document.getElementById('txt-badge').innerText = "СПЕЦИАЛЬНЫЙ СЕРВИС ДЛЯ СООТЕЧЕСТВЕННИКОВ ЗА РУБЕЖОМ";
+        document.getElementById('txt-hero-title').innerText = "Родители в Узбекистане, а вы за границей? Позаботьтесь об их здоровье!";
+        document.getElementById('txt-hero-desc').innerText = "Оплачивайте ежемесячные наборы лекарств (DoriQuti) или обследования МРТ в клиниках Самарканда и Ташкента международными картами Visa, Mastercard, Мир.";
+        document.getElementById('txt-select-package').innerText = "1. Выберите пакет заботы для родителей";
+        document.getElementById('txt-checkout-title').innerText = "2. Доставка и Оплата";
+        document.getElementById('lbl-parent-name').innerText = "Ф.И.О. родителей в Узбекистане:";
+        document.getElementById('lbl-city').innerText = "Город / Область:";
+        document.getElementById('lbl-phone').innerText = "Телефон родителей:";
+        document.getElementById('lbl-address').innerText = "Точный адрес доставки:";
+        document.getElementById('lbl-sender-tg').innerText = "Ваш Telegram за рубежом (для отчетов):";
+        document.getElementById('btn-pay-text').innerText = "Оплатить картой (Visa / Mastercard / Мир)";
+      } else if (lang === 'en') {
+        document.getElementById('txt-badge').innerText = "DIASPORA HEALTHCARE SERVICE FOR EXPATS";
+        document.getElementById('txt-hero-title').innerText = "Aging Parents in Uzbekistan while you are Abroad? Care for Them!";
+        document.getElementById('txt-hero-desc').innerText = "Subscribe your parents to pre-sorted chronic medicine boxes (DoriQuti) or diagnostic MRI vouchers in Samarkand & Tashkent using global Visa/Mastercard.";
+        document.getElementById('txt-select-package').innerText = "1. Select healthcare package for parents";
+        document.getElementById('txt-checkout-title').innerText = "2. Delivery & Checkout";
+        document.getElementById('lbl-parent-name').innerText = "Parent's Full Name in Uzbekistan:";
+        document.getElementById('lbl-city').innerText = "City / Region:";
+        document.getElementById('lbl-phone').innerText = "Parent's Phone Number:";
+        document.getElementById('lbl-address').innerText = "Delivery Address:";
+        document.getElementById('lbl-sender-tg').innerText = "Your Telegram Handle (for photo reports):";
+        document.getElementById('btn-pay-text').innerText = "Pay with Global Card (Visa / Mastercard)";
+      } else {
+        document.getElementById('txt-badge').innerText = "Xorijdagi Vatandoshlar Uchun Maxsus Xizmat";
+        document.getElementById('txt-hero-title').innerText = "Ota-onangiz O'zbekistonda, Siz Chet Eldamisiz? Ularning Salomatligini Ta'minlang!";
+        document.getElementById('txt-hero-desc').innerText = "Rossiya, AQSh, Turkiya, BAA yoki Yevropadan turib ota-onangizga oylik saralangan dori qutisini (DoriQuti) yoki Samarqand/Toshkentdagi xususiy klinika MRT vaucherini xalqaro Visa, Mastercard, Mir kartalari orqali sovg'a qiling.";
+        document.getElementById('txt-select-package').innerText = "1. Ota-onangiz uchun salomatlik paketini tanlang";
+        document.getElementById('txt-checkout-title').innerText = "2. Yetkazish va To'lov";
+        document.getElementById('lbl-parent-name').innerText = "O'zbekistondagi ota-onangiz F.I.Sh:";
+        document.getElementById('lbl-city').innerText = "Shahar / Viloyat:";
+        document.getElementById('lbl-phone').innerText = "Ota-onangiz telefoni:";
+        document.getElementById('lbl-address').innerText = "Aniq manzil:";
+        document.getElementById('lbl-sender-tg').innerText = "Sizning chet eldagi Telegramingiz (Hisobot uchun):";
+        document.getElementById('btn-pay-text').innerText = "Xalqaro Karta Bilan To'lash (Visa / Mastercard)";
+      }
+    }
+
+    function processDiasporaPayment() {
+      const activePkg = packages[selectedPackageId];
+      const parentName = document.getElementById('parent-name').value;
+      document.getElementById('modal-parent').innerText = parentName;
+      document.getElementById('modal-amount').innerText = formatPrice(activePkg.uzs);
+      document.getElementById('modal-success').classList.remove('hidden');
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('modal-success').classList.add('hidden');
+    }
+
+    // Init
+    updatePrices();
+  </script>
+</body>
+</html>

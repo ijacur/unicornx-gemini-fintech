@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Oylik Narx Muzlatish & Inflyatsiya Qalqoni | DoriQuti Price Freeze</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-freeze {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid var(--cyan);
+            color: #67e8f9;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-action {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: #334155;
+        }
+
+        .btn-primary {
+            background: #0891b2;
+            border-color: #0e7490;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0e7490;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 28px 36px;
+        }
+
+        /* Hero */
+        .hero-banner {
+            background: linear-gradient(135deg, #083344 0%, #0f172a 100%);
+            border: 1px solid #164e63;
+            border-radius: 18px;
+            padding: 28px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-desc {
+            font-size: 13px;
+            color: #cbd5e1;
+            max-width: 650px;
+            line-height: 1.5;
+        }
+
+        .savings-box {
+            text-align: right;
+        }
+
+        .savings-amount {
+            font-size: 36px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--cyan);
+        }
+
+        /* Layout */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 28px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Package Cards */
+        .pkg-card {
+            background: #080f1c;
+            border: 1px solid #1a2842;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pkg-card:hover {
+            border-color: var(--cyan);
+        }
+
+        .pkg-card.active {
+            border-color: var(--cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .pkg-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .pkg-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        .pkg-drugs {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Comparison Table */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 14px;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 12px 14px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        .table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #16243f;
+        }
+
+        .price-frozen {
+            color: var(--cyan);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .price-retail {
+            color: var(--rose);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .savings-tag {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        .btn-freeze-contract {
+            width: 100%;
+            background: #0891b2;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.2s;
+        }
+
+        .btn-freeze-contract:hover {
+            background: #0e7490;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 28px;">❄️</span>
+            <div>
+                <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">12 Oylik Narx Muzlatish & Inflyatsiya Qalqoni</h1>
+                <p style="font-size: 12px; color: var(--text-muted);">Dorixona inflyatsiyasidan qat'i nazar: 12 oy davomida dori narxi 1 so'm ham oshmaydi</p>
+            </div>
+            <span class="badge-freeze">12-Month Price Freeze</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="../index.html" class="btn-action">← Asosiy Hub</a>
+            <button class="btn-action" onclick="window.print()">🖨️ Shartnomani Chop Etish</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero-banner">
+            <div>
+                <div class="hero-title">
+                    <span>🛡️ DoriQuti Narx Muzlatish Kafolati</span>
+                </div>
+                <p class="hero-desc">
+                    O'zbekistonda surunkali dorilar narxi yiliga o'rtacha <strong>18-22%</strong> ga oshadi. DoriQuti ulgurji ishlab chiqaruvchilar bilan to'g'ridan-to'g'ri forvard shartnoma tuzib, sizga 12 oyga qat'iy narxni kafolatlaydi!
+                </p>
+            </div>
+            <div class="savings-box">
+                <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Yillik Sof Tejamkorlik:</div>
+                <div class="savings-amount" id="heroSavingsDisplay">626,465 UZS</div>
+                <div style="font-size: 11px; color: var(--cyan); font-weight: 600;">✓ 26.1% oilaviy byudjet tejovi</div>
+            </div>
+        </div>
+
+        <div class="layout-grid">
+            <!-- Left: Packages -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>📦</span> Surunkali Paketni Tanlang
+                </div>
+
+                <div class="pkg-card active" onclick="selectPackage('kardio', this)">
+                    <div class="pkg-title">❤️ Kardio Qalqon</div>
+                    <div class="pkg-price">148,000 UZS / oy</div>
+                    <div class="pkg-drugs">Atorvastatin 20mg, Amlodipin 5mg, Bisoprolol 5mg, Aspirin Kardio 100mg</div>
+                </div>
+
+                <div class="pkg-card" onclick="selectPackage('diabet', this)">
+                    <div class="pkg-title">🩸 Diabet Nazorati</div>
+                    <div class="pkg-price">172,000 UZS / oy</div>
+                    <div class="pkg-drugs">Metformin 1000mg, Glimepirid 2mg, Glyukometr tasmachalari (50 dona)</div>
+                </div>
+
+                <div class="pkg-card" onclick="selectPackage('kombi', this)">
+                    <div class="pkg-title">👨‍👩‍👧 Ota-onam Kombi</div>
+                    <div class="pkg-price">265,000 UZS / oy</div>
+                    <div class="pkg-drugs">Kardio + Diabet + Bo'g'im dori vositalari to'liq komplekti</div>
+                </div>
+
+                <button class="btn-freeze-contract" onclick="signPriceFreeze()">
+                    ✍️ 12 Oylik Shartnomani Faollashtirish
+                </button>
+            </div>
+
+            <!-- Right: 12-Month Simulation Table -->
+            <div class="panel">
+                <div class="panel-title">
+                    <span>📊</span> 12 Oylik Inflyatsiya vs Muzlatilgan Narx Solishtirmasi
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Oy</th>
+                            <th>Chakana Dorixonada (Inflyatsiya bilan)</th>
+                            <th>DoriQuti Muzlatilgan Narxi</th>
+                            <th>Oylik Tejamkorlik</th>
+                        </tr>
+                    </thead>
+                    <tbody id="simulationTableBody">
+                        <!-- Rendered via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const PACKAGES_DATA = {
+            kardio: {
+                name: "Kardio Qalqon",
+                frozen: 148000,
+                baseRetail: 185000,
+                inflation: 0.185
+            },
+            diabet: {
+                name: "Diabet Nazorati",
+                frozen: 172000,
+                baseRetail: 220000,
+                inflation: 0.210
+            },
+            kombi: {
+                name: "Ota-onam Kombi",
+                frozen: 265000,
+                baseRetail: 340000,
+                inflation: 0.195
+            }
+        };
+
+        let currentPkg = 'kardio';
+
+        function selectPackage(key, el) {
+            currentPkg = key;
+            document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            renderTable();
+        }
+
+        function renderTable() {
+            const data = PACKAGES_DATA[currentPkg];
+            const tbody = document.getElementById('simulationTableBody');
+            tbody.innerHTML = '';
+
+            let totalRetail = 0;
+            let totalFrozen = 0;
+            const monthlyFactor = Math.pow(1.0 + data.inflation, 1 / 12) - 1.0;
+
+            for (let m = 1; m <= 12; m++) {
+                const retail = Math.round(data.baseRetail * Math.pow(1.0 + monthlyFactor, m - 1));
+                const frozen = data.frozen;
+                const savings = retail - frozen;
+
+                totalRetail += retail;
+                totalFrozen += frozen;
+
+                const row = `
+                    <tr>
+                        <td style="font-weight: 700;">${m}-oy</td>
+                        <td class="price-retail">${retail.toLocaleString()} UZS</td>
+                        <td class="price-frozen">${frozen.toLocaleString()} UZS</td>
+                        <td><span class="savings-tag">+${savings.toLocaleString()} UZS</span></td>
+                    </tr>
+                `;
+                tbody.insertAdjacentHTML('beforeend', row);
+            }
+
+            const totalSavings = totalRetail - totalFrozen;
+            const pct = ((totalSavings / totalRetail) * 100).toFixed(1);
+            document.getElementById('heroSavingsDisplay').innerText = `${totalSavings.toLocaleString()} UZS`;
+        }
+
+        function signPriceFreeze() {
+            alert(`✓ Tabriklaymiz! Sizning 12 oylik narx muzlatish shartnomangiz tasdiqlandi.\n\nTanlangan paket uchun narx keyingi 12 oy davomida o'zgarmasdan qolishi qonuniy kafolatlandi.`);
+        }
+
+        renderTable();
+    </script>
+</body>
+</html>

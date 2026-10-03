@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dona-Dona VitaminQuti | Unit-Dose Vitamins & Supplements Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --indigo: #6366f1;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 36px 24px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(56, 189, 248, 0.08) 50%, rgba(168, 85, 247, 0.08) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #6ee7b7, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 880px;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: rgba(15, 25, 45, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--emerald);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        /* Preset tabs */
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .preset-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .preset-card:hover {
+            border-color: var(--emerald);
+            transform: translateY(-2px);
+            background: var(--surface-hover);
+        }
+
+        .preset-card.active {
+            border-color: var(--emerald);
+            background: rgba(16, 185, 129, 0.08);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+
+        .preset-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #f1f5f9;
+        }
+
+        .preset-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .preset-price {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: #6ee7b7;
+            font-size: 0.95rem;
+        }
+
+        /* Main Builder Layout */
+        .builder-layout {
+            display: grid;
+            grid-template-columns: 1.7fr 1.3fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .builder-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Vitamin Catalog */
+        .catalog-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .vitamin-item {
+            background: rgba(7, 13, 24, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .vitamin-item:hover {
+            border-color: var(--primary);
+            background: rgba(15, 25, 45, 0.9);
+        }
+
+        .vitamin-item.selected {
+            border-color: var(--emerald);
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .item-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .item-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .select-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .vitamin-item.selected .select-check {
+            background: var(--emerald);
+            border-color: var(--emerald);
+        }
+
+        .select-check svg {
+            display: none;
+            stroke: #070d18;
+            stroke-width: 3;
+        }
+
+        .vitamin-item.selected .select-check svg {
+            display: block;
+        }
+
+        .item-name {
+            font-size: 0.98rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .item-cat {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .item-benefit {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .item-pricing {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .unit-cost {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #6ee7b7;
+        }
+
+        .bottle-reference {
+            font-size: 0.72rem;
+            color: var(--rose);
+            text-decoration: line-through;
+        }
+
+        /* Right Column - Summary & Pouch Render */
+        .summary-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            position: sticky;
+            top: 96px;
+        }
+
+        .duration-selector {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 20px;
+        }
+
+        .duration-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .duration-btn {
+            background: rgba(7, 13, 24, 0.6);
+            border: 1px solid var(--border);
+            color: #cbd5e1;
+            padding: 10px 4px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .duration-btn.active {
+            background: var(--primary);
+            color: #070d18;
+            border-color: var(--primary);
+        }
+
+        /* Steril Pouch Visualizer */
+        .pouch-visualizer {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 2px dashed rgba(56, 189, 248, 0.4);
+            border-radius: 18px;
+            padding: 22px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .pouch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            margin-bottom: 14px;
+        }
+
+        .pouch-brand {
+            font-weight: 800;
+            font-size: 1.05rem;
+            color: #38bdf8;
+            letter-spacing: 0.05em;
+        }
+
+        .pouch-seal {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .pouch-contents-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+            min-height: 80px;
+        }
+
+        .pouch-pill-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.84rem;
+        }
+
+        .pouch-pill-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .pouch-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 10px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Pricing Breakdown */
+        .breakdown-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .breakdown-row.total {
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+            margin-top: 12px;
+            font-size: 1.15rem;
+            font-weight: 800;
+        }
+
+        .total-price {
+            font-family: 'JetBrains Mono', monospace;
+            color: #6ee7b7;
+            font-size: 1.4rem;
+        }
+
+        .savings-alert {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin: 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .savings-alert p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #a7f3d0;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--emerald);
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.6rem;">💊</span>
+            <div>
+                <strong style="font-size: 1.15rem; color: #fff;">DoriQuti &bull; VitaminQuti</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Dona-Dona & Shaxsiy Kunlik Blister Paketlar</span>
+            </div>
+            <span class="badge-pill">Ijtimoiy Ulgurji Narx</span>
+        </div>
+        <nav class="nav-links">
+            <a href="../index.html">← Bosh Sahifa</a>
+            <a href="index.html">DoriQuti Hub</a>
+            <a href="../arzonlab/index.html">ArzonLab</a>
+            <a href="price_freeze_portal.html">Narx Muzlatish</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <h1>Dona-Dona Vitaminlar: Endi 400,000 So'mlik Bankalar Kerak Emas!</h1>
+            <p>
+                Dunyodagi eng sara vitamin va qo'shimchalarni (Ozon & AQSH ulgurji narxida) <strong>aynan 1 dona ("dona-dona")</strong> xarid qiling. 
+                Siz tanlagan vitaminlar har kungi alohida steril germetik xaltachalarga (PillPack / Care/of texnologiyasi) qadoqlanadi. 
+                Talabalar va oilalar uchun boshlang'ich xarajat <strong>97% ga tejaladi</strong>!
+            </p>
+
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <div class="stat-val">500 - 1,400</div>
+                    <div class="stat-lbl">1 Dona Narxi (So'm)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">1,500 - 3,500</div>
+                    <div class="stat-lbl">Kunlik Tayyor Paket</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">97%</div>
+                    <div class="stat-lbl">Boshlang'ich Tejov</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">100% Steril</div>
+                    <div class="stat-lbl">SanPiN Oziq-Ovqat Xaltachasi</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Presets -->
+        <div class="section-title">
+            <span>✨</span>
+            <span>Tayyor Mashhur To'plamlar (1 Bosishda Yuklash)</span>
+        </div>
+
+        <div class="preset-grid" id="presetGrid">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Main Builder -->
+        <div class="builder-layout">
+            
+            <!-- Left: Catalog -->
+            <div class="catalog-container">
+                <div class="section-title" style="margin-bottom: 4px;">
+                    <span>🌿</span>
+                    <span>O'zingizga Kerakli Vitaminlarni Tanlang</span>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+                    Kerakli tabletka yoki kapsulalarni bosing. Har birining donabay narxi va butun bankasi narxi ko'rsatilgan.
+                </p>
+
+                <div class="catalog-grid" id="catalogGrid">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+            <!-- Right: Interactive Summary & Pouch -->
+            <div class="summary-container">
+                
+                <!-- Duration Selector -->
+                <div class="duration-selector">
+                    <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 4px;">📅 Necha Kunlik Paket Kerak?</div>
+                    <div style="font-size: 0.78rem; color: var(--text-muted);">Qancha kun tanlasangiz, shuncha dona kunlik xaltacha tayyorlanadi</div>
+                    <div class="duration-options">
+                        <button class="duration-btn" onclick="setDuration(1)">1 Kun<br><small style="font-size:0.7rem;">Sinov</small></button>
+                        <button class="duration-btn active" onclick="setDuration(7)">7 Kun<br><small style="font-size:0.7rem;">1 Hafta</small></button>
+                        <button class="duration-btn" onclick="setDuration(14)">14 Kun<br><small style="font-size:0.7rem;">2 Hafta</small></button>
+                        <button class="duration-btn" onclick="setDuration(30)">30 Kun<br><small style="font-size:0.7rem;">1 Oy</small></button>
+                    </div>
+                </div>
+
+                <!-- Visual Steril Pouch -->
+                <div class="pouch-visualizer">
+                    <div class="pouch-header">
+                        <div>
+                            <div class="pouch-brand">DoriQuti &bull; VITAMIN POUCH</div>
+                            <div style="font-size: 0.72rem; color: #94a3b8;">Shukurov Jasur Otabek o'g'li &bull; Ertalab 08:30</div>
+                        </div>
+                        <span class="pouch-seal">✓ Steril Muhrlangan</span>
+                    </div>
+
+                    <div style="font-size: 0.75rem; color: #cbd5e1; margin-bottom: 8px; font-weight: 600;">Ushbu kunlik paket ichida:</div>
+                    <div class="pouch-contents-list" id="pouchContents">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div class="pouch-footer">
+                        <span>LOT #UZ-2026-VIT992</span>
+                        <span>BARCODE: ||||||||||||||||||</span>
+                        <span>EXP: 10/2027</span>
+                    </div>
+                </div>
+
+                <!-- Pricing Breakdown -->
+                <div class="breakdown-card">
+                    <div style="font-weight: 700; font-size: 1rem; margin-bottom: 14px;">💰 Narx & Tejov Hisob-Kitobi</div>
+                    
+                    <div class="breakdown-row">
+                        <span style="color: var(--text-muted);">Tanlangan vitaminlar:</span>
+                        <strong id="countLabel">0 ta</strong>
+                    </div>
+                    <div class="breakdown-row">
+                        <span style="color: var(--text-muted);">1 kunlik paket narxi:</span>
+                        <strong id="dailyPriceLabel">0 so'm</strong>
+                    </div>
+                    <div class="breakdown-row">
+                        <span style="color: var(--text-muted);">Dorixonada butun bankalar narxi:</span>
+                        <span id="retailBottlesLabel" style="color: var(--rose); text-decoration: line-through;">0 so'm</span>
+                    </div>
+                    
+                    <div class="savings-alert">
+                        <span style="font-size: 1.5rem;">🎉</span>
+                        <p id="savingsText">
+                            Siz <strong>0 so'm (0%)</strong> boshlang'ich pulni tejaysiz!
+                        </p>
+                    </div>
+
+                    <div class="breakdown-row total">
+                        <span>Jami To'lov (<span id="daysLabel">7</span> kun):</span>
+                        <span class="total-price" id="totalPriceLabel">0 so'm</span>
+                    </div>
+
+                    <div class="breakdown-row" style="font-size: 0.8rem; color: #94a3b8; margin-top: 6px;">
+                        <span>Soliq Keshbek (1% Humo/Uzcard):</span>
+                        <span id="cashbackLabel" style="color: #6ee7b7; font-family: monospace;">+0 so'm</span>
+                    </div>
+
+                    <button class="btn-checkout" onclick="openOrderModal()">
+                        🚀 Buyurtma Berish (Yetkazish 15 daqiqada)
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-box">
+            <div style="font-size: 3rem; margin-bottom: 12px;">📦</div>
+            <h2 style="font-size: 1.5rem; margin-bottom: 8px;">Buyurtmangiz Qabul Qilindi!</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px;">
+                Sizning shaxsiy <strong>DoriQuti VitaminQuti</strong> kunlik steril xaltachalaringiz 
+                Samarqand markaziy omboridan Yandex Go kuriyeriga topshirilmoqda.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 12px; margin-bottom: 20px; text-align: left; font-size: 0.85rem;">
+                <div><strong>Mijoz:</strong> Shukurov Jasur Otabek o'g'li</div>
+                <div><strong>To'lov usuli:</strong> Humo / Uzcard / Payme (1% keshbek)</div>
+                <div><strong>Yetkazish vaqti:</strong> 15-25 daqiqa</div>
+            </div>
+            <button class="btn-checkout" onclick="closeOrderModal()">Tushundim, Rahmat!</button>
+        </div>
+    </div>
+
+    <script>
+        const VITAMINS = [
+            {
+                id: "vit_d3_5000",
+                name: "Vitamin D3 5000 IU",
+                cat: "Immunitet & Suyaklar",
+                icon: "☀️",
+                dotColor: "#fbbf24",
+                unitPrice: 600,
+                bottlePrice: 165000,
+                bottleCount: 90,
+                benefit: "Immunitetni mustahkamlash, kalsiy so'rilishi, quyosh energiyasi"
+            },
+            {
+                id: "omega3_1000",
+                name: "Omega-3 EPA/DHA 1000mg",
+                cat: "Yurak & Miya",
+                icon: "🐟",
+                dotColor: "#f59e0b",
+                unitPrice: 1100,
+                bottlePrice: 240000,
+                bottleCount: 100,
+                benefit: "Yurak, miya qon aylanishi, xotira, ko'z nuri va bo'g'imlar"
+            },
+            {
+                id: "magnesium_b6",
+                name: "Magniy B6 Chelate",
+                cat: "Asab & Uyqu & Stress",
+                icon: "🌙",
+                dotColor: "#38bdf8",
+                unitPrice: 900,
+                bottlePrice: 195000,
+                bottleCount: 120,
+                benefit: "Stressni yo'qotish, chuqur uyqu va mushak tirishishiga qarshi"
+            },
+            {
+                id: "zinc_picolinate",
+                name: "Sink Pikolinat 25mg",
+                cat: "Teri & Husnbuzar",
+                icon: "🛡️",
+                dotColor: "#94a3b8",
+                unitPrice: 500,
+                bottlePrice: 140000,
+                bottleCount: 100,
+                benefit: "Yuzdagi toshmalarga qarshi, immunitet, tez jarohat bitishi"
+            },
+            {
+                id: "biotin_5000",
+                name: "Biotin 5000 mcg (B7)",
+                cat: "Soch & Tirnoq",
+                icon: "💇",
+                dotColor: "#f472b6",
+                unitPrice: 700,
+                bottlePrice: 180000,
+                bottleCount: 120,
+                benefit: "Soch to'kilishini to'xtatish, sochlarni qalinlashtirish"
+            },
+            {
+                id: "vit_c_1000",
+                name: "Vitamin C 1000mg Ester",
+                cat: "Antioksidant & Virus",
+                icon: "🍊",
+                dotColor: "#fb923c",
+                unitPrice: 600,
+                bottlePrice: 150000,
+                bottleCount: 90,
+                benefit: "Oshqozonni achitmaydi, kollagen sintezi, shamollashga qarshi"
+            },
+            {
+                id: "ashwagandha_500",
+                name: "Ashvaganda KSM-66 500mg",
+                cat: "Adaptogen & Kortizol",
+                icon: "🌿",
+                dotColor: "#a3e635",
+                unitPrice: 1200,
+                bottlePrice: 260000,
+                bottleCount: 60,
+                benefit: "Kortizolni tushirish, xotirjamlik, surunkali charchoqqa qarshi"
+            },
+            {
+                id: "coq10_100",
+                name: "Koenzim Q10 100mg",
+                cat: "Hujayra Quvvati",
+                icon: "⚡",
+                dotColor: "#ef4444",
+                unitPrice: 1400,
+                bottlePrice: 290000,
+                bottleCount: 60,
+                benefit: "Mitooxondriyalar energiyasi, yurak quvvati, yoshlik eliksiri"
+            },
+            {
+                id: "iron_chelate",
+                name: "Temir Xelat (Iron Bisglycinate)",
+                cat: "Gemoglobin & Anemiya",
+                icon: "🩸",
+                dotColor: "#dc2626",
+                unitPrice: 800,
+                bottlePrice: 175000,
+                bottleCount: 90,
+                benefit: "Qabziyat chaqirmaydi, gemoglobinni tez oshiradi"
+            },
+            {
+                id: "collagen_peptides",
+                name: "Dengiz Kollagen Peptid 1000mg",
+                cat: "Teri Elastikligi",
+                icon: "✨",
+                dotColor: "#e879f9",
+                unitPrice: 1300,
+                bottlePrice: 280000,
+                bottleCount: 60,
+                benefit: "Ajinlarga qarshi, bo'g'im tog'aylarini tiklash"
+            },
+            {
+                id: "b_complex_active",
+                name: "B-Kompleks Koenzimli",
+                cat: "Miya & Metabolizm",
+                icon: "🧠",
+                dotColor: "#facc15",
+                unitPrice: 850,
+                bottlePrice: 185000,
+                bottleCount: 100,
+                benefit: "B12, B6, Metilfolat - o'qish va aqliy mehnat quvvati"
+            },
+            {
+                id: "l_theanine",
+                name: "L-Teanin 200mg (Yashil Choy)",
+                cat: "Fokus & Xotirjamlik",
+                icon: "🍵",
+                dotColor: "#4ade80",
+                unitPrice: 750,
+                bottlePrice: 160000,
+                bottleCount: 60,
+                benefit: "Uyqu chaqirmasdan diqqatni 100% jamlash, stresssiz kofe ta'siri"
+            }
+        ];
+
+        const PRESETS = [
+            {
+                id: "talaba",
+                title: "🎓 Talaba & Imtihon",
+                desc: "Diqqatni jamlash, charchoqni yengish va miya quvvati",
+                items: ["magnesium_b6", "omega3_1000", "vit_d3_5000"]
+            },
+            {
+                id: "gozallik",
+                title: "🌸 Go'zallik & Soch",
+                desc: "Soch to'kilishini to'xtatish va yorqin teriga",
+                items: ["biotin_5000", "zinc_picolinate", "vit_c_1000", "omega3_1000"]
+            },
+            {
+                id: "immunitet",
+                title: "🛡️ Oila Immunitet Qalqoni",
+                desc: "Mavsumiy viruslar va shamollashga qarshi to'siq",
+                items: ["vit_d3_5000", "vit_c_1000", "zinc_picolinate"]
+            },
+            {
+                id: "stress",
+                title: "🧘 Stress & Tinch Uyqu",
+                desc: "Kechki xotirjam uyqu va asabni tinchlantirish",
+                items: ["magnesium_b6", "ashwagandha_500"]
+            },
+            {
+                id: "sport",
+                title: "⚡ Sport & Energiya",
+                desc: "Mushak kuchi, chidamlilik va hujayra quvvati",
+                items: ["coq10_100", "omega3_1000", "b_complex_active", "vit_d3_5000"]
+            }
+        ];
+
+        let selectedVitaminIds = new Set(["magnesium_b6", "omega3_1000", "vit_d3_5000"]);
+        let currentDurationDays = 7;
+
+        function renderPresets() {
+            const grid = document.getElementById("presetGrid");
+            grid.innerHTML = PRESETS.map(p => {
+                const dailyTotal = p.items.reduce((sum, id) => {
+                    const found = VITAMINS.find(v => v.id === id);
+                    return sum + (found ? found.unitPrice : 0);
+                }, 0);
+
+                return `
+                    <div class="preset-card" onclick="applyPreset('${p.id}')">
+                        <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
+                        <div class="preset-price">${dailyTotal.toLocaleString('uz-UZ')} so'm / kun</div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function renderCatalog() {
+            const grid = document.getElementById("catalogGrid");
+            grid.innerHTML = VITAMINS.map(v => {
+                const isSel = selectedVitaminIds.has(v.id);
+                return `
+                    <div class="vitamin-item ${isSel ? 'selected' : ''}" onclick="toggleVitamin('${v.id}')">
+                        <div>
+                            <div class="item-top">
+                                <div class="item-icon">${v.icon}</div>
+                                <div class="select-check">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </div>
+                            </div>
+                            <div class="item-name">${v.name}</div>
+                            <div class="item-cat">${v.cat}</div>
+                            <div class="item-benefit">${v.benefit}</div>
+                        </div>
+                        <div class="item-pricing">
+                            <div>
+                                <span class="unit-cost">${v.unitPrice.toLocaleString('uz-UZ')} so'm</span>
+                                <small style="color: #94a3b8; font-size: 0.7rem;"> / 1 dona</small>
+                            </div>
+                            <div class="bottle-reference">${v.bottlePrice.toLocaleString('uz-UZ')} so'm banka</div>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function toggleVitamin(id) {
+            if (selectedVitaminIds.has(id)) {
+                if (selectedVitaminIds.size <= 1) {
+                    alert("Kamida bitta vitamin tanlangan bo'lishi kerak!");
+                    return;
+                }
+                selectedVitaminIds.delete(id);
+            } else {
+                selectedVitaminIds.add(id);
+            }
+            renderCatalog();
+            updateCalculations();
+        }
+
+        function applyPreset(presetId) {
+            const preset = PRESETS.find(p => p.id === presetId);
+            if (preset) {
+                selectedVitaminIds = new Set(preset.items);
+                renderCatalog();
+                updateCalculations();
+            }
+        }
+
+        function setDuration(days) {
+            currentDurationDays = days;
+            document.querySelectorAll(".duration-btn").forEach(btn => {
+                btn.classList.remove("active");
+                if (btn.innerText.includes(`${days} Kun`)) {
+                    btn.classList.add("active");
+                }
+            });
+            document.getElementById("daysLabel").innerText = days;
+            updateCalculations();
+        }
+
+        function updateCalculations() {
+            let dailyTotal = 0;
+            let fullBottlesTotal = 0;
+            const pouchItems = [];
+
+            selectedVitaminIds.forEach(id => {
+                const v = VITAMINS.find(item => item.id === id);
+                if (v) {
+                    dailyTotal += v.unitPrice;
+                    fullBottlesTotal += v.bottlePrice;
+                    pouchItems.push(v);
+                }
+            });
+
+            const packageTotal = dailyTotal * currentDurationDays;
+            const savings = Math.max(0, fullBottlesTotal - packageTotal);
+            const savingsPct = fullBottlesTotal > 0 ? Math.round((savings / fullBottlesTotal) * 100) : 0;
+            const cashback = Math.round(packageTotal * 0.01);
+
+            document.getElementById("countLabel").innerText = `${selectedVitaminIds.size} ta vitamin`;
+            document.getElementById("dailyPriceLabel").innerText = `${dailyTotal.toLocaleString('uz-UZ')} so'm/kun`;
+            document.getElementById("retailBottlesLabel").innerText = `${fullBottlesTotal.toLocaleString('uz-UZ')} so'm`;
+            document.getElementById("totalPriceLabel").innerText = `${packageTotal.toLocaleString('uz-UZ')} so'm`;
+            document.getElementById("cashbackLabel").innerText = `+${cashback.toLocaleString('uz-UZ')} so'm`;
+
+            document.getElementById("savingsText").innerHTML = `
+                Siz <strong>${savings.toLocaleString('uz-UZ')} so'm (${savingsPct}%)</strong> boshlang'ich mablag'ingizni cho'ntagingizda saqlab qoldingiz!
+            `;
+
+            // Update pouch contents
+            const pouchContainer = document.getElementById("pouchContents");
+            pouchContainer.innerHTML = pouchItems.map(v => `
+                <div class="pouch-pill-row">
+                    <div class="pouch-pill-dot" style="background: ${v.dotColor};"></div>
+                    <strong style="color: #f8fafc;">${v.name}</strong>
+                    <span style="color: #94a3b8; margin-left: auto; font-family: monospace;">1 dona</span>
+                </div>
+            `).join("");
+        }
+
+        function openOrderModal() {
+            document.getElementById("orderModal").style.display = "flex";
+        }
+
+        function closeOrderModal() {
+            document.getElementById("orderModal").style.display = "none";
+        }
+
+        // Initialize
+        renderPresets();
+        renderCatalog();
+        updateCalculations();
+    </script>
+</body>
+</html>

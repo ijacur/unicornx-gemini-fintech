@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti & ArzonLab - Oflayn Rejim & PWA Sinxronizatsiya</title>
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">📱</span>
+          <span class="text-xl font-bold tracking-tight">Oflayn PWA Vault</span>
+        </a>
+        <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-semibold">
+          Offline-First Sinxronizatsiya
+        </span>
+      </div>
+
+      <!-- Network status toggle & buttons -->
+      <div class="flex items-center space-x-3">
+        <button onclick="toggleNetwork()" id="btn-network-toggle" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-white animate-ping"></span>
+          <span id="network-status-text">Tarmoq: ONLINE (Internet Bor)</span>
+        </button>
+        <a href="../index.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          ← Bosh Sahifa
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- PWA Install Banner -->
+    <div class="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-900 border border-emerald-500/30 rounded-3xl p-6 mb-8 flex flex-wrap items-center justify-between gap-4">
+      <div class="max-w-3xl">
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-1">PWA Ilovasi</span>
+        <h2 class="text-xl md:text-2xl font-black text-white mb-2">Internet Butunlay O'chsa Ham Ilova Ishlaydi!</h2>
+        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
+          Samarqand viloyati tumanlarida (Pastdarg'om, Urgut, Oqdaryo) internet tezligi pasayganda yoki aloqa uzilganda ham DoriQuti va ArzonLab 100% oflayn ishlaydi. Dori ichganingizni belgilang — internet paydo bo'lishi bilan barchasi serverga avtomatik sinxronlanadi.
+        </p>
+      </div>
+      <button onclick="installPwaPrompt()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-5 py-3 rounded-2xl text-xs transition shadow-xl transform active:scale-95 flex items-center gap-2">
+        <span>📲</span> Telefon Bosh Ekraniga O'rnatish
+      </button>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Offline Action Triggers (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- Dose Adherence Action Card -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <span>💊</span> 1. Oflayn Dori Ichishni Qayd Etish
+          </h3>
+          <p class="text-xs text-slate-400 mb-4">
+            Hatto 0 internet bo'lganda ham ota-onangiz ushbu tugmani bosishi mumkin. Ma'lumot telefonda xavfsiz saqlanadi.
+          </p>
+
+          <div class="space-y-2 mb-4">
+            <button onclick="recordOfflineDose('Ertalabki dori (Amlodipin 5mg)')" class="w-full bg-slate-900 hover:bg-slate-700/80 border border-slate-700 p-3 rounded-xl text-left text-xs transition flex items-center justify-between">
+              <div>
+                <strong class="text-white block">🌅 Ertalabki Dori Qutisi</strong>
+                <span class="text-slate-400">Amlodipin + Atorvastatin</span>
+              </div>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi ✅</span>
+            </button>
+
+            <button onclick="recordOfflineDose('Tushlik dori (Metformin 850mg)')" class="w-full bg-slate-900 hover:bg-slate-700/80 border border-slate-700 p-3 rounded-xl text-left text-xs transition flex items-center justify-between">
+              <div>
+                <strong class="text-white block">☀️ Tushlik Dori Qutisi</strong>
+                <span class="text-slate-400">Metformin 850 mg</span>
+              </div>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi ✅</span>
+            </button>
+
+            <button onclick="recordOfflineDose('Kechqurun dori (Kardiomagnil)')" class="w-full bg-slate-900 hover:bg-slate-700/80 border border-slate-700 p-3 rounded-xl text-left text-xs transition flex items-center justify-between">
+              <div>
+                <strong class="text-white block">🌙 Kechki Dori Qutisi</strong>
+                <span class="text-slate-400">Kardiomagnil 75 mg</span>
+              </div>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi ✅</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Offline Refill Request Card -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <span>📦</span> 2. Oflayn Qutini Qayta Buyurtma Qilish
+          </h3>
+          <p class="text-xs text-slate-400 mb-3">
+            Dori tugayotgan bo'lsa, oflayn navbatga buyurtma qoldiring.
+          </p>
+          <button onclick="recordOfflineRefill()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-1.5">
+            <span>📬</span> Yangi Oylik Qutiga So'rov Yuborish
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Sync Queue & Status (7 cols) -->
+      <div class="lg:col-span-7 bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🔄</span> Oflayn Saqlangan Harakatlar Navbati
+              </h3>
+              <p class="text-xs text-slate-400" id="queue-desc">Navbatda 0 ta sinxronlanmagan ma'lumot bor</p>
+            </div>
+            <button onclick="syncNow()" id="btn-sync-now" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow flex items-center gap-1">
+              <span>⚡</span> Hozir Sinxronlash
+            </button>
+          </div>
+
+          <!-- Queue Items List -->
+          <div class="space-y-2.5 text-xs" id="queue-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- PWA Telemetry Card -->
+        <div class="mt-6 pt-4 border-t border-slate-700 grid grid-cols-3 gap-3 text-center text-xs">
+          <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+            <div class="text-slate-400 text-[11px] mb-0.5">Service Worker:</div>
+            <div class="font-bold text-emerald-400 font-mono">FAOL (v1.0)</div>
+          </div>
+          <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+            <div class="text-slate-400 text-[11px] mb-0.5">Kesh Hajmi:</div>
+            <div class="font-bold text-white font-mono">1.8 MB (Offline)</div>
+          </div>
+          <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+            <div class="text-slate-400 text-[11px] mb-0.5">Sinxronlash Turi:</div>
+            <div class="font-bold text-indigo-400 font-mono">BackgroundSync</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
+    <span>✅</span> <span id="toast-text">Xabar muvaffaqiyatli saqlandi!</span>
+  </div>
+
+  <script>
+    let isOnline = true;
+    let offlineQueue = [
+      { id: "OFFLINE-101", action: "DOSE_TAKEN", text: "Ertalabki dori (Amlodipin 5mg)", time: "Bugun 08:30", status: "SYNCED" },
+      { id: "OFFLINE-102", action: "DOSE_TAKEN", text: "Tushlik dori (Metformin 850mg)", time: "Bugun 13:15", status: "SYNCED" }
+    ];
+
+    function renderQueue() {
+      const container = document.getElementById('queue-container');
+      container.innerHTML = '';
+
+      const pendingCount = offlineQueue.filter(x => x.status === "PENDING").length;
+      document.getElementById('queue-desc').innerText = `Navbatda ${pendingCount} ta serverga yuborilishi kutilayotgan harakat bor`;
+
+      offlineQueue.forEach(item => {
+        const isPending = item.status === "PENDING";
+        const div = document.createElement('div');
+        div.className = `p-3 rounded-xl border flex items-center justify-between ${
+          isPending ? 'bg-amber-950/20 border-amber-500/40 text-amber-200' : 'bg-slate-900/60 border-slate-800 text-slate-300'
+        }`;
+        div.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <span class="w-2 h-2 rounded-full ${isPending ? 'bg-amber-400 animate-ping' : 'bg-emerald-400'}"></span>
+            <div>
+              <div class="font-bold text-white">${item.text}</div>
+              <div class="text-[11px] text-slate-400 font-mono">${item.id} • ${item.time}</div>
+            </div>
+          </div>
+          <div>
+            ${isPending 
+              ? '<span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded font-mono font-bold text-[10px]">OFLAYN SAQLANDI</span>' 
+              : '<span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-bold text-[10px]">SERVERGA YUBORILDI ✅</span>'}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleNetwork() {
+      isOnline = !isOnline;
+      const btn = document.getElementById('btn-network-toggle');
+      const text = document.getElementById('network-status-text');
+
+      if (isOnline) {
+        btn.className = "text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5";
+        text.innerText = "Tarmoq: ONLINE (Internet Bor)";
+        showToast("Internet ulandi! Barcha oflayn harakatlar avtomatik sinxronlandi.");
+        syncNow();
+      } else {
+        btn.className = "text-xs bg-red-600 hover:bg-red-500 text-white font-bold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5";
+        text.innerText = "Tarmoq: OFFLINE (Internet Yo'q)";
+        showToast("Internet o'chirildi! Ilova to'liq oflayn rejimga o'tdi.");
+      }
+    }
+
+    function recordOfflineDose(doseName) {
+      const newId = `OFFLINE-${offlineQueue.length + 101}`;
+      offlineQueue.unshift({
+        id: newId,
+        action: "DOSE_TAKEN",
+        text: doseName,
+        time: new Date().toLocaleTimeString(),
+        status: isOnline ? "SYNCED" : "PENDING"
+      });
+      renderQueue();
+      showToast(isOnline ? "Dori qabuli serverga yuborildi!" : "Internet yo'q. Qabul telefonda oflayn saqlandi!");
+    }
+
+    function recordOfflineRefill() {
+      const newId = `OFFLINE-${offlineQueue.length + 101}`;
+      offlineQueue.unshift({
+        id: newId,
+        action: "REFILL_REQUEST",
+        text: "Kardio Qutisi (Oylik Obuna Tiklash)",
+        time: new Date().toLocaleTimeString(),
+        status: isOnline ? "SYNCED" : "PENDING"
+      });
+      renderQueue();
+      showToast(isOnline ? "Buyurtma serverga qabul qilindi!" : "Buyurtma oflayn keshga olindi!");
+    }
+
+    function syncNow() {
+      offlineQueue.forEach(item => item.status = "SYNCED");
+      renderQueue();
+      showToast("Barcha navbatdagi amallar DoriQuti serveri bilan sinxronlandi!");
+    }
+
+    function installPwaPrompt() {
+      showToast("PWA ilovasi telefonga o'rnatildi! Bosh ekrandan ochishingiz mumkin.");
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+
+    // Init
+    renderQueue();
+
+    // Register Service Worker if supported
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('../shared/service_worker.js')
+        .then(reg => console.log('SW ro\'yxatdan o\'tdi:', reg.scope))
+        .catch(err => console.log('SW xatolik:', err));
+    }
+  </script>
+</body>
+</html>

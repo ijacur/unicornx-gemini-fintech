@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onkologiya & Palliativ Yordam Blister Rejimi | DoriQuti Oncology Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b1120;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --border: #334155;
+            --primary: #f43f5e;
+            --rose: #fb7185;
+            --emerald: #10b981;
+            --sky: #38bdf8;
+            --amber: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #881337 0%, #0f172a 100%);
+            border-bottom: 2px solid var(--primary);
+            padding: 22px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-onco {
+            background: rgba(244, 63, 94, 0.2);
+            border: 1px solid var(--primary);
+            color: #fda4af;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1300px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-layout { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-select {
+            width: 100%;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 12px 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        /* Calendar Blister Grid */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .cal-day {
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 6px;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .cal-day.active-pill {
+            border-color: #f43f5e;
+            background: rgba(244, 63, 94, 0.15);
+            color: #fecdd3;
+        }
+
+        .cal-day.rest-day {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            color: #7dd3fc;
+        }
+
+        .cal-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .cal-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+        }
+
+        .med-row {
+            background: #0f172a;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--rose);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .alert-box {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(244, 63, 94, 0.3);
+        }
+        .btn-primary:hover { background: #e11d48; }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: white;
+            margin-top: 10px;
+        }
+        .btn-outline:hover { background: var(--surface-hover); }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 2rem;">🎗️</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">Samarqand Onkologiya & Palliativ Yordam DoriQuti Hubi</h1>
+                <p style="font-size: 0.8rem; color: #cbd5e1;">Ambulator Kimyoterapiya, Gormonoterapiya va JSST Og'riqsizlantirish Tsikllari</p>
+            </div>
+            <span class="badge-onco">Oncology Care</span>
+        </div>
+        <div style="display: flex; gap: 16px;">
+            <a href="/doriquti/doctor_portal.html" class="nav-link">🩺 Shifokor Portali</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <div class="grid-layout">
+            
+            <!-- Left: Protocol Config & Meds List -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📋 Onkologik Protokolni Tanlang</div>
+                        <span style="font-size: 0.8rem; color: #f43f5e; font-weight: 700;">Tsiklli DoriQuti</span>
+                    </div>
+
+                    <select id="protocolSelect" class="form-select" onchange="updateProtocol()">
+                        <option value="COLORECTAL_CAPECITABINE">Kolorektal: Kapetsitabin 21-kunlik tsikl (14 kun ichish / 7 kun dam)</option>
+                        <option value="BREAST_TAMOXIFEN_ZOLADEX">Ko'krak bezi: Tamoksifen 20mg (28-kunlik doimiy rejim)</option>
+                        <option value="PALLIATIVE_PAIN_LADDER_STEP2">Palliativ: JSST 2-bosqich og'riqsizlantirish (Tramadol retard 100mg)</option>
+                    </select>
+
+                    <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px;">
+                        Kundalik Retsept Paketi (Morning / Evening):
+                    </div>
+
+                    <div id="medsContainer">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <!-- Toxicity Screening Alert -->
+                    <div class="alert-box">
+                        <strong style="color: white; font-size: 0.9rem;">⚠️ Zudlik Bilan Onkologga Xabar Berish Belgilari:</strong>
+                        <ul style="font-size: 0.8rem; margin-top: 6px; padding-left: 18px; line-height: 1.5;">
+                            <li>Tana harorati 38.0°C dan oshishi (Neytropenik sepsis xavfi)</li>
+                            <li>Kunda 4 martadan ortiq to'xtovsiz ich ketishi</li>
+                            <li>Kaft va tovonlarda qizarish, pufaklar (Hand-Foot sindromi)</li>
+                        </ul>
+                        <div style="margin-top: 10px;">
+                            <a href="tel:+998662354050" class="btn btn-primary" style="padding: 8px 12px; font-size: 0.85rem;">
+                                📞 Navbatchi Onkologga Qo'ng'iroq (+998 66 235 40 50)
+                            </a>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-outline" onclick="window.print()">
+                            🖨️ 21-Kunlik Bemor Taqvimi Varaqasini Chop Etish
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: 21-Day Calendar Blister Visualization -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📅 21-Kunlik Tsikl Taqvimi & Dozalash Blisteri</div>
+                        <span id="cycleStatusBadge" style="font-size: 0.8rem; color: #10b981; font-weight: 700;">14 Kun Ichish • 7 Kun Dam</span>
+                    </div>
+
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+                        Har bir katakcha DoriQuti muhrlangan lentasidagi bitta kunlik paketga to'g'ri keladi. Qizil kataklar dori ichiladigan kunlar, ko'k kataklar esa tana tiklanadigan tanaffus kunlaridir:
+                    </p>
+
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Populated by JS -->
+                    </div>
+
+                    <div style="margin-top: 24px; padding: 16px; background: #0f172a; border-radius: 12px; border: 1px solid var(--border);">
+                        <div style="font-size: 0.85rem; font-weight: 700; color: #fb7185; margin-bottom: 6px;">
+                            💡 Qusishga Qarshi (Anti-emetik) Oltin Qoida:
+                        </div>
+                        <p style="font-size: 0.8rem; color: #cbd5e1; line-height: 1.5;">
+                            Ko'ngil aynishini dori ichgandan keyin emas, <strong>ichishdan 30 daqiqa oldin</strong> bartaraf etish kerak! Shuning uchun ertalabki Ondansetron 07:30 ga, kimyoterapiya esa 08:00 ga biriktirilgan.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const PROTOCOLS_DATA = {
+            COLORECTAL_CAPECITABINE: {
+                totalDays: 21,
+                activeDays: 14,
+                meds: [
+                    { name: "Kapetsitabin 1500mg", time: "08:00 va 20:00 (Ovqatdan 30 daqiqa keyin)" },
+                    { name: "Ondansetron 8mg", time: "07:30 (Nonushtadan 30 daqiqa oldin)" },
+                    { name: "Pantenol krem", time: "Kaft-tovon terisiga surtish" }
+                ]
+            },
+            BREAST_TAMOXIFEN_ZOLADEX: {
+                totalDays: 28,
+                activeDays: 28,
+                meds: [
+                    { name: "Tamoksifen 20mg", time: "20:00 (Har kuni kechqurun bir vaqtda)" },
+                    { name: "Kalsiy D3 Nycomed", time: "13:00 (Tushlik bilan)" }
+                ]
+            },
+            PALLIATIVE_PAIN_LADDER_STEP2: {
+                totalDays: 30,
+                activeDays: 30,
+                meds: [
+                    { name: "Tramadol retard 100mg", time: "08:00 va 20:00 (Har 12 soatda qat'iy)" },
+                    { name: "Laktuloza sirop 20ml", time: "08:00 (Qabziyat profilaktikasi)" },
+                    { name: "Paratsetamol 500mg", time: "Og'riq zo'rayganda (talabga ko'ra)" }
+                ]
+            }
+        };
+
+        function updateProtocol() {
+            const key = document.getElementById('protocolSelect').value;
+            const data = PROTOCOLS_DATA[key];
+
+            // Render meds
+            const container = document.getElementById('medsContainer');
+            container.innerHTML = '';
+            data.meds.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'med-row';
+                div.innerHTML = `
+                    <div>
+                        <strong style="color: white; font-size: 0.9rem;">${m.name}</strong>
+                        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">${m.time}</div>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #fb7185; font-weight: 700;">ANIQ VAQT</span>
+                `;
+                container.appendChild(div);
+            });
+
+            // Render calendar
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            for (let i = 1; i <= data.totalDays; i++) {
+                const isAct = i <= data.activeDays;
+                const cell = document.createElement('div');
+                cell.className = `cal-day ${isAct ? 'active-pill' : 'rest-day'}`;
+                cell.innerHTML = `
+                    <div class="cal-num">${i}</div>
+                    <div class="cal-label">${isAct ? 'Dori' : 'Dam'}</div>
+                `;
+                grid.appendChild(cell);
+            }
+
+            document.getElementById('cycleStatusBadge').innerText = `${data.activeDays} Kun Ichish • ${data.totalDays - data.activeDays} Kun Dam`;
+        }
+
+        // Initialize on load
+        updateProtocol();
+    </script>
+</body>
+</html>

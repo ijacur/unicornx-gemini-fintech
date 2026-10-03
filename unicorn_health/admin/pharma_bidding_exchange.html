@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B Farmatsevtika Zavodlari To'g'ridan-to'g'ri Savdosi | DoriQuti B2B Exchange</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0f1d;
+            --surface: #151e34;
+            --surface-hover: #1f2c4c;
+            --border: #26385a;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --purple: #a855f7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: rgba(21, 30, 52, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-gmp {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--primary);
+            color: #7dd3fc;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover { color: white; }
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 24px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            position: relative;
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+        .kpi-primary::after { background: var(--primary); }
+        .kpi-emerald::after { background: var(--emerald); }
+        .kpi-amber::after { background: var(--amber); }
+        .kpi-purple::after { background: var(--purple); }
+
+        .kpi-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kpi-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .kpi-sub {
+            font-size: 0.8rem;
+            color: #6ee7b7;
+            font-weight: 600;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lot-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .lot-table th, .lot-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lot-table th {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lot-table tr:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .plant-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: #0f172a;
+            border: 1px solid var(--border);
+        }
+
+        .savings-chip {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #0a0f1d;
+        }
+        .btn-primary:hover {
+            background: #0284c7;
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            background: var(--surface-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.8rem;">🏭</span>
+            <div>
+                <h1 style="font-size: 1.25rem; font-weight: 800;">DoriQuti B2B Zavodlar To'g'ridan-To'g'ri Savdo Maydoni</h1>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">GMP Farmatsevtika Ishlab Chiqaruvchilari va Ulgurji Reverse-Auksion Birjasi</p>
+            </div>
+            <span class="badge-gmp">GMP O'ZBEKISTON BIRJASI</span>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <a href="/admin/executive_cockpit.html" class="nav-link">💼 C-Suite Cockpit</a>
+            <a href="/index.html" class="nav-link">← Asosiy Hub</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- Big Procurement Metrics -->
+        <div class="kpi-grid">
+            <div class="kpi-card kpi-primary">
+                <div class="kpi-title">
+                    <span>Oylik Jamlangan Talab</span>
+                    <span>📦</span>
+                </div>
+                <div class="kpi-val">174,000 dona</div>
+                <div class="kpi-sub">Samarqand va Toshkent surunkali obunachilari</div>
+            </div>
+
+            <div class="kpi-card kpi-emerald">
+                <div class="kpi-title">
+                    <span>Bemorlarga Sof Tejamkorlik</span>
+                    <span>💸</span>
+                </div>
+                <div class="kpi-val">164,470,000 UZS</div>
+                <div class="kpi-sub">Chakana narxga nisbatan -48.8% to'g'ridan-to'g'ri chegirma</div>
+            </div>
+
+            <div class="kpi-card kpi-amber">
+                <div class="kpi-title">
+                    <span>DoriQuti Xarid Marjasi (Rebate)</span>
+                    <span>📈</span>
+                </div>
+                <div class="kpi-val">17,283,000 UZS</div>
+                <div class="kpi-sub">Zavodlardan 10% platforma rag'batlantirish ulushi</div>
+            </div>
+
+            <div class="kpi-card kpi-purple">
+                <div class="kpi-title">
+                    <span>Akkreditatsiyadan O'tgan Zavodlar</span>
+                    <span>🛡️</span>
+                </div>
+                <div class="kpi-val">3 ta GMP Zavod</div>
+                <div class="kpi-sub">Nobel Pharmsanoat, Jurabek, Remedy Group</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            
+            <!-- Left: Active Demand Lots Table -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">⚖️ Oylik Xarid Lotlari & G'olib Zavod Takliflari</div>
+                    <span style="font-size: 0.8rem; color: #38bdf8;">Auksion Yakunlandi: 100% Ta'minlandi</span>
+                </div>
+
+                <table class="lot-table">
+                    <thead>
+                        <tr>
+                            <th>Molekula & Doza</th>
+                            <th>Hajm</th>
+                            <th>Dorixona Narxi</th>
+                            <th>G'olib Zavod Narxi</th>
+                            <th>Tejov</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong style="color: white;">Metformin HCl 850mg</strong>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">LOT-MET-850 • Remedy Group</div>
+                            </td>
+                            <td>65,000 tab</td>
+                            <td style="color: #ef4444; text-decoration: line-through;">1,200 so'm</td>
+                            <td style="color: #38bdf8; font-weight: 700;">610 so'm</td>
+                            <td><span class="savings-chip">-49.2%</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: white;">Atorvastatin 20mg</strong>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">LOT-ATO-20 • Jurabek Lab</div>
+                            </td>
+                            <td>42,000 tab</td>
+                            <td style="color: #ef4444; text-decoration: line-through;">2,800 so'm</td>
+                            <td style="color: #38bdf8; font-weight: 700;">1,350 so'm</td>
+                            <td><span class="savings-chip">-51.8%</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: white;">Bisoprolol 5mg</strong>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">LOT-BIS-5 • Remedy Group</div>
+                            </td>
+                            <td>38,000 tab</td>
+                            <td style="color: #ef4444; text-decoration: line-through;">1,600 so'm</td>
+                            <td style="color: #38bdf8; font-weight: 700;">810 so'm</td>
+                            <td><span class="savings-chip">-49.4%</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: white;">Amlodipin 5mg</strong>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">LOT-AML-5 • Jurabek Lab</div>
+                            </td>
+                            <td>29,000 tab</td>
+                            <td style="color: #ef4444; text-decoration: line-through;">1,100 so'm</td>
+                            <td style="color: #38bdf8; font-weight: 700;">550 so'm</td>
+                            <td><span class="savings-chip">-50.0%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px; display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="exportPurchaseOrder()">
+                        📜 Rasmiy Zavod Talabnomasini (PO) Generatsiya Qilish
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Participating GMP Plants & Audit -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🏭 GMP Hamkor Zavodlar</div>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">SSV Litsenziyasi</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 14px;">
+                    <div style="padding: 14px; background: #0b1120; border-radius: 12px; border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <strong style="color: white;">Nobel Pharmsanoat</strong>
+                            <span class="plant-badge" style="color: #38bdf8;">GMP-UZ-2024-0018</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Toshkent sh., Turkiya texnologiyasi. Yevropa standartidagi kardiologik portfel.</p>
+                    </div>
+
+                    <div style="padding: 14px; background: #0b1120; border-radius: 12px; border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <strong style="color: white;">Jurabek Laboratories</strong>
+                            <span class="plant-badge" style="color: #10b981;">GMP-UZ-2023-0094</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Olmaliq / Toshkent. O'zbekistondagi eng yirik zamonaviy litsenziyali zavod.</p>
+                    </div>
+
+                    <div style="padding: 14px; background: #0b1120; border-radius: 12px; border: 1px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <strong style="color: white;">Remedy Group</strong>
+                            <span class="plant-badge" style="color: #a855f7;">GMP-UZ-2024-0112</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted);">Toshkent sh. Endokrinologiya va gipertoniya dori vositalari bo'yicha yetakchi.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px; padding: 16px; background: rgba(56, 189, 248, 0.08); border-radius: 12px; border: 1px dashed var(--primary);">
+                    <div style="font-size: 0.85rem; font-weight: 700; color: #38bdf8; margin-bottom: 4px;">
+                        💡 Qanday qilib 48.8% arzon bo'ladi?
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+                        An'anaviy dorixona 3 bosqichli vositachilardan (distributor ➔ ulgurji ombor ➔ chakana dorixona) ustama qo'yib sotadi. DoriQuti esa barcha bemorlar oylik ehtiyojini bitta katta lotga jamlab, to'g'ridan-to'g'ri zavod konveyeridan xarid qiladi.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function exportPurchaseOrder() {
+            alert("📜 Rasmiy Xarid Talabnomasi (Purchase Order #PO-DQ-2026-040):\n\n• Umumiy hajm: 174,000 dona tabletka\n• Yetkazib beruvchilar: Remedy Group (103k tab) & Jurabek Lab (71k tab)\n• Xarid summasi: 172,830,000 UZS\n• Yetkazish manzili: DoriQuti Samarqand Markaziy Ombori\n\nTalabnoma yuridik E-IMZO bilan muhrlandi!");
+        }
+    </script>
+</body>
+</html>

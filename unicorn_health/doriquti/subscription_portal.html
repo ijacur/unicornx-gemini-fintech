@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oylik Obunalar va Avto-Yetkazib Berish — DoriQuti</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAV -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🦄</span>
+          <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
+        </a>
+        <span class="text-xs text-slate-500">/</span>
+        <a href="index.html" class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
+          <span>💊</span>
+          <span>DoriQuti Obuna Hub</span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-4 text-xs font-semibold text-slate-400">
+        <a href="../index.html" class="hover:text-white transition">Bosh sahifa</a>
+        <a href="index.html" class="hover:text-emerald-400 transition">Quti yig‘ish</a>
+        <a href="family_dashboard.html" class="hover:text-indigo-400 transition">Oila Nazorati</a>
+        <a href="../shared/interaction_checker.html" class="hover:text-rose-400 transition">Dori Mosligi</a>
+        <a href="../shared/savings_calculator.html" class="hover:text-amber-400 transition">Tejamkorlik</a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="openNewSubModal()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3.5 py-2 rounded-xl font-black text-xs transition shadow-lg shadow-emerald-500/20 flex items-center gap-1.5">
+          <span>+</span>
+          <span>Yangi Obuna Qo‘shish</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="max-w-6xl mx-auto px-4 pt-8 pb-4 w-full">
+    <div class="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-slate-900 border border-emerald-500/30 p-6 md:p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div class="space-y-2">
+        <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full text-[11px] font-bold text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>Avto-Yetkazib Berish Faol • Oylik Uzluksiz Ta’minot</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black text-white">
+          Ota-onangiz dorisi <span class="text-emerald-400">hech qachon tugab qolmaydi</span>.
+        </h1>
+        <p class="text-xs md:text-sm text-slate-400 max-w-xl">
+          Har oy dori tugashiga 3 kun qolganda yangi 30 kunlik muhrlangan quti avtomatik yig‘iladi va uyingizga kuryer orqali yetkaziladi.
+        </p>
+      </div>
+
+      <!-- MRR / STATS WIDGET -->
+      <div class="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-center min-w-[200px]">
+        <span class="text-[11px] text-slate-500 font-semibold block mb-0.5">Faol oilaviy obunalar:</span>
+        <span class="text-2xl font-black text-emerald-400">2 ta to‘plam</span>
+        <span class="text-[11px] text-slate-400 block mt-1">Oylik to‘lov: <strong>625 000 so‘m</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN SUBSCRIPTIONS LIST & CARDS -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    
+    <!-- LEFT: ACTIVE SUBSCRIPTIONS (8 COLS) -->
+    <div class="lg:col-span-8 space-y-6">
+      
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-2">
+          <span>📦</span>
+          <span>Faol Surunkali Dori Obunalari</span>
+        </h2>
+        <span class="text-xs font-semibold text-emerald-400">Barchasi faol (Active)</span>
+      </div>
+
+      <!-- SUBSCRIPTION CARD 1 -->
+      <div class="bg-slate-900 border border-slate-800 hover:border-emerald-500/40 p-6 rounded-3xl shadow-xl transition space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-base font-black text-white">Otabek Shukurov (Otam uchun)</span>
+              <span class="text-[10px] bg-emerald-500/10 text-emerald-400 font-extrabold px-2 py-0.5 rounded border border-emerald-500/20">
+                ● FAOL
+              </span>
+            </div>
+            <span class="text-xs text-slate-400">ID: #SUB-UZ-9041 • 5 oydan beri uzluksiz</span>
+          </div>
+          <div class="text-left sm:text-right">
+            <span class="text-lg font-black text-white">285 000 so‘m</span>
+            <span class="text-[11px] text-slate-500 block">/ har 30 kunda</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-slate-500 block text-[11px] mb-0.5">To‘plam turi:</span>
+            <span class="text-white font-bold">Kardio & Gipertoniya</span>
+            <span class="text-[10px] text-slate-400 block mt-1">Lozap + Konkor + Kardiomagnil</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-slate-500 block text-[11px] mb-0.5">Keyingi yetkazish:</span>
+            <span class="text-emerald-400 font-bold">4 kundan keyin</span>
+            <span class="text-[10px] text-slate-400 block mt-1">2026-yil 7-oktabr</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-slate-500 block text-[11px] mb-0.5">To‘lov usuli:</span>
+            <span class="text-white font-bold">Humo **** 4912</span>
+            <span class="text-[10px] text-emerald-400 block mt-1">Avto-yechish yoqilgan</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 text-xs">
+          <div class="flex items-center space-x-2 text-slate-400">
+            <span>📍 Samarqand sh., Registon ko‘chasi, 14-uy (09:00 - 12:00)</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="skipNextMonth('Otabek')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-xl transition border border-slate-700">
+              ⏸️ 1 haftaga kechiktirish
+            </button>
+            <button onclick="instantRefill('Otabek')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-3.5 py-1.5 rounded-xl transition shadow-md shadow-emerald-500/20">
+              🚀 Hozir yuborish
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTION CARD 2 -->
+      <div class="bg-slate-900 border border-slate-800 hover:border-emerald-500/40 p-6 rounded-3xl shadow-xl transition space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="text-base font-black text-white">Hamida Shukurova (Onam uchun)</span>
+              <span class="text-[10px] bg-emerald-500/10 text-emerald-400 font-extrabold px-2 py-0.5 rounded border border-emerald-500/20">
+                ● FAOL
+              </span>
+            </div>
+            <span class="text-xs text-slate-400">ID: #SUB-UZ-9042 • 4 oydan beri uzluksiz</span>
+          </div>
+          <div class="text-left sm:text-right">
+            <span class="text-lg font-black text-white">340 000 so‘m</span>
+            <span class="text-[11px] text-slate-500 block">/ har 30 kunda</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-slate-500 block text-[11px] mb-0.5">To‘plam turi:</span>
+            <span class="text-white font-bold">Qandli Diabet & Vitaminlar</span>
+            <span class="text-[10px] text-slate-400 block mt-1">Glukofaj 850 + Vitamin D3 + Omez</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-slate-500 block text-[11px] mb-0.5">Keyingi yetkazish:</span>
+            <span class="text-blue-400 font-bold">9 kundan keyin</span>
+            <span class="text-[10px] text-slate-400 block mt-1">2026-yil 12-oktabr</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
+            <span class="text-slate-500 block text-[11px] mb-0.5">To‘lov usuli:</span>
+            <span class="text-white font-bold">Uzcard **** 8810</span>
+            <span class="text-[10px] text-emerald-400 block mt-1">Avto-yechish yoqilgan</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 text-xs">
+          <div class="flex items-center space-x-2 text-slate-400">
+            <span>📍 Samarqand sh., Registon ko‘chasi, 14-uy (14:00 - 18:00)</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="skipNextMonth('Hamida')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold px-3 py-1.5 rounded-xl transition border border-slate-700">
+              ⏸️ 1 haftaga kechiktirish
+            </button>
+            <button onclick="instantRefill('Hamida')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-3.5 py-1.5 rounded-xl transition shadow-md shadow-emerald-500/20">
+              🚀 Hozir yuborish
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INVOICE & FISCAL RECEIPT HISTORY -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center justify-between">
+          <span>🧾 To‘lovlar va Soliq Fiskal Cheklari Tarixi</span>
+          <span class="text-[10px] text-slate-500 font-normal">Soliq.uz integratsiyasi</span>
+        </h3>
+
+        <div class="divide-y divide-slate-800 text-xs">
+          <div class="py-3 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-white block">2026-yil 7-sentabr — 285 000 so‘m</span>
+              <span class="text-slate-500 text-[11px]">Kardio To‘plami • Humo **** 4912 • Chek: #FISC-0907-4412</span>
+            </div>
+            <button onclick="viewFiscalReceipt('FISC-0907-4412', 285000)" class="text-emerald-400 hover:text-emerald-300 font-bold bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+              Chekni ko‘rish (QR) →
+            </button>
+          </div>
+
+          <div class="py-3 flex items-center justify-between">
+            <div>
+              <span class="font-bold text-white block">2026-yil 12-sentabr — 340 000 so‘m</span>
+              <span class="text-slate-500 text-[11px]">Diabet To‘plami • Uzcard **** 8810 • Chek: #FISC-0912-8819</span>
+            </div>
+            <button onclick="viewFiscalReceipt('FISC-0912-8819', 340000)" class="text-emerald-400 hover:text-emerald-300 font-bold bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+              Chekni ko‘rish (QR) →
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: PAYMENT CARDS & SETTINGS (4 COLS) -->
+    <div class="lg:col-span-4 space-y-6">
+      
+      <!-- LINKED CARDS CARD -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+        <h3 class="text-xs font-black uppercase tracking-wider text-purple-400 flex items-center gap-2">
+          <span>💳</span>
+          <span>Ulangan Bank Kartalari</span>
+        </h3>
+
+        <div class="space-y-2.5">
+          <!-- CARD 1 -->
+          <div class="p-3.5 rounded-2xl bg-gradient-to-r from-emerald-900/40 to-slate-950 border border-emerald-500/40 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <span class="text-xl">💳</span>
+              <div>
+                <span class="font-bold text-white text-xs block">Humo **** 4912</span>
+                <span class="text-[10px] text-emerald-400 font-semibold">Asosiy karta (Default)</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">
+              Faol
+            </span>
+          </div>
+
+          <!-- CARD 2 -->
+          <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <span class="text-xl">💳</span>
+              <div>
+                <span class="font-bold text-white text-xs block">Uzcard **** 8810</span>
+                <span class="text-[10px] text-slate-500">Zaxira karta</span>
+              </div>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400">
+              Ulangan
+            </span>
+          </div>
+        </div>
+
+        <button onclick="addCardModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 rounded-xl text-xs transition border border-slate-700 flex items-center justify-center gap-2">
+          <span>+ Yangi karta ulash (Click / Payme)</span>
+        </button>
+
+        <div class="pt-3 border-t border-slate-800 text-[11px] text-slate-400 space-y-1">
+          <div class="flex items-center justify-between">
+            <span>Xavfsiz tokenlashtirish:</span>
+            <span class="text-emerald-400 font-bold">PCI-DSS / MB</span>
+          </div>
+          <p class="text-slate-500 text-[10px]">Karta ma’lumotlari to‘g‘ridan-to‘g‘ri protsessing markazida shifrlanadi.</p>
+        </div>
+      </div>
+
+      <!-- AUTO-RENEW TOGGLE CARD -->
+      <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-4">
+        <h3 class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center gap-2">
+          <span>⚙️</span>
+          <span>Avto-Yetkazish Sozlamalari</span>
+        </h3>
+
+        <div class="flex items-center justify-between text-xs">
+          <div>
+            <span class="font-bold text-white block">Avtomatik yechish:</span>
+            <span class="text-slate-500 text-[11px]">Muddati kelganda dori jo‘natish</span>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+          </label>
+        </div>
+
+        <div class="flex items-center justify-between text-xs">
+          <div>
+            <span class="font-bold text-white block">Telegram ogohlantirish:</span>
+            <span class="text-slate-500 text-[11px]">3 kun oldin xabar olish</span>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-9 h-5 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500"></div>
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- MODAL: FISCAL RECEIPT -->
+  <div id="receiptModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white text-black rounded-2xl max-w-sm w-full p-6 shadow-2xl font-mono text-xs space-y-3">
+      <div class="text-center border-b pb-2 border-slate-300">
+        <h4 class="font-bold text-sm">UNICORN HEALTH MChJ</h4>
+        <p class="text-[10px] text-slate-600">DoriQuti.uz / SamDTU Innovatsion Bazasi</p>
+        <p class="text-[10px] text-slate-600">Samarqand sh., Ibn Sino ko‘chasi, 12</p>
+      </div>
+
+      <div class="space-y-1 text-[11px]">
+        <div class="flex justify-between">
+          <span>Chek raqami:</span>
+          <span id="mReceiptNo" class="font-bold">FISC-0907-4412</span>
+        </div>
+        <div class="flex justify-between">
+          <span>To‘lov usuli:</span>
+          <span>HUMO Elektron to‘lov</span>
+        </div>
+        <div class="flex justify-between">
+          <span>QQS (12%):</span>
+          <span>Imtiyozli (Dori vositasi)</span>
+        </div>
+        <div class="flex justify-between font-bold text-sm border-t pt-1 border-slate-300">
+          <span>JAMI:</span>
+          <span id="mAmount">285 000 so‘m</span>
+        </div>
+      </div>
+
+      <!-- SIMULATED FISCAL QR -->
+      <div class="p-3 bg-slate-100 rounded-xl text-center border border-slate-200">
+        <div class="w-24 h-24 mx-auto bg-black flex items-center justify-center text-white text-[10px] rounded p-2">
+          [ SOLIQ.UZ FISCAL QR ]
+        </div>
+        <span class="text-[9px] text-slate-500 mt-1 block">Davlat Soliq Qo‘mitasi Ro‘yxatidan O‘tgan</span>
+      </div>
+
+      <button onclick="closeReceiptModal()" class="w-full bg-slate-900 text-white font-bold py-2 rounded-xl text-xs transition">
+        Yopish
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>© 2026 Unicorn Health Ecosystem. Samarqand, O‘zbekiston.</div>
+      <div class="flex items-center space-x-4">
+        <a href="../index.html" class="hover:text-white">Bosh sahifa</a>
+        <a href="index.html" class="hover:text-emerald-400">DoriQuti</a>
+        <a href="../arzonlab/index.html" class="hover:text-blue-400">ArzonLab</a>
+        <a href="../docs/MASTER_ROADMAP.md" class="hover:text-white">Yo‘l xaritasi</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function instantRefill(name) {
+      if (confirm(`${name} uchun yangi 30 kunlik quti zudlik bilan dorixonaga yig'ishga yuborilsinmi?`)) {
+        alert(`✅ Buyurtma qabul qilindi! Olam Pharm Samarqand provizor markazi lentali qutini yig'ishni boshladi. Kuryer 2 soat ichida yetkazadi.`);
+      }
+    }
+
+    function skipNextMonth(name) {
+      alert(`⏸️ ${name} uchun keyingi yetkazish muddati 7 kunga kechiktirildi.`);
+    }
+
+    function viewFiscalReceipt(no, amount) {
+      document.getElementById('mReceiptNo').innerText = no;
+      document.getElementById('mAmount').innerText = amount.toLocaleString('uz-UZ').replace(/,/g, ' ') + ' so‘m';
+      document.getElementById('receiptModal').classList.remove('hidden');
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('receiptModal').classList.add('hidden');
+    }
+
+    function addCardModal() {
+      alert("💳 Click / Payme / Uzum karta bog'lash oynasi ochilmoqda...");
+    }
+
+    function openNewSubModal() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

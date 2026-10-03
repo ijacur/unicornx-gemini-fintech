@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoriQuti - Soliq.uz Fiskal Cheklar & Sug'urta Qaytarimi Vaulti</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      body * { visibility: hidden; }
+      #printable-receipt, #printable-receipt * { visibility: visible; }
+      #printable-receipt { position: absolute; left: 0; top: 0; width: 100%; }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">📦</span>
+          <span class="text-xl font-bold tracking-tight">DoriQuti</span>
+        </a>
+        <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-semibold">
+          Soliq.uz & Sug'urta Vaulti
+        </span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="window.print()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
+          <span>🖨️</span> Chekni Chop Etish
+        </button>
+        <a href="subscription_portal.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          ← Obuna Portali
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Top Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">Jami Tibbiy Xarajat (2026)</div>
+        <div class="text-2xl font-bold text-white font-mono">1,850,000 so'm</div>
+        <div class="text-[11px] text-slate-400 mt-1">DoriQuti + ArzonLab tahlillari</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-4">
+        <div class="text-xs text-slate-400 mb-1">1% Soliq Keshbek</div>
+        <div class="text-2xl font-bold text-emerald-400 font-mono">18,500 so'm</div>
+        <div class="text-[11px] text-emerald-300 mt-1">Soliq mobil ilovasiga tushdi</div>
+      </div>
+
+      <div class="bg-slate-800 border border-emerald-500/40 bg-emerald-950/20 rounded-xl p-4">
+        <div class="text-xs text-emerald-300 mb-1">12% JSHDS Qaytarimi (Soliq Imtiyozi)</div>
+        <div class="text-2xl font-bold text-emerald-400 font-mono">222,000 so'm</div>
+        <div class="text-[11px] text-emerald-300 mt-1">SK 378-modda bo'yicha qaytariladigan</div>
+      </div>
+
+      <div class="bg-slate-800 border border-blue-500/40 bg-blue-950/20 rounded-xl p-4">
+        <div class="text-xs text-blue-300 mb-1">Sug'urta Kompensatsiyasi</div>
+        <div class="text-2xl font-bold text-blue-400 font-mono">100% Qoplanadi</div>
+        <div class="text-[11px] text-blue-300 mt-1">Gross / Apex da'vo paketi</div>
+      </div>
+    </div>
+
+    <!-- Main Grid: Fiscal Receipt vs Tax/Insurance tools -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Realistic Soliq.uz Fiscal Receipt (5 cols) -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div id="printable-receipt" class="bg-white text-slate-900 rounded-2xl p-6 shadow-2xl max-w-sm w-full font-mono text-xs border border-slate-300 flex flex-col justify-between">
+          <div>
+            <!-- Soliq Header -->
+            <div class="text-center border-b border-dashed border-slate-400 pb-3 mb-3">
+              <div class="text-base font-extrabold tracking-tight">O'ZBEKISTON RESPUBLIKASI</div>
+              <div class="text-[10px] text-slate-600 uppercase font-sans font-semibold">Davlat Soliq Qo'mitasi</div>
+              <div class="text-sm font-bold mt-1">"UNICORN HEALTH TECH" MCHJ</div>
+              <div class="text-[11px]">DoriQuti.uz & ArzonLab.uz</div>
+              <div class="text-[10px] text-slate-500 mt-0.5">STIR (INN): 309876543 | Samarqand sh.</div>
+            </div>
+
+            <!-- Terminal Info -->
+            <div class="text-[11px] space-y-0.5 mb-3 border-b border-dashed border-slate-400 pb-2">
+              <div class="flex justify-between"><span>Chek №:</span> <strong>004128</strong></div>
+              <div class="flex justify-between"><span>Sana / Vaqt:</span> <span>03.10.2026 13:10</span></div>
+              <div class="flex justify-between"><span>Terminal ID:</span> <span>EP10842091</span></div>
+              <div class="flex justify-between"><span>FM ID:</span> <span>FM9901423871</span></div>
+              <div class="flex justify-between"><span>Buyurtma:</span> <strong class="text-emerald-700">#DQ-2026-8819</strong></div>
+              <div class="flex justify-between"><span>Bemor:</span> <span>Karimov B. (JShShIR: 31804820190012)</span></div>
+            </div>
+
+            <!-- Items with MXIK codes -->
+            <div class="space-y-2 mb-3 border-b border-dashed border-slate-400 pb-3">
+              <div>
+                <div class="font-bold">1. Kardio Qutisi (Amlodipin+Atorvastatin)</div>
+                <div class="text-[10px] text-slate-500">MXIK: 02102001001000000 | Qadoq: 796</div>
+                <div class="flex justify-between text-[11px]">
+                  <span>1 x 145 000 so'm (QQS 0%)</span>
+                  <span class="font-bold">145 000 UZS</span>
+                </div>
+              </div>
+
+              <div>
+                <div class="font-bold">2. Bosh miya MRT skanerlash vaucheri</div>
+                <div class="text-[10px] text-slate-500">MXIK: 08690001001000000 | Qadoq: 796</div>
+                <div class="flex justify-between text-[11px]">
+                  <span>1 x 280 000 so'm (QQS 0%)</span>
+                  <span class="font-bold">280 000 UZS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Total -->
+            <div class="space-y-1 mb-4 text-[12px]">
+              <div class="flex justify-between font-extrabold text-sm border-b border-slate-400 pb-1">
+                <span>JAMI TO'LOV:</span>
+                <span class="text-emerald-700">425 000 UZS</span>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span>To'lov turi:</span>
+                <span>UZCARD / HUMO Online</span>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-600">
+                <span>Shundan QQS (0%):</span>
+                <span>0 UZS</span>
+              </div>
+            </div>
+
+            <!-- Fiscal QR Code & Sign -->
+            <div class="text-center pt-2 flex flex-col items-center">
+              <!-- Visual Mock QR code -->
+              <div class="w-28 h-28 bg-slate-100 border border-slate-300 rounded p-1 flex items-center justify-center mb-1">
+                <svg viewBox="0 0 100 100" class="w-full h-full">
+                  <rect x="0" y="0" width="30" height="30" fill="#000" />
+                  <rect x="5" y="5" width="20" height="20" fill="#fff" />
+                  <rect x="10" y="10" width="10" height="10" fill="#000" />
+                  <rect x="70" y="0" width="30" height="30" fill="#000" />
+                  <rect x="75" y="5" width="20" height="20" fill="#fff" />
+                  <rect x="80" y="10" width="10" height="10" fill="#000" />
+                  <rect x="0" y="70" width="30" height="30" fill="#000" />
+                  <rect x="5" y="75" width="20" height="20" fill="#fff" />
+                  <rect x="10" y="80" width="10" height="10" fill="#000" />
+                  <!-- Random dots pattern -->
+                  <circle cx="45" cy="20" r="4" fill="#000" />
+                  <circle cx="55" cy="35" r="3" fill="#000" />
+                  <circle cx="40" cy="50" r="5" fill="#000" />
+                  <circle cx="60" cy="65" r="4" fill="#000" />
+                  <circle cx="50" cy="80" r="4" fill="#000" />
+                  <circle cx="75" cy="45" r="3" fill="#000" />
+                  <circle cx="85" cy="80" r="4" fill="#000" />
+                  <circle cx="20" cy="50" r="3" fill="#000" />
+                </svg>
+              </div>
+              <div class="text-[10px] text-slate-500">Soliq mobil ilovasida skanerlang (1% keshbek)</div>
+              <div class="text-[11px] font-bold text-slate-800 mt-1">Fiskal belgi: 0FAE6BAB49F75230</div>
+            </div>
+          </div>
+
+          <div class="text-center text-[10px] text-slate-400 mt-4 border-t border-dashed border-slate-300 pt-2">
+            Rahmat! Salomat bo'ling! | doriquti.uz
+          </div>
+        </div>
+      </div>
+
+      <!-- Tax Refund & Insurance Claims Tools (7 cols) -->
+      <div class="lg:col-span-7 space-y-5">
+        
+        <!-- Tax Refund Calculator Card -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span>🏛️</span> Soliq Imtiyozi va 12% JSHDS Qaytarimi (SK 378-modda)
+            </h3>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded font-mono font-bold">
+              Qonuniy Imtiyoz
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            O'zbekiston Respublikasi Soliq Kodeksining 378-moddasiga asosan, fuqaroning o'zi va uning ota-onasi, turmush o'rtog'i hamda farzandlarining davolanishi va dori vositalari uchun sarflangan mablag'lar jismoniy shaxslardan olinadigan <strong>12% daromad solig'idan ozod qilinadi</strong>.
+          </p>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 mb-4 grid grid-cols-2 gap-3 text-xs">
+            <div>
+              <span class="text-slate-400 block mb-1">Ushbu chek bo'yicha summa:</span>
+              <span class="text-white font-mono font-bold text-base">425 000 UZS</span>
+            </div>
+            <div>
+              <span class="text-emerald-400 block mb-1">Soliqdan qaytarib olinadigan:</span>
+              <span class="text-emerald-400 font-mono font-bold text-base">+51 000 UZS (12%)</span>
+            </div>
+          </div>
+
+          <button onclick="downloadTaxDeclarationGuide()" class="w-full bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold py-2.5 rounded-xl transition border border-slate-600 flex items-center justify-center gap-2">
+            <span>📑</span> Soliq Deklaratsiyasi Yo'riqnomasini Yuklab Olish (PDF)
+          </button>
+        </div>
+
+        <!-- Insurance Reimbursement Claim Pack Generator -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <span>🛡️</span> Sug'urta Kompaniyasi Da'vo Hujjatlari Paketi
+            </h3>
+            <span class="text-xs bg-blue-500/20 text-blue-300 px-2.5 py-0.5 rounded font-mono font-bold">
+              Gross / Apex / Euroasia
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Agar sizda korporativ yoki xususiy tibbiy sug'urta polisi mavjud bo'lsa, DoriQuti va ArzonLab barcha zaruriy hujjatlarni 1-klikda sug'urta kompaniyasi talablariga mos ravishda to'playdi:
+          </p>
+
+          <div class="space-y-2 text-xs mb-4">
+            <div class="flex items-center gap-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span>Soliq.uz Davlat Fiskal Cheki (MXIK kodli)</span>
+            </div>
+            <div class="flex items-center gap-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span>SamDTU Shifokor E-Retsepti Nusxasi (#RX-7742)</span>
+            </div>
+            <div class="flex items-center gap-2 bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span>Dorixona Ulgurji Litsenziyasi va Sertifikati Nusxasi</span>
+            </div>
+          </div>
+
+          <button onclick="generateInsurancePacket()" class="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+            <span>📦</span> Sug'urta Da'vo Paketini Generatsiya Qilish (ZIP / PDF)
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
+    <span>✅</span> <span id="toast-text">Fiskal hujjatlar tayyorlandi!</span>
+  </div>
+
+  <script>
+    function downloadTaxDeclarationGuide() {
+      showToast('Soliq deklaratsiyasi (SK 378) to\'ldirish shakli tayyorlandi!');
+    }
+
+    function generateInsurancePacket() {
+      showToast('Gross va Apex Sug\'urta uchun 3 ta hujjatdan iborat to\'liq kompensatsiya paketi tayyor!');
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>

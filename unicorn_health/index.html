@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health Uzbekistan — Raqamli Sog‘liqni Saqlash Ekotizimi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#10b981">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .bg-mesh {
+      background-color: #0b0f19;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.15) 0px, transparent 50%);
+    }
+  </style>
+</head>
+<body class="bg-mesh text-slate-100 min-h-screen antialiased flex flex-col selection:bg-emerald-500 selection:text-black">
+
+  <!-- NAVIGATION -->
+  <header class="border-b border-slate-800/80 bg-slate-950/60 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-blue-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-emerald-500/20">
+          🦄
+        </div>
+        <div>
+          <span class="font-black text-2xl tracking-tight text-white">Unicorn<span class="text-emerald-400">Health</span></span>
+          <span class="text-[10px] block font-extrabold text-slate-400 uppercase tracking-widest -mt-1">Uzbekistan Venture Hub</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center space-x-3 text-xs font-semibold text-slate-400">
+        <a href="#products" class="hover:text-white transition">Mahsulotlar</a>
+        <a href="doriquti/doctor_portal.html" class="hover:text-emerald-400 text-emerald-400 font-bold transition flex items-center gap-1">
+          <span>🩺</span>
+          <span>Shifokor Portali</span>
+        </a>
+        <a href="doriquti/family_dashboard.html" class="hover:text-indigo-400 text-indigo-400 font-bold transition flex items-center gap-1">
+          <span>👨‍👩‍👧</span>
+          <span>Oila Portali</span>
+        </a>
+        <a href="shared/referral_portal.html" class="hover:text-emerald-400 text-emerald-300 font-bold transition flex items-center gap-1">
+          <span>🎁</span>
+          <span>Keshbek (Elchilar)</span>
+        </a>
+        <a href="shared/patient_guide.html" class="hover:text-emerald-400 text-slate-300 font-bold transition flex items-center gap-1">
+          <span>📖</span>
+          <span>Yo‘riqnoma & FAQ</span>
+        </a>
+        <a href="docs/PITCH_DECK.html" class="hover:text-emerald-400 transition flex items-center gap-1">
+          <span>🎯</span>
+          <span>Pitch Deck</span>
+        </a>
+        <a href="docs/FINANCIAL_MODEL.html" class="hover:text-blue-400 text-blue-300 font-bold transition flex items-center gap-1">
+          <span>📊</span>
+          <span>Model & Cap Table</span>
+        </a>
+        <a href="docs/PARTNER_CALCULATOR.html" class="hover:text-blue-400 transition flex items-center gap-1">
+          <span>📈</span>
+          <span>ROI Kalkulyator</span>
+        </a>
+        <a href="docs/PARTNER_CONTRACT_AGREEMENT.html" class="hover:text-emerald-400 transition flex items-center gap-1">
+          <span>📜</span>
+          <span>B2B Shartnoma</span>
+        </a>
+        <a href="shared/savings_calculator.html" class="hover:text-amber-400 text-amber-300 font-bold transition flex items-center gap-1">
+          <span>💰</span>
+          <span>Oila Kalkulyatori</span>
+        </a>
+        <a href="shared/partner_network_directory.html" class="hover:text-blue-400 text-blue-300 font-bold transition flex items-center gap-1">
+          <span>🗺️</span>
+          <span>Hamkorlar Tarmog‘i</span>
+        </a>
+        <a href="shared/interaction_checker.html" class="hover:text-rose-400 text-rose-300 font-bold transition flex items-center gap-1">
+          <span>🛡️</span>
+          <span>Dori Mosligi</span>
+        </a>
+        <a href="doriquti/subscription_portal.html" class="hover:text-emerald-400 text-emerald-300 font-bold transition flex items-center gap-1">
+          <span>📦</span>
+          <span>Oylik Obuna</span>
+        </a>
+        <a href="doriquti/telehealth_consultation.html" class="hover:text-cyan-400 text-cyan-300 font-bold transition flex items-center gap-1">
+          <span>🩺</span>
+          <span>Telemeditsina</span>
+        </a>
+        <a href="doriquti/corporate_wellness.html" class="hover:text-amber-400 text-amber-300 font-bold transition flex items-center gap-1">
+          <span>🏢</span>
+          <span>Korporativ</span>
+        </a>
+        <a href="shared/health_passport.html" class="hover:text-emerald-400 text-emerald-300 font-bold transition flex items-center gap-1">
+          <span>🪪</span>
+          <span>Pasport</span>
+        </a>
+        <a href="shared/generic_alternatives_finder.html" class="hover:text-emerald-400 text-emerald-300 font-bold transition flex items-center gap-1">
+          <span>🔄</span>
+          <span>Analoglar</span>
+        </a>
+        <a href="shared/voice_intake_assistant.html" class="hover:text-rose-400 text-rose-300 font-bold transition flex items-center gap-1">
+          <span>🎙️</span>
+          <span>Ovozli</span>
+        </a>
+        <a href="doriquti/vitamin_unit_dose_portal.html" class="hover:text-emerald-400 text-emerald-300 font-bold transition flex items-center gap-1">
+          <span>🌿</span>
+          <span>Dona Vitamin</span>
+        </a>
+        <a href="doriquti/smart_locker_portal.html" class="hover:text-cyan-400 text-cyan-300 font-bold transition flex items-center gap-1">
+          <span>📮</span>
+          <span>Med-Locker</span>
+        </a>
+        <a href="shared/inson_welfare_portal.html" class="hover:text-emerald-400 text-emerald-300 font-bold transition flex items-center gap-1">
+          <span>🤝</span>
+          <span>Inson Care</span>
+        </a>
+        <a href="doriquti/diabetes_cgm_portal.html" class="hover:text-sky-400 text-sky-300 font-bold transition flex items-center gap-1">
+          <span>🩸</span>
+          <span>Diabet CGM</span>
+        </a>
+        <a href="arzonlab/biopsy_pathology_portal.html" class="hover:text-purple-400 text-purple-300 font-bold transition flex items-center gap-1">
+          <span>🔬</span>
+          <span>Biopsiya WSI</span>
+        </a>
+        <a href="arzonlab/maternal_prenatal_portal.html" class="hover:text-pink-400 text-pink-300 font-bold transition flex items-center gap-1">
+          <span>🤰</span>
+          <span>Onalik & Prenatal</span>
+        </a>
+        <a href="arzonlab/rural_telehealth_bus_portal.html" class="hover:text-emerald-400 text-emerald-300 font-bold transition flex items-center gap-1">
+          <span>🚌</span>
+          <span>Qishloq Avtobusi</span>
+        </a>
+      </nav>
+
+      <div class="flex items-center space-x-2">
+        <a href="doriquti/index.html" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl font-bold transition">
+          💊 DoriQuti
+        </a>
+        <a href="arzonlab/index.html" class="text-xs bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-3 py-2 rounded-xl font-black transition shadow-lg shadow-emerald-500/20">
+          🔬 ArzonLab
+        </a>
+        <div class="hidden lg:flex items-center space-x-1.5 pl-2 border-l border-slate-800">
+          <a href="doriquti/pharmacy_portal.html" class="text-[11px] font-bold text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-900 border border-slate-800">
+            🏥 Provizor
+          </a>
+          <a href="arzonlab/lab_portal.html" class="text-[11px] font-bold text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-900 border border-slate-800">
+            🏢 Registrator
+          </a>
+          <a href="doriquti/delivery_portal.html" class="text-[11px] font-bold text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-900 border border-slate-800">
+            🚴‍♂️ Kuryer
+          </a>
+          <a href="shared/kiosk_mode.html" class="text-[11px] font-bold text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-900 border border-slate-800">
+            📟 Kiosk
+          </a>
+          <a href="admin/dashboard.html" class="text-[11px] font-bold text-amber-400 hover:text-amber-300 px-2 py-1 rounded bg-slate-900 border border-amber-500/30 flex items-center gap-1">
+            <span>👑</span>
+            <span>CEO</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="pt-16 pb-20 px-4 text-center max-w-4xl mx-auto">
+    <div class="inline-flex items-center space-x-2.5 bg-slate-900/90 border border-slate-700/80 px-4 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-8">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+      <span>O‘zbekistondagi 1-raqamli Raqamli Salomatlik Ekotizimi</span>
+    </div>
+
+    <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6">
+      Amerikaning eng muvaffaqiyatli <br class="hidden sm:inline">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-500">2 ta Unicorn modeli</span> endi O‘zbekistonda.
+    </h1>
+
+    <p class="text-base md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+      Noldan boshlab, millionlab odamlarning real kundalik og‘rig‘iga yechim beruvchi va yuqori pul oqimi yaratuvchi 2 ta amaliy startap:
+    </p>
+
+    <!-- LIVE METRICS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto text-left mb-16">
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-xs text-slate-500 font-semibold block mb-1">Aholi soni</span>
+        <span class="text-2xl font-black text-white">37.5M+</span>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-xs text-slate-500 font-semibold block mb-1">Surunkali bemorlar</span>
+        <span class="text-2xl font-black text-emerald-400">8.2M+</span>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-xs text-slate-500 font-semibold block mb-1">Xususiy klinikalar</span>
+        <span class="text-2xl font-black text-blue-400">8,700+</span>
+      </div>
+      <div class="bg-slate-900/60 border border-slate-800 p-4 rounded-2xl">
+        <span class="text-xs text-slate-500 font-semibold block mb-1">Bozor hajmi</span>
+        <span class="text-2xl font-black text-amber-400">$2.4B/yil</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS SHOWCASE -->
+  <section id="products" class="max-w-6xl mx-auto px-4 pb-24 grid md:grid-cols-2 gap-8 w-full">
+    
+    <!-- PRODUCT 1: DORIQUTI -->
+    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-emerald-500/30 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-between hover:border-emerald-500/60 transition group">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+      
+      <div>
+        <div class="flex items-center justify-between mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-black">
+            💊
+          </div>
+          <span class="bg-emerald-500/20 text-emerald-300 text-xs px-3 py-1 rounded-full font-extrabold border border-emerald-500/30">PillPack Model ($1B)</span>
+        </div>
+
+        <h3 class="text-2xl font-black text-white mb-2">DoriQuti.uz</h3>
+        <p class="text-xs font-semibold text-emerald-400 uppercase tracking-widest mb-4">Surunkali bemorlar uchun oylik saralangan dori obunasi</p>
+        
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+          Keksa ota-onalar dorilarni adashtirmasligi uchun 30 kunlik barcha tabletkalar kunlar va vaqtlar (Ertalab, Tushlik, Kechqurun) bo‘yicha alohida lentali paketlarda eshikkacha yetkaziladi.
+        </p>
+
+        <div class="space-y-2.5 text-xs text-slate-300 mb-8 font-medium">
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400">✓</span>
+            <span>Ulgurji dorixonalardan 10–15% chegirma bilan ta’minlash</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400">✓</span>
+            <span>Oylik takrorlanuvchi to‘lovlar (Yuqori LTV va 95% retention)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400">✓</span>
+            <span>Farzandlar uchun Telegram orqali xotirjamlik hisoboti</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800 flex items-center justify-between">
+        <div>
+          <span class="text-xs text-slate-500 block">Status:</span>
+          <span class="text-xs font-bold text-emerald-400">● MVP Sayt Tayyor</span>
+        </div>
+        <a href="doriquti/index.html" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-6 py-3 rounded-xl font-extrabold text-sm transition transform active:scale-95">
+          DoriQuti’ni ochish →
+        </a>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2: ARZONLAB -->
+    <div class="bg-gradient-to-b from-slate-900 to-slate-950 border border-blue-500/30 rounded-3xl p-8 relative overflow-hidden flex flex-col justify-between hover:border-blue-500/60 transition group">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+      
+      <div>
+        <div class="flex items-center justify-between mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-2xl font-black">
+            🔬
+          </div>
+          <span class="bg-blue-500/20 text-blue-300 text-xs px-3 py-1 rounded-full font-extrabold border border-blue-500/30">GoodRx Model ($4B)</span>
+        </div>
+
+        <h3 class="text-2xl font-black text-white mb-2">ArzonLab.uz</h3>
+        <p class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-4">Tibbiy tahlillar va MRT/KT ni 25-35% chegirmada bron qilish</p>
+        
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+          Klinika va laboratoriyalarning bo‘sh turgan soatlarini arzon narxda bron qilib, odamlarga vaucher taqdim etuvchi O‘zbekistondagi birinchi platforma.
+        </p>
+
+        <div class="space-y-2.5 text-xs text-slate-300 mb-8 font-medium">
+          <div class="flex items-center gap-2">
+            <span class="text-blue-400">✓</span>
+            <span>Bemorlarga 100 000 – 150 000 so‘mgacha real tejash</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-blue-400">✓</span>
+            <span>Laboratoriyalarga yangi mijozlar oqimi va keshbek</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-blue-400">✓</span>
+            <span>Nol logistika, nol dori, 100% raqamli komissiya (15-20%)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 border-t border-slate-800 flex items-center justify-between">
+        <div>
+          <span class="text-xs text-slate-500 block">Status:</span>
+          <span class="text-xs font-bold text-blue-400">● MVP Sayt Tayyor</span>
+        </div>
+        <a href="arzonlab/index.html" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-extrabold text-sm transition transform active:scale-95">
+          ArzonLab’ni ochish →
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SPECIALIZED B2B, CLINICAL & FAMILY PORTALS -->
+  <section class="max-w-6xl mx-auto px-4 pb-20 w-full">
+    <div class="border-t border-slate-800/80 pt-12 mb-8 text-center max-w-2xl mx-auto">
+      <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 block mb-2">Ekotizim Portallari</span>
+      <h3 class="text-2xl font-black text-white">Shifokorlar, Oila va B2B Hamkorlar Portali</h3>
+      <p class="text-xs text-slate-400 mt-2">DoriQuti va ArzonLab barcha manfaatdor tomonlar uchun qulay, ixtisoslashtirilgan interfeyslarni taqdim etadi.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- PORTAL 1: DOCTOR -->
+      <a href="doriquti/doctor_portal.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🩺
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Shifokor Portali</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU shifokorlari uchun: E-Retsept yuborish, bemorlar adherence intizomini kuzatish va CME ballari.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Portaldan foydalanish →</span>
+      </a>
+
+      <!-- PORTAL 2: FAMILY -->
+      <a href="doriquti/family_dashboard.html" class="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-3">
+            👨‍👩‍👧
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-indigo-400 mb-1">Oila & Farzand Portali</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Boshqa shahardagi farzandlar uchun: ota-onaning kunlik dori qabulini Telegram orqali nazorat qilish va avto-to‘lov.</p>
+        </div>
+        <span class="text-xs font-bold text-indigo-400 flex items-center gap-1">Portaldan foydalanish →</span>
+      </a>
+
+      <!-- PORTAL 3: PHARMACY -->
+      <a href="doriquti/pharmacy_portal.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🏪
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Dorixona Provizor Portali</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Ulgurji dorixona provizorlari uchun: kunlik lentali etiketka chop etish va buyurtmalarni jamlash.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Portaldan foydalanish →</span>
+      </a>
+
+      <!-- PORTAL 4: CLINIC ONBOARDING -->
+      <a href="arzonlab/clinic_onboarding.html" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-3">
+            🤝
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-blue-400 mb-1">Klinika Hamkorligi (Onboarding)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Klinika egalari uchun: MRT/KT apparatlari bo‘sh soatlarini kiritish, ROI hisoblash va shartnoma tuzish.</p>
+        </div>
+        <span class="text-xs font-bold text-blue-400 flex items-center gap-1">Klinikani ulash →</span>
+      </a>
+
+      <!-- PORTAL 5: LAB REGISTRATION -->
+      <a href="arzonlab/lab_portal.html" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-3">
+            🏢
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-blue-400 mb-1">Laboratoriya Registrator Portali</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Klinika qabuli uchun: MRT/tahlil vaucherlarini bir zumda tekshirish, kassa tushumi va apparat hisoboti.</p>
+        </div>
+        <span class="text-xs font-bold text-blue-400 flex items-center gap-1">Portaldan foydalanish →</span>
+      </a>
+
+      <!-- PORTAL 6: INVESTOR & ROADMAP -->
+      <a href="docs/PITCH_DECK.html" class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3">
+            🎯
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-amber-400 mb-1">Investor Pitch Deck</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Venture kapital va fondlar uchun: 10 ta interaktiv slayd, Unit-iqtisodiyot va $1B Unicorn traektoriyasi.</p>
+        </div>
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">Pitch Deck’ni ko‘rish →</span>
+      </a>
+
+      <!-- PORTAL 7: B2B CONTRACT GENERATOR -->
+      <a href="docs/PARTNER_CONTRACT_AGREEMENT.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            📜
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">B2B Shartnoma Generatori</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Klinika va dorixonalar bilan Fuqarolik Kodeksi (832-849-moddalar) bo‘yicha rasmiy yuridik shartnoma generatsiyasi va E-IMZO.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Shartnoma yaratish →</span>
+      </a>
+
+      <!-- PORTAL 8: PATIENT GUIDE & MEMO -->
+      <a href="shared/patient_guide.html" class="bg-slate-900 border border-slate-800 hover:border-teal-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-3">
+            📘
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-teal-400 mb-1">Bemor & Oila Yo‘riqnomasi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Surunkali bemorlar va qarindoshlar uchun dori qabul qilish qoidalari, xavfsizlik va A4 formatdagi muzlatkich eslatmasi.</p>
+        </div>
+        <span class="text-xs font-bold text-teal-400 flex items-center gap-1">Yo‘riqnomani o‘qish →</span>
+      </a>
+
+      <!-- PORTAL 9: COURIER ROUTE & COLD CHAIN MAP -->
+      <a href="doriquti/delivery_route_map.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🗺️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Kuryer Marshruti & Sovuq Zanjir</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Samarqand shahri bo‘yicha TSP optimallashtirilgan marshrut, jonli IoT harorat datchigi (+2°C..+8°C) va SMS ogohlantirish.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Xaritani ochish →</span>
+      </a>
+
+      <!-- PORTAL 10: PHARMACY INVENTORY & FEFO -->
+      <a href="doriquti/inventory_management.html" class="bg-slate-900 border border-slate-800 hover:border-purple-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-3">
+            📦
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-purple-400 mb-1">Dorixona Ombori & Yaroqlilik (FEFO)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Provizorlar uchun partiyalar/seriyalar nazorati, 60–90 kunlik yaroqlilik ogohlantirishlari va zavodlarga avto-buyurtma.</p>
+        </div>
+        <span class="text-xs font-bold text-purple-400 flex items-center gap-1">Omborni boshqarish →</span>
+      </a>
+
+      <!-- PORTAL 11: FISCAL RECEIPTS & TAX REFUND VAULT -->
+      <a href="doriquti/fiscal_receipts.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🧾
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Soliq.uz Cheklar & Sug'urta Vaulti</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">MXIK kodli rasmiy fiskal cheklar, 1% Soliq keshbek, 12% JSHDS ijtimoiy chegirma va sug'urta kompensatsiyasi paketi.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Cheklarni ko'rish →</span>
+      </a>
+
+      <!-- PORTAL 12: DIASPORA CARE & GLOBAL PAY -->
+      <a href="shared/diaspora_checkout.html" class="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-3">
+            🌍
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-indigo-400 mb-1">Diaspora Care (Chet Eldan G'amxo'rlik)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Rossiya, AQSh, Turkiya va BAA dagi farzandlar uchun: Visa/Mastercard/Mir orqali ota-onaga oylik dori va MRT vaucheri.</p>
+        </div>
+        <span class="text-xs font-bold text-indigo-400 flex items-center gap-1">Xarid qilish (UZ/RU/EN) →</span>
+      </a>
+
+      <!-- PORTAL 13: DOCTOR CME & ATTESTATION -->
+      <a href="doriquti/cme_points.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🎓
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Shifokor CME & Toifa Ballari</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU shifokorlari uchun: surunkali bemorlar adherence intizomi monitoringi uchun rasmiy CME kreditlari va attestatsiya sertifikati.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">CME Kabinetini ochish →</span>
+      </a>
+
+      <!-- PORTAL 14: CLINICAL BIOMARKER AUDIT SANDBOX -->
+      <a href="doriquti/clinical_audit.html" class="bg-slate-900 border border-slate-800 hover:border-purple-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-3">
+            🔬
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-purple-400 mb-1">Klinik Biomarkerlar & Doza Auditi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">ArzonLab tahlillari (eGFR, Kreatinin, Kaliy, ALT) asosida DoriQuti tabletkalarining xavfsiz dozasini avtomatik korreksiya qilish.</p>
+        </div>
+        <span class="text-xs font-bold text-purple-400 flex items-center gap-1">Auditni boshlash →</span>
+      </a>
+
+      <!-- PORTAL 15: OFFLINE PWA & BACKGROUND SYNC -->
+      <a href="shared/offline_sync.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            📱
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Oflayn Rejim & PWA Sinxronlash</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Internet butunlay o'chgan qishloqlarda ham dori ichishni qayd etish, Service Worker keshi va tarmoq tiklanganda avto-sinxronlash.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Oflayn rejimni ochish →</span>
+      </a>
+
+      <!-- PORTAL 16: VOICE COMPANION & ELDERLY CARE -->
+      <a href="doriquti/voice_companion.html" class="bg-slate-900 border border-slate-800 hover:border-pink-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mb-3">
+            👵
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-pink-400 mb-1">Ovozli Hamroh (Hamshira Oygul)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Keksa ota-onalar bilan o'zbek tilida gapirib dori vaqtini eslatuvchi, qon bosimini so'rovchi va farzandlariga xabar beruvchi audio hamroh.</p>
+        </div>
+        <span class="text-xs font-bold text-pink-400 flex items-center gap-1">Oygul xola bilan gaplashish →</span>
+      </a>
+
+      <!-- PORTAL 17: C-SUITE EXECUTIVE COCKPIT -->
+      <a href="admin/executive_cockpit.html" class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3">
+            🚀
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-amber-400 mb-1">Executive Cockpit (Boshqaruv)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Asoschi va CEO uchun 16 ta portalning real vaqtli moliyaviy matritsasi (MRR, GMV, Adherence) va Investor Data Room.</p>
+        </div>
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">Boshqaruv kabineti →</span>
+      </a>
+
+      <!-- PORTAL 18: CAMERA QR PRESCRIPTION SCANNER -->
+      <a href="shared/camera_qr_scanner.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            📷
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Kamera & Retsept QR Skaneri</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Shifokor qog'oz retsepti yoki SMS dagi QR-kodni telefon kamerasi orqali 0.2 soniyada skanerlab, avtomatik DoriQutiga aylantirish.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Kamerani yoqish →</span>
+      </a>
+
+      <!-- PORTAL 19: HOSPITAL DISCHARGE TRANSITION -->
+      <a href="doriquti/discharge_portal.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🏥
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Statsionardan Chiqarish (Chiqarish Epikrizi)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU statsionar klinikalari uchun: kasalxona epikrizini to'g'ridan-to'g'ri 30-kunlik DoriQuti rejimiga aylantirish va qayta tushish xavfini 72% pasaytirish.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Chiqarish padini ochish →</span>
+      </a>
+
+      <!-- PORTAL 20: CLINICAL COHORT & ADHERENCE ANALYTICS -->
+      <a href="admin/cohort_analytics.html" class="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-3">
+            📈
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-cyan-400 mb-1">Koxorta Tahlili & Sog'liq Iqtisodiyoti</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SSV va SamDTU akkreditatsiyasi uchun: 1,420 bemorlik 12-oylik koxorta retention egri chizig'i (86.4%), PDC (94.2%) va 1.39 Mlrd UZS iqtisodiy samara.</p>
+        </div>
+        <span class="text-xs font-bold text-cyan-400 flex items-center gap-1">Koxorta hisobotini ko'rish →</span>
+      </a>
+
+      <!-- PORTAL 21: 103 EMERGENCY TRIAGE PAD -->
+      <a href="shared/emergency_triage_pad.html" class="bg-slate-900 border border-slate-800 hover:border-red-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-xl mb-3">
+            🚨
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-red-400 mb-1">103 Shoshilinch Triage & Tez Yordam Padi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Tez tibbiy yordam feldsherlari uchun: bemor qabul qilayotgan kritik dori blisterni 0.1 soniyada ochish, o'lim xavfi bo'lgan kontraindikatsiyalarni aniqlash va shifokorga 1-bosishda qo'ng'iroq qilish.</p>
+        </div>
+        <span class="text-xs font-bold text-red-400 flex items-center gap-1">103 Triage padini ochish →</span>
+      </a>
+
+      <!-- PORTAL 22: B2B PHARMACEUTICAL MANUFACTURER EXCHANGE -->
+      <a href="admin/pharma_bidding_exchange.html" class="bg-slate-900 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl mb-3">
+            🏭
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-sky-400 mb-1">B2B GMP Zavodlar To'g'ridan-To'g'ri Birjasi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">PillPack/GoodRx ulgurji modeli: 174,000 oylik tabletka talabini bitta lotga jamlab, Nobel, Jurabek va Remedy zavodlari bilan to'g'ridan-to'g'ri -48.8% chegirmali auksion.</p>
+        </div>
+        <span class="text-xs font-bold text-sky-400 flex items-center gap-1">Zavodlar birjasini ochish →</span>
+      </a>
+
+      <!-- PORTAL 23: CLINICAL DEPRESCRIBING PAD -->
+      <a href="doriquti/deprescribing_pad.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🌿
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Klinik Depreskraybing & Polipragmaziya</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU kardiologlari va geriatrlari uchun: Beers Criteria bo'yicha keraksiz yoki xavfli dorilarni bosqichma-bosqich bekor qilish va yiliga 3.48M so'm tejash.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Depreskraybing padini ochish →</span>
+      </a>
+
+      <!-- PORTAL 24: REGIONAL EXPANSION ORCHESTRATOR -->
+      <a href="admin/expansion_orchestrator.html" class="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-3">
+            🗺️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-indigo-400 mb-1">Respublika Bo'ylab Kengayish (14 Viloyat)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Samarqanddan Toshkent, Farg'ona vodiysi va Buxoroga chiqish: 22.9M aholi qamrovi, 2.61M bemor TAM va 91.9M UZS konsolidatsiyalangan MRR.</p>
+        </div>
+        <span class="text-xs font-bold text-indigo-400 flex items-center gap-1">Viloyatlar xaritasini ochish →</span>
+      </a>
+
+      <!-- PORTAL 25: PHARMACOGENOMICS & ADR SAFETY SHIELD -->
+      <a href="doriquti/genomics_safety_shield.html" class="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-3">
+            🧬
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-cyan-400 mb-1">Farmakogenomika & Nojo'ya Ta'sir Qalqoni</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">ArzonLab DNK testi asosida: CYP2C19 (Klopidogrel qarshiligi) va SLCO1B1 (statin miopatiyasi) mutatsiyalarini aniqlab, 100% xavfsiz shaxsiy DoriQuti tuzish.</p>
+        </div>
+        <span class="text-xs font-bold text-cyan-400 flex items-center gap-1">Genetika qalqonini ochish →</span>
+      </a>
+
+      <!-- PORTAL 26: B2B PHARMACY FRANCHISE CONFIGURATOR -->
+      <a href="admin/pharmacy_franchise_configurator.html" class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3">
+            🤝
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-amber-400 mb-1">B2B Dorixonalar Franchayzing Platformasi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Mustaqil dorixonalar uchun White-Label Unit-Dose qadoqlash: 15M-120M UZS uskunalar to'plami, 3.5-5% royalti va 1.7 oyda investitsiya qaytishi (ROI).</p>
+        </div>
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">Franchayzing modelini hisoblash →</span>
+      </a>
+
+      <!-- PORTAL 27: ONCOLOGY CARE REGIMEN PORTAL -->
+      <a href="doriquti/oncology_care_portal.html" class="bg-slate-900 border border-slate-800 hover:border-rose-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl mb-3">
+            🎗️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-rose-400 mb-1">Onkologiya & Palliativ Yordam Blisteri</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Samarqand Onkologiya dispanseri bemorlari uchun: 21-kunlik kimyoterapiya tsikllari (Kapetsitabin), qusishga qarshi anti-emetiklar va JSST og'riqsizlantirish rejalari.</p>
+        </div>
+        <span class="text-xs font-bold text-rose-400 flex items-center gap-1">Onkologiya portalini ochish →</span>
+      </a>
+
+      <!-- PORTAL 28: STATE HEALTH INSURANCE (DSJF) AUDITOR -->
+      <a href="admin/dsjf_reimbursement_auditor.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🏛️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Davlat Tibbiy Sug'urtasi (DSJF) Qoplash Qalqoni</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Davlat byudjeti hisobidan surunkali dorilarni 80% gacha qoplash: 153,000 so'mlik dori uchun bemor atigi 29,600 so'm to'laydi, qolganini davlat to'laydi.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">DSJF shlyuzini ochish →</span>
+      </a>
+
+      <!-- PORTAL 29: PEDIATRIC DOSAGE & SAFETY CALCULATOR -->
+      <a href="doriquti/pediatric_dosage_portal.html" class="bg-slate-900 border border-slate-800 hover:border-teal-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl mb-3">
+            👶
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-teal-400 mb-1">Bolalar Surunkali Dozasi & Xavfsizlik Padi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU Bolalar Klinikasi bilan: bolaning vazniga (mg/kg) qarab aniq individual mikro-dozalash va kattalar tabletkasini pichoqda bo'lish xavfini bartaraf etish.</p>
+        </div>
+        <span class="text-xs font-bold text-teal-400 flex items-center gap-1">Bolalar padini ochish →</span>
+      </a>
+
+      <!-- PORTAL 30: VENTURE DATA ROOM & DILIGENCE VAULT -->
+      <a href="admin/investor_vault.html" class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3">
+            💎
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-amber-400 mb-1">Venture Data Room & Diligence Vault</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Institutsional venchur fondlar (Sturgeon, IT Park, 500 Global) uchun: Cap table ($10M Seed), LTV/CAC 11.25x, 86.4% retention va 1-klikli to'liq Data Room JSON paketi.</p>
+        </div>
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">Data Room'ga kirish →</span>
+      </a>
+
+      <!-- PORTAL 31: RENAL & HEPATIC DOSAGE ADJUSTMENT PAD -->
+      <a href="doriquti/renal_hepatic_pad.html" class="bg-slate-900 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl mb-3">
+            🫘
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-sky-400 mb-1">Buyrak (eGFR) & Jigar Doza Moslashuvi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU Nefrologiya & Gepatologiya: 2021 CKD-EPI va Child-Pugh shkalasi bo'yicha surunkali dori dozalarini hisoblash, eGFR &lt; 30 da Metformin laktatsidozini oldini olish.</p>
+        </div>
+        <span class="text-xs font-bold text-sky-400 flex items-center gap-1">Organ doza padini ochish →</span>
+      </a>
+
+      <!-- PORTAL 32: REAL-WORLD EVIDENCE (RWE) CLINICAL REGISTRY -->
+      <a href="admin/rwe_clinical_registry.html" class="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-3">
+            🧬
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-indigo-400 mb-1">Real-World Evidence (RWE) Klinik Reyestr</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU & Farmatsevtika zavodlari uchun: 1,155 ta bemor bo'yicha 100% de-identifikatsiya qilingan (O'RQ-547) telemetriya, biomarker o'zgarishi va yillik $485k RWE tadqiqot portfeli.</p>
+        </div>
+        <span class="text-xs font-bold text-indigo-400 flex items-center gap-1">Klinik reyestrni ochish →</span>
+      </a>
+
+      <!-- PORTAL 33: TELECOM ADHERENCE SMS & IVR GATEWAY -->
+      <a href="doriquti/telecom_gateway.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            📡
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Avtomatik SMS & IVR Ovozli Shlyuz</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Ucell, Beeline, Mobiuz orqali: interneti yo'q knopkali telefonlarga har ertalab o'zbekcha avtomatik qo'ng'iroq, DTMF 1-tugma bilan qabul tasdiqlash va farzandga SMS ogohlantirish.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Telecom shlyuzini ochish →</span>
+      </a>
+
+      <!-- PORTAL 34: OPTICAL POUCH INSPECTION & QA VERIFICATION -->
+      <a href="admin/optical_pouch_inspection.html" class="bg-slate-900 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl mb-3">
+            🔍
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-sky-400 mb-1">Optik Blister Tekshiruvi & GMP Sifat Nazorati</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">PillPack kabi yuqori tezlikdagi kompyuter ko'rish sensori: germetik yopishdan oldin har bir paketdagi haplar soni, o'lchami (mm) va butunligini 42ms da tekshirish hamda provizor muhri.</p>
+        </div>
+        <span class="text-xs font-bold text-sky-400 flex items-center gap-1">Optik QA stantsiyasini ochish →</span>
+      </a>
+
+      <!-- PORTAL 35: COLD-CHAIN IOT & INSULIN TELEMETRY -->
+      <a href="doriquti/cold_chain_monitor.html" class="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-3">
+            ❄️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-cyan-400 mb-1">Insulin Sovuq Zanjir (Cold-Chain) IoT</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Yozgi +42°C issiqlikda: vakuumli termo-bokslar va Bluetooth datchiklar orqali insulinni +2°C..+8°C oralig'ida yetkazish, MKT auditi va bemorga raqamli kafolat.</p>
+        </div>
+        <span class="text-xs font-bold text-cyan-400 flex items-center gap-1">Sovuq zanjir monitorini ochish →</span>
+      </a>
+
+      <!-- PORTAL 36: DIAGNOSTIC PRICE COMPARISON MATRIX -->
+      <a href="arzonlab/price_comparison_matrix.html" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-3">
+            📊
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-blue-400 mb-1">MRT & Laboratoriya Narx Matritsasi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">GoodRx modeli bo'yicha: 48 ta klinika bo'yicha MRT, KT va tahlillarni yonma-yon solishtirish, 30% vaucher orqali 100,000+ so'm tejash va 12% soliq imtiyozi.</p>
+        </div>
+        <span class="text-xs font-bold text-blue-400 flex items-center gap-1">Narxlar matritsasini ochish →</span>
+      </a>
+
+      <!-- PORTAL 37: FEFO INVENTORY DISPENSER PAD -->
+      <a href="doriquti/fefo_dispenser_pad.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            📦
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">FEFO Yaroqlilik Nazorati Padi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">First-Expired, First-Out algoritmi: dorixonadagi muddati o'tish zararlarini 95% kamaytirish, 90 kundan kam qolgan partiyalarni avtomatik bloklash va yillik 84.5M UZS tejash.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">FEFO padini ochish →</span>
+      </a>
+
+      <!-- PORTAL 38: DIAGNOSTIC PATIENT PREP PROTOCOL GUIDE -->
+      <a href="arzonlab/patient_prep_guide.html" class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3">
+            📋
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-amber-400 mb-1">Tahlil & MRT Tayyorgarlik Yo'riqnomasi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Noto'g'ri tayyorgarlik oqibatida 22% tahlillar bekor bo'lishining oldini olish: och qoringa kelish qoidalari, KT kontrastda Metforminni to'xtatish va avtomatik SMS eslatma.</p>
+        </div>
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">Tayyorgarlik qo'llanmasini ochish →</span>
+      </a>
+
+      <!-- PORTAL 39: PALLIATIVE PAIN TITRATION PAD -->
+      <a href="doriquti/palliative_titration_pad.html" class="bg-slate-900 border border-slate-800 hover:border-rose-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl mb-3">
+            🕊️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-rose-400 mb-1">Palliativ Og'riqsizlantirish & Titratsiya Padi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">JSST 3-bosqichli og'riq narvoni: bazal 24-soatlik analgeziya + SOS xuruj dozasi, ko'ngil aynishi va ich qotishiga qarshi majburiy profilaktika bilan bir blisterda.</p>
+        </div>
+        <span class="text-xs font-bold text-rose-400 flex items-center gap-1">Palliativ padni ochish →</span>
+      </a>
+
+      <!-- PORTAL 40: MOBILE PHLEBOTOMY & HOME BLOOD DRAW -->
+      <a href="arzonlab/home_blood_draw.html" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-3">
+            🩺
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-blue-400 mb-1">Uyga Hamshira Chaqirish (Qon Tahlillari)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Yotoqdagi va keksa bemorlar uchun: SamDTU akkreditatsiyalangan hamshirasini 24 daqiqada uyga chaqirish, steril vakuum probirkalar va +4°C termoboksda laboratoriyaga yetkazish.</p>
+        </div>
+        <span class="text-xs font-bold text-blue-400 flex items-center gap-1">Hamshirani chaqirish →</span>
+      </a>
+
+      <!-- PORTAL 41: HL7 FHIR INTEROPERABILITY HUB -->
+      <a href="admin/fhir_interoperability_hub.html" class="bg-slate-900 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl mb-3">
+            🌐
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-sky-400 mb-1">HL7 FHIR R4 Interoperability Hub</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SSV DMED, MedData va shifoxonalar EHR tizimlari bilan xalqaro HL7 FHIR R4 standarti: Patient, MedicationRequest, Dispense, ServiceRequest va DICOM bog'lanishi.</p>
+        </div>
+        <span class="text-xs font-bold text-sky-400 flex items-center gap-1">FHIR shlyuzini ochish →</span>
+      </a>
+
+      <!-- PORTAL 42: PHARMACOVIGILANCE YELLOW CARD PORTAL -->
+      <a href="doriquti/yellow_card_portal.html" class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3">
+            📋
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-amber-400 mb-1">Sariq Xarita (Yellow Card) Farmakonazorat</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SSV Buyrug'i №275 va JSST-UMC standarti: Naranjo sabab-oqibat algoritmi, MedDRA nojo'ya ta'sir tasnifi va xavfli dori partiyalarini tezkor chaqirib olish (Batch Recall).</p>
+        </div>
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">Sariq xaritani to'ldirish →</span>
+      </a>
+
+      <!-- PORTAL 43: DRUG INTERACTION NETWORK GRAPH -->
+      <a href="doriquti/interaction_network_graph.html" class="bg-slate-900 border border-slate-800 hover:border-purple-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-3">
+            🕸️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-purple-400 mb-1">Dori O'zaro Ta'sirlari Tarmoq Grafigi</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">HTML5 Canvas ko'p tugunli polipragmaziya grafigi: CYP3A4/CYP2C19 raqobati, giperkalemiya va qon ketish xavflari, xavf indeksi va shifokor uchun korreksiya rejasi.</p>
+        </div>
+        <span class="text-xs font-bold text-purple-400 flex items-center gap-1">Tarmoq grafigini ochish →</span>
+      </a>
+
+      <!-- PORTAL 44: PILL IDENTIFIER SIMULATOR -->
+      <a href="doriquti/pill_identifier_simulator.html" class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl mb-3">
+            🔍
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-amber-400 mb-1">Vizual Tabletka & Kapsula Aniqlagich</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Blisteri kesilgan yoki qutisiz qolgan dorilarni rangi, shakli (yuraksimon, oval, sakkizburchak), bo'linish chizig'i va gravirovkasi bo'yicha xavfsiz identifikatsiya qilish.</p>
+        </div>
+        <span class="text-xs font-bold text-amber-400 flex items-center gap-1">Tabletkani aniqlash →</span>
+      </a>
+
+      <!-- PORTAL 45: CLINICAL TRIALS & NOVEL THERAPIES -->
+      <a href="arzonlab/clinical_trials_portal.html" class="bg-slate-900 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl mb-3">
+            🔬
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-sky-400 mb-1">Klinik Tadqiqotlar & Bepul Terapiya</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">SamDTU Ilmiy Klinikalari va Respublika Markazlari Phase III/IV dasturlari: SGLT2, PCSK9, EGFR target preparatlari, 1.2M so'm/oy transport kompensatsiyasi va bepul MRT.</p>
+        </div>
+        <span class="text-xs font-bold text-sky-400 flex items-center gap-1">Tadqiqotlarni ko'rish →</span>
+      </a>
+
+      <!-- PORTAL 46: ADHERENCE STREAK & HEALTH REWARDS -->
+      <a href="doriquti/adherence_rewards_portal.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🏆
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Dori Intizomi & Keshbek Zanjiri (Streak)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">O'yinlashtirilgan intizom: 30 kunlik 100% qabul uchun 50,000 UZS Soliq/Humo keshbek, bepul kuryer va ketma-ket 2 doza qolib ketsa farzandiga avtomatik Telegram signal.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Intizom portalini ochish →</span>
+      </a>
+
+      <!-- PORTAL 47: 12-MONTH PRICE FREEZE GUARANTEE -->
+      <a href="doriquti/price_freeze_portal.html" class="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-3">
+            ❄️
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-cyan-400 mb-1">12 Oylik Narx Muzlatish (Inflyatsiya Qalqoni)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Chakana dorixonalardagi 18-22% inflyatsiyadan himoyalanish: GMP zavodlar bilan forvard xedjirlash orqali 12 oy davomida narx 1 so'm ham oshmasligining kafolati.</p>
+        </div>
+        <span class="text-xs font-bold text-cyan-400 flex items-center gap-1">Narxni muzlatish →</span>
+      </a>
+
+      <!-- PORTAL 48: EMERGENCY BLOOD DONOR DISPATCHER -->
+      <a href="arzonlab/blood_donor_portal.html" class="bg-slate-900 border border-slate-800 hover:border-rose-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl mb-3">
+            🩸
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-rose-400 mb-1">Tezkor Qon Donorligi & Oltin Soat Dispetcheri</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Shoshilinch jarrohlik va onkologik qon quyish: Kamyob O- va AB- guruhlari, aferez trombotsitlari bo'yicha Samarqand donorlarini 30 daqiqada safarbar qilish.</p>
+        </div>
+        <span class="text-xs font-bold text-rose-400 flex items-center gap-1">Donorlik tarmog'ini ochish →</span>
+      </a>
+
+      <!-- PORTAL 49: UNIT-DOSE VITAMINS & CUSTOM POUCHES -->
+      <a href="doriquti/vitamin_unit_dose_portal.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🌿
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Dona-Dona VitaminQuti (Unit-Dose)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">400,000 so'mlik bankalar o'rniga aynan 1 dona (500-1,400 UZS) tanlab, steril kunlik blister xaltachalarga qadoqlash. 97% boshlang'ich tejov!</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Vitamin to'plamini yig'ish →</span>
+      </a>
+
+      <!-- PORTAL 50: SMART MED-LOCKER & 24/7 TERMO-POSTAMATLAR -->
+      <a href="doriquti/smart_locker_portal.html" class="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xl mb-3">
+            📮
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-cyan-400 mb-1">Smart Med-Locker & Termo-Postamatlar</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Kuryer kutmasdan 24/7 kontaktsiz olish: +2°C..+8°C sovuq zanjir, SMS PIN/QR 15 soniyada ochish, 0 so'm yetkazish va 24/7 SOS dispenser.</p>
+        </div>
+        <span class="text-xs font-bold text-cyan-400 flex items-center gap-1">Postamatlarni ko'rish →</span>
+      </a>
+
+      <!-- PORTAL 51: INSON CARE & SOCIAL WELFARE SUBSIDIZED PRESCRIPTIONS -->
+      <a href="shared/inson_welfare_portal.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🤝
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Inson Care (IHMA Imtiyozli Retseptlar)</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Yolg'iz qariyalar va nogironligi bor shaxslar uchun 100% davlat subsidiyasi bilan bepul (0 so'm) DoriQuti lentali paketlari va bepul ArzonLab tahlillari.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Ijtimoiy portalni ochish →</span>
+      </a>
+
+      <!-- PORTAL 52: DIABETES CGM SHIELD & COLD-CHAIN INSULIN -->
+      <a href="doriquti/diabetes_cgm_portal.html" class="bg-slate-900 border border-slate-800 hover:border-sky-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-xl mb-3">
+            🩸
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-sky-400 mb-1">Diabet CGM Qalqoni & Sovuq Zanjir Insulin</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">24/7 ignasiz qand sensori (Freestyle Libre), 51% arzonlashtirilgan insulin obunasi va ota-onaga tungi gipoglikemiya (< 3.9) Telegram SOS signali.</p>
+        </div>
+        <span class="text-xs font-bold text-sky-400 flex items-center gap-1">Diabet portalini ochish →</span>
+      </a>
+
+      <!-- PORTAL 53: BIOPSY & DIGITAL PATHOLOGY COLD-CHAIN LOGISTICS -->
+      <a href="arzonlab/biopsy_pathology_portal.html" class="bg-slate-900 border border-slate-800 hover:border-purple-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl mb-3">
+            🔬
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-purple-400 mb-1">Onko-Biopsiya & Raqamli Patomorfologiya</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Klinikalardan 45 daqiqada formalinli termoboksda yetkazish, 40x WSI raqamli slayd, IHC onko-paneli (ER, PR, HER2, Ki-67) va SamDTU Second Opinion.</p>
+        </div>
+        <span class="text-xs font-bold text-purple-400 flex items-center gap-1">Biopsiya portalini ochish →</span>
+      </a>
+
+      <!-- PORTAL 54: MATERNAL CARE & PRENATAL TRIMESTER SHIELD -->
+      <a href="arzonlab/maternal_prenatal_portal.html" class="bg-slate-900 border border-slate-800 hover:border-pink-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl mb-3">
+            🤰
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-pink-400 mb-1">Onalik Qalqoni & Prenatal Trimester Pouch</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">1-3 trimestrlar uchun qulay kunlik paketlar (Metilfolat, Xemir Temir, Omega-3 DHA, Kalsiy), 62% tejamkorlik, meva hajmi va preeklampsiya xavf kalkulyatori.</p>
+        </div>
+        <span class="text-xs font-bold text-pink-400 flex items-center gap-1">Onalik portalini ochish →</span>
+      </a>
+
+      <!-- PORTAL 55: RURAL TELE-SCREENING & MOBILE DIAGNOSTIC BUS -->
+      <a href="arzonlab/rural_telehealth_bus_portal.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-5 rounded-2xl transition group flex flex-col justify-between">
+        <div>
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-3">
+            🚌
+          </div>
+          <h4 class="font-extrabold text-sm text-white group-hover:text-emerald-400 mb-1">Ko'chma Diagnostika Avtobusi & QVP Tele-Skrining</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Chekka qishloqlarga (Urgut, Pastdarg'om, Qo'shrabot) quyosh panelli mobil laboratoriya: 5 daqiqada HbA1c, lipid, tele-EKG, UZI va QVPga 0 so'm dori yetkazish.</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 flex items-center gap-1">Avtobus marshrutini ko'rish →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOUNDER & SAMDTU ADVANTAGE -->
+  <section class="border-t border-slate-800/80 bg-slate-950/40 py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-400 block mb-2">Tengsiz Raqobatbardosh Ustunlik</span>
+      <h3 class="text-2xl md:text-3xl font-black text-white mb-4">Samarqand Davlat Tibbiyot Universiteti Bazasi</h3>
+      <p class="text-sm text-slate-400 leading-relaxed max-w-2xl mx-auto mb-8">
+        Biz shunchaki nazariyotchilar emasmiz. Jamoamiz <strong>Sog‘liqni Saqlash Menejmenti</strong>, fundamental tibbiyot va School 21 dasturlash bilimlarini birlashtirgan. Universitet klinikalari va shifokorlar bilan to‘g‘ridan-to‘g‘ri hamkorlik 1-kundan ishlaydi.
+      </p>
+
+      <div class="inline-flex items-center gap-4 bg-slate-900 border border-slate-800 px-6 py-3 rounded-2xl text-xs font-bold text-slate-300">
+        <span>👨‍💻 Asoschi: Jasur Shukurov</span>
+        <span>•</span>
+        <span>🏛 Boshqaruv va Menejment fakulteti</span>
+        <span>•</span>
+        <span>🚀 100-Sprint Avtonom Rivojlanish</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-8 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        © 2026 Unicorn Health Ecosystem. Samarqand, O‘zbekiston.
+      </div>
+      <div class="flex items-center space-x-6">
+        <a href="doriquti/index.html" class="hover:text-emerald-400">DoriQuti</a>
+        <a href="arzonlab/index.html" class="hover:text-blue-400">ArzonLab</a>
+        <a href="docs/MASTER_ROADMAP.md" class="hover:text-white">Yo‘l xaritasi</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

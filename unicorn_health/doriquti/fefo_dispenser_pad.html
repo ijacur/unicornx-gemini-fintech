@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEFO Aqlli Dori Qadoqlash & Yaroqlilik Nazorati Padi | DoriQuti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070e1b;
+            --surface: #0e192f;
+            --surface-hover: #152545;
+            --border: #1d335c;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 70px;
+        }
+
+        .header {
+            background: rgba(14, 25, 47, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-fefo {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--emerald);
+            color: #6ee7b7;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .banner {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.12), rgba(56, 189, 248, 0.12));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .stat-card.emerald::after { background: var(--emerald); }
+        .stat-card.amber::after { background: var(--amber); }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .stat-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 28px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px;
+            margin-bottom: 28px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lot-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
+        }
+
+        .lot-table th {
+            text-align: left;
+            padding: 12px 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+        }
+
+        .lot-table td {
+            padding: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .form-select {
+            width: 100%;
+            background: #091325;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: #ffffff;
+            padding: 12px 16px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">📦</span>
+            <div>
+                <div style="font-size: 19px; font-weight: 800; color: #ffffff;">FEFO Aqlli Dori Qadoqlash & Yaroqlilik Nazorati Padi</div>
+                <div style="font-size: 12px; color: var(--text-muted);">DoriQuti Markaziy Ombori & Hamkor Dorixonalar Provizor Asbobi</div>
+            </div>
+            <span class="badge-fefo">FEFO Standarti (First-Expired, First-Out)</span>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">🏠 Bosh Menyu</a>
+            <a href="/doriquti/pharmacy_portal.html" class="btn btn-outline" style="text-decoration: none;">🏥 Provizor Portali</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Banner -->
+        <div class="banner">
+            <div>
+                <strong style="color: #6ee7b7; font-size: 15px;">🛡️ Yaroqlilik Muddati Zararlarini 95% Kamaytirish (Zero-Waste FEFO):</strong>
+                <p style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
+                    Oddiy dorixonalarda dori vositalarining 3.5% muddati o'tib ketishi sababli yaroqsizga chiqariladi. DoriQuti tizimi har bir blister qutini yig'ishda eng yaqin yaroqlilik muddatiga ega (lekin 90 kundan ortiq) partiyani avtomatik birinchi qatorga qo'yadi. Natijada yaroqsizlik zarari atigi 0.12% ga tushadi.
+                </p>
+            </div>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #10b981; background: rgba(16, 185, 129, 0.1); padding: 6px 14px; border-radius: 8px; border: 1px solid #10b981;">
+                GMP & GDP STANDART PROTOKOL
+            </span>
+        </div>
+
+        <!-- Macro Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Ombordagi Jami Partiyalar</div>
+                <div class="stat-value">482 ta</div>
+                <div class="stat-desc">Samarqand markaziy ombori</div>
+            </div>
+            <div class="stat-card emerald">
+                <div class="stat-label">Yaroqlilik Zarari Ko'rsatkichi</div>
+                <div class="stat-value">0.12%</div>
+                <div class="stat-desc">Oflayn sektorda 3.5% gacha yo'qotish</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">FEFO Hisobiga Tejalgan Mablag'</div>
+                <div class="stat-value">84.5M UZS</div>
+                <div class="stat-desc">Yillik dorixona zararini bartaraf etish</div>
+            </div>
+            <div class="stat-card amber">
+                <div class="stat-label">Qadoqlash Aniqligi</div>
+                <div class="stat-value">100.0%</div>
+                <div class="stat-desc">DataMatrix shtrix-kod skanerlash</div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="main-grid">
+            <!-- Left: Lots Table -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>📋</span> Ombordagi Faol Partiyalar & Yaroqlilik Grafigi
+                        </div>
+                    </div>
+
+                    <table class="lot-table">
+                        <thead>
+                            <tr>
+                                <th>Partiya (LOT)</th>
+                                <th>Dori Nomi & Ishlab chiqaruvchi</th>
+                                <th>Muddati</th>
+                                <th>Qolgan Kunlar</th>
+                                <th>Holati</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span style="font-family: 'JetBrains Mono', monospace; color: #38bdf8;">LOT-TEL-2025-09</span></td>
+                                <td>
+                                    <strong>Telmisartan 40mg</strong>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Nobel Pharmsanoat</div>
+                                </td>
+                                <td>2026-09-09</td>
+                                <td><strong style="color: #34d399;">340 kun</strong></td>
+                                <td><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">FEFO: 1-Navbat</span></td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-family: 'JetBrains Mono', monospace; color: #94a3b8;">LOT-TEL-2026-01</span></td>
+                                <td>
+                                    <strong>Telmisartan 40mg</strong>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Nobel Pharmsanoat</div>
+                                </td>
+                                <td>2027-01-14</td>
+                                <td>468 kun</td>
+                                <td><span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">Zaxira: 2-Navbat</span></td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-family: 'JetBrains Mono', monospace; color: #38bdf8;">LOT-AML-2025-08</span></td>
+                                <td>
+                                    <strong>Amlodipin 5mg</strong>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Jurabek Laboratories</div>
+                                </td>
+                                <td>2026-07-31</td>
+                                <td><strong style="color: #34d399;">300 kun</strong></td>
+                                <td><span style="background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">FEFO: 1-Navbat</span></td>
+                            </tr>
+                            <tr>
+                                <td><span style="font-family: 'JetBrains Mono', monospace; color: #f43f5e;">LOT-MET-2024-11</span></td>
+                                <td>
+                                    <strong>Metformin 850mg</strong>
+                                    <div style="font-size: 11px; color: var(--text-muted);">Remedy Group</div>
+                                </td>
+                                <td>2025-11-09</td>
+                                <td><strong style="color: #f43f5e;">37 kun</strong></td>
+                                <td><span style="background: rgba(244, 63, 94, 0.15); color: #fb7185; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;">BLOKLANDI (&lt;90 kun)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Dispenser Simulator -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">
+                            <span>⚙️</span> Blisterga FEFO Qadoqlash
+                        </div>
+                    </div>
+
+                    <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px;">Qadoqlanishi kerak bo'lgan dori:</label>
+                    <select class="form-select" id="drugSelect" onchange="updateAllocationPreview()">
+                        <option value="Telmisartan 40mg">Telmisartan 40mg (Gipertenziya)</option>
+                        <option value="Amlodipin 5mg">Amlodipin 5mg (Kardiologiya)</option>
+                        <option value="Metformin 850mg">Metformin 850mg (Diabet)</option>
+                    </select>
+
+                    <div style="background: rgba(10, 18, 32, 0.7); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 20px;">
+                        <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">FEFO Bo'yicha Tanlangan Partiya</div>
+                        <div style="font-size: 20px; font-weight: 800; color: #38bdf8; font-family: 'JetBrains Mono', monospace; margin: 4px 0;" id="resLot">
+                            LOT-TEL-2025-09
+                        </div>
+                        <div style="font-size: 13px; color: #ffffff;" id="resMfr">
+                            Ishlab chiqaruvchi: Nobel Pharmsanoat
+                        </div>
+                        <div style="font-size: 13px; color: #34d399; margin-top: 4px;" id="resDays">
+                            Qolgan muddat: 340 kun (Yaroqlilik talabiga to'liq javob beradi)
+                        </div>
+                    </div>
+
+                    <button class="btn" style="width: 100%; justify-content: center;" onclick="executeDispense()">
+                        🚀 Partiyani Qadoqlash Konveyeriga Uzatish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateAllocationPreview() {
+            const val = document.getElementById('drugSelect').value;
+            const resLot = document.getElementById('resLot');
+            const resMfr = document.getElementById('resMfr');
+            const resDays = document.getElementById('resDays');
+
+            if (val === 'Telmisartan 40mg') {
+                resLot.textContent = "LOT-TEL-2025-09";
+                resLot.style.color = "#38bdf8";
+                resMfr.textContent = "Ishlab chiqaruvchi: Nobel Pharmsanoat";
+                resDays.textContent = "Qolgan muddat: 340 kun (FEFO bo'yicha eng optimal)";
+                resDays.style.color = "#34d399";
+            } else if (val === 'Amlodipin 5mg') {
+                resLot.textContent = "LOT-AML-2025-08";
+                resLot.style.color = "#38bdf8";
+                resMfr.textContent = "Ishlab chiqaruvchi: Jurabek Laboratories";
+                resDays.textContent = "Qolgan muddat: 300 kun (FEFO bo'yicha eng optimal)";
+                resDays.style.color = "#34d399";
+            } else if (val === 'Metformin 850mg') {
+                resLot.textContent = "DIQQAT: MAVJUD EMAS";
+                resLot.style.color = "#f43f5e";
+                resMfr.textContent = "Mavjud partiyada atigi 37 kun qolgan!";
+                resDays.textContent = "❌ XAVF: 90 kundan kam qolgan partiyalarni qadoqlash taqiqlanadi!";
+                resDays.style.color = "#f43f5e";
+            }
+        }
+
+        function executeDispense() {
+            const val = document.getElementById('drugSelect').value;
+            if (val === 'Metformin 850mg') {
+                alert("⛔ QADOQLASH BLOKLANDI!\n\nMetformin partiyasining muddati 90 kundan kam. Bemorga faqat yangi kafolatlangan partiya berilishi shart!");
+            } else {
+                alert("✅ FEFO Partiyasi konveyerga uzatildi!\nAudit kodi: FEFO-UZ-30974\nProvizor muhri bilan qadoqlashga ruxsat etildi.");
+            }
+        }
+    </script>
+</body>
+</html>

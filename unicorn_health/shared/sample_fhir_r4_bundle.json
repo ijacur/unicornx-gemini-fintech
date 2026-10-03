@@ -1,0 +1,326 @@
+{
+  "resourceType": "Bundle",
+  "id": "BUNDLE-UNICORN-HEALTH-001",
+  "meta": {
+    "lastUpdated": "2026-10-03T11:27:01.228071+00:00"
+  },
+  "type": "collection",
+  "total": 6,
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:PAT-UZ-882104",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "PAT-UZ-882104",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Patient"
+          ],
+          "lastUpdated": "2026-10-03T11:27:01.227811+00:00"
+        },
+        "identifier": [
+          {
+            "use": "official",
+            "system": "urn:oid:2.16.860.1.1.1.1",
+            "value": "31204953820019",
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NNUZB",
+                  "display": "O'zbekiston JSHSHIR / PINFL"
+                }
+              ]
+            }
+          },
+          {
+            "use": "secondary",
+            "system": "urn:oid:2.16.860.1.1.1.2",
+            "value": "AB1234567"
+          }
+        ],
+        "active": true,
+        "name": [
+          {
+            "use": "official",
+            "family": "Shukurov",
+            "given": [
+              "Jasur",
+              "Otabek o'g'li"
+            ],
+            "text": "Shukurov Jasur Otabek o'g'li"
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+998901234567",
+            "use": "mobile"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1995-04-12",
+        "address": [
+          {
+            "use": "home",
+            "type": "both",
+            "line": [
+              "Spitamen shoh ko'chasi, 42-uy"
+            ],
+            "city": "Samarqand shahri",
+            "state": "Samarqand viloyati",
+            "country": "UZB"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:RX-2026-9912",
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "RX-2026-9912",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/MedicationRequest"
+          ],
+          "lastUpdated": "2026-10-03T11:27:01.227997+00:00"
+        },
+        "status": "active",
+        "intent": "order",
+        "medicationCodeableConcept": {
+          "coding": [
+            {
+              "system": "https://tasnif.soliq.uz/mxik",
+              "code": "02105001001000000",
+              "display": "Atorvastatin 20mg"
+            },
+            {
+              "system": "http://www.whocc.no/atc",
+              "display": "Atorvastatinum"
+            }
+          ],
+          "text": "Atorvastatin 20mg (Atorvastatinum)"
+        },
+        "subject": {
+          "reference": "Patient/PAT-UZ-882104"
+        },
+        "authoredOn": "2026-10-03",
+        "requester": {
+          "display": "Dr. Shukurov Jasur Otabek o'g'li (SamDTU 1-son Klinikasi)",
+          "identifier": {
+            "system": "urn:oid:2.16.860.1.1.1.doctor",
+            "value": "UZ-MD-88412"
+          }
+        },
+        "dosageInstruction": [
+          {
+            "text": "1 tabletkadan kechqurun, Har kuni 20:00 da ovqatdan keyin",
+            "timing": {
+              "repeat": {
+                "frequency": 1,
+                "period": 1,
+                "periodUnit": "d"
+              }
+            }
+          }
+        ],
+        "dispenseRequest": {
+          "numberOfRepeatsAllowed": 3,
+          "expectedSupplyDuration": {
+            "value": 30,
+            "unit": "days",
+            "system": "http://unitsofmeasure.org",
+            "code": "d"
+          }
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:DSP-2026-4019",
+      "resource": {
+        "resourceType": "MedicationDispense",
+        "id": "DSP-2026-4019",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/MedicationDispense"
+          ],
+          "lastUpdated": "2026-10-03T11:27:01.228016+00:00"
+        },
+        "status": "completed",
+        "authorizingPrescription": [
+          {
+            "reference": "MedicationRequest/RX-2026-9912"
+          }
+        ],
+        "subject": {
+          "reference": "Patient/PAT-UZ-882104"
+        },
+        "performer": [
+          {
+            "actor": {
+              "display": "Provizor: Nargiza Salimova",
+              "identifier": {
+                "system": "urn:oid:2.16.860.1.1.pharmacy",
+                "value": "GMP-SAM-089"
+              }
+            }
+          }
+        ],
+        "quantity": {
+          "value": 30,
+          "unit": "unit-dose blister pouches",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+          "code": "POUCH"
+        },
+        "whenHandedOver": "2026-10-03T11:27:01.228018+00:00",
+        "note": [
+          {
+            "text": "DoriQuti 30 kunlik kalendar blister to'plami. Partiya: BATCH-ATV-2026A, Yaroqlilik: 2027-11-01. 4K Optik AI nazoratidan o'tgan: Ha."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:SRV-2026-7731",
+      "resource": {
+        "resourceType": "ServiceRequest",
+        "id": "SRV-2026-7731",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/ServiceRequest"
+          ],
+          "lastUpdated": "2026-10-03T11:27:01.228021+00:00"
+        },
+        "status": "active",
+        "intent": "order",
+        "code": {
+          "coding": [
+            {
+              "system": "https://arzonlab.uz/services",
+              "code": "MRT-BRAIN-01",
+              "display": "Bosh Miya MRT (1.5 Tesla)"
+            }
+          ],
+          "text": "Bosh Miya MRT (1.5 Tesla)"
+        },
+        "subject": {
+          "reference": "Patient/PAT-UZ-882104"
+        },
+        "performer": [
+          {
+            "display": "SamDTU Diagnostika Markazi"
+          }
+        ],
+        "note": [
+          {
+            "text": "ArzonLab Onlayn 30% vaucheri: ARZON-MRT-30. Narxi: 245,000 so'm."
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:REP-2026-5521",
+      "resource": {
+        "resourceType": "DiagnosticReport",
+        "id": "REP-2026-5521",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
+          ],
+          "lastUpdated": "2026-10-03T11:27:01.228029+00:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "24627-2",
+              "display": "Bosh Miya MRT Tekshiruvi"
+            }
+          ],
+          "text": "Bosh Miya MRT Tekshiruvi"
+        },
+        "subject": {
+          "reference": "Patient/PAT-UZ-882104"
+        },
+        "basedOn": [
+          {
+            "reference": "ServiceRequest/SRV-2026-7731"
+          }
+        ],
+        "effectiveDateTime": "2026-10-03T11:27:01.228034+00:00",
+        "issued": "2026-10-03T11:27:01.228035+00:00",
+        "performer": [
+          {
+            "display": "Radiolog/Vrach: Dr. Bekzod Aliyev"
+          }
+        ],
+        "conclusion": "Patologik o'choqli o'zgarishlar aniqlanmadi. Yoshga doir me'yorda.",
+        "presentedForm": [
+          {
+            "contentType": "application/dicom+web",
+            "url": "https://pacs.arzonlab.uz/viewer/study-99214",
+            "title": "DICOM Web Viewer Havolasi"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:OBS-2026-1102",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "OBS-2026-1102",
+        "meta": {
+          "profile": [
+            "http://hl7.org/fhir/StructureDefinition/Observation"
+          ],
+          "lastUpdated": "2026-10-03T11:27:01.228038+00:00"
+        },
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "33914-3",
+              "display": "Koptokchalar Filtratsiyasi Tezligi (eGFR CKD-EPI)"
+            }
+          ],
+          "text": "Koptokchalar Filtratsiyasi Tezligi (eGFR CKD-EPI)"
+        },
+        "subject": {
+          "reference": "Patient/PAT-UZ-882104"
+        },
+        "effectiveDateTime": "2026-10-03T11:27:01.228039+00:00",
+        "valueQuantity": {
+          "value": 88.5,
+          "unit": "mL/min/1.73m2",
+          "system": "http://unitsofmeasure.org",
+          "code": "mL/min/1.73m2"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+                "code": "N",
+                "display": "Normal"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "low": {
+              "value": 60.0,
+              "unit": "mL/min/1.73m2"
+            },
+            "high": {
+              "value": 120.0,
+              "unit": "mL/min/1.73m2"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

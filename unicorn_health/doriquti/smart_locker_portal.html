@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Med-Locker & 24/7 Termo-Postamatlar | DoriQuti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070d18;
+            --surface: #0f192d;
+            --surface-hover: #16243f;
+            --border: #1f3152;
+            --primary: #38bdf8;
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --rose: #f43f5e;
+            --purple: #a855f7;
+            --indigo: #6366f1;
+            --cyan: #06b6d4;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .header {
+            background: rgba(15, 25, 45, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(6, 182, 212, 0.15);
+            border: 1px solid var(--cyan);
+            color: #67e8f9;
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 36px 24px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(56, 189, 248, 0.08) 50%, rgba(16, 185, 129, 0.08) 100%);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 20px;
+            padding: 32px 36px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #67e8f9, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-banner p {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 920px;
+        }
+
+        .stats-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: rgba(15, 25, 45, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 20px;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Two column layout */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Locker cards */
+        .lockers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .locker-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .locker-card:hover {
+            border-color: var(--cyan);
+            background: var(--surface-hover);
+            transform: translateY(-2px);
+        }
+
+        .locker-card.active {
+            border-color: var(--cyan);
+            background: rgba(6, 182, 212, 0.08);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+        }
+
+        .locker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .locker-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .locker-address {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .telemetry-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: rgba(7, 13, 24, 0.6);
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+        }
+
+        .telemetry-item span {
+            color: var(--text-muted);
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+        }
+
+        .telemetry-item strong {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e2e8f0;
+        }
+
+        .amenities-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .amenity-tag {
+            font-size: 0.72rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: #cbd5e1;
+        }
+
+        /* Postamat Interactive Terminal Simulator */
+        .terminal-container {
+            background: #0f172a;
+            border: 2px solid #334155;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            position: sticky;
+            top: 96px;
+        }
+
+        .terminal-screen {
+            background: #020617;
+            border: 2px solid #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .terminal-brand {
+            font-size: 0.75rem;
+            color: var(--cyan);
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .pin-display {
+            background: #0b1329;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.25em;
+            color: #38bdf8;
+            margin-bottom: 14px;
+            min-height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .keypad-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            max-width: 260px;
+            margin: 0 auto 16px auto;
+        }
+
+        .key-btn {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #f8fafc;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .key-btn:hover {
+            background: #334155;
+            color: #38bdf8;
+        }
+
+        .key-btn:active {
+            transform: scale(0.95);
+        }
+
+        .key-action {
+            background: rgba(244, 63, 94, 0.2);
+            border-color: var(--rose);
+            color: #fda4af;
+        }
+
+        .btn-unlock {
+            width: 100%;
+            background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-unlock:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.45);
+        }
+
+        /* Postamat Cell Matrix */
+        .cell-matrix-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin: 18px 0 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cell-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+        }
+
+        .cell-box {
+            aspect-ratio: 1;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #94a3b8;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .cell-box.cold {
+            border-color: rgba(6, 182, 212, 0.5);
+            background: rgba(6, 182, 212, 0.08);
+            color: #67e8f9;
+        }
+
+        .cell-box.sos {
+            border-color: rgba(244, 63, 94, 0.5);
+            background: rgba(244, 63, 94, 0.1);
+            color: #fda4af;
+        }
+
+        .cell-box.open {
+            border-color: #10b981;
+            background: #10b981;
+            color: #022c22;
+            transform: scale(1.08);
+            box-shadow: 0 0 15px #10b981;
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1.08); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* SOS Button & Modal */
+        .sos-banner {
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid var(--rose);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-sos {
+            background: var(--rose);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-sos:hover {
+            background: #e11d48;
+            transform: scale(1.02);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 1.6rem;">📮</span>
+            <div>
+                <strong style="font-size: 1.15rem; color: #fff;">DoriQuti &bull; Smart Med-Locker</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">24/7 Avtonom Termo-Postamatlar & SOS Dispenser</span>
+            </div>
+            <span class="badge-pill">0 So'm Yetkazish &bull; Sovuq Zanjir</span>
+        </div>
+        <nav class="nav-links">
+            <a href="../index.html">← Bosh Sahifa</a>
+            <a href="index.html">DoriQuti Hub</a>
+            <a href="vitamin_unit_dose_portal.html">Dona Vitamin</a>
+            <a href="price_freeze_portal.html">Narx Muzlatish</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <h1>Smart Med-Locker: Kuryer Kutish Kerak Emas! 24/7 0 So'mga Oling</h1>
+            <p>
+                Samarqand bo'ylab poliklinikalar, vokzal, Universitet xiyoboni va Korzinka supermarketlari oldida o'rnatilgan 
+                <strong>24/7 aqlli termo-postamatlar</strong> tarmog'i. 
+                Sovuq zanjirli (+2°C..+8°C) insulinlar, oylik DoriQuti blister lentasi va dona-dona vitaminlar 
+                SMS 6-xonali PIN orqali <strong>15 soniyada</strong> kontaktsiz ochiladi.
+            </p>
+
+            <div class="stats-strip">
+                <div class="stat-card">
+                    <div class="stat-val">0 So'm</div>
+                    <div class="stat-lbl">Bemor Uchun Yetkazish</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">24/7</div>
+                    <div class="stat-lbl">Tun-u Kun Ochiq</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">+2°C..+8°C</div>
+                    <div class="stat-lbl">IoT Sovuq Zanjir</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">15 Sek</div>
+                    <div class="stat-lbl">PIN / QR Bilan Olish</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="grid-layout">
+            
+            <!-- Left: Lockers List -->
+            <div>
+                <div class="section-title">
+                    <span>📍</span>
+                    <span>Samarqand Faol Postamatlari (Jonli Telemetriya)</span>
+                </div>
+
+                <div class="lockers-list" id="lockersList">
+                    <!-- Rendered by JS -->
+                </div>
+
+                <!-- SOS Emergency Strip -->
+                <div class="sos-banner">
+                    <div>
+                        <div style="font-weight: 800; color: #fda4af; font-size: 0.95rem;">🚨 Tun Yarmi 24/7 SOS Dori Dispanseri</div>
+                        <div style="font-size: 0.78rem; color: #cbd5e1; margin-top: 2px;">Gipertonik kriz (Kaptopril), stenokardiya (Nitroglitserin) yoki astmada shoshilinch ochish</div>
+                    </div>
+                    <button class="btn-sos" onclick="openSosModal()">SOS Chaqirish</button>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Terminal Simulator -->
+            <div class="terminal-container">
+                <div style="text-align: center; margin-bottom: 12px; font-weight: 700; color: #cbd5e1;">
+                    📱 Termo-Postamat Sensorli Ekrani
+                </div>
+
+                <div class="terminal-screen">
+                    <div class="terminal-brand" id="selectedLockerTitle">LCK-SAM-01 &bull; SamDTU 1-Klinika</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 6px;">SMS'dan kelgan 6-xonali PIN kodni tering:</div>
+                    
+                    <div class="pin-display" id="pinDisplay">------</div>
+
+                    <!-- Keypad -->
+                    <div class="keypad-grid">
+                        <button class="key-btn" onclick="pressKey('1')">1</button>
+                        <button class="key-btn" onclick="pressKey('2')">2</button>
+                        <button class="key-btn" onclick="pressKey('3')">3</button>
+                        <button class="key-btn" onclick="pressKey('4')">4</button>
+                        <button class="key-btn" onclick="pressKey('5')">5</button>
+                        <button class="key-btn" onclick="pressKey('6')">6</button>
+                        <button class="key-btn" onclick="pressKey('7')">7</button>
+                        <button class="key-btn" onclick="pressKey('8')">8</button>
+                        <button class="key-btn" onclick="pressKey('9')">9</button>
+                        <button class="key-btn key-action" onclick="clearPin()">C</button>
+                        <button class="key-btn" onclick="pressKey('0')">0</button>
+                        <button class="key-btn" onclick="loadDemoPin()">DEMO</button>
+                    </div>
+
+                    <button class="btn-unlock" onclick="unlockCell()">
+                        🔓 Katakchani Ochish
+                    </button>
+                </div>
+
+                <!-- Visual Cell Matrix -->
+                <div class="cell-matrix-title">
+                    <span>Katakchalar Holati (24 Katak)</span>
+                    <span style="font-size: 0.75rem; color: var(--cyan);">❄️ 1-8 Sovuq &bull; 9-22 Standart &bull; 23-24 SOS</span>
+                </div>
+
+                <div class="cell-grid" id="cellGrid">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div style="margin-top: 14px; font-size: 0.75rem; color: var(--text-muted); text-align: center;">
+                    💡 Bemor uchun yetkazish <strong>0 so'm</strong>. Bir martalik ochilgandan so'ng eshik sensori orqali SMS bildirishnoma va 1% Soliq keshbek yuboriladi.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box" style="border-color: var(--emerald);">
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
+            <h2 style="font-size: 1.4rem; color: #10b981; margin-bottom: 8px;" id="modalTitle">Katakcha Ochildi!</h2>
+            <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 16px;" id="modalMessage">
+                №4-katakcha eshikchasi muvaffaqiyatli ochildi. Dori paketingizni oling va eshikchani yoping.
+            </p>
+            <div style="background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; font-size: 0.8rem; text-align: left; margin-bottom: 18px;">
+                <div><strong>Paket:</strong> DoriQuti Oylik Lenta (#PKG-DQ-99214)</div>
+                <div><strong>Harorat rejimi:</strong> +4.2°C (Sovuq Zanjir Saqlangan)</div>
+                <div><strong>Soliq keshbek:</strong> 1% Humo/Uzcard kartangizga o'tkazildi</div>
+            </div>
+            <button class="btn-unlock" style="background: var(--emerald);" onclick="closeSuccessModal()">Eshikchani Yopdim</button>
+        </div>
+    </div>
+
+    <!-- SOS Modal -->
+    <div class="modal-overlay" id="sosModal">
+        <div class="modal-box" style="border-color: var(--rose);">
+            <div style="font-size: 3rem; margin-bottom: 8px;">🚨</div>
+            <h2 style="font-size: 1.4rem; color: var(--rose); margin-bottom: 6px;">24/7 Shoshilinch SOS Dispenser</h2>
+            <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 16px;">
+                SamDTU Navbatchi Shoshilinch Provizori nazorati ostida favqulodda dori olish:
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; text-align: left;">
+                <button class="key-btn" style="font-size: 0.85rem; text-align: left;" onclick="triggerSos('Kaptopril 25mg')">
+                    🩸 <strong>Kaptopril 25mg</strong> — Gipertonik kriz (Bosim 180+)
+                </button>
+                <button class="key-btn" style="font-size: 0.85rem; text-align: left;" onclick="triggerSos('Nitroglitserin 0.5mg')">
+                    ❤️ <strong>Nitroglitserin 0.5mg</strong> — Yurak qisuvchi og'riq
+                </button>
+                <button class="key-btn" style="font-size: 0.85rem; text-align: left;" onclick="triggerSos('Salbutamol Inhaler')">
+                    🫁 <strong>Salbutamol Ingalyator</strong> — Astma bo'g'ilishi
+                </button>
+            </div>
+            <button class="key-btn key-action" style="width: 100%;" onclick="closeSosModal()">Bekor qilish</button>
+        </div>
+    </div>
+
+    <script>
+        const LOCKERS = [
+            {
+                id: "LCK-SAM-01",
+                name: "SamDTU 1-Klinikasi 24/7 Markaziy Kirish",
+                address: "Amir Temur ko'chasi 18, Samarqand",
+                ambient: "20.4°C",
+                cold: "4.2°C",
+                occupancy: "19 / 32 band",
+                tags: ["24/7 Ochiq", "Sovuq Zanjir IoT", "Kuzatuv", "SOS Dispenser"]
+            },
+            {
+                id: "LCK-SAM-02",
+                name: "Registon Maydoni & Samarqand Darvoza Hub",
+                address: "Registon ko'chasi 45, Samarqand",
+                ambient: "19.8°C",
+                cold: "3.9°C",
+                occupancy: "14 / 24 band",
+                tags: ["24/7 Ochiq", "Piyodalar Zonasi", "Kamera"]
+            },
+            {
+                id: "LCK-SAM-03",
+                name: "Samarqand Temir Yo'l Vokzali 24/7 Terminal",
+                address: "Beruniy maydoni 1, Samarqand",
+                ambient: "21.1°C",
+                cold: "4.5°C",
+                occupancy: "28 / 36 band",
+                tags: ["24/7 Ochiq", "Tranzit Hub", "SOS Dispenser"]
+            },
+            {
+                id: "LCK-SAM-04",
+                name: "Universitet Xiyoboni (Bulvar) & Talabalar Shaharchasi",
+                address: "Universitet xiyoboni 12, Samarqand",
+                ambient: "20.0°C",
+                cold: "4.0°C",
+                occupancy: "11 / 24 band",
+                tags: ["Talabalar Hubi", "Dona Vitamin Dispenser"]
+            },
+            {
+                id: "LCK-SAM-05",
+                name: "Siyob Bozori & Shiypon 24/7 Savdo Markazi",
+                address: "Bibixonim ko'chasi 7, Samarqand",
+                ambient: "20.8°C",
+                cold: "4.1°C",
+                occupancy: "22 / 28 band",
+                tags: ["24/7 Ochiq", "Keksa Ota-onalar Uchun"]
+            },
+            {
+                id: "LCK-SAM-06",
+                name: "Sogdiana & Gagarin Chorrahasi 24/7 Korzinka",
+                address: "Gagarin ko'chasi 88, Samarqand",
+                ambient: "19.5°C",
+                cold: "3.8°C",
+                occupancy: "16 / 24 band",
+                tags: ["Avtoturargoh", "Supermarket Kassa Zonasida"]
+            }
+        ];
+
+        let selectedLocker = LOCKERS[0];
+        let currentPin = "";
+
+        function renderLockers() {
+            const list = document.getElementById("lockersList");
+            list.innerHTML = LOCKERS.map((l, idx) => `
+                <div class="locker-card ${l.id === selectedLocker.id ? 'active' : ''}" onclick="selectLocker('${l.id}')">
+                    <div class="locker-header">
+                        <div class="locker-name">${l.name}</div>
+                        <div class="status-badge">
+                            <div class="status-dot"></div>
+                            ONLINE
+                        </div>
+                    </div>
+                    <div class="locker-address">${l.address}</div>
+                    <div class="telemetry-row">
+                        <div class="telemetry-item">
+                            <span>Xona Harorati</span>
+                            <strong>${l.ambient}</strong>
+                        </div>
+                        <div class="telemetry-item">
+                            <span>Sovuq Zanjir</span>
+                            <strong style="color: #67e8f9;">${l.cold}</strong>
+                        </div>
+                        <div class="telemetry-item">
+                            <span>Bandlik</span>
+                            <strong>${l.occupancy}</strong>
+                        </div>
+                    </div>
+                    <div class="amenities-tags">
+                        ${l.tags.map(t => `<span class="amenity-tag">${t}</span>`).join("")}
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function renderCells() {
+            const grid = document.getElementById("cellGrid");
+            let html = "";
+            for (let i = 1; i <= 24; i++) {
+                let cellClass = "";
+                let label = i;
+                if (i <= 8) {
+                    cellClass = "cold";
+                    label = `❄️ ${i}`;
+                } else if (i >= 23) {
+                    cellClass = "sos";
+                    label = `🚨 ${i}`;
+                }
+                html += `<div class="cell-box ${cellClass}" id="cell-${i}">${label}</div>`;
+            }
+            grid.innerHTML = html;
+        }
+
+        function selectLocker(id) {
+            selectedLocker = LOCKERS.find(l => l.id === id) || LOCKERS[0];
+            document.getElementById("selectedLockerTitle").innerText = `${selectedLocker.id} • ${selectedLocker.name}`;
+            renderLockers();
+        }
+
+        function pressKey(num) {
+            if (currentPin.length < 6) {
+                currentPin += num;
+                updatePinDisplay();
+            }
+        }
+
+        function clearPin() {
+            currentPin = "";
+            updatePinDisplay();
+        }
+
+        function loadDemoPin() {
+            currentPin = "609593";
+            updatePinDisplay();
+        }
+
+        function updatePinDisplay() {
+            const disp = document.getElementById("pinDisplay");
+            disp.innerText = currentPin ? currentPin.padEnd(6, "-") : "------";
+        }
+
+        function unlockCell() {
+            if (currentPin.length !== 6) {
+                alert("Iltimos, to'liq 6-xonali PIN-kodni kiriting!");
+                return;
+            }
+
+            // Animate target cell opening (cell 4)
+            const targetCellNum = 4;
+            const targetCell = document.getElementById(`cell-${targetCellNum}`);
+            if (targetCell) {
+                targetCell.classList.add("open");
+                targetCell.innerText = "OPEN";
+            }
+
+            setTimeout(() => {
+                document.getElementById("successModal").style.display = "flex";
+            }, 400);
+        }
+
+        function closeSuccessModal() {
+            document.getElementById("successModal").style.display = "none";
+            const targetCell = document.getElementById(`cell-4`);
+            if (targetCell) {
+                targetCell.classList.remove("open");
+                targetCell.innerText = "❄️ 4";
+            }
+            clearPin();
+        }
+
+        function openSosModal() {
+            document.getElementById("sosModal").style.display = "flex";
+        }
+
+        function closeSosModal() {
+            document.getElementById("sosModal").style.display = "none";
+        }
+
+        function triggerSos(drugName) {
+            closeSosModal();
+            const targetCell = document.getElementById("cell-23");
+            if (targetCell) {
+                targetCell.classList.add("open");
+                targetCell.innerText = "OPEN";
+            }
+
+            document.getElementById("modalTitle").innerText = `🚨 SOS Katak №23 Ochildi!`;
+            document.getElementById("modalMessage").innerHTML = `
+                Shoshilinch preparat: <strong>${drugName}</strong> chiqarildi.<br>
+                SamDTU Navbatchi Provizori bilan audio-aloqa o'rnatildi (#SOS-AKT-9912).
+            `;
+            document.getElementById("successModal").style.display = "flex";
+        }
+
+        // Init
+        renderLockers();
+        renderCells();
+    </script>
+</body>
+</html>

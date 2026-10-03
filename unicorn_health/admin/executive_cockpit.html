@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unicorn Health - Boshqaruv Kengashi & C-Suite CEO Kokpiti</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="bg-slate-800/90 border-b border-slate-700 sticky top-0 z-30 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
+          <span class="text-2xl">🚀</span>
+          <span class="text-xl font-bold tracking-tight">Executive Cockpit</span>
+        </a>
+        <span class="text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-full font-semibold">
+          CEO & Boshqaruv Kengashi
+        </span>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="exportDataRoom()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
+          <span>📁</span> Investor Data Room (JSON)
+        </button>
+        <button onclick="window.print()" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
+          🖨️ PDF Hisobot
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Top Executive Banner -->
+    <div class="bg-gradient-to-r from-slate-800 via-slate-850 to-slate-900 border border-slate-700 rounded-3xl p-6 md:p-8 mb-8 shadow-2xl flex flex-wrap items-center justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Holding Asoschisi & CEO</span>
+          <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-bold">FAOL BOZOR</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black text-white">Shukurov Jasur Otabek o'g'li</h1>
+        <p class="text-xs md:text-sm text-slate-400 mt-1">
+          Samarqand Davlat Tibbiyot Universiteti • Sog'liqni Saqlash Menejmenti & School 21
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="bg-slate-900 border border-slate-700 p-4 rounded-2xl text-right">
+          <div class="text-[11px] text-slate-400">Raund Maqsadi:</div>
+          <div class="text-lg font-bold text-amber-400 font-mono">$350,000 Pre-Seed</div>
+          <div class="text-[10px] text-slate-500">Post-money: $3.0M</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-700 p-4 rounded-2xl text-right">
+          <div class="text-[11px] text-slate-400">Ekotizim Portallari:</div>
+          <div class="text-lg font-bold text-emerald-400 font-mono">16 ta faol portal</div>
+          <div class="text-[10px] text-slate-500">100% integratsiyalashgan</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Financial KPIs Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+        <div class="text-xs text-slate-400 mb-1">Oylik Takroriy Daromad (MRR)</div>
+        <div class="text-2xl font-black text-emerald-400 font-mono">53.34M UZS</div>
+        <div class="text-[11px] text-emerald-300 font-medium mt-1">≈ $4,151 USD / oy (+18.4% MoM)</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+        <div class="text-xs text-slate-400 mb-1">Yillik Run-Rate (ARR)</div>
+        <div class="text-2xl font-black text-white font-mono">640.08M UZS</div>
+        <div class="text-[11px] text-slate-400 mt-1">≈ $49,812 USD / yil</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+        <div class="text-xs text-slate-400 mb-1">Jami Savdo Aylanmasi (GMV)</div>
+        <div class="text-2xl font-black text-blue-400 font-mono">312.40M UZS</div>
+        <div class="text-[11px] text-blue-300 mt-1">≈ $24,311 USD (DoriQuti + ArzonLab)</div>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+        <div class="text-xs text-slate-400 mb-1">LTV / CAC Koeffitsiyenti</div>
+        <div class="text-2xl font-black text-purple-400 font-mono">11.25x</div>
+        <div class="text-[11px] text-purple-300 mt-1">CAC: 32K UZS • LTV: 360K UZS</div>
+      </div>
+    </div>
+
+    <!-- Clinical Impact & Operations -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-white">Bemorlar Dori Adherence (Intizomi)</span>
+          <span class="text-xs font-mono font-bold text-emerald-400">94.2%</span>
+        </div>
+        <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden mb-2">
+          <div class="bg-emerald-500 h-full rounded-full" style="width: 94.2%;"></div>
+        </div>
+        <p class="text-[11px] text-slate-400">O'zbekistonda standart ko'rsatkich 41%. 2.3 barobar yuqori retention.</p>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-white">Kasalxonaga Yotqizilish Pasayishi</span>
+          <span class="text-xs font-mono font-bold text-blue-400">-67.4%</span>
+        </div>
+        <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden mb-2">
+          <div class="bg-blue-500 h-full rounded-full" style="width: 67.4%;"></div>
+        </div>
+        <p class="text-[11px] text-slate-400">Surunkali krizislarning oldi olinishi hisobiga viloyat sog'liqni saqlash tejamkorligi.</p>
+      </div>
+
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-white">Oylik Mijoz Churn (Ketish) Darajasi</span>
+          <span class="text-xs font-mono font-bold text-emerald-400">3.4%</span>
+        </div>
+        <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden mb-2">
+          <div class="bg-emerald-400 h-full rounded-full" style="width: 3.4%;"></div>
+        </div>
+        <p class="text-[11px] text-slate-400">Dunyo miqyosidagi HealthTech mezonlari bo'yicha eng yuqori sodiqlik (Cohort Stickiness).</p>
+      </div>
+    </div>
+
+    <!-- 16-Portal Ecosystem Topology Matrix -->
+    <div class="bg-slate-800 border border-slate-700 rounded-3xl p-6 md:p-8 shadow-xl mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <span>🌐</span> Unicorn Health Ekotizim Matritsasi (16 Portal)
+          </h2>
+          <p class="text-xs text-slate-400">Barcha manfaatdor tomonlar uchun o'zaro integratsiyalangan infratuzilma</p>
+        </div>
+        <span class="text-xs bg-slate-900 text-slate-300 border border-slate-700 px-3 py-1 rounded-lg font-mono">
+          Barcha tizimlar ONLINE
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
+        <!-- Col 1: Bemor & Oila -->
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2.5">
+          <div class="font-bold text-emerald-400 uppercase tracking-wider text-[11px]">1. Bemor & Oila</div>
+          <a href="../doriquti/index.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">💊 DoriQuti Obunasi</a>
+          <a href="../arzonlab/index.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🔬 ArzonLab Diagnostika</a>
+          <a href="../doriquti/voice_companion.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">👵 Hamshira Oygul (Ovozli)</a>
+          <a href="../shared/offline_sync.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">📱 Oflayn PWA Sinxronlash</a>
+        </div>
+
+        <!-- Col 2: Shifokor & Klinika -->
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2.5">
+          <div class="font-bold text-blue-400 uppercase tracking-wider text-[11px]">2. Shifokor & Klinika</div>
+          <a href="../doriquti/doctor_portal.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🩺 SamDTU Shifokor Retsepti</a>
+          <a href="../doriquti/cme_points.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🎓 Shifokor CME Ballari</a>
+          <a href="../doriquti/clinical_audit.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🔬 Doza & Tahlil Auditi</a>
+          <a href="../doriquti/telehealth_consultation.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">📞 Jonli Telemeditsina</a>
+        </div>
+
+        <!-- Col 3: Dorixona & Logistika -->
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2.5">
+          <div class="font-bold text-purple-400 uppercase tracking-wider text-[11px]">3. Dorixona & Kuryer</div>
+          <a href="../doriquti/pharmacy_portal.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🏪 Provizor Lentali Etiketka</a>
+          <a href="../doriquti/inventory_management.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">📦 Dorixona Ombori (FEFO)</a>
+          <a href="../doriquti/delivery_route_map.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🗺️ Samarqand Kuryer Xaritasi</a>
+          <a href="../arzonlab/lab_portal.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🏢 Laboratoriya Registratori</a>
+        </div>
+
+        <!-- Col 4: Moliya, Soliq & Global -->
+        <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-2xl space-y-2.5">
+          <div class="font-bold text-amber-400 uppercase tracking-wider text-[11px]">4. Moliya & Global</div>
+          <a href="../doriquti/fiscal_receipts.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🧾 Soliq.uz Cheklar Vaulti</a>
+          <a href="../shared/diaspora_checkout.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🌍 Diaspora Care (Global Pay)</a>
+          <a href="../doriquti/corporate_wellness.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">🤝 B2B Korporativ Sug'urta</a>
+          <a href="../docs/FINANCIAL_MODEL.html" class="block p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">📈 3 Yillik Pro-Forma P&L</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
+    <span>✅</span> <span id="toast-text">Data Room yuklab olindi!</span>
+  </div>
+
+  <script>
+    function exportDataRoom() {
+      const dataRoom = {
+        company: "Unicorn Health Tech LLC",
+        founder: "Jasur Shukurov",
+        models: ["PillPack (DoriQuti)", "GoodRx (ArzonLab)"],
+        mrr_uzs: 53340000,
+        arr_uzs: 640080000,
+        gmv_uzs: 312400000,
+        ltv_cac: 11.25,
+        adherence_rate: 94.2,
+        active_subscribers: 348,
+        portals_count: 16,
+        audit_status: "PASSED (100%)",
+        generated_at: new Date().toISOString()
+      };
+
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dataRoom, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "UNICORN_HEALTH_INVESTOR_DATA_ROOM.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+
+      showToast("Investor Data Room (JSON) muvaffaqiyatli yuklab olindi!");
+    }
+
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
