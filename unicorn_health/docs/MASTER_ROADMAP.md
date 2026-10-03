@@ -241,8 +241,11 @@
   - [x] Qishloq Tele-Skrining & Ko'chma Diagnostika Avtobusi Dvigateli (shared/rural_telehealth_bus_engine.py)
   - [x] ArzonLab & DoriQuti Qishloq Tele-Skrining & Diagnostika Avtobusi Portali (arzonlab/rural_telehealth_bus_portal.html)
   - [x] Chekka qishloqlarga (Urgut, Pastdarg'om, Qo'shrabot) quyosh panelli mobil laboratoriya: 5 daqiqada HbA1c, lipid, tele-EKG, UZI va QVPga 0 so'm dori yetkazish
-  - [x] 143/143 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
-  - [x] 55 ta to'liq interaktiv ekotizim portali (index.html)
+  - [x] Kardiologik Tele-Reabilitatsiya & DAPT Stent Qalqoni Dvigateli (shared/cardiac_rehab_engine.py)
+  - [x] DoriQuti Kardiologik Tele-Reabilitatsiya Portali (doriquti/cardiac_rehab_portal.html)
+  - [x] Infarktdan keyingi 90 kunlik o'ta muhim oyna: Tikagrelor/Klopidogrel + Aspirin + Statin 40mg qadoqlangan paketlar, 64% narx tejovi va stent tromboziga qarshi 24/7 telemetriya
+  - [x] 145/145 avtomatlashtirilgan test tekshiruvi (tests/system_healthcheck.py)
+  - [x] 56 ta to'liq interaktiv ekotizim portali (index.html)
   - [x] GLOBAL PUBLIK JONLI HAVOLA (Vercel Production): https://unicorn-health-uzbekistan.vercel.app
   - [x] Mahalliy veb-server ishga tushirildi (http://localhost:8080)
 

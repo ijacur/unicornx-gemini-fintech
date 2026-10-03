@@ -1,0 +1,139 @@
+{
+  "status": "OPERATIONAL",
+  "clinical_guideline": "ESC/AHA 2024 Post-Myocardial Infarction Secondary Prevention",
+  "regimens": {
+    "post-mi-ticagrelor": {
+      "id": "post-mi-ticagrelor",
+      "title": "O'tkir Koronar Sindrom & DES Stent Oltin Standarti (Tikagrelor)",
+      "indication": "Dori qoplangan stent (DES) qo'yilgandan keyingi 12 oy",
+      "morning_pouch": [
+        {
+          "drug": "Tikagrelor (Brilinta analogi)",
+          "dose": "90 mg",
+          "role": "DAPT (Kuchli antiagregant)",
+          "icon": "🩸"
+        },
+        {
+          "drug": "Aspirin (Kardio-magnil)",
+          "dose": "100 mg",
+          "role": "Antiagregant",
+          "icon": "🛡️"
+        },
+        {
+          "drug": "Bisoprolol (Konkor)",
+          "dose": "5 mg",
+          "role": "Beta-blokator (Pulsni 55-65 da ushlash)",
+          "icon": "🫀"
+        },
+        {
+          "drug": "Ramipril (Amprilan)",
+          "dose": "5 mg",
+          "role": "APF-ingibitori (Yurak remodellingiga qarshi)",
+          "icon": "🩺"
+        }
+      ],
+      "evening_pouch": [
+        {
+          "drug": "Tikagrelor",
+          "dose": "90 mg",
+          "role": "DAPT kechki doza (12 soatlik oraliq)",
+          "icon": "🩸"
+        },
+        {
+          "drug": "Atorvastatin (Atoris/Liprimar)",
+          "dose": "40 mg",
+          "role": "Yuqori dozali statin (Aterosklerotik blyashkani barqarorlashtirish)",
+          "icon": "🧪"
+        }
+      ],
+      "retail_city_price_uzs": 680000,
+      "doriquti_price_uzs": 245000,
+      "stent_thrombosis_protection_pct": 98.4
+    },
+    "post-mi-clopidogrel": {
+      "id": "post-mi-clopidogrel",
+      "title": "Standart DAPT & Koronar Tiklanish (Klopidogrel)",
+      "indication": "Stabil stenokardiya stenti yoki Tikagrelor qon ketish xavfi yuqori bo'lganda",
+      "morning_pouch": [
+        {
+          "drug": "Klopidogrel (Plaviks analogi)",
+          "dose": "75 mg",
+          "role": "DAPT antiagregant",
+          "icon": "🩸"
+        },
+        {
+          "drug": "Aspirin",
+          "dose": "100 mg",
+          "role": "Antiagregant",
+          "icon": "🛡️"
+        },
+        {
+          "drug": "Metoprolol suksinat",
+          "dose": "50 mg",
+          "role": "Beta-blokator (Anti-ishemik)",
+          "icon": "🫀"
+        },
+        {
+          "drug": "Perindopril",
+          "dose": "5 mg",
+          "role": "APF-ingibitori",
+          "icon": "🩺"
+        }
+      ],
+      "evening_pouch": [
+        {
+          "drug": "Atorvastatin",
+          "dose": "20 mg",
+          "role": "Statin (Lipid me'yori)",
+          "icon": "🧪"
+        }
+      ],
+      "retail_city_price_uzs": 390000,
+      "doriquti_price_uzs": 140000,
+      "stent_thrombosis_protection_pct": 94.2
+    }
+  },
+  "sample_patient_savings": {
+    "regimen_id": "post-mi-ticagrelor",
+    "title": "O'tkir Koronar Sindrom & DES Stent Oltin Standarti (Tikagrelor)",
+    "indication": "Dori qoplangan stent (DES) qo'yilgandan keyingi 12 oy",
+    "monthly_retail_uzs": 680000,
+    "monthly_doriquti_uzs": 245000,
+    "months": 12,
+    "annual_retail_uzs": 8160000,
+    "annual_doriquti_uzs": 2940000,
+    "net_saved_uzs": 5220000,
+    "saved_percentage": 64.0,
+    "stent_thrombosis_risk_reduction": "4.8 baravar kamayadi (Intizom 95%+ bo'lganda)"
+  },
+  "sample_stable_eval": {
+    "status": "Barqaror (Yashil)",
+    "color": "emerald",
+    "emergency_103": false,
+    "alerts": [
+      "Yurak urishi me'yorda (62/daq — maqsadli 55-65 oralig'ida)."
+    ],
+    "recommended_action": "Rejali qabulni davom ettiring.",
+    "target_hemodynamics": {
+      "target_bp": "< 130/80 mmHg",
+      "target_hr": "55 - 65 zarba/daq",
+      "target_ldl": "< 1.4 mmol/l (Yuqori xavf guruhi)"
+    }
+  },
+  "sample_alert_eval": {
+    "status": "FAVQULODDA: O'tkir Koronar Xuruj / Stent Trombozi Xavfi!",
+    "color": "rose",
+    "emergency_103": true,
+    "alerts": [
+      "Ko'krak qafasida kuchli og'riq (6/10 ball)! Nitroglitserin (0.5 mg til ostiga) va 103 shoshilinch tez tibbiy yordam.",
+      "Puls yuqori (82/daq). Infarktdan keyingi maqsadli ko'rsatkich: 55-65/daq. Shifokor bilan Bisoprolol dozasini oshirishni maslahatlashing.",
+      "DIQQAT: 2 ta antiagregant dozasi qolib ketgan! Stent trombozi xavfi 380% ga oshdi! Zudlik bilan o'tkazib yuborilgan dozani iching."
+    ],
+    "recommended_action": "Zudlik bilan 103 ga qo'ng'iroq qiling! SamDTU Kardiologiya RMIATM navbatchi xirurgi ogohlantirildi.",
+    "target_hemodynamics": {
+      "target_bp": "< 130/80 mmHg",
+      "target_hr": "55 - 65 zarba/daq",
+      "target_ldl": "< 1.4 mmol/l (Yuqori xavf guruhi)"
+    }
+  }
+}

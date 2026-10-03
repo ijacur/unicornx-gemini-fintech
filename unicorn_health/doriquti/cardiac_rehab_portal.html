@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kardiologik Tele-Reabilitatsiya & DAPT Stent Qalqoni | DoriQuti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #090a12;
+            --surface: #121422;
+            --surface-hover: #1b1e33;
+            --border: #232742;
+            --rose: #f43f5e;
+            --rose-glow: rgba(244, 63, 94, 0.2);
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --sky: #38bdf8;
+            --indigo: #6366f1;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding-bottom: 90px;
+        }
+
+        .header {
+            background: rgba(18, 20, 34, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .badge-pill {
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid var(--rose);
+            color: var(--rose);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin-left: 20px;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover {
+            color: var(--rose);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(18, 20, 34, 0.9), rgba(244, 63, 94, 0.12));
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 32px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 32px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::after {
+            content: "🫀";
+            font-size: 190px;
+            position: absolute;
+            right: -20px;
+            bottom: -40px;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .hero-h1 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            background: linear-gradient(135deg, #ffffff, #fecdd3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .stat-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: rgba(9, 10, 18, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--rose);
+            margin-bottom: 4px;
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 17px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffffff;
+        }
+
+        .pouch-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .pouch-card {
+            background: #090a12;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px;
+            position: relative;
+        }
+
+        .pouch-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .pouch-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .med-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 12px;
+        }
+
+        .med-item:last-child {
+            border-bottom: none;
+        }
+
+        .med-icon {
+            font-size: 18px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .med-name {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .med-dose {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--rose);
+            font-size: 11px;
+            margin-left: 4px;
+        }
+
+        .med-role {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            background: #090a12;
+            border: 1px solid var(--border);
+            color: #ffffff;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-select:focus, .form-input:focus {
+            border-color: var(--rose);
+        }
+
+        .comparison-box {
+            background: #090a12;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .comp-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .comp-row:last-child {
+            border-bottom: none;
+        }
+
+        .cost-bad {
+            color: var(--rose);
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cost-good {
+            color: var(--emerald);
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 16px;
+        }
+
+        .savings-highlight {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.15), rgba(16, 185, 129, 0.1));
+            border: 1px solid var(--rose);
+            border-radius: 14px;
+            padding: 16px;
+            text-align: center;
+            margin-top: 18px;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: var(--rose);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .btn-action:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn-sos {
+            background: #dc2626;
+            color: #ffffff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .tag-green { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+        .tag-rose { background: rgba(244, 63, 94, 0.15); color: var(--rose); }
+        .tag-amber { background: rgba(245, 158, 11, 0.15); color: var(--amber); }
+
+        .alert-card {
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .alert-card.rose {
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid var(--rose);
+            color: #fecdd3;
+        }
+
+        .alert-card.emerald {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid var(--emerald);
+            color: #a7f3d0;
+        }
+
+        .alert-card.amber {
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid var(--amber);
+            color: #fde68a;
+        }
+
+        .streak-tracker {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .streak-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: #090a12;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+            color: var(--text-muted);
+        }
+
+        .streak-dot.done {
+            background: var(--emerald);
+            color: #090a12;
+            border-color: var(--emerald);
+        }
+
+        .streak-dot.today {
+            border-color: var(--rose);
+            color: var(--rose);
+            animation: pulse-border 1.5s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: var(--rose); }
+            50% { border-color: transparent; }
+        }
+
+        @media (max-width: 900px) {
+            .hero-banner { grid-template-columns: 1fr; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .pouch-display { grid-template-columns: 1fr; }
+            .stat-strip { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-title">
+            <span style="font-size: 26px;">🫀</span>
+            <div>
+                <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">DoriQuti Kardiologik Tele-Reabilitatsiya</h1>
+                <p style="font-size: 11px; color: var(--text-muted);">Post-MI 90 Kunlik Tiklanish & DAPT Stent Trombozi Qalqoni</p>
+            </div>
+            <span class="badge-pill">ESC / AHA 2024</span>
+        </div>
+        <div class="header-links">
+            <a href="../index.html">← Ekotizim Bosh Sahifasi</a>
+            <a href="index.html">DoriQuti</a>
+            <a href="../arzonlab/index.html">ArzonLab</a>
+            <a href="telehealth_consultation.html">Telemeditsina</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- HERO BANNER -->
+        <section class="hero-banner">
+            <div>
+                <span class="badge-pill" style="margin-bottom: 12px; display: inline-block;">O'tkir Miokard Infarkti & Stentdan Keyingi Xavfsizlik</span>
+                <h2 class="hero-h1">Stent Trombozidan 100% Himoya & Infarktdan Keyingi 90 Kunlik Tele-Reabilitatsiya</h2>
+                <p class="hero-p">
+                    Koronar stent qo'yilgan bemorlarning 42% i dorilarni unutish yoki qimmatligi sababli to'xtatadi, bu esa o'tkir stent trombozi va 45% to'satdan o'limga olib keladi. DoriQuti ikkita antiagregant (DAPT: Tikagrelor/Klopidogrel + Aspirin), yuqori dozali statin va beta-blokatorni kunlik blister paketlarga joylab, 64% arzon narxda uyingizga yetkazadi.
+                </p>
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <a href="#calculator-sec" style="background: var(--rose); color: #ffffff; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 13px;">Rejim va Tejovni Ko'rish ↓</a>
+                    <a href="#vitals-sec" style="background: rgba(255,255,255,0.08); color: #ffffff; padding: 12px 22px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: 13px; border: 1px solid var(--border);">Gipotenziya & Puls Tahlili</a>
+                </div>
+            </div>
+            <div>
+                <div class="stat-strip">
+                    <div class="stat-card">
+                        <div class="stat-val">64%</div>
+                        <div class="stat-lbl">Dori Xarajat Tejovi</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">98.4%</div>
+                        <div class="stat-lbl">Trombozdan Himoya</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">55-65</div>
+                        <div class="stat-lbl">Maqsadli Puls (bpm)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-val">90 Kun</div>
+                        <div class="stat-lbl">Kritik Oyna Nazorati</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN SECTION: REGIMEN DISPLAY & FINANCIAL CALCULATOR -->
+        <section class="grid-2col" id="calculator-sec">
+            
+            <!-- POUCH DISPLAY -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>💊</span>
+                        <span>Kunlik Qadoqlangan Kardiologik Paketlar</span>
+                    </div>
+                    <span class="status-tag tag-green">Ertalab & Kechqurun</span>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Klinik Protokol Tanlovi</label>
+                    <select class="form-select" id="regimenSelect" onchange="updateRegimen()">
+                        <option value="post-mi-ticagrelor">🩸 O'tkir Koronar Sindrom & DES Stent (Tikagrelor 90mg + Aspirin + Statin 40mg)</option>
+                        <option value="post-mi-clopidogrel">🛡️ Standart Tiklanish (Klopidogrel 75mg + Aspirin + Metoprolol + Statin 20mg)</option>
+                    </select>
+                </div>
+
+                <div class="pouch-display">
+                    <!-- Morning Pouch -->
+                    <div class="pouch-card">
+                        <div class="pouch-header">
+                            <span class="pouch-title"><span>☀️</span> Ertalabki Paket (08:00)</span>
+                            <span class="status-tag tag-rose">Nonushtadan so'ng</span>
+                        </div>
+                        <div id="morningPouchList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Evening Pouch -->
+                    <div class="pouch-card">
+                        <div class="pouch-header">
+                            <span class="pouch-title"><span>🌙</span> Kechki Paket (20:00)</span>
+                            <span class="status-tag tag-amber">Kechki ovqatdan so'ng</span>
+                        </div>
+                        <div id="eveningPouchList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5; background: #090a12; padding: 12px; border-radius: 12px; border: 1px solid var(--border);">
+                    ℹ️ <strong>Klinik eslatma:</strong> Tikagrelor yarim parchalanish davri 12 soat bo'lgani sababli, ertalab va kechqurun aynan 12 soatlik oraliqda qabul qilinishi shart! DoriQuti lentali paketlari vaqtni adashtirishga yo'l qo'ymaydi.
+                </div>
+            </div>
+
+            <!-- ECONOMICS CALCULATOR -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>💰</span>
+                        <span>12 Oylik Bemor Iqtisodiyoti & Doimiy Narx Kafolati</span>
+                    </div>
+                    <span class="status-tag tag-rose">Zavod Narxlari</span>
+                </div>
+
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+                    Shahardagi dorixonalarda Tikagrelor (Brilinta) va Atorvastatin alohida qutilarda sotilganda narxi sun'iy oshirilgan. DoriQuti GMP ishlab chiqaruvchilar bilan to'g'ridan-to'g'ri forvard shartnoma orqali 64% tejaydi:
+                </p>
+
+                <div class="comparison-box">
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">Chakana dorixonalarda 1 oylik narx:</span>
+                        <span class="cost-bad" id="calcMonthlyRetail">680,000 UZS</span>
+                    </div>
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">DoriQuti qadoqlangan obunasi (1 oy):</span>
+                        <span class="cost-good" id="calcMonthlyDoriquti">245,000 UZS</span>
+                    </div>
+                    <div class="comp-row">
+                        <span style="color: var(--text-muted);">1 oyda bemor cho'ntagida qoladigan mablag':</span>
+                        <span style="color: var(--emerald); font-weight: 700;" id="calcMonthlyDiff">435,000 UZS / oy</span>
+                    </div>
+                    <div class="comp-row" style="background: rgba(244, 63, 94, 0.05); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 700; color: #ffffff;">Chakana dorixonada 1 yillik umumiy xarajat:</span>
+                        <span class="cost-bad" id="calcAnnualRetail">8,160,000 UZS</span>
+                    </div>
+                    <div class="comp-row" style="background: rgba(16, 185, 129, 0.08); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 800; color: #ffffff;">DoriQuti orqali 1 yillik umumiy to'lov:</span>
+                        <span class="cost-good" id="calcAnnualDoriquti">2,940,000 UZS</span>
+                    </div>
+                </div>
+
+                <div class="savings-highlight">
+                    <div style="font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--rose); letter-spacing: 0.5px;">Bemor Oilasiga 1 Yilda Qoladigan Sof Tejov:</div>
+                    <div style="font-size: 26px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: #ffffff; margin: 4px 0;" id="calcNetSavings">5,220,000 UZS (64.0%)</div>
+                    <div style="font-size: 11px; color: var(--text-muted);">Har oy uyga bepul kuryer orqali yetkazib beriladi va 12 oy davomida narx muzlatiladi.</div>
+                </div>
+
+                <button class="btn-action" onclick="orderCardioSubscription()">
+                    <span>🫀</span>
+                    <span>12 Oylik Kardiologik Obunani Rasmiylashtirish</span>
+                </button>
+            </div>
+
+        </section>
+
+        <!-- VITALS MONITORING & TELEMETRY CHECK-IN -->
+        <section class="grid-2col" id="vitals-sec">
+            
+            <!-- DAILY VITALS INPUT -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🩺</span>
+                        <span>Kunlik Qon Bosimi & Puls Telemetriyasi</span>
+                    </div>
+                    <span class="status-tag tag-rose">Puls Maqsadi: 55-65</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label">Sistolik Bosim (mmHg)</label>
+                        <input type="number" class="form-input" id="inputSbp" value="122" oninput="runEvaluation()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Diastolik Bosim (mmHg)</label>
+                        <input type="number" class="form-input" id="inputDbp" value="76" oninput="runEvaluation()">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="form-group">
+                        <label class="form-label">Puls (Tinch holatda zarba/min)</label>
+                        <input type="number" class="form-input" id="inputHr" value="58" oninput="runEvaluation()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ko'krak qafasidagi og'riq (0 dan 10 gacha)</label>
+                        <input type="number" min="0" max="10" class="form-input" id="inputPain" value="0" oninput="runEvaluation()">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">O'tkazib yuborilgan dori dozalari (oxirgi 48 soatda)</label>
+                    <select class="form-select" id="inputMissed" onchange="runEvaluation()">
+                        <option value="0">0 ta (Barcha dorilar vaqtida ichildi ✅)</option>
+                        <option value="1">1 ta doza o'tib ketdi ⚠️</option>
+                        <option value="2">2+ ta doza o'tib ketdi (XAVFLI 🚨)</option>
+                    </select>
+                </div>
+
+                <div id="evalResultBox">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- 90-DAY PROGRESS & EMERGENCY PROTOCOL -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span>🛡️</span>
+                        <span>90 Kunlik Tiklanish Zanjiri & Favqulodda Protokol</span>
+                    </div>
+                    <span class="status-tag tag-green">Intizom: 100%</span>
+                </div>
+
+                <div style="font-size: 13px; font-weight: 700; color: #ffffff; margin-bottom: 6px;">
+                    Bugungi qabul holati: 14-kun / 90 kunlik reabilitatsiya
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+                    Har bir qabul qilingan doza yurak muskulining tiklanishi va stent o'tkazuvchanligini ta'minlaydi.
+                </p>
+
+                <div class="streak-tracker" id="streakDots">
+                    <!-- Populated by JS -->
+                </div>
+
+                <div style="margin-top: 24px; padding: 18px; background: #090a12; border: 1px solid var(--border); border-radius: 14px;">
+                    <div style="font-size: 13px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                        <span>🚨</span>
+                        <span>Ko'krak Qafasida Siqilish Bo'lsa Nima Qilish Kerak?</span>
+                    </div>
+                    <ul style="font-size: 12px; color: var(--text-muted); line-height: 1.6; padding-left: 20px;">
+                        <li>Zudlik bilan o'tiring yoki yoting, jismoniy harakatni to'xtating.</li>
+                        <li>1 tabletka Nitroglitserin (0.5 mg) til ostiga qo'ying.</li>
+                        <li>Agar og'riq 5 daqiqada o'tmasa — <strong>ikkinchi tabletkani qo'ymang</strong>, darhol quyidagi tugmani bosib 103 ni chaqiring!</li>
+                    </ul>
+
+                    <button class="btn-action btn-sos" onclick="triggerSosEmergency()" style="margin-top: 14px;">
+                        <span>📞</span>
+                        <span>SHOSHILINCH 103 VA SAMDTU KARDIOMARKAZ ALOQASI</span>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        const REGIMEN_DATA = {
+            "post-mi-ticagrelor": {
+                monthlyRetail: 680000,
+                monthlyDoriquti: 245000,
+                morning: [
+                    { icon: "🩸", name: "Tikagrelor", dose: "90 mg", role: "Kuchli DAPT (Trombotsit agregatsiyasini to'xtatish)" },
+                    { icon: "🛡️", name: "Aspirin (Kardio-magnil)", dose: "100 mg", role: "Antiagregant himoya" },
+                    { icon: "🫀", name: "Bisoprolol (Konkor)", dose: "5 mg", role: "Beta-blokator (Yurak ritmini 55-65 da saqlash)" },
+                    { icon: "🩺", name: "Ramipril (Amprilan)", dose: "5 mg", role: "APF-ingibitori (Yurak kengayishiga qarshi)" }
+                ],
+                evening: [
+                    { icon: "🩸", name: "Tikagrelor", dose: "90 mg", role: "Kechki doza (Aynan 12 soatdan so'ng)" },
+                    { icon: "🧪", name: "Atorvastatin", dose: "40 mg", role: "Yuqori dozali statin (Blyashkani mustahkamlash)" }
+                ]
+            },
+            "post-mi-clopidogrel": {
+                monthlyRetail: 390000,
+                monthlyDoriquti: 140000,
+                morning: [
+                    { icon: "🩸", name: "Klopidogrel (Plaviks)", dose: "75 mg", role: "DAPT antiagregant" },
+                    { icon: "🛡️", name: "Aspirin", dose: "100 mg", role: "Antiagregant himoya" },
+                    { icon: "🫀", name: "Metoprolol suksinat", dose: "50 mg", role: "Beta-blokator" },
+                    { icon: "🩺", name: "Perindopril", dose: "5 mg", role: "APF-ingibitori" }
+                ],
+                evening: [
+                    { icon: "🧪", name: "Atorvastatin", dose: "20 mg", role: "Statin lipid nazorati" }
+                ]
+            }
+        };
+
+        function updateRegimen() {
+            const key = document.getElementById('regimenSelect').value;
+            const data = REGIMEN_DATA[key];
+
+            // Render Morning List
+            const mList = document.getElementById('morningPouchList');
+            mList.innerHTML = '';
+            data.morning.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'med-item';
+                div.innerHTML = `
+                    <div class="med-icon">${item.icon}</div>
+                    <div style="flex: 1;">
+                        <div><span class="med-name">${item.name}</span> <span class="med-dose">${item.dose}</span></div>
+                        <div class="med-role">${item.role}</div>
+                    </div>
+                `;
+                mList.appendChild(div);
+            });
+
+            // Render Evening List
+            const eList = document.getElementById('eveningPouchList');
+            eList.innerHTML = '';
+            data.evening.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'med-item';
+                div.innerHTML = `
+                    <div class="med-icon">${item.icon}</div>
+                    <div style="flex: 1;">
+                        <div><span class="med-name">${item.name}</span> <span class="med-dose">${item.dose}</span></div>
+                        <div class="med-role">${item.role}</div>
+                    </div>
+                `;
+                eList.appendChild(div);
+            });
+
+            // Update calculations
+            const monthlyDiff = data.monthlyRetail - data.monthlyDoriquti;
+            const annualRetail = data.monthlyRetail * 12;
+            const annualDoriquti = data.monthlyDoriquti * 12;
+            const annualSaved = annualRetail - annualDoriquti;
+            const savedPct = Math.round((annualSaved / annualRetail) * 100);
+
+            document.getElementById('calcMonthlyRetail').innerText = data.monthlyRetail.toLocaleString() + ' UZS';
+            document.getElementById('calcMonthlyDoriquti').innerText = data.monthlyDoriquti.toLocaleString() + ' UZS';
+            document.getElementById('calcMonthlyDiff').innerText = monthlyDiff.toLocaleString() + ' UZS / oy';
+            document.getElementById('calcAnnualRetail').innerText = annualRetail.toLocaleString() + ' UZS';
+            document.getElementById('calcAnnualDoriquti').innerText = annualDoriquti.toLocaleString() + ' UZS';
+            document.getElementById('calcNetSavings').innerText = annualSaved.toLocaleString() + ' UZS (' + savedPct + '%)';
+        }
+
+        function runEvaluation() {
+            const sbp = parseInt(document.getElementById('inputSbp').value) || 120;
+            const dbp = parseInt(document.getElementById('inputDbp').value) || 80;
+            const hr = parseInt(document.getElementById('inputHr').value) || 60;
+            const pain = parseInt(document.getElementById('inputPain').value) || 0;
+            const missed = parseInt(document.getElementById('inputMissed').value) || 0;
+
+            const resBox = document.getElementById('evalResultBox');
+            let alertClass = 'emerald';
+            let title = "Holat Barqaror ✅";
+            let desc = "Puls (55-65 bpm) va arterial bosim (<130/80 mmHg) ko'rsatkichlari mukammal me'yorda. Rejali qabulni davom ettiring.";
+
+            if (pain >= 5) {
+                alertClass = 'rose';
+                title = "FAVQULODDA: O'tkir Koronar Xuruj Xavfi! 🚨";
+                desc = `Ko'krakda kuchli og'riq (${pain}/10 ball)! Zudlik bilan o'tiring, til ostiga nitroglitserin qo'ying va pastdagi qizil tugma orqali 103 ni chaqiring.`;
+            } else if (missed >= 2) {
+                alertClass = 'rose';
+                title = "XAVFLI: 2 ta DAPT dozasi qolib ketgan! ⚠️";
+                desc = "Antiagregant to'xtaganda stent ichida qon ivishi va tromboz xavfi keskin oshadi. Darhol o'tkazib yuborilgan dozani qabul qiling!";
+            } else if (hr > 75) {
+                alertClass = 'amber';
+                title = "Puls Yuqori: " + hr + " zarba/daq ⚠️";
+                desc = "Infarktdan so'ng yurak zo'riqmasligi uchun puls 55-65 oralig'ida bo'lishi shart. Shifokor bilan Bisoprolol dozasini oshirishni maslahatlashing.";
+            } else if (hr < 50) {
+                alertClass = 'amber';
+                title = "Bradikardiya: " + hr + " zarba/daq ⚠️";
+                desc = "Puls me'yordan past. Bosh aylanishi yoki holsizlik bo'lsa, dori dozasini kamaytirish talab etiladi.";
+            } else if (sbp >= 140 || dbp >= 90) {
+                alertClass = 'amber';
+                title = "Bosim Yuqori: " + sbp + "/" + dbp + " mmHg ⚠️";
+                desc = "Post-MI maqsadli qon bosimi 130/80 dan past bo'lishi kerak. Tuz iste'molini cheklang.";
+            }
+
+            resBox.innerHTML = `
+                <div class="alert-card ${alertClass}">
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
+                        <div>${desc}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStreak() {
+            const container = document.getElementById('streakDots');
+            container.innerHTML = '';
+            for (let i = 1; i <= 30; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'streak-dot';
+                if (i < 14) {
+                    dot.classList.add('done');
+                    dot.innerText = '✓';
+                } else if (i === 14) {
+                    dot.classList.add('today');
+                    dot.innerText = '14';
+                } else {
+                    dot.innerText = i;
+                }
+                container.appendChild(dot);
+            }
+        }
+
+        function orderCardioSubscription() {
+            alert("✅ 12 oylik Kardiologik DoriQuti obunasi muvaffaqiyatli saqlandi!\n\nYetkazish: Bepul kuryer orqali har oy uyingizga.\nNarx muzlatish kafolati: 12 oy davomida qat'iy 245,000 UZS/oy.\nSamDTU Kardiologiya professori retsepti biriktirildi.");
+        }
+
+        function triggerSosEmergency() {
+            alert("🚨 DIQQAT: 103 Shoshilinch tez yordam dispetcheriga bemorning geografik koordinatasi va oxirgi telemetriya ma'lumotlari uzatildi!\n\nSamDTU Kardiologiya RMIATM navbatchi shifokoriga xabar yuborildi. Iltimos, xotirjam o'tiring va chuqur nafas oling.");
+        }
+
+        // Init
+        updateRegimen();
+        renderStreak();
+        runEvaluation();
+    </script>
+</body>
+</html>
