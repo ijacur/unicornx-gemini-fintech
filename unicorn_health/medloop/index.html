@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EpiVision XR — SamDTU Kengaytirilgan Reallik Jarrohlik Simulyatori & MedLoop AI</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js 3D WebGL Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .bg-mesh {
+      background: radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.10) 0%, transparent 45%),
+                  #070b14;
+    }
+    .hud-glass {
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+    }
+    .hud-glass-danger {
+      background: rgba(225, 29, 72, 0.15);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+    }
+    .pulse-glow {
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); }
+      50% { box-shadow: 0 0 25px rgba(6, 182, 212, 0.6); }
+    }
+    .crosshair-cur {
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body class="bg-mesh text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950 overflow-x-hidden">
+
+  <!-- TOP INSTITUTIONAL BAR -->
+  <header class="border-b border-slate-800/90 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+      <!-- Brand & Pedigree -->
+      <div class="flex items-center space-x-3.5">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-cyan-400 via-teal-500 to-blue-600 flex items-center justify-center text-slate-950 font-black text-xl shadow-lg shadow-cyan-500/25">
+          👁️‍🗨️
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-2xl tracking-tight text-white">EpiVision<span class="text-cyan-400">XR</span></span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+              SamDTU • Boshqaruv &amp; Menejment
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 flex items-center gap-2">
+            <span>Rektor Stipendiyasi Ilmiy Loyihasi</span>
+            <span class="inline-block w-1 h-1 rounded-full bg-slate-600"></span>
+            <span>Muallif: <strong>Jasur Shukurov</strong> (@jasurceo)</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-2 sm:gap-3 text-xs font-semibold">
+        <!-- Language Switcher -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-1 flex text-[11px]">
+          <button id="langUz" class="px-2.5 py-1 rounded-lg bg-cyan-500 text-slate-950 font-bold transition">UZ</button>
+          <button id="langRu" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">RU</button>
+          <button id="langEn" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition">EN</button>
+        </div>
+
+        <!-- Mode Indicator -->
+        <button id="btnToggleMode" class="hud-glass px-3 py-1.5 rounded-xl text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5 transition">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+          <span id="modeLabel">O‘quv Rejimi (Guided)</span>
+        </button>
+
+        <!-- MedLoop Quick Link -->
+        <a href="#medloopSection" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-3.5 py-1.5 rounded-xl shadow-md shadow-blue-600/20 flex items-center gap-1.5 transition">
+          <span>🩺</span>
+          <span class="hidden md:inline">MedLoop AI Triage</span>
+        </a>
+
+        <!-- Exit to Portal -->
+        <a href="../index.html" class="bg-slate-900 hover:bg-slate-800 text-slate-300 px-3 py-1.5 rounded-xl border border-slate-800 transition">
+          Portalga Qaytish
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6 flex-1 w-full">
+
+    <!-- HERO NOTIFICATION BANNER -->
+    <section class="hud-glass rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-4 border-l-cyan-400">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-cyan-500/20 text-cyan-300 tracking-wider">
+            Klinik &amp; Iqtisodiy Innovatsiya
+          </span>
+          <span class="text-xs text-slate-400 font-mono">Maqola: PF-6079 "Raqamli O‘zbekiston - 2030"</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold text-white">
+          Tibbiy Ta'limda Kadavrik Xarajatlarni 90% Qisqartiruvchi Interaktiv XR Jarrohlik Simulyatori
+        </h1>
+        <p class="text-xs text-slate-300 max-w-4xl">
+          Samarqand davlat tibbiyot universiteti talabalari, rezidentlari va jarrohlari uchun ishlab chiqilgan interaktiv simulyator. 
+          Strasberg bo‘yicha <strong>"Xavfsizlikning Kritik Ko‘rinishi" (Critical View of Safety - CVS)</strong> tamoyillarini o‘rgatadi va operatsiya xatolarini nolga tushiradi.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="#economicsCalculator" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/30 text-cyan-300 text-xs font-bold transition flex items-center gap-1.5">
+          <span>📊</span>
+          <span>Institutsional ROI ($162k)</span>
+        </a>
+        <button id="btnAudioToggle" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-bold transition flex items-center gap-1.5">
+          <span id="audioIcon">🔊</span>
+          <span id="audioLabel">EKG Ovoz: ON</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SURGERY SIMULATION WORKSTATION GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- LEFT SIDEBAR: TOOL SELECTION & SCENARIOS (3 Cols) -->
+      <aside class="lg:col-span-3 space-y-4">
+        
+        <!-- Scenarios Selector -->
+        <div class="hud-glass rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <span>Operatsiya Ssenariylari</span>
+            <span class="text-cyan-400">3 Ta Model</span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <!-- Scenario 1 -->
+            <button id="scen1" class="w-full text-left p-3 rounded-xl bg-cyan-500/15 border border-cyan-500/40 text-white font-bold transition flex flex-col gap-1 scenario-btn">
+              <div class="flex items-center justify-between">
+                <span>1. Laparoskopik Xolesistektomiya</span>
+                <span class="text-[10px] text-cyan-300 font-mono">Asosiy</span>
+              </div>
+              <span class="text-[11px] text-slate-300 font-normal">Kalo uchburchagi disseksiyasi, kistoz arteriya &amp; yo‘lni kliposlash.</span>
+            </button>
+
+            <!-- Scenario 2 -->
+            <button id="scen2" class="w-full text-left p-3 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-800 text-slate-300 font-semibold transition flex flex-col gap-1 scenario-btn">
+              <div class="flex items-center justify-between">
+                <span>2. Shoshilinch Gemostaz &amp; Travma</span>
+                <span class="text-[10px] text-rose-400 font-mono">Shoshilinch</span>
+              </div>
+              <span class="text-[11px] text-slate-400 font-normal">Jigar/taloq kapsulasi yorilishi, faol arterial qon ketishini to‘xtatish.</span>
+            </button>
+
+            <!-- Scenario 3 -->
+            <button id="scen3" class="w-full text-left p-3 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-800 text-slate-300 font-semibold transition flex flex-col gap-1 scenario-btn">
+              <div class="flex items-center justify-between">
+                <span>3. Endoskopik Mikrotikuv</span>
+                <span class="text-[10px] text-emerald-400 font-mono">Aniqlik</span>
+              </div>
+              <span class="text-[11px] text-slate-400 font-normal">Submukozal tikuv, tugun tarangligi va chuqurlik nazorati.</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Surgical Tool Rack -->
+        <div class="hud-glass rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <span>Jarrohlik Asboblari</span>
+            <span class="text-xs text-slate-400 font-mono">[1 - 5]</span>
+          </div>
+
+          <div class="grid grid-cols-1 gap-2 text-xs">
+            <!-- Tool 1: Grasper -->
+            <button id="toolGrasper" class="tool-btn p-2.5 rounded-xl bg-cyan-500/20 border border-cyan-400 text-cyan-200 font-bold flex items-center justify-between transition">
+              <span class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-cyan-500/20 flex items-center justify-center text-xs">🗜️</span>
+                <span>Retraktor / Qisqich</span>
+              </span>
+              <kbd class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 font-mono">1</kbd>
+            </button>
+
+            <!-- Tool 2: Electrocautery Hook -->
+            <button id="toolHook" class="tool-btn p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold flex items-center justify-between transition">
+              <span class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center text-xs">⚡</span>
+                <span>Elektrokoagulyator (Hook)</span>
+              </span>
+              <kbd class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 font-mono">2</kbd>
+            </button>
+
+            <!-- Tool 3: Clip Applier -->
+            <button id="toolClipper" class="tool-btn p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold flex items-center justify-between transition">
+              <span class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-xs">📎</span>
+                <span>Klipator (Hem-o-lok)</span>
+              </span>
+              <kbd class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 font-mono">3</kbd>
+            </button>
+
+            <!-- Tool 4: Endoscopic Scissors -->
+            <button id="toolScissors" class="tool-btn p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold flex items-center justify-between transition">
+              <span class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-xs">✂️</span>
+                <span>Endoskopik Qaychi</span>
+              </span>
+              <kbd class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 font-mono">4</kbd>
+            </button>
+
+            <!-- Tool 5: Suction / Irrigation -->
+            <button id="toolSuction" class="tool-btn p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold flex items-center justify-between transition">
+              <span class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-blue-500/20 text-blue-300 flex items-center justify-center text-xs">💧</span>
+                <span>So‘rg‘ich (Suction)</span>
+              </span>
+              <kbd class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 font-mono">5</kbd>
+            </button>
+          </div>
+        </div>
+
+        <!-- Procedural Steps Protocol Checklist -->
+        <div class="hud-glass rounded-2xl p-4 space-y-2.5 text-xs">
+          <div class="font-bold text-slate-200 flex items-center justify-between">
+            <span>Bosqichlar Ketma-ketligi</span>
+            <span id="stepProgressBadge" class="font-mono text-cyan-400">0 / 6 Bajarildi</span>
+          </div>
+
+          <div class="space-y-1.5" id="stepsList">
+            <div id="step1Item" class="p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-300 flex items-center gap-2">
+              <span class="step-check text-slate-500">⚪</span>
+              <span>1. Gartman cho‘ntagini tortish (Retraksiya)</span>
+            </div>
+            <div id="step2Item" class="p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-400 flex items-center gap-2">
+              <span class="step-check text-slate-500">⚪</span>
+              <span>2. Kalo uchburchagini tozalash (Disseksiya)</span>
+            </div>
+            <div id="step3Item" class="p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-400 flex items-center gap-2">
+              <span class="step-check text-slate-500">⚪</span>
+              <span>3. CVS ko‘rinishini tasdiqlash (2 ta yo‘l)</span>
+            </div>
+            <div id="step4Item" class="p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-400 flex items-center gap-2">
+              <span class="step-check text-slate-500">⚪</span>
+              <span>4. Arteriya va kistoz yo‘lni kliposlash</span>
+            </div>
+            <div id="step5Item" class="p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-400 flex items-center gap-2">
+              <span class="step-check text-slate-500">⚪</span>
+              <span>5. Strukturani qaychi bilan kesish</span>
+            </div>
+            <div id="step6Item" class="p-2 rounded-lg bg-slate-900/90 border border-slate-800 text-slate-400 flex items-center gap-2">
+              <span class="step-check text-slate-500">⚪</span>
+              <span>6. O‘t pufagini jigar to‘shagidan ajratish</span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- CENTER & RIGHT: 3D WEBGL SURGICAL THEATER & HUD (9 Cols) -->
+      <section class="lg:col-span-9 space-y-4">
+        
+        <!-- Live HUD Telemetry Strip -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <!-- Metric 1: Patient Safety Index -->
+          <div class="hud-glass rounded-2xl p-3.5 flex flex-col justify-between">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Xavfsizlik Indeksi (PSI)</span>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="valPsi" class="text-2xl font-black text-emerald-400 font-mono">100%</span>
+              <span id="psiStatus" class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Optimal</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+              <div id="barPsi" class="bg-emerald-400 h-full transition-all duration-300" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <!-- Metric 2: Blood Loss (ml) -->
+          <div class="hud-glass rounded-2xl p-3.5 flex flex-col justify-between">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Qon Yo‘qotish</span>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="valBloodLoss" class="text-2xl font-black text-rose-400 font-mono">0 <span class="text-xs">ml</span></span>
+              <span class="text-[10px] font-bold text-slate-400">Maks: 200 ml</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
+              <div id="barBloodLoss" class="bg-rose-500 h-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <!-- Metric 3: Heart Rate & ECG -->
+          <div class="hud-glass rounded-2xl p-3.5 flex flex-col justify-between">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Yurak Urib Turishi</span>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="valHeartRate" class="text-2xl font-black text-cyan-300 font-mono">72 <span class="text-xs">bpm</span></span>
+              <span class="text-[10px] text-cyan-400 font-mono flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 pulse-glow"></span> EKG
+              </span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-2">SpO2: <span class="text-white font-bold">99%</span> • Arterial: <span class="text-white font-bold">120/80</span></p>
+          </div>
+
+          <!-- Metric 4: Timer & Instrument Acc -->
+          <div class="hud-glass rounded-2xl p-3.5 flex flex-col justify-between">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Vaqt &amp; Aniqlik</span>
+            <div class="flex items-baseline justify-between mt-1">
+              <span id="valTimer" class="text-2xl font-black text-amber-300 font-mono">00:00</span>
+              <span id="valAccuracy" class="text-[11px] font-mono text-emerald-400">99.4%</span>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-2">Titroq (Tremor): <span class="text-emerald-400 font-mono">0.12 mm</span> (Norma)</p>
+          </div>
+        </div>
+
+        <!-- 3D WEBGL CANVAS STAGE -->
+        <div class="relative hud-glass rounded-3xl overflow-hidden border border-cyan-500/30 shadow-2xl h-[480px] sm:h-[520px]">
+          
+          <!-- WebGL Canvas Anchor -->
+          <div id="threeContainer" class="w-full h-full crosshair-cur relative"></div>
+
+          <!-- Floating Dissection Guidance Overlay (Only in Guided Mode) -->
+          <div id="guidedOverlay" class="absolute top-4 left-4 max-w-sm pointer-events-none hud-glass rounded-2xl p-3 text-xs space-y-1.5 border border-cyan-400/40">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              <span class="font-extrabold text-cyan-300 uppercase tracking-wider text-[10px]">Klinik Ko‘rsatma (SamDTU)</span>
+            </div>
+            <p id="instructionText" class="text-slate-200">
+              <strong>1-qadam:</strong> Gartman cho‘ntagini <strong>Qisqich (1)</strong> yordamida ushlab, yuqoriga va lateral tomonga torting (Retraksiya).
+            </p>
+          </div>
+
+          <!-- Critical Safety Alert Popup (Hidden by default) -->
+          <div id="dangerBanner" class="hidden absolute top-4 right-4 max-w-xs hud-glass-danger rounded-2xl p-3 text-xs space-y-1 border border-rose-500 animate-bounce">
+            <div class="flex items-center gap-1.5 text-rose-400 font-black">
+              <span>⚠️</span>
+              <span>DIQQAT: NOTO‘G‘RI TO‘QIMA!</span>
+            </div>
+            <p id="dangerMsg" class="text-rose-200 text-[11px]">
+              Umumiy o‘t yo‘liga (CBD) teginish qat'iyan man etiladi! Iatrogenik xato xavfi!
+            </p>
+          </div>
+
+          <!-- Interactive 3D Control Bar (Bottom of Viewport) -->
+          <div class="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 pointer-events-auto hud-glass rounded-2xl p-3">
+            <div class="flex items-center gap-2 text-xs">
+              <span class="text-slate-400 font-semibold hidden sm:inline">Faol Asbob:</span>
+              <span id="activeToolName" class="font-extrabold text-cyan-300 px-2.5 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/20 font-mono">
+                🗜️ Qisqich (Retraktor)
+              </span>
+              <span class="text-slate-500">|</span>
+              <span class="text-slate-400 text-[11px]">Sichqoncha bilan anatomiyani bosing va manipulyatsiya qiling</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button id="btnActionExecute" class="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-cyan-500/25 transition">
+                ⚡ Amaliyotni Bajarish (Harakat)
+              </button>
+              <button id="btnResetSimulation" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white text-xs font-semibold border border-slate-800 transition">
+                🔄 Qayta Boshlash
+              </button>
+            </div>
+          </div>
+
+          <!-- Completion Modal Overlay (Hidden) -->
+          <div id="completionModal" class="hidden absolute inset-0 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-6 z-40">
+            <div class="hud-glass rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center space-y-4 border border-emerald-400/50 shadow-2xl">
+              <div class="w-16 h-16 rounded-3xl bg-emerald-500/20 text-emerald-400 text-3xl flex items-center justify-center mx-auto border border-emerald-500/30">
+                🏆
+              </div>
+              <h2 class="text-2xl font-black text-white">Operatsiya Muvaffaqiyatli Yakunlandi!</h2>
+              <p class="text-xs text-slate-300">
+                Siz Strasberg bo‘yicha barcha xavfsizlik qoidalariga (CVS) 100% amal qilgan holda laparoskopik xolesistektomiyani bajardingiz.
+              </p>
+
+              <div class="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-slate-900 border border-slate-800 text-xs">
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Yakuniy PSI</span>
+                  <span id="finalPsi" class="text-lg font-black text-emerald-400 font-mono">98%</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Qon Yo‘qotish</span>
+                  <span id="finalBlood" class="text-lg font-black text-cyan-300 font-mono">15 ml</span>
+                </div>
+                <div>
+                  <span class="text-slate-400 block text-[10px]">Bajarish Vaqti</span>
+                  <span id="finalTime" class="text-lg font-black text-amber-300 font-mono">03:42</span>
+                </div>
+              </div>
+
+              <!-- Accreditation Download Button -->
+              <div class="pt-2 flex flex-col gap-2">
+                <button id="btnGenerateCert" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/25 transition">
+                  🎓 SamDTU CME Akkreditatsiya Sertifikatini Chiqarish
+                </button>
+                <button onclick="document.getElementById('completionModal').classList.add('hidden')" class="w-full py-2 rounded-xl bg-slate-900 text-slate-400 hover:text-white text-xs font-semibold">
+                  Yopish
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- SECTION: INSTITUTIONAL ROI & HEALTH ECONOMICS CALCULATOR -->
+    <section id="economicsCalculator" class="hud-glass rounded-3xl p-6 sm:p-8 space-y-6 border border-cyan-500/30">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-extrabold uppercase border border-cyan-500/20">
+            Sog‘liqni Saqlash Menejmenti &amp; Tibbiyot Iqtisodiyoti
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white mt-1">
+            SamDTU &amp; Tibbiyot Oliy O‘quv Yurtlari Uchun Institutsional Iqtisodiy Samaradorlik (ROI)
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            J. Shukurov ilmiy maqolasi asosida: An'anaviy kadavrik laboratoriyalar (OPEX) va "EpiVision XR" platformasi xarajatlar tahlili.
+          </p>
+        </div>
+        <div class="text-right shrink-0">
+          <span class="text-xs text-slate-400 block">Kafolatlangan Tejamkorlik</span>
+          <span id="statSavingsPct" class="text-3xl font-black text-emerald-400 font-mono">90.0%</span>
+        </div>
+      </div>
+
+      <!-- Controls & Dynamic Result Matrix -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Interactive Sliders (5 Cols) -->
+        <div class="lg:col-span-5 space-y-5">
+          <!-- Slider 1: Students count -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-bold">
+              <span class="text-slate-300">Yillik Talabalar &amp; Rezidentlar Soni:</span>
+              <span id="lblStudents" class="text-cyan-400 font-mono">600 kishi</span>
+            </div>
+            <input type="range" id="rngStudents" min="100" max="1500" step="50" value="600" class="w-full accent-cyan-400 cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>100 ta</span>
+              <span>800 ta</span>
+              <span>1,500 ta</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Traditional Cadaveric Lab Cost -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-bold">
+              <span class="text-slate-300">An'anaviy Kadavr &amp; Sarflov Xarajati ($/yil):</span>
+              <span id="lblCadaverCost" class="text-rose-400 font-mono">$180,000</span>
+            </div>
+            <input type="range" id="rngCadaverCost" min="50000" max="350000" step="10000" value="180000" class="w-full accent-rose-500 cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>$50,000</span>
+              <span>$200,000</span>
+              <span>$350,000</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: EpiVision Annual License -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-xs font-bold">
+              <span class="text-slate-300">EpiVision XR Institutsional Litsenziyasi ($/yil):</span>
+              <span id="lblLicenseCost" class="text-emerald-400 font-mono">$18,000</span>
+            </div>
+            <input type="range" id="rngLicenseCost" min="8000" max="40000" step="2000" value="18000" class="w-full accent-emerald-400 cursor-pointer">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>$8,000</span>
+              <span>$25,000</span>
+              <span>$40,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Real-time Calculated Cards (7 Cols) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          
+          <div class="hud-glass rounded-2xl p-4 space-y-1 border-l-4 border-l-emerald-400">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Universitetning Yillik Sof Tejami</span>
+            <div id="resSavingsUsd" class="text-3xl font-black text-emerald-400 font-mono">$162,000</div>
+            <p class="text-xs text-slate-300 mt-1">Har yili qimmatbaho sarflov materiallari va import uskunalari xarajatidan ozod bo‘ladi.</p>
+          </div>
+
+          <div class="hud-glass rounded-2xl p-4 space-y-1 border-l-4 border-l-cyan-400">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">1 Talabaga To‘g‘ri Keluvchi Narx</span>
+            <div class="flex items-baseline gap-2 mt-1">
+              <span id="resCostStudentEpi" class="text-2xl font-black text-cyan-300 font-mono">$30.00</span>
+              <span id="resCostStudentTrad" class="text-xs text-slate-500 line-through font-mono">$5,142</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1">Har bir talaba uchun amaliyot narxi 170 barobarga arzonlashadi.</p>
+          </div>
+
+          <div class="hud-glass rounded-2xl p-4 space-y-1 border-l-4 border-l-indigo-400">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">O‘quv Quvvati Multiplikatori</span>
+            <div id="resThroughput" class="text-3xl font-black text-indigo-300 font-mono">17.1x</div>
+            <p class="text-xs text-slate-300 mt-1">Yiliga 35 talaba o‘rniga 600+ talaba cheksiz marotaba amaliy operatsiya bajara oladi.</p>
+          </div>
+
+          <div class="hud-glass rounded-2xl p-4 space-y-1 border-l-4 border-l-amber-400">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Iatrogenik Asoratlar Kamayishi</span>
+            <div class="text-3xl font-black text-amber-300 font-mono">-42%</div>
+            <p class="text-xs text-slate-300 mt-1">Klinik amaliyotda dastlabki operatsiya xatolarining sezilarli qisqarishi.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION: MEDLOOP AI POST-OPERATIVE CLINICAL TRIAGE ENGINE -->
+    <section id="medloopSection" class="hud-glass rounded-3xl p-6 sm:p-8 space-y-6 border border-blue-500/30">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] font-extrabold uppercase border border-blue-500/20">
+            Launch Lab 21 (Cohort 3) • B2B Triage &amp; Recovery
+          </div>
+          <h2 class="text-xl sm:text-2xl font-black text-white">
+            MedLoop AI: Post-Operatsion Biomarker Tahlili &amp; Qayta Konversiya
+          </h2>
+          <p class="text-xs text-slate-300 max-w-3xl">
+            Javobsiz qo‘ng‘iroqlar va PDF laboratoriya tahlillarini (Gepatik fermentlar, HbA1c, Ferritin) 8 soniyada tor mutaxassis qabuliga aylantiruvchi avtonom B2B mexanizm.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold font-mono">
+            ⚡ 8.0 Sekund AI Triaj
+          </span>
+        </div>
+      </div>
+
+      <!-- MedLoop Interactive Lab & Triage Simulator -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: Case Selector & Biomarker Input (5 Cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Klinik Sinov Keyslari</span>
+            <div class="grid grid-cols-1 gap-2 text-xs">
+              <button id="btnCaseLiver" class="p-3 rounded-xl bg-blue-600/20 border border-blue-500/40 text-white font-bold text-left flex items-center justify-between">
+                <span>1. Xolesistektomiyadan keyingi Gepatik Panel (AST/ALT)</span>
+                <span class="text-[10px] font-mono text-cyan-400">Post-Op</span>
+              </button>
+              <button id="btnCaseDiabetes" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold text-left flex items-center justify-between">
+                <span>2. Qandli Diabet &amp; Glikirlangan Gemoglobin (HbA1c)</span>
+                <span class="text-[10px] font-mono text-amber-400">Endokrin</span>
+              </button>
+              <button id="btnCaseAnemia" class="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold text-left flex items-center justify-between">
+                <span>3. Temir Tanqisligi Kamqonligi (Ferritin &amp; Gemoglobin)</span>
+                <span class="text-[10px] font-mono text-emerald-400">Gematologiya</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Biomarker Form Display -->
+          <div id="biomarkerCard" class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3 text-xs">
+            <div class="flex items-center justify-between font-bold text-slate-200">
+              <span id="bioLabTitle">Gepatik Panel Natijalari (Bemor #4829)</span>
+              <span class="text-[10px] text-slate-500 font-mono">PDF Ekstraksiya</span>
+            </div>
+
+            <div id="bioFieldsList" class="space-y-2">
+              <div class="flex justify-between items-center p-2 rounded-lg bg-slate-950">
+                <span class="text-slate-400">ALT (Alaninaminotransferaza):</span>
+                <span class="font-bold text-rose-400 font-mono">168 U/L (Norma: &lt;45)</span>
+              </div>
+              <div class="flex justify-between items-center p-2 rounded-lg bg-slate-950">
+                <span class="text-slate-400">AST (Aspartataminotransferaza):</span>
+                <span class="font-bold text-rose-400 font-mono">142 U/L (Norma: &lt;40)</span>
+              </div>
+              <div class="flex justify-between items-center p-2 rounded-lg bg-slate-950">
+                <span class="text-slate-400">Umumiy Bilirubin:</span>
+                <span class="font-bold text-amber-300 font-mono">3.4 mg/dL (Norma: 0.2–1.2)</span>
+              </div>
+            </div>
+
+            <button id="btnRunTriage" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold text-xs shadow-lg transition">
+              ⚡ 8-Sekundlik AI Triajni Ishga Tushirish
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: AI Triage Output & Instant CRM Booking (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="hud-glass rounded-2xl p-5 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2">
+                <span id="triageBadgeIcon" class="w-3 h-3 rounded-full bg-rose-500 animate-ping"></span>
+                <span id="triageRiskTier" class="text-sm font-black text-rose-400">QIZIL XAVF DARAJASI (SHOSHILINCH)</span>
+              </div>
+              <span class="text-xs text-slate-400 font-mono">Triaj Xulosasi: #ML-2026-91</span>
+            </div>
+
+            <div class="space-y-2 text-xs text-slate-300">
+              <p id="triageRationale">
+                <strong>Klinik Tahlil:</strong> Post-operatsion davrda ALT (168 U/L) va bilirubin (3.4 mg/dL) ko‘rsatkichlarining yuqoriligi subklinik o‘t dimlanishi yoki o‘t yo‘li mikrotraumasini inkor etishni talab qiladi.
+              </p>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Tavsiya Etilgan Mutaxassis</span>
+                  <span id="triageDoctor" class="text-sm font-bold text-cyan-300">Gepatobiliar Jarroh / Gepatolog</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Tavsiya Etilgan Vaqt</span>
+                  <span id="triageUrgency" class="text-xs font-bold text-rose-400">24 Soat Ichida</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Instant Doctor Slot Booking Flow -->
+            <div class="p-4 rounded-xl bg-gradient-to-br from-slate-900 to-slate-950 border border-cyan-500/30 space-y-3">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-bold text-white">Shifokor Qabuliga Avtomatik Yozish (CRM):</span>
+                <span class="text-[11px] text-emerald-400 font-mono">Bo‘sh vaqt: Bugun, 16:30</span>
+              </div>
+
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="text" id="patientNameInput" value="Azizbek Rahimov (+998 90 123-45-67)" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-2 flex-1 focus:border-cyan-400 outline-none">
+                <button id="btnBookSlot" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-md shadow-emerald-500/20 transition whitespace-nowrap">
+                  ✅ Qabulni Tasdiqlash
+                </button>
+              </div>
+
+              <div id="bookingConfirmation" class="hidden p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] flex items-center gap-2">
+                <span>📩</span>
+                <span>Telegram orqali bemor va shifokorga SMS/Xabarnoma yuborildi. CRM kartasi yaratildi!</span>
+              </div>
+            </div>
+
+            <!-- Clinic Revenue Recovery Indicator -->
+            <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between text-xs">
+              <span class="text-slate-400">Ushbu holatda klinikaga qaytarilgan tushum:</span>
+              <span class="font-bold text-emerald-400 font-mono">+280,000 UZS (Mutaxassis + UTT)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER CREDENTIALS -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-8 text-center text-xs text-slate-500 space-y-2">
+    <div class="flex justify-center items-center space-x-4 text-slate-400 font-semibold">
+      <span>SamSMU (SamDTU) Sog‘liqni Saqlash Boshqaruvi</span>
+      <span>•</span>
+      <span>School 21 (École 42) Level 8 IRBIS</span>
+      <span>•</span>
+      <span>Launch Lab 21 Cohort 3</span>
+    </div>
+    <p>© 2026 Jasur Shukurov (@jasurceo). Barcha huquqlar himoyalangan.</p>
+  </footer>
+
+  <!-- CORE THREE.JS & SIMULATION ENGINE JAVASCRIPT -->
+  <script>
+    // --- STATE MACHINE ---
+    const SimState = {
+      scenario: 1, // 1: Cholecystectomy, 2: Trauma, 3: Suturing
+      isExamMode: false,
+      activeTool: 1, // 1: Grasper, 2: Hook, 3: Clipper, 4: Scissors, 5: Suction
+      psi: 100.0,
+      bloodLoss: 0,
+      step: 0,
+      seconds: 0,
+      timerActive: false,
+      audioEnabled: true,
+      audioCtx: null,
+      cvsConfirmed: false,
+      clippedArtery: false,
+      clippedDuct: false,
+      transectedArtery: false,
+      transectedDuct: false,
+      gallbladderMobilized: false
+    };
+
+    // --- SOUND EFFECTS (Web Audio API Synthesizer) ---
+    function initAudio() {
+      if (!SimState.audioCtx) {
+        SimState.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (SimState.audioCtx.state === 'suspended') {
+        SimState.audioCtx.resume();
+      }
+    }
+
+    function playBeep(freq = 880, duration = 0.08, type = 'sine') {
+      if (!SimState.audioEnabled || !SimState.audioCtx) return;
+      try {
+        const osc = SimState.audioCtx.createOscillator();
+        const gain = SimState.audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, SimState.audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, SimState.audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, SimState.audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(SimState.audioCtx.destination);
+        osc.start();
+        osc.stop(SimState.audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playCauteryBuzz() {
+      if (!SimState.audioEnabled || !SimState.audioCtx) return;
+      try {
+        const osc = SimState.audioCtx.createOscillator();
+        const gain = SimState.audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, SimState.audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.12, SimState.audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, SimState.audioCtx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(SimState.audioCtx.destination);
+        osc.start();
+        osc.stop(SimState.audioCtx.currentTime + 0.35);
+      } catch (e) {}
+    }
+
+    function playClipSnap() {
+      playBeep(1800, 0.05, 'triangle');
+      setTimeout(() => playBeep(2400, 0.04, 'triangle'), 60);
+    }
+
+    function playAlarm() {
+      playBeep(440, 0.2, 'square');
+      setTimeout(() => playBeep(440, 0.2, 'square'), 300);
+    }
+
+    // --- THREE.JS 3D SCENE INITIALIZATION ---
+    let scene, camera, renderer, organGroup, liverMesh, gallbladderMesh, cysticArtery, cysticDuct, commonBileDuct;
+    let bloodParticles = [];
+    let toolModel;
+
+    function init3D() {
+      const container = document.getElementById('threeContainer');
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x070b14);
+      scene.fog = new THREE.FogExp2(0x070b14, 0.04);
+
+      camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+      camera.position.set(0, 1.2, 4.5);
+      camera.lookAt(0, 0, 0);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      scene.add(ambientLight);
+
+      const surgicalLight = new THREE.DirectionalLight(0xdcf8ff, 1.4);
+      surgicalLight.position.set(2, 5, 3);
+      surgicalLight.castShadow = true;
+      scene.add(surgicalLight);
+
+      const rimLight = new THREE.PointLight(0x06b6d4, 1.2, 10);
+      rimLight.position.set(-3, -1, 2);
+      scene.add(rimLight);
+
+      // Create Organ Group
+      organGroup = new THREE.Group();
+      scene.add(organGroup);
+
+      // 1. Liver Bed (Anatomical liver lobe background)
+      const liverGeo = new THREE.CylinderGeometry(2.4, 2.8, 1.2, 32);
+      const liverMat = new THREE.MeshStandardMaterial({
+        color: 0x5a1818, // Deep visceral burgundy
+        roughness: 0.35,
+        metalness: 0.15,
+        wireframe: false
+      });
+      liverMesh = new THREE.Mesh(liverGeo, liverMat);
+      liverMesh.rotation.x = Math.PI / 3;
+      liverMesh.rotation.z = -0.2;
+      liverMesh.position.set(0.2, 0.8, -0.6);
+      organGroup.add(liverMesh);
+
+      // 2. Gallbladder (Vesica Biliaris) - Pear shaped mesh
+      const gbGeo = new THREE.SphereGeometry(0.75, 32, 24);
+      // Deform sphere to pear shape
+      const pos = gbGeo.attributes.position;
+      for (let i = 0; i < pos.count; i++) {
+        let y = pos.getY(i);
+        let scale = 1.0 + (y * 0.35);
+        pos.setX(i, pos.getX(i) * scale);
+        pos.setZ(i, pos.getZ(i) * scale);
+      }
+      gbGeo.computeVertexNormals();
+
+      const gbMat = new THREE.MeshStandardMaterial({
+        color: 0x2e6f40, // Olive bile green
+        roughness: 0.25,
+        metalness: 0.2,
+        roughnessMap: null
+      });
+      gallbladderMesh = new THREE.Mesh(gbGeo, gbMat);
+      gallbladderMesh.position.set(-0.2, 0.1, 0.2);
+      gallbladderMesh.scale.set(0.75, 1.2, 0.75);
+      gallbladderMesh.rotation.z = -0.35;
+      organGroup.add(gallbladderMesh);
+
+      // 3. Cystic Duct (Connecting gallbladder to CBD)
+      const cdGeo = new THREE.CylinderGeometry(0.08, 0.09, 1.2, 16);
+      const cdMat = new THREE.MeshStandardMaterial({
+        color: 0x3d7a46,
+        roughness: 0.4
+      });
+      cysticDuct = new THREE.Mesh(cdGeo, cdMat);
+      cysticDuct.position.set(0.4, -0.7, 0.1);
+      cysticDuct.rotation.z = 1.0;
+      organGroup.add(cysticDuct);
+
+      // 4. Common Bile Duct (CBD - Dangerous landmark!)
+      const cbdGeo = new THREE.CylinderGeometry(0.12, 0.12, 2.2, 16);
+      const cbdMat = new THREE.MeshStandardMaterial({
+        color: 0x23522a,
+        roughness: 0.4
+      });
+      commonBileDuct = new THREE.Mesh(cbdGeo, cbdMat);
+      commonBileDuct.position.set(0.9, -0.9, 0.0);
+      commonBileDuct.rotation.z = 0.3;
+      organGroup.add(commonBileDuct);
+
+      // 5. Cystic Artery (Pulsatile crimson vessel)
+      const caGeo = new THREE.CylinderGeometry(0.05, 0.05, 0.9, 16);
+      const caMat = new THREE.MeshStandardMaterial({
+        color: 0xcc1122,
+        roughness: 0.2,
+        emissive: 0x440000
+      });
+      cysticArtery = new THREE.Mesh(caGeo, caMat);
+      cysticArtery.position.set(0.2, -0.3, 0.2);
+      cysticArtery.rotation.z = 1.15;
+      organGroup.add(cysticArtery);
+
+      // 6. Calot's Triangle Peritoneal Membrane (Dissection layer)
+      const calotGeo = new THREE.PlaneGeometry(0.9, 0.9);
+      const calotMat = new THREE.MeshStandardMaterial({
+        color: 0xfef08a,
+        transparent: true,
+        opacity: 0.45,
+        side: THREE.DoubleSide
+      });
+      const calotMembrane = new THREE.Mesh(calotGeo, calotMat);
+      calotMembrane.position.set(0.35, -0.45, 0.15);
+      calotMembrane.name = "calotMembrane";
+      organGroup.add(calotMembrane);
+
+      // 7. Virtual Surgical Tool Cursor Model
+      const toolGeo = new THREE.CylinderGeometry(0.03, 0.04, 1.8, 12);
+      const toolMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.8, roughness: 0.2 });
+      toolModel = new THREE.Mesh(toolGeo, toolMat);
+      toolModel.position.set(1.5, 0.5, 1.5);
+      toolModel.rotation.z = -Math.PI / 4;
+      scene.add(toolModel);
+
+      // Mouse interactive movement
+      container.addEventListener('mousemove', onMouseMove);
+      container.addEventListener('click', onCanvasClick);
+      window.addEventListener('resize', onWindowResize);
+
+      // Start loop
+      animate();
+    }
+
+    let mouseX = 0, mouseY = 0;
+    function onMouseMove(e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      mouseX = x;
+      mouseY = y;
+
+      if (toolModel) {
+        toolModel.position.x = x * 2.0;
+        toolModel.position.y = y * 1.5;
+        toolModel.position.z = 1.0;
+      }
+    }
+
+    function onCanvasClick(e) {
+      initAudio();
+      executeCurrentStep();
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('threeContainer');
+      if (!container || !renderer) return;
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    // --- ANIMATION LOOP ---
+    let clock = new THREE.Clock();
+    let heartTimer = 0;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
+      const time = clock.getElapsedTime();
+
+      // Organ subtle visceral breathing motion
+      if (organGroup) {
+        organGroup.position.y = Math.sin(time * 1.5) * 0.04;
+        organGroup.rotation.y = Math.sin(time * 0.5) * 0.05;
+      }
+
+      // Cystic Artery pulsatile heartbeat effect
+      if (cysticArtery && !SimState.clippedArtery) {
+        const pulse = 1.0 + Math.sin(time * 7.5) * 0.12;
+        cysticArtery.scale.set(pulse, 1.0, pulse);
+      }
+
+      // Periodic EKG sound
+      heartTimer += delta;
+      if (heartTimer > 0.85) {
+        heartTimer = 0;
+        playBeep(980, 0.06);
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    // --- STEP-BY-STEP SURGICAL STATE LOGIC ---
+    const stepInstructionsUz = [
+      "1-qadam: Gartman cho‘ntagini Qisqich (1) yordamida ushlab, yuqoriga va lateral tomonga torting (Retraksiya).",
+      "2-qadam: Elektrokoagulyator (2) yordamida Kalo uchburchagidagi yog‘ va parda to‘qimasini ehtiyotkorlik bilan ajrating.",
+      "3-qadam: CVS (Critical View of Safety) ko‘rinishini tasdiqlang: Faqat 2 ta struktura (kistoz arteriya va kistoz yo‘l) ko‘rinishi shart!",
+      "4-qadam: Klipator (3) yordamida kistoz arteriya va kistoz yo‘lga proksimal va distal kliplarni qo‘ying.",
+      "5-qadam: Endoskopik qaychi (4) yordamida ikkita klip oralig‘ini kesing (Transektsiya).",
+      "6-qadam: Elektrokoagulyator bilan o‘t pufagini jigar to‘shagidan to‘liq ajrating va gemostazni tekshiring."
+    ];
+
+    function executeCurrentStep() {
+      if (SimState.step >= 6) return;
+
+      if (!SimState.timerActive) {
+        startTimer();
+      }
+
+      if (SimState.step === 0) {
+        // Step 1: Retraction
+        SimState.step = 1;
+        playClipSnap();
+        if (gallbladderMesh) {
+          gallbladderMesh.position.y += 0.25;
+          gallbladderMesh.rotation.z = -0.55;
+        }
+        updateInstruction();
+        markStepDone(1);
+      } 
+      else if (SimState.step === 1) {
+        // Step 2: Calot Dissection
+        SimState.step = 2;
+        playCauteryBuzz();
+        const calot = organGroup.getObjectByName("calotMembrane");
+        if (calot) {
+          calot.material.opacity = 0.08;
+        }
+        updateInstruction();
+        markStepDone(2);
+      } 
+      else if (SimState.step === 2) {
+        // Step 3: CVS Confirmation
+        SimState.step = 3;
+        SimState.cvsConfirmed = true;
+        playBeep(1200, 0.15);
+        confetti({ particleCount: 35, spread: 50, origin: { y: 0.6 } });
+        updateInstruction();
+        markStepDone(3);
+      } 
+      else if (SimState.step === 3) {
+        // Step 4: Clipping
+        SimState.step = 4;
+        SimState.clippedArtery = true;
+        SimState.clippedDuct = true;
+        playClipSnap();
+        setTimeout(playClipSnap, 150);
+
+        // Turn structures metallic clipped color
+        if (cysticArtery) cysticArtery.material.color.setHex(0x94a3b8);
+        if (cysticDuct) cysticDuct.material.color.setHex(0x94a3b8);
+
+        updateInstruction();
+        markStepDone(4);
+      } 
+      else if (SimState.step === 4) {
+        // Step 5: Transection
+        SimState.step = 5;
+        SimState.transectedArtery = true;
+        SimState.transectedDuct = true;
+        playClipSnap();
+
+        if (cysticArtery) cysticArtery.scale.set(0.4, 0.4, 0.4);
+        if (cysticDuct) cysticDuct.scale.set(0.4, 0.4, 0.4);
+
+        updateInstruction();
+        markStepDone(5);
+      } 
+      else if (SimState.step === 5) {
+        // Step 6: Gallbladder Freeing
+        SimState.step = 6;
+        SimState.gallbladderMobilized = true;
+        playCauteryBuzz();
+
+        if (gallbladderMesh) {
+          gallbladderMesh.position.y += 0.6;
+          gallbladderMesh.position.x += 0.3;
+        }
+
+        markStepDone(6);
+        completeSimulation();
+      }
+
+      updateTelemetry();
+    }
+
+    function markStepDone(idx) {
+      const item = document.getElementById(`step${idx}Item`);
+      if (item) {
+        item.classList.remove('text-slate-400');
+        item.classList.add('text-emerald-300', 'bg-emerald-500/10', 'border-emerald-500/30');
+        const check = item.querySelector('.step-check');
+        if (check) check.textContent = '✅';
+      }
+      document.getElementById('stepProgressBadge').textContent = `${SimState.step} / 6 Bajarildi`;
+    }
+
+    function updateInstruction() {
+      if (SimState.step < 6) {
+        document.getElementById('instructionText').innerHTML = stepInstructionsUz[SimState.step];
+      }
+    }
+
+    function updateTelemetry() {
+      // PSI calculation
+      const psiVal = Math.max(90, 100 - (SimState.bloodLoss * 0.15));
+      document.getElementById('valPsi').textContent = `${Math.round(psiVal)}%`;
+      document.getElementById('barPsi').style.width = `${psiVal}%`;
+      document.getElementById('valBloodLoss').innerHTML = `${SimState.bloodLoss} <span class="text-xs">ml</span>`;
+      document.getElementById('barBloodLoss').style.width = `${Math.min(100, (SimState.bloodLoss / 200) * 100)}%`;
+    }
+
+    function completeSimulation() {
+      clearInterval(timerInterval);
+      playBeep(1046, 0.2);
+      setTimeout(() => playBeep(1318, 0.25), 180);
+      setTimeout(() => playBeep(1567, 0.35), 360);
+
+      confetti({ particleCount: 120, spread: 80, origin: { y: 0.5 } });
+
+      document.getElementById('finalPsi').textContent = document.getElementById('valPsi').textContent;
+      document.getElementById('finalBlood').textContent = `${SimState.bloodLoss} ml`;
+      document.getElementById('finalTime').textContent = document.getElementById('valTimer').textContent;
+      document.getElementById('completionModal').classList.remove('hidden');
+    }
+
+    // --- TIMER SYSTEM ---
+    let timerInterval = null;
+    function startTimer() {
+      SimState.timerActive = true;
+      timerInterval = setInterval(() => {
+        SimState.seconds++;
+        const mins = String(Math.floor(SimState.seconds / 60)).padStart(2, '0');
+        const secs = String(SimState.seconds % 60).padStart(2, '0');
+        document.getElementById('valTimer').textContent = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    // --- TOOL SELECTION HANDLERS ---
+    const toolButtons = [
+      { id: 'toolGrasper', name: '🗜️ Qisqich (Retraktor)', num: 1 },
+      { id: 'toolHook', name: '⚡ Elektrokoagulyator (Hook)', num: 2 },
+      { id: 'toolClipper', name: '📎 Klipator (Hem-o-lok)', num: 3 },
+      { id: 'toolScissors', name: '✂️ Endoskopik Qaychi', num: 4 },
+      { id: 'toolSuction', name: '💧 So‘rg‘ich (Suction)', num: 5 },
+    ];
+
+    toolButtons.forEach(tb => {
+      document.getElementById(tb.id).addEventListener('click', () => {
+        initAudio();
+        SimState.activeTool = tb.num;
+        document.querySelectorAll('.tool-btn').forEach(b => {
+          b.className = 'tool-btn p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-semibold flex items-center justify-between transition';
+        });
+        const activeBtn = document.getElementById(tb.id);
+        activeBtn.className = 'tool-btn p-2.5 rounded-xl bg-cyan-500/20 border border-cyan-400 text-cyan-200 font-bold flex items-center justify-between transition';
+        document.getElementById('activeToolName').textContent = tb.name;
+        playBeep(600, 0.04);
+      });
+    });
+
+    // Keyboard Shortcuts [1 - 5]
+    window.addEventListener('keydown', (e) => {
+      const k = parseInt(e.key);
+      if (k >= 1 && k <= 5) {
+        toolButtons[k - 1] && document.getElementById(toolButtons[k - 1].id).click();
+      }
+    });
+
+    // Button Execute & Reset
+    document.getElementById('btnActionExecute').addEventListener('click', () => {
+      initAudio();
+      executeCurrentStep();
+    });
+
+    document.getElementById('btnResetSimulation').addEventListener('click', () => {
+      location.reload();
+    });
+
+    // Toggle Audio
+    document.getElementById('btnAudioToggle').addEventListener('click', () => {
+      SimState.audioEnabled = !SimState.audioEnabled;
+      document.getElementById('audioIcon').textContent = SimState.audioEnabled ? '🔊' : '🔇';
+      document.getElementById('audioLabel').textContent = SimState.audioEnabled ? 'EKG Ovoz: ON' : 'EKG Ovoz: OFF';
+    });
+
+    // Toggle Mode (Guided vs Exam)
+    document.getElementById('btnToggleMode').addEventListener('click', () => {
+      SimState.isExamMode = !SimState.isExamMode;
+      const lbl = document.getElementById('modeLabel');
+      const guided = document.getElementById('guidedOverlay');
+      if (SimState.isExamMode) {
+        lbl.textContent = 'Imtihon Rejimi (Exam - Hints OFF)';
+        guided.classList.add('hidden');
+      } else {
+        lbl.textContent = 'O‘quv Rejimi (Guided)';
+        guided.classList.remove('hidden');
+      }
+    });
+
+    // Accreditation Certificate Download
+    document.getElementById('btnGenerateCert').addEventListener('click', () => {
+      const student = prompt("Sertifikat uchun talaba F.I.Sh ni kiriting:", "Shukurov Jasur Otabek o‘g‘li") || "Jasur Shukurov";
+      const certHtml = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>SamDTU EpiVision XR Sertifikati - ${student}</title>
+          <script src="https://cdn.tailwindcss.com"><\/script>
+        </head>
+        <body class="bg-slate-900 text-slate-100 p-8 flex items-center justify-center min-h-screen">
+          <div class="bg-white text-slate-950 p-10 rounded-3xl max-w-2xl w-full border-8 border-cyan-600 space-y-6 shadow-2xl text-center">
+            <div class="text-xs font-black tracking-widest uppercase text-cyan-700">Samarqand Davlat Tibbiyot Universiteti</div>
+            <h1 class="text-3xl font-black">XALQARO JARROHLIK AKKREDITATSIYASI</h1>
+            <p class="text-sm text-slate-600">Ushbu sertifikat tasdiqlaydiki,</p>
+            <div class="text-2xl font-black text-cyan-900 border-b-2 border-slate-300 pb-2">${student}</div>
+            <p class="text-sm text-slate-700 leading-relaxed">
+              <strong>EpiVision XR</strong> simulyatsiya platformasida <strong>Laparoskopik Xolesistektomiya (CVS Strasberg)</strong> operatsiyasini <strong>98% Xavfsizlik Indeksi</strong> bilan a'lo darajada bajardi.
+            </p>
+            <div class="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-slate-200">
+              <div>
+                <span class="block text-slate-500">Akkreditatsiya Kuni:</span>
+                <span class="font-bold">2026-yil, Oktyabr</span>
+              </div>
+              <div>
+                <span class="block text-slate-500">QR Verifikatsiya:</span>
+                <span class="font-bold font-mono text-cyan-700">#EPI-XR-SAMDTU-2026-99</span>
+              </div>
+            </div>
+            <button onclick="window.print()" class="mt-4 px-6 py-2 bg-cyan-600 text-white rounded-xl text-xs font-bold no-print">Chop etish (Print / PDF)</button>
+          </div>
+        </body>
+        </html>
+      `;
+      const w = window.open('', '_blank');
+      w.document.write(certHtml);
+      w.document.close();
+    });
+
+    // --- INSTITUTIONAL HEALTH ECONOMICS CALCULATOR ---
+    const rngStudents = document.getElementById('rngStudents');
+    const rngCadaverCost = document.getElementById('rngCadaverCost');
+    const rngLicenseCost = document.getElementById('rngLicenseCost');
+
+    function calculateEconomics() {
+      const students = parseInt(rngStudents.value);
+      const cadaver = parseInt(rngCadaverCost.value);
+      const license = parseInt(rngLicenseCost.value);
+
+      document.getElementById('lblStudents').textContent = `${students} kishi`;
+      document.getElementById('lblCadaverCost').textContent = `$${cadaver.toLocaleString()}`;
+      document.getElementById('lblLicenseCost').textContent = `$${license.toLocaleString()}`;
+
+      const savings = cadaver - license;
+      const savingsPct = ((savings / cadaver) * 100).toFixed(1);
+      const costPerStudentEpi = (license / students).toFixed(2);
+      const costPerStudentTrad = (cadaver / 35).toFixed(0);
+      const throughput = (students / 35).toFixed(1);
+
+      document.getElementById('resSavingsUsd').textContent = `$${savings.toLocaleString()}`;
+      document.getElementById('statSavingsPct').textContent = `${savingsPct}%`;
+      document.getElementById('resCostStudentEpi').textContent = `$${costPerStudentEpi}`;
+      document.getElementById('resCostStudentTrad').textContent = `$${parseInt(costPerStudentTrad).toLocaleString()}`;
+      document.getElementById('resThroughput').textContent = `${throughput}x`;
+    }
+
+    [rngStudents, rngCadaverCost, rngLicenseCost].forEach(el => el.addEventListener('input', calculateEconomics));
+    calculateEconomics();
+
+    // --- MEDLOOP AI TRIAGE SIMULATOR ---
+    const cases = {
+      liver: {
+        title: "Gepatik Panel Natijalari (Bemor #4829)",
+        fields: [
+          { name: "ALT (Alaninaminotransferaza):", val: "168 U/L (Norma: <45)", color: "text-rose-400" },
+          { name: "AST (Aspartataminotransferaza):", val: "142 U/L (Norma: <40)", color: "text-rose-400" },
+          { name: "Umumiy Bilirubin:", val: "3.4 mg/dL (Norma: 0.2–1.2)", color: "text-amber-300" }
+        ],
+        tierText: "QIZIL XAVF DARAJASI (SHOSHILINCH)",
+        tierClass: "text-rose-400",
+        rationale: "Post-operatsion davrda ALT (168 U/L) va bilirubin (3.4 mg/dL) ko‘rsatkichlarining yuqoriligi subklinik o‘t dimlanishi yoki o‘t yo‘li mikrotraumasini inkor etishni talab qiladi.",
+        doc: "Gepatobiliar Jarroh / Gepatolog",
+        urgency: "24 Soat Ichida"
+      },
+      diabetes: {
+        title: "Diabetik Panel (Bemor #3104)",
+        fields: [
+          { name: "HbA1c (Glikirlangan Gemoglobin):", val: "10.4% (Norma: <5.7%)", color: "text-rose-400" },
+          { name: "Och Qoringa Glyukoza:", val: "284 mg/dL (Norma: 70–100)", color: "text-rose-400" },
+          { name: "Ketofaza Siydikda:", val: "Musbat (+)", color: "text-amber-300" }
+        ],
+        tierText: "QIZIL XAVF (DEKOMPENSATSIYA)",
+        tierClass: "text-rose-400",
+        rationale: "HbA1c 10.4% va qand 284 mg/dL gemodinamik beqarorlik va ketoatsidoz xavfini ko‘rsatadi. Insulin terapiyasini darhol qayta ko‘rib chiqish lozim.",
+        doc: "Yetakchi Endokrinolog",
+        urgency: "Zudlik Bilan"
+      },
+      anemia: {
+        title: "Gematologik Panel (Bemor #5921)",
+        fields: [
+          { name: "Zardob Ferritini:", val: "6.2 ng/mL (Norma: 20–200)", color: "text-amber-400" },
+          { name: "Gemoglobin (Hb):", val: "94 g/L (Norma: 120–150)", color: "text-amber-400" },
+          { name: "MCV (Eritrotsit hajmi):", val: "71 fL (Norma: 80–96)", color: "text-slate-300" }
+        ],
+        tierText: "SARIQ XAVF DARAJASI (O‘RTACHA)",
+        tierClass: "text-amber-400",
+        rationale: "Mikrotsitar gipoxrom kamqonlik. Parenteral temir preparatlarini buyurish va oshqozon-ichak trakti qon ketish manbasini tekshirish tavsiya etiladi.",
+        doc: "Gematolog / Terapevt",
+        urgency: "48 Soat Ichida"
+      }
+    };
+
+    function loadMedLoopCase(c) {
+      document.getElementById('bioLabTitle').textContent = c.title;
+      const container = document.getElementById('bioFieldsList');
+      container.innerHTML = '';
+      c.fields.forEach(f => {
+        container.innerHTML += `
+          <div class="flex justify-between items-center p-2 rounded-lg bg-slate-950">
+            <span class="text-slate-400">${f.name}</span>
+            <span class="font-bold ${f.color} font-mono">${f.val}</span>
+          </div>
+        `;
+      });
+      document.getElementById('triageRiskTier').textContent = c.tierText;
+      document.getElementById('triageRiskTier').className = `text-sm font-black ${c.tierClass}`;
+      document.getElementById('triageRationale').innerHTML = `<strong>Klinik Tahlil:</strong> ${c.rationale}`;
+      document.getElementById('triageDoctor').textContent = c.doc;
+      document.getElementById('triageUrgency').textContent = c.urgency;
+      document.getElementById('bookingConfirmation').classList.add('hidden');
+    }
+
+    document.getElementById('btnCaseLiver').addEventListener('click', () => loadMedLoopCase(cases.liver));
+    document.getElementById('btnCaseDiabetes').addEventListener('click', () => loadMedLoopCase(cases.diabetes));
+    document.getElementById('btnCaseAnemia').addEventListener('click', () => loadMedLoopCase(cases.anemia));
+
+    document.getElementById('btnRunTriage').addEventListener('click', () => {
+      initAudio();
+      playBeep(880, 0.1);
+      setTimeout(() => playBeep(1320, 0.15), 120);
+      confetti({ particleCount: 40, spread: 45, origin: { y: 0.8 } });
+    });
+
+    document.getElementById('btnBookSlot').addEventListener('click', () => {
+      initAudio();
+      playBeep(1046, 0.15);
+      document.getElementById('bookingConfirmation').classList.remove('hidden');
+    });
+
+    // Start 3D Engine on DOM Loaded
+    window.addEventListener('DOMContentLoaded', () => {
+      init3D();
+    });
+  </script>
+</body>
+</html>

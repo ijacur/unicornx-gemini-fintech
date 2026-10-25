@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech Engine • So‘zlashga Tayyor Reading Skript Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #070b14; color: #f8fafc; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(14px); border: 1px solid rgba(56, 189, 248, 0.2); }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
+
+  <div class="max-w-4xl mx-auto w-full space-y-6">
+    <!-- Header -->
+    <header class="glass rounded-3xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-l-4 border-l-cyan-400">
+      <div>
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 text-[10px] font-bold uppercase tracking-wider">
+          Launch Lab 21 &bull; Inkubator Modul 01-06
+        </div>
+        <h1 class="text-xl sm:text-2xl font-black text-white mt-1">
+          So‘zlashga Tayyor Reading Matn Generatori
+        </h1>
+        <p class="text-xs text-slate-400 mt-0.5">
+          Quruq umumiy gaplarsiz (No Fluff), 100% aniq ssenariy va mahsulot metrikalariga asoslangan professional nutq skripti.
+        </p>
+      </div>
+      <a href="../index.html" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 font-bold transition">
+        Ekotizimga Qaytish &rarr;
+      </a>
+    </header>
+
+    <!-- Controls -->
+    <section class="glass rounded-3xl p-6 space-y-5">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <!-- Preset Choice -->
+        <div class="space-y-1.5">
+          <label class="font-bold text-slate-300">Tayyor Loyiha Shabloni:</label>
+          <select id="presetSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white font-medium outline-none focus:border-cyan-400">
+            <option value="medloop">MedLoop AI (B2B Triaj &amp; Qayta Konversiya)</option>
+            <option value="epivision">EpiVision XR (3D Jarrohlik Simulyatori)</option>
+            <option value="general">Mening Shaxsiy Mahsulotim (Custom)</option>
+          </select>
+        </div>
+
+        <!-- Focus Mode: Product vs Human -->
+        <div class="space-y-1.5">
+          <label class="font-bold text-slate-300">Fokus Qutbi (Mentor talabi):</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button id="btnFocusProduct" class="py-2.5 px-3 rounded-xl bg-cyan-500 text-slate-950 font-black text-[11px] transition">
+              📦 MAHSULOT (100%)
+            </button>
+            <button id="btnFocusHuman" class="py-2.5 px-3 rounded-xl bg-slate-900 text-slate-400 border border-slate-800 font-bold text-[11px] hover:text-white transition">
+              👤 ODAM &bull; JAMOAS
+            </button>
+          </div>
+        </div>
+
+        <!-- Duration -->
+        <div class="space-y-1.5">
+          <label class="font-bold text-slate-300">Xronometraj (Davomiyligi):</label>
+          <select id="durationSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white font-medium outline-none focus:border-cyan-400">
+            <option value="30">30 soniya (Elevator Pitch)</option>
+            <option value="60" selected>60 soniya (Standart 1-Daqiqa)</option>
+            <option value="90">90 soniya (Chuqur Prezentatsiya)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button id="btnGenerate" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-sm shadow-lg shadow-cyan-500/25 transition flex items-center justify-center gap-2">
+        <span>⚡</span>
+        <span>Aniq Ssenariyli Reading Matnini Yaratish</span>
+      </button>
+    </section>
+
+    <!-- Output Teleprompter Card -->
+    <section class="glass rounded-3xl p-6 sm:p-8 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-xs font-black uppercase tracking-wider text-emerald-400">So‘zlashga Tayyor Fonetik Skript</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btnCopy" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-cyan-300 transition">
+            📋 Nusxa Olish
+          </button>
+          <button id="btnTeleprompter" class="px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-xs font-bold text-cyan-300 transition">
+            👁️ Teleprompter Rejimi
+          </button>
+        </div>
+      </div>
+
+      <!-- Script Box -->
+      <div id="scriptContent" class="bg-slate-950/90 rounded-2xl p-5 sm:p-6 border border-slate-800 text-slate-100 text-base sm:text-lg leading-relaxed space-y-4">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Phonetic & Delivery Advice -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Xronometraj:</span>
+          <span id="metaTime" class="font-bold text-cyan-400 font-mono">60 soniya (~125 so‘z)</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Sur'at &amp; Ohang:</span>
+          <span id="metaPace" class="font-bold text-emerald-400">Vazmin, qat'iy, ishonchli</span>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Asosiy Fokus:</span>
+          <span id="metaFocus" class="font-bold text-amber-300">100% Mahsulot Metrikalari</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASTER PROMPT FOR COPYING (Prompt Engineering Vault) -->
+    <section class="glass rounded-3xl p-6 space-y-3">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">AI (Gemini / Claude / GPT) uchun Master Prompt</span>
+        <button id="btnCopyPrompt" class="text-xs text-cyan-400 hover:underline font-bold">Promptdan Nusxa Olish</button>
+      </div>
+      <pre id="rawPromptText" class="p-4 rounded-xl bg-slate-950 text-slate-400 text-xs font-mono overflow-x-auto whitespace-pre-wrap border border-slate-800">
+Sen — Kremniy Vodiysi va Y-Combinator darajasidagi pitch-doktor hamda radio-skript murabbiyisan.
+MENGA SO‘ZLASHGA TAYYOR (READING READY) NUTQ MATNI KERAK.
+
+QAT'IY QOIDALAR (Mentor talabi):
+1. ZERO FLUFF: Hech qanday "kelajak", "zamonaviy dunyoda", "hamma biladiki", "eng zo‘r platforma" degan quruq umumiy gaplar bo‘lmasin.
+2. ANIQ FORMULA: Boshida aniq og‘riqli raqam &rarr; 1 jumlada yechim &rarr; mahsulot qanday ishlashi (aniq ssenariy) &rarr; aniq iqtisodiy foyda.
+3. FOKUS: 100% MAHSULOTDA (Yoki ODAMDA).
+4. FONETIK BELGILAR: Har bir nafas olish o‘rniga `[pauza - 1s]` qo‘y, ovoz kuchaytiriladigan so‘zlarni **qalin** qil. Jumlalar 12 so‘zdan oshmasin.
+      </pre>
+    </section>
+  </div>
+
+  <script>
+    let currentFocus = 'product'; // 'product' or 'human'
+
+    const scripts = {
+      medloop: {
+        product: {
+          30: `O‘zbekistondagi xususiy klinikalarning har oy **32 foiz qo‘ng‘iroqlari** javobsiz qoladi \`[pauza - 1s]\`. 
+Yana **45 foiz bemorlar** laboratoriya tahlilini topshirgach, qaytib shifokorga kirmaydi \`[pauza - 0.5s]\`. 
+Bu — har bir klinika uchun oyiga **75 million so‘mlik sof yo‘qotish**.
+
+**MedLoop AI** — ushbu oqimni ushlab qoladi. 
+Biz laboratoriya PDF natijasini **8 soniyada** tahlil qilib \`[pauza - 0.5s]\`, xavf darajasini belgilaymiz va bemorni to‘g‘ridan-to‘g‘ri kerakli tor mutaxassis qabuliga qayta yozamiz. 
+
+Natija: Har bir hamkor klinika birinchi oydanoq **38 foiz yo‘qotilgan tushumni** qaytarib oladi.`,
+          60: `O‘zbekistonda xususiy klinikaga pul to‘layotgan bemorlarning **yarmi yo‘lda yo‘qoladi** \`[pauza - 1s]\`. 
+Registratura band, qo‘ng‘iroqlar ko‘p. Bemor qon topshiradi, qog‘ozini oladi va uyiga ketadi. Shifokor qabuli esa bo‘sh qoladi.
+
+Bu — har bir o‘rtacha klinika uchun oyiga **kamida 6 ming dollar yo‘qotilgan tushum** degani \`[pauza - 1s]\`.
+
+Biz **MedLoop AI** platformasini aynan shu muammoga mixladik.
+Mahsulot qanday ishlaydi? 
+Bemor tahlil natijasini Telegram botga tashlaydi \`[pauza - 0.5s]\`. 
+Bizning neyron tarmoq **8 soniyada** glyukoza, ferritin yoki gepatik fermentlarni tahlil qiladi. 
+Agar xavf bo‘lsa \`[pauza - 0.5s]\`, tizim **1 bosishda** bemorni o‘sha klinikaning bo‘sh turgan shifokoriga yozib qo‘yadi.
+
+Hech qanday quruq gap yo‘q. 
+Klinika uchun bu — oyiga **qo‘shimcha 35 million so‘m** kafolatlangan sof daromad \`[pauza - 1s]\`.
+Biz jarayonni emas, **qaytarilgan har bir so‘mni** o‘lchaymiz.`
+        },
+        human: {
+          60: `Men SamDTUda tibbiyot boshqaruvi va School 21 da tizimli muhandislik bo‘yicha ta'lim olaman \`[pauza - 1s]\`. 
+Klinikada o‘tirib bitta haqiqatni ko‘rdim: 
+Shifokorlar bemor yo‘qligidan noliydi \`[pauza - 0.5s]\`, bemorlar esa o‘z tahlili natijasini tushunmay sarson bo‘ladi.
+
+Biz ushbu jarlikni yopish uchun **MedLoop AI** ni yaratdik.
+Mening jamoam dasturchilardan emas \`[pauza - 0.5s]\`, sohaning ichidagi amaliyotchilardan iborat.
+Biz har bir bemor tahlilini **8 soniyada** tekshirib, uni xavfdan asraymiz va to‘g‘ri shifokorga yo‘naltiramiz.
+
+Biz shunchaki dastur sotmayapmiz. 
+Biz shifokor va bemor o‘rtasidagi **yo‘qolgan ishonch zanjirini** tiklayapmiz.`
+        }
+      },
+      epivision: {
+        product: {
+          60: `Tibbiyot oliygohlarida eng qimmat narsa bu — **jarrohlik amaliyoti** \`[pauza - 1s]\`. 
+Bitta talabani an'anaviy kadavr laboratoriyasida o‘qitish universitetga yiliga **5 ming dollarga** tushadi. 
+Bitta guruhda 35 ta talaba bo‘lsa, operatsiyani atigi **2 kishi** mustaqil qilib ko‘radi. Qolganlar faqat qarab turadi.
+
+**EpiVision XR** — bu muammoni butunlay yopadi \`[pauza - 1s]\`.
+Biz murakkab laparoskopik operatsiyalarni to‘liq **3D WebGL formatida** brauzerga ko‘chirdik.
+Talaba ekranda Kalo uchburchagini ajratadi, sistolik arteriyani klipolaydi va kesadi.
+Tizim har bir asbob titrog‘ini **0.1 millimetrgacha** o‘lchaydi. 
+Agar noto‘g‘ri tomirga teginsa — real qon ketish simulyatsiyasi boshlanadi.
+
+Iqtisodiy natija: 
+SamDTU har yili **162 ming dollar** kadavr xarajatini tejaydi \`[pauza - 0.5s]\`.
+Talabalar esa operatsiyani bir marta emas, **ming marta** xatosiz takrorlaydi.`
+        }
+      }
+    };
+
+    function renderScript() {
+      const p = document.getElementById('presetSelect').value;
+      const d = document.getElementById('durationSelect').value;
+      const pData = scripts[p] || scripts.medloop;
+      const text = (pData[currentFocus] && pData[currentFocus][d]) || pData['product'][60];
+
+      document.getElementById('scriptContent').innerHTML = text.split('\n\n').map(para => `<p>${para}</p>`).join('');
+      document.getElementById('metaTime').textContent = `${d} soniya (~${Math.round(d * 2.1)} so‘z)`;
+      document.getElementById('metaFocus').textContent = currentFocus === 'product' ? '100% Mahsulot Metrikalari' : '100% Inson & Jamoa Xarakteri';
+    }
+
+    document.getElementById('btnFocusProduct').addEventListener('click', () => {
+      currentFocus = 'product';
+      document.getElementById('btnFocusProduct').className = 'py-2.5 px-3 rounded-xl bg-cyan-500 text-slate-950 font-black text-[11px] transition';
+      document.getElementById('btnFocusHuman').className = 'py-2.5 px-3 rounded-xl bg-slate-900 text-slate-400 border border-slate-800 font-bold text-[11px] hover:text-white transition';
+      renderScript();
+    });
+
+    document.getElementById('btnFocusHuman').addEventListener('click', () => {
+      currentFocus = 'human';
+      document.getElementById('btnFocusHuman').className = 'py-2.5 px-3 rounded-xl bg-cyan-500 text-slate-950 font-black text-[11px] transition';
+      document.getElementById('btnFocusProduct').className = 'py-2.5 px-3 rounded-xl bg-slate-900 text-slate-400 border border-slate-800 font-bold text-[11px] hover:text-white transition';
+      renderScript();
+    });
+
+    document.getElementById('btnGenerate').addEventListener('click', renderScript);
+    document.getElementById('presetSelect').addEventListener('change', renderScript);
+    document.getElementById('durationSelect').addEventListener('change', renderScript);
+
+    // Copy script
+    document.getElementById('btnCopy').addEventListener('click', () => {
+      const text = document.getElementById('scriptContent').innerText;
+      navigator.clipboard.writeText(text);
+      document.getElementById('btnCopy').textContent = '✅ Nusxalandi!';
+      setTimeout(() => document.getElementById('btnCopy').textContent = '📋 Nusxa Olish', 2000);
+    });
+
+    // Copy Prompt
+    document.getElementById('btnCopyPrompt').addEventListener('click', () => {
+      const text = document.getElementById('rawPromptText').innerText;
+      navigator.clipboard.writeText(text);
+      document.getElementById('btnCopyPrompt').textContent = '✅ Nusxalandi!';
+      setTimeout(() => document.getElementById('btnCopyPrompt').textContent = 'Promptdan Nusxa Olish', 2000);
+    });
+
+    // Teleprompter Fullscreen
+    document.getElementById('btnTeleprompter').addEventListener('click', () => {
+      const sc = document.getElementById('scriptContent');
+      if (!document.fullscreenElement) {
+        sc.requestFullscreen && sc.requestFullscreen();
+      } else {
+        document.exitFullscreen && document.exitFullscreen();
+      }
+    });
+
+    // Init
+    renderScript();
+  </script>
+</body>
+</html>

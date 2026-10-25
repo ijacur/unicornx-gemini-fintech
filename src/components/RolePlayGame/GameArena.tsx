@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ROLES_INFO } from '../../types/game';
-import type { GameState, Role, Message } from '../../types/game';
+import type { GameState, Role, Message, RoomHealthMetrics } from '../../types/game';
+import { RoomHealthBadge } from './RoomHealthBadge';
 
 interface GameArenaProps {
   gameState: GameState;
   playerId: string;
+  roomHealth?: RoomHealthMetrics;
   onSendMessage: (role: Role, content: string, type?: Message['type']) => void;
   onNextPhase: (phase: GameState['phase'], nextTurn: Role | null) => void;
 }
@@ -12,6 +14,7 @@ interface GameArenaProps {
 export const GameArena: React.FC<GameArenaProps> = ({
   gameState,
   playerId,
+  roomHealth,
   onSendMessage,
   onNextPhase
 }) => {
@@ -101,7 +104,11 @@ export const GameArena: React.FC<GameArenaProps> = ({
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
-                isModerator && gameState.phase === 'DECISION' ? handleModeratorAction() : handleSend();
+                if (isModerator && gameState.phase === 'DECISION') {
+                  handleModeratorAction();
+                } else {
+                  handleSend();
+                }
               }
             }}
             placeholder={isModerator && gameState.phase === 'DECISION' ? "Yakuniy xulosangizni yozing..." : "O'z fikringizni yozing..."}
@@ -133,9 +140,12 @@ export const GameArena: React.FC<GameArenaProps> = ({
     <div className="flex flex-col h-screen bg-gray-100 font-sans max-w-4xl mx-auto md:py-6">
       <div className="flex-1 flex flex-col bg-white md:rounded-2xl shadow-xl overflow-hidden">
         {/* Header */}
-        <div className="bg-blue-900 text-white p-4 flex justify-between items-center shrink-0">
+        <div className="bg-blue-900 text-white p-4 flex flex-wrap justify-between items-center gap-3 shrink-0">
           <div>
-            <h2 className="font-bold text-lg leading-tight">Tibbiyot muassasasida strategik qaror</h2>
+            <div className="flex items-center gap-3 flex-wrap">
+              <h2 className="font-bold text-lg leading-tight">Tibbiyot muassasasida strategik qaror</h2>
+              {roomHealth && <RoomHealthBadge metrics={roomHealth} />}
+            </div>
             <p className="text-blue-200 text-sm">Bosqich: {getPhaseName(gameState.phase)}</p>
           </div>
           <div className="text-right">

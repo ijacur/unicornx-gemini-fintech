@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useGameState } from './hooks/useGameState';
 import { Lobby } from './components/RolePlayGame/Lobby';
 import { RoleSelection } from './components/RolePlayGame/RoleSelection';
@@ -6,21 +6,16 @@ import { GameArena } from './components/RolePlayGame/GameArena';
 
 export const RolePlayGame: React.FC = () => {
   const [roomId, setRoomId] = useState<string>('');
-  const [playerId, setPlayerId] = useState<string>('');
-  
-  // Use a local state ID if not set
-  useEffect(() => {
+  const [playerId] = useState<string>(() => {
+    if (typeof window === 'undefined') return '';
     const savedId = localStorage.getItem('rpg_player_id');
-    if (savedId) {
-      setPlayerId(savedId);
-    } else {
-      const newId = Math.random().toString(36).substring(2, 9);
-      localStorage.setItem('rpg_player_id', newId);
-      setPlayerId(newId);
-    }
-  }, []);
+    if (savedId) return savedId;
+    const newId = Math.random().toString(36).substring(2, 9);
+    localStorage.setItem('rpg_player_id', newId);
+    return newId;
+  });
 
-  const { gameState, isConnected, joinGame, selectRole, startGame, sendMessage, nextPhase } = useGameState(roomId, playerId);
+  const { gameState, isConnected, roomHealth, joinGame, selectRole, startGame, sendMessage, nextPhase } = useGameState(roomId, playerId);
 
   const handleJoin = (room: string, name: string) => {
     setRoomId(room);
@@ -45,7 +40,8 @@ export const RolePlayGame: React.FC = () => {
   return (
     <GameArena 
       gameState={gameState} 
-      playerId={playerId} 
+      playerId={playerId}
+      roomHealth={roomHealth}
       onSendMessage={sendMessage}
       onNextPhase={nextPhase}
     />

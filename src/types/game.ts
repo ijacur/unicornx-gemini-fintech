@@ -27,6 +27,17 @@ export interface Message {
   type: 'TEXT' | 'SYSTEM' | 'DECISION';
 }
 
+export type RoomHealthStatus = 'connecting' | 'stable' | 'degraded' | 'failover' | 'disconnected';
+
+export interface RoomHealthMetrics {
+  status: RoomHealthStatus;
+  latencyMs: number;
+  missedHeartbeats: number;
+  consecutiveFailures: number;
+  lastHeartbeat: number | null;
+  reconnectCount: number;
+}
+
 export const ROLES_INFO: Record<Role, { title: string, character: string, description: string }> = {
   Moderator: {
     title: "Bosh ekspert va Hakam",

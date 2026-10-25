@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Rocket,
   Gamepad2,
@@ -205,7 +205,7 @@ export default function App() {
   const [reelFollowed, setReelFollowed] = useState<Record<string, boolean>>({ 'demo-launch-lab': true })
   const [reelExpandedCaption, setReelExpandedCaption] = useState(false)
 
-  const playBeep = (freq = 440, type: OscillatorType = 'sine', duration = 0.12) => {
+  const playBeep = useCallback((freq = 440, type: OscillatorType = 'sine', duration = 0.12) => {
     try {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
       if (!AudioCtx || reelMuted) return
@@ -223,21 +223,21 @@ export default function App() {
     } catch {
       // Audio not permitted without interaction
     }
-  }
+  }, [reelMuted])
 
-  const handleNextReel = () => {
+  const handleNextReel = useCallback(() => {
     playBeep(520, 'sine', 0.08)
-    setActiveReelIndex((prev) => (prev + 1) % projects.length)
+    setActiveReelIndex((prev) => (prev + 1) % (projects.length || 1))
     setReelSlideIndex(0)
     setReelExpandedCaption(false)
-  }
+  }, [projects.length, playBeep, setReelSlideIndex, setReelExpandedCaption])
 
-  const handlePrevReel = () => {
+  const handlePrevReel = useCallback(() => {
     playBeep(380, 'sine', 0.08)
-    setActiveReelIndex((prev) => (prev - 1 + projects.length) % projects.length)
+    setActiveReelIndex((prev) => (prev - 1 + (projects.length || 1)) % (projects.length || 1))
     setReelSlideIndex(0)
     setReelExpandedCaption(false)
-  }
+  }, [projects.length, playBeep, setReelSlideIndex, setReelExpandedCaption])
 
   const handleToggleFollow = (projId: string) => {
     playBeep(640, 'sine', 0.1)
@@ -407,7 +407,7 @@ export default function App() {
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [activeView, activeReelIndex, projects])
+  }, [activeView, activeReelIndex, projects, handleNextReel, handlePrevReel])
 
   // Format seconds mm:ss
   const formatTime = (secs: number) => {

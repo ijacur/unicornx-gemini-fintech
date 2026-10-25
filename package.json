@@ -8,7 +8,15 @@
     "build": "tsc -b && vite build",
     "pack": "tsc -b && vite build && rm -f submission.zip && zip -r submission.zip src public package.json package-lock.json index.html vite.config.ts tsconfig.json tsconfig.app.json tsconfig.node.json README.md PROMPT_ENGINEERING_LOG.md -x '*.DS_Store'",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "gsd": "bash scripts/gsd.sh",
+    "ralph": "bash scripts/ralph-loop.sh",
+    "review": "bash scripts/coderabbit-review.sh",
+    "roo:sync": "bash scripts/roo-key-sync.sh",
+    "prompt:tick": "python3 scripts/autonomous_prompt_runner.py tick",
+    "prompt:batch": "python3 scripts/autonomous_prompt_runner.py batch",
+    "prompt:status": "python3 scripts/autonomous_prompt_runner.py status",
+    "browser:audit": "python3 scripts/browser_audit.py"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

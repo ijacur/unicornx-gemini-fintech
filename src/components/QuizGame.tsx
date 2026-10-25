@@ -64,17 +64,15 @@ const API_URL = '/api/sync';
 export const QuizGame: React.FC = () => {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [playerName, setPlayerName] = useState('');
-  const [hasPlayed, setHasPlayed] = useState(false);
+  const [hasPlayed, setHasPlayed] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return Boolean(localStorage.getItem('quiz_completed'));
+  });
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    // Check if played before
-    if (localStorage.getItem('quiz_completed')) {
-      setHasPlayed(true);
-    }
-
     let isActive = true;
     const fetchLeaderboard = async () => {
       try {

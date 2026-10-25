@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-
-
-import type { GameState, GamePhase } from '../types/game';
+import type { GameState, GamePhase, RoomHealthMetrics } from '../types/game';
 
 const API_URL = '/api/sync';
 
@@ -9,32 +7,81 @@ export function useGameState(roomId: string, playerId: string) {
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [roomHealth, setRoomHealth] = useState<RoomHealthMetrics>(() => ({
+    status: roomId ? 'connecting' : 'disconnected',
+    latencyMs: 0,
+    missedHeartbeats: 0,
+    consecutiveFailures: 0,
+    lastHeartbeat: null,
+    reconnectCount: 0,
+  }));
 
-  // Polling loop
+  // Polling loop with latency benchmarking & failover resilience
   useEffect(() => {
     if (!roomId) return;
-    setIsConnected(true);
     let isActive = true;
 
     const poll = async () => {
       if (!isActive) return;
+      const startTime = performance.now();
       try {
-        const res = await fetch(`${API_URL}?roomId=${roomId}`);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+        const res = await fetch(`${API_URL}?roomId=${roomId}`, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        const rtt = Math.round(performance.now() - startTime);
+
         if (res.ok) {
           const data = await res.json();
           if (data && data.phase) {
             setGameState(data);
           }
-          setHasLoaded(true);
+          if (isActive) {
+            setHasLoaded(true);
+            setIsConnected(true);
+            setRoomHealth({
+              status: rtt > 500 ? 'degraded' : 'stable',
+              latencyMs: rtt,
+              missedHeartbeats: 0,
+              consecutiveFailures: 0,
+              lastHeartbeat: Date.now(),
+              reconnectCount: 0,
+            });
+          }
+        } else {
+          if (isActive) {
+            setRoomHealth((prev) => {
+              const fails = prev.consecutiveFailures + 1;
+              return {
+                ...prev,
+                latencyMs: rtt,
+                status: fails >= 3 ? 'failover' : 'degraded',
+                consecutiveFailures: fails,
+                missedHeartbeats: prev.missedHeartbeats + 1,
+              };
+            });
+          }
         }
-      } catch (e) {
-        console.error("Polling error", e);
+      } catch {
+        const rtt = Math.round(performance.now() - startTime);
+        if (isActive) {
+          setRoomHealth((prev) => {
+            const fails = prev.consecutiveFailures + 1;
+            return {
+              ...prev,
+              latencyMs: rtt,
+              status: fails >= 3 ? 'failover' : 'degraded',
+              consecutiveFailures: fails,
+              missedHeartbeats: prev.missedHeartbeats + 1,
+            };
+          });
+        }
       }
       if (isActive) {
         setTimeout(poll, 1500); // Poll every 1.5s
       }
     };
-    
+
     poll();
 
     return () => {
@@ -133,5 +180,5 @@ export function useGameState(roomId: string, playerId: string) {
     updateGameState(newState);
   };
 
-  return { gameState, isConnected, joinGame, selectRole, startGame, sendMessage, nextPhase };
+  return { gameState, isConnected, roomHealth, joinGame, selectRole, startGame, sendMessage, nextPhase };
 }

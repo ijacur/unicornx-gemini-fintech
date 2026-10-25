@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launch Lab 21 • Cohort 3 Traction Engine &amp; Clinic Bleed Auditor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #070b14; color: #f8fafc; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(14px); border: 1px solid rgba(56, 189, 248, 0.18); }
+    @media print {
+      body { background: white !important; color: black !important; }
+      .no-print { display: none !important; }
+      .print-only { display: block !important; }
+      .contract-paper { border: none !important; box-shadow: none !important; padding: 0 !important; color: black !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-950">
+
+  <div class="max-w-6xl mx-auto w-full space-y-6">
+    
+    <!-- Top Header -->
+    <header class="glass rounded-3xl p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-4 border-l-emerald-400 no-print">
+      <div class="space-y-1">
+        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 text-[10px] font-black uppercase tracking-wider">
+          Launch Lab 21 &bull; 12-Haftalik Trekshen Dvigateli
+        </div>
+        <h1 class="text-xl sm:text-2xl font-black text-white">
+          Klinika Moliyaviy Qon Ketishi Auditi &amp; LOI Shartnoma Generatori
+        </h1>
+        <p class="text-xs text-slate-400">
+          Founder Jasur Shukurov &bull; Xususiy klinikalarning 92M so‘mlik oylik yo‘qotishini isbotlash va to‘lovli pilotga yopish vositasi.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2 text-xs">
+        <a href="../epivision/index.html" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-cyan-300 font-bold transition">
+          👁️ EpiVision XR
+        </a>
+        <a href="../speech/index.html" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-emerald-300 font-bold transition">
+          🎙️ Speech Pitch
+        </a>
+        <a href="../index.html" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold transition">
+          Ekotizim &rarr;
+        </a>
+      </div>
+    </header>
+
+    <!-- SECTION 1: 15-SECOND FINANCIAL BLEED CALCULATOR (Interactive Pitch Weapon) -->
+    <section class="glass rounded-3xl p-6 sm:p-8 space-y-6 no-print">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-black uppercase tracking-wider text-rose-400">1-QADAM: BOSH SHIFOKOR UCHUN 15-SONIYALIK ZARBA</span>
+          <h2 class="text-lg sm:text-xl font-black text-white mt-0.5">Klinikaning Oylik Moliyaviy Qon Ketishi (Financial Bleed)</h2>
+        </div>
+        <span class="text-xs font-mono text-slate-400">Valyuta: UZS (O‘zbekiston so‘mi)</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Sliders & Inputs (5 Cols) -->
+        <div class="lg:col-span-5 space-y-4 text-xs">
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span class="text-slate-300">Oylik Kiruvchi Qo‘ng‘iroqlar:</span>
+              <span id="lblCalls" class="text-cyan-400 font-mono">1,200 ta</span>
+            </div>
+            <input type="range" id="rngCalls" min="300" max="3000" step="50" value="1200" class="w-full accent-cyan-400 cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span class="text-slate-300">Javobsiz Qolgan Qo‘ng‘iroqlar (%):</span>
+              <span id="lblMissedPct" class="text-rose-400 font-mono">28% (336 ta)</span>
+            </div>
+            <input type="range" id="rngMissedPct" min="10" max="50" step="1" value="28" class="w-full accent-rose-500 cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span class="text-slate-300">Tahlildan Qaytmagan Bemorlar / oy:</span>
+              <span id="lblUnreturned" class="text-amber-400 font-mono">180 bemor</span>
+            </div>
+            <input type="range" id="rngUnreturned" min="50" max="500" step="10" value="180" class="w-full accent-amber-400 cursor-pointer">
+          </div>
+
+          <div>
+            <div class="flex justify-between font-bold mb-1">
+              <span class="text-slate-300">O‘rtacha Bemor Cheki (Ko‘rik + Lab):</span>
+              <span id="lblCheck" class="text-emerald-400 font-mono">180,000 UZS</span>
+            </div>
+            <input type="range" id="rngCheck" min="100000" max="400000" step="10000" value="180000" class="w-full accent-emerald-400 cursor-pointer">
+          </div>
+        </div>
+
+        <!-- Real-Time Bleed & Recovery Display (7 Cols) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="glass rounded-2xl p-5 border-l-4 border-l-rose-500 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-slate-400">Klinika Oylik Qon Ketishi (Bleed)</span>
+            <div id="statBleedUzs" class="text-2xl sm:text-3xl font-black text-rose-400 font-mono">92,880,000 UZS</div>
+            <p class="text-xs text-slate-400 mt-1 font-mono">≈ $<span id="statBleedUsd">7,256</span> / oyiga kassa yo‘qotishi</p>
+          </div>
+
+          <div class="glass rounded-2xl p-5 border-l-4 border-l-emerald-400 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-slate-400">MedLoop AI Bilan Qaytariluvchi (38%)</span>
+            <div id="statRecoveredUzs" class="text-2xl sm:text-3xl font-black text-emerald-300 font-mono">35,294,400 UZS</div>
+            <p class="text-xs text-slate-400 mt-1 font-mono">≈ +$<span id="statRecoveredUsd">2,757</span> / oyiga sof qo‘shimcha tushum</p>
+          </div>
+
+          <div class="glass rounded-2xl p-4 sm:col-span-2 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-300 font-bold">Asoschining Bosh Shifokorga Aytadigan So‘zi:</span>
+              <button onclick="copyPitchPitch()" class="text-cyan-400 hover:underline text-[11px] font-bold">Nusxa Olish</button>
+            </div>
+            <p id="pitchSentence" class="text-xs text-slate-200 leading-relaxed italic bg-slate-950 p-3 rounded-xl border border-slate-800">
+              «Doktor, klinikangiz har oy tahlildan qaytmagan va qo‘ng‘irog‘i o‘tkazib yuborilgan bemorlar tufayli 92,880,000 so‘m yo‘qotmoqda. MedLoop 8 soniyada 35 million so‘mni kassangizga qaytaradi. Buni 14 kun bepul sinab ko‘rishga rozimisiz?»
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: INSTANT PILOT LOI CONTRACT GENERATOR -->
+    <section class="glass rounded-3xl p-6 sm:p-8 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 no-print">
+        <div>
+          <span class="text-xs font-black uppercase tracking-wider text-emerald-400">2-QADAM: TALABNI MUHRLASH (VALIDATION)</span>
+          <h2 class="text-lg sm:text-xl font-black text-white mt-0.5">Xususiy Klinika Bilan Pilot Hamkorlik Bitimi (LOI)</h2>
+        </div>
+        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/20 transition flex items-center gap-1.5">
+          <span>🖨️</span>
+          <span>Chop Etish (Print / Save PDF)</span>
+        </button>
+      </div>
+
+      <!-- Config Inputs for Contract -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs no-print">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Klinika Nomi:</label>
+          <input type="text" id="inpClinicName" value="«De Facto Diagnostika» MChJ" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Bosh Shifokor / Rahbar F.I.Sh:</label>
+          <input type="text" id="inpDoctorName" value="Dr. Alisher Rahimov" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none focus:border-cyan-400">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">Sinovdan Keyingi Oylik To‘lov:</label>
+          <input type="text" id="inpMonthlyFee" value="1 500 000 UZS / oy" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none focus:border-cyan-400">
+        </div>
+      </div>
+
+      <!-- Printable Legal Document Container -->
+      <div class="bg-white text-slate-950 p-6 sm:p-10 rounded-2xl shadow-xl contract-paper space-y-6 text-xs sm:text-sm leading-relaxed">
+        <div class="text-center border-b-2 border-slate-900 pb-4">
+          <div class="text-[10px] uppercase font-black tracking-widest text-slate-500">O‘zbekiston Respublikasi Fuqarolik Kodeksi (354, 382-moddalar)</div>
+          <h3 class="text-base sm:text-lg font-black uppercase mt-1">«MedLoop AI» Sun'iy Intellekt Tizimini Sinov Tariqasida Joriy Etish Bo‘yicha Kelishuv Bayonnomasi (Letter of Intent)</h3>
+          <div class="flex justify-between text-[11px] text-slate-600 mt-2">
+            <span>Samarqand shahri</span>
+            <span id="docDate">2026-yil 20-oktyabr</span>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-justify">
+          <p>
+            Bir tomondan, <strong>«MedLoop AI»</strong> startap loyihasi rahbari <strong>Shukurov Jasur Otabek o‘g‘li</strong> (keyingi o‘rinlarda — <em>«Ijrochi»</em>), va ikkinchi tomondan, <strong id="outClinicName">«De Facto Diagnostika» MChJ</strong> rahbari <strong id="outDoctorName">Dr. Alisher Rahimov</strong> (keyingi o‘rinlarda — <em>«Buyurtmachi / Klinika»</em>), o‘zaro hamkorlik maqsadida ushbu niyat bayonnomasini tuzdilar:
+          </p>
+
+          <ol class="list-decimal pl-5 space-y-2">
+            <li>
+              <strong>Kelishuv Predmeti:</strong> Ijrochi Klinikaning laboratoriya tahlil natijalari va javobsiz qo‘ng‘iroqlarini avtonom tarzda saralovchi (triage) va bemorlarni qayta shifokor qabuliga yo‘naltiruvchi <em>«MedLoop AI»</em> dasturiy ta'minotini <strong>14 (o‘n to‘rt) kalendar kun</strong> muddatga bepul sinov (Pilot) rejimida o‘rnatadi.
+            </li>
+            <li>
+              <strong>Bemorlar Xavfsizligi va Konfidensiallik:</strong> Sun'iy intellekt tizimi tibbiy tashxis qo‘ymaydi; u faqat klinik saralash (triage) va qabulga yozish mexanizmi sifatida xizmat qiladi. Barcha shaxsiy ma'lumotlar shifrlangan holatda saqlanadi.
+            </li>
+            <li>
+              <strong>Samaradorlik Mezoni va To‘lovga O‘tish:</strong> 14 kunlik pilot davomida tizim kamida <strong>30 nafar bemorni</strong> shifokorlar qabuliga muvaffaqiyatli qaytargan taqdirda, Klinika tizimdan foydalanishni rasmiy obuna shartnomasi asosida oyiga <strong id="outMonthlyFee">1 500 000 UZS</strong> to‘lov bilan davom ettirish niyatini bildiradi.
+            </li>
+            <li>
+              <strong>Xavf va Majburiyatlarning Yo‘qligi:</strong> Agar sinov natijasi Klinikani qoniqtirmasa, ushbu kelishuv hech qanday jarima yoki majburiyatsiz bir tomonlama bekor qilinadi.
+            </li>
+          </ol>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 pt-6 border-t border-slate-300 text-xs">
+          <div>
+            <span class="font-black block text-slate-700">IJROCHI:</span>
+            <div class="mt-2 space-y-1">
+              <div>Shukurov Jasur Otabek o‘g‘li</div>
+              <div class="text-[11px] text-slate-600">MedLoop AI Asoschisi &bull; SamDTU &bull; School 21</div>
+              <div>Tel: +998 90 xxx-xx-xx &bull; @jasurceo</div>
+              <div class="pt-6 text-slate-400 italic">Imzo: _____________________</div>
+            </div>
+          </div>
+
+          <div>
+            <span class="font-black block text-slate-700">BUYURTMACHI (KLINIKA):</span>
+            <div class="mt-2 space-y-1">
+              <div id="signClinic">«De Facto Diagnostika» MChJ</div>
+              <div id="signDoctor">Dr. Alisher Rahimov</div>
+              <div>Klinika Bosh Shifokori / Rahbari</div>
+              <div class="pt-6 text-slate-400 italic">Imzo &amp; Muhr: _____________________</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 12-WEEK TRACTION TRACKER (North Star Progress) -->
+    <section class="glass rounded-3xl p-6 sm:p-8 space-y-4 no-print">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-xs font-black uppercase tracking-wider text-cyan-400">3-QADAM: HAFTALIK TREKSHEN MONITORINGI</span>
+          <h2 class="text-lg font-black text-white mt-0.5">12 Haftalik Shimoliy Yulduz (North Star) Ko‘rsatkichi</h2>
+        </div>
+        <span class="text-xs font-bold text-emerald-400 font-mono">Hozir: 1-Hafta (Kikoff)</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+        <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">1-3 Hafta Maqsadi:</span>
+          <span class="font-extrabold text-cyan-300 text-sm">3 ta Imzolangan LOI</span>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">4-7 Hafta Maqsadi:</span>
+          <span class="font-extrabold text-indigo-300 text-sm">50 ta Qaytarilgan Bemor</span>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">8-10 Hafta Maqsadi:</span>
+          <span class="font-extrabold text-emerald-300 text-sm">1-To‘lovli B2B Hisob</span>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800">
+          <span class="text-slate-400 block text-[10px] uppercase font-bold">Demo Day (15-yanvar):</span>
+          <span class="font-extrabold text-amber-300 text-sm">$50k Pre-Seed Bitimi</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const rngCalls = document.getElementById('rngCalls');
+    const rngMissedPct = document.getElementById('rngMissedPct');
+    const rngUnreturned = document.getElementById('rngUnreturned');
+    const rngCheck = document.getElementById('rngCheck');
+
+    function calculateBleed() {
+      const calls = parseInt(rngCalls.value);
+      const missedPct = parseInt(rngMissedPct.value);
+      const unreturned = parseInt(rngUnreturned.value);
+      const check = parseInt(rngCheck.value);
+
+      const missedCount = Math.round(calls * (missedPct / 100));
+      const totalLost = missedCount + unreturned;
+      const bleedUzs = totalLost * check;
+      const bleedUsd = Math.round(bleedUzs / 12800);
+
+      const recoveredUzs = Math.round(bleedUzs * 0.38);
+      const recoveredUsd = Math.round(recoveredUzs / 12800);
+
+      document.getElementById('lblCalls').textContent = `${calls.toLocaleString()} ta`;
+      document.getElementById('lblMissedPct').textContent = `${missedPct}% (${missedCount} ta)`;
+      document.getElementById('lblUnreturned').textContent = `${unreturned} bemor`;
+      document.getElementById('lblCheck').textContent = `${check.toLocaleString()} UZS`;
+
+      document.getElementById('statBleedUzs').textContent = `${bleedUzs.toLocaleString()} UZS`;
+      document.getElementById('statBleedUsd').textContent = bleedUsd.toLocaleString();
+
+      document.getElementById('statRecoveredUzs').textContent = `${recoveredUzs.toLocaleString()} UZS`;
+      document.getElementById('statRecoveredUsd').textContent = recoveredUsd.toLocaleString();
+
+      document.getElementById('pitchSentence').textContent = 
+        `«Doktor, klinikangiz har oy tahlildan qaytmagan va qo‘ng‘irog‘i o‘tkazib yuborilgan bemorlar tufayli ${bleedUzs.toLocaleString()} so‘m yo‘qotmoqda. MedLoop 8 soniyada ${recoveredUzs.toLocaleString()} so‘mni kassangizga qaytaradi. Buni 14 kun bepul sinab ko‘rishga rozimisiz?»`;
+    }
+
+    [rngCalls, rngMissedPct, rngUnreturned, rngCheck].forEach(el => el.addEventListener('input', calculateBleed));
+    calculateBleed();
+
+    function copyPitchPitch() {
+      navigator.clipboard.writeText(document.getElementById('pitchSentence').innerText);
+      alert("Pitch jumlasi nusxalandi!");
+    }
+
+    // Dynamic Contract Fields
+    const inpClinicName = document.getElementById('inpClinicName');
+    const inpDoctorName = document.getElementById('inpDoctorName');
+    const inpMonthlyFee = document.getElementById('inpMonthlyFee');
+
+    function updateContract() {
+      const cName = inpClinicName.value || '«Klinika»';
+      const dName = inpDoctorName.value || 'Bosh shifokor';
+      const mFee = inpMonthlyFee.value || '1 500 000 UZS';
+
+      document.getElementById('outClinicName').textContent = cName;
+      document.getElementById('signClinic').textContent = cName;
+
+      document.getElementById('outDoctorName').textContent = dName;
+      document.getElementById('signDoctor').textContent = dName;
+
+      document.getElementById('outMonthlyFee').textContent = mFee;
+    }
+
+    [inpClinicName, inpDoctorName, inpMonthlyFee].forEach(el => el.addEventListener('input', updateContract));
+  </script>
+</body>
+</html>
