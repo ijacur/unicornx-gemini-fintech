@@ -6,16 +6,6 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
-      ]
-    },
-    {
       "id": "atorvastatin",
       "label": "Atorvastatin (Liprimar)",
       "group": "GMF-KoA reduktaza ingibitori (Statin)",
@@ -27,13 +17,14 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
       ]
     },
     {
@@ -47,14 +38,23 @@
       ]
     },
     {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
       "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
+        "og'ir giperkalemiya",
+        "aritmiya"
+      ]
+    },
+    {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
       ]
     },
     {
