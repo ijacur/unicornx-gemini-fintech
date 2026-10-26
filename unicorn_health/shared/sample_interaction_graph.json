@@ -6,37 +6,6 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
-      ]
-    },
-    {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
-      ]
-    },
-    {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
-      "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
-      ]
-    },
-    {
       "id": "enalapril",
       "label": "Enalapril (Renitek)",
       "group": "AAF ingibitori (ACEi)",
@@ -57,6 +26,27 @@
       ]
     },
     {
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
+      "riskFactors": [
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
+      ]
+    },
+    {
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
+      "riskFactors": [
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
+      ]
+    },
+    {
       "id": "amlodipine",
       "label": "Amlodipin (Norvask)",
       "group": "Kalsiy kanallari blokatori (DHP)",
@@ -64,6 +54,16 @@
       "riskFactors": [
         "periferik shish",
         "gipotenziya"
+      ]
+    },
+    {
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
+      "riskFactors": [
+        "og'ir giperkalemiya",
+        "aritmiya"
       ]
     }
   ],
