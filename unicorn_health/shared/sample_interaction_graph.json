@@ -6,12 +6,14 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
       "riskFactors": [
-        "qon ketish xavfi"
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
       ]
     },
     {
@@ -26,23 +28,12 @@
       ]
     },
     {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
       "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
-      ]
-    },
-    {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
-      "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "qon ketish xavfi"
       ]
     },
     {
@@ -56,21 +47,30 @@
       ]
     },
     {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
       "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
+      "riskFactors": [
+        "og'ir giperkalemiya",
+        "aritmiya"
       ]
     }
   ],
   "edges": [
     {
-      "from": "enalapril",
-      "to": "spironolactone",
+      "from": "spironolactone",
+      "to": "enalapril",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
@@ -85,8 +85,8 @@
       "advice": "Faqat o'tkir koronar sindrom / stentdan keyin qat'iy ko'rsatma bilan berish. Proton pompasi ingibitori (Omeprazol emas, Pantoprazol) qo'shish."
     },
     {
-      "from": "atorvastatin",
-      "to": "amlodipine",
+      "from": "amlodipine",
+      "to": "atorvastatin",
       "severity": "moderate",
       "mechanism": "CYP3A4 fermenti uchun raqobat: Amlodipin Atorvastatin metabolizmini qisman sekinlashtiradi.",
       "effect": "Atorvastatin qondagi konsentratsiyasi 18-25% ga oshishi, mushaklarda og'riq xavfi.",
