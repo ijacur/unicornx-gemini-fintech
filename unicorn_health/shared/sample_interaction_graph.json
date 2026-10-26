@@ -6,14 +6,22 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
       "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
+      "riskFactors": [
+        "qon ketish xavfi"
       ]
     },
     {
@@ -27,6 +35,17 @@
       ]
     },
     {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
+      ]
+    },
+    {
       "id": "spironolactone",
       "label": "Spironolakton (Veroshpiron)",
       "group": "Kaliy tejovchi diuretik",
@@ -37,56 +56,37 @@
       ]
     },
     {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
       "riskFactors": [
-        "qon ketish xavfi"
-      ]
-    },
-    {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
-      "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
-      ]
-    },
-    {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
-      "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
       ]
     }
   ],
   "edges": [
     {
-      "from": "spironolactone",
-      "to": "enalapril",
+      "from": "enalapril",
+      "to": "spironolactone",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "aspirin",
-      "to": "clopidogrel",
+      "from": "clopidogrel",
+      "to": "aspirin",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
       "advice": "Faqat o'tkir koronar sindrom / stentdan keyin qat'iy ko'rsatma bilan berish. Proton pompasi ingibitori (Omeprazol emas, Pantoprazol) qo'shish."
     },
     {
-      "from": "atorvastatin",
-      "to": "amlodipine",
+      "from": "amlodipine",
+      "to": "atorvastatin",
       "severity": "moderate",
       "mechanism": "CYP3A4 fermenti uchun raqobat: Amlodipin Atorvastatin metabolizmini qisman sekinlashtiradi.",
       "effect": "Atorvastatin qondagi konsentratsiyasi 18-25% ga oshishi, mushaklarda og'riq xavfi.",
