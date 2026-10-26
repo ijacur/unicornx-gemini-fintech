@@ -1,310 +1,10 @@
 {
-  "current_prompt_index": 650,
+  "current_prompt_index": 675,
   "total_prompts": 2000,
-  "completed_count": 28650,
-  "last_tick_timestamp": "2026-10-27T00:20:52.608829",
-  "iteration_count": 28650,
+  "completed_count": 28675,
+  "last_tick_timestamp": "2026-10-27T00:22:48.089464",
+  "iteration_count": 28675,
   "history": [
-    {
-      "prompt_id": 451,
-      "description": "Audit Continuous Glucose Monitoring (CGM) Ambulatory Glucose Profile (AGP) parser in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:16.774496",
-      "duration_sec": 2.57,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 452,
-      "description": "Verify Time in Range (TIR: 70-180 mg/dL > 70%) target compliance calculation in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:19.172475",
-      "duration_sec": 2.39,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 453,
-      "description": "Test Time Below Range (TBR < 54 mg/dL < 1%) severe hypoglycemia alert triggers in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:21.524605",
-      "duration_sec": 2.35,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 454,
-      "description": "Validate Glycemic Variability coefficient of variation (CV < 36%) threshold in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:23.899776",
-      "duration_sec": 2.37,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 455,
-      "description": "Audit Dawn phenomenon vs. Somogyi rebound nocturnal differential analysis in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:26.492306",
-      "duration_sec": 2.59,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 456,
-      "description": "Verify basal insulin glargine/degludec once-daily bedtime schedule enforcement in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:28.869596",
-      "duration_sec": 2.37,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 457,
-      "description": "Test rapid-acting insulin carbohydrate-to-insulin ratio (CIR) calculator in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:31.295079",
-      "duration_sec": 2.42,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 458,
-      "description": "Validate insulin correction sensitivity factor (ISF) calculation in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:33.924401",
-      "duration_sec": 2.62,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 459,
-      "description": "Audit cold-chain +2°C to +8°C insulin storage IoT temperature logger in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:36.259028",
-      "duration_sec": 2.33,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 460,
-      "description": "Verify diabetic ketoacidosis (DKA) urine ketone screening protocol checklist in Type 1 Basal-Bolus Management",
-      "timestamp": "2026-10-27T00:11:38.641137",
-      "duration_sec": 2.38,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 461,
-      "description": "Audit Continuous Glucose Monitoring (CGM) Ambulatory Glucose Profile (AGP) parser in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:40.874410",
-      "duration_sec": 2.23,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 462,
-      "description": "Verify Time in Range (TIR: 70-180 mg/dL > 70%) target compliance calculation in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:43.084076",
-      "duration_sec": 2.2,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 463,
-      "description": "Test Time Below Range (TBR < 54 mg/dL < 1%) severe hypoglycemia alert triggers in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:45.366829",
-      "duration_sec": 2.28,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 464,
-      "description": "Validate Glycemic Variability coefficient of variation (CV < 36%) threshold in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:47.735803",
-      "duration_sec": 2.36,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 465,
-      "description": "Audit Dawn phenomenon vs. Somogyi rebound nocturnal differential analysis in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:50.103660",
-      "duration_sec": 2.36,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 466,
-      "description": "Verify basal insulin glargine/degludec once-daily bedtime schedule enforcement in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:52.364660",
-      "duration_sec": 2.26,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 467,
-      "description": "Test rapid-acting insulin carbohydrate-to-insulin ratio (CIR) calculator in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:54.629099",
-      "duration_sec": 2.26,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 468,
-      "description": "Validate insulin correction sensitivity factor (ISF) calculation in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:56.919792",
-      "duration_sec": 2.29,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 469,
-      "description": "Audit cold-chain +2°C to +8°C insulin storage IoT temperature logger in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:11:59.202006",
-      "duration_sec": 2.28,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 470,
-      "description": "Verify diabetic ketoacidosis (DKA) urine ketone screening protocol checklist in Type 2 Insulin Initiation Track",
-      "timestamp": "2026-10-27T00:12:01.580876",
-      "duration_sec": 2.37,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 471,
-      "description": "Audit Continuous Glucose Monitoring (CGM) Ambulatory Glucose Profile (AGP) parser in Gestational Diabetes Unit",
-      "timestamp": "2026-10-27T00:12:03.752489",
-      "duration_sec": 2.17,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 472,
-      "description": "Verify Time in Range (TIR: 70-180 mg/dL > 70%) target compliance calculation in Gestational Diabetes Unit",
-      "timestamp": "2026-10-27T00:12:05.951048",
-      "duration_sec": 2.19,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 473,
-      "description": "Test Time Below Range (TBR < 54 mg/dL < 1%) severe hypoglycemia alert triggers in Gestational Diabetes Unit",
-      "timestamp": "2026-10-27T00:12:08.137338",
-      "duration_sec": 2.18,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 474,
-      "description": "Validate Glycemic Variability coefficient of variation (CV < 36%) threshold in Gestational Diabetes Unit",
-      "timestamp": "2026-10-27T00:12:10.292467",
-      "duration_sec": 2.15,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
-    {
-      "prompt_id": 475,
-      "description": "Audit Dawn phenomenon vs. Somogyi rebound nocturnal differential analysis in Gestational Diabetes Unit",
-      "timestamp": "2026-10-27T00:12:12.599542",
-      "duration_sec": 2.3,
-      "results": {
-        "unicorn_healthcheck": {
-          "exit_code": 0,
-          "summary": "169/169 Modules Passed"
-        }
-      }
-    },
     {
       "prompt_id": 476,
       "description": "Verify basal insulin glargine/degludec once-daily bedtime schedule enforcement in Gestational Diabetes Unit",
@@ -2398,6 +2098,306 @@
       "description": "Verify celiac disease anti-tTG IgA serology diagnostic pathway in Biliary Tract Assessment",
       "timestamp": "2026-10-27T00:20:52.608810",
       "duration_sec": 2.17,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 651,
+      "description": "Audit target intraocular pressure (IOP) calculation based on baseline damage in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:21:52.088873",
+      "duration_sec": 2.37,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 652,
+      "description": "Verify Goldman applanation tonometry corneal thickness pachymetry correction in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:21:54.313189",
+      "duration_sec": 2.22,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 653,
+      "description": "Test topical prostaglandin analog 20:00 night-time administration compliance in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:21:56.475837",
+      "duration_sec": 2.16,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 654,
+      "description": "Validate nasolacrimal occlusion 2-minute systemic absorption block technique guide in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:21:58.839959",
+      "duration_sec": 2.36,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 655,
+      "description": "Audit topical beta-blocker asthma and bradycardia systemic contraindication check in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:22:01.457760",
+      "duration_sec": 2.61,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 656,
+      "description": "Verify preservative-free single-dose packaging for ocular surface disease in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:22:04.103355",
+      "duration_sec": 2.64,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 657,
+      "description": "Test visual field mean deviation (MD) progression rate tracking in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:22:06.627421",
+      "duration_sec": 2.52,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 658,
+      "description": "Validate central retinal vein occlusion (CRVO) acute referral trigger in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:22:09.113839",
+      "duration_sec": 2.48,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 659,
+      "description": "Audit dry eye disease tear breakup time (TBUT) and artificial tear regimen in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:22:11.351778",
+      "duration_sec": 2.23,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 660,
+      "description": "Verify diabetic retinopathy fundus photo screening reminder workflow in Primary Open-Angle Glaucoma",
+      "timestamp": "2026-10-27T00:22:13.503893",
+      "duration_sec": 2.15,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 661,
+      "description": "Audit target intraocular pressure (IOP) calculation based on baseline damage in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:15.795595",
+      "duration_sec": 2.29,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 662,
+      "description": "Verify Goldman applanation tonometry corneal thickness pachymetry correction in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:18.010691",
+      "duration_sec": 2.21,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 663,
+      "description": "Test topical prostaglandin analog 20:00 night-time administration compliance in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:20.150221",
+      "duration_sec": 2.13,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 664,
+      "description": "Validate nasolacrimal occlusion 2-minute systemic absorption block technique guide in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:22.335839",
+      "duration_sec": 2.18,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 665,
+      "description": "Audit topical beta-blocker asthma and bradycardia systemic contraindication check in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:24.524854",
+      "duration_sec": 2.18,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 666,
+      "description": "Verify preservative-free single-dose packaging for ocular surface disease in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:26.691140",
+      "duration_sec": 2.16,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 667,
+      "description": "Test visual field mean deviation (MD) progression rate tracking in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:28.925534",
+      "duration_sec": 2.23,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 668,
+      "description": "Validate central retinal vein occlusion (CRVO) acute referral trigger in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:31.204110",
+      "duration_sec": 2.27,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 669,
+      "description": "Audit dry eye disease tear breakup time (TBUT) and artificial tear regimen in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:33.473494",
+      "duration_sec": 2.26,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 670,
+      "description": "Verify diabetic retinopathy fundus photo screening reminder workflow in Normal Tension Glaucoma",
+      "timestamp": "2026-10-27T00:22:35.831877",
+      "duration_sec": 2.35,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 671,
+      "description": "Audit target intraocular pressure (IOP) calculation based on baseline damage in Ocular Hypertension Clinic",
+      "timestamp": "2026-10-27T00:22:38.272291",
+      "duration_sec": 2.44,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 672,
+      "description": "Verify Goldman applanation tonometry corneal thickness pachymetry correction in Ocular Hypertension Clinic",
+      "timestamp": "2026-10-27T00:22:40.787530",
+      "duration_sec": 2.51,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 673,
+      "description": "Test topical prostaglandin analog 20:00 night-time administration compliance in Ocular Hypertension Clinic",
+      "timestamp": "2026-10-27T00:22:43.149942",
+      "duration_sec": 2.36,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 674,
+      "description": "Validate nasolacrimal occlusion 2-minute systemic absorption block technique guide in Ocular Hypertension Clinic",
+      "timestamp": "2026-10-27T00:22:45.713443",
+      "duration_sec": 2.56,
+      "results": {
+        "unicorn_healthcheck": {
+          "exit_code": 0,
+          "summary": "169/169 Modules Passed"
+        }
+      }
+    },
+    {
+      "prompt_id": 675,
+      "description": "Audit topical beta-blocker asthma and bradycardia systemic contraindication check in Ocular Hypertension Clinic",
+      "timestamp": "2026-10-27T00:22:48.089437",
+      "duration_sec": 2.37,
       "results": {
         "unicorn_healthcheck": {
           "exit_code": 0,
