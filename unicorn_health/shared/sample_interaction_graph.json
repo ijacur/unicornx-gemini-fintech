@@ -6,23 +6,22 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
       "id": "clopidogrel",
       "label": "Klopidogrel (Plaviks)",
       "group": "P2Y12 Antiagregant",
       "cyp": "CYP2C19 bioaktivatsiya",
       "riskFactors": [
         "qon ketish xavfi"
-      ]
-    },
-    {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
-      "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
       ]
     },
     {
@@ -47,16 +46,6 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
-      "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
-      ]
-    },
-    {
       "id": "spironolactone",
       "label": "Spironolakton (Veroshpiron)",
       "group": "Kaliy tejovchi diuretik",
@@ -65,12 +54,23 @@
         "og'ir giperkalemiya",
         "aritmiya"
       ]
+    },
+    {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
+      ]
     }
   ],
   "edges": [
     {
-      "from": "enalapril",
-      "to": "spironolactone",
+      "from": "spironolactone",
+      "to": "enalapril",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
@@ -85,8 +85,8 @@
       "advice": "Faqat o'tkir koronar sindrom / stentdan keyin qat'iy ko'rsatma bilan berish. Proton pompasi ingibitori (Omeprazol emas, Pantoprazol) qo'shish."
     },
     {
-      "from": "atorvastatin",
-      "to": "amlodipine",
+      "from": "amlodipine",
+      "to": "atorvastatin",
       "severity": "moderate",
       "mechanism": "CYP3A4 fermenti uchun raqobat: Amlodipin Atorvastatin metabolizmini qisman sekinlashtiradi.",
       "effect": "Atorvastatin qondagi konsentratsiyasi 18-25% ga oshishi, mushaklarda og'riq xavfi.",
