@@ -16,6 +16,15 @@
       ]
     },
     {
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
+      "riskFactors": [
+        "qon ketish xavfi"
+      ]
+    },
+    {
       "id": "spironolactone",
       "label": "Spironolakton (Veroshpiron)",
       "group": "Kaliy tejovchi diuretik",
@@ -23,17 +32,6 @@
       "riskFactors": [
         "og'ir giperkalemiya",
         "aritmiya"
-      ]
-    },
-    {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
-      "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
       ]
     },
     {
@@ -48,6 +46,17 @@
       ]
     },
     {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
+      ]
+    },
+    {
       "id": "amlodipine",
       "label": "Amlodipin (Norvask)",
       "group": "Kalsiy kanallari blokatori (DHP)",
@@ -55,15 +64,6 @@
       "riskFactors": [
         "periferik shish",
         "gipotenziya"
-      ]
-    },
-    {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
-      "riskFactors": [
-        "qon ketish xavfi"
       ]
     }
   ],
@@ -85,8 +85,8 @@
       "advice": "Faqat o'tkir koronar sindrom / stentdan keyin qat'iy ko'rsatma bilan berish. Proton pompasi ingibitori (Omeprazol emas, Pantoprazol) qo'shish."
     },
     {
-      "from": "atorvastatin",
-      "to": "amlodipine",
+      "from": "amlodipine",
+      "to": "atorvastatin",
       "severity": "moderate",
       "mechanism": "CYP3A4 fermenti uchun raqobat: Amlodipin Atorvastatin metabolizmini qisman sekinlashtiradi.",
       "effect": "Atorvastatin qondagi konsentratsiyasi 18-25% ga oshishi, mushaklarda og'riq xavfi.",
