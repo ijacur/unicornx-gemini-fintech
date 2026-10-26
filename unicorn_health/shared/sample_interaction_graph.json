@@ -6,15 +6,6 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
-      "riskFactors": [
-        "qon ketish xavfi"
-      ]
-    },
-    {
       "id": "aspirin",
       "label": "Aspirin (Atsetilsalitsil kislotasi)",
       "group": "Antiagregant / NPVS",
@@ -22,6 +13,16 @@
       "riskFactors": [
         "oshqozon qonashi",
         "antikoagulyant sinergiyasi"
+      ]
+    },
+    {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
       ]
     },
     {
@@ -36,17 +37,6 @@
       ]
     },
     {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
-      "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
-      ]
-    },
-    {
       "id": "spironolactone",
       "label": "Spironolakton (Veroshpiron)",
       "group": "Kaliy tejovchi diuretik",
@@ -57,13 +47,23 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "qon ketish xavfi"
+      ]
+    },
+    {
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
+      "riskFactors": [
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
       ]
     }
   ],
