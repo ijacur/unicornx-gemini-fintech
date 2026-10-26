@@ -6,16 +6,6 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
-      ]
-    },
-    {
       "id": "atorvastatin",
       "label": "Atorvastatin (Liprimar)",
       "group": "GMF-KoA reduktaza ingibitori (Statin)",
@@ -27,22 +17,32 @@
       ]
     },
     {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
-      ]
-    },
-    {
       "id": "clopidogrel",
       "label": "Klopidogrel (Plaviks)",
       "group": "P2Y12 Antiagregant",
       "cyp": "CYP2C19 bioaktivatsiya",
       "riskFactors": [
         "qon ketish xavfi"
+      ]
+    },
+    {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
+      "riskFactors": [
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
       ]
     },
     {
@@ -57,13 +57,13 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "og'ir giperkalemiya",
+        "aritmiya"
       ]
     }
   ],
