@@ -17,6 +17,16 @@
       ]
     },
     {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
       "id": "enalapril",
       "label": "Enalapril (Renitek)",
       "group": "AAF ingibitori (ACEi)",
@@ -28,13 +38,13 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
       ]
     },
     {
@@ -44,16 +54,6 @@
       "cyp": "CYP2C19 bioaktivatsiya",
       "riskFactors": [
         "qon ketish xavfi"
-      ]
-    },
-    {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
       ]
     },
     {
@@ -77,16 +77,16 @@
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "clopidogrel",
-      "to": "aspirin",
+      "from": "aspirin",
+      "to": "clopidogrel",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
       "advice": "Faqat o'tkir koronar sindrom / stentdan keyin qat'iy ko'rsatma bilan berish. Proton pompasi ingibitori (Omeprazol emas, Pantoprazol) qo'shish."
     },
     {
-      "from": "amlodipine",
-      "to": "atorvastatin",
+      "from": "atorvastatin",
+      "to": "amlodipine",
       "severity": "moderate",
       "mechanism": "CYP3A4 fermenti uchun raqobat: Amlodipin Atorvastatin metabolizmini qisman sekinlashtiradi.",
       "effect": "Atorvastatin qondagi konsentratsiyasi 18-25% ga oshishi, mushaklarda og'riq xavfi.",
