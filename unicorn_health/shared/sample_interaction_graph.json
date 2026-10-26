@@ -6,47 +6,6 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
-      "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
-      ]
-    },
-    {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
-      "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
-      ]
-    },
-    {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
-      "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
-      ]
-    },
-    {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
-      "riskFactors": [
-        "qon ketish xavfi"
-      ]
-    },
-    {
       "id": "aspirin",
       "label": "Aspirin (Atsetilsalitsil kislotasi)",
       "group": "Antiagregant / NPVS",
@@ -65,12 +24,53 @@
         "og'ir giperkalemiya",
         "aritmiya"
       ]
+    },
+    {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
+      ]
+    },
+    {
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
+      "riskFactors": [
+        "qon ketish xavfi"
+      ]
+    },
+    {
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
+      "riskFactors": [
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
+      ]
     }
   ],
   "edges": [
     {
-      "from": "enalapril",
-      "to": "spironolactone",
+      "from": "spironolactone",
+      "to": "enalapril",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
