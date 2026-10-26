@@ -6,24 +6,13 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
       "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
-      ]
-    },
-    {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
+        "og'ir giperkalemiya",
+        "aritmiya"
       ]
     },
     {
@@ -36,13 +25,14 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
       ]
     },
     {
@@ -57,20 +47,30 @@
       ]
     },
     {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
       "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
+      ]
+    },
+    {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
       ]
     }
   ],
   "edges": [
     {
-      "from": "enalapril",
-      "to": "spironolactone",
+      "from": "spironolactone",
+      "to": "enalapril",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
