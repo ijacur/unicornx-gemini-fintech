@@ -16,6 +16,16 @@
       ]
     },
     {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
       "id": "aspirin",
       "label": "Aspirin (Atsetilsalitsil kislotasi)",
       "group": "Antiagregant / NPVS",
@@ -35,13 +45,14 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
       ]
     },
     {
@@ -53,17 +64,6 @@
         "miopatiya",
         "rabdomioliz",
         "ALT oshishi"
-      ]
-    },
-    {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
-      "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
       ]
     }
   ],
@@ -77,8 +77,8 @@
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "clopidogrel",
-      "to": "aspirin",
+      "from": "aspirin",
+      "to": "clopidogrel",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
