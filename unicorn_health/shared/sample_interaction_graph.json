@@ -27,6 +27,26 @@
       ]
     },
     {
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
+      "riskFactors": [
+        "og'ir giperkalemiya",
+        "aritmiya"
+      ]
+    },
+    {
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
+      "riskFactors": [
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
+      ]
+    },
+    {
       "id": "clopidogrel",
       "label": "Klopidogrel (Plaviks)",
       "group": "P2Y12 Antiagregant",
@@ -45,32 +65,12 @@
         "rabdomioliz",
         "ALT oshishi"
       ]
-    },
-    {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
-      ]
-    },
-    {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
-      ]
     }
   ],
   "edges": [
     {
-      "from": "spironolactone",
-      "to": "enalapril",
+      "from": "enalapril",
+      "to": "spironolactone",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
