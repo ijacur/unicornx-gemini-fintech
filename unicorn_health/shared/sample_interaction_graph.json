@@ -6,13 +6,13 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
       "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
+        "periferik shish",
+        "gipotenziya"
       ]
     },
     {
@@ -25,24 +25,13 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
-      ]
-    },
-    {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
-      "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
+        "og'ir giperkalemiya",
+        "aritmiya"
       ]
     },
     {
@@ -64,6 +53,17 @@
       "riskFactors": [
         "oshqozon qonashi",
         "antikoagulyant sinergiyasi"
+      ]
+    },
+    {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
       ]
     }
   ],
