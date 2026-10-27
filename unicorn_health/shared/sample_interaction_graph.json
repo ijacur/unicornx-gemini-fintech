@@ -37,16 +37,6 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
-      "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
-      ]
-    },
-    {
       "id": "atorvastatin",
       "label": "Atorvastatin (Liprimar)",
       "group": "GMF-KoA reduktaza ingibitori (Statin)",
@@ -55,6 +45,16 @@
         "miopatiya",
         "rabdomioliz",
         "ALT oshishi"
+      ]
+    },
+    {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
       ]
     },
     {
@@ -85,8 +85,8 @@
       "advice": "Faqat o'tkir koronar sindrom / stentdan keyin qat'iy ko'rsatma bilan berish. Proton pompasi ingibitori (Omeprazol emas, Pantoprazol) qo'shish."
     },
     {
-      "from": "atorvastatin",
-      "to": "amlodipine",
+      "from": "amlodipine",
+      "to": "atorvastatin",
       "severity": "moderate",
       "mechanism": "CYP3A4 fermenti uchun raqobat: Amlodipin Atorvastatin metabolizmini qisman sekinlashtiradi.",
       "effect": "Atorvastatin qondagi konsentratsiyasi 18-25% ga oshishi, mushaklarda og'riq xavfi.",
