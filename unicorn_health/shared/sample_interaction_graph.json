@@ -16,6 +16,17 @@
       ]
     },
     {
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
+      "riskFactors": [
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
+      ]
+    },
+    {
       "id": "enalapril",
       "label": "Enalapril (Renitek)",
       "group": "AAF ingibitori (ACEi)",
@@ -27,14 +38,13 @@
       ]
     },
     {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
       "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
+        "periferik shish",
+        "gipotenziya"
       ]
     },
     {
@@ -55,16 +65,6 @@
         "og'ir giperkalemiya",
         "aritmiya"
       ]
-    },
-    {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
-      "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
-      ]
     }
   ],
   "edges": [
@@ -77,8 +77,8 @@
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "aspirin",
-      "to": "clopidogrel",
+      "from": "clopidogrel",
+      "to": "aspirin",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
