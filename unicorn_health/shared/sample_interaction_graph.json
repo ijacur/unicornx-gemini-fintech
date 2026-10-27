@@ -6,6 +6,16 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
+      "riskFactors": [
+        "og'ir giperkalemiya",
+        "aritmiya"
+      ]
+    },
+    {
       "id": "amlodipine",
       "label": "Amlodipin (Norvask)",
       "group": "Kalsiy kanallari blokatori (DHP)",
@@ -13,16 +23,6 @@
       "riskFactors": [
         "periferik shish",
         "gipotenziya"
-      ]
-    },
-    {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
       ]
     },
     {
@@ -37,13 +37,13 @@
       ]
     },
     {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
       "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
       ]
     },
     {
