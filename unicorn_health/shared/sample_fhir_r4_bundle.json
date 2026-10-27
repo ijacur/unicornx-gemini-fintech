@@ -2,7 +2,7 @@
   "resourceType": "Bundle",
   "id": "BUNDLE-UNICORN-HEALTH-001",
   "meta": {
-    "lastUpdated": "2026-10-27T11:41:43.980135+00:00"
+    "lastUpdated": "2026-10-27T11:43:16.933529+00:00"
   },
   "type": "collection",
   "total": 6,
@@ -16,7 +16,7 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/Patient"
           ],
-          "lastUpdated": "2026-10-27T11:41:43.979810+00:00"
+          "lastUpdated": "2026-10-27T11:43:16.933270+00:00"
         },
         "identifier": [
           {
@@ -83,7 +83,7 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/MedicationRequest"
           ],
-          "lastUpdated": "2026-10-27T11:41:43.980061+00:00"
+          "lastUpdated": "2026-10-27T11:43:16.933446+00:00"
         },
         "status": "active",
         "intent": "order",
@@ -144,7 +144,7 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/MedicationDispense"
           ],
-          "lastUpdated": "2026-10-27T11:41:43.980081+00:00"
+          "lastUpdated": "2026-10-27T11:43:16.933469+00:00"
         },
         "status": "completed",
         "authorizingPrescription": [
@@ -172,7 +172,7 @@
           "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
           "code": "POUCH"
         },
-        "whenHandedOver": "2026-10-27T11:41:43.980083+00:00",
+        "whenHandedOver": "2026-10-27T11:43:16.933471+00:00",
         "note": [
           {
             "text": "DoriQuti 30 kunlik kalendar blister to'plami. Partiya: BATCH-ATV-2026A, Yaroqlilik: 2027-11-01. 4K Optik AI nazoratidan o'tgan: Ha."
@@ -189,7 +189,7 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/ServiceRequest"
           ],
-          "lastUpdated": "2026-10-27T11:41:43.980086+00:00"
+          "lastUpdated": "2026-10-27T11:43:16.933473+00:00"
         },
         "status": "active",
         "intent": "order",
@@ -227,7 +227,7 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/DiagnosticReport"
           ],
-          "lastUpdated": "2026-10-27T11:41:43.980094+00:00"
+          "lastUpdated": "2026-10-27T11:43:16.933481+00:00"
         },
         "status": "final",
         "code": {
@@ -248,8 +248,8 @@
             "reference": "ServiceRequest/SRV-2026-7731"
           }
         ],
-        "effectiveDateTime": "2026-10-27T11:41:43.980096+00:00",
-        "issued": "2026-10-27T11:41:43.980097+00:00",
+        "effectiveDateTime": "2026-10-27T11:43:16.933482+00:00",
+        "issued": "2026-10-27T11:43:16.933483+00:00",
         "performer": [
           {
             "display": "Radiolog/Vrach: Dr. Bekzod Aliyev"
@@ -274,7 +274,7 @@
           "profile": [
             "http://hl7.org/fhir/StructureDefinition/Observation"
           ],
-          "lastUpdated": "2026-10-27T11:41:43.980099+00:00"
+          "lastUpdated": "2026-10-27T11:43:16.933491+00:00"
         },
         "status": "final",
         "code": {
@@ -290,7 +290,7 @@
         "subject": {
           "reference": "Patient/PAT-UZ-882104"
         },
-        "effectiveDateTime": "2026-10-27T11:41:43.980101+00:00",
+        "effectiveDateTime": "2026-10-27T11:43:16.933493+00:00",
         "valueQuantity": {
           "value": 88.5,
           "unit": "mL/min/1.73m2",
