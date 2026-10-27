@@ -6,12 +6,13 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
       "riskFactors": [
-        "qon ketish xavfi"
+        "periferik shish",
+        "gipotenziya"
       ]
     },
     {
@@ -26,13 +27,22 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
+      ]
+    },
+    {
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
+      "riskFactors": [
+        "qon ketish xavfi"
       ]
     },
     {
@@ -44,16 +54,6 @@
         "giperkalemiya",
         "quruq yo'tal",
         "Kvinke shishi"
-      ]
-    },
-    {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
       ]
     },
     {
@@ -77,16 +77,16 @@
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "aspirin",
-      "to": "clopidogrel",
+      "from": "clopidogrel",
+      "to": "aspirin",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
       "advice": "Faqat o'tkir koronar sindrom / stentdan keyin qat'iy ko'rsatma bilan berish. Proton pompasi ingibitori (Omeprazol emas, Pantoprazol) qo'shish."
     },
     {
-      "from": "atorvastatin",
-      "to": "amlodipine",
+      "from": "amlodipine",
+      "to": "atorvastatin",
       "severity": "moderate",
       "mechanism": "CYP3A4 fermenti uchun raqobat: Amlodipin Atorvastatin metabolizmini qisman sekinlashtiradi.",
       "effect": "Atorvastatin qondagi konsentratsiyasi 18-25% ga oshishi, mushaklarda og'riq xavfi.",
