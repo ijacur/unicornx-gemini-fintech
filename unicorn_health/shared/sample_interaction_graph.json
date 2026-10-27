@@ -6,6 +6,16 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
+      "riskFactors": [
+        "og'ir giperkalemiya",
+        "aritmiya"
+      ]
+    },
+    {
       "id": "atorvastatin",
       "label": "Atorvastatin (Liprimar)",
       "group": "GMF-KoA reduktaza ingibitori (Statin)",
@@ -14,35 +24,6 @@
         "miopatiya",
         "rabdomioliz",
         "ALT oshishi"
-      ]
-    },
-    {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
-      "riskFactors": [
-        "qon ketish xavfi"
-      ]
-    },
-    {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
-      "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
-      ]
-    },
-    {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
       ]
     },
     {
@@ -57,6 +38,15 @@
       ]
     },
     {
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
+      "riskFactors": [
+        "qon ketish xavfi"
+      ]
+    },
+    {
       "id": "amlodipine",
       "label": "Amlodipin (Norvask)",
       "group": "Kalsiy kanallari blokatori (DHP)",
@@ -64,6 +54,16 @@
       "riskFactors": [
         "periferik shish",
         "gipotenziya"
+      ]
+    },
+    {
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
+      "riskFactors": [
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
       ]
     }
   ],
@@ -77,8 +77,8 @@
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "clopidogrel",
-      "to": "aspirin",
+      "from": "aspirin",
+      "to": "clopidogrel",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
