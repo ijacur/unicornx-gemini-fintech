@@ -6,23 +6,13 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "aspirin",
+      "label": "Aspirin (Atsetilsalitsil kislotasi)",
+      "group": "Antiagregant / NPVS",
+      "cyp": "CYP2C9",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
-      ]
-    },
-    {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
+        "oshqozon qonashi",
+        "antikoagulyant sinergiyasi"
       ]
     },
     {
@@ -35,14 +25,13 @@
       ]
     },
     {
-      "id": "atorvastatin",
-      "label": "Atorvastatin (Liprimar)",
-      "group": "GMF-KoA reduktaza ingibitori (Statin)",
-      "cyp": "CYP3A4 substrati",
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
       "riskFactors": [
-        "miopatiya",
-        "rabdomioliz",
-        "ALT oshishi"
+        "periferik shish",
+        "gipotenziya"
       ]
     },
     {
@@ -57,13 +46,24 @@
       ]
     },
     {
-      "id": "aspirin",
-      "label": "Aspirin (Atsetilsalitsil kislotasi)",
-      "group": "Antiagregant / NPVS",
-      "cyp": "CYP2C9",
+      "id": "atorvastatin",
+      "label": "Atorvastatin (Liprimar)",
+      "group": "GMF-KoA reduktaza ingibitori (Statin)",
+      "cyp": "CYP3A4 substrati",
       "riskFactors": [
-        "oshqozon qonashi",
-        "antikoagulyant sinergiyasi"
+        "miopatiya",
+        "rabdomioliz",
+        "ALT oshishi"
+      ]
+    },
+    {
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
+      "riskFactors": [
+        "og'ir giperkalemiya",
+        "aritmiya"
       ]
     }
   ],
@@ -77,8 +77,8 @@
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "aspirin",
-      "to": "clopidogrel",
+      "from": "clopidogrel",
+      "to": "aspirin",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
