@@ -6,14 +6,13 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
       "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
+        "og'ir giperkalemiya",
+        "aritmiya"
       ]
     },
     {
@@ -23,16 +22,6 @@
       "cyp": "CYP2C19 bioaktivatsiya",
       "riskFactors": [
         "qon ketish xavfi"
-      ]
-    },
-    {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
       ]
     },
     {
@@ -56,6 +45,17 @@
       ]
     },
     {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
+      ]
+    },
+    {
       "id": "atorvastatin",
       "label": "Atorvastatin (Liprimar)",
       "group": "GMF-KoA reduktaza ingibitori (Statin)",
@@ -69,16 +69,16 @@
   ],
   "edges": [
     {
-      "from": "spironolactone",
-      "to": "enalapril",
+      "from": "enalapril",
+      "to": "spironolactone",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
       "advice": "Kaliy miqdorini doimiy nazorat qilish (har 2 haftada). Kaliy saqlovchi qo'shimchalarni man etish."
     },
     {
-      "from": "clopidogrel",
-      "to": "aspirin",
+      "from": "aspirin",
+      "to": "clopidogrel",
       "severity": "major",
       "mechanism": "Qo'shaloq antiagregant terapiya (DAPT) trombotsitlar agregatsiyasini chuqur to'xtatadi.",
       "effect": "Me'da-ichak qon ketishi va mikrogematuriya xavfi 2.8 barobar oshadi.",
