@@ -6,6 +6,17 @@
   "statusText": "TO'Q SARIQ: Yuqori ehtiyotkorlik. Laboratoriya nazorati (K+, KFK, MNO) zarur.",
   "nodes": [
     {
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
+      "riskFactors": [
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
+      ]
+    },
+    {
       "id": "amlodipine",
       "label": "Amlodipin (Norvask)",
       "group": "Kalsiy kanallari blokatori (DHP)",
@@ -13,25 +24,6 @@
       "riskFactors": [
         "periferik shish",
         "gipotenziya"
-      ]
-    },
-    {
-      "id": "clopidogrel",
-      "label": "Klopidogrel (Plaviks)",
-      "group": "P2Y12 Antiagregant",
-      "cyp": "CYP2C19 bioaktivatsiya",
-      "riskFactors": [
-        "qon ketish xavfi"
-      ]
-    },
-    {
-      "id": "spironolactone",
-      "label": "Spironolakton (Veroshpiron)",
-      "group": "Kaliy tejovchi diuretik",
-      "cyp": "Jigar metabolizmi",
-      "riskFactors": [
-        "og'ir giperkalemiya",
-        "aritmiya"
       ]
     },
     {
@@ -46,6 +38,16 @@
       ]
     },
     {
+      "id": "spironolactone",
+      "label": "Spironolakton (Veroshpiron)",
+      "group": "Kaliy tejovchi diuretik",
+      "cyp": "Jigar metabolizmi",
+      "riskFactors": [
+        "og'ir giperkalemiya",
+        "aritmiya"
+      ]
+    },
+    {
       "id": "aspirin",
       "label": "Aspirin (Atsetilsalitsil kislotasi)",
       "group": "Antiagregant / NPVS",
@@ -56,21 +58,19 @@
       ]
     },
     {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
+      "id": "clopidogrel",
+      "label": "Klopidogrel (Plaviks)",
+      "group": "P2Y12 Antiagregant",
+      "cyp": "CYP2C19 bioaktivatsiya",
       "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
+        "qon ketish xavfi"
       ]
     }
   ],
   "edges": [
     {
-      "from": "spironolactone",
-      "to": "enalapril",
+      "from": "enalapril",
+      "to": "spironolactone",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
