@@ -17,13 +17,14 @@
       ]
     },
     {
-      "id": "amlodipine",
-      "label": "Amlodipin (Norvask)",
-      "group": "Kalsiy kanallari blokatori (DHP)",
-      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "id": "enalapril",
+      "label": "Enalapril (Renitek)",
+      "group": "AAF ingibitori (ACEi)",
+      "cyp": "Jigar gidrolizi",
       "riskFactors": [
-        "periferik shish",
-        "gipotenziya"
+        "giperkalemiya",
+        "quruq yo'tal",
+        "Kvinke shishi"
       ]
     },
     {
@@ -46,6 +47,16 @@
       ]
     },
     {
+      "id": "amlodipine",
+      "label": "Amlodipin (Norvask)",
+      "group": "Kalsiy kanallari blokatori (DHP)",
+      "cyp": "CYP3A4 substrati va kuchsiz ingibitori",
+      "riskFactors": [
+        "periferik shish",
+        "gipotenziya"
+      ]
+    },
+    {
       "id": "aspirin",
       "label": "Aspirin (Atsetilsalitsil kislotasi)",
       "group": "Antiagregant / NPVS",
@@ -54,23 +65,12 @@
         "oshqozon qonashi",
         "antikoagulyant sinergiyasi"
       ]
-    },
-    {
-      "id": "enalapril",
-      "label": "Enalapril (Renitek)",
-      "group": "AAF ingibitori (ACEi)",
-      "cyp": "Jigar gidrolizi",
-      "riskFactors": [
-        "giperkalemiya",
-        "quruq yo'tal",
-        "Kvinke shishi"
-      ]
     }
   ],
   "edges": [
     {
-      "from": "spironolactone",
-      "to": "enalapril",
+      "from": "enalapril",
+      "to": "spironolactone",
       "severity": "major",
       "mechanism": "Farmakodinamik sinergiya: ikkala preparat ham buyrakda kaliy ekskretsiyasini bloklaydi.",
       "effect": "Og'ir giperkalemiya (K+ > 5.5 mmol/L) va hayot uchun xavfli yurak aritmiyasi xavfi.",
