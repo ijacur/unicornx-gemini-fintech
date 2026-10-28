@@ -19,7 +19,7 @@ import {
 } from 'lucide-react'
 
 const InstagramIcon = () => (
-  <svg className="w-3.5 h-3.5 fill-current text-pink-400" viewBox="0 0 24 24" aria-label="Instagram">
+  <svg className="w-3.5 h-3.5 fill-current text-white" viewBox="0 0 24 24" aria-label="Instagram">
     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
   </svg>
 )
@@ -58,9 +58,9 @@ const MIND_NODES: MindNode[] = [
       en: 'Core Technology Ecosystem'
     },
     icon: Stethoscope,
-    color: 'from-emerald-500 to-teal-600',
-    borderColor: 'border-emerald-500/40',
-    glowColor: 'rgba(52, 211, 153, 0.25)',
+    color: 'from-white via-zinc-200 to-zinc-400',
+    borderColor: 'border-white/20',
+    glowColor: 'rgba(255, 255, 255, 0.25)',
     summary: {
       uz: "O'zbekiston xususiy klinikalari va laboratoriyalarida 45% bemorlarning yo'qotilishini to'xtatuvchi, 8 soniyada laboratoriya natijasini tushuntirib shifokorga yo'naltiruvchi MedLoop AI, 169 ta klinik kalkulyatorga ega Unicorn Health va Tahlil AI tizimlari.",
       ru: 'Экосистема MedLoop AI, Unicorn Health и Tahlil AI: предотвращение 45% оттока пациентов после сдачи анализов, интерпретация биомаркеров за 8 секунд и 169 верифицированных клинических алгоритмов.',
@@ -124,9 +124,9 @@ const MIND_NODES: MindNode[] = [
       en: 'Academic Leadership & Rector Scholarship'
     },
     icon: GraduationCap,
-    color: 'from-blue-500 to-indigo-600',
-    borderColor: 'border-blue-500/40',
-    glowColor: 'rgba(59, 130, 246, 0.25)',
+    color: 'from-white via-zinc-200 to-zinc-400',
+    borderColor: 'border-white/20',
+    glowColor: 'rgba(255, 255, 255, 0.25)',
     summary: {
       uz: "Samarqand davlat tibbiyot universiteti Boshqaruv va menejment fakulteti II bosqich talabasi. Universitet Ilmiy ishlar bo'yicha prorektori A.S. Kubayev va bo'lim boshlig'i U.F. Payzullayeva tomonidan 2026–2027 o'quv yili Rektor stipendiyasiga nomzod qilib ko'rsatilgan.",
       ru: 'Студент факультета управления СамГМУ. Выдвинут на стипендию ректора проректором А.С. Кубаевым и зав. отделом У.Ф. Пайзуллаевой за внедрение цифровых технологий и проекта EpiVision XR.',
@@ -170,9 +170,9 @@ const MIND_NODES: MindNode[] = [
       en: 'École 42 Peer-to-Peer Engineering'
     },
     icon: Cpu,
-    color: 'from-amber-500 to-orange-600',
-    borderColor: 'border-amber-500/40',
-    glowColor: 'rgba(245, 158, 11, 0.25)',
+    color: 'from-white via-zinc-200 to-zinc-400',
+    borderColor: 'border-white/20',
+    glowColor: 'rgba(255, 255, 255, 0.25)',
     summary: {
       uz: "School 21 qat'iy peer-to-peer metodologiyasi: past darajali C va C++17/20, ko'rsatkichlar arifmetikasi, xotirani qo'lda boshqarish (custom allocators), keshga moslashtirilgan ma'lumotlar tuzilmasi va nol placeholder tamoyili.",
       ru: 'Школа 21 (модель École 42): строгий C/C++, работа с указателями, ручное управление памятью, алгоритмические структуры и нулевая терпимость к placeholder-коду.',
@@ -216,9 +216,9 @@ const MIND_NODES: MindNode[] = [
       en: 'AI & Multi-Agent Architectures'
     },
     icon: Brain,
-    color: 'from-purple-500 to-pink-600',
-    borderColor: 'border-purple-500/40',
-    glowColor: 'rgba(192, 132, 252, 0.25)',
+    color: 'from-white via-zinc-200 to-zinc-400',
+    borderColor: 'border-white/20',
+    glowColor: 'rgba(255, 255, 255, 0.25)',
     summary: {
       uz: "Gemini Pro, Antigravity va NotebookLM orqali murakkab kognitiv jarayonlarni avtomatlashtirish, multi-agent tizimlari, kontekst xotirasi va strukturaviy schema sintezi.",
       ru: 'Глубокая экспертиза в Gemini Pro, Antigravity и NotebookLM: построение мультиагентных систем, автономных контуров и синтез структурированных знаний.',
@@ -264,9 +264,9 @@ const MIND_NODES: MindNode[] = [
       en: 'Industrial Machinery & Market Asymmetry'
     },
     icon: TrendingUp,
-    color: 'from-amber-600 to-yellow-500',
-    borderColor: 'border-yellow-500/40',
-    glowColor: 'rgba(234, 179, 8, 0.25)',
+    color: 'from-white via-zinc-200 to-zinc-400',
+    borderColor: 'border-white/20',
+    glowColor: 'rgba(255, 255, 255, 0.25)',
     summary: {
       uz: 'Sanoat tikuv mashinalari va tekstil uskunalarini yetkazib berish bo‘yicha tajriba. $2 va $375 marja optimallashtirish strategiyasi, Markaziy Osiyo logistika va B2B savdo tarmoqlari.',
       ru: 'Опыт в поставках промышленного швейного оборудования. Стратегия маржинального арбитража ($2 vs $375) и дистрибуция по Центральной Азии.',
@@ -385,7 +385,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
         ctx.beginPath()
         ctx.moveTo(centerX, centerY)
         ctx.lineTo(x, y)
-        ctx.strokeStyle = node.id === selectedNodeId ? 'rgba(41, 151, 255, 0.6)' : 'rgba(255, 255, 255, 0.07)'
+        ctx.strokeStyle = node.id === selectedNodeId ? 'rgba(255, 255, 255, 0.85)' : 'rgba(255, 255, 255, 0.08)'
         ctx.lineWidth = node.id === selectedNodeId ? 2 : 1
         ctx.stroke()
 
@@ -396,25 +396,25 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
         ctx.beginPath()
         ctx.moveTo(x, y)
         ctx.lineTo(nextX, nextY)
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)'
         ctx.stroke()
 
         // Draw outer node circle
         ctx.beginPath()
         ctx.arc(x, y, node.id === selectedNodeId ? 16 : 10, 0, 2 * Math.PI)
-        ctx.fillStyle = node.id === selectedNodeId ? '#0071e3' : '#1d1d1f'
+        ctx.fillStyle = node.id === selectedNodeId ? '#ffffff' : '#141416'
         ctx.fill()
-        ctx.strokeStyle = node.id === selectedNodeId ? '#2997ff' : 'rgba(255, 255, 255, 0.2)'
+        ctx.strokeStyle = node.id === selectedNodeId ? '#ffffff' : 'rgba(255, 255, 255, 0.25)'
         ctx.lineWidth = 2
         ctx.stroke()
       })
 
-      // Draw central core brain orb
+      // Draw central core brain orb (Crisp White Monolith)
       ctx.beginPath()
       ctx.arc(centerX, centerY, 24, 0, 2 * Math.PI)
-      ctx.fillStyle = '#0a84ff'
-      ctx.shadowColor = '#0a84ff'
-      ctx.shadowBlur = 20
+      ctx.fillStyle = '#ffffff'
+      ctx.shadowColor = '#ffffff'
+      ctx.shadowBlur = 24
       ctx.fill()
       ctx.shadowBlur = 0
 
@@ -459,19 +459,19 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
   return (
     <div className="space-y-8 animate-fade-in text-[#f5f5f7]">
       {/* ========================================================================= */}
-      {/* 1. HERO HEADER: JASUR SHUKUROV ONLINE MIND                                */}
+      {/* 1. HERO HEADER: JASUR SHUKUROV ONLINE MIND (BLACK & WHITE)                 */}
       {/* ========================================================================= */}
       <section className="apple-card p-6 sm:p-8 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-[#0071e3]/20 via-[#bf5af2]/10 to-transparent blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white/10 via-zinc-800/10 to-transparent blur-3xl pointer-events-none" />
 
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative z-10">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#30d158] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#30d158]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-white shadow-[0_0_8px_#ffffff]" />
               </span>
-              <span className="text-[11px] font-semibold uppercase tracking-widest text-[#30d158]">
+              <span className="text-[11px] font-semibold uppercase tracking-widest text-zinc-300">
                 {currentLang === 'uz'
                   ? 'ONLAYN MIYA FAOL • TASHKENT / SAMARKAND / CLOUD'
                   : currentLang === 'ru'
@@ -482,12 +482,12 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
 
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white flex items-center gap-3">
               JASUR SHUKUROV
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#0071e3]/20 text-[#2997ff] border border-[#0071e3]/30">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/20">
                 CEO & ARCHITECT
               </span>
             </h1>
 
-            <p className="text-xs sm:text-sm text-[#86868b] max-w-3xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#a1a1aa] max-w-3xl leading-relaxed">
               {currentLang === 'uz'
                 ? 'School 21 past darajali C/C++ tizimlari, Samarqand davlat tibbiyot universiteti (Rektor stipendiyasi nomzodi) sog‘liqni saqlash menejmenti va Antigravity avtonom AI arxitekturasi birlashmasi.'
                 : currentLang === 'ru'
@@ -520,9 +520,9 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
 
             <button
               onClick={() => setShowTavsiyanomaModal(true)}
-              className="apple-btn-secondary flex items-center gap-1.5 border-amber-500/30 text-amber-300"
+              className="apple-btn-secondary flex items-center gap-1.5 border-white/20 text-white hover:border-white/50"
             >
-              <Award className="w-3.5 h-3.5 text-amber-400" />
+              <Award className="w-3.5 h-3.5 text-white" />
               <span>{currentLang === 'uz' ? 'Tavsiyanoma' : currentLang === 'ru' ? 'Рекомендация' : 'Rector Letter'}</span>
             </button>
 
@@ -531,7 +531,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
               className="apple-btn-secondary p-2"
               title="Copy link to online mind"
             >
-              {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-[#86868b]" />}
+              {copiedLink ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5 text-[#a1a1aa]" />}
             </button>
           </div>
         </div>
@@ -539,24 +539,24 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
         {/* Executive Stats Strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-white/10 text-xs">
           <div>
-            <span className="text-[#86868b] block">Academic Excellence</span>
+            <span className="text-[#a1a1aa] block">Academic Excellence</span>
             <span className="font-semibold text-white text-sm">SamMU Management (II)</span>
-            <span className="text-[10px] text-amber-400 block mt-0.5">Rector's Scholarship Nominee</span>
+            <span className="text-[10px] text-zinc-400 block mt-0.5">Rector's Scholarship Nominee</span>
           </div>
           <div>
-            <span className="text-[#86868b] block">Systems Engineering</span>
+            <span className="text-[#a1a1aa] block">Systems Engineering</span>
             <span className="font-semibold text-white text-sm">School 21 (École 42)</span>
-            <span className="text-[10px] text-[#2997ff] block mt-0.5">Low-Latency C/C++ Protocols</span>
+            <span className="text-[10px] text-zinc-400 block mt-0.5">Low-Latency C/C++ Protocols</span>
           </div>
           <div>
-            <span className="text-[#86868b] block">Core Ventures</span>
+            <span className="text-[#a1a1aa] block">Core Ventures</span>
             <span className="font-semibold text-white text-sm">MedLoop AI • Unicorn</span>
-            <span className="text-[10px] text-emerald-400 block mt-0.5">169 Clinical Math Modules</span>
+            <span className="text-[10px] text-zinc-400 block mt-0.5">169 Clinical Math Modules</span>
           </div>
           <div>
-            <span className="text-[#86868b] block">Commercial Edge</span>
+            <span className="text-[#a1a1aa] block">Commercial Edge</span>
             <span className="font-semibold text-white text-sm">$2 vs $375 Strategy</span>
-            <span className="text-[10px] text-purple-400 block mt-0.5">Industrial Machinery Trade</span>
+            <span className="text-[10px] text-zinc-400 block mt-0.5">Industrial Machinery Trade</span>
           </div>
         </div>
       </section>
@@ -569,8 +569,8 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           onClick={() => setActiveTab('graph')}
           className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
             activeTab === 'graph'
-              ? 'bg-[#0071e3] text-white shadow-md'
-              : 'text-[#86868b] hover:text-white hover:bg-white/5'
+              ? 'bg-white text-black font-bold shadow-md'
+              : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
           }`}
         >
           <Brain className="w-3.5 h-3.5" />
@@ -581,8 +581,8 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           onClick={() => setActiveTab('ventures')}
           className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
             activeTab === 'ventures'
-              ? 'bg-[#0071e3] text-white shadow-md'
-              : 'text-[#86868b] hover:text-white hover:bg-white/5'
+              ? 'bg-white text-black font-bold shadow-md'
+              : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
           }`}
         >
           <Boxes className="w-3.5 h-3.5" />
@@ -593,8 +593,8 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           onClick={() => setActiveTab('qa')}
           className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
             activeTab === 'qa'
-              ? 'bg-[#0071e3] text-white shadow-md'
-              : 'text-[#86868b] hover:text-white hover:bg-white/5'
+              ? 'bg-white text-black font-bold shadow-md'
+              : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
           }`}
         >
           <Terminal className="w-3.5 h-3.5" />
@@ -605,8 +605,8 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           onClick={() => setActiveTab('credentials')}
           className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
             activeTab === 'credentials'
-              ? 'bg-[#0071e3] text-white shadow-md'
-              : 'text-[#86868b] hover:text-white hover:bg-white/5'
+              ? 'bg-white text-black font-bold shadow-md'
+              : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
           }`}
         >
           <Award className="w-3.5 h-3.5" />
@@ -639,8 +639,8 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
                   onClick={() => setSelectedNodeId(n.id)}
                   className={`px-2.5 py-1 rounded-full text-[11px] font-medium transition ${
                     selectedNodeId === n.id
-                      ? 'bg-[#0071e3] text-white shadow-sm'
-                      : 'bg-white/5 text-[#86868b] hover:text-white'
+                      ? 'bg-white text-black font-bold shadow-sm'
+                      : 'bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10'
                   }`}
                 >
                   {n.title[currentLang].split(' ')[0]}
@@ -653,7 +653,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           <div className="lg:col-span-7 apple-card p-6 sm:p-8 space-y-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`p-3 rounded-2xl bg-gradient-to-tr ${selectedNode.color} text-white shadow-lg`}>
+                <div className="p-3 rounded-2xl bg-white text-black shadow-lg">
                   <selectedNode.icon className="w-6 h-6" />
                 </div>
                 <div>
@@ -667,7 +667,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
               </div>
             </div>
 
-            <p className="text-sm text-zinc-300 leading-relaxed border-l-2 border-[#0071e3] pl-4 italic">
+            <p className="text-sm text-zinc-300 leading-relaxed border-l-2 border-white/40 pl-4 italic">
               {selectedNode.quote[currentLang]}
             </p>
 
@@ -680,7 +680,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
               {selectedNode.metrics.map((m, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[#2997ff]"
+                  className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white"
                 >
                   ✓ {m}
                 </span>
@@ -695,7 +695,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {selectedNode.keyProjects.map((p, pIdx) => (
-                  <div key={pIdx} className="p-3.5 rounded-2xl bg-[#1d1d1f] border border-white/10 space-y-1.5">
+                  <div key={pIdx} className="p-3.5 rounded-2xl bg-[#161618] border border-white/10 space-y-1.5">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-bold text-white">{p.name}</span>
                       {p.url && (
@@ -703,7 +703,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
                           href={p.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-[#2997ff] hover:text-white transition p-1"
+                          className="text-white hover:text-zinc-400 transition p-1"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
                         </a>
@@ -719,16 +719,16 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 2: ALL VERIFIED VENTURES & WORLDWIDE LINKS                             */}
+      {/* TAB 2: ALL VERIFIED VENTURES & WORLDWIDE LINKS (MONOCHROME BENTO)           */}
       {/* ========================================================================= */}
       {activeTab === 'ventures' && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* MedLoop AI */}
-            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-emerald-500/30">
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                     B2B CLINICAL TRIAGE
                   </span>
                   <span className="text-xs font-mono text-zinc-500">MVP 2026</span>
@@ -754,10 +754,10 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
             </div>
 
             {/* Unicorn Health Uzbekistan */}
-            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-teal-500/30">
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                     169 CLINICAL ENGINES
                   </span>
                   <span className="text-xs font-mono text-zinc-500">Live Production</span>
@@ -775,7 +775,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
                 href="https://unicorn-health-uzbekistan.vercel.app/"
                 target="_blank"
                 rel="noreferrer"
-                className="apple-btn-primary flex items-center justify-center gap-1.5 w-full text-center bg-teal-600 hover:bg-teal-500"
+                className="apple-btn-primary flex items-center justify-center gap-1.5 w-full text-center"
               >
                 <span>Open Unicorn Health</span>
                 <ExternalLink className="w-3 h-3" />
@@ -783,10 +783,10 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
             </div>
 
             {/* Tahlil AI */}
-            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-blue-500/30">
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                     LAB ANALYZER & BOT
                   </span>
                   <span className="text-xs font-mono text-zinc-500">Live Web & Bot</span>
@@ -821,10 +821,10 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
             </div>
 
             {/* Osiyo Medical Bot */}
-            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-purple-500/30">
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                     TELEGRAM CLINICAL ADVISOR
                   </span>
                   <span className="text-xs font-mono text-zinc-500">Active</span>
@@ -850,10 +850,10 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
             </div>
 
             {/* EpiVision XR */}
-            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-cyan-500/30">
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                     SURGICAL 3D / XR
                   </span>
                   <span className="text-xs font-mono text-zinc-500">SamMU Venture</span>
@@ -872,15 +872,15 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
                 className="apple-btn-secondary flex items-center justify-center gap-1.5 w-full text-center"
               >
                 <span>Inspect Recommendation</span>
-                <Award className="w-3.5 h-3.5 text-amber-400" />
+                <Award className="w-3.5 h-3.5 text-white" />
               </button>
             </div>
 
             {/* Launch Lab 21 */}
-            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-indigo-500/30">
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                     SCHOOL 21 INCUBATOR
                   </span>
                   <span className="text-xs font-mono text-zinc-500">Apple.com Edition</span>
@@ -914,14 +914,14 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
       {activeTab === 'qa' && (
         <div className="apple-card p-6 sm:p-8 space-y-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono text-[#2997ff] uppercase tracking-wider flex items-center gap-1.5">
+            <span className="text-xs font-mono text-white uppercase tracking-wider flex items-center gap-1.5">
               <Terminal className="w-4 h-4" />
               SYNTHETIC REASONING CONSOLE
             </span>
             <h3 className="text-xl sm:text-2xl font-bold text-white">
               {currentLang === 'uz' ? 'Jasurning Onlayn Miya Bazasidan So‘rang' : currentLang === 'ru' ? 'Задайте вопрос базе знаний Джасура' : "Query Jasur's Online Mind"}
             </h3>
-            <p className="text-xs text-[#86868b]">
+            <p className="text-xs text-[#a1a1aa]">
               {currentLang === 'uz'
                 ? 'Loyiha arxitekturasi, tibbiy iqtisodiyot, C/C++ xotira modellari yoki SamDTU Rektor stipendiyasi bo‘yicha savol bering:'
                 : currentLang === 'ru'
@@ -936,7 +936,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
               <button
                 key={idx}
                 onClick={() => handleAskBrain(qa.q)}
-                className="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-[#d2d2d7] hover:text-white transition text-left"
+                className="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-zinc-300 hover:text-white transition text-left"
               >
                 💬 {qa.q}
               </button>
@@ -944,7 +944,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           </div>
 
           {/* Search Input */}
-          <div className="flex items-center gap-2 bg-[#1d1d1f] border border-white/15 rounded-2xl p-2 px-4 focus-within:border-[#0071e3] transition">
+          <div className="flex items-center gap-2 bg-black border border-white/20 rounded-2xl p-2 px-4 focus-within:border-white transition">
             <Search className="w-4 h-4 text-[#86868b]" />
             <input
               type="text"
@@ -974,8 +974,8 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
 
           {/* Answer Box */}
           {qaAnswer && (
-            <div className="p-5 rounded-2xl bg-[#1d1d1f] border border-[#0071e3]/40 space-y-3 animate-fade-in">
-              <div className="flex items-center gap-2 text-xs font-semibold text-[#2997ff]">
+            <div className="p-5 rounded-2xl bg-[#161618] border border-white/25 space-y-3 animate-fade-in">
+              <div className="flex items-center gap-2 text-xs font-semibold text-white">
                 <Sparkles className="w-4 h-4" />
                 <span>{currentLang === 'uz' ? 'Miya Sintezi Natijasi:' : currentLang === 'ru' ? 'Результат Синтеза Разума:' : 'Synthesized Mind Response:'}</span>
               </div>
@@ -994,7 +994,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
         <div className="apple-card p-6 sm:p-8 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <span className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
+              <span className="text-xs font-semibold text-white uppercase tracking-wider">
                 OFFICIAL INSTITUTIONAL VAULT
               </span>
               <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -1011,7 +1011,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           </div>
 
           {/* Letter Excerpt Card */}
-          <div className="p-6 rounded-2xl bg-[#1d1d1f] border border-amber-500/30 space-y-4 text-xs sm:text-sm text-[#d2d2d7] leading-relaxed">
+          <div className="p-6 rounded-2xl bg-[#161618] border border-white/20 space-y-4 text-xs sm:text-sm text-[#d2d2d7] leading-relaxed">
             <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs text-[#86868b]">
               <span>Samarqand davlat tibbiyot universiteti</span>
               <span>2026–2027 O‘quv Yili</span>
@@ -1040,14 +1040,14 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
       )}
 
       {/* ========================================================================= */}
-      {/* MODAL: FULL TAVSIYANOMA VIEWER                                             */}
+      {/* MODAL: FULL TAVSIYANOMA VIEWER (MONOCHROME NOIR)                           */}
       {/* ========================================================================= */}
       {showTavsiyanomaModal && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4">
-          <div className="apple-card max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-amber-500/40 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="apple-card max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-white/20 shadow-2xl">
             <div className="flex items-center justify-between border-b border-white/10 pb-4">
-              <div className="flex items-center gap-2 text-amber-400 font-semibold text-xs">
-                <Award className="w-5 h-5" />
+              <div className="flex items-center gap-2 text-white font-semibold text-xs">
+                <Award className="w-5 h-5 text-white" />
                 <span>RASMIY TAVSIYANOMA • SAMDTU</span>
               </div>
               <button
@@ -1062,7 +1062,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
               <p className="text-xs text-[#86868b]">Samarqand davlat tibbiyot universiteti</p>
               <p className="text-xs text-[#86868b]">Boshqaruv va menejment fakulteti Menejment yo‘nalishi</p>
               <h3 className="text-lg font-bold text-white mt-2">TAVSIYANOMA</h3>
-              <p className="text-xs text-[#2997ff]">Shukurov Jasur Otabek o‘g‘liga</p>
+              <p className="text-xs text-zinc-400">Shukurov Jasur Otabek o‘g‘liga</p>
             </div>
 
             <div className="space-y-4 text-xs sm:text-sm text-[#d2d2d7] leading-relaxed text-justify">

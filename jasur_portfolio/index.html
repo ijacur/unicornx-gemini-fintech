@@ -16,10 +16,10 @@
           colors: {
             apple: {
               bg: '#000000',
-              surface: '#161617',
-              elevated: '#1d1d1f',
-              blue: '#0071e3',
-              link: '#2997ff',
+              surface: '#0d0d0e',
+              elevated: '#161618',
+              blue: '#ffffff',
+              link: '#ffffff',
               gray: '#86868b'
             }
           }
@@ -40,37 +40,46 @@
       letter-spacing: -0.014em;
     }
     .apple-glass {
-      background: rgba(22, 22, 23, 0.82);
+      background: rgba(10, 10, 10, 0.85);
       backdrop-filter: saturate(180%) blur(20px);
       -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border: 0.5px solid rgba(255, 255, 255, 0.12);
+      border: 0.5px solid rgba(255, 255, 255, 0.14);
     }
     .apple-card {
-      background: #161617;
-      border: 0.5px solid rgba(255, 255, 255, 0.08);
+      background: #0d0d0e;
+      border: 0.5px solid rgba(255, 255, 255, 0.12);
       border-radius: 26px;
-      box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .apple-card:hover {
+      border-color: rgba(255, 255, 255, 0.28);
     }
     .apple-btn-primary {
-      background: #0071e3;
-      color: #ffffff;
+      background: #ffffff;
+      color: #000000;
       border-radius: 980px;
       padding: 6px 18px;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
       transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 0 16px rgba(255, 255, 255, 0.18);
     }
     .apple-btn-primary:hover {
-      background: #0077ed;
+      background: #e5e5e7;
       transform: scale(1.02);
+      box-shadow: 0 0 22px rgba(255, 255, 255, 0.3);
+    }
+    .apple-btn-primary:active {
+      transform: scale(0.97);
     }
     .apple-btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: #f5f5f7;
-      border: 0.5px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      border: 0.5px solid rgba(255, 255, 255, 0.2);
       border-radius: 980px;
       padding: 6px 18px;
       font-size: 13px;
@@ -81,68 +90,75 @@
       gap: 6px;
     }
     .apple-btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.45);
+    }
+    .apple-btn-secondary:active {
+      transform: scale(0.97);
     }
     .apple-link {
-      color: #2997ff;
+      color: #ffffff;
       display: inline-flex;
       align-items: center;
       gap: 4px;
       font-size: 13px;
       font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.15s ease;
     }
     .apple-link:hover {
+      opacity: 0.8;
       text-decoration: underline;
     }
   </style>
 </head>
-<body class="min-h-screen selection:bg-[#0071e3] selection:text-white">
+<body class="min-h-screen selection:bg-white selection:text-black">
 
   <!-- ========================================================================= -->
-  <!-- 1. APPLE.COM GLOBAL NAVIGATION RIBBON (44px)                              -->
+  <!-- 1. APPLE GLOBAL NAVIGATION RIBBON (44px) — ALL BLACK & WHITE              -->
   <!-- ========================================================================= -->
-  <header class="h-[44px] apple-glass sticky top-0 z-50 px-4 sm:px-8 flex items-center justify-between">
+  <header class="h-[44px] apple-glass sticky top-0 z-50 px-4 sm:px-8 flex items-center justify-between border-b border-white/10">
     <div class="flex items-center gap-3">
       <svg class="w-4 h-4 fill-white" viewBox="0 0 170 170" aria-label="Apple">
         <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.78-11.65-14.23-6.2-9.97-11.07-21.43-14.6-34.37-3.53-12.93-5.3-25.06-5.3-36.38 0-14.88 3.73-27.18 11.19-36.9 7.46-9.72 16.94-14.71 28.45-14.97 4.12 0 9.06 1.15 14.84 3.46 5.77 2.31 9.77 3.51 11.98 3.6 2.66 0 6.89-1.29 12.69-3.86 5.8-2.58 10.74-3.79 14.83-3.64 10.99.55 19.8 4.67 26.43 12.37-9.49 5.76-14.12 13.88-13.89 24.36.23 8.35 3.38 15.34 9.45 20.97 6.07 5.63 13.43 8.91 22.08 9.84-2.2 6.64-4.88 13.4-8.03 20.28zM119.22 31.84c0-7.07 2.53-13.79 7.59-20.16 5.06-6.37 11.39-10.42 18.99-12.16.23 1.19.35 2.29.35 3.3 0 7.23-2.67 14.15-8.01 20.76-5.34 6.61-11.75 10.51-19.23 11.7-.22-1.12-.34-2.23-.34-3.32z"/>
       </svg>
-      <span class="text-xs font-semibold tracking-tight text-white">JASUR SHUKUROV • ONLINE MIND</span>
+      <span class="text-xs font-semibold tracking-wider text-white">JASUR SHUKUROV • ONLINE MIND</span>
     </div>
 
     <!-- Right Quick Links -->
     <div class="flex items-center gap-3">
-      <a href="https://t.me/Shukurov_Jasur" target="_blank" class="text-xs text-[#86868b] hover:text-white transition hidden sm:inline">
+      <a href="https://t.me/Shukurov_Jasur" target="_blank" class="text-xs text-[#a1a1aa] hover:text-white transition hidden sm:inline">
         Telegram @Shukurov_Jasur
       </a>
-      <a href="https://www.instagram.com/jasurceo?stkn=MXQ2ZmN4bTJyY2pnNQ==" target="_blank" class="text-xs text-[#86868b] hover:text-white transition hidden sm:inline">
+      <a href="https://www.instagram.com/jasurceo?stkn=MXQ2ZmN4bTJyY2pnNQ==" target="_blank" class="text-xs text-[#a1a1aa] hover:text-white transition hidden sm:inline">
         Instagram @jasurceo
       </a>
-      <div class="bg-white/10 rounded-full p-1 flex gap-1 text-[11px] font-semibold">
-        <button onclick="setLanguage('uz')" id="btn-uz" class="px-2 py-0.5 rounded-full bg-white/20 text-white">UZ</button>
-        <button onclick="setLanguage('ru')" id="btn-ru" class="px-2 py-0.5 rounded-full text-[#86868b]">RU</button>
-        <button onclick="setLanguage('en')" id="btn-en" class="px-2 py-0.5 rounded-full text-[#86868b]">EN</button>
+      <div class="bg-white/10 border border-white/20 rounded-full p-1 flex gap-1 text-[11px] font-semibold">
+        <button onclick="setLanguage('uz')" id="btn-uz" class="px-2 py-0.5 rounded-full bg-white text-black font-bold">UZ</button>
+        <button onclick="setLanguage('ru')" id="btn-ru" class="px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white">RU</button>
+        <button onclick="setLanguage('en')" id="btn-en" class="px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white">EN</button>
       </div>
     </div>
   </header>
 
   <!-- ========================================================================= -->
-  <!-- 2. HERO SECTION (APPLE KEYNOTE STYLE)                                     -->
+  <!-- 2. HERO SECTION (BLACK & WHITE HIGH-PRECISION EDITORIAL)                   -->
   <!-- ========================================================================= -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
-    <section class="text-center space-y-4">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0071e3]/10 border border-[#0071e3]/30 text-[#2997ff] text-xs font-semibold uppercase tracking-wider">
-        <span class="w-2 h-2 rounded-full bg-[#30d158] animate-pulse"></span>
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-16">
+    <section class="text-center space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-semibold uppercase tracking-wider">
+        <span class="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_#ffffff]"></span>
         <span id="badge-status">SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI • REKTOR STIPENDIYASI NOMZODI</span>
       </div>
 
       <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight text-white leading-tight">
         Jasur Shukurov. <br />
-        <span class="bg-gradient-to-r from-[#2997ff] via-[#a855f7] to-[#ec4899] bg-clip-text text-transparent">
+        <span class="bg-gradient-to-r from-white via-[#d4d4d8] to-[#71717a] bg-clip-text text-transparent">
           Online Mind &amp; Architecture.
         </span>
       </h1>
 
-      <p class="text-base sm:text-xl text-[#86868b] max-w-3xl mx-auto leading-relaxed" id="hero-desc">
+      <p class="text-base sm:text-lg text-[#a1a1aa] max-w-3xl mx-auto leading-relaxed" id="hero-desc">
         Sog‘liqni saqlash boshqaruvi (SamDTU), School 21 past darajali C/C++ muhandisligi va avtonom AI tizimlari sintezi. MedLoop AI, Unicorn Health va EpiVision XR asoschisi.
       </p>
 
@@ -153,27 +169,26 @@
         <a href="https://www.instagram.com/jasurceo?stkn=MXQ2ZmN4bTJyY2pnNQ==" target="_blank" class="apple-btn-secondary text-sm px-6 py-2.5">
           <span>Instagram @jasurceo</span>
         </a>
-        <button onclick="openTavsiyanomaModal()" class="apple-btn-secondary text-sm px-6 py-2.5 border-amber-500/40 text-amber-300">
+        <button onclick="openTavsiyanomaModal()" class="apple-btn-secondary text-sm px-6 py-2.5 border-white/30 text-white hover:border-white">
           <span>📜 SamDTU Rasmiy Tavsiyanomasi</span>
         </button>
       </div>
     </section>
 
     <!-- ========================================================================= -->
-    <!-- 3. INTERACTIVE NEURAL MIND GRAPH (CANVAS CLUSTERS)                         -->
+    <!-- 3. INTERACTIVE NEURAL MIND GRAPH (MONOCHROME CANVAS)                       -->
     <!-- ========================================================================= -->
     <section class="apple-card p-6 sm:p-8 space-y-6">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span class="text-xs font-mono text-[#2997ff] uppercase tracking-wider">NEURAL COGNITIVE MAP</span>
+          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">NEURAL COGNITIVE MAP</span>
           <h2 class="text-2xl font-bold text-white mt-1">Onlayn Miya: Asosiy Fikrlash Klasterlari</h2>
         </div>
         <div class="flex flex-wrap gap-2" id="cluster-buttons">
-          <!-- Dynamically populated or toggled -->
-          <button onclick="selectCluster('healthtech')" id="btn-healthtech" class="px-3 py-1 rounded-full text-xs font-semibold bg-[#0071e3] text-white">HealthTech</button>
-          <button onclick="selectCluster('sammu')" id="btn-sammu" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#86868b] hover:text-white">SamDTU &amp; Rektor</button>
-          <button onclick="selectCluster('school21')" id="btn-school21" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#86868b] hover:text-white">School 21 C/C++</button>
-          <button onclick="selectCluster('arbitrage')" id="btn-arbitrage" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#86868b] hover:text-white">$2 vs $375 Savdo</button>
+          <button onclick="selectCluster('healthtech')" id="btn-healthtech" class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-black">HealthTech</button>
+          <button onclick="selectCluster('sammu')" id="btn-sammu" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10">SamDTU &amp; Rektor</button>
+          <button onclick="selectCluster('school21')" id="btn-school21" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10">School 21 C/C++</button>
+          <button onclick="selectCluster('arbitrage')" id="btn-arbitrage" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10">$2 vs $375 Savdo</button>
         </div>
       </div>
 
@@ -185,22 +200,22 @@
 
         <!-- Dynamic Cluster Details -->
         <div class="lg:col-span-7 space-y-4" id="cluster-content">
-          <div class="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 inline-block text-emerald-400 font-bold text-xs uppercase">
+          <div class="p-2.5 px-3 rounded-full bg-white/10 border border-white/20 inline-block text-white font-bold text-xs uppercase tracking-wider">
             HEALTHTECH &amp; KLINIK AI TRIAJ
           </div>
           <h3 class="text-2xl font-bold text-white" id="cluster-title">MedLoop AI &amp; 169 Klinik Modul</h3>
-          <p class="text-sm text-[#86868b] leading-relaxed" id="cluster-desc">
+          <p class="text-sm text-[#a1a1aa] leading-relaxed" id="cluster-desc">
             O‘zbekiston xususiy klinikalari va laboratoriyalarida bemorlarning 45 foizi laboratoriya tahlilidan so‘ng shifokorga bormay ketib qoladi. MedLoop AI bu bo‘shliqni 8 soniyada laboratoriya blankini o‘qib tushuntiruvchi OCR va triaj orqali yopadi va har bir klinikaga oyiga $6,000–$7,500 qo‘shimcha sof tushum olib keladi.
           </p>
 
           <div class="grid grid-cols-2 gap-3 pt-2">
-            <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-              <span class="text-[10px] text-[#86868b] uppercase block">Platforma</span>
+            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+              <span class="text-[10px] text-[#71717a] uppercase font-mono block">Platforma</span>
               <span class="text-sm font-bold text-white">Unicorn Health</span>
               <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-link text-xs mt-1 block">Ochish ›</a>
             </div>
-            <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-              <span class="text-[10px] text-[#86868b] uppercase block">Tahlil Bot</span>
+            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+              <span class="text-[10px] text-[#71717a] uppercase font-mono block">Tahlil Bot</span>
               <span class="text-sm font-bold text-white">@Tahlil_ai_bot</span>
               <a href="https://t.me/Tahlil_ai_bot" target="_blank" class="apple-link text-xs mt-1 block">Telegramda Sinash ›</a>
             </div>
@@ -210,28 +225,28 @@
     </section>
 
     <!-- ========================================================================= -->
-    <!-- 4. VERIFIED VENTURES DIRECTORY (LIVE WORLDWIDE LINKS)                     -->
+    <!-- 4. VERIFIED VENTURES DIRECTORY (MONOCHROME BENTO)                         -->
     <!-- ========================================================================= -->
     <section class="space-y-6">
       <div class="flex items-center justify-between border-b border-white/10 pb-4">
         <div>
-          <span class="text-xs font-mono text-[#a855f7] uppercase tracking-wider">ECOSYSTEM VENTURES</span>
+          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">ECOSYSTEM VENTURES</span>
           <h2 class="text-2xl font-bold text-white mt-1">Barcha Jonli Loyihalar &amp; Xizmatlar</h2>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <!-- MedLoop AI -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4 border-emerald-500/20">
+        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                 CLINICAL B2B SAAS
               </span>
-              <span class="text-xs text-[#86868b] font-mono">2026</span>
+              <span class="text-xs text-[#71717a] font-mono">2026</span>
             </div>
             <h3 class="text-xl font-bold text-white">MedLoop AI</h3>
-            <p class="text-xs text-[#86868b] leading-relaxed">
+            <p class="text-xs text-[#a1a1aa] leading-relaxed">
               Laboratoriya tahlillaridan keyin bemorlarning yo‘qotilishini 8 soniyada to‘xtatib, klinika qabuliga qaytaruvchi aqlli triaj.
             </p>
           </div>
@@ -241,35 +256,35 @@
         </div>
 
         <!-- Unicorn Health Uzbekistan -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4 border-teal-500/20">
+        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-300 border border-teal-500/30">
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                 169 KLINIK MODUL
               </span>
-              <span class="text-xs text-[#86868b] font-mono">Production</span>
+              <span class="text-xs text-[#71717a] font-mono">Production</span>
             </div>
             <h3 class="text-xl font-bold text-white">Unicorn Health</h3>
-            <p class="text-xs text-[#86868b] leading-relaxed">
+            <p class="text-xs text-[#a1a1aa] leading-relaxed">
               169 ta tibbiy matematik formula, DoriQuti dorixona qidiruvi va ArzonLab laboratoriya xizmatlari agregatori.
             </p>
           </div>
-          <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-btn-primary bg-teal-600 hover:bg-teal-500 justify-center w-full">
+          <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-btn-primary justify-center w-full">
             <span>unicorn-health.vercel.app ›</span>
           </a>
         </div>
 
         <!-- Tahlil AI -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4 border-blue-500/20">
+        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30">
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                 LAB INTERPRETATION
               </span>
-              <span class="text-xs text-[#86868b] font-mono">Live</span>
+              <span class="text-xs text-[#71717a] font-mono">Live</span>
             </div>
             <h3 class="text-xl font-bold text-white">Tahlil AI &amp; Bot</h3>
-            <p class="text-xs text-[#86868b] leading-relaxed">
+            <p class="text-xs text-[#a1a1aa] leading-relaxed">
               Qon tahlillari va laboratoriya natijalarini xalq tilida tushuntirib, shifokorga yo‘naltiruvchi veb-ilova va bot.
             </p>
           </div>
@@ -280,16 +295,16 @@
         </div>
 
         <!-- Osiyo Medical Bot -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4 border-purple-500/20">
+        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30">
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                 TELEGRAM ADVISOR
               </span>
-              <span class="text-xs text-[#86868b] font-mono">Active</span>
+              <span class="text-xs text-[#71717a] font-mono">Active</span>
             </div>
             <h3 class="text-xl font-bold text-white">@Osiyomedicalbot</h3>
-            <p class="text-xs text-[#86868b] leading-relaxed">
+            <p class="text-xs text-[#a1a1aa] leading-relaxed">
               Bemorlar uchun tezkor klinik yo‘l-yo‘riq, tibbiy maslahat va klinikalarga navbatga yozilish Telegram boti.
             </p>
           </div>
@@ -299,16 +314,16 @@
         </div>
 
         <!-- EpiVision XR -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4 border-cyan-500/20">
+        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30">
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                 SAMDTU SPATIAL XR
               </span>
-              <span class="text-xs text-[#86868b] font-mono">Innovatsiya</span>
+              <span class="text-xs text-[#71717a] font-mono">Innovatsiya</span>
             </div>
             <h3 class="text-xl font-bold text-white">EpiVision XR</h3>
-            <p class="text-xs text-[#86868b] leading-relaxed">
+            <p class="text-xs text-[#a1a1aa] leading-relaxed">
               Tibbiyot xodimlari va talabalar uchun interaktiv 3D simulyatsiya. Rektor stipendiyasi tavsiyanomasida e'tirof etilgan.
             </p>
           </div>
@@ -318,16 +333,16 @@
         </div>
 
         <!-- Launch Lab 21 -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4 border-pink-500/20">
+        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-300 border border-pink-500/30">
+              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                 SCHOOL 21 TOURNAMENT
               </span>
-              <span class="text-xs text-[#86868b] font-mono">Apple Design</span>
+              <span class="text-xs text-[#71717a] font-mono">Apple Design</span>
             </div>
             <h3 class="text-xl font-bold text-white">Launch Lab 21</h3>
-            <p class="text-xs text-[#86868b] leading-relaxed">
+            <p class="text-xs text-[#a1a1aa] leading-relaxed">
               Startaplar uchun avtonom inkubator, hakamlar tekshiruvi va One-Pager generatsiya qiluvchi Apple.com interfeysli platforma.
             </p>
           </div>
@@ -343,39 +358,39 @@
     <!-- ========================================================================= -->
     <section class="apple-card p-6 sm:p-8 space-y-6">
       <div class="space-y-1">
-        <span class="text-xs font-mono text-[#2997ff] uppercase tracking-wider">SYNTHETIC Q&amp;A TERMINAL</span>
+        <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">SYNTHETIC Q&amp;A TERMINAL</span>
         <h2 class="text-2xl font-bold text-white">Jasurning Onlayn Miyasidan So‘rang</h2>
-        <p class="text-xs text-[#86868b]">Loyihalar, sog‘liqni saqlash iqtisodiyoti, C/C++ xotira modellari yoki tijorat arbitraji bo‘yicha savol bering:</p>
+        <p class="text-xs text-[#a1a1aa]">Loyihalar, sog‘liqni saqlash iqtisodiyoti, C/C++ xotira modellari yoki tijorat arbitraji bo‘yicha savol bering:</p>
       </div>
 
       <!-- Quick Suggested Prompts -->
       <div class="flex flex-wrap gap-2">
-        <button onclick="askPrompt('MedLoop AI nima va u qanday ishlaydi?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-[#d2d2d7] border border-white/10 transition">
+        <button onclick="askPrompt('MedLoop AI nima va u qanday ishlaydi?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-white border border-white/10 transition">
           💬 MedLoop AI qanday ishlaydi?
         </button>
-        <button onclick="askPrompt('SamDTU Rektor stipendiyasi tavsiyanomasi nima haqida?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-[#d2d2d7] border border-white/10 transition">
+        <button onclick="askPrompt('SamDTU Rektor stipendiyasi tavsiyanomasi nima haqida?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-white border border-white/10 transition">
           💬 SamDTU Rektor stipendiyasi tavsiyanomasi
         </button>
-        <button onclick="askPrompt('Unicorn Health Uzbekistan qanday imkoniyatlarga ega?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-[#d2d2d7] border border-white/10 transition">
+        <button onclick="askPrompt('Unicorn Health Uzbekistan qanday imkoniyatlarga ega?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-white border border-white/10 transition">
           💬 Unicorn Health (169 modul)
         </button>
-        <button onclick="askPrompt('School 21 sizning muhandislik qarashlaringizga qanday ta’sir qilgan?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-[#d2d2d7] border border-white/10 transition">
+        <button onclick="askPrompt('School 21 sizning muhandislik qarashlaringizga qanday ta’sir qilgan?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-white border border-white/10 transition">
           💬 School 21 past darajali kod
         </button>
-        <button onclick="askPrompt('$2 vs $375 marja arbitraji strategiyasi nima?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-[#d2d2d7] border border-white/10 transition">
+        <button onclick="askPrompt('$2 vs $375 marja arbitraji strategiyasi nima?')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-white border border-white/10 transition">
           💬 $2 vs $375 arbitraj siri
         </button>
       </div>
 
       <!-- Input Bar -->
-      <div class="flex items-center gap-2 bg-[#1d1d1f] border border-white/15 rounded-2xl p-2 px-4 focus-within:border-[#0071e3] transition">
-        <input type="text" id="mindQueryInput" placeholder="Savolingizni kiriting..." class="w-full bg-transparent text-sm text-white focus:outline-none placeholder:text-[#6e6e73]">
+      <div class="flex items-center gap-2 bg-black border border-white/20 rounded-2xl p-2 px-4 focus-within:border-white transition">
+        <input type="text" id="mindQueryInput" placeholder="Savolingizni kiriting..." class="w-full bg-transparent text-sm text-white focus:outline-none placeholder:text-[#71717a]">
         <button onclick="handleExecuteQuery()" class="apple-btn-primary text-xs px-4 py-1.5">Sintezlash</button>
       </div>
 
       <!-- Output Box -->
-      <div id="mindAnswerBox" class="hidden p-5 rounded-2xl bg-[#1d1d1f] border border-[#0071e3]/40 space-y-2 text-sm text-[#f5f5f7] leading-relaxed">
-        <span class="text-xs font-semibold text-[#2997ff] flex items-center gap-1.5">
+      <div id="mindAnswerBox" class="hidden p-5 rounded-2xl bg-black border border-white/25 space-y-2 text-sm text-[#f5f5f7] leading-relaxed">
+        <span class="text-xs font-semibold text-white flex items-center gap-1.5">
           ✦ Sintez qilingan javob:
         </span>
         <p id="mindAnswerText"></p>
@@ -384,22 +399,22 @@
   </main>
 
   <!-- ========================================================================= -->
-  <!-- 6. MODAL: SAMDTU RASMIY TAVSIYANOMASI                                     -->
+  <!-- 6. MODAL: SAMDTU RASMIY TAVSIYANOMASI (MONOCHROME NOIR)                  -->
   <!-- ========================================================================= -->
-  <div id="tavsiyanomaModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 hidden">
-    <div class="apple-card max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-amber-500/40 shadow-2xl">
+  <div id="tavsiyanomaModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 hidden">
+    <div class="apple-card max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-white/20 shadow-2xl">
       <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <span class="text-xs font-bold text-amber-400">📜 SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI</span>
+        <span class="text-xs font-bold text-white uppercase tracking-wider">📜 SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI</span>
         <button onclick="closeTavsiyanomaModal()" class="apple-btn-secondary text-xs px-3 py-1">✕ Yopish</button>
       </div>
 
       <div class="text-center space-y-1">
-        <p class="text-xs text-[#86868b]">Boshqaruv va menejment fakulteti Menejment yo‘nalishi</p>
+        <p class="text-xs text-[#a1a1aa]">Boshqaruv va menejment fakulteti Menejment yo‘nalishi</p>
         <h3 class="text-xl font-bold text-white mt-1">TAVSIYANOMA</h3>
-        <p class="text-xs text-[#2997ff]">Shukurov Jasur Otabek o‘g‘liga</p>
+        <p class="text-xs text-[#d4d4d8]">Shukurov Jasur Otabek o‘g‘liga</p>
       </div>
 
-      <div class="space-y-4 text-xs sm:text-sm text-[#d2d2d7] leading-relaxed text-justify">
+      <div class="space-y-4 text-xs sm:text-sm text-[#d4d4d8] leading-relaxed text-justify">
         <p>
           Shukurov Jasur Otabek o‘g‘li 2025-yildan buyon Samarqand davlat tibbiyot universitetining Boshqaruv va menejment fakulteti Menejment yo‘nalishida tahsil olib, hozirda II bosqich 201-guruhning eng intiluvchan va iqtidorli talabalaridan biri hisoblanadi.
         </p>
@@ -418,15 +433,15 @@
       </div>
 
       <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-        <div class="p-3 rounded-xl bg-white/5">
-          <span class="text-[#86868b] block">Bo‘lim boshlig‘i:</span>
+        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+          <span class="text-[#a1a1aa] block">Bo‘lim boshlig‘i:</span>
           <span class="font-bold text-white">U.F. Payzullayeva</span>
-          <span class="text-[11px] text-[#86868b] block mt-0.5">Iqtidorli talabalarning ilmiy-tadqiqot faoliyatini tashkil etish bo‘limi</span>
+          <span class="text-[11px] text-[#71717a] block mt-0.5">Iqtidorli talabalarning ilmiy-tadqiqot faoliyatini tashkil etish bo‘limi</span>
         </div>
-        <div class="p-3 rounded-xl bg-white/5">
-          <span class="text-[#86868b] block">Ilmiy ishlar prorektori:</span>
+        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
+          <span class="text-[#a1a1aa] block">Ilmiy ishlar prorektori:</span>
           <span class="font-bold text-white">A.S. Kubayev</span>
-          <span class="text-[11px] text-[#86868b] block mt-0.5">Samarqand davlat tibbiyot universiteti</span>
+          <span class="text-[11px] text-[#71717a] block mt-0.5">Samarqand davlat tibbiyot universiteti</span>
         </div>
       </div>
 
@@ -439,17 +454,17 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- 7. APPLE.COM SIGNATURE DIRECTORY FOOTER                                   -->
+  <!-- 7. SIGNATURE DIRECTORY FOOTER                                             -->
   <!-- ========================================================================= -->
-  <footer class="bg-[#161617] text-[#86868b] text-[11px] border-t border-white/10 mt-20 pt-8 pb-12">
+  <footer class="bg-black text-[#71717a] text-[11px] border-t border-white/10 mt-20 pt-8 pb-12">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="border-b border-white/10 pb-4 mb-6 space-y-1 text-[#6e6e73]">
+      <div class="border-b border-white/10 pb-4 mb-6 space-y-1 text-[#71717a]">
         <p>1. Jasur Shukurov — SamDTU Menejment fakulteti 2-bosqich talabasi, 2026–2027 Rektor stipendiyasi nomzodi.</p>
         <p>2. School 21 (École 42 modeli) dasturlash akademiyasi past darajali C/C++ tizimlari bitiruvchisi.</p>
         <p>3. MedLoop AI, Unicorn Health, EpiVision XR va Tahlil AI loyihalari muallifi.</p>
       </div>
 
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[#6e6e73]">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[#71717a]">
         <div class="flex flex-wrap items-center gap-3">
           <span>Copyright © 2026 Jasur Shukurov. Barcha huquqlar himoyalangan.</span>
           <span>•</span>
@@ -458,7 +473,7 @@
           <a href="https://www.instagram.com/jasurceo?stkn=MXQ2ZmN4bTJyY2pnNQ==" target="_blank" class="hover:text-white transition">Instagram</a>
         </div>
         <div class="text-right">
-          <span class="text-[#86868b]">O‘zbekiston (Samarqand • Toshkent)</span>
+          <span class="text-[#a1a1aa]">O‘zbekiston (Samarqand • Toshkent)</span>
         </div>
       </div>
     </div>
@@ -540,20 +555,20 @@
       document.getElementById('cluster-title').innerText = data.title;
       document.getElementById('cluster-desc').innerText = data.desc;
 
-      // Update button active state
+      // Update button active state (Monochrome Black & White)
       ['healthtech', 'sammu', 'school21', 'arbitrage'].forEach(k => {
         const btn = document.getElementById('btn-' + k);
         if (btn) {
           if (k === id) {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-[#0071e3] text-white";
+            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white text-black";
           } else {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#86868b] hover:text-white";
+            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10";
           }
         }
       });
     }
 
-    // Canvas Orbit Animation
+    // Canvas Orbit Animation — Monochrome Black & White
     const canvas = document.getElementById('mindCanvas');
     const ctx = canvas.getContext('2d');
     let angle = 0;
@@ -567,15 +582,16 @@
       // Draw Orbit line
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+      ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Nodes on circle
+      // Nodes on circle (Monochrome shades of white and zinc)
       const nodes = [
-        { name: "HealthTech", color: "#34d399" },
-        { name: "SamMU", color: "#60a5fa" },
-        { name: "School 21", color: "#fbbf24" },
-        { name: "Arbitrage", color: "#c084fc" }
+        { name: "HealthTech", color: "#ffffff", size: 14 },
+        { name: "SamMU", color: "#e4e4e7", size: 13 },
+        { name: "School 21", color: "#a1a1aa", size: 12 },
+        { name: "Arbitrage", color: "#d4d4d8", size: 13 }
       ];
 
       nodes.forEach((node, i) => {
@@ -587,29 +603,30 @@
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.lineTo(x, y);
-        ctx.strokeStyle = "rgba(41, 151, 255, 0.2)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.lineWidth = 1;
         ctx.stroke();
 
         // Node Circle
         ctx.beginPath();
-        ctx.arc(x, y, 14, 0, 2 * Math.PI);
+        ctx.arc(x, y, node.size, 0, 2 * Math.PI);
         ctx.fillStyle = node.color;
-        ctx.shadowColor = node.color;
-        ctx.shadowBlur = 12;
+        ctx.shadowColor = "#ffffff";
+        ctx.shadowBlur = 10;
         ctx.fill();
         ctx.shadowBlur = 0;
       });
 
-      // Core Brain Center
+      // Core Brain Center (Crisp White Glow)
       ctx.beginPath();
       ctx.arc(cx, cy, 26, 0, 2 * Math.PI);
-      ctx.fillStyle = "#0071e3";
-      ctx.shadowColor = "#0071e3";
+      ctx.fillStyle = "#ffffff";
+      ctx.shadowColor = "#ffffff";
       ctx.shadowBlur = 24;
       ctx.fill();
       ctx.shadowBlur = 0;
 
-      angle += 0.005;
+      angle += 0.004;
       requestAnimationFrame(drawMind);
     }
     drawMind();
@@ -620,9 +637,9 @@
         const btn = document.getElementById('btn-' + l);
         if (btn) {
           if (l === lang) {
-            btn.className = "px-2 py-0.5 rounded-full bg-white/20 text-white";
+            btn.className = "px-2 py-0.5 rounded-full bg-white text-black font-bold";
           } else {
-            btn.className = "px-2 py-0.5 rounded-full text-[#86868b]";
+            btn.className = "px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white";
           }
         }
       });

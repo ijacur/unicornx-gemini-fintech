@@ -3,17 +3,17 @@
 @layer base {
   :root {
     --apple-bg: #000000;
-    --apple-surface: #161617;
-    --apple-surface-elevated: #1d1d1f;
-    --apple-surface-secondary: #2d2d2f;
-    --apple-blue: #0071e3;
-    --apple-blue-hover: #0077ed;
-    --apple-link: #2997ff;
+    --apple-surface: #0e0e10;
+    --apple-surface-elevated: #161618;
+    --apple-surface-secondary: #222225;
+    --apple-blue: #ffffff;
+    --apple-blue-hover: #e5e5e7;
+    --apple-link: #ffffff;
     --apple-text-primary: #f5f5f7;
-    --apple-text-secondary: #86868b;
-    --apple-text-tertiary: #6e6e73;
-    --apple-hairline: rgba(255, 255, 255, 0.14);
-    --apple-hairline-subtle: rgba(255, 255, 255, 0.08);
+    --apple-text-secondary: #a1a1aa;
+    --apple-text-tertiary: #71717a;
+    --apple-hairline: rgba(255, 255, 255, 0.18);
+    --apple-hairline-subtle: rgba(255, 255, 255, 0.1);
   }
 
   body {
@@ -30,7 +30,7 @@
 /* Apple.com Global Navigation Ribbon (Iconic 44px frosted bar) */
 .apple-global-nav {
   height: 44px;
-  background: rgba(22, 22, 23, 0.82);
+  background: rgba(10, 10, 12, 0.88);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 0.5px solid var(--apple-hairline-subtle);
@@ -38,7 +38,7 @@
 
 .apple-nav-link {
   font-size: 12px;
-  color: #d2d2d7;
+  color: #a1a1aa;
   transition: color 0.15s ease;
   cursor: pointer;
   white-space: nowrap;
@@ -52,27 +52,28 @@
 /* Apple.com Product Subnav Ribbon (52px sticky bar) */
 .apple-subnav {
   height: 52px;
-  background: rgba(26, 26, 28, 0.78);
+  background: rgba(14, 14, 16, 0.85);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 0.5px solid var(--apple-hairline);
 }
 
-/* Apple.com Buttons & CTAs */
+/* Apple.com Buttons & CTAs (Black & White Minimalist) */
 .apple-btn-primary {
-  background: #0071e3;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   border-radius: 980px;
   padding: 5px 16px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.2);
 }
 
 .apple-btn-primary:hover {
-  background: #0077ed;
+  background: #e5e5e7;
   transform: scale(1.02);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
 }
 
 .apple-btn-primary:active {
@@ -81,7 +82,7 @@
 
 .apple-btn-secondary {
   background: rgba(255, 255, 255, 0.08);
-  color: #f5f5f7;
+  color: #ffffff;
   border: 0.5px solid var(--apple-hairline);
   border-radius: 980px;
   padding: 5px 16px;
@@ -91,7 +92,8 @@
 }
 
 .apple-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .apple-btn-secondary:active {
@@ -99,35 +101,42 @@
 }
 
 .apple-link {
-  color: #2997ff;
+  color: #ffffff;
   font-size: 14px;
   transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
   gap: 3px;
+  text-decoration: none;
 }
 
 .apple-link:hover {
   text-decoration: underline;
+  opacity: 0.85;
 }
 
 /* Apple.com Bento Cards & Grouped Surfaces */
 .apple-card {
-  background: #161617;
+  background: #0e0e10;
   border-radius: 26px;
   border: 0.5px solid var(--apple-hairline-subtle);
-  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.6);
+  transition: border-color 0.2s ease;
+}
+
+.apple-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .apple-card-elevated {
-  background: #1d1d1f;
+  background: #161618;
   border-radius: 24px;
   border: 0.5px solid var(--apple-hairline);
 }
 
 /* Apple Segmented Controls */
 .apple-segmented {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 980px;
   padding: 3px;
   display: inline-flex;
@@ -143,9 +152,9 @@
 }
 
 .apple-segmented-active {
-  background: #323236;
-  color: #ffffff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
 }
 
 /* Tactile Click Feedback */

@@ -810,11 +810,11 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
   })
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans selection:bg-white selection:text-black">
       {/* Toast Notification */}
       {saveToast && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-emerald-400/40 backdrop-blur-xl animate-bounce">
-          <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-white text-black px-5 py-3.5 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl animate-bounce">
+          <CheckCircle2 className="w-5 h-5 flex-shrink-0 text-black" />
           <span className="text-sm font-semibold">{saveToast}</span>
         </div>
       )}
@@ -843,7 +843,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               }}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'online-mind' ? 'apple-nav-link-active font-semibold text-white' : ''}`}
             >
-              <Brain className="w-3.5 h-3.5 text-[#2997ff] inline" />
+              <Brain className="w-3.5 h-3.5 text-white inline" />
               <span className="font-semibold text-white">Online Mind 🧠</span>
             </button>
             <button
@@ -853,7 +853,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               }}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'unicorn-studio' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400 inline" />
+              <Sparkles className="w-3.5 h-3.5 text-white inline" />
               <span>Unicorn AI</span>
             </button>
             <button
@@ -863,7 +863,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               }}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'arcade' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <Gamepad2 className="w-3.5 h-3.5 text-indigo-400 inline" />
+              <Gamepad2 className="w-3.5 h-3.5 text-white inline" />
               <span>Arcade</span>
             </button>
             <button
@@ -873,35 +873,35 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               }}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'mulk-detective' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <Building2 className="w-3.5 h-3.5 text-amber-400 inline" />
+              <Building2 className="w-3.5 h-3.5 text-white inline" />
               <span>Mulk Detektivi</span>
             </button>
             <button
               onClick={() => setActiveView('modules')}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'modules' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <Layers className="w-3.5 h-3.5 text-[#2997ff] inline" />
+              <Layers className="w-3.5 h-3.5 text-white inline" />
               <span>{t.navModules}</span>
             </button>
             <button
               onClick={() => setActiveView('onepager')}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'onepager' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <FileText className="w-3.5 h-3.5 text-cyan-400 inline" />
+              <FileText className="w-3.5 h-3.5 text-white inline" />
               <span>{t.navOnePager}</span>
             </button>
             <button
               onClick={() => setActiveView('pitch-cockpit')}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'pitch-cockpit' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <HelpCircle className="w-3.5 h-3.5 text-teal-400 inline" />
+              <HelpCircle className="w-3.5 h-3.5 text-white inline" />
               <span>Pitch Cockpit</span>
             </button>
             <button
               onClick={() => setActiveView('curator')}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'curator' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <Users className="w-3.5 h-3.5 text-purple-400 inline" />
+              <Users className="w-3.5 h-3.5 text-white inline" />
               <span>{t.navCurator}</span>
             </button>
             <button
@@ -911,7 +911,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               }}
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'reels' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <Flame className="w-3.5 h-3.5 text-pink-500 inline" />
+              <Flame className="w-3.5 h-3.5 text-white inline" />
               <span>Reels</span>
             </button>
           </nav>
@@ -985,9 +985,9 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             {/* Apple Progress Capsule */}
             <div className="hidden xl:flex items-center gap-2 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full text-xs">
               <span className="text-[#86868b]">Progress:</span>
-              <span className="font-semibold text-[#2997ff] font-mono">{progressPercent}%</span>
+              <span className="font-semibold text-white font-mono">{progressPercent}%</span>
               <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
-                <div className="h-full bg-[#0071e3] rounded-full transition-all duration-300" style={{ width: `${progressPercent}%` }} />
+                <div className="h-full bg-white rounded-full transition-all duration-300" style={{ width: `${progressPercent}%` }} />
               </div>
             </div>
 
@@ -1012,14 +1012,14 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
             {/* Pitch Timer Pill */}
             <div className="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full">
-              <Clock className="w-3.5 h-3.5 text-[#2997ff]" />
+              <Clock className="w-3.5 h-3.5 text-white" />
               <span className="text-xs font-mono font-medium text-white">{formatTime(pitchSecondsLeft)}</span>
               <button
                 onClick={() => setPitchTimerActive(!pitchTimerActive)}
                 className="p-0.5 rounded-full text-zinc-400 hover:text-white transition apple-press"
                 title={pitchTimerActive ? 'Пауза' : 'Старт'}
               >
-                {pitchTimerActive ? <Pause className="w-3 h-3 text-[#ff9f0a]" /> : <Play className="w-3 h-3 text-[#30d158]" />}
+                {pitchTimerActive ? <Pause className="w-3 h-3 text-white" /> : <Play className="w-3 h-3 text-white" />}
               </button>
             </div>
 
@@ -1039,7 +1039,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </button>
             </div>
 
-            {/* Apple Primary Blue Button: New Project */}
+            {/* Apple Primary White Button: New Project */}
             <button
               onClick={() => setNewProjectModal(true)}
               className="apple-btn-primary flex items-center gap-1.5"
@@ -1063,18 +1063,18 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               className="apple-btn-secondary p-1.5"
               title="Салют"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#ff9f0a]" />
+              <Sparkles className="w-3.5 h-3.5 text-white" />
             </button>
           </div>
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. APPLE.COM KEYNOTE HERO SECTION                                          */}
+      {/* 3. APPLE.COM KEYNOTE HERO SECTION (MONOCHROME NOIR)                        */}
       {/* ========================================================================= */}
       {activeView === 'modules' && (
         <section className="text-center pt-10 pb-6 px-4 max-w-4xl mx-auto">
-          <p className="text-[12px] font-semibold text-[#f56300] uppercase tracking-wider mb-2">
+          <p className="text-[12px] font-semibold text-zinc-400 uppercase tracking-wider mb-2">
             Launch Lab 21 • Built for School 21
           </p>
           <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-[#f5f5f7] mb-3">
@@ -1086,9 +1086,9 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           <div className="flex flex-wrap items-center justify-center gap-4">
             <button
               onClick={() => setActiveView('online-mind')}
-              className="apple-btn-primary text-sm px-6 py-2 bg-gradient-to-r from-[#0071e3] to-[#bf5af2] flex items-center gap-2 shadow-lg shadow-purple-600/20"
+              className="apple-btn-primary text-sm px-6 py-2 flex items-center gap-2"
             >
-              <Brain className="w-4 h-4 text-white" />
+              <Brain className="w-4 h-4 text-black" />
               <span>Jasur's Online Mind</span>
             </button>
             <button
