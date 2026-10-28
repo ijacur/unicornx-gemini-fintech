@@ -361,6 +361,10 @@ export function InteractiveBackground() {
     animationFrameId = requestAnimationFrame(animate)
 
     const handleMouseMove = (e: MouseEvent) => {
+      if (mouse.x < -500) {
+        mouse.x = e.clientX
+        mouse.y = e.clientY
+      }
       mouse.targetX = e.clientX
       mouse.targetY = e.clientY
       mouse.active = true

@@ -3,27 +3,27 @@
 @layer base {
   :root {
     --apple-bg: #000000;
-    --apple-surface: #0e0e10;
-    --apple-surface-elevated: #161618;
-    --apple-surface-secondary: #222225;
+    --apple-surface: rgba(14, 14, 18, 0.65);
+    --apple-surface-elevated: rgba(24, 24, 28, 0.75);
+    --apple-surface-secondary: rgba(32, 32, 36, 0.6);
     --apple-blue: #ffffff;
     --apple-blue-hover: #e5e5e7;
     --apple-link: #ffffff;
     --apple-text-primary: #f5f5f7;
     --apple-text-secondary: #a1a1aa;
-    --apple-text-tertiary: #71717a;
-    --apple-hairline: rgba(255, 255, 255, 0.18);
-    --apple-hairline-subtle: rgba(255, 255, 255, 0.1);
+    --apple-text-tertiary: #86868b;
+    --apple-hairline: rgba(255, 255, 255, 0.15);
+    --apple-hairline-subtle: rgba(255, 255, 255, 0.08);
   }
 
   body {
     background-color: #000000;
     color: #f5f5f7;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", -apple-system-subheadline, "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.014em;
   }
 
   /* 100% Monochromatic Black & White Enforcement across images and graphics */
@@ -31,21 +31,39 @@
     filter: grayscale(100%);
     -webkit-filter: grayscale(100%);
   }
+
+  /* Smooth Apple Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
 }
 
-/* Apple.com Global Navigation Ribbon (Iconic 44px frosted bar) */
+/* ========================================================================= */
+/* 1. APPLE.COM NAVIGATION BARS (FROSTED GLASS RIBBONS)                      */
+/* ========================================================================= */
 .apple-global-nav {
   height: 44px;
-  background: rgba(10, 10, 12, 0.88);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(8, 8, 10, 0.8);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
   border-bottom: 0.5px solid var(--apple-hairline-subtle);
 }
 
 .apple-nav-link {
   font-size: 12px;
   color: #a1a1aa;
-  transition: color 0.15s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   white-space: nowrap;
 }
@@ -55,31 +73,37 @@
   color: #ffffff;
 }
 
-/* Apple.com Product Subnav Ribbon (52px sticky bar) */
 .apple-subnav {
   height: 52px;
-  background: rgba(14, 14, 16, 0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(12, 12, 14, 0.78);
+  backdrop-filter: saturate(180%) blur(24px);
+  -webkit-backdrop-filter: saturate(180%) blur(24px);
   border-bottom: 0.5px solid var(--apple-hairline);
 }
 
-/* Apple.com Buttons & CTAs (Black & White Minimalist) */
+/* ========================================================================= */
+/* 2. APPLE BUTTONS & CTAS (PURE MONOCHROMATIC NOIR)                         */
+/* ========================================================================= */
 .apple-btn-primary {
   background: #ffffff;
   color: #000000;
   border-radius: 980px;
-  padding: 5px 16px;
+  padding: 6px 18px;
   font-size: 12px;
   font-weight: 600;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.2);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .apple-btn-primary:hover {
   background: #e5e5e7;
   transform: scale(1.02);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
 }
 
 .apple-btn-primary:active {
@@ -91,15 +115,21 @@
   color: #ffffff;
   border: 0.5px solid var(--apple-hairline);
   border-radius: 980px;
-  padding: 5px 16px;
+  padding: 6px 18px;
   font-size: 12px;
   font-weight: 500;
-  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
 }
 
 .apple-btn-secondary:hover {
   background: rgba(255, 255, 255, 0.18);
   border-color: rgba(255, 255, 255, 0.45);
+  transform: scale(1.01);
 }
 
 .apple-btn-secondary:active {
@@ -108,7 +138,7 @@
 
 .apple-link {
   color: #ffffff;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.15s ease;
   display: inline-flex;
   align-items: center;
@@ -121,25 +151,27 @@
   opacity: 0.85;
 }
 
-/* Apple Liquid Glass Utility Classes (matching TahlilAI MVP) */
+/* ========================================================================= */
+/* 3. APPLE LIQUID GLASS CARDS (TRANSLUCENT TO REVEAL CANVAS PARTICLES)     */
+/* ========================================================================= */
 .apple-glass {
-  background: rgba(18, 18, 20, 0.65);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  background: rgba(14, 14, 18, 0.65) !important;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 .apple-card {
-  background: linear-gradient(145deg, rgba(28, 28, 30, 0.65) 0%, rgba(14, 14, 16, 0.8) 100%);
-  backdrop-filter: blur(30px) saturate(190%);
-  -webkit-backdrop-filter: blur(30px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 26px;
-  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+  background: linear-gradient(145deg, rgba(22, 22, 26, 0.65) 0%, rgba(12, 12, 14, 0.75) 100%) !important;
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
   position: relative;
   overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .apple-card::before {
@@ -163,9 +195,20 @@
 }
 
 .apple-card-elevated {
-  background: #161618;
+  background: rgba(24, 24, 28, 0.72) !important;
+  backdrop-filter: blur(28px);
   border-radius: 24px;
   border: 0.5px solid var(--apple-hairline);
+}
+
+.apple-pill {
+  border-radius: 980px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 0.5px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f5f5f7;
 }
 
 /* Apple Segmented Controls */
@@ -183,6 +226,7 @@
   font-size: 12px;
   font-weight: 500;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
 
 .apple-segmented-active {
@@ -201,11 +245,11 @@
   opacity: 0.88;
 }
 
-/* Legacy Glass Support */
+/* Legacy Glass Support (Enhanced with Translucency) */
 .glass-panel {
-  background: rgba(28, 28, 30, 0.75);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(18, 18, 22, 0.65) !important;
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 0.5px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -214,12 +258,124 @@
 }
 
 .glass-panel-hover:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  background: rgba(38, 38, 42, 0.88);
+  border-color: rgba(255, 255, 255, 0.28);
+  background: rgba(28, 28, 34, 0.75) !important;
   transform: translateY(-2px);
 }
 
-/* Print Styles for Investment One-Pager */
+/* Ensure opaque dark panels do not hide the interactive background */
+.bg-zinc-900,
+.bg-zinc-950,
+.bg-slate-900,
+.bg-slate-950,
+.bg-gray-900,
+.bg-gray-950 {
+  background-color: rgba(14, 14, 18, 0.72) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ========================================================================= */
+/* 4. STRICT 100% MONOCHROMATIC BLACK & WHITE SYSTEM OVERRIDES               */
+/* Guarantees zero chromatic colors across all child components              */
+/* ========================================================================= */
+
+/* Monochromatic Text Overrides */
+[class*="text-emerald-"],
+[class*="text-green-"],
+[class*="text-teal-"],
+[class*="text-cyan-"],
+[class*="text-blue-"],
+[class*="text-indigo-"],
+[class*="text-purple-"],
+[class*="text-violet-"],
+[class*="text-fuchsia-"],
+[class*="text-pink-"],
+[class*="text-rose-"],
+[class*="text-red-"],
+[class*="text-orange-"],
+[class*="text-amber-"],
+[class*="text-yellow-"] {
+  color: #f5f5f7 !important;
+}
+
+/* Monochromatic Background Overrides */
+[class*="bg-emerald-"],
+[class*="bg-green-"],
+[class*="bg-teal-"],
+[class*="bg-cyan-"],
+[class*="bg-blue-"],
+[class*="bg-indigo-"],
+[class*="bg-purple-"],
+[class*="bg-violet-"],
+[class*="bg-fuchsia-"],
+[class*="bg-pink-"],
+[class*="bg-rose-"],
+[class*="bg-red-"],
+[class*="bg-orange-"],
+[class*="bg-amber-"],
+[class*="bg-yellow-"] {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Monochromatic Border Overrides */
+[class*="border-emerald-"],
+[class*="border-green-"],
+[class*="border-teal-"],
+[class*="border-cyan-"],
+[class*="border-blue-"],
+[class*="border-indigo-"],
+[class*="border-purple-"],
+[class*="border-violet-"],
+[class*="border-fuchsia-"],
+[class*="border-pink-"],
+[class*="border-rose-"],
+[class*="border-red-"],
+[class*="border-orange-"],
+[class*="border-amber-"],
+[class*="border-yellow-"] {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Monochromatic Shadow Overrides */
+[class*="shadow-emerald-"],
+[class*="shadow-cyan-"],
+[class*="shadow-indigo-"],
+[class*="shadow-purple-"],
+[class*="shadow-pink-"],
+[class*="shadow-amber-"],
+[class*="shadow-blue-"],
+[class*="shadow-rose-"] {
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.8), 0 0 16px rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Ring & Focus Highlights */
+[class*="focus:border-indigo-"],
+[class*="focus:border-purple-"],
+[class*="focus:border-cyan-"],
+[class*="focus:ring-indigo-"],
+[class*="focus:ring-purple-"] {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Inputs & Form Elements Cupertino Polish */
+input, textarea, select {
+  background-color: rgba(18, 18, 22, 0.8) !important;
+  color: #f5f5f7 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ========================================================================= */
+/* 5. PRINT STYLES FOR INVESTMENT ONE-PAGER                                  */
+/* ========================================================================= */
 @media print {
   body {
     background-color: #ffffff !important;
@@ -229,7 +385,8 @@
   header,
   footer,
   .no-print,
-  button {
+  button,
+  #interactive-bg-container {
     display: none !important;
   }
 
@@ -261,9 +418,8 @@
   }
 
   .print-tag {
-    background: #e0e7ff !important;
-    color: #3730a3 !important;
-    border: 1px solid #c7d2fe !important;
+    background: #e5e7eb !important;
+    color: #111827 !important;
+    border: 1px solid #d1d5db !important;
   }
 }
-

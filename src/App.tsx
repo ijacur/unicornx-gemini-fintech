@@ -979,11 +979,11 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </span>
             </div>
             <span
-              className={`text-[10px] font-medium px-2 py-0.5 rounded-full uppercase border ${
+              className={`text-[10px] font-medium px-2.5 py-0.5 rounded-full uppercase border ${
                 currentProject.status === 'approved'
-                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                  ? 'bg-white/15 text-white border-white/30'
                   : currentProject.status === 'in_review'
-                  ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                  ? 'bg-white/10 text-zinc-300 border-white/20'
                   : 'bg-white/5 text-zinc-400 border-white/10'
               }`}
             >
@@ -1157,20 +1157,20 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     onClick={() => setActiveModuleIndex(idx)}
                     className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
                       isActive
-                        ? 'bg-zinc-900 border-indigo-500 shadow-xl shadow-indigo-500/10'
+                        ? 'bg-white/15 border-white/40 shadow-xl shadow-white/5'
                         : isAnswered
-                        ? 'bg-zinc-950/80 border-emerald-500/30 hover:border-zinc-700'
-                        : 'bg-zinc-950/50 border-zinc-800 hover:border-zinc-700'
+                        ? 'bg-white/[0.04] border-white/20 hover:border-white/35'
+                        : 'bg-white/[0.02] border-white/10 hover:border-white/20'
                     }`}
                   >
                     <div className="flex items-center gap-3">
                       <div
                         className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black transition ${
-                          isAnswered
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                            : isActive
-                            ? 'bg-indigo-600 text-white'
-                            : 'bg-zinc-900 text-zinc-500 border border-zinc-800'
+                          isActive
+                            ? 'bg-white text-black shadow-md'
+                            : isAnswered
+                            ? 'bg-white/20 text-white border border-white/30'
+                            : 'bg-white/5 text-zinc-400 border border-white/10'
                         }`}
                       >
                         {isAnswered ? <Check className="w-4 h-4" /> : idx + 1}
@@ -1181,7 +1181,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           {mod.title}
                         </h4>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-medium">
+                          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/10 text-zinc-300 font-medium border border-white/10">
                             {mod.badge}
                           </span>
                         </div>
@@ -1190,11 +1190,11 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
                     <div>
                       {isAnswered ? (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/15 text-white border border-white/25">
                           Заполнено
                         </span>
                       ) : (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-zinc-800/80 text-zinc-400">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/5 text-zinc-400 border border-white/10">
                           Пустой
                         </span>
                       )}
@@ -1204,13 +1204,13 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               })}
 
               {/* Prompt Formula Helper Card */}
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-indigo-950/50 via-purple-950/30 to-zinc-900 border border-indigo-500/30 space-y-3">
+              <div className="p-4 rounded-2xl apple-card space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-400" />
+                    <Sparkles className="w-4 h-4 text-white" />
                     <h4 className="text-xs font-bold text-white">Формула промпта School 21</h4>
                   </div>
-                  <span className="text-[10px] text-indigo-300 bg-indigo-500/20 px-2 py-0.5 rounded">
+                  <span className="text-[10px] text-zinc-200 bg-white/10 border border-white/15 px-2 py-0.5 rounded-full">
                     AI Assistant
                   </span>
                 </div>
@@ -1219,7 +1219,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 </p>
                 <button
                   onClick={() => setShowFormulaModal(true)}
-                  className="w-full py-2 px-3 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold flex items-center justify-center gap-2 transition"
+                  className="apple-btn-secondary w-full text-xs font-semibold"
                 >
                   <span>Открыть формулу для модуля</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -1227,14 +1227,14 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </div>
 
               {/* Quick Jump to One-Pager */}
-              <div className="p-4 rounded-2xl bg-zinc-900/80 border border-zinc-800 space-y-2">
+              <div className="p-4 rounded-2xl apple-card space-y-2">
                 <h4 className="text-xs font-bold text-white">Автосборка One-Pager</h4>
                 <p className="text-xs text-zinc-400">
                   Все сохранённые данные мгновенно собираются в единый инвестиционный документ.
                 </p>
                 <button
                   onClick={() => setActiveView('onepager')}
-                  className="w-full py-2 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition shadow-lg shadow-cyan-600/20"
+                  className="apple-btn-primary w-full text-xs font-bold"
                 >
                   <FileText className="w-3.5 h-3.5" /> Открыть One-Pager проекта
                 </button>
@@ -1242,21 +1242,21 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </div>
 
             {/* Right Column: Active Module Form */}
-            <div className="lg:col-span-8 bg-zinc-900/80 border border-zinc-800 rounded-3xl p-6 sm:p-7 backdrop-blur-xl shadow-xl flex flex-col justify-between space-y-6">
+            <div className="lg:col-span-8 apple-card p-6 sm:p-7 shadow-xl flex flex-col justify-between space-y-6">
               <div>
                 {/* Module Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-zinc-800/80 pb-4 mb-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4 mb-5">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-400">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-300">
                         Модуль {activeModuleIndex + 1} из 5
                       </span>
-                      <span className="px-2 py-0.5 rounded-md bg-zinc-800 text-[10px] font-semibold text-zinc-300">
+                      <span className="px-2 py-0.5 rounded-full bg-white/10 text-[10px] font-semibold text-white border border-white/15">
                         Бейдж: {currentModule.badge}
                       </span>
                     </div>
                     <h2 className="text-xl sm:text-2xl font-black text-white">{currentModule.title}</h2>
-                    <p className="text-xs text-zinc-400 mt-1">{currentModule.description}</p>
+                    <p className="text-xs text-[#86868b] mt-1">{currentModule.description}</p>
                   </div>
 
                   {/* Top Actions */}
@@ -1264,28 +1264,28 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     {currentVersions.length > 0 && (
                       <button
                         onClick={() => setShowVersionHistory(!showVersionHistory)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold border border-zinc-700 transition"
+                        className="apple-btn-secondary text-xs"
                       >
-                        <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                        <Clock className="w-3.5 h-3.5 text-white" />
                         <span>Версии ({currentVersions.length})</span>
                       </button>
                     )}
 
                     <button
                       onClick={handleApplyTemplate}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-indigo-300 text-xs font-semibold border border-zinc-700 transition"
+                      className="apple-btn-secondary text-xs"
                       title="Заполнить образцовым шаблоном инкубатора"
                     >
-                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      <Sparkles className="w-3.5 h-3.5 text-white" />
                       <span>Вставить шаблон</span>
                     </button>
                   </div>
                 </div>
 
                 {/* Task Box */}
-                <div className="p-4 rounded-2xl bg-zinc-950/80 border border-zinc-800 mb-5">
+                <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 mb-5">
                   <div className="flex items-start gap-2.5">
-                    <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-400 mt-0.5 flex-shrink-0">
+                    <div className="p-1.5 rounded-lg bg-white/10 text-white mt-0.5 flex-shrink-0">
                       <Rocket className="w-4 h-4" />
                     </div>
                     <div>
@@ -1301,15 +1301,15 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 <div className="space-y-4 mb-6">
                   <div className="flex items-center justify-between">
                     <h4 className="text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
-                      <Edit3 className="w-3.5 h-3.5 text-indigo-400" />
+                      <Edit3 className="w-3.5 h-3.5 text-white" />
                       <span>Шаблон ответа: Поля модуля</span>
                     </h4>
-                    <span className="text-[11px] text-zinc-500">Автоматически объединяются в итоговый ответ</span>
+                    <span className="text-[11px] text-[#86868b]">Автоматически объединяются в итоговый ответ</span>
                   </div>
 
                   <div className="space-y-3">
                     {currentModule.fields.map((field, fIdx) => (
-                      <div key={field.id} className="p-3.5 rounded-2xl bg-zinc-950/60 border border-zinc-800 space-y-1.5">
+                      <div key={field.id} className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1.5">
                         <label className="block text-xs font-semibold text-zinc-300">
                           {fIdx + 1}. {field.label}
                         </label>
@@ -1318,7 +1318,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           value={currentFieldAnswers[field.id] || ''}
                           onChange={(e) => handleFieldChange(field.id, e.target.value)}
                           placeholder={field.placeholder}
-                          className="w-full px-3.5 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-100 placeholder-zinc-600 text-xs focus:outline-none focus:border-indigo-500 transition"
+                          className="w-full px-3.5 py-2 rounded-xl bg-black/60 border border-white/15 text-zinc-100 placeholder-zinc-500 text-xs focus:outline-none focus:border-white transition"
                         />
                       </div>
                     ))}
@@ -1331,7 +1331,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     <label className="text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
                       <span>Итоговый текст ответа (One-Pager Content):</span>
                     </label>
-                    <span className="text-[11px] text-zinc-500 font-mono">
+                    <span className="text-[11px] text-[#86868b] font-mono">
                       {currentAnswer.length} символов • LocalStorage F5 safe
                     </span>
                   </div>
@@ -1341,21 +1341,21 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     value={currentAnswer}
                     onChange={(e) => handleAnswerChange(e.target.value)}
                     placeholder={currentModule.placeholder}
-                    className="w-full p-4 rounded-2xl bg-zinc-950 border border-zinc-800 text-zinc-100 placeholder-zinc-600 text-xs sm:text-sm leading-relaxed focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition resize-none font-sans"
+                    className="w-full p-4 rounded-2xl bg-black/60 border border-white/15 text-zinc-100 placeholder-zinc-500 text-xs sm:text-sm leading-relaxed focus:outline-none focus:border-white transition resize-none font-sans"
                   />
                 </div>
 
                 {/* Curator Comments Display */}
                 {currentComments.length > 0 && (
-                  <div className="mt-5 p-4 rounded-2xl bg-purple-950/20 border border-purple-500/30 space-y-2.5">
-                    <div className="flex items-center gap-2 text-xs font-bold text-purple-300 uppercase tracking-wider">
-                      <MessageSquare className="w-4 h-4 text-purple-400" />
+                  <div className="mt-5 p-4 rounded-2xl bg-white/[0.04] border border-white/15 space-y-2.5">
+                    <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                      <MessageSquare className="w-4 h-4 text-white" />
                       <span>Обратная связь трекеров Launch Lab 21:</span>
                     </div>
                     {currentComments.map((comment) => (
-                      <div key={comment.id} className="p-3 rounded-xl bg-zinc-950/80 border border-zinc-800 text-xs space-y-1">
+                      <div key={comment.id} className="p-3 rounded-xl bg-black/40 border border-white/10 text-xs space-y-1">
                         <div className="flex items-center justify-between text-zinc-400 text-[11px]">
-                          <span className="font-semibold text-purple-300">{comment.author} ({comment.role})</span>
+                          <span className="font-semibold text-white">{comment.author} ({comment.role})</span>
                           <span>{new Date(comment.date).toLocaleDateString()}</span>
                         </div>
                         <p className="text-zinc-200 leading-relaxed">{comment.text}</p>
@@ -1366,16 +1366,16 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
                 {/* Curator Mode: Add feedback */}
                 {activeRole === 'curator' && (
-                  <form onSubmit={handleAddCuratorComment} className="mt-4 p-4 rounded-2xl bg-zinc-950 border border-purple-500/40 space-y-3">
+                  <form onSubmit={handleAddCuratorComment} className="mt-4 p-4 rounded-2xl bg-black/40 border border-white/20 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-purple-300 uppercase tracking-wider flex items-center gap-1.5">
-                        <ShieldCheck className="w-4 h-4 text-purple-400" /> Оставить комментарий куратора
+                      <span className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <ShieldCheck className="w-4 h-4 text-white" /> Оставить комментарий куратора
                       </span>
                       <input
                         type="text"
                         value={curatorAuthor}
                         onChange={(e) => setCuratorAuthor(e.target.value)}
-                        className="bg-zinc-900 border border-zinc-700 rounded-lg px-2 py-0.5 text-[10px] text-zinc-300"
+                        className="bg-black/60 border border-white/15 rounded-lg px-2 py-0.5 text-[10px] text-zinc-300"
                       />
                     </div>
                     <textarea
@@ -1383,12 +1383,12 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       value={curatorNote}
                       onChange={(e) => setCuratorNote(e.target.value)}
                       placeholder="Напишите обратную связь для команды по этому модулю..."
-                      className="w-full p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 transition resize-none"
+                      className="w-full p-3 rounded-xl bg-black/60 border border-white/15 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white transition resize-none"
                     />
                     <div className="flex justify-end">
                       <button
                         type="submit"
-                        className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-purple-600/30"
+                        className="apple-btn-primary text-xs font-bold"
                       >
                         <Save className="w-3.5 h-3.5" /> Отправить комментарий
                       </button>
@@ -1398,14 +1398,14 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
                 {/* Version History Drawer */}
                 {showVersionHistory && (
-                  <div className="mt-4 p-4 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3">
+                  <div className="mt-4 p-4 rounded-2xl bg-black/50 border border-white/15 space-y-3">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-cyan-400" /> История изменений модуля
+                        <Clock className="w-3.5 h-3.5 text-white" /> История изменений модуля
                       </span>
                       <button
                         onClick={() => setShowVersionHistory(false)}
-                        className="text-xs text-zinc-500 hover:text-zinc-300"
+                        className="text-xs text-zinc-400 hover:text-white"
                       >
                         Закрыть
                       </button>
@@ -1414,7 +1414,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       {currentVersions.map((ver) => (
                         <div
                           key={ver.id}
-                          className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-between gap-3 text-xs"
+                          className="p-2.5 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-between gap-3 text-xs"
                         >
                           <div>
                             <div className="text-[11px] text-zinc-400">
@@ -1424,7 +1424,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           </div>
                           <button
                             onClick={() => handleRestoreVersion(ver)}
-                            className="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs text-indigo-300 font-semibold transition"
+                            className="apple-btn-secondary text-xs py-1 px-3"
                           >
                             Восстановить
                           </button>
@@ -1436,11 +1436,11 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </div>
 
               {/* Bottom Actions Row */}
-              <div className="pt-4 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-3">
+              <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleSaveAnswer}
-                    className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-lg shadow-indigo-600/25 transition active:scale-95"
+                    className="apple-btn-primary text-xs sm:text-sm font-bold flex items-center gap-2 shadow-lg"
                   >
                     <Save className="w-4 h-4" />
                     <span>Сохранить ответ</span>
@@ -1448,7 +1448,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
                   <button
                     onClick={handleClearAnswer}
-                    className="px-3 py-2.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-zinc-400 hover:text-red-400 border border-zinc-800 text-xs font-medium flex items-center gap-1.5 transition"
+                    className="apple-btn-secondary text-xs font-medium"
                     title="Очистить ответ для проверки пустого модуля"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -1460,7 +1460,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   {activeModuleIndex < activeModules.length - 1 ? (
                     <button
                       onClick={() => setActiveModuleIndex((prev) => prev + 1)}
-                      className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold flex items-center gap-1.5 transition"
+                      className="apple-btn-secondary text-xs font-semibold"
                     >
                       <span>Следующий модуль</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -1468,7 +1468,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   ) : (
                     <button
                       onClick={() => setActiveView('onepager')}
-                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-lg shadow-emerald-500/20"
+                      className="apple-btn-primary text-xs font-bold"
                     >
                       <span>Собрать One-Pager!</span>
                       <FileText className="w-3.5 h-3.5" />
@@ -1486,13 +1486,13 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         {activeView === 'onepager' && (
           <div className="space-y-6 max-w-5xl mx-auto">
             {/* Action Bar */}
-            <div className="no-print flex flex-wrap items-center justify-between gap-3 bg-zinc-900/80 border border-zinc-800 p-4 rounded-2xl backdrop-blur-md">
+            <div className="no-print flex flex-wrap items-center justify-between gap-3 apple-card p-4 rounded-2xl">
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-cyan-400" />
+                  <FileText className="w-4 h-4 text-white" />
                   Инвестиционный One-Pager: «{currentProject.name}»
                 </h3>
-                <p className="text-xs text-zinc-400 mt-0.5">
+                <p className="text-xs text-[#86868b] mt-0.5">
                   Собран автоматически из ответов модулей акселератора Launch Lab 21
                 </p>
               </div>
@@ -1500,15 +1500,15 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               <div className="flex items-center gap-2 flex-wrap">
                 <button
                   onClick={handleCopyOnePager}
-                  className="px-3 py-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-semibold flex items-center gap-1.5 transition"
+                  className="apple-btn-secondary text-xs"
                 >
-                  {copiedSummary ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copiedSummary ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copiedSummary ? (currentLang === 'uz' ? 'Nusxalandi!' : currentLang === 'en' ? 'Copied!' : 'Скопировано!') : t.copyText}</span>
                 </button>
 
                 <button
                   onClick={handleCopyShareLink}
-                  className="px-3 py-1.5 rounded-xl bg-zinc-950 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 text-xs font-semibold flex items-center gap-1.5 transition"
+                  className="apple-btn-secondary text-xs"
                 >
                   <Share2 className="w-3.5 h-3.5" />
                   <span>{copiedShareLink ? (currentLang === 'uz' ? 'Havola nusxalandi!' : currentLang === 'en' ? 'Link copied!' : 'Ссылка скопирована!') : t.share}</span>
@@ -1518,7 +1518,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   href="/presentation.pdf"
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-amber-600/20"
+                  className="apple-btn-secondary text-xs"
                 >
                   <FileText className="w-3.5 h-3.5" />
                   <span>{t.slidesPdf}</span>
@@ -1526,7 +1526,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
                 <button
                   onClick={() => window.print()}
-                  className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/20"
+                  className="apple-btn-primary text-xs"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>{t.exportPdf}</span>
@@ -1535,38 +1535,38 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </div>
 
             {/* THE ONE-PAGER DOCUMENT */}
-            <div className="print-container bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6">
+            <div className="print-container apple-card rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6">
               {/* Header */}
-              <div className="border-b border-zinc-800 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <div className="border-b border-white/10 pb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold mb-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-bold mb-3">
                     <Rocket className="w-3.5 h-3.5" /> {t.onePagerTitle}
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                     {currentProject.name}
                   </h1>
-                  <p className="text-xs sm:text-sm text-zinc-400 mt-1 max-w-2xl">
+                  <p className="text-xs sm:text-sm text-zinc-300 mt-1 max-w-2xl">
                     {currentProject.description}
                   </p>
                   <div className="mt-2 text-xs text-zinc-300">
-                    <span className="text-zinc-500 font-medium">Команда:</span> {currentProject.teamMembers}
+                    <span className="text-[#86868b] font-medium">Команда:</span> {currentProject.teamMembers}
                   </div>
                 </div>
 
                 <div className="text-left sm:text-right">
-                  <div className="text-xs text-zinc-500 font-mono">
+                  <div className="text-xs text-[#86868b] font-mono">
                     Дата создания: {new Date(currentProject.createdAt).toLocaleDateString()}
                   </div>
-                  <div className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <div className="mt-1 inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/15 text-white border border-white/25">
                     <CheckCircle2 className="w-3.5 h-3.5" /> Статус: {currentProject.status.toUpperCase()}
                   </div>
                 </div>
               </div>
 
               {/* Badges Earned Shelf */}
-              <div className="flex flex-wrap items-center gap-2 bg-zinc-950/60 p-3 rounded-2xl border border-zinc-800/80">
-                <span className="text-xs text-zinc-400 font-medium flex items-center gap-1">
-                  <Award className="w-3.5 h-3.5 text-amber-400" /> Достижения команды:
+              <div className="flex flex-wrap items-center gap-2 bg-white/[0.03] p-3 rounded-2xl border border-white/10">
+                <span className="text-xs text-[#86868b] font-medium flex items-center gap-1">
+                  <Award className="w-3.5 h-3.5 text-white" /> Достижения команды:
                 </span>
                 {activeModules.map((m) => {
                   const isDone = !!currentProject.answers[m.id]?.trim()
@@ -1575,8 +1575,8 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       key={m.id}
                       className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                         isDone
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                          : 'bg-zinc-900 text-zinc-600 border-zinc-800 opacity-60'
+                          ? 'bg-white/15 text-white border-white/30'
+                          : 'bg-white/5 text-zinc-500 border-white/10 opacity-60'
                       }`}
                     >
                       {m.badge} {isDone ? '✓' : ''}
@@ -1586,20 +1586,20 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </div>
 
               {/* CRITICAL JURY CHECK CARD: Secret phrase */}
-              <div className="print-card p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 via-indigo-950/30 to-purple-950/40 border border-purple-500/30 space-y-2">
+              <div className="print-card p-4 rounded-2xl apple-card space-y-2">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 text-xs font-bold text-purple-300 uppercase tracking-wider">
-                    <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                  <div className="flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5 text-white" />
                     Контрольная фраза проверки жюри (Live Verification):
                   </div>
-                  <span className="text-[10px] text-zinc-400 no-print">Мгновенная синхронизация без перезагрузки</span>
+                  <span className="text-[10px] text-[#86868b] no-print">Мгновенная синхронизация без перезагрузки</span>
                 </div>
                 <input
                   type="text"
                   value={currentProject.juryPhrase || ''}
                   onChange={(e) => handleJuryPhraseChange(e.target.value)}
                   placeholder="Впишите сюда секретную контрольную фразу жюри..."
-                  className="w-full bg-zinc-950/90 border border-purple-500/50 rounded-xl px-3.5 py-2 text-sm text-white font-medium focus:outline-none focus:border-purple-400 transition"
+                  className="w-full bg-black/60 border border-white/20 rounded-xl px-3.5 py-2 text-sm text-white font-medium focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -1614,24 +1614,24 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       key={mod.id}
                       className={`print-card p-5 rounded-2xl border transition-all ${
                         isFilled
-                          ? 'bg-zinc-950/80 border-zinc-800 hover:border-zinc-700'
-                          : 'bg-zinc-950/40 border-dashed border-amber-500/30 bg-amber-500/5'
+                          ? 'bg-white/[0.04] border-white/15 hover:border-white/30'
+                          : 'bg-white/[0.02] border-dashed border-white/15'
                       }`}
                     >
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
-                          <span className="w-6 h-6 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-bold flex items-center justify-center">
+                          <span className="w-6 h-6 rounded-lg bg-white/10 border border-white/15 text-white text-xs font-bold flex items-center justify-center">
                             {idx + 1}
                           </span>
                           <h4 className="text-sm font-bold text-white">{mod.title}</h4>
                         </div>
 
                         {isFilled ? (
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/15 text-white border border-white/25">
                             Собрано
                           </span>
                         ) : (
-                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/5 text-zinc-400 border border-white/10">
                             Пустой модуль
                           </span>
                         )}
@@ -1644,10 +1644,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         </div>
                       ) : (
                         /* CRITICAL EMPTY SECTION HANDLING (Page 6 of specs) */
-                        <div className="p-4 rounded-xl bg-zinc-900/60 border border-amber-500/20 flex flex-col items-center justify-center text-center py-6">
-                          <AlertCircle className="w-6 h-6 text-amber-400/80 mb-2" />
-                          <p className="text-xs font-bold text-amber-300">Модуль пока не заполнен</p>
-                          <p className="text-[11px] text-zinc-400 mt-1 max-w-xs">
+                        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/10 flex flex-col items-center justify-center text-center py-6">
+                          <AlertCircle className="w-6 h-6 text-zinc-400 mb-2" />
+                          <p className="text-xs font-bold text-zinc-200">Модуль пока не заполнен</p>
+                          <p className="text-[11px] text-[#86868b] mt-1 max-w-xs">
                             Заполните задание в программе инкубатора, и тезисы появятся здесь. Вёрстка остаётся стабильной.
                           </p>
                           <button
@@ -1655,7 +1655,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                               setActiveModuleIndex(idx)
                               setActiveView('modules')
                             }}
-                            className="no-print mt-3 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs text-white font-medium transition"
+                            className="no-print mt-3 apple-btn-secondary text-xs"
                           >
                             Заполнить модуль
                           </button>
@@ -1667,7 +1667,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </div>
 
               {/* Document Footer */}
-              <div className="border-t border-zinc-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-500">
+              <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#86868b]">
                 <span>Платформа инкубатора «Launch Lab 21» • School 21</span>
                 <span>Данные сохранены локально в браузере (F5 safe)</span>
               </div>
@@ -1681,42 +1681,42 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         {activeView === 'curator' && (
           <div className="space-y-6 max-w-6xl mx-auto">
             {/* Curator Header */}
-            <div className="bg-gradient-to-r from-purple-950/40 via-zinc-900 to-zinc-900 border border-purple-500/30 p-6 rounded-3xl backdrop-blur-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="apple-card p-6 sm:p-8 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold mb-2">
-                  <ShieldCheck className="w-3.5 h-3.5 text-purple-400" /> РЕЖИМ КУРАТОРА И ТРЕКЕРА
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-white border border-white/20 text-xs font-bold mb-2">
+                  <ShieldCheck className="w-3.5 h-3.5 text-white" /> РЕЖИМ КУРАТОРА И ТРЕКЕРА
                 </div>
                 <h2 className="text-xl sm:text-2xl font-black text-white">Когорта стартапов Launch Lab 21</h2>
-                <p className="text-xs text-zinc-400 mt-1">
+                <p className="text-xs text-[#86868b] mt-1">
                   Мониторинг прогресса команд, ревью ответов по модулям и выдача экспертных рекомендаций
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800 text-center">
+                <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 text-center min-w-[90px]">
                   <div className="text-xl font-black text-white">{projects.length}</div>
-                  <div className="text-[10px] text-zinc-500 uppercase">Всего команд</div>
+                  <div className="text-[10px] text-[#86868b] uppercase tracking-wider">Всего команд</div>
                 </div>
-                <div className="p-3 rounded-2xl bg-zinc-950/80 border border-zinc-800 text-center">
-                  <div className="text-xl font-black text-emerald-400">
+                <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 text-center min-w-[90px]">
+                  <div className="text-xl font-black text-white">
                     {projects.filter((p) => p.status === 'approved').length}
                   </div>
-                  <div className="text-[10px] text-zinc-500 uppercase">К питчу готовы</div>
+                  <div className="text-[10px] text-[#86868b] uppercase tracking-wider">К питчу готовы</div>
                 </div>
               </div>
             </div>
 
             {/* Access Policy Control Banner */}
-            <div className="bg-zinc-900/90 border border-zinc-800 p-4 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 backdrop-blur-md">
+            <div className="apple-card p-4 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div
                   className={`p-2.5 rounded-2xl border ${
                     staffLockEnabled
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                      : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                      ? 'bg-white/15 text-white border-white/30'
+                      : 'bg-white/10 text-zinc-300 border-white/20'
                   }`}
                 >
-                  {staffLockEnabled ? <Lock className="w-5 h-5" /> : <Unlock className="w-5 h-5" />}
+                  {staffLockEnabled ? <Lock className="w-5 h-5 text-white" /> : <Unlock className="w-5 h-5 text-white" />}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
@@ -1724,10 +1724,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       Политика доступа платформы:
                     </span>
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                      className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                         staffLockEnabled
-                          ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                          : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                          ? 'bg-white/15 text-white border-white/30'
+                          : 'bg-white/10 text-white border-white/20'
                       }`}
                     >
                       {staffLockEnabled
@@ -1735,7 +1735,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         : '🔓 Открытый доступ для всех (Public Edit)'}
                     </span>
                   </div>
-                  <p className="text-[11px] text-zinc-400 mt-0.5">
+                  <p className="text-[11px] text-[#86868b] mt-0.5">
                     {staffLockEnabled
                       ? 'Режим куратора и аудит проектов защищены PIN-кодом (2121).'
                       : 'Сейчас любой пользователь по ссылке может просматривать, тестировать и редактировать проекты.'}
@@ -1747,17 +1747,17 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 {staffLockEnabled ? (
                   <button
                     onClick={() => handleToggleStaffLock(false)}
-                    className="px-3.5 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold border border-zinc-700 transition flex items-center gap-1.5"
+                    className="apple-btn-secondary text-xs"
                   >
-                    <Unlock className="w-3.5 h-3.5 text-emerald-400" />
+                    <Unlock className="w-3.5 h-3.5 text-white" />
                     <span>Сделать открытым для всех</span>
                   </button>
                 ) : (
                   <button
                     onClick={() => handleToggleStaffLock(true)}
-                    className="px-3.5 py-2 rounded-xl bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 text-xs font-bold border border-amber-500/40 transition flex items-center gap-1.5"
+                    className="apple-btn-secondary text-xs"
                   >
-                    <Lock className="w-3.5 h-3.5" />
+                    <Lock className="w-3.5 h-3.5 text-white" />
                     <span>Защитить для сотрудников (Staff Only)</span>
                   </button>
                 )}
@@ -1776,54 +1776,54 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 return (
                   <div
                     key={proj.id}
-                    className={`p-5 rounded-3xl border transition-all flex flex-col justify-between space-y-4 ${
+                    className={`p-5 rounded-3xl apple-card transition-all flex flex-col justify-between space-y-4 ${
                       isCurrent
-                        ? 'bg-zinc-900 border-purple-500/60 shadow-xl shadow-purple-500/10'
-                        : 'bg-zinc-900/60 border-zinc-800 hover:border-zinc-700'
+                        ? 'border-white/40 ring-1 ring-white/20'
+                        : 'border-white/10'
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase border ${
+                          className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase border ${
                             proj.status === 'approved'
-                              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                              ? 'bg-white/15 text-white border-white/25'
                               : proj.status === 'in_review'
-                              ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                              : 'bg-zinc-800 text-zinc-400 border-zinc-700'
+                              ? 'bg-white/10 text-zinc-300 border-white/20'
+                              : 'bg-white/5 text-zinc-400 border-white/10'
                           }`}
                         >
                           {proj.status}
                         </span>
 
-                        <span className="text-xs font-mono font-bold text-indigo-400">
+                        <span className="text-xs font-mono font-bold text-white">
                           {answered}/5 ({pct}%)
                         </span>
                       </div>
 
                       <h3 className="text-base font-bold text-white tracking-tight">{proj.name}</h3>
-                      <p className="text-xs text-zinc-400 mt-1 line-clamp-2">{proj.description}</p>
-                      <div className="text-[11px] text-zinc-500 mt-2">
-                        <span className="font-semibold text-zinc-400">Команда:</span> {proj.teamMembers}
+                      <p className="text-xs text-[#86868b] mt-1 line-clamp-2">{proj.description}</p>
+                      <div className="text-[11px] text-[#86868b] mt-2">
+                        <span className="font-semibold text-zinc-300">Команда:</span> {proj.teamMembers}
                       </div>
 
                       {/* Mini Progress */}
-                      <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden mt-3">
+                      <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mt-3">
                         <div
-                          className="h-full bg-gradient-to-r from-purple-500 to-cyan-400"
+                          className="h-full bg-white rounded-full transition-all duration-300"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
                     </div>
 
                     {/* Curator Actions */}
-                    <div className="pt-3 border-t border-zinc-800/80 flex items-center justify-between gap-2">
+                    <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-2">
                       <button
                         onClick={() => {
                           setCurrentProjectId(proj.id)
                           setActiveView('modules')
                         }}
-                        className="px-3 py-1.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs text-zinc-200 font-semibold transition"
+                        className="apple-btn-secondary text-xs"
                       >
                         Ревью ответов
                       </button>
@@ -1833,7 +1833,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           setCurrentProjectId(proj.id)
                           setActiveView('onepager')
                         }}
-                        className="px-3 py-1.5 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 text-xs font-bold border border-purple-500/40 transition"
+                        className="apple-btn-secondary text-xs"
                       >
                         One-Pager
                       </button>
@@ -1851,27 +1851,27 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         {activeView === 'gallery' && (
           <div className="space-y-6 max-w-6xl mx-auto">
             {/* Gallery Search & Filter Toolbar */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-zinc-900/80 border border-zinc-800 p-4 rounded-3xl backdrop-blur-md">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 apple-card p-4 rounded-3xl">
               <div className="relative flex-1 max-w-md">
-                <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={gallerySearch}
                   onChange={(e) => setGallerySearch(e.target.value)}
                   placeholder="Поиск проекта по названию, описанию или участникам..."
-                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-amber-500 transition"
+                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-black/60 border border-white/15 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-white transition"
                 />
               </div>
 
-              <div className="flex items-center gap-1.5 overflow-x-auto">
+              <div className="apple-segmented">
                 {(['all', 'approved', 'in_review', 'draft'] as const).map((filter) => (
                   <button
                     key={filter}
                     onClick={() => setGalleryFilter(filter)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold capitalize transition whitespace-nowrap ${
+                    className={`px-3 py-1 apple-segmented-item capitalize ${
                       galleryFilter === filter
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                        : 'bg-zinc-950 text-zinc-400 border border-zinc-800 hover:text-white'
+                        ? 'apple-segmented-active'
+                        : 'text-[#86868b] hover:text-white'
                     }`}
                   >
                     {filter === 'all'
@@ -1897,20 +1897,20 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 return (
                   <div
                     key={proj.id}
-                    className="bg-zinc-900/80 border border-zinc-800 rounded-3xl p-6 backdrop-blur-xl hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-4 shadow-xl"
+                    className="apple-card p-6 rounded-3xl transition-all flex flex-col justify-between space-y-4 shadow-xl"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                           Demo Day 2026
                         </span>
-                        <span className="text-xs font-mono font-bold text-amber-400">{pct}%</span>
+                        <span className="text-xs font-mono font-bold text-white">{pct}%</span>
                       </div>
 
                       <h3 className="text-lg font-black text-white tracking-tight">{proj.name}</h3>
-                      <p className="text-xs text-zinc-400 mt-1 line-clamp-3">{proj.description}</p>
+                      <p className="text-xs text-[#86868b] mt-1 line-clamp-3">{proj.description}</p>
                       <div className="mt-3 text-xs text-zinc-400">
-                        <span className="text-zinc-500">Основатели:</span> {proj.teamMembers}
+                        <span className="text-[#86868b]">Основатели:</span> {proj.teamMembers}
                       </div>
 
                       {/* Badges */}
@@ -1920,7 +1920,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           return hasBadge ? (
                             <span
                               key={m.id}
-                              className="text-[9px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30"
+                              className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20"
                             >
                               {m.badge}
                             </span>
@@ -1930,30 +1930,30 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     </div>
 
                     {/* Likes & Reactions Bar */}
-                    <div className="flex items-center justify-between pt-3 border-t border-zinc-800/80">
+                    <div className="flex items-center justify-between pt-3 border-t border-white/10">
                       <button
                         onClick={() => handleToggleLike(proj.id)}
-                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition ${
+                        className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-bold transition ${
                           proj.likedByMe
-                            ? 'bg-rose-500/20 text-rose-400 border-rose-500/40 shadow-sm'
-                            : 'bg-zinc-950 text-zinc-400 border-zinc-800 hover:text-white'
+                            ? 'bg-white text-black border-white shadow-sm'
+                            : 'bg-white/5 text-zinc-300 border-white/10 hover:text-white hover:border-white/30'
                         }`}
                       >
-                        <Heart className={`w-3.5 h-3.5 ${proj.likedByMe ? 'fill-rose-500 text-rose-500' : ''}`} />
+                        <Heart className={`w-3.5 h-3.5 ${proj.likedByMe ? 'fill-black text-black' : ''}`} />
                         <span>{(proj.likes || 0).toLocaleString()}</span>
                       </button>
 
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => handleAddReaction(proj.id, 'fire')}
-                          className="px-2 py-1 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-[11px] border border-zinc-800 transition"
+                          className="px-2 py-1 rounded-full bg-white/5 hover:bg-white/15 text-[11px] border border-white/10 transition"
                           title="Огонь"
                         >
                           🔥 {proj.reactions?.fire || 0}
                         </button>
                         <button
                           onClick={() => handleAddReaction(proj.id, 'rocket')}
-                          className="px-2 py-1 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-[11px] border border-zinc-800 transition"
+                          className="px-2 py-1 rounded-full bg-white/5 hover:bg-white/15 text-[11px] border border-white/10 transition"
                           title="Ракета"
                         >
                           🚀 {proj.reactions?.rocket || 0}
@@ -1968,7 +1968,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           if (idx >= 0) setActiveReelIndex(idx)
                           setActiveView('reels')
                         }}
-                        className="py-2 px-3 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-md shadow-pink-600/20"
+                        className="apple-btn-secondary text-xs"
                       >
                         <Flame className="w-3.5 h-3.5" /> Reels
                       </button>
@@ -1978,7 +1978,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           setCurrentProjectId(proj.id)
                           setActiveView('onepager')
                         }}
-                        className="py-2 px-3 rounded-xl bg-zinc-800 hover:bg-amber-600 hover:text-white text-zinc-200 text-xs font-bold flex items-center justify-center gap-1.5 transition"
+                        className="apple-btn-secondary text-xs"
                       >
                         <FileText className="w-3.5 h-3.5" /> One-Pager
                       </button>
@@ -2007,53 +2007,53 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           const pitchSlides = [
             {
               step: '01 / ELEVATOR PITCH',
-              tag: '💡 STARTUP IDENTITY',
+              tag: 'STARTUP IDENTITY',
               badge: 'School 21 • 2026',
               headline: currentReel.name,
               body: currentReel.description || 'Инновационный IT-стартап экосистемы School 21 Launch Lab.',
               metricTitle: 'Readiness / Holat',
               metricValue: '100% Validated',
-              accent: 'from-pink-500 to-rose-600'
+              accent: 'from-white/20 to-white/5'
             },
             {
               step: '02 / PAIN POINT',
-              tag: '⚠️ MUAMMO & OG\'RIQ',
+              tag: 'MUAMMO & OG\'RIQ',
               badge: 'Bozor Valitatsiyasi',
               headline: currentLang === 'uz' ? '70% Startaplar halokatga uchraydi' : currentLang === 'en' ? '70% Startups Fail Early' : '70% Стартапов буксуют на старте',
               body: currentReel.answers.problem || currentReel.fieldAnswers?.problem?.problem_core || 'Google Docs va xaotik so\'rovlar tufayli investorlar oldida vaqt yo\'qotiladi.',
               metricTitle: 'Lost Time / Yo\'qotish',
               metricValue: '14 Days ➔ 45 Min',
-              accent: 'from-amber-500 to-red-600'
+              accent: 'from-white/20 to-white/5'
             },
             {
               step: '03 / AI SOLUTION',
-              tag: '🚀 YECHIM & UVP',
+              tag: 'YECHIM & UVP',
               badge: 'AI-Native Engine',
               headline: currentLang === 'uz' ? 'Avtomatlashtirilgan Akselerator' : currentLang === 'en' ? 'Autonomous Client Incubator' : 'Автономный клиентский инкубатор',
               body: currentReel.answers.solution || currentReel.fieldAnswers?.solution?.solution_core || 'Zero-backend arxitektura: 5 modul, F5 stress-test va avtomatik One-Pager.',
               metricTitle: 'Time to Pitch / Tezlik',
               metricValue: '30x Faster',
-              accent: 'from-indigo-500 to-purple-600'
+              accent: 'from-white/20 to-white/5'
             },
             {
               step: '04 / MARKET TRACTION',
-              tag: '📊 BOZOR HAJMI (TAM)',
+              tag: 'BOZOR HAJMI (TAM)',
               badge: '$1.2B EdTech Market',
               headline: currentLang === 'uz' ? 'Katta va O\'sayotgan Bozor' : currentLang === 'en' ? 'Massive Target Market' : 'Огромный растущий рынок',
               body: currentReel.answers.market || currentReel.fieldAnswers?.market?.market_size || '$1.2B Markaziy Osiyo va MDH universitet akseleratorlari bozori.',
               metricTitle: 'TAM / SOM Bozor',
               metricValue: '$1.2B ➔ $42M SOM',
-              accent: 'from-emerald-500 to-teal-600'
+              accent: 'from-white/20 to-white/5'
             },
             {
               step: '05 / UNIT ECONOMICS & TEAM',
-              tag: '💰 BIZNES MODEL & ASK',
+              tag: 'BIZNES MODEL & ASK',
               badge: 'LTV / CAC ≥ 3',
               headline: currentLang === 'uz' ? 'Kuchli Jamoa va Barqaror Daromad' : currentLang === 'en' ? 'Sustainable B2B SaaS Model' : 'B2B SaaS модель & Команда',
               body: currentReel.answers.business_model || currentReel.fieldAnswers?.business_model?.bm_revenue_stream || 'B2B SaaS $490/oy + 2% Success fee. LTV $1,200, CAC $80.',
               metricTitle: 'LTV / CAC Koeffitsienti',
               metricValue: '15.0x Strong',
-              accent: 'from-blue-500 to-cyan-600'
+              accent: 'from-white/20 to-white/5'
             }
           ]
 
@@ -2062,12 +2062,12 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           return (
             <div className="max-w-5xl mx-auto space-y-6">
               {/* Top Banner with Controls */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-gradient-to-r from-pink-950/40 via-purple-950/40 to-zinc-900 border border-pink-500/30 p-4 sm:p-5 rounded-3xl backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 apple-card p-4 sm:p-5 rounded-3xl">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-pink-500/20 to-rose-500/20 text-pink-400 border border-pink-500/30 text-xs font-bold mb-1.5 shadow-sm">
-                    <Flame className="w-3.5 h-3.5 text-pink-400 animate-pulse" />
-                    <span>INSTAGRAM STARTUP REELS • PITCH FEED</span>
-                    <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white border border-white/20 text-xs font-bold mb-1.5 shadow-sm">
+                    <Flame className="w-3.5 h-3.5 text-white" />
+                    <span>STARTUP REELS • PITCH FEED</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_#ffffff]" />
                   </div>
                   <h2 className="text-lg sm:text-xl font-black text-white flex items-center gap-2">
                     <span>{currentLang === 'uz' ? 'Startaplar Jonli Reels Lentasi' : currentLang === 'en' ? 'Live Startup Reels Pitch Feed' : 'Живая Reels-лента стартапов'}</span>
@@ -2099,12 +2099,12 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     }}
                     className={`p-2.5 rounded-2xl border transition flex items-center gap-1.5 text-xs font-semibold ${
                       !reelMuted
-                        ? 'bg-pink-500/20 text-pink-300 border-pink-500/40'
-                        : 'bg-zinc-900 text-zinc-500 border-zinc-800'
+                        ? 'bg-white/15 text-white border-white/25'
+                        : 'bg-white/5 text-zinc-500 border-white/10'
                     }`}
                     title={reelMuted ? 'Ovozni yoqish' : 'Ovozni o\'chirish'}
                   >
-                    {!reelMuted ? <Volume2 className="w-4 h-4 text-pink-400 animate-bounce" /> : <VolumeX className="w-4 h-4" />}
+                    {!reelMuted ? <Volume2 className="w-4 h-4 text-white animate-pulse" /> : <VolumeX className="w-4 h-4" />}
                     <span className="hidden sm:inline">{!reelMuted ? 'Audio On' : 'Muted'}</span>
                   </button>
                 </div>
@@ -2116,25 +2116,25 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 <div className="hidden lg:flex flex-col items-center gap-2">
                   <button
                     onClick={handlePrevReel}
-                    className="p-4 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500/60 shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0"
+                    className="p-4 rounded-full bg-white/5 hover:bg-white/15 text-zinc-300 hover:text-white border border-white/10 hover:border-white/40 shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0"
                     title="Oldingi startap (Up)"
                   >
-                    <ChevronUp className="w-6 h-6 text-pink-400" />
+                    <ChevronUp className="w-6 h-6 text-white" />
                   </button>
-                  <span className="text-[11px] font-bold text-zinc-500">
+                  <span className="text-[11px] font-bold text-[#86868b]">
                     {activeReelIndex + 1} / {totalReels}
                   </span>
                   <button
                     onClick={handleNextReel}
-                    className="p-4 rounded-full bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700 hover:border-pink-500/60 shadow-xl transition-all transform hover:translate-y-1 active:translate-y-0"
+                    className="p-4 rounded-full bg-white/5 hover:bg-white/15 text-zinc-300 hover:text-white border border-white/10 hover:border-white/40 shadow-xl transition-all transform hover:translate-y-1 active:translate-y-0"
                     title="Keyingi startap (Down)"
                   >
-                    <ChevronDown className="w-6 h-6 text-pink-400" />
+                    <ChevronDown className="w-6 h-6 text-white" />
                   </button>
                 </div>
 
                 {/* Smartphone Reel Frame */}
-                <div className="relative w-full max-w-sm sm:max-w-md aspect-[9/16] min-h-[640px] max-h-[820px] rounded-[38px] border-4 border-zinc-700/80 bg-black shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95),0_0_50px_rgba(236,72,153,0.2)] overflow-hidden flex flex-col justify-between select-none">
+                <div className="relative w-full max-w-sm sm:max-w-md aspect-[9/16] min-h-[640px] max-h-[820px] rounded-[38px] border-2 border-white/20 bg-black/80 backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.95),0_0_50px_rgba(255,255,255,0.06)] overflow-hidden flex flex-col justify-between select-none">
                   {/* Instagram Story Progress Indicators (5 bars) */}
                   <div className="absolute top-3 inset-x-3 z-30 flex items-center gap-1.5">
                     {pitchSlides.map((s, idx) => (
@@ -2163,10 +2163,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   {/* Top Bar inside Reel */}
                   <div className="relative z-20 pt-7 px-4 pb-2 flex items-center justify-between text-white text-xs font-semibold bg-gradient-to-b from-black/80 via-black/40 to-transparent">
                     <div className="flex items-center gap-2">
-                      <span className="font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-amber-300 text-sm">
+                      <span className="font-black tracking-wider text-white text-sm">
                         REELS
                       </span>
-                      <span className="px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-300 border border-rose-500/40 text-[10px] font-bold animate-pulse">
+                      <span className="px-2 py-0.5 rounded-full bg-white/15 text-white border border-white/25 text-[10px] font-bold">
                         LIVE
                       </span>
                     </div>
@@ -2175,10 +2175,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       {/* Animated Audio Equalizer */}
                       {!reelMuted && (
                         <div className="flex items-center gap-0.5 h-3.5 px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-md">
-                          <span className="w-0.5 h-3 bg-pink-400 rounded-full animate-pulse" />
-                          <span className="w-0.5 h-2 bg-rose-400 rounded-full animate-pulse delay-75" />
-                          <span className="w-0.5 h-3.5 bg-amber-400 rounded-full animate-pulse delay-150" />
-                          <span className="w-0.5 h-1.5 bg-pink-300 rounded-full animate-pulse delay-100" />
+                          <span className="w-0.5 h-3 bg-white rounded-full animate-pulse" />
+                          <span className="w-0.5 h-2 bg-white/80 rounded-full animate-pulse delay-75" />
+                          <span className="w-0.5 h-3.5 bg-white rounded-full animate-pulse delay-150" />
+                          <span className="w-0.5 h-1.5 bg-white/60 rounded-full animate-pulse delay-100" />
                         </div>
                       )}
                       <span className="text-[11px] font-mono text-zinc-300 bg-black/40 px-2 py-0.5 rounded-full border border-white/10">
@@ -2201,8 +2201,8 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     {/* Big Pop-up Heart on Double Tap */}
                     {doubleTapHeart && (
                       <div className="absolute inset-0 z-40 flex items-center justify-center pointer-events-none animate-in zoom-in-50 fade-in duration-200">
-                        <div className="p-8 rounded-full bg-black/60 backdrop-blur-xl border border-rose-500/40 shadow-[0_0_50px_rgba(244,63,94,0.9)] animate-bounce">
-                          <Heart className="w-24 h-24 text-rose-500 fill-rose-500 drop-shadow-[0_0_20px_rgba(244,63,94,1)]" />
+                        <div className="p-8 rounded-full bg-black/60 backdrop-blur-xl border border-white/40 shadow-[0_0_50px_rgba(255,255,255,0.4)] animate-bounce">
+                          <Heart className="w-24 h-24 text-white fill-white drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]" />
                         </div>
                       </div>
                     )}
@@ -2241,7 +2241,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       </div>
 
                       {/* Stage Tag */}
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black uppercase tracking-wider text-pink-300">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black uppercase tracking-wider text-white">
                         <span>{activeSlide.tag}</span>
                       </div>
 
@@ -2256,11 +2256,11 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       </p>
 
                       {/* Highlight Metric Pill */}
-                      <div className="inline-flex items-center justify-between gap-3 px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500/20 via-purple-500/20 to-indigo-500/20 border border-pink-500/30 backdrop-blur-md">
+                      <div className="inline-flex items-center justify-between gap-3 px-4 py-2 rounded-xl bg-white/10 border border-white/20 backdrop-blur-md">
                         <span className="text-[10px] text-zinc-300 font-semibold uppercase tracking-wider">
                           {activeSlide.metricTitle}
                         </span>
-                        <span className="text-xs font-black text-amber-300 font-mono">
+                        <span className="text-xs font-black text-white font-mono">
                           {activeSlide.metricValue}
                         </span>
                       </div>
@@ -2278,13 +2278,13 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       <div
                         className={`p-3 rounded-full backdrop-blur-md border transition-all ${
                           isLiked
-                            ? 'bg-rose-500/30 text-rose-500 border-rose-500/50 shadow-[0_0_20px_rgba(244,63,94,0.6)]'
+                            ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.6)]'
                             : 'bg-black/50 text-white border-white/10 hover:bg-black/80'
                         }`}
                       >
                         <Heart
                           className={`w-6 h-6 transition-all ${
-                            isLiked ? 'fill-rose-500 scale-110' : 'stroke-[2.2]'
+                            isLiked ? 'fill-black scale-110' : 'stroke-[2.2]'
                           }`}
                         />
                       </div>
@@ -2373,12 +2373,12 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       <div
                         className={`p-3 rounded-full backdrop-blur-md border transition-all ${
                           isSaved
-                            ? 'bg-amber-500/30 text-amber-400 border-amber-500/50'
+                            ? 'bg-white text-black border-white'
                             : 'bg-black/50 text-white border-white/10 hover:bg-black/80'
                         }`}
                       >
                         <Bookmark
-                          className={`w-5 h-5 ${isSaved ? 'fill-amber-400' : 'stroke-[2.2]'}`}
+                          className={`w-5 h-5 ${isSaved ? 'fill-black' : 'stroke-[2.2]'}`}
                         />
                       </div>
                     </button>
@@ -2389,13 +2389,13 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         setCurrentProjectId(currentReel.id)
                         setActiveView('onepager')
                       }}
-                      className="group flex flex-col items-center gap-1 text-cyan-300 focus:outline-none transition-transform active:scale-110"
+                      className="group flex flex-col items-center gap-1 text-white focus:outline-none transition-transform active:scale-110"
                       title="One-Pager Hujjatini ochish"
                     >
-                      <div className="p-3 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 backdrop-blur-md">
+                      <div className="p-3 rounded-full bg-white/10 text-white border border-white/20 hover:bg-white/20 backdrop-blur-md">
                         <FileText className="w-5 h-5" />
                       </div>
-                      <span className="text-[9px] font-bold text-cyan-400">Doc</span>
+                      <span className="text-[9px] font-bold text-white">Doc</span>
                     </button>
                   </div>
 
@@ -2403,7 +2403,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   <div className="relative z-20 p-4 pt-6 bg-gradient-to-t from-black via-black/80 to-transparent space-y-2 pr-16">
                     {/* User / Team Header */}
                     <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 p-[2px] flex-shrink-0">
+                      <div className="w-9 h-9 rounded-full bg-white/20 border border-white/30 p-[2px] flex-shrink-0">
                         <div className="w-full h-full bg-zinc-950 rounded-full flex items-center justify-center text-white font-bold text-xs">
                           {currentReel.name.substring(0, 1)}
                         </div>
@@ -2413,14 +2413,14 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         <span className="text-sm font-black text-white truncate drop-shadow-md">
                           {currentReel.name}
                         </span>
-                        <CheckCircle2 className="w-4 h-4 text-sky-400 fill-sky-400/20 flex-shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-white fill-white/20 flex-shrink-0" />
 
                         <button
                           onClick={() => handleToggleFollow(currentReel.id)}
                           className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition flex-shrink-0 ${
                             isFollowed
                               ? 'bg-zinc-800 text-zinc-300 border border-zinc-700'
-                              : 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-sm'
+                              : 'bg-white text-black font-bold shadow-sm'
                           }`}
                         >
                           {isFollowed ? '✓ Kuzatildi' : '+ Kuzatish'}
@@ -2429,7 +2429,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     </div>
 
                     {/* Team Members Tag */}
-                    <p className="text-[11px] text-pink-300 font-medium truncate">
+                    <p className="text-[11px] text-[#86868b] font-medium truncate">
                       {currentReel.teamMembers}
                     </p>
 
@@ -2449,8 +2449,8 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     </div>
 
                     {/* Music Audio Ticker */}
-                    <div className="flex items-center gap-2 pt-1 text-[10px] text-zinc-400 font-mono overflow-hidden">
-                      <Music className="w-3 h-3 text-pink-400 animate-spin" />
+                    <div className="flex items-center gap-2 pt-1 text-[10px] text-[#86868b] font-mono overflow-hidden">
+                      <Music className="w-3 h-3 text-white animate-spin" />
                       <div className="truncate text-zinc-300">
                         <span>🎵 School 21 • Launch Lab 21 Pitch Audio (Original) • {currentReel.name}</span>
                       </div>
@@ -2462,36 +2462,36 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 <div className="flex lg:hidden items-center justify-center gap-4 w-full pt-2">
                   <button
                     onClick={handlePrevReel}
-                    className="flex-1 py-3 rounded-2xl bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs border border-zinc-800 flex items-center justify-center gap-2 transition"
+                    className="apple-btn-secondary flex-1 py-3"
                   >
-                    <ChevronUp className="w-4 h-4 text-pink-400" />
+                    <ChevronUp className="w-4 h-4 text-white" />
                     <span>{currentLang === 'uz' ? 'Oldingi startap' : 'Предыдущий'}</span>
                   </button>
 
                   <button
                     onClick={handleNextReel}
-                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white font-bold text-xs shadow-lg shadow-pink-600/30 flex items-center justify-center gap-2 transition"
+                    className="apple-btn-primary flex-1 py-3"
                   >
                     <span>{currentLang === 'uz' ? 'Keyingi startap' : 'Следующий'}</span>
-                    <ChevronDown className="w-4 h-4 text-white" />
+                    <ChevronDown className="w-4 h-4 text-black" />
                   </button>
                 </div>
               </div>
 
               {/* REELS COMMENTS BOTTOM SHEET MODAL */}
               {reelCommentsModal && (
-                <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
-                  <div className="bg-zinc-900 border border-zinc-800 rounded-t-[32px] sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full shadow-2xl space-y-4 max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300">
-                    <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+                <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-end sm:items-center justify-center p-0 sm:p-4">
+                  <div className="apple-card rounded-t-[32px] sm:rounded-3xl p-5 sm:p-6 max-w-lg w-full shadow-2xl space-y-4 max-h-[85vh] flex flex-col animate-in slide-in-from-bottom duration-300">
+                    <div className="flex items-center justify-between pb-3 border-b border-white/10">
                       <div className="flex items-center gap-2">
-                        <MessageCircle className="w-5 h-5 text-pink-400" />
+                        <MessageCircle className="w-5 h-5 text-white" />
                         <h3 className="text-base font-bold text-white">
                           {currentLang === 'uz' ? 'Startapga Sharhlar & Fikrlar' : 'Комментарии стартапа'}
                         </h3>
                       </div>
                       <button
                         onClick={() => setReelCommentsModal(false)}
-                        className="p-1 rounded-full text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 transition"
+                        className="apple-btn-secondary p-1 rounded-full"
                       >
                         ✕
                       </button>
@@ -2503,15 +2503,15 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         comms.map((c) => (
                           <div
                             key={c.id}
-                            className="p-3 rounded-2xl bg-zinc-950 border border-zinc-800/80 space-y-1.5"
+                            className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 space-y-1.5"
                           >
                             <div className="flex items-center justify-between">
-                              <span className="text-xs font-bold text-indigo-300">{c.author}</span>
-                              <span className="text-[10px] text-zinc-500 font-mono">
+                              <span className="text-xs font-bold text-white">{c.author}</span>
+                              <span className="text-[10px] text-[#86868b] font-mono">
                                 {new Date(c.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                               </span>
                             </div>
-                            <span className="inline-block px-1.5 py-0.2 rounded bg-indigo-500/10 text-indigo-400 text-[9px] font-semibold">
+                            <span className="inline-block px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/15 text-[9px] font-semibold">
                               {c.role}
                             </span>
                             <p className="text-xs text-zinc-200 leading-relaxed">{c.text}</p>
@@ -2520,7 +2520,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       )}
 
                       {totalComments === 0 && (
-                        <div className="text-center py-8 text-zinc-500 text-xs">
+                        <div className="text-center py-8 text-[#86868b] text-xs">
                           {currentLang === 'uz'
                             ? 'Hali hech kim sharh qoldirmadi. Birinchi bo\'lib fikr bildiring!'
                             : 'Комментариев пока нет. Будьте первыми!'}
@@ -2534,7 +2534,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         <button
                           key={emoji}
                           onClick={() => setNewReelComment(emoji)}
-                          className="px-2.5 py-1 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-[11px] whitespace-nowrap transition"
+                          className="px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white text-[11px] whitespace-nowrap transition border border-white/10"
                         >
                           {emoji}
                         </button>
@@ -2547,7 +2547,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         e.preventDefault()
                         handleAddReelComment(currentReel.id)
                       }}
-                      className="flex items-center gap-2 pt-2 border-t border-zinc-800"
+                      className="flex items-center gap-2 pt-2 border-t border-white/10"
                     >
                       <input
                         type="text"
@@ -2560,11 +2560,11 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                             ? 'Leave a comment...'
                             : 'Напишите комментарий...'
                         }
-                        className="flex-1 px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:outline-none focus:border-pink-500 transition"
+                        className="flex-1 px-4 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-white transition"
                       />
                       <button
                         type="submit"
-                        className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-pink-600/30"
+                        className="apple-btn-primary text-xs font-bold"
                       >
                         <Send className="w-3.5 h-3.5" />
                         <span>Yuborish</span>
@@ -2583,31 +2583,31 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         {activeView === 'pitch-cockpit' && (
           <div className="max-w-5xl mx-auto space-y-6">
             {/* Top Stage Cockpit */}
-            <div className="bg-gradient-to-r from-emerald-950/40 via-zinc-900 to-indigo-950/40 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 backdrop-blur-xl space-y-6">
+            <div className="apple-card rounded-3xl p-6 sm:p-8 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold mb-2">
-                    <Rocket className="w-3.5 h-3.5" /> КОКПИТ ЗАЩИТЫ • РЕГЛАМЕНТ 3 МИНУТЫ
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-white border border-white/20 text-xs font-bold mb-2">
+                    <Rocket className="w-3.5 h-3.5 text-white" /> КОКПИТ ЗАЩИТЫ • РЕГЛАМЕНТ 3 МИНУТЫ
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black text-white">
                     Сценарий победы: Живой питч и проверки жюри
                   </h2>
-                  <p className="text-xs text-zinc-400 mt-1">
+                  <p className="text-xs text-[#86868b] mt-1">
                     Строгое соответствие разделам 8 и 9 официального регламента School 21
                   </p>
                 </div>
 
                 {/* 3-Minute Stage Timer */}
-                <div className="flex items-center gap-3 bg-zinc-950 border border-zinc-800 p-3 rounded-2xl">
-                  <div className="text-2xl sm:text-3xl font-black font-mono text-emerald-400">
+                <div className="flex items-center gap-3 bg-black/60 border border-white/15 p-3 rounded-2xl">
+                  <div className="text-2xl sm:text-3xl font-black font-mono text-white">
                     {formatTime(pitchSecondsLeft)}
                   </div>
                   <div className="flex flex-col gap-1">
                     <button
                       onClick={() => setPitchTimerActive(!pitchTimerActive)}
-                      className="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition flex items-center gap-1"
+                      className="apple-btn-primary text-xs py-1 px-3"
                     >
-                      {pitchTimerActive ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
+                      {pitchTimerActive ? <Pause className="w-3 h-3 text-black" /> : <Play className="w-3 h-3 text-black" />}
                       <span>{pitchTimerActive ? 'Стоп' : 'Старт'}</span>
                     </button>
                     <button
@@ -2615,7 +2615,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         setPitchTimerActive(false)
                         setPitchSecondsLeft(180)
                       }}
-                      className="px-3 py-0.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white text-[10px] font-semibold transition"
+                      className="apple-btn-secondary text-[10px] py-0.5 px-2.5"
                     >
                       Сбросить (180s)
                     </button>
@@ -2624,15 +2624,14 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </div>
 
               {/* Stage-ready Uzbek run of show */}
-              <section className="relative overflow-hidden rounded-2xl border border-emerald-400/20 bg-zinc-950/80 p-4 sm:p-5">
-                <div className="absolute -top-16 right-10 h-40 w-40 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+              <section className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03] p-4 sm:p-5">
                 <div className="relative flex flex-wrap items-center justify-between gap-2 mb-4">
                   <div>
-                    <p className="text-[10px] font-black tracking-[0.18em] text-emerald-400 uppercase">Sahna navigatori</p>
+                    <p className="text-[10px] font-black tracking-[0.18em] text-white uppercase">Sahna navigatori</p>
                     <h3 className="text-sm font-bold text-white mt-0.5">3 daqiqalik g‘alaba yo‘li</h3>
                   </div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-[10px] font-mono text-zinc-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/50 px-3 py-1.5 text-[10px] font-mono text-zinc-300">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
                     HOZIR: {['MUAMMO & G‘OYA', 'JONLI WEB-DEMO', 'NEGA BIZ?'][activePitchPhase]}
                   </div>
                 </div>
@@ -2642,43 +2641,35 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     {
                       time: '00:00 — 00:40',
                       title: "1. MUAMMO & G‘OYA",
-                      tone: 'cyan',
                       points: ['2 haftalik tartibsizlik', '70% rad javobi xavfi', '45 daqiqalik avto-yechim']
                     },
                     {
                       time: '00:40 — 02:15',
                       title: '2. JONLI WEB-SAYT DEMO',
-                      tone: 'indigo',
                       points: ['Modul → Saqlash', 'One-Pagerda darhol ko‘rish', '⚡ F5 • fraza • bo‘sh modul']
                     },
                     {
                       time: '02:15 — 03:00',
                       title: '3. NEGA BIZ?',
-                      tone: 'purple',
                       points: ['Zero-backend', 'F5 kafolati', 'Jonli havola va PDF']
                     }
                   ].map((phase, idx) => {
                     const isActive = activePitchPhase === idx
                     const isComplete = pitchElapsedSeconds >= [40, 135, 180][idx]
-                    const accents = {
-                      cyan: 'border-cyan-400/30 bg-cyan-500/5 text-cyan-300',
-                      indigo: 'border-indigo-400/35 bg-indigo-500/10 text-indigo-200',
-                      purple: 'border-purple-400/30 bg-purple-500/5 text-purple-200'
-                    }
                     return (
                       <article
                         key={phase.title}
-                        className={`relative rounded-xl border p-4 transition-all duration-500 ${accents[phase.tone as keyof typeof accents]} ${isActive ? 'ring-1 ring-white/30 shadow-lg shadow-indigo-500/10 -translate-y-0.5' : ''} ${isComplete ? 'opacity-70' : ''}`}
+                        className={`relative rounded-xl border p-4 transition-all duration-300 bg-white/[0.04] border-white/10 ${isActive ? 'ring-1 ring-white/40 shadow-lg shadow-white/5 -translate-y-0.5 border-white/30' : ''} ${isComplete ? 'opacity-70' : ''}`}
                       >
                         <div className="flex items-center justify-between gap-2">
-                          <span className="font-mono text-[10px] font-bold tracking-wide">{phase.time}</span>
-                          {isComplete ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : isActive ? <span className="text-[9px] font-black tracking-wider text-emerald-300">ON AIR</span> : null}
+                          <span className="font-mono text-[10px] font-bold tracking-wide text-zinc-400">{phase.time}</span>
+                          {isComplete ? <Check className="w-3.5 h-3.5 text-white" /> : isActive ? <span className="text-[9px] font-black tracking-wider text-white">ON AIR</span> : null}
                         </div>
                         <h4 className="mt-2 text-xs font-black tracking-wide text-white">{phase.title}</h4>
                         <ul className="mt-2.5 space-y-1.5">
                           {phase.points.map((point) => (
                             <li key={point} className="flex gap-2 text-[11px] leading-snug text-zinc-300">
-                              <span className="mt-1 h-1 w-1 flex-none rounded-full bg-current opacity-80" />
+                              <span className="mt-1 h-1 w-1 flex-none rounded-full bg-white opacity-80" />
                               {point}
                             </li>
                           ))}
@@ -2691,16 +2682,16 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </div>
 
             {/* ⚡ MANDATORY LIVE JURY TESTS (Page 5 of Tournament Specs) */}
-            <div className="bg-zinc-900/80 border border-zinc-800 rounded-3xl p-6 sm:p-8 backdrop-blur-xl space-y-5">
+            <div className="apple-card rounded-3xl p-6 sm:p-8 space-y-5">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                <div className="p-2.5 rounded-2xl bg-white/10 text-white border border-white/20">
                   <CheckCircle2 className="w-6 h-6" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">
                     ⚡ Обязательные живые проверки жюри (Быстрый запуск)
                   </h3>
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-[#86868b]">
                     Все 3 пункта живого регламента турнира протестированы и готовы к показу
                   </p>
                 </div>
@@ -2708,18 +2699,18 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {/* Check 1: F5 Reload */}
-                <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3 flex flex-col justify-between">
+                <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-3 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                    <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-wider">
                       <Check className="w-4 h-4" /> 1. Проверка перезагрузки (F5)
                     </div>
-                    <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                    <p className="text-xs text-[#86868b] mt-2 leading-relaxed">
                       Регламент: «Перезагрузите страницу — введённый ответ должен остаться на месте».
                     </p>
                     {juryReloadAudit?.completed && (
-                      <div className="mt-2 text-[10px] text-emerald-300 font-mono bg-emerald-500/10 border border-emerald-500/20 px-2 py-1.5 rounded leading-relaxed">
+                      <div className="mt-2 text-[10px] text-white font-mono bg-white/10 border border-white/20 px-2 py-1.5 rounded-xl leading-relaxed">
                         ✓ Реальная перезагрузка пройдена в {juryReloadAudit.checkedAt}<br />
-                        <span className="text-emerald-400/80">Проект «{juryReloadAudit.projectName}» восстановлен из LocalStorage</span>
+                        <span className="text-zinc-300">Проект «{juryReloadAudit.projectName}» восстановлен из LocalStorage</span>
                       </div>
                     )}
                   </div>
@@ -2727,17 +2718,17 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     onClick={handleVerifyF5}
                     className="w-full py-2 px-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold transition flex items-center justify-center gap-1.5"
                   >
-                    <RefreshCw className="w-3.5 h-3.5 text-emerald-400" /> Перезагрузить и проверить
+                    <RefreshCw className="w-3.5 h-3.5 text-white" /> Перезагрузить и проверить
                   </button>
                 </div>
 
                 {/* Check 2: Secret Jury Phrase */}
-                <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3 flex flex-col justify-between">
+                <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-3 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-wider">
-                      <Sparkles className="w-4 h-4" /> 2. Контрольная фраза жюри
+                    <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-wider">
+                      <Sparkles className="w-4 h-4 text-white" /> 2. Контрольная фраза жюри
                     </div>
-                    <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                    <p className="text-xs text-[#86868b] mt-2 leading-relaxed">
                       Регламент: «Впишите в поле модуля фразу, которую назовёт жюри, и откройте one-pager — фраза там».
                     </p>
                     <input
@@ -2745,24 +2736,24 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       value={juryInputTemp}
                       onChange={(e) => setJuryInputTemp(e.target.value)}
                       placeholder="Фраза от жюри..."
-                      className="mt-2 w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-700 text-xs text-white"
+                      className="mt-2 w-full px-3 py-1.5 rounded-lg bg-black/60 border border-white/15 text-xs text-white"
                     />
                   </div>
                   <button
                     onClick={handleInjectJuryPhrase}
-                    className="w-full py-2 px-3 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-purple-600/20"
+                    className="apple-btn-primary w-full text-xs font-bold"
                   >
                     <FileText className="w-3.5 h-3.5" /> Внедрить в One-Pager!
                   </button>
                 </div>
 
                 {/* Check 3: Empty Section Check */}
-                <div className="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3 flex flex-col justify-between">
+                <div className="p-5 rounded-2xl bg-white/[0.04] border border-white/10 space-y-3 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
-                      <AlertCircle className="w-4 h-4" /> 3. Незаполненный модуль
+                    <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-wider">
+                      <AlertCircle className="w-4 h-4 text-white" /> 3. Незаполненный модуль
                     </div>
-                    <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                    <p className="text-xs text-[#86868b] mt-2 leading-relaxed">
                       Регламент: «Откройте проект с незаполненным модулем — система честно показывает пустой раздел, не ломая вёрстку».
                     </p>
                   </div>
@@ -2772,7 +2763,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       setActiveView('onepager')
                       triggerConfetti()
                     }}
-                    className="w-full py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-md shadow-amber-600/20"
+                    className="apple-btn-secondary w-full text-xs font-bold"
                   >
                     <span>Открыть чистый проект жюри</span>
                   </button>
@@ -2781,17 +2772,17 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </div>
 
             {/* PROMPT ENGINEERING DOSSIER SUBMISSION */}
-            <div className="bg-zinc-900/80 border border-indigo-500/30 rounded-3xl p-6 sm:p-8 backdrop-blur-xl space-y-4">
+            <div className="apple-card rounded-3xl p-6 sm:p-8 space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-2xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
-                    <Sparkles className="w-6 h-6" />
+                  <div className="p-2.5 rounded-2xl bg-white/10 text-white border border-white/20">
+                    <Sparkles className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-white">
                       Досье промпт-инжиниринга (Для сдачи в @s21_vibe_bot)
                     </h3>
-                    <p className="text-xs text-zinc-400">
+                    <p className="text-xs text-[#86868b]">
                       Официальный лог разработки по методологии School 21 готов к отправке в Telegram
                     </p>
                   </div>
@@ -2799,15 +2790,15 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
                 <button
                   onClick={handleCopyDossier}
-                  className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-indigo-600/30"
+                  className="apple-btn-primary text-xs font-bold flex items-center gap-2"
                 >
-                  {copiedDossier ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
+                  {copiedDossier ? <Check className="w-4 h-4 text-black" /> : <Copy className="w-4 h-4 text-black" />}
                   <span>{copiedDossier ? 'Досье скопировано!' : 'Скопировать досье для бота'}</span>
                 </button>
               </div>
 
-              <div className="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-300 leading-relaxed max-h-48 overflow-y-auto">
-                <p className="text-indigo-400 font-bold mb-1"># Формула School 21:</p>
+              <div className="p-4 rounded-2xl bg-black/60 border border-white/10 text-xs font-mono text-zinc-300 leading-relaxed max-h-48 overflow-y-auto">
+                <p className="text-white font-bold mb-1"># Формула School 21:</p>
                 <p>• KIM SIZ: Senior Frontend Architect & AI Product Specialist.</p>
                 <p>• NIMA KERAK: Автономный клиентский SPA инкубатора с 5 модулями, One-Pager, F5 persistence.</p>
                 <p>• KIM UCHUN: Стартапы School 21 Launch Lab 21 и судейская коллегия.</p>
@@ -2855,7 +2846,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   value={newProjectName}
                   onChange={(e) => setNewProjectName(e.target.value)}
                   placeholder="Например: EduMatch 21, GreenByte AI..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:outline-none focus:border-indigo-500 transition"
+                  className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -2868,7 +2859,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   value={newProjectTeam}
                   onChange={(e) => setNewProjectTeam(e.target.value)}
                   placeholder="Например: Алишер (Backend), Малика (Frontend), Сардор (Design)..."
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:outline-none focus:border-indigo-500 transition"
+                  className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -2881,21 +2872,21 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   value={newProjectDesc}
                   onChange={(e) => setNewProjectDesc(e.target.value)}
                   placeholder="Одно-два предложения о сути продукта..."
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition resize-none"
+                  className="w-full px-4 py-2 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-white transition resize-none"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-800">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setNewProjectModal(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition"
+                  className="apple-btn-secondary text-xs"
                 >
                   Отмена
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/30"
+                  className="apple-btn-primary text-xs"
                 >
                   Создать проект
                 </button>
@@ -2909,11 +2900,11 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
       {/* MODAL: EDIT PROJECT PROFILE */}
       {/* ========================================================================= */}
       {editProfileModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="apple-card rounded-3xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4">
             <div>
               <h3 className="text-lg font-bold text-white">Редактировать профиль проекта</h3>
-              <p className="text-xs text-zinc-400 mt-1">
+              <p className="text-xs text-[#86868b] mt-1">
                 Изменения автоматически отобразятся во всех модулях и в One-Pager.
               </p>
             </div>
@@ -2928,7 +2919,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   required
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:outline-none focus:border-indigo-500 transition"
+                  className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -2940,7 +2931,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   type="text"
                   value={editTeam}
                   onChange={(e) => setEditTeam(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:outline-none focus:border-indigo-500 transition"
+                  className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:outline-none focus:border-white transition"
                 />
               </div>
 
@@ -2952,7 +2943,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   rows={2}
                   value={editDesc}
                   onChange={(e) => setEditDesc(e.target.value)}
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition resize-none"
+                  className="w-full px-4 py-2 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-white transition resize-none"
                 />
               </div>
 
@@ -2963,7 +2954,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 <select
                   value={editStatus}
                   onChange={(e) => setEditStatus(e.target.value as ProjectData['status'])}
-                  className="w-full px-4 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition"
+                  className="w-full px-4 py-2 rounded-xl bg-black/60 border border-white/15 text-white text-xs focus:outline-none focus:border-white transition"
                 >
                   <option value="draft">Черновик (Draft)</option>
                   <option value="in_review">На ревью куратора (In Review)</option>
@@ -2972,17 +2963,17 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 </select>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-800">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setEditProfileModal(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition"
+                  className="apple-btn-secondary text-xs"
                 >
                   Отмена
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/30"
+                  className="apple-btn-primary text-xs"
                 >
                   Сохранить профиль
                 </button>
@@ -2996,47 +2987,47 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
       {/* MODAL: PROMPT FORMULA ASSISTANT */}
       {/* ========================================================================= */}
       {showFormulaModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-indigo-500/40 rounded-3xl p-6 sm:p-7 max-w-xl w-full shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="apple-card rounded-3xl p-6 sm:p-7 max-w-xl w-full shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-amber-400" />
+                <Sparkles className="w-5 h-5 text-white" />
                 <h3 className="text-lg font-bold text-white">Формула промпта School 21</h3>
               </div>
-              <span className="text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">
+              <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
                 {currentModule.title}
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 space-y-1">
-                <span className="font-bold text-cyan-400 uppercase text-[10px]">
+              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <span className="font-bold text-white uppercase text-[10px]">
                   {currentModule.promptFormula.roleLabel || '1. KIM SIZ (Роль):'}
                 </span>
                 <p className="text-zinc-300">{currentModule.promptFormula.role || currentModule.promptFormula.kimSiz}</p>
               </div>
-              <div className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 space-y-1">
-                <span className="font-bold text-purple-400 uppercase text-[10px]">
+              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <span className="font-bold text-white uppercase text-[10px]">
                   {currentModule.promptFormula.taskLabel || '2. NIMA KERAK (Задача):'}
                 </span>
                 <p className="text-zinc-300">{currentModule.promptFormula.task || currentModule.promptFormula.nimaKerak}</p>
               </div>
-              <div className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 space-y-1">
-                <span className="font-bold text-emerald-400 uppercase text-[10px]">
+              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <span className="font-bold text-white uppercase text-[10px]">
                   {currentModule.promptFormula.contextLabel || '3. KIM UCHUN (Контекст):'}
                 </span>
                 <p className="text-zinc-300">{currentModule.promptFormula.context || currentModule.promptFormula.kimUchun}</p>
               </div>
-              <div className="p-3 rounded-xl bg-zinc-950 border border-zinc-800 space-y-1">
-                <span className="font-bold text-amber-400 uppercase text-[10px]">
+              <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <span className="font-bold text-white uppercase text-[10px]">
                   {currentModule.promptFormula.formatLabel || '4. FORMAT (Формат):'}
                 </span>
                 <p className="text-zinc-300">{currentModule.promptFormula.format}</p>
               </div>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-zinc-950 border border-zinc-800">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-1">
+            <div className="p-3.5 rounded-xl bg-black/60 border border-white/10">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#86868b] block mb-1">
                 {currentLang === 'uz' ? "AI-Assistent uchun tayyorlangan promp:" : currentLang === 'en' ? "Compiled AI-Assistant Prompt:" : "Собранный промпт для AI-ассистента:"}
               </span>
               <p className="text-xs text-zinc-200 font-mono leading-relaxed">
@@ -3052,7 +3043,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   setSaveToast(currentLang === 'uz' ? "Promp nusxalandi!" : currentLang === 'en' ? "Prompt copied!" : "Промпт скопирован в буфер обмена!")
                   setTimeout(() => setSaveToast(null), 2500)
                 }}
-                className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-zinc-200 transition flex items-center gap-1.5"
+                className="apple-btn-secondary text-xs"
               >
                 <Copy className="w-3.5 h-3.5" /> Копировать промпт
               </button>
@@ -3062,7 +3053,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   handleApplyTemplate()
                   setShowFormulaModal(false)
                 }}
-                className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-indigo-600/30"
+                className="apple-btn-primary text-xs"
               >
                 Применить эталонный ответ
               </button>
@@ -3074,15 +3065,15 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
       {/* MODAL: STAFF PASSCODE CHECK */}
       {/* ========================================================================= */}
       {staffPasscodeModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-purple-500/40 rounded-3xl p-6 sm:p-7 max-w-sm w-full shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="apple-card rounded-3xl p-6 sm:p-7 max-w-sm w-full shadow-2xl space-y-4">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                <Lock className="w-5 h-5" />
+              <div className="p-2.5 rounded-2xl bg-white/10 text-white border border-white/20">
+                <Lock className="w-5 h-5 text-white" />
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">Доступ только для сотрудников</h3>
-                <p className="text-[11px] text-zinc-400">Launch Lab 21 Staff & Mentors</p>
+                <p className="text-[11px] text-[#86868b]">Launch Lab 21 Staff & Mentors</p>
               </div>
             </div>
 
@@ -3098,24 +3089,24 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   value={staffPasscodeInput}
                   onChange={(e) => setStaffPasscodeInput(e.target.value)}
                   placeholder="PIN: 2121"
-                  className="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:outline-none focus:border-purple-500 text-center tracking-widest font-mono transition"
+                  className="w-full px-4 py-2.5 rounded-xl bg-black/60 border border-white/15 text-white text-sm focus:outline-none focus:border-white text-center tracking-widest font-mono transition"
                 />
-                <p className="text-[10px] text-zinc-500 mt-1 text-center">
-                  Подсказка для жюри и трекеров: код <span className="text-purple-400 font-bold">2121</span>
+                <p className="text-[10px] text-zinc-400 mt-1 text-center">
+                  Подсказка для жюри и трекеров: код <span className="text-white font-bold">2121</span>
                 </p>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-800">
+              <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setStaffPasscodeModal(false)}
-                  className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 text-xs font-semibold transition"
+                  className="apple-btn-secondary text-xs"
                 >
                   Отмена
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition shadow-lg shadow-purple-600/30"
+                  className="apple-btn-primary text-xs"
                 >
                   Войти как куратор
                 </button>
@@ -3128,7 +3119,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
       {/* ========================================================================= */}
       {/* 4. APPLE.COM SIGNATURE DIRECTORY FOOTER                                    */}
       {/* ========================================================================= */}
-      <footer className="no-print bg-[#161617] text-[#86868b] text-[11px] border-t border-white/10 mt-16 pt-8 pb-12">
+      <footer className="no-print bg-black/60 backdrop-blur-2xl text-[#86868b] text-[11px] border-t border-white/10 mt-16 pt-8 pb-12 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Apple Footnotes */}
           <div className="border-b border-white/10 pb-4 mb-6 space-y-1.5 leading-relaxed text-[#6e6e73]">
