@@ -65,6 +65,7 @@ import { UnicornStudio } from './components/UnicornStudio/UnicornStudio'
 import { ArcadeHub } from './components/Arcade/ArcadeHub'
 import { MulkXHub } from './components/RealEstateEdu/MulkXHub'
 import { OnlineMind } from './components/OnlineMind/OnlineMind'
+import { InteractiveBackground } from './components/InteractiveBackground'
 
 const JURY_RELOAD_AUDIT_KEY = 'launch_lab_21_jury_reload_audit'
 
@@ -809,8 +810,25 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
     return p.status === galleryFilter
   })
 
+  // Card spotlight dynamic illumination (matching TahlilAI MVP)
+  useEffect(() => {
+    const handleCardMouse = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest('.apple-card') as HTMLElement | null
+      if (target) {
+        const rect = target.getBoundingClientRect()
+        target.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`)
+        target.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`)
+      }
+    }
+    window.addEventListener('mousemove', handleCardMouse)
+    return () => window.removeEventListener('mousemove', handleCardMouse)
+  }, [])
+
   return (
-    <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans selection:bg-white selection:text-black">
+    <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans selection:bg-white selection:text-black relative overflow-x-hidden">
+      {/* TahlilAI Apple-Grade Monochromatic Interactive Background Engine */}
+      <InteractiveBackground />
+
       {/* Toast Notification */}
       {saveToast && (
         <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-white text-black px-5 py-3.5 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl animate-bounce">

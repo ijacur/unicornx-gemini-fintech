@@ -115,17 +115,45 @@
   opacity: 0.85;
 }
 
-/* Apple.com Bento Cards & Grouped Surfaces */
+/* Apple Liquid Glass Utility Classes (matching TahlilAI MVP) */
+.apple-glass {
+  background: rgba(18, 18, 20, 0.65);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
 .apple-card {
-  background: #0e0e10;
+  background: linear-gradient(145deg, rgba(28, 28, 30, 0.65) 0%, rgba(14, 14, 16, 0.8) 100%);
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 26px;
-  border: 0.5px solid var(--apple-hairline-subtle);
-  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.6);
-  transition: border-color 0.2s ease;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.apple-card:hover::before {
+  opacity: 1;
 }
 
 .apple-card:hover {
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+  box-shadow: 0 35px 70px -10px rgba(0, 0, 0, 0.9), inset 0 1px 2px 0 rgba(255, 255, 255, 0.25);
 }
 
 .apple-card-elevated {
