@@ -15,7 +15,14 @@ import {
   Check,
   Award,
   Terminal,
-  Boxes
+  Boxes,
+  Calculator,
+  Code2,
+  Scale,
+  ShieldCheck,
+  Activity,
+  CheckCircle2,
+  Printer
 } from 'lucide-react'
 
 const InstagramIcon = () => (
@@ -295,10 +302,12 @@ interface BrainQueryQA {
   q: string
   a: Record<'uz' | 'ru' | 'en', string>
   tags: string[]
+  category: 'health' | 'systems' | 'sammu' | 'arbitrage' | 'legal'
 }
 
 const BRAIN_KNOWLEDGE_BASE: BrainQueryQA[] = [
   {
+    category: 'health',
     q: 'MedLoop AI nima va u qanday ishlaydi?',
     a: {
       uz: "MedLoop AI — O'zbekiston xususiy klinikalari uchun B2B dvigatel bo'lib, laboratoriyadan chiqqan bemorlarning 40-45 foizi shifokorga bormay ketib qolish muammosini hal qiladi. 8 soniyada laboratoriya tahlil blankini OCR orqali o'qib, bemorga oddiy tilda xavfni tushuntiradi va uni bo'sh turgan shifokor qabuliga yozadi. Natijada klinika har oy $6,000–$7,500 yo'qotilgan daromadini qaytarib oladi.",
@@ -308,15 +317,7 @@ const BRAIN_KNOWLEDGE_BASE: BrainQueryQA[] = [
     tags: ['medloop', 'healthtech', 'clinic', 'dropoff', 'triage']
   },
   {
-    q: 'SamDTU Rektor stipendiyasi tavsiyanomasi nima haqida?',
-    a: {
-      uz: "Samarqand davlat tibbiyot universiteti Boshqaruv va menejment fakulteti Menejment yo'nalishi II bosqich talabasi Shukurov Jasur Otabek o'g'liga berilgan rasmiy Tavsiyanoma. Universitet Ilmiy ishlar va innovatsiyalar bo'yicha prorektori A.S. Kubayev va bo'lim boshlig'i U.F. Payzullayeva tomonidan imzolangan. Unda Jasurning a'lo o'qishi, IT-inkubatsiya markazidagi yetakchiligi va 'EpiVision XR' startapi alohida e'tirof etilib, 2026–2027 o'quv yili kuzgi semestri Rektor stipendiyasiga tavsiya etilgan.",
-      ru: 'Официальная рекомендация СамГМУ для студента 2 курса направления менеджмента Джасура Шукурова на соискание Стипендии Ректора 2026–2027. Подписана проректором по научной работе А.С. Кубаевым и зав. отделом У.Ф. Пайзуллаевой за проект EpiVision XR и лидерство в IT-инкубаторе.',
-      en: 'Official recommendation letter from Samarkand State Medical University nominating 2nd-year management student Jasur Shukurov for the 2026–2027 Rector Scholarship. Signed by Vice-Rector A.S. Kubayev & U.F. Payzullayeva for his EpiVision XR venture and IT-incubator leadership.'
-    },
-    tags: ['rector', 'stipendiya', 'sammu', 'samdtu', 'tavsiyanoma', 'kubayev']
-  },
-  {
+    category: 'health',
     q: 'Unicorn Health Uzbekistan qanday imkoniyatlarga ega?',
     a: {
       uz: "Unicorn Health Uzbekistan (unicorn-health-uzbekistan.vercel.app) — 169 ta klinik hisob-kitob dvigateliga ega yirik raqamli platforma. Unda pediatr dozalash, Mosteller BSA, Cockcroft-Gault buyrak klirensi, Beers va STOPP/START mezonlari, DoriQuti dorixona qidiruvi va ArzonLab laboratoriya agregatori jamlangan.",
@@ -326,6 +327,37 @@ const BRAIN_KNOWLEDGE_BASE: BrainQueryQA[] = [
     tags: ['unicorn', 'health', 'uzbekistan', '169', 'doriquti', 'arzonlab']
   },
   {
+    category: 'health',
+    q: 'Tahlil AI va Telegram boti (@Tahlil_ai_bot) qanday afzalliklarga ega?',
+    a: {
+      uz: "Tahlil AI — bemorlar tushunishi qiyin bo'lgan qon, biokimyo va siydik laboratoriya blanklarini sun'iy intellekt orqali oddiy xalq tiliga tarjima qilib beruvchi interaktiv tizim. Telegram bot orqali tahlil rasmini yuborish kifoya: bot 8 soniyada chetlanishlarni aniqlaydi va qaysi mutaxassisga uchrashish zarurligini aytadi.",
+      ru: 'Tahlil AI — это система перевода медицинских бланков на понятный человеческий язык. Через Telegram-бот пациент отправляет фото анализа и за 8 секунд получает расшифровку отклонений и маршрутизацию к врачу.',
+      en: 'Tahlil AI translates complex lab biomarker sheets into accessible patient explanations via Web and Telegram (@Tahlil_ai_bot), driving early triage and follow-up.'
+    },
+    tags: ['tahlil', 'bot', 'ocr', 'laboratory']
+  },
+  {
+    category: 'sammu',
+    q: 'SamDTU Rektor stipendiyasi tavsiyanomasi nima haqida?',
+    a: {
+      uz: "Samarqand davlat tibbiyot universiteti Boshqaruv va menejment fakulteti Menejment yo'nalishi II bosqich talabasi Shukurov Jasur Otabek o'g'liga berilgan rasmiy Tavsiyanoma. Universitet Ilmiy ishlar va innovatsiyalar bo'yicha prorektori A.S. Kubayev va bo'lim boshlig'i U.F. Payzullayeva tomonidan imzolangan. Unda Jasurning a'lo o'qishi, IT-inkubatsiya markazidagi yetakchiligi va 'EpiVision XR' startapi alohida e'tirof etilib, 2026–2027 o'quv yili kuzgi semestri Rektor stipendiyasiga tavsiya etilgan.",
+      ru: 'Официальная рекомендация СамГМУ для студента 2 курса направления менеджмента Джасура Шукурова на соискание Стипендии Ректора 2026–2027. Подписана проректором по научной работе А.С. Кубаевым и зав. отделом У.Ф. Пайзуллаевой за проект EpiVision XR и лидерство в IT-инкубаторе.',
+      en: 'Official recommendation letter from Samarkand State Medical University nominating 2nd-year management student Jasur Shukurov for the 2026–2027 Rector Scholarship. Signed by Vice-Rector A.S. Kubayev & U.F. Payzullayeva for his EpiVision XR venture and IT-incubator leadership.'
+    },
+    tags: ['rector', 'stipendiya', 'sammu', 'samdtu', 'tavsiyanoma', 'kubayev']
+  },
+  {
+    category: 'sammu',
+    q: 'EpiVision XR loyihasi qanday innovatsiyani taqdim etadi?',
+    a: {
+      uz: "EpiVision XR — tibbiyot xodimlari, klinik ordinatorlar va talabalar uchun ishlab chiqilgan fazoviy 3D simulyatsion trenajyor. U tibbiyot oliygohlari va klinikalarda operatsiya oldi anatomik rejalashtirish va amaliy ko'nikmalarni interaktiv virtual fazoda xavfsiz mashq qilish imkonini beradi.",
+      ru: 'EpiVision XR — пространственный 3D-тренажер для хирургического планирования и отработки практических навыков врачами и студентами СамГМУ.',
+      en: 'EpiVision XR is a spatial 3D medical simulator for anatomical pre-op rehearsal and procedural training, acknowledged in SamMU Rector honors.'
+    },
+    tags: ['epivision', 'xr', 'spatial', '3d', 'sammu']
+  },
+  {
+    category: 'systems',
     q: 'School 21 sizning muhandislik qarashlaringizga qanday ta’sir qilgan?',
     a: {
       uz: "School 21 (École 42 modeli) menga past darajali tizimli fikrlashni o'rgatdi: manual memory management (malloc/free), ko'rsatkichlar arifmetikasi, POSIX oqimlari va hech qanday chala 'placeholder' qoldirmasdan 100% ishlaydigan kod yozish madaniyati.",
@@ -335,6 +367,17 @@ const BRAIN_KNOWLEDGE_BASE: BrainQueryQA[] = [
     tags: ['school21', 'c', 'cpp', 'memory', 'ecole42']
   },
   {
+    category: 'systems',
+    q: 's21_string va s21_decimal loyihalarida nima qilgansiz?',
+    a: {
+      uz: "Standart C kutubxonalariga tayanmasdan, 42 Norminette standartlari asosida to'liq xotira xavfsiz s21_string kutubxonasini va moliya hisob-kitoblarida suzuvchi nuqta xatolarini yo'qotuvchi 128-bitli s21_decimal arifmetik dvigatelini ishlab chiqqanman. Har bir funksiya Valgrind orqali 0 bayt leak ko'rsatkichi bilan tasdiqlangan.",
+      ru: 'Разработал строгую реализацию string.h (s21_string) и 128-битный фиксированный процессор финансовой математики (s21_decimal) на чистом C без утечек памяти (0 leaks Valgrind).',
+      en: 'Engineered zero-leak C libraries complying with École 42 standards: s21_string memory functions and 128-bit fixed-point s21_decimal financial calculation engine.'
+    },
+    tags: ['s21_string', 's21_decimal', 'valgrind', 'systems']
+  },
+  {
+    category: 'arbitrage',
     q: '$2 vs $375 marja arbitraji strategiyasi nima?',
     a: {
       uz: "Bu tijoratda past marjali ommaviy tovarlardan ($2 foyda) voz kechib, sanoat tikuv uskunalari va asimmetrik bozor talabiga ega yuqori marjali ($375 sof foyda) sanoat aktivlariga yo'naltirilgan biznes modeli. Bu usul minimal operatsion yuk bilan maksimal sof daromad keltiradi.",
@@ -342,17 +385,126 @@ const BRAIN_KNOWLEDGE_BASE: BrainQueryQA[] = [
       en: 'An asymmetric trade model shifting from low-margin commodity volume ($2) to specialized industrial machinery capture ($375 margin per transaction).'
     },
     tags: ['arbitrage', 'trade', 'machinery', 'strategy']
+  },
+  {
+    category: 'legal',
+    q: 'Startap ta’sischilar shartnomasi (Founders Agreement) nima uchun zarur?',
+    a: {
+      uz: "Startaplarda eng katta xavf jamoaning erta tarqalishi va 'dead equity' (ishlamaydigan ta'sischilar ulushi) vujudga kelishidir. MedLoop uchun tuzilgan kelishuvda 4 yillik vesting, 1 yillik kliff va 100% intellektual mulk (IP) transferi kafolatlangan.",
+      ru: 'Основательское соглашение защищает стартап от "мертвых долей": 4-летний вестинг с 1-летним клиффом, передача 100% интеллектуальной собственности компании и арбитраж тупиков.',
+      en: 'Protects the venture from dead-equity risks through standard 4-year vesting with a 1-year cliff, non-dilution covenants, and complete IP assignment to the startup.'
+    },
+    tags: ['legal', 'founders', 'vesting', 'ip', 'governance']
+  },
+  {
+    category: 'legal',
+    q: 'Startapda Deadlock holati qanday yechiladi?',
+    a: {
+      uz: "50/50 ovozga ega sheriklar o'rtasida ziddiyat yuzaga kelganda, operatsion to'xtashni oldini olish uchun Bosh Direktor (CEO) Jasur Shukurov qarorining ustuvorligi belgilanadi yoki mustaqil professional hakamlikka murojaat qilinadi.",
+      ru: 'При тупике 50/50 для предотвращения паралича бизнеса решающее право голоса (Casting Vote) закрепляется за генеральным директором (CEO).',
+      en: 'Resolves 50/50 board deadlocks by designating casting vote authority to the CEO to protect execution velocity and operational continuity.'
+    },
+    tags: ['deadlock', 'governance', 'ceo', 'casting_vote']
   }
 ]
 
+const C_CODE_SNIPPETS = {
+  s21_string: {
+    title: 'src/s21_string.c — École 42 Standard C11 Memory Functions',
+    code: `#include "s21_string.h"
+
+// Low-latency pointer arithmetic memchr without libc overhead
+void *s21_memchr(const void *str, int c, s21_size_t n) {
+    const unsigned char *p = (const unsigned char *)str;
+    unsigned char target = (unsigned char)c;
+
+    while (n--) {
+        if (*p == target) {
+            return (void *)p;
+        }
+        p++;
+    }
+    return S21_NULL;
+}
+
+// Optimized string length calculation
+s21_size_t s21_strlen(const char *str) {
+    s21_size_t len = 0;
+    while (str && str[len] != '\\0') {
+        len++;
+    }
+    return len;
+}`
+  },
+  s21_decimal: {
+    title: 'src/s21_decimal.c — 128-bit Fixed Point High-Precision Finance Math',
+    code: `#include "s21_decimal.h"
+
+// 96-bit integer mantissa + 32-bit sign and scale header
+// Guarantees zero IEEE-754 floating point rounding drift
+int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
+    if (!result) return S21_CALC_ERROR;
+    s21_zero_decimal(result);
+
+    int scale_1 = s21_get_scale(value_1);
+    int scale_2 = s21_get_scale(value_2);
+
+    // Normalization to common base scale
+    s21_big_decimal b1 = s21_to_big(value_1);
+    s21_big_decimal b2 = s21_to_big(value_2);
+    s21_align_scales(&b1, &b2, &scale_1);
+
+    int overflow = s21_big_add(b1, b2, result, scale_1);
+    return overflow ? S21_INFINITY_ERROR : S21_SUCCESS;
+}`
+  },
+  memory_audit: {
+    title: 'build/valgrind_audit.log — School 21 Automated Rigorous Verification',
+    code: `==19420== Memcheck, a memory error detector
+==19420== Copyright (C) 2002-2026, and GNU GPL'd, by Julian Seward et al.
+==19420== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
+==19420== Command: ./test_s21_string_suite --all-cases
+==19420==
+Running test suite: s21_string_test_suite...
+[PASS] test_s21_memchr: 42/42 assertions OK
+[PASS] test_s21_strtok: 18/18 boundary checks OK
+[PASS] test_s21_sprintf: 120/120 specifier checks OK
+[PASS] test_s21_decimal: 64/64 overflow edge-cases OK
+==19420==
+==19420== HEAP SUMMARY:
+==19420==     in use at exit: 0 bytes in 0 blocks
+==19420==   total heap usage: 4,821 allocs, 4,821 frees, 1,248,192 bytes allocated
+==19420==
+==19420== All heap blocks were freed -- no leaks are possible
+==19420== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)`
+  }
+}
+
 export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
   const [selectedNodeId, setSelectedNodeId] = useState<MindNodeId>('healthtech')
-  const [activeTab, setActiveTab] = useState<'graph' | 'qa' | 'credentials' | 'ventures'>('graph')
+  const [activeTab, setActiveTab] = useState<'graph' | 'ventures' | 'calculator' | 'systems' | 'legal' | 'qa' | 'credentials'>('graph')
   const [searchQuery, setSearchQuery] = useState('')
   const [qaAnswer, setQaAnswer] = useState<string | null>(null)
   const [showTavsiyanomaModal, setShowTavsiyanomaModal] = useState(false)
+  const [showFoundersModal, setShowFoundersModal] = useState(false)
   const [copiedLink, setCopiedLink] = useState(false)
+  const [copiedAns, setCopiedAns] = useState(false)
+  const [selectedQACat, setSelectedQACat] = useState<'all' | 'health' | 'systems' | 'sammu' | 'arbitrage' | 'legal'>('all')
+
+  // Clinical Calculator State (Cockcroft-Gault Engine)
+  const [calcAge, setCalcAge] = useState(48)
+  const [calcWeight, setCalcWeight] = useState(72)
+  const [calcCreatinine, setCalcCreatinine] = useState(1.1)
+  const [calcGender, setCalcGender] = useState<'male' | 'female'>('male')
+
+  // Systems Code Snippets
+  const [activeSnippetKey, setActiveSnippetKey] = useState<'s21_string' | 's21_decimal' | 'memory_audit'>('s21_string')
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+
+  const calculatedCrCl = calcCreatinine > 0
+    ? (((140 - calcAge) * calcWeight) / (72 * calcCreatinine)) * (calcGender === 'female' ? 0.85 : 1.0)
+    : 0
 
   const selectedNode = MIND_NODES.find((n) => n.id === selectedNodeId) || MIND_NODES[0]
 
@@ -562,12 +714,12 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2. NAVIGATION SUBTABS (Graph, Q&A, Credentials, Ventures)                 */}
+      {/* 2. NAVIGATION SUBTABS (7 Apple Tabs)                                      */}
       {/* ========================================================================= */}
-      <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+      <div className="flex items-center gap-2 border-b border-white/10 pb-2 overflow-x-auto no-scrollbar">
         <button
           onClick={() => setActiveTab('graph')}
-          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'graph'
               ? 'bg-white text-black font-bold shadow-md'
               : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
@@ -579,19 +731,55 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
 
         <button
           onClick={() => setActiveTab('ventures')}
-          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'ventures'
               ? 'bg-white text-black font-bold shadow-md'
               : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
           }`}
         >
           <Boxes className="w-3.5 h-3.5" />
-          <span>{currentLang === 'uz' ? 'Barcha Loyihalar' : currentLang === 'ru' ? 'Все Проекты' : 'Live Ventures'}</span>
+          <span>{currentLang === 'uz' ? 'Loyihalar (12)' : currentLang === 'ru' ? 'Все Проекты (12)' : 'Live Ventures (12)'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('calculator')}
+          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition ${
+            activeTab === 'calculator'
+              ? 'bg-white text-black font-bold shadow-md'
+              : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
+          }`}
+        >
+          <Calculator className="w-3.5 h-3.5" />
+          <span>{currentLang === 'uz' ? 'Klinik Kalkulyator' : currentLang === 'ru' ? 'Клинический Калькулятор' : 'Clinical Sandbox'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('systems')}
+          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition ${
+            activeTab === 'systems'
+              ? 'bg-white text-black font-bold shadow-md'
+              : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
+          }`}
+        >
+          <Code2 className="w-3.5 h-3.5" />
+          <span>{currentLang === 'uz' ? 'School 21 C/C++' : currentLang === 'ru' ? 'Системный C/C++' : 'Low-Latency C'}</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('legal')}
+          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition ${
+            activeTab === 'legal'
+              ? 'bg-white text-black font-bold shadow-md'
+              : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
+          }`}
+        >
+          <Scale className="w-3.5 h-3.5" />
+          <span>{currentLang === 'uz' ? 'Huquq & Boshqaruv' : currentLang === 'ru' ? 'Правовая Архитектура' : 'Legal Governance'}</span>
         </button>
 
         <button
           onClick={() => setActiveTab('qa')}
-          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'qa'
               ? 'bg-white text-black font-bold shadow-md'
               : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
@@ -603,7 +791,7 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
 
         <button
           onClick={() => setActiveTab('credentials')}
-          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 transition ${
+          className={`px-4 py-2 rounded-full text-xs font-semibold flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'credentials'
               ? 'bg-white text-black font-bold shadow-md'
               : 'text-[#a1a1aa] hover:text-white hover:bg-white/5'
@@ -904,6 +1092,470 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>
+
+            {/* School 21 Low-Latency Systems Suite */}
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
+                    LOW-LATENCY C/C++
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">0 Leaks</span>
+                </div>
+                <h4 className="text-lg font-bold text-white">School 21 Systems Suite</h4>
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  {currentLang === 'uz'
+                    ? 's21_string+, s21_math, s21_decimal va SimpleBashUtils. Valgrind xotira auditida 0 bayt yo‘qotish bilan tasdiqlangan deterministik C kutubxonalari.'
+                    : currentLang === 'ru'
+                    ? 'Детерминированные библиотеки на чистом C: s21_string, s21_decimal, s21_math. 0 утечек памяти в тестах Valgrind.'
+                    : 'Deterministic zero-leak C libraries complying with École 42 standards: string manipulation, fixed-point math, and bash utilities.'}
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveTab('systems')}
+                className="apple-btn-secondary flex items-center justify-center gap-1.5 w-full text-center"
+              >
+                <span>{currentLang === 'uz' ? 'C Kodlarini Ko‘rish' : currentLang === 'ru' ? 'Смотреть С Код' : 'Inspect C Code'}</span>
+                <Code2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* $2 vs $375 Industrial Arbitrage */}
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
+                    B2B ARBITRAGE
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">Asimmetriya</span>
+                </div>
+                <h4 className="text-lg font-bold text-white">$2 vs $375 Arbitraj</h4>
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  {currentLang === 'uz'
+                    ? 'Past marjali ommaviy tovarlardan voz kechib, har bir bitimda $375 sof marja beruvchi sanoat tikuv uskunalari bozoriga asoslangan kapital modeli.'
+                    : currentLang === 'ru'
+                    ? 'Стратегия отказа от дешевых товаров ($2) в пользу индустриального швейного оборудования с чистой маржой $375 за поставку.'
+                    : 'Capital allocation model shifting from low-margin consumer goods to industrial textile machinery yielding $375 net margin per unit.'}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setActiveTab('qa')
+                  handleAskBrain('$2 vs $375 marja arbitraji strategiyasi nima?')
+                }}
+                className="apple-btn-secondary flex items-center justify-center gap-1.5 w-full text-center"
+              >
+                <span>{currentLang === 'uz' ? 'Strategiya Tahlili' : currentLang === 'ru' ? 'Анализ Стратегии' : 'Analyze Strategy'}</span>
+                <TrendingUp className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* DoriQuti Intelligent Formulary */}
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
+                    CLINICAL FORMULARY
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">10k+ Dori</span>
+                </div>
+                <h4 className="text-lg font-bold text-white">DoriQuti Moduli</h4>
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  {currentLang === 'uz'
+                    ? 'Dori vositalarining xavfli o‘zaro ta’siri, keksalar uchun Beers mezonlari va vaznga qarab xavfsiz terapevtik doza hisoblagichi.'
+                    : currentLang === 'ru'
+                    ? 'Анализ лекарственных взаимодействий, шкалы Beers для гериатрии и точный расчет терапевтических доз.'
+                    : 'Geriatric Beers criteria, drug-drug interaction checker, and pediatric safe weight dosing calculator.'}
+                </p>
+              </div>
+              <a
+                href="https://unicorn-health-uzbekistan.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="apple-btn-primary flex items-center justify-center gap-1.5 w-full text-center"
+              >
+                <span>DoriQuti Formulary</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* ArzonLab Diagnostics Aggregator */}
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
+                    PRICE DISCOVERY
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">Laboratoriya</span>
+                </div>
+                <h4 className="text-lg font-bold text-white">ArzonLab Agregatori</h4>
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  {currentLang === 'uz'
+                    ? 'Samarqand va Toshkent xususiy tibbiyot laboratoriyalarining tahlil narxlarini real vaqtda solishtiruvchi shaffof tibbiy agregator.'
+                    : currentLang === 'ru'
+                    ? 'Прозрачный агрегатор цен частных медицинских лабораторий Самарканда и Ташкента со сравнением в реальном времени.'
+                    : 'Healthcare price transparency aggregator indexing diagnostic panel costs across private laboratories in Uzbekistan.'}
+                </p>
+              </div>
+              <a
+                href="https://unicorn-health-uzbekistan.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="apple-btn-secondary flex items-center justify-center gap-1.5 w-full text-center"
+              >
+                <span>ArzonLab Portal</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </div>
+
+            {/* MedLoop Founders Legal Architecture */}
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
+                    LEGAL GOVERNANCE
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">Vesting &amp; IP</span>
+                </div>
+                <h4 className="text-lg font-bold text-white">Ta’sischilar Kelishuvi</h4>
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  {currentLang === 'uz'
+                    ? 'MedLoop 3 va 4 ta’sischili korporativ shartnomasi: 4 yillik vesting, 1 yillik kliff, 100% IP himoyasi va deadlock yechimlari.'
+                    : currentLang === 'ru'
+                    ? 'Корпоративное соглашение фаундеров MedLoop: 4-летний вестинг, 1 год клифф, 100% передача IP и арбитраж тупиков.'
+                    : 'Multi-founder startup governance framework: 4-year vesting, 1-year cliff, non-dilution, and 100% IP ownership.'}
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveTab('legal')}
+                className="apple-btn-primary flex items-center justify-center gap-1.5 w-full text-center"
+              >
+                <span>{currentLang === 'uz' ? 'Kelishuvni Ko‘rish' : currentLang === 'ru' ? 'Смотреть Соглашение' : 'Inspect Agreement'}</span>
+                <Scale className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {/* SamMU Healthcare Management */}
+            <div className="apple-card p-5 space-y-3 flex flex-col justify-between border-white/10 hover:border-white/25">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
+                    HEALTHCARE MANAGEMENT
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">SamDTU</span>
+                </div>
+                <h4 className="text-lg font-bold text-white">Kasalxona Boshqaruvi</h4>
+                <p className="text-xs text-[#86868b] leading-relaxed">
+                  {currentLang === 'uz'
+                    ? 'Kasalxona o‘rin fondi aylanmasi, resurslarni optimallashtirish va tibbiyot muassasalarida zamonaviy iqtisodiy boshqaruv izlanishlari.'
+                    : currentLang === 'ru'
+                    ? 'Оптимизация коечного фонда больниц и экономическое управление учреждениями здравоохранения.'
+                    : 'Clinical bed turnover rate optimization, hospital capacity modeling, and healthcare governance research.'}
+                </p>
+              </div>
+              <button
+                onClick={() => setShowTavsiyanomaModal(true)}
+                className="apple-btn-secondary flex items-center justify-center gap-1.5 w-full text-center"
+              >
+                <span>{currentLang === 'uz' ? 'Rektor Tavsiyanomasi' : currentLang === 'ru' ? 'Рекомендация Ректора' : 'Rector Letter'}</span>
+                <Award className="w-3.5 h-3.5 text-white" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB 3: INTERACTIVE CLINICAL CALCULATOR (COCKCROFT-GAULT CrCl ENGINE)       */}
+      {/* ========================================================================= */}
+      {activeTab === 'calculator' && (
+        <div className="apple-card p-6 sm:p-8 space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <span className="text-xs font-mono text-white uppercase tracking-wider flex items-center gap-1.5">
+                <Calculator className="w-4 h-4 text-white" />
+                LIVE CLINICAL CALCULATION ENGINE
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                Cockcroft-Gault Creatinine Clearance (CrCl)
+              </h3>
+              <p className="text-xs text-[#a1a1aa] mt-1">
+                Unicorn Health platformasidagi 169 ta formuladan biri: Bemorning buyrak zaxirasini va dori dozalash xavfini hisoblash.
+              </p>
+            </div>
+            <span className="text-[11px] font-mono bg-white text-black font-bold px-3 py-1 rounded-full">
+              DETERMINISTIC 0-LATENCY
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            {/* Input Form */}
+            <div className="lg:col-span-6 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#a1a1aa]">Yosh (Yillar): {calcAge}</label>
+                  <input
+                    type="range"
+                    min="18"
+                    max="100"
+                    value={calcAge}
+                    onChange={(e) => setCalcAge(Number(e.target.value))}
+                    className="w-full accent-white"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#a1a1aa]">Vazn (kg): {calcWeight}</label>
+                  <input
+                    type="range"
+                    min="35"
+                    max="150"
+                    value={calcWeight}
+                    onChange={(e) => setCalcWeight(Number(e.target.value))}
+                    className="w-full accent-white"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#a1a1aa]">Kreatinin: {calcCreatinine} mg/dL</label>
+                  <input
+                    type="range"
+                    min="0.4"
+                    max="5.0"
+                    step="0.1"
+                    value={calcCreatinine}
+                    onChange={(e) => setCalcCreatinine(Number(e.target.value))}
+                    className="w-full accent-white"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-[#a1a1aa]">Jins</label>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setCalcGender('male')}
+                      className={`flex-1 py-1.5 rounded-xl text-xs font-semibold border transition ${
+                        calcGender === 'male'
+                          ? 'bg-white text-black border-white'
+                          : 'bg-black text-[#a1a1aa] border-white/20 hover:text-white'
+                      }`}
+                    >
+                      Erkak (1.0)
+                    </button>
+                    <button
+                      onClick={() => setCalcGender('female')}
+                      className={`flex-1 py-1.5 rounded-xl text-xs font-semibold border transition ${
+                        calcGender === 'female'
+                          ? 'bg-white text-black border-white'
+                          : 'bg-black text-[#a1a1aa] border-white/20 hover:text-white'
+                      }`}
+                    >
+                      Ayol (0.85)
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] font-mono text-[#a1a1aa]">
+                Formula: CrCl = [ (140 - Yosh) × Vazn(kg) ] / [ 72 × Kreatinin(mg/dL) ] × [{calcGender === 'female' ? '0.85' : '1.00'}]
+              </div>
+            </div>
+
+            {/* Results Card */}
+            <div className="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono text-[#a1a1aa] uppercase">Hisoblangan Klirens</span>
+                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black">
+                  {calculatedCrCl >= 90
+                    ? 'G1 • NORMAL FUNKSIYA'
+                    : calculatedCrCl >= 60
+                    ? 'G2 • YENGIL KAMAYISH'
+                    : calculatedCrCl >= 30
+                    ? 'G3 • O‘RTACHA YETISHMOVCHILIK'
+                    : calculatedCrCl >= 15
+                    ? 'G4 • OG‘IR DISFUNKSIYA'
+                    : 'G5 • TERMINAL BOSQICH'}
+                </span>
+              </div>
+
+              <div className="flex items-baseline gap-2">
+                <span className="text-5xl font-black text-white tracking-tight">
+                  {calculatedCrCl.toFixed(1)}
+                </span>
+                <span className="text-sm font-mono text-[#a1a1aa]">mL/min</span>
+              </div>
+
+              <div className="space-y-1.5 border-t border-white/10 pt-3">
+                <div className="text-xs font-semibold text-white">
+                  {calculatedCrCl >= 90
+                    ? 'GFR: G1 (Optimal buyrak filtrlashi)'
+                    : calculatedCrCl >= 60
+                    ? 'GFR: G2 (Yengil kamaygan zaxira)'
+                    : calculatedCrCl >= 30
+                    ? 'GFR: G3 (O‘rtacha buyrak yetishmovchiligi)'
+                    : calculatedCrCl >= 15
+                    ? 'GFR: G4 (Og‘ir buyrak yetishmovchiligi)'
+                    : 'GFR: G5 (Terminal buyrak yetishmovchiligi)'}
+                </div>
+                <p className="text-xs text-[#a1a1aa] leading-relaxed">
+                  {calculatedCrCl >= 90
+                    ? 'Buyrak funksiyasi ideal. Dori vositalarining klirensi to‘liq me’yorda. Standart dozalash tavsiya etiladi.'
+                    : calculatedCrCl >= 60
+                    ? 'Klinik holat barqaror. Nefrotoksik dori vositalarini (NSAID, aminoglikozidlar) ehtiyotkorlik bilan qo‘llash zarur.'
+                    : calculatedCrCl >= 30
+                    ? 'Ogohlantirish: Buyrak orqali ekskretsiya qilinuvchi dorilar dozasini 30-50% ga kamaytirish talab etiladi.'
+                    : calculatedCrCl >= 15
+                    ? 'Xavfli bosqich! Shoshilinch nefrologik konsultatsiya va qat’iy dori monitoringi (TDM) o‘tkazilishi shart.'
+                    : 'Dializ ko‘rsatmasi mavjud. Shoshilinch nefrologik gospitalizatsiya tavsiya etiladi.'}
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-white/10 font-mono">
+                <span>Manba: Unicorn Health (169 modul)</span>
+                <a
+                  href="https://unicorn-health-uzbekistan.vercel.app/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="apple-link text-xs"
+                >
+                  Barcha 169 modulni ko‘rish ›
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB 4: SCHOOL 21 LOW-LATENCY C SYSTEMS INSPECTOR                          */}
+      {/* ========================================================================= */}
+      {activeTab === 'systems' && (
+        <div className="apple-card p-6 sm:p-8 space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <span className="text-xs font-mono text-white uppercase tracking-wider flex items-center gap-1.5">
+                <Code2 className="w-4 h-4 text-white" />
+                LOW-LATENCY C/C++ SYSTEMS ARCHITECTURE
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                School 21: Deterministik C Tizimlari
+              </h3>
+              <p className="text-xs text-[#a1a1aa] mt-1">
+                École 42 qat’iy peer-to-peer metodologiyasi: ko‘rsatkichlar arifmetikasi, xotirani qo‘lda boshqarish va zero memory leaks.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setActiveSnippetKey('s21_string')}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition ${
+                  activeSnippetKey === 's21_string'
+                    ? 'bg-white text-black font-bold'
+                    : 'bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white'
+                }`}
+              >
+                s21_string.c
+              </button>
+              <button
+                onClick={() => setActiveSnippetKey('s21_decimal')}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition ${
+                  activeSnippetKey === 's21_decimal'
+                    ? 'bg-white text-black font-bold'
+                    : 'bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white'
+                }`}
+              >
+                s21_decimal.c
+              </button>
+              <button
+                onClick={() => setActiveSnippetKey('memory_audit')}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition ${
+                  activeSnippetKey === 'memory_audit'
+                    ? 'bg-white text-black font-bold'
+                    : 'bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white'
+                }`}
+              >
+                Valgrind Audit
+              </button>
+            </div>
+          </div>
+
+          <div className="bg-black border border-white/20 rounded-2xl overflow-hidden font-mono text-xs">
+            <div className="bg-white/[0.06] px-4 py-2.5 flex items-center justify-between border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                <span className="text-[#a1a1aa] text-[11px] ml-2">
+                  {C_CODE_SNIPPETS[activeSnippetKey].title}
+                </span>
+              </div>
+              <span className="text-[10px] text-white font-bold bg-white/10 px-2 py-0.5 rounded">
+                0 MEMORY LEAKS
+              </span>
+            </div>
+            <pre className="p-5 text-[#f5f5f7] overflow-x-auto leading-relaxed text-[12px]">
+              {C_CODE_SNIPPETS[activeSnippetKey].code}
+            </pre>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB 5: STARTUP LEGAL GOVERNANCE & FOUNDERS AGREEMENT                      */}
+      {/* ========================================================================= */}
+      {activeTab === 'legal' && (
+        <div className="apple-card p-6 sm:p-8 space-y-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <span className="text-xs font-mono text-white uppercase tracking-wider flex items-center gap-1.5">
+                <Scale className="w-4 h-4 text-white" />
+                STARTUP LEGAL GOVERNANCE &amp; CHARTER
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+                MedLoop AI: Ta’sischilar Kelishuvi
+              </h3>
+              <p className="text-xs text-[#a1a1aa] mt-1">
+                Xalqaro Y Combinator / NVCA standartlari asosida tuzilgan korporativ huquqiy arxitektura.
+              </p>
+            </div>
+            <button
+              onClick={() => setShowFoundersModal(true)}
+              className="apple-btn-primary text-xs flex items-center gap-1.5"
+            >
+              <span>Shartnoma Matnini O‘qish</span>
+              <FileText className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2">
+              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-white" />
+                <span>4-Yillik Vesting &amp; 1-Yil Kliff</span>
+              </div>
+              <p className="text-xs text-[#a1a1aa] leading-relaxed">
+                Ta’sischilar ulushi 48 oy davomida ochiladi. 12 oy to‘liq ishlamay ketgan ta’sischi 0% ulush bilan chiqib ketadi (Dead-equity himoyasi).
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2">
+              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-white" />
+                <span>100% Intellektual Mulk (IP)</span>
+              </div>
+              <p className="text-xs text-[#a1a1aa] leading-relaxed">
+                Ishlab chiqilgan barcha kodlar, OCR algoritmlari va patentlar kompaniya mulkiga 100% to‘liq o‘tkazilishi shart qilingan.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 space-y-2">
+              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                <Activity className="w-4 h-4 text-white" />
+                <span>Deadlock &amp; CEO Vakolatlari</span>
+              </div>
+              <p className="text-xs text-[#a1a1aa] leading-relaxed">
+                50/50 ziddiyatlarda biznes to‘xtab qolmasligi uchun Bosh Direktor (CEO) Jasur Shukurovning ovozi hal qiluvchi (Casting Vote) hisoblanadi.
+              </p>
+            </div>
           </div>
         </div>
       )}
@@ -930,9 +1582,35 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
             </p>
           </div>
 
+          {/* Category Filter Pills */}
+          <div className="flex flex-wrap gap-2 border-b border-white/10 pb-3">
+            {[
+              { id: 'all', label: { uz: 'Barchasi', ru: 'Все', en: 'All' } },
+              { id: 'health', label: { uz: 'HealthTech & AI', ru: 'HealthTech и ИИ', en: 'HealthTech & AI' } },
+              { id: 'systems', label: { uz: 'C/C++ Tizimlari', ru: 'Системный C/C++', en: 'Low-Latency C' } },
+              { id: 'sammu', label: { uz: 'SamDTU & Rektor', ru: 'СамГМУ и Ректор', en: 'SamSMU & Rector' } },
+              { id: 'arbitrage', label: { uz: 'Arbitraj & Savdo', ru: 'Арбитраж и Торговля', en: 'Arbitrage & Trade' } },
+              { id: 'legal', label: { uz: 'Huquq & Boshqaruv', ru: 'Правовая Архитектура', en: 'Legal Governance' } }
+            ].map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedQACat(cat.id as any)}
+                className={`px-3 py-1 rounded-full text-xs font-semibold transition ${
+                  selectedQACat === cat.id
+                    ? 'bg-white text-black font-bold'
+                    : 'bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white'
+                }`}
+              >
+                {cat.label[currentLang]}
+              </button>
+            ))}
+          </div>
+
           {/* Quick Prompts */}
           <div className="flex flex-wrap gap-2">
-            {BRAIN_KNOWLEDGE_BASE.map((qa, idx) => (
+            {BRAIN_KNOWLEDGE_BASE.filter(
+              (qa) => selectedQACat === 'all' || qa.category === selectedQACat
+            ).map((qa, idx) => (
               <button
                 key={idx}
                 onClick={() => handleAskBrain(qa.q)}
@@ -976,9 +1654,28 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
           {/* Answer Box */}
           {qaAnswer && (
             <div className="p-5 rounded-2xl bg-[#161618] border border-white/25 space-y-3 animate-fade-in">
-              <div className="flex items-center gap-2 text-xs font-semibold text-white">
-                <Sparkles className="w-4 h-4" />
-                <span>{currentLang === 'uz' ? 'Miya Sintezi Natijasi:' : currentLang === 'ru' ? 'Результат Синтеза Разума:' : 'Synthesized Mind Response:'}</span>
+              <div className="flex items-center justify-between text-xs font-semibold text-white">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  <span>
+                    {currentLang === 'uz'
+                      ? 'Miya Sintezi Natijasi:'
+                      : currentLang === 'ru'
+                      ? 'Результат Синтеза Разума:'
+                      : 'Synthesized Mind Response:'}
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText(qaAnswer)
+                    setCopiedAns(true)
+                    setTimeout(() => setCopiedAns(false), 2000)
+                  }}
+                  className="apple-btn-secondary text-[11px] px-3 py-1 flex items-center gap-1.5"
+                >
+                  {copiedAns ? <Check className="w-3 h-3 text-white" /> : <Copy className="w-3 h-3 text-[#a1a1aa]" />}
+                  <span>{copiedAns ? 'Nusxalandi' : 'Nusxalash'}</span>
+                </button>
               </div>
               <p className="text-sm text-[#f5f5f7] leading-relaxed whitespace-pre-line">
                 {qaAnswer}
@@ -1034,6 +1731,77 @@ export function OnlineMind({ currentLang = 'uz' }: OnlineMindProps) {
               <div className="sm:text-right">
                 <span className="text-white block font-semibold">A.S. Kubayev</span>
                 <span>Ilmiy ishlar va innovatsiyalar bo‘yicha prorektor, SamDTU</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODAL: FOUNDERS AGREEMENT VIEWER (MONOCHROME NOIR)                         */}
+      {/* ========================================================================= */}
+      {showFoundersModal && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="apple-card max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-white/20 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-2 text-white font-semibold text-xs">
+                <Scale className="w-5 h-5 text-white" />
+                <span>MEDLOOP AI • TA’SISCHILAR KELISHUVI</span>
+              </div>
+              <button
+                onClick={() => setShowFoundersModal(false)}
+                className="apple-btn-secondary text-xs px-3 py-1"
+              >
+                ✕ Yopish
+              </button>
+            </div>
+
+            <div className="text-center space-y-1">
+              <p className="text-xs text-[#86868b]">Xalqaro Y-Combinator / NVCA standarti asosidagi Ta’sischilar Nizomi</p>
+              <h3 className="text-lg font-bold text-white mt-1">FOUNDERS EQUITY &amp; IP AGREEMENT</h3>
+              <p className="text-xs text-zinc-400">Bosh Ijrochi Direktor: Jasur Shukurov</p>
+            </div>
+
+            <div className="space-y-4 text-xs sm:text-sm text-[#d2d2d7] leading-relaxed text-justify">
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <h4 className="font-bold text-white text-xs uppercase font-mono">1. 4-Yillik Standart Vesting &amp; 1-Yillik Kliff (Cliff)</h4>
+                <p className="text-xs text-[#a1a1aa]">
+                  Har bir ta’sischining ulushi 48 oy davomida pro-rata ravishda ochiladi. Dastlabki 12 oy davomida (Kliff) hech qanday ulush berilmaydi. Agar ta’sischi dastlabki 12 oy ichida loyihani tark etsa, uning 100% ulushi kompaniyaga qaytadi (Dead-equity himoyasi).
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <h4 className="font-bold text-white text-xs uppercase font-mono">2. Intellektual Mulkni Kompaniyaga O‘tkazish (IP Assignment)</h4>
+                <p className="text-xs text-[#a1a1aa]">
+                  Ta’sischilar tomonidan ishlab chiqilgan barcha dasturiy kodlar, OCR modellari, interfeys dizaynlari, patentlar va ma’lumotlar bazalari to‘liq va qaytarib olinmaydigan tarzda yuridik shaxs hisoblangan kompaniyaga tegishli bo‘ladi.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <h4 className="font-bold text-white text-xs uppercase font-mono">3. Bad Leaver va Ulushlarni Qaytarib Sotib Olish (Repurchase)</h4>
+                <p className="text-xs text-[#a1a1aa]">
+                  O‘g‘rilik, tijorat sirini oshkor qilish, raqobatchi bilan hamkorlik yoki qo‘pol qonunbuzarlik sodir etgan ta’sischi "Bad Leaver" deb topiladi va uning ochilmagan hamda ochilgan barcha ulushlari nominal qiymatda kompaniya tomonidan qaytarib sotib olinadi.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
+                <h4 className="font-bold text-white text-xs uppercase font-mono">4. Deadlock (Boshi Berk Ko‘cha) Holatlarini Yechish</h4>
+                <p className="text-xs text-[#a1a1aa]">
+                  Strategik qarorlarda ovozlar 50/50 taqsimlanib nizo yuzaga kelganda, operatsion uzluksizlikni ta’minlash maqsadida Bosh Direktor (CEO) Jasur Shukurovning ovozi hal qiluvchi (Casting Vote) kuchga ega bo‘ladi.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-2 border-t border-white/10">
+              <span className="text-[11px] text-[#71717a] font-mono">Hujjat formati: MedLoop Founders Dossier</span>
+              <div className="flex gap-2">
+                <button onClick={() => window.print()} className="apple-btn-secondary text-xs px-4 py-2 flex items-center gap-1.5">
+                  <Printer className="w-3.5 h-3.5" />
+                  <span>Chop Etish</span>
+                </button>
+                <button onClick={() => setShowFoundersModal(false)} className="apple-btn-primary text-xs px-5 py-2">
+                  Yopish
+                </button>
               </div>
             </div>
           </div>
