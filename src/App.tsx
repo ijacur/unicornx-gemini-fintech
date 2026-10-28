@@ -811,49 +811,49 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         </div>
       )}
 
-      {/* TOP NAVBAR */}
-      <header className="border-b border-zinc-800/80 bg-zinc-900/90 backdrop-blur-xl sticky top-0 z-40">
+      {/* TOP NAVBAR (Apple iOS Glassmorphism Navigation Bar) */}
+      <header className="ios-nav-blur sticky top-0 z-40 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           {/* Brand */}
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveView('modules')}>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-0.5 shadow-lg shadow-indigo-500/25">
-              <div className="w-full h-full bg-zinc-950 rounded-[10px] flex items-center justify-center">
+          <div className="flex items-center gap-3 cursor-pointer ios-press" onClick={() => setActiveView('modules')}>
+            <div className="w-10 h-10 rounded-[14px] bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-[1.5px] shadow-[0_4px_16px_rgba(94,92,230,0.35)]">
+              <div className="w-full h-full bg-[#1c1c1e] rounded-[13px] flex items-center justify-center">
                 <Rocket className="w-5 h-5 text-cyan-400" />
               </div>
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-base sm:text-lg font-black tracking-tight text-white flex items-center gap-1.5">
+                <h1 className="text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
                   Launch Lab 21
                 </h1>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
                   SCHOOL 21
                 </span>
               </div>
-              <p className="text-[11px] text-zinc-400 hidden sm:block">{t.brandSubtitle}</p>
+              <p className="text-[11px] text-zinc-400 hidden sm:block tracking-tight">{t.brandSubtitle}</p>
             </div>
           </div>
 
-          {/* Language Switcher Pill (Interactive & Prominent) */}
-          <div className="bg-zinc-950 border-2 border-zinc-700/80 p-1 rounded-2xl flex items-center gap-1 shadow-xl">
+          {/* Language Switcher Pill (Apple iOS Segmented Control) */}
+          <div className="ios-segmented shadow-lg">
             <button
               onClick={() => handleLanguageChange('uz')}
-              className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3 py-1.5 rounded-[11px] text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ios-press ${
                 currentLang === 'uz'
-                  ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-white shadow-lg shadow-cyan-500/30 scale-105 ring-2 ring-cyan-400/50'
-                  : 'text-zinc-400 hover:text-white hover:bg-zinc-800/80'
+                  ? 'bg-[#2c2c2e] text-white shadow-[0_2px_8px_rgba(0,0,0,0.5)] border border-white/10 ring-1 ring-cyan-400/40'
+                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
               title="O'zbek tili (Bosib tanlang)"
             >
               <span className="text-sm">🇺🇿</span>
-              <span>O'zbek tili</span>
+              <span>O'zbek</span>
             </button>
             <button
               onClick={() => handleLanguageChange('ru')}
-              className={`px-3 py-1.5 rounded-xl text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3 py-1.5 rounded-[11px] text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ios-press ${
                 currentLang === 'ru'
-                  ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/30 scale-105 ring-2 ring-indigo-400/50'
-                  : 'text-zinc-400 hover:text-white hover:bg-zinc-800/80'
+                  ? 'bg-[#2c2c2e] text-white shadow-[0_2px_8px_rgba(0,0,0,0.5)] border border-white/10 ring-1 ring-indigo-400/40'
+                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
               }`}
               title="Русский язык (Нажмите для выбора)"
             >
@@ -862,10 +862,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </button>
             <button
               onClick={() => handleLanguageChange('en')}
-              className={`px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1 cursor-pointer ${
+              className={`px-2.5 py-1.5 rounded-[11px] text-xs sm:text-sm font-semibold transition-all flex items-center gap-1 cursor-pointer ios-press ${
                 currentLang === 'en'
-                  ? 'bg-zinc-800 text-white shadow-md border border-zinc-500'
-                  : 'text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50'
+                  ? 'bg-[#2c2c2e] text-white shadow-[0_2px_8px_rgba(0,0,0,0.5)] border border-white/10'
+                  : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
               }`}
               title="English"
             >
@@ -877,13 +877,13 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           {/* Center: Role Switcher & Live Pitch Timer */}
           <div className="hidden lg:flex items-center gap-3">
             {/* Role Switcher Pill */}
-            <div className="bg-zinc-950/90 border border-zinc-800 p-1 rounded-xl flex items-center gap-1">
+            <div className="ios-segmented">
               <button
                 onClick={() => setActiveRole('participant')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-[11px] text-xs font-semibold transition-all flex items-center gap-1.5 ios-press ${
                   activeRole === 'participant'
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-[#0a84ff] text-white shadow-md'
+                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <Users className="w-3.5 h-3.5" />
@@ -891,10 +891,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               </button>
               <button
                 onClick={handleSwitchToCurator}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-[11px] text-xs font-semibold transition-all flex items-center gap-1.5 ios-press ${
                   activeRole === 'curator'
-                    ? 'bg-purple-600 text-white shadow-md'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-[#bf5af2] text-white shadow-md'
+                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {staffLockEnabled ? (
@@ -907,12 +907,12 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             </div>
 
             {/* Pitch Timer Pill */}
-            <div className="bg-zinc-950/90 border border-zinc-800 px-3 py-1.5 rounded-xl flex items-center gap-2">
+            <div className="ios-surface-blur px-3 py-1.5 rounded-[14px] flex items-center gap-2">
               <Clock className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-xs font-mono font-bold text-white">{formatTime(pitchSecondsLeft)}</span>
+              <span className="text-xs font-mono font-bold text-white tracking-wider">{formatTime(pitchSecondsLeft)}</span>
               <button
                 onClick={() => setPitchTimerActive(!pitchTimerActive)}
-                className="p-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-300 transition"
+                className="p-1 rounded-[8px] bg-white/10 hover:bg-white/20 text-zinc-300 transition ios-press"
                 title={pitchTimerActive ? 'Пауза таймера' : 'Старт таймера питча'}
               >
                 {pitchTimerActive ? <Pause className="w-3 h-3 text-amber-400" /> : <Play className="w-3 h-3 text-emerald-400" />}
@@ -922,7 +922,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                   setPitchTimerActive(false)
                   setPitchSecondsLeft(180)
                 }}
-                className="p-1 rounded-md bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-white transition"
+                className="p-1 rounded-[8px] bg-white/10 hover:bg-white/20 text-zinc-400 hover:text-white transition ios-press"
                 title="Сброс таймера (3 мин)"
               >
                 <RefreshCw className="w-3 h-3" />
@@ -933,7 +933,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           {/* Right: Project Selector & Actions */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Project Switcher */}
-            <div className="flex items-center gap-1.5 bg-zinc-950 border border-zinc-800 rounded-xl px-2.5 py-1.5">
+            <div className="flex items-center gap-1.5 ios-surface-blur rounded-[14px] px-2.5 py-1.5">
               <FolderOpen className="w-3.5 h-3.5 text-zinc-400 flex-shrink-0" />
               <select
                 value={currentProjectId}
@@ -954,7 +954,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             {/* Create Project Button */}
             <button
               onClick={() => setNewProjectModal(true)}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/20"
+              className="p-2 sm:px-3 sm:py-1.5 rounded-[12px] bg-[#0a84ff] hover:bg-[#0071e3] text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-blue-500/25 ios-press"
               title="Создать новый проект"
             >
               <Plus className="w-3.5 h-3.5" />
@@ -964,7 +964,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             {/* Reset Button */}
             <button
               onClick={handleResetToDemo}
-              className="p-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 hover:text-zinc-200 transition"
+              className="p-2 rounded-[12px] ios-surface-blur text-zinc-400 hover:text-zinc-200 transition ios-press"
               title="Сбросить к заводским демо-данным"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -973,7 +973,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             {/* Confetti Button */}
             <button
               onClick={triggerConfetti}
-              className="p-2 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 border border-purple-500/30 transition"
+              className="p-2 rounded-[12px] bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 transition ios-press"
               title="Салют успеха"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
@@ -982,31 +982,31 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         </div>
       </header>
 
-      {/* PROJECT SUMMARY & MANDATORY SCENARIO STRIP */}
-      <section className="bg-gradient-to-r from-zinc-900 via-indigo-950/40 to-zinc-900 border-b border-zinc-800/80 px-4 sm:px-6 py-3.5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* PROJECT SUMMARY & MANDATORY SCENARIO STRIP (Apple iOS Grouped Inset Card) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
+        <div className="ios-card p-3.5 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-start sm:items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-xs flex-shrink-0">
+            <div className="w-10 h-10 rounded-[12px] bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center text-indigo-400 font-bold text-xs flex-shrink-0">
               21
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-xs text-zinc-400">{t.project}:</span>
-                <span className="text-sm font-bold text-white tracking-wide">{currentProject.name}</span>
+                <span className="text-sm font-semibold text-white tracking-tight">{currentProject.name}</span>
                 <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase border ${
+                  className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase border ${
                     currentProject.status === 'approved'
                       ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                       : currentProject.status === 'in_review'
                       ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                      : 'bg-zinc-800 text-zinc-400 border-zinc-700'
+                      : 'bg-[#2c2c2e] text-zinc-400 border-white/10'
                   }`}
                 >
                   {currentProject.status}
                 </span>
                 <button
                   onClick={openEditProfile}
-                  className="text-zinc-400 hover:text-cyan-400 transition p-1"
+                  className="text-zinc-400 hover:text-cyan-400 transition p-1 ios-press"
                   title="Редактировать профиль проекта"
                 >
                   <Edit3 className="w-3.5 h-3.5" />
@@ -1027,10 +1027,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                 return (
                   <span
                     key={m.id}
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-md border transition ${
+                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-[8px] border transition ${
                       isEarned
                         ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 shadow-sm'
-                        : 'bg-zinc-900 text-zinc-600 border-zinc-800'
+                        : 'bg-[#2c2c2e] text-zinc-500 border-white/5'
                     }`}
                     title={`Бейдж: ${m.badge} (${isEarned ? 'Разблокирован' : 'Заблокирован'})`}
                   >
@@ -1040,15 +1040,15 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               })}
             </div>
 
-            {/* Progress Bar */}
-            <div className="flex items-center gap-2 bg-zinc-950/80 border border-zinc-800 px-3 py-1.5 rounded-full">
+            {/* Progress Bar (Apple iOS Pill) */}
+            <div className="flex items-center gap-2.5 bg-[#2c2c2e]/80 border border-white/10 px-3 py-1.5 rounded-full">
               <span className="text-xs text-zinc-400 font-medium">{t.progress}:</span>
-              <span className="text-xs font-black text-indigo-400 font-mono">
+              <span className="text-xs font-semibold text-[#0a84ff] font-mono">
                 {answeredCount} / {activeModules.length} ({progressPercent}%)
               </span>
-              <div className="w-16 sm:w-24 h-2 bg-zinc-800 rounded-full overflow-hidden">
+              <div className="w-16 sm:w-24 h-1.5 bg-black/40 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400 transition-all duration-500"
+                  className="h-full bg-[#0a84ff] rounded-full transition-all duration-500"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -1057,25 +1057,25 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         </div>
       </section>
 
-      {/* NAVIGATION TABS */}
-      <div className="border-b border-zinc-800 bg-zinc-950 sticky top-16 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex gap-2 sm:gap-6 overflow-x-auto no-scrollbar">
+      {/* NAVIGATION TABS (Apple iOS Floating Segmented Bar) */}
+      <div className="ios-nav-blur sticky top-16 z-30 mt-2">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar">
           <button
             onClick={() => {
               playBeep(520, 'sine', 0.08)
               setActiveView('unicorn-studio')
             }}
-            className={`py-3 text-xs sm:text-sm font-bold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-semibold flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'unicorn-studio'
-                ? 'border-emerald-400 text-white shadow-[0_4px_16px_rgba(52,211,153,0.35)]'
-                : 'border-transparent text-emerald-400 hover:text-emerald-300'
+                ? 'bg-[#1c1c1e] text-white shadow-md border border-emerald-400/30'
+                : 'text-emerald-400 hover:bg-white/5'
             }`}
           >
-            <Sparkles className="w-4 h-4 text-emerald-400 animate-pulse" />
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent font-extrabold">
+            <Sparkles className="w-4 h-4 text-emerald-400" />
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent font-bold">
               🦄 UNICORN AI
             </span>
-            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-sm">
+            <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
               ICT 2026
             </span>
           </button>
@@ -1085,17 +1085,17 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               playBeep(580, 'sine', 0.08)
               setActiveView('arcade')
             }}
-            className={`py-3 text-xs sm:text-sm font-bold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-semibold flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'arcade'
-                ? 'border-indigo-400 text-white shadow-[0_4px_16px_rgba(129,140,248,0.35)]'
-                : 'border-transparent text-indigo-400 hover:text-indigo-300'
+                ? 'bg-[#1c1c1e] text-white shadow-md border border-indigo-400/30'
+                : 'text-indigo-400 hover:bg-white/5'
             }`}
           >
-            <Gamepad2 className="w-4 h-4 text-indigo-400 animate-bounce" />
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent font-extrabold">
+            <Gamepad2 className="w-4 h-4 text-indigo-400" />
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent font-bold">
               🎮 ARCADE
             </span>
-            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
+            <span className="px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold border border-purple-500/30">
               GAMES 🕹️
             </span>
           </button>
@@ -1105,42 +1105,42 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               playBeep(640, 'sine', 0.08)
               setActiveView('mulk-detective')
             }}
-            className={`py-3 text-xs sm:text-sm font-bold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-semibold flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'mulk-detective'
-                ? 'border-amber-400 text-white shadow-[0_4px_16px_rgba(251,191,36,0.35)]'
-                : 'border-transparent text-amber-400 hover:text-amber-300'
+                ? 'bg-[#1c1c1e] text-white shadow-md border border-amber-400/30'
+                : 'text-amber-400 hover:bg-white/5'
             }`}
           >
-            <Building2 className="w-4 h-4 text-amber-400 animate-pulse" />
-            <span className="bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-400 bg-clip-text text-transparent font-extrabold">
+            <Building2 className="w-4 h-4 text-amber-400" />
+            <span className="bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-400 bg-clip-text text-transparent font-bold">
               🏢 MULK DETEKTIVI
             </span>
-            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 text-[10px] font-black uppercase tracking-wider shadow-sm">
-              DOMLA DARSLARI 📜
+            <span className="px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/30">
+              DOMLA 📜
             </span>
           </button>
 
           <button
             onClick={() => setActiveView('modules')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'modules'
-                ? 'border-indigo-500 text-white'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Layers className="w-4 h-4 text-indigo-400" />
+            <Layers className="w-4 h-4 text-[#0a84ff]" />
             <span>{t.navModules}</span>
-            <span className="px-1.5 py-0.2 rounded-full bg-zinc-800 text-[10px] text-zinc-300 font-mono">
+            <span className="px-1.5 py-0.2 rounded-full bg-white/10 text-[10px] text-zinc-300 font-mono">
               {answeredCount}/{activeModules.length}
             </span>
           </button>
 
           <button
             onClick={() => setActiveView('onepager')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'onepager'
-                ? 'border-cyan-400 text-white'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
             <FileText className="w-4 h-4 text-cyan-400" />
@@ -1154,25 +1154,25 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
           <button
             onClick={() => setActiveView('curator')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'curator'
-                ? 'border-purple-500 text-white'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
             <ShieldCheck className="w-4 h-4 text-purple-400" />
             <span>{t.navCurator}</span>
             <span className="px-1.5 py-0.2 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-mono">
-              {projects.length} команд
+              {projects.length}
             </span>
           </button>
 
           <button
             onClick={() => setActiveView('gallery')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'gallery'
-                ? 'border-amber-500 text-white'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
             <Award className="w-4 h-4 text-amber-400" />
@@ -1184,25 +1184,25 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               playBeep(480, 'sine', 0.08)
               setActiveView('reels')
             }}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'reels'
-                ? 'border-pink-500 text-white shadow-[0_4px_12px_rgba(236,72,153,0.3)]'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                ? 'bg-[#2c2c2e] text-white shadow-sm border border-pink-500/30 font-semibold'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
-            <Flame className="w-4 h-4 text-pink-500 animate-pulse" />
+            <Flame className="w-4 h-4 text-pink-500" />
             <span>{t.navReels}</span>
-            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
-              HOT 🔥
+            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-bold">
+              HOT
             </span>
           </button>
 
           <button
             onClick={() => setActiveView('pitch-cockpit')}
-            className={`py-3 text-xs sm:text-sm font-semibold border-b-2 flex items-center gap-2 transition whitespace-nowrap ${
+            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
               activeView === 'pitch-cockpit'
-                ? 'border-emerald-500 text-white'
-                : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                ? 'bg-[#2c2c2e] text-white shadow-sm border border-emerald-400/30 font-semibold'
+                : 'text-zinc-400 hover:text-white hover:bg-white/5'
             }`}
           >
             <HelpCircle className="w-4 h-4 text-emerald-400" />
