@@ -162,7 +162,7 @@ export default function App() {
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0)
   const [activeView, setActiveView] = useState<
     'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade' | 'mulk-detective' | 'online-mind'
-  >(() => (window.location.hash === '#online-mind' ? 'online-mind' : window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : 'mulk-detective'))
+  >(() => (window.location.hash === '#online-mind' ? 'online-mind' : window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : window.location.hash === '#mulk-detective' ? 'mulk-detective' : 'online-mind'))
 
   const [activeReelIndex, setActiveReelIndex] = useState(0)
   const [doubleTapHeart, setDoubleTapHeart] = useState(false)
@@ -845,7 +845,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           {/* Apple Logo & Brand */}
           <div
             className="flex items-center gap-2.5 text-[#d2d2d7] hover:text-white transition-colors cursor-pointer apple-press"
-            onClick={() => setActiveView('modules')}
+            onClick={() => setActiveView('online-mind')}
             title="Apple • Launch Lab 21"
           >
             <AppleLogo />
@@ -862,7 +862,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
               className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'online-mind' ? 'apple-nav-link-active font-semibold text-white' : ''}`}
             >
               <Brain className="w-3.5 h-3.5 text-white inline" />
-              <span className="font-semibold text-white">Online Mind 🧠</span>
+              <span className="font-semibold text-white">Online Mind</span>
             </button>
             <button
               onClick={() => {

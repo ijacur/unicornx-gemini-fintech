@@ -25,6 +25,12 @@
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: -0.012em;
   }
+
+  /* 100% Monochromatic Black & White Enforcement across images and graphics */
+  img, video, canvas, svg {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+  }
 }
 
 /* Apple.com Global Navigation Ribbon (Iconic 44px frosted bar) */
