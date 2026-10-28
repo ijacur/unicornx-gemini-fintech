@@ -41,7 +41,8 @@ import {
   Bookmark,
   ChevronUp,
   ChevronDown,
-  Music
+  Music,
+  Brain
 } from 'lucide-react'
 import {
   INCUBATOR_MODULES,
@@ -63,6 +64,7 @@ import { type Language, UI_TRANSLATIONS, MODULES_TRANSLATIONS, LOCALIZED_DEMO_PR
 import { UnicornStudio } from './components/UnicornStudio/UnicornStudio'
 import { ArcadeHub } from './components/Arcade/ArcadeHub'
 import { MulkXHub } from './components/RealEstateEdu/MulkXHub'
+import { OnlineMind } from './components/OnlineMind/OnlineMind'
 
 const JURY_RELOAD_AUDIT_KEY = 'launch_lab_21_jury_reload_audit'
 
@@ -158,8 +160,8 @@ export default function App() {
   const [activeRole, setActiveRole] = useState<'participant' | 'curator'>(() => loadUserRole())
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0)
   const [activeView, setActiveView] = useState<
-    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade' | 'mulk-detective'
-  >(() => (window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : 'mulk-detective'))
+    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade' | 'mulk-detective' | 'online-mind'
+  >(() => (window.location.hash === '#online-mind' ? 'online-mind' : window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : 'mulk-detective'))
 
   const [activeReelIndex, setActiveReelIndex] = useState(0)
   const [doubleTapHeart, setDoubleTapHeart] = useState(false)
@@ -836,6 +838,16 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           <nav className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-1">
             <button
               onClick={() => {
+                playBeep(640, 'sine', 0.08)
+                setActiveView('online-mind')
+              }}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'online-mind' ? 'apple-nav-link-active font-semibold text-white' : ''}`}
+            >
+              <Brain className="w-3.5 h-3.5 text-[#2997ff] inline" />
+              <span className="font-semibold text-white">Online Mind 🧠</span>
+            </button>
+            <button
+              onClick={() => {
                 playBeep(520, 'sine', 0.08)
                 setActiveView('unicorn-studio')
               }}
@@ -1073,8 +1085,15 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <button
+              onClick={() => setActiveView('online-mind')}
+              className="apple-btn-primary text-sm px-6 py-2 bg-gradient-to-r from-[#0071e3] to-[#bf5af2] flex items-center gap-2 shadow-lg shadow-purple-600/20"
+            >
+              <Brain className="w-4 h-4 text-white" />
+              <span>Jasur's Online Mind</span>
+            </button>
+            <button
               onClick={() => setActiveModuleIndex(0)}
-              className="apple-btn-primary text-sm px-6 py-2"
+              className="apple-btn-secondary text-sm px-6 py-2"
             >
               Start Module 1
             </button>
@@ -2788,6 +2807,9 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
         {/* VIEW 9: MULK DETEKTIVI (REAL ESTATE & KADASTR DETECTIVE) */}
         {activeView === 'mulk-detective' && <MulkXHub />}
+
+        {/* VIEW 10: JASUR SHUKUROV — MASTER EXECUTIVE PORTFOLIO & ONLINE MIND */}
+        {activeView === 'online-mind' && <OnlineMind currentLang={currentLang} />}
       </main>
 
       {/* ========================================================================= */}
