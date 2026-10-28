@@ -81,6 +81,12 @@ function loadJuryReloadAudit(): JuryReloadAudit | null {
   }
 }
 
+const AppleLogo = () => (
+  <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 170 170" aria-label="Apple">
+    <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.78-11.65-14.23-6.2-9.97-11.07-21.43-14.6-34.37-3.53-12.93-5.3-25.06-5.3-36.38 0-14.88 3.73-27.18 11.19-36.9 7.46-9.72 16.94-14.71 28.45-14.97 4.12 0 9.06 1.15 14.84 3.46 5.77 2.31 9.77 3.51 11.98 3.6 2.66 0 6.89-1.29 12.69-3.86 5.8-2.58 10.74-3.79 14.83-3.64 10.99.55 19.8 4.67 26.43 12.37-9.49 5.76-14.12 13.88-13.89 24.36.23 8.35 3.38 15.34 9.45 20.97 6.07 5.63 13.43 8.91 22.08 9.84-2.2 6.64-4.88 13.4-8.03 20.28zM119.22 31.84c0-7.07 2.53-13.79 7.59-20.16 5.06-6.37 11.39-10.42 18.99-12.16.23 1.19.35 2.29.35 3.3 0 7.23-2.67 14.15-8.01 20.76-5.34 6.61-11.75 10.51-19.23 11.7-.22-1.12-.34-2.23-.34-3.32z" />
+  </svg>
+)
+
 export default function App() {
   const [currentLang, setCurrentLang] = useState<Language>(() => {
     const saved = localStorage.getItem('launch_lab_lang') as Language
@@ -811,405 +817,282 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         </div>
       )}
 
-      {/* TOP NAVBAR (Apple iOS Glassmorphism Navigation Bar) */}
-      <header className="ios-nav-blur sticky top-0 z-40 transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          {/* Brand */}
-          <div className="flex items-center gap-3 cursor-pointer ios-press" onClick={() => setActiveView('modules')}>
-            <div className="w-10 h-10 rounded-[14px] bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 p-[1.5px] shadow-[0_4px_16px_rgba(94,92,230,0.35)]">
-              <div className="w-full h-full bg-[#1c1c1e] rounded-[13px] flex items-center justify-center">
-                <Rocket className="w-5 h-5 text-cyan-400" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-base sm:text-lg font-bold tracking-tight text-white flex items-center gap-1.5">
-                  Launch Lab 21
-                </h1>
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
-                  SCHOOL 21
-                </span>
-              </div>
-              <p className="text-[11px] text-zinc-400 hidden sm:block tracking-tight">{t.brandSubtitle}</p>
-            </div>
+      {/* ========================================================================= */}
+      {/* 1. APPLE.COM GLOBAL NAVIGATION RIBBON (Iconic 44px Translucent Header)    */}
+      {/* ========================================================================= */}
+      <header className="apple-global-nav sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[44px] flex items-center justify-between gap-4">
+          {/* Apple Logo & Brand */}
+          <div
+            className="flex items-center gap-2.5 text-[#d2d2d7] hover:text-white transition-colors cursor-pointer apple-press"
+            onClick={() => setActiveView('modules')}
+            title="Apple • Launch Lab 21"
+          >
+            <AppleLogo />
+            <span className="text-[12px] font-medium tracking-tight text-white hidden md:inline">Launch Lab 21</span>
           </div>
 
-          {/* Language Switcher Pill (Apple iOS Segmented Control) */}
-          <div className="ios-segmented shadow-lg">
+          {/* Apple Nav Center Links */}
+          <nav className="flex items-center gap-4 sm:gap-6 overflow-x-auto no-scrollbar py-1">
             <button
-              onClick={() => handleLanguageChange('uz')}
-              className={`px-3 py-1.5 rounded-[11px] text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ios-press ${
-                currentLang === 'uz'
-                  ? 'bg-[#2c2c2e] text-white shadow-[0_2px_8px_rgba(0,0,0,0.5)] border border-white/10 ring-1 ring-cyan-400/40'
-                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
-              }`}
-              title="O'zbek tili (Bosib tanlang)"
+              onClick={() => {
+                playBeep(520, 'sine', 0.08)
+                setActiveView('unicorn-studio')
+              }}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'unicorn-studio' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <span className="text-sm">🇺🇿</span>
-              <span>O'zbek</span>
+              <Sparkles className="w-3.5 h-3.5 text-emerald-400 inline" />
+              <span>Unicorn AI</span>
             </button>
             <button
-              onClick={() => handleLanguageChange('ru')}
-              className={`px-3 py-1.5 rounded-[11px] text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer ios-press ${
-                currentLang === 'ru'
-                  ? 'bg-[#2c2c2e] text-white shadow-[0_2px_8px_rgba(0,0,0,0.5)] border border-white/10 ring-1 ring-indigo-400/40'
-                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
-              }`}
-              title="Русский язык (Нажмите для выбора)"
+              onClick={() => {
+                playBeep(580, 'sine', 0.08)
+                setActiveView('arcade')
+              }}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'arcade' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <span className="text-sm">🇷🇺</span>
-              <span>Русский</span>
+              <Gamepad2 className="w-3.5 h-3.5 text-indigo-400 inline" />
+              <span>Arcade</span>
             </button>
             <button
-              onClick={() => handleLanguageChange('en')}
-              className={`px-2.5 py-1.5 rounded-[11px] text-xs sm:text-sm font-semibold transition-all flex items-center gap-1 cursor-pointer ios-press ${
-                currentLang === 'en'
-                  ? 'bg-[#2c2c2e] text-white shadow-[0_2px_8px_rgba(0,0,0,0.5)] border border-white/10'
-                  : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5'
-              }`}
-              title="English"
+              onClick={() => {
+                playBeep(640, 'sine', 0.08)
+                setActiveView('mulk-detective')
+              }}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'mulk-detective' ? 'apple-nav-link-active font-semibold' : ''}`}
             >
-              <span className="text-xs">🇬🇧</span>
-              <span>EN</span>
+              <Building2 className="w-3.5 h-3.5 text-amber-400 inline" />
+              <span>Mulk Detektivi</span>
             </button>
-          </div>
+            <button
+              onClick={() => setActiveView('modules')}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'modules' ? 'apple-nav-link-active font-semibold' : ''}`}
+            >
+              <Layers className="w-3.5 h-3.5 text-[#2997ff] inline" />
+              <span>{t.navModules}</span>
+            </button>
+            <button
+              onClick={() => setActiveView('onepager')}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'onepager' ? 'apple-nav-link-active font-semibold' : ''}`}
+            >
+              <FileText className="w-3.5 h-3.5 text-cyan-400 inline" />
+              <span>{t.navOnePager}</span>
+            </button>
+            <button
+              onClick={() => setActiveView('pitch-cockpit')}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'pitch-cockpit' ? 'apple-nav-link-active font-semibold' : ''}`}
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-teal-400 inline" />
+              <span>Pitch Cockpit</span>
+            </button>
+            <button
+              onClick={() => setActiveView('curator')}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'curator' ? 'apple-nav-link-active font-semibold' : ''}`}
+            >
+              <Users className="w-3.5 h-3.5 text-purple-400 inline" />
+              <span>{t.navCurator}</span>
+            </button>
+            <button
+              onClick={() => {
+                playBeep(480, 'sine', 0.08)
+                setActiveView('reels')
+              }}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'reels' ? 'apple-nav-link-active font-semibold' : ''}`}
+            >
+              <Flame className="w-3.5 h-3.5 text-pink-500 inline" />
+              <span>Reels</span>
+            </button>
+          </nav>
 
-          {/* Center: Role Switcher & Live Pitch Timer */}
-          <div className="hidden lg:flex items-center gap-3">
-            {/* Role Switcher Pill */}
-            <div className="ios-segmented">
+          {/* Right: Apple Segmented Language Switcher */}
+          <div className="flex items-center gap-2">
+            <div className="apple-segmented">
               <button
-                onClick={() => setActiveRole('participant')}
-                className={`px-3 py-1.5 rounded-[11px] text-xs font-semibold transition-all flex items-center gap-1.5 ios-press ${
-                  activeRole === 'participant'
-                    ? 'bg-[#0a84ff] text-white shadow-md'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
-                }`}
+                onClick={() => handleLanguageChange('uz')}
+                className={`px-2 py-0.5 apple-segmented-item ${currentLang === 'uz' ? 'apple-segmented-active' : 'text-[#86868b] hover:text-white'}`}
+                title="O'zbek tili"
               >
-                <Users className="w-3.5 h-3.5" />
-                <span>{t.roleParticipant}</span>
+                UZ
               </button>
               <button
-                onClick={handleSwitchToCurator}
-                className={`px-3 py-1.5 rounded-[11px] text-xs font-semibold transition-all flex items-center gap-1.5 ios-press ${
-                  activeRole === 'curator'
-                    ? 'bg-[#bf5af2] text-white shadow-md'
-                    : 'text-zinc-400 hover:text-white hover:bg-white/5'
-                }`}
+                onClick={() => handleLanguageChange('ru')}
+                className={`px-2 py-0.5 apple-segmented-item ${currentLang === 'ru' ? 'apple-segmented-active' : 'text-[#86868b] hover:text-white'}`}
+                title="Русский язык"
               >
-                {staffLockEnabled ? (
-                  <Lock className="w-3.5 h-3.5 text-amber-400" />
-                ) : (
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                )}
-                <span>{t.roleCurator}</span>
-              </button>
-            </div>
-
-            {/* Pitch Timer Pill */}
-            <div className="ios-surface-blur px-3 py-1.5 rounded-[14px] flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-cyan-400" />
-              <span className="text-xs font-mono font-bold text-white tracking-wider">{formatTime(pitchSecondsLeft)}</span>
-              <button
-                onClick={() => setPitchTimerActive(!pitchTimerActive)}
-                className="p-1 rounded-[8px] bg-white/10 hover:bg-white/20 text-zinc-300 transition ios-press"
-                title={pitchTimerActive ? 'Пауза таймера' : 'Старт таймера питча'}
-              >
-                {pitchTimerActive ? <Pause className="w-3 h-3 text-amber-400" /> : <Play className="w-3 h-3 text-emerald-400" />}
+                RU
               </button>
               <button
-                onClick={() => {
-                  setPitchTimerActive(false)
-                  setPitchSecondsLeft(180)
-                }}
-                className="p-1 rounded-[8px] bg-white/10 hover:bg-white/20 text-zinc-400 hover:text-white transition ios-press"
-                title="Сброс таймера (3 мин)"
+                onClick={() => handleLanguageChange('en')}
+                className={`px-2 py-0.5 apple-segmented-item ${currentLang === 'en' ? 'apple-segmented-active' : 'text-[#86868b] hover:text-white'}`}
+                title="English"
               >
-                <RefreshCw className="w-3 h-3" />
+                EN
               </button>
             </div>
           </div>
+        </div>
+      </header>
 
-          {/* Right: Project Selector & Actions */}
+      {/* ========================================================================= */}
+      {/* 2. APPLE PRODUCT SUBNAVIGATION (52px Sticky Ribbon)                        */}
+      {/* ========================================================================= */}
+      <div className="apple-subnav sticky top-[44px] z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[52px] flex items-center justify-between gap-4">
+          {/* Left: Product Name & Campus Badge */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-baseline gap-2">
+              <span className="text-base sm:text-lg font-semibold tracking-tight text-white">
+                Launch Lab 21
+              </span>
+              <span className="text-[11px] font-normal text-[#86868b] hidden sm:inline">
+                School 21 Startup Accelerator
+              </span>
+            </div>
+            <span
+              className={`text-[10px] font-medium px-2 py-0.5 rounded-full uppercase border ${
+                currentProject.status === 'approved'
+                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                  : currentProject.status === 'in_review'
+                  ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                  : 'bg-white/5 text-zinc-400 border-white/10'
+              }`}
+            >
+              {currentProject.status}
+            </span>
+            <button
+              onClick={openEditProfile}
+              className="text-[#86868b] hover:text-white transition p-1"
+              title="Edit Project Profile"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+            </button>
+          </div>
+
+          {/* Center / Right: Project Switcher & Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Project Switcher */}
-            <div className="flex items-center gap-1.5 ios-surface-blur rounded-[14px] px-2.5 py-1.5">
-              <FolderOpen className="w-3.5 h-3.5 text-zinc-400 flex-shrink-0" />
+            {/* Apple Progress Capsule */}
+            <div className="hidden xl:flex items-center gap-2 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full text-xs">
+              <span className="text-[#86868b]">Progress:</span>
+              <span className="font-semibold text-[#2997ff] font-mono">{progressPercent}%</span>
+              <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
+                <div className="h-full bg-[#0071e3] rounded-full transition-all duration-300" style={{ width: `${progressPercent}%` }} />
+              </div>
+            </div>
+
+            {/* Project Picker Capsule */}
+            <div className="flex items-center gap-1.5 bg-white/5 border border-white/10 rounded-full px-2.5 py-1">
+              <FolderOpen className="w-3.5 h-3.5 text-[#86868b]" />
               <select
                 value={currentProjectId}
                 onChange={(e) => {
                   setCurrentProjectId(e.target.value)
                   setActiveModuleIndex(0)
                 }}
-                className="bg-transparent text-xs text-zinc-200 font-semibold focus:outline-none max-w-[130px] sm:max-w-[180px] truncate cursor-pointer"
+                className="bg-transparent text-xs text-white font-medium focus:outline-none max-w-[120px] sm:max-w-[170px] truncate cursor-pointer"
               >
                 {projects.map((p) => (
-                  <option key={p.id} value={p.id} className="bg-zinc-900 text-white">
+                  <option key={p.id} value={p.id} className="bg-[#161617] text-white">
                     {p.name}
                   </option>
                 ))}
               </select>
             </div>
 
-            {/* Create Project Button */}
+            {/* Pitch Timer Pill */}
+            <div className="hidden md:flex items-center gap-2 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full">
+              <Clock className="w-3.5 h-3.5 text-[#2997ff]" />
+              <span className="text-xs font-mono font-medium text-white">{formatTime(pitchSecondsLeft)}</span>
+              <button
+                onClick={() => setPitchTimerActive(!pitchTimerActive)}
+                className="p-0.5 rounded-full text-zinc-400 hover:text-white transition apple-press"
+                title={pitchTimerActive ? 'Пауза' : 'Старт'}
+              >
+                {pitchTimerActive ? <Pause className="w-3 h-3 text-[#ff9f0a]" /> : <Play className="w-3 h-3 text-[#30d158]" />}
+              </button>
+            </div>
+
+            {/* Role Switcher Pill */}
+            <div className="apple-segmented hidden lg:inline-flex">
+              <button
+                onClick={() => setActiveRole('participant')}
+                className={`px-2.5 py-1 apple-segmented-item ${activeRole === 'participant' ? 'apple-segmented-active' : 'text-[#86868b] hover:text-white'}`}
+              >
+                {t.roleParticipant}
+              </button>
+              <button
+                onClick={handleSwitchToCurator}
+                className={`px-2.5 py-1 apple-segmented-item ${activeRole === 'curator' ? 'apple-segmented-active' : 'text-[#86868b] hover:text-white'}`}
+              >
+                {t.roleCurator}
+              </button>
+            </div>
+
+            {/* Apple Primary Blue Button: New Project */}
             <button
               onClick={() => setNewProjectModal(true)}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-[12px] bg-[#0a84ff] hover:bg-[#0071e3] text-white text-xs font-semibold flex items-center gap-1.5 transition shadow-lg shadow-blue-500/25 ios-press"
-              title="Создать новый проект"
+              className="apple-btn-primary flex items-center gap-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{t.newProject}</span>
+              <span>{t.newProject}</span>
             </button>
 
-            {/* Reset Button */}
+            {/* Reset Factory Demo */}
             <button
               onClick={handleResetToDemo}
-              className="p-2 rounded-[12px] ios-surface-blur text-zinc-400 hover:text-zinc-200 transition ios-press"
-              title="Сбросить к заводским демо-данным"
+              className="apple-btn-secondary p-1.5"
+              title="Reset to Demo"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-3.5 h-3.5 text-zinc-400 hover:text-white" />
             </button>
 
-            {/* Confetti Button */}
+            {/* Confetti Sparkle */}
             <button
               onClick={triggerConfetti}
-              className="p-2 rounded-[12px] bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 transition ios-press"
-              title="Салют успеха"
+              className="apple-btn-secondary p-1.5"
+              title="Салют"
             >
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-[#ff9f0a]" />
             </button>
           </div>
         </div>
-      </header>
-
-      {/* PROJECT SUMMARY & MANDATORY SCENARIO STRIP (Apple iOS Grouped Inset Card) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-3">
-        <div className="ios-card p-3.5 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-start sm:items-center gap-3">
-            <div className="w-10 h-10 rounded-[12px] bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center text-indigo-400 font-bold text-xs flex-shrink-0">
-              21
-            </div>
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs text-zinc-400">{t.project}:</span>
-                <span className="text-sm font-semibold text-white tracking-tight">{currentProject.name}</span>
-                <span
-                  className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase border ${
-                    currentProject.status === 'approved'
-                      ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
-                      : currentProject.status === 'in_review'
-                      ? 'bg-amber-500/10 text-amber-400 border-amber-500/30'
-                      : 'bg-[#2c2c2e] text-zinc-400 border-white/10'
-                  }`}
-                >
-                  {currentProject.status}
-                </span>
-                <button
-                  onClick={openEditProfile}
-                  className="text-zinc-400 hover:text-cyan-400 transition p-1 ios-press"
-                  title="Редактировать профиль проекта"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                </button>
-              </div>
-              <p className="text-[11px] text-zinc-400 mt-0.5">
-                Команда: <span className="text-zinc-300 font-medium">{currentProject.teamMembers}</span> • Обязательный сценарий: Создать проект ➔ Пройти модуль ➔ Сохранить ответ ➔ Увидеть в One-Pager
-              </p>
-            </div>
-          </div>
-
-          {/* Progress Pill & Badges */}
-          <div className="flex flex-wrap items-center gap-3">
-            {/* Badges Shelf */}
-            <div className="hidden sm:flex items-center gap-1.5">
-              {activeModules.map((m) => {
-                const isEarned = !!currentProject.answers[m.id]?.trim()
-                return (
-                  <span
-                    key={m.id}
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-[8px] border transition ${
-                      isEarned
-                        ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40 shadow-sm'
-                        : 'bg-[#2c2c2e] text-zinc-500 border-white/5'
-                    }`}
-                    title={`Бейдж: ${m.badge} (${isEarned ? 'Разблокирован' : 'Заблокирован'})`}
-                  >
-                    {m.badge}
-                  </span>
-                )
-              })}
-            </div>
-
-            {/* Progress Bar (Apple iOS Pill) */}
-            <div className="flex items-center gap-2.5 bg-[#2c2c2e]/80 border border-white/10 px-3 py-1.5 rounded-full">
-              <span className="text-xs text-zinc-400 font-medium">{t.progress}:</span>
-              <span className="text-xs font-semibold text-[#0a84ff] font-mono">
-                {answeredCount} / {activeModules.length} ({progressPercent}%)
-              </span>
-              <div className="w-16 sm:w-24 h-1.5 bg-black/40 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#0a84ff] rounded-full transition-all duration-500"
-                  style={{ width: `${progressPercent}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* NAVIGATION TABS (Apple iOS Floating Segmented Bar) */}
-      <div className="ios-nav-blur sticky top-16 z-30 mt-2">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar">
-          <button
-            onClick={() => {
-              playBeep(520, 'sine', 0.08)
-              setActiveView('unicorn-studio')
-            }}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-semibold flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'unicorn-studio'
-                ? 'bg-[#1c1c1e] text-white shadow-md border border-emerald-400/30'
-                : 'text-emerald-400 hover:bg-white/5'
-            }`}
-          >
-            <Sparkles className="w-4 h-4 text-emerald-400" />
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent font-bold">
-              🦄 UNICORN AI
-            </span>
-            <span className="px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
-              ICT 2026
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              playBeep(580, 'sine', 0.08)
-              setActiveView('arcade')
-            }}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-semibold flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'arcade'
-                ? 'bg-[#1c1c1e] text-white shadow-md border border-indigo-400/30'
-                : 'text-indigo-400 hover:bg-white/5'
-            }`}
-          >
-            <Gamepad2 className="w-4 h-4 text-indigo-400" />
-            <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent font-bold">
-              🎮 ARCADE
-            </span>
-            <span className="px-1.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold border border-purple-500/30">
-              GAMES 🕹️
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              playBeep(640, 'sine', 0.08)
-              setActiveView('mulk-detective')
-            }}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-semibold flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'mulk-detective'
-                ? 'bg-[#1c1c1e] text-white shadow-md border border-amber-400/30'
-                : 'text-amber-400 hover:bg-white/5'
-            }`}
-          >
-            <Building2 className="w-4 h-4 text-amber-400" />
-            <span className="bg-gradient-to-r from-amber-400 via-orange-300 to-yellow-400 bg-clip-text text-transparent font-bold">
-              🏢 MULK DETEKTIVI
-            </span>
-            <span className="px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-500/30">
-              DOMLA 📜
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveView('modules')}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'modules'
-                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Layers className="w-4 h-4 text-[#0a84ff]" />
-            <span>{t.navModules}</span>
-            <span className="px-1.5 py-0.2 rounded-full bg-white/10 text-[10px] text-zinc-300 font-mono">
-              {answeredCount}/{activeModules.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveView('onepager')}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'onepager'
-                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <FileText className="w-4 h-4 text-cyan-400" />
-            <span>{t.navOnePager}</span>
-            {answeredCount === activeModules.length && (
-              <span className="px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30">
-                100%
-              </span>
-            )}
-          </button>
-
-          <button
-            onClick={() => setActiveView('curator')}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'curator'
-                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <ShieldCheck className="w-4 h-4 text-purple-400" />
-            <span>{t.navCurator}</span>
-            <span className="px-1.5 py-0.2 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-mono">
-              {projects.length}
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveView('gallery')}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'gallery'
-                ? 'bg-[#2c2c2e] text-white shadow-sm border border-white/10 font-semibold'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Award className="w-4 h-4 text-amber-400" />
-            <span>{t.navGallery}</span>
-          </button>
-
-          <button
-            onClick={() => {
-              playBeep(480, 'sine', 0.08)
-              setActiveView('reels')
-            }}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'reels'
-                ? 'bg-[#2c2c2e] text-white shadow-sm border border-pink-500/30 font-semibold'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <Flame className="w-4 h-4 text-pink-500" />
-            <span>{t.navReels}</span>
-            <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] font-bold">
-              HOT
-            </span>
-          </button>
-
-          <button
-            onClick={() => setActiveView('pitch-cockpit')}
-            className={`px-3.5 py-2 rounded-[13px] text-xs sm:text-sm font-medium flex items-center gap-2 transition whitespace-nowrap ios-press ${
-              activeView === 'pitch-cockpit'
-                ? 'bg-[#2c2c2e] text-white shadow-sm border border-emerald-400/30 font-semibold'
-                : 'text-zinc-400 hover:text-white hover:bg-white/5'
-            }`}
-          >
-            <HelpCircle className="w-4 h-4 text-emerald-400" />
-            <span>{currentLang === 'uz' ? '⚡ Pitch & Hakamlar Sinovi' : currentLang === 'en' ? '⚡ Pitch & Jury Checks' : '⚡ Питч & Проверка Жюри'}</span>
-          </button>
-        </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* 3. APPLE.COM KEYNOTE HERO SECTION                                          */}
+      {/* ========================================================================= */}
+      {activeView === 'modules' && (
+        <section className="text-center pt-10 pb-6 px-4 max-w-4xl mx-auto">
+          <p className="text-[12px] font-semibold text-[#f56300] uppercase tracking-wider mb-2">
+            Launch Lab 21 • Built for School 21
+          </p>
+          <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-[#f5f5f7] mb-3">
+            Vibe Coding. Reimagined.
+          </h2>
+          <p className="text-base sm:text-xl text-[#86868b] font-normal max-w-2xl mx-auto mb-6">
+            An Apple-grade autonomous startup accelerator. Complete 5 structured modules, practice live pitch verification, and export an investment-ready one-pager.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <button
+              onClick={() => setActiveModuleIndex(0)}
+              className="apple-btn-primary text-sm px-6 py-2"
+            >
+              Start Module 1
+            </button>
+            <button
+              onClick={() => setActiveView('onepager')}
+              className="apple-link text-sm font-medium"
+            >
+              View One-Pager <ChevronRight className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setActiveView('pitch-cockpit')}
+              className="apple-link text-sm font-medium"
+            >
+              Jury Pitch Simulator <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </section>
+      )}
 
       {/* MAIN CONTENT AREA */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
@@ -3202,11 +3085,90 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         </div>
       )}
 
-      {/* FOOTER */}
-      <footer className="no-print border-t border-zinc-800/80 bg-zinc-950 py-4 text-center text-xs text-zinc-500 flex flex-col sm:flex-row items-center justify-center gap-2">
-        <span>Платформа стартап-инкубатора «Launch Lab 21» • School 21</span>
-        <span className="hidden sm:inline">•</span>
-        <span>Турнир по вайбкодингу • Клиентское автономное приложение (React 19 + Tailwind CSS)</span>
+      {/* ========================================================================= */}
+      {/* 4. APPLE.COM SIGNATURE DIRECTORY FOOTER                                    */}
+      {/* ========================================================================= */}
+      <footer className="no-print bg-[#161617] text-[#86868b] text-[11px] border-t border-white/10 mt-16 pt-8 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* Apple Footnotes */}
+          <div className="border-b border-white/10 pb-4 mb-6 space-y-1.5 leading-relaxed text-[#6e6e73]">
+            <p>1. Launch Lab 21 is an autonomous, client-side startup acceleration and pitch verification suite engineered with React 19, TypeScript, and Vite 8.</p>
+            <p>2. Built for School 21 hackathons, vibe-coding tournaments, and early-stage startup founders in Uzbekistan.</p>
+            <p>3. All module progress, pitch records, and curator evaluations are securely saved in client-side LocalStorage with zero server dependencies.</p>
+          </div>
+
+          {/* Apple 5-Column Directory Links */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 sm:gap-8 pb-8 border-b border-white/10">
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#f5f5f7] mb-2.5">Incubation & Startups</h4>
+              <ul className="space-y-1.5">
+                <li><button onClick={() => setActiveView('modules')} className="hover:text-white transition">5 Core Modules</button></li>
+                <li><button onClick={() => setActiveView('onepager')} className="hover:text-white transition">Investment One-Pager</button></li>
+                <li><button onClick={() => setActiveView('pitch-cockpit')} className="hover:text-white transition">Jury Pitch Cockpit</button></li>
+                <li><button onClick={() => setActiveView('curator')} className="hover:text-white transition">Curator Evaluations</button></li>
+                <li><button onClick={() => setActiveView('gallery')} className="hover:text-white transition">Project Gallery</button></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#f5f5f7] mb-2.5">AI & Studio Hubs</h4>
+              <ul className="space-y-1.5">
+                <li><button onClick={() => setActiveView('unicorn-studio')} className="hover:text-white transition">Unicorn AI Suite</button></li>
+                <li><button onClick={() => setActiveView('mulk-detective')} className="hover:text-white transition">Mulk Detektivi</button></li>
+                <li><button onClick={() => setActiveView('arcade')} className="hover:text-white transition">Arcade 3D Games</button></li>
+                <li><button onClick={() => setActiveView('reels')} className="hover:text-white transition">Startup Reels (Hot)</button></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#f5f5f7] mb-2.5">School 21 Ecosystem</h4>
+              <ul className="space-y-1.5">
+                <li><span className="text-[#86868b]">Tashkent Campus</span></li>
+                <li><span className="text-[#86868b]">Samarkand Campus</span></li>
+                <li><span className="text-[#86868b]">Peer-to-Peer Learning</span></li>
+                <li><span className="text-[#86868b]">Vibe Coding Standards</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#f5f5f7] mb-2.5">Account & Security</h4>
+              <ul className="space-y-1.5">
+                <li><button onClick={() => setActiveRole('participant')} className="hover:text-white transition">Participant View</button></li>
+                <li><button onClick={handleSwitchToCurator} className="hover:text-white transition">Curator Staff Login</button></li>
+                <li><button onClick={handleResetToDemo} className="hover:text-white transition">Reset Factory Demo</button></li>
+                <li><span className="text-[#86868b]">PIN Guard: 2121</span></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[12px] font-semibold text-[#f5f5f7] mb-2.5">Architecture & Tech</h4>
+              <ul className="space-y-1.5">
+                <li><span className="text-[#86868b]">React 19 & Tailwind CSS</span></li>
+                <li><span className="text-[#86868b]">Vite 8 & TypeScript</span></li>
+                <li><span className="text-[#86868b]">Oxlint Zero-Warning</span></li>
+                <li><span className="text-[#86868b]">Vercel Edge Global</span></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Apple Bottom Legal & Region Bar */}
+          <div className="pt-4 flex flex-col md:flex-row items-center justify-between gap-3 text-[#6e6e73]">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span>Copyright © 2026 Launch Lab 21 / School 21. All rights reserved.</span>
+              <span className="hover:text-[#86868b] cursor-pointer">Privacy Policy</span>
+              <span>•</span>
+              <span className="hover:text-[#86868b] cursor-pointer">Terms of Use</span>
+              <span>•</span>
+              <span className="hover:text-[#86868b] cursor-pointer">Legal</span>
+              <span>•</span>
+              <span className="hover:text-[#86868b] cursor-pointer">Site Map</span>
+            </div>
+            <div className="text-right">
+              <span className="text-[#86868b] font-medium">Uzbekistan</span>
+              <span className="text-[#6e6e73] ml-2">(EN / UZ / RU)</span>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   )

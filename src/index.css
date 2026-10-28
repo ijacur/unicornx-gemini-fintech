@@ -2,91 +2,158 @@
 
 @layer base {
   :root {
-    --ios-bg: #000000;
-    --ios-surface-primary: #1c1c1e;
-    --ios-surface-secondary: #2c2c2e;
-    --ios-surface-tertiary: #3a3a3c;
-    --ios-blue: #0a84ff;
-    --ios-green: #30d158;
-    --ios-indigo: #5e5ce6;
-    --ios-purple: #bf5af2;
-    --ios-teal: #40c8e0;
-    --ios-amber: #ff9f0a;
-    --ios-red: #ff453a;
-    --ios-hairline: rgba(255, 255, 255, 0.12);
+    --apple-bg: #000000;
+    --apple-surface: #161617;
+    --apple-surface-elevated: #1d1d1f;
+    --apple-surface-secondary: #2d2d2f;
+    --apple-blue: #0071e3;
+    --apple-blue-hover: #0077ed;
+    --apple-link: #2997ff;
+    --apple-text-primary: #f5f5f7;
+    --apple-text-secondary: #86868b;
+    --apple-text-tertiary: #6e6e73;
+    --apple-hairline: rgba(255, 255, 255, 0.14);
+    --apple-hairline-subtle: rgba(255, 255, 255, 0.08);
   }
 
   body {
     background-color: #000000;
     color: #f5f5f7;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.012em;
   }
 }
 
-/* Apple iOS Materials, Vibrancy & Glassmorphism */
-.ios-nav-blur {
-  background: rgba(20, 20, 22, 0.78);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border-bottom: 0.5px solid var(--ios-hairline);
+/* Apple.com Global Navigation Ribbon (Iconic 44px frosted bar) */
+.apple-global-nav {
+  height: 44px;
+  background: rgba(22, 22, 23, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid var(--apple-hairline-subtle);
 }
 
-.ios-surface-blur {
-  background: rgba(28, 28, 30, 0.72);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 0.5px solid var(--ios-hairline);
+.apple-nav-link {
+  font-size: 12px;
+  color: #d2d2d7;
+  transition: color 0.15s ease;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
-.ios-card {
-  background: #1c1c1e;
-  border: 0.5px solid var(--ios-hairline);
-  border-radius: 20px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+.apple-nav-link:hover,
+.apple-nav-link-active {
+  color: #ffffff;
 }
 
-.ios-card-grouped {
-  background: rgba(28, 28, 30, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 0.5px solid var(--ios-hairline);
+/* Apple.com Product Subnav Ribbon (52px sticky bar) */
+.apple-subnav {
+  height: 52px;
+  background: rgba(26, 26, 28, 0.78);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 0.5px solid var(--apple-hairline);
+}
+
+/* Apple.com Buttons & CTAs */
+.apple-btn-primary {
+  background: #0071e3;
+  color: #ffffff;
+  border-radius: 980px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.apple-btn-primary:hover {
+  background: #0077ed;
+  transform: scale(1.02);
+}
+
+.apple-btn-primary:active {
+  transform: scale(0.97);
+}
+
+.apple-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f5f7;
+  border: 0.5px solid var(--apple-hairline);
+  border-radius: 980px;
+  padding: 5px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.apple-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.apple-btn-secondary:active {
+  transform: scale(0.97);
+}
+
+.apple-link {
+  color: #2997ff;
+  font-size: 14px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.apple-link:hover {
+  text-decoration: underline;
+}
+
+/* Apple.com Bento Cards & Grouped Surfaces */
+.apple-card {
+  background: #161617;
+  border-radius: 26px;
+  border: 0.5px solid var(--apple-hairline-subtle);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
+}
+
+.apple-card-elevated {
+  background: #1d1d1f;
   border-radius: 24px;
+  border: 0.5px solid var(--apple-hairline);
 }
 
-/* iOS Segmented Control & Pill Bars */
-.ios-segmented {
-  background: rgba(118, 118, 128, 0.24);
-  border-radius: 14px;
+/* Apple Segmented Controls */
+.apple-segmented {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 980px;
   padding: 3px;
   display: inline-flex;
   align-items: center;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  border: 0.5px solid var(--apple-hairline-subtle);
 }
 
-.ios-segmented-item {
-  border-radius: 11px;
-  font-size: 13px;
-  font-weight: 590;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+.apple-segmented-item {
+  border-radius: 980px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ios-segmented-item-active {
-  background: #636366;
+.apple-segmented-active {
+  background: #323236;
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
 }
 
-/* iOS Tactile Feedback */
-.ios-press {
+/* Tactile Click Feedback */
+.apple-press {
   transition: transform 0.12s cubic-bezier(0.2, 0.9, 0.4, 1), opacity 0.12s ease;
 }
 
-.ios-press:active {
+.apple-press:active {
   transform: scale(0.97);
   opacity: 0.88;
 }
@@ -96,7 +163,7 @@
   background: rgba(28, 28, 30, 0.75);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 0.5px solid var(--ios-hairline);
+  border: 0.5px solid rgba(255, 255, 255, 0.12);
 }
 
 .glass-panel-hover {
