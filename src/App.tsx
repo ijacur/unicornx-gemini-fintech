@@ -164,6 +164,27 @@ export default function App() {
     'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade' | 'mulk-detective' | 'online-mind'
   >(() => (window.location.hash === '#online-mind' ? 'online-mind' : window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : window.location.hash === '#mulk-detective' ? 'mulk-detective' : 'online-mind'))
 
+  // Synchronize hash with activeView for deep linking and history
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '')
+      const validViews = ['modules', 'onepager', 'curator', 'gallery', 'reels', 'pitch-cockpit', 'unicorn-studio', 'arcade', 'mulk-detective', 'online-mind']
+      if (validViews.includes(hash)) {
+        setActiveView(hash as any)
+      } else if (hash === 'jury-check') {
+        setActiveView('pitch-cockpit')
+      }
+    }
+    window.addEventListener('hashchange', handleHashChange)
+    return () => window.removeEventListener('hashchange', handleHashChange)
+  }, [])
+
+  useEffect(() => {
+    if (window.location.hash !== `#${activeView}`) {
+      window.history.replaceState(null, '', `#${activeView}`)
+    }
+  }, [activeView])
+
   const [activeReelIndex, setActiveReelIndex] = useState(0)
   const [doubleTapHeart, setDoubleTapHeart] = useState(false)
 
@@ -2825,8 +2846,8 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
       {/* MODAL: CREATE PROJECT */}
       {/* ========================================================================= */}
       {newProjectModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xl flex items-center justify-center p-4">
+          <div className="apple-card rounded-3xl p-6 sm:p-7 max-w-lg w-full shadow-2xl space-y-4">
             <div>
               <h3 className="text-lg font-bold text-white">Создать новый проект Launch Lab 21</h3>
               <p className="text-xs text-zinc-400 mt-1">

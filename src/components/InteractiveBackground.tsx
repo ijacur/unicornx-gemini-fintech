@@ -39,6 +39,7 @@ export function InteractiveBackground() {
       pulseSpeed: number = 0
       alpha: number = 0
       isPriority: boolean = false
+      grayTone: number = 255
 
       constructor(w: number, h: number) {
         this.reset(w, h)
@@ -57,6 +58,19 @@ export function InteractiveBackground() {
         this.pulseSpeed = Math.random() * 0.025 + 0.015
         this.alpha = Math.random() * 0.35 + 0.25
         this.isPriority = Math.random() < 0.12
+
+        // Apple Grayscale Spectrum: rich depth across slate, graphite, silver, and diamond white
+        const rand = Math.random()
+        if (rand < 0.3) {
+          this.grayTone = Math.floor(Math.random() * 30 + 130) // Deep Slate / Graphite (130-160)
+        } else if (rand < 0.65) {
+          this.grayTone = Math.floor(Math.random() * 35 + 175) // Titanium Silver (175-210)
+        } else if (rand < 0.88) {
+          this.grayTone = Math.floor(Math.random() * 25 + 220) // Platinum / Off-White (220-245)
+        } else {
+          this.grayTone = 255 // Pure Brilliant White
+          this.isPriority = true
+        }
       }
 
       update(w: number, h: number) {
@@ -87,16 +101,17 @@ export function InteractiveBackground() {
       }
 
       draw(context: CanvasRenderingContext2D) {
-        const currentAlpha = Math.max(0.1, Math.min(0.9, this.alpha + Math.sin(this.pulsePhase) * 0.2))
+        const currentAlpha = Math.max(0.08, Math.min(0.95, this.alpha + Math.sin(this.pulsePhase) * 0.2))
         context.beginPath()
         context.arc(this.x, this.y, Math.max(0.6, this.radius), 0, Math.PI * 2)
+        const g = this.grayTone
         if (this.isPriority) {
           context.shadowBlur = 10
-          context.shadowColor = 'rgba(255, 255, 255, 0.7)'
+          context.shadowColor = 'rgba(255, 255, 255, 0.75)'
           context.fillStyle = `rgba(255, 255, 255, ${currentAlpha * 1.2})`
         } else {
           context.shadowBlur = 0
-          context.fillStyle = `rgba(255, 255, 255, ${currentAlpha})`
+          context.fillStyle = `rgba(${g}, ${g}, ${g}, ${currentAlpha})`
         }
         context.fill()
         context.shadowBlur = 0
@@ -282,7 +297,8 @@ export function InteractiveBackground() {
           if (dist < maxDist) {
             const factor = 1 - dist / maxDist
             const alpha = factor * 0.12 * Math.min(p1.alpha, p2.alpha)
-            context.strokeStyle = `rgba(255, 255, 255, ${alpha})`
+            const avgG = Math.round((p1.grayTone + p2.grayTone) / 2)
+            context.strokeStyle = `rgba(${avgG}, ${avgG}, ${avgG}, ${alpha})`
             context.beginPath()
             context.moveTo(p1.x, p1.y)
             context.lineTo(p2.x, p2.y)
@@ -296,7 +312,7 @@ export function InteractiveBackground() {
           const mdist = Math.sqrt(mdx * mdx + mdy * mdy)
           if (mdist < mouse.radius) {
             const mFactor = 1 - mdist / mouse.radius
-            context.strokeStyle = `rgba(255, 255, 255, ${mFactor * 0.22})`
+            context.strokeStyle = `rgba(${p1.grayTone}, ${p1.grayTone}, ${p1.grayTone}, ${mFactor * 0.22})`
             context.lineWidth = 0.8
             context.beginPath()
             context.moveTo(p1.x, p1.y)

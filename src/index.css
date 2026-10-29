@@ -2,17 +2,33 @@
 
 @layer base {
   :root {
+    --apple-black: #000000;
+    --apple-space-black: #070709;
+    --apple-onyx: #0d0d10;
+    --apple-charcoal: #16161a;
+    --apple-dark-graphite: #1f1f25;
+    --apple-graphite: #2a2a32;
+    --apple-slate: #3d3d47;
+    --apple-iron: #52525e;
+    --apple-steel: #6e6e7a;
+    --apple-slate-gray: #888896;
+    --apple-silver: #a2a2b0;
+    --apple-titanium: #c4c4d0;
+    --apple-platinum: #dedee6;
+    --apple-pearl: #f2f2f6;
+    --apple-white: #ffffff;
+
     --apple-bg: #000000;
-    --apple-surface: rgba(14, 14, 18, 0.65);
-    --apple-surface-elevated: rgba(24, 24, 28, 0.75);
-    --apple-surface-secondary: rgba(32, 32, 36, 0.6);
+    --apple-surface: rgba(14, 14, 18, 0.70);
+    --apple-surface-elevated: rgba(26, 26, 32, 0.75);
+    --apple-surface-secondary: rgba(36, 36, 44, 0.65);
     --apple-blue: #ffffff;
     --apple-blue-hover: #e5e5e7;
     --apple-link: #ffffff;
     --apple-text-primary: #f5f5f7;
     --apple-text-secondary: #a1a1aa;
     --apple-text-tertiary: #86868b;
-    --apple-hairline: rgba(255, 255, 255, 0.15);
+    --apple-hairline: rgba(255, 255, 255, 0.16);
     --apple-hairline-subtle: rgba(255, 255, 255, 0.08);
   }
 
@@ -41,11 +57,11 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.18);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.35);
   }
 }
 
@@ -54,7 +70,7 @@
 /* ========================================================================= */
 .apple-global-nav {
   height: 44px;
-  background: rgba(8, 8, 10, 0.8);
+  background: rgba(8, 8, 10, 0.82);
   backdrop-filter: saturate(180%) blur(24px);
   -webkit-backdrop-filter: saturate(180%) blur(24px);
   border-bottom: 0.5px solid var(--apple-hairline-subtle);
@@ -75,14 +91,14 @@
 
 .apple-subnav {
   height: 52px;
-  background: rgba(12, 12, 14, 0.78);
+  background: rgba(12, 12, 15, 0.80);
   backdrop-filter: saturate(180%) blur(24px);
   -webkit-backdrop-filter: saturate(180%) blur(24px);
   border-bottom: 0.5px solid var(--apple-hairline);
 }
 
 /* ========================================================================= */
-/* 2. APPLE BUTTONS & CTAS (PURE MONOCHROMATIC NOIR)                         */
+/* 2. APPLE BUTTONS & CTAS (PURE MONOCHROMATIC NOIR & TITANIUM)              */
 /* ========================================================================= */
 .apple-btn-primary {
   background: #ffffff;
@@ -155,20 +171,20 @@
 /* 3. APPLE LIQUID GLASS CARDS (TRANSLUCENT TO REVEAL CANVAS PARTICLES)     */
 /* ========================================================================= */
 .apple-glass {
-  background: rgba(14, 14, 18, 0.65) !important;
+  background: rgba(14, 14, 18, 0.68) !important;
   backdrop-filter: blur(28px) saturate(180%);
   -webkit-backdrop-filter: blur(28px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
 .apple-card {
-  background: linear-gradient(145deg, rgba(22, 22, 26, 0.65) 0%, rgba(12, 12, 14, 0.75) 100%) !important;
+  background: linear-gradient(155deg, rgba(24, 24, 30, 0.68) 0%, rgba(12, 12, 16, 0.76) 100%) !important;
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
-  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.14);
   position: relative;
   overflow: hidden;
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
@@ -189,13 +205,13 @@
 }
 
 .apple-card:hover {
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.30);
   transform: translateY(-2px);
-  box-shadow: 0 35px 70px -10px rgba(0, 0, 0, 0.9), inset 0 1px 2px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 35px 70px -10px rgba(0, 0, 0, 0.9), inset 0 1px 2px 0 rgba(255, 255, 255, 0.28);
 }
 
 .apple-card-elevated {
-  background: rgba(24, 24, 28, 0.72) !important;
+  background: rgba(28, 28, 34, 0.74) !important;
   backdrop-filter: blur(28px);
   border-radius: 24px;
   border: 0.5px solid var(--apple-hairline);
@@ -206,8 +222,8 @@
   padding: 3px 10px;
   font-size: 11px;
   font-weight: 500;
-  border: 0.5px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.06);
+  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   color: #f5f5f7;
 }
 
@@ -247,10 +263,10 @@
 
 /* Legacy Glass Support (Enhanced with Translucency) */
 .glass-panel {
-  background: rgba(18, 18, 22, 0.65) !important;
+  background: rgba(18, 18, 22, 0.68) !important;
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 0.5px solid rgba(255, 255, 255, 0.12);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
 }
 
 .glass-panel-hover {
@@ -258,8 +274,8 @@
 }
 
 .glass-panel-hover:hover {
-  border-color: rgba(255, 255, 255, 0.28);
-  background: rgba(28, 28, 34, 0.75) !important;
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(28, 28, 34, 0.78) !important;
   transform: translateY(-2px);
 }
 
@@ -276,68 +292,127 @@
 }
 
 /* ========================================================================= */
-/* 4. STRICT 100% MONOCHROMATIC BLACK & WHITE SYSTEM OVERRIDES               */
-/* Guarantees zero chromatic colors across all child components              */
+/* 4. THE FULL APPLE GRAYSCALE SPECTRUM (BLACK, WHITE & ANY KIND OF GRAY)    */
+/* Rich multi-tone grayscale hierarchy replacing flat monocolor             */
 /* ========================================================================= */
 
-/* Monochromatic Text Overrides */
+/* Success / Approved / Active -> Pure Brilliant White */
 [class*="text-emerald-"],
-[class*="text-green-"],
-[class*="text-teal-"],
+[class*="text-green-"] {
+  color: #ffffff !important;
+}
+
+/* Info / Action / Primary -> Platinum Off-White */
 [class*="text-cyan-"],
-[class*="text-blue-"],
-[class*="text-indigo-"],
-[class*="text-purple-"],
-[class*="text-violet-"],
-[class*="text-fuchsia-"],
-[class*="text-pink-"],
-[class*="text-rose-"],
-[class*="text-red-"],
-[class*="text-orange-"],
+[class*="text-blue-"] {
+  color: #f2f2f6 !important;
+}
+
+/* Warning / Review / In-Progress -> Titanium Silver Gray */
 [class*="text-amber-"],
 [class*="text-yellow-"] {
-  color: #f5f5f7 !important;
+  color: #d6d6e0 !important;
 }
 
-/* Monochromatic Background Overrides */
+/* Creative / Curator / Special -> Cool Silver Slate */
+[class*="text-purple-"],
+[class*="text-indigo-"],
+[class*="text-violet-"],
+[class*="text-fuchsia-"] {
+  color: #b8b8c6 !important;
+}
+
+/* High Contrast / Attention -> Frost White-Gray */
+[class*="text-rose-"],
+[class*="text-pink-"],
+[class*="text-red-"] {
+  color: #e6e6ee !important;
+}
+
+/* Dynamic Accent -> Metallic Titanium */
+[class*="text-orange-"],
+[class*="text-teal-"] {
+  color: #ceceda !important;
+}
+
+/* Subtle Secondary & Tertiary Grayscale */
+.text-apple-white { color: #ffffff !important; }
+.text-apple-pearl { color: #f2f2f6 !important; }
+.text-apple-platinum { color: #dedee6 !important; }
+.text-apple-titanium { color: #c4c4d0 !important; }
+.text-apple-silver { color: #a2a2b0 !important; }
+.text-apple-slate { color: #888896 !important; }
+.text-apple-iron { color: #6e6e7a !important; }
+
+/* Grayscale Background Layering */
 [class*="bg-emerald-"],
-[class*="bg-green-"],
-[class*="bg-teal-"],
+[class*="bg-green-"] {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
 [class*="bg-cyan-"],
-[class*="bg-blue-"],
-[class*="bg-indigo-"],
-[class*="bg-purple-"],
-[class*="bg-violet-"],
-[class*="bg-fuchsia-"],
-[class*="bg-pink-"],
-[class*="bg-rose-"],
-[class*="bg-red-"],
-[class*="bg-orange-"],
+[class*="bg-blue-"] {
+  background-color: rgba(242, 242, 246, 0.08) !important;
+}
+
 [class*="bg-amber-"],
 [class*="bg-yellow-"] {
-  background-color: rgba(255, 255, 255, 0.08) !important;
+  background-color: rgba(214, 214, 224, 0.09) !important;
 }
 
-/* Monochromatic Border Overrides */
+[class*="bg-purple-"],
+[class*="bg-indigo-"],
+[class*="bg-violet-"],
+[class*="bg-fuchsia-"] {
+  background-color: rgba(184, 184, 198, 0.08) !important;
+}
+
+[class*="bg-rose-"],
+[class*="bg-pink-"],
+[class*="bg-red-"] {
+  background-color: rgba(230, 230, 238, 0.10) !important;
+}
+
+[class*="bg-orange-"],
+[class*="bg-teal-"] {
+  background-color: rgba(206, 206, 218, 0.08) !important;
+}
+
+/* Grayscale Border Nuance */
 [class*="border-emerald-"],
-[class*="border-green-"],
-[class*="border-teal-"],
+[class*="border-green-"] {
+  border-color: rgba(255, 255, 255, 0.30) !important;
+}
+
 [class*="border-cyan-"],
-[class*="border-blue-"],
-[class*="border-indigo-"],
-[class*="border-purple-"],
-[class*="border-violet-"],
-[class*="border-fuchsia-"],
-[class*="border-pink-"],
-[class*="border-rose-"],
-[class*="border-red-"],
-[class*="border-orange-"],
+[class*="border-blue-"] {
+  border-color: rgba(242, 242, 246, 0.20) !important;
+}
+
 [class*="border-amber-"],
 [class*="border-yellow-"] {
-  border-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(214, 214, 224, 0.22) !important;
 }
 
-/* Monochromatic Shadow Overrides */
+[class*="border-purple-"],
+[class*="border-indigo-"],
+[class*="border-violet-"],
+[class*="border-fuchsia-"] {
+  border-color: rgba(184, 184, 198, 0.20) !important;
+}
+
+[class*="border-rose-"],
+[class*="border-pink-"],
+[class*="border-red-"] {
+  border-color: rgba(230, 230, 238, 0.25) !important;
+}
+
+[class*="border-orange-"],
+[class*="border-teal-"] {
+  border-color: rgba(206, 206, 218, 0.20) !important;
+}
+
+/* Grayscale Shadows */
 [class*="shadow-emerald-"],
 [class*="shadow-cyan-"],
 [class*="shadow-indigo-"],
@@ -346,7 +421,22 @@
 [class*="shadow-amber-"],
 [class*="shadow-blue-"],
 [class*="shadow-rose-"] {
-  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.8), 0 0 16px rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.85), 0 0 16px rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Grayscale Gradients */
+[class*="from-indigo-"],
+[class*="from-purple-"],
+[class*="from-blue-"],
+[class*="from-emerald-"] {
+  --tw-gradient-from: rgba(255, 255, 255, 0.15) var(--tw-gradient-from-position) !important;
+}
+
+[class*="to-cyan-"],
+[class*="to-indigo-"],
+[class*="to-purple-"],
+[class*="to-emerald-"] {
+  --tw-gradient-to: rgba(255, 255, 255, 0.03) var(--tw-gradient-to-position) !important;
 }
 
 /* Ring & Focus Highlights */
@@ -361,16 +451,16 @@
 
 /* Inputs & Form Elements Cupertino Polish */
 input, textarea, select {
-  background-color: rgba(18, 18, 22, 0.8) !important;
+  background-color: rgba(18, 18, 22, 0.82) !important;
   color: #f5f5f7 !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: rgba(255, 255, 255, 0.45) !important;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15) !important;
+  border-color: rgba(255, 255, 255, 0.50) !important;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.18) !important;
 }
 
 /* ========================================================================= */
