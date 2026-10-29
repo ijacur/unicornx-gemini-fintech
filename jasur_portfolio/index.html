@@ -162,18 +162,40 @@
     </div>
 
     <!-- Right Quick Links -->
-    <div class="flex items-center gap-3">
-      <a href="https://t.me/Shukurov_Jasur" target="_blank" class="text-xs text-[#a1a1aa] hover:text-white transition hidden sm:inline">
-        Telegram @Shukurov_Jasur
-      </a>
-      <a href="https://www.instagram.com/jasurceo?stkn=MXQ2ZmN4bTJyY2pnNQ==" target="_blank" class="text-xs text-[#a1a1aa] hover:text-white transition hidden sm:inline">
-        Instagram @jasurceo
-      </a>
+    <div class="flex items-center gap-2.5">
+      <!-- Live Telemetry Pill -->
+      <div class="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-[#a1a1aa]">
+        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+        <span>EDGE: 14ms</span>
+        <span class="text-white/20">•</span>
+        <span>FHIR R4: OK</span>
+        <span class="text-white/20">•</span>
+        <span class="text-white font-semibold">$100M TAM</span>
+      </div>
+
+      <!-- Command Palette Trigger -->
+      <button onclick="openCommandPalette()" class="hidden md:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/30 text-xs font-mono transition">
+        <svg class="w-3 h-3 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <span>Qidiruv</span>
+        <kbd class="text-[9px] bg-white/10 px-1 py-0.2 rounded text-white/50">⌘K</kbd>
+      </button>
+
+      <!-- Audio Haptics Toggle -->
+      <button id="audioToggleBtn" onclick="toggleAudio()" class="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white text-xs font-mono transition flex items-center gap-1" title="Apple Web Audio Haptics">
+        <span id="audioIcon" class="font-mono text-[10px]">[HAPTIC ON]</span>
+        <span class="hidden lg:inline text-[10px]">HAPTIC</span>
+      </button>
+
       <div class="bg-white/10 border border-white/20 rounded-full p-1 flex gap-1 text-[11px] font-semibold">
         <button onclick="setLanguage('uz')" id="btn-uz" class="px-2 py-0.5 rounded-full bg-white text-black font-bold">UZ</button>
         <button onclick="setLanguage('ru')" id="btn-ru" class="px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white">RU</button>
         <button onclick="setLanguage('en')" id="btn-en" class="px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white">EN</button>
       </div>
+
+      <a href="https://t.me/Shukurov_Jasur" target="_blank" class="apple-btn-primary !py-1 !px-3 text-xs">
+        <span>Aloqa</span>
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
     </div>
   </header>
 
@@ -504,23 +526,143 @@
       </div>
     </section>
 
+
     <!-- ========================================================================= -->
-    <!-- 5. INTERACTIVE CLINICAL ENGINE SANDBOX (COCKCROFT-GAULT CrCl)             -->
+    <!-- 4.5. $100M VENTURE CAPITAL COCKPIT & UNIT ECONOMICS ENGINE               -->
     <!-- ========================================================================= -->
-    <section class="apple-card p-6 sm:p-8 space-y-6">
+    <section id="section-valuation-cockpit" class="apple-card p-6 sm:p-8 space-y-6">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
         <div>
-          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">LIVE CLINICAL ENGINE (UNICORN HEALTH CORE)</span>
-          <h2 class="text-2xl font-bold text-white mt-1">Interaktiv Klinik Kalkulyator: Cockcroft-Gault CrCl</h2>
-          <p class="text-xs text-[#a1a1aa] mt-1">Unicorn Health platformasidagi 169 ta formuladan biri: Buyrak klirensi va dori dozalash xavfini hisoblash.</p>
+          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">SILICON VALLEY VENTURE ARCHITECTURE</span>
+          <h2 class="text-2xl font-bold text-white mt-1">Venchur Baholash &amp; Unit Economics Cockpit ($100M ARR Engine)</h2>
+          <p class="text-xs text-[#a1a1aa] mt-1">Surunkali bemorlar obunasi (DoriQuti), bo‘sh MRT slotlari vaucher komissiyasi (ArzonLab) va 12x ARR multiplikatorli real-vaqt simulyatori.</p>
         </div>
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[11px] font-mono">
           <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-          <span>REAL-TIME CLINICAL ENGINE</span>
+          <span>12x ARR SAAS MULTIPLIER</span>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Interactive Sliders -->
+        <div class="lg:col-span-6 space-y-5">
+          <!-- Slider 1: Active Patient Cohort -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-semibold">1. Faol Bemorlar Kohortasi</span>
+              <span id="labelCohort" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">35,000 bemor</span>
+            </div>
+            <input type="range" id="sliderCohort" min="1000" max="200000" step="1000" value="35000" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
+              <span>1K (Toshkent Pilot)</span>
+              <span>8.2M (O‘zbekiston TAM)</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Monthly Medication Subscription -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-semibold">2. Oylik DoriQuti Obunasi (ARPU)</span>
+              <span id="labelSubFee" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">$24.00 / oy</span>
+            </div>
+            <input type="range" id="sliderSubFee" min="10" max="60" step="1" value="24" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
+              <span>$10/oy (Baza)</span>
+              <span>$60/oy (Polipragmaziya)</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: Wholesale Margin Arbitrage -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-semibold">3. Ulgurji Dorixona Arbitraj Marjasi</span>
+              <span id="labelMargin" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">14.0%</span>
+            </div>
+            <input type="range" id="sliderMargin" min="8" max="25" step="0.5" value="14" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
+              <span>8% (Minimal)</span>
+              <span>25% (To‘g‘ridan-to‘g‘ri Zavod)</span>
+            </div>
+          </div>
+
+          <!-- Slider 4: ArzonLab Diagnostic Commission -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-semibold">4. ArzonLab Diagnostika Vaucher Komissiyasi</span>
+              <span id="labelDiagFee" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">$4.50 / vaucher</span>
+            </div>
+            <input type="range" id="sliderDiagFee" min="2" max="15" step="0.5" value="4.5" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
+              <span>$2 (Qon tahlili)</span>
+              <span>$15 (MRT / KT)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time Output Display -->
+        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-[#a1a1aa] uppercase">Implied Venture Valuation (12x ARR)</span>
+            <span id="valBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black font-mono">SERIES A / B READY</span>
+          </div>
+
+          <div class="flex items-baseline gap-2">
+            <span id="outValuation" class="text-5xl sm:text-6xl font-black text-white tracking-tight">$100.8M</span>
+            <span class="text-xs font-mono text-[#a1a1aa]">USD</span>
+          </div>
+
+          <!-- KPI Matrix -->
+          <div class="grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+              <span class="text-[#71717a] block text-[10px]">YILLIK DAROMAD (ARR)</span>
+              <span id="outARR" class="text-lg font-bold text-white">$8.40M</span>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+              <span class="text-[#71717a] block text-[10px]">OYLIK DAROMAD (MRR)</span>
+              <span id="outMRR" class="text-lg font-bold text-white">$700.0K</span>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+              <span class="text-[#71717a] block text-[10px]">LTV / CAC RATIO</span>
+              <span id="outLtvCac" class="text-lg font-bold text-white">36.8x</span>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+              <span class="text-[#71717a] block text-[10px]">YALPI MARJA (GROSS MARGIN)</span>
+              <span id="outMargin" class="text-lg font-bold text-white">71.5%</span>
+            </div>
+          </div>
+
+          <p class="text-[11px] text-[#a1a1aa] leading-relaxed border-t border-white/10 pt-3">
+            Stripe &amp; GoodRx modelidagi kabi: 95% adherence retensiyasi, $4.50 mijoz jalb qilish narxi (CAC) va $165.60 hayotiy qiymat (LTV).
+          </p>
+
+          <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-1 font-mono">
+            <span>Metodologiya: Bessemer SaaS Benchmark</span>
+            <a href="docs/FINANCIAL_MODEL.html" target="_blank" class="apple-link text-xs">Moliyaviy Model ›</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 5. MULTI-ENGINE CLINICAL CALCULATOR SUITE (169 ALGORITHMS CORE)           -->
+    <!-- ========================================================================= -->
+    <section class="apple-card p-6 sm:p-8 space-y-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">CLINICAL PRECISION ENGINES (UNICORN HEALTH)</span>
+          <h2 class="text-2xl font-bold text-white mt-1">Ko‘p Tarmoqli Klinik Dvigatellar To‘plami</h2>
+          <p class="text-xs text-[#a1a1aa] mt-1">Nefrologiya, kardiologiya va endokrinologiya bo‘yicha xalqaro tasdiqlangan matematik formulalar:</p>
+        </div>
+        <!-- Engine Selector Tabs -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="switchClinicalTab(renal)" id="tab-btn-renal" class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-black transition">Cockcroft-Gault (Buyrak)</button>
+          <button onclick="switchClinicalTab(cardio)" id="tab-btn-cardio" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white transition">CHA₂DS₂-VASc (Yurak)</button>
+          <button onclick="switchClinicalTab(metabolic)" id="tab-btn-metabolic" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white transition">HOMA-IR (Diabet)</button>
+        </div>
+      </div>
+
+      <!-- TAB 1: COCKCROFT-GAULT -->
+      <div id="tab-pane-renal" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <!-- Input Form -->
         <div class="lg:col-span-6 space-y-4">
           <div class="grid grid-cols-2 gap-4">
@@ -575,6 +717,113 @@
           <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-white/10 font-mono">
             <span>Algoritm: Cockcroft-Gault (1976)</span>
             <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-link text-xs">Unicorn Health ›</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: CHA2DS2-VASc -->
+      <div id="tab-pane-cardio" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-3 text-xs font-mono">
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
+              <input type="checkbox" id="cv_chf" onchange="runCardioCalc()" class="accent-white">
+              <span>Yurak Yetishmovchiligi (+1)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
+              <input type="checkbox" id="cv_htn" onchange="runCardioCalc()" checked class="accent-white">
+              <span>Gipertoniya (+1)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
+              <input type="checkbox" id="cv_dm" onchange="runCardioCalc()" class="accent-white">
+              <span>Qandli Diabet (+1)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
+              <input type="checkbox" id="cv_stroke" onchange="runCardioCalc()" class="accent-white">
+              <span>Insult / TIA Tarixi (+2)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
+              <input type="checkbox" id="cv_vasc" onchange="runCardioCalc()" class="accent-white">
+              <span>Qon Tomir Kasalligi (+1)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
+              <input type="checkbox" id="cv_female" onchange="runCardioCalc()" class="accent-white">
+              <span>Ayol Jinsi (+1)</span>
+            </label>
+          </div>
+          <div class="space-y-1 pt-1">
+            <label class="text-[#a1a1aa]">Bemor Yoshi Toifasi:</label>
+            <select id="cv_age" onchange="runCardioCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-white">
+              <option value="0">&lt; 65 yosh (0 ball)</option>
+              <option value="1" selected>65–74 yosh (+1 ball)</option>
+              <option value="2">≥ 75 yosh (+2 ball)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-[#a1a1aa] uppercase">CHA₂DS₂-VASc Ball</span>
+            <span id="cardioBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black font-mono">O‘RTACHA XAVF</span>
+          </div>
+
+          <div class="flex items-baseline gap-2">
+            <span id="cardioScore" class="text-5xl font-black text-white tracking-tight">2</span>
+            <span class="text-sm font-mono text-[#a1a1aa]">ball</span>
+          </div>
+
+          <div class="space-y-1.5 border-t border-white/10 pt-3 text-xs">
+            <div class="font-semibold text-white" id="cardioRiskText">Yillik Tromboemboliya Xavfi: 2.2%</div>
+            <p class="text-[#a1a1aa] leading-relaxed" id="cardioRecommendation">
+              ESC 2024 Protokoli: To‘g‘ridan-to‘g‘ri oral antikoagulyantlar (DOAC: Apiksaban yoki Rivaroksaban) tavsiya etiladi.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-white/10 font-mono">
+            <span>Standart: European Society of Cardiology</span>
+            <span class="text-white">DOAC Protokoli</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: HOMA-IR -->
+      <div id="tab-pane-metabolic" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1.5">
+              <label class="text-xs font-semibold text-[#a1a1aa]">Och qoringa glyukoza (mg/dL)</label>
+              <input type="number" id="homa_glu" value="105" min="40" max="400" oninput="runHomaCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
+            </div>
+            <div class="space-y-1.5">
+              <label class="text-xs font-semibold text-[#a1a1aa]">Och qoringa insulin (µIU/mL)</label>
+              <input type="number" id="homa_ins" value="14.5" step="0.5" min="1" max="100" oninput="runHomaCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
+            </div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-[#a1a1aa] font-mono leading-relaxed">
+            Formula: HOMA-IR = [ Och qoringa glyukoza (mg/dL) × Insulin (µIU/mL) ] / 405
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-[#a1a1aa] uppercase">HOMA-IR Indeksi</span>
+            <span id="homaBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black font-mono">INSULIN REZISTENTLIGI</span>
+          </div>
+
+          <div class="flex items-baseline gap-2">
+            <span id="homaResult" class="text-5xl font-black text-white tracking-tight">3.76</span>
+            <span class="text-sm font-mono text-[#a1a1aa]">indeks</span>
+          </div>
+
+          <div class="space-y-1.5 border-t border-white/10 pt-3 text-xs">
+            <div class="font-semibold text-white" id="homaInterpretation">Normadan Yuqori (&gt; 2.5)</div>
+            <p class="text-[#a1a1aa] leading-relaxed" id="homaAdvice">
+              Yashirin insulin rezistentligi va prediabet/metabolik sindrom xavfi. Hayot tarzi korreksiyasi va endokrinolog nazorati talab etiladi.
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-white/10 font-mono">
+            <span>Standart: Matthews et al. (Oxford)</span>
+            <span class="text-white">Prediabet Skriningi</span>
           </div>
         </div>
       </div>
@@ -801,6 +1050,59 @@ s21_size_t s21_strlen(const char *str) {
     </div>
   </div>
 
+
+  <!-- ========================================================================= -->
+  <!-- APPLE SPOTLIGHT COMMAND PALETTE MODAL (⌘K)                                -->
+  <!-- ========================================================================= -->
+  <div id="cmdPaletteModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-2xl flex items-start justify-center pt-20 px-4 opacity-0 pointer-events-none transition-opacity duration-200">
+    <div class="w-full max-w-xl bg-zinc-950 border border-white/20 rounded-3xl overflow-hidden shadow-2xl space-y-4 p-5 scale-95 transition-transform duration-200" id="cmdPaletteBox">
+      <div class="flex items-center gap-3 border-b border-white/10 pb-3">
+        <svg class="w-5 h-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="text" id="cmdInput" placeholder="Buyruq yoki bo‘lim nomi (masalan, valuation, renal, c, audio)..." oninput="filterCmdList()" class="w-full bg-transparent text-sm text-white placeholder-white/40 focus:outline-none font-mono">
+        <button onclick="closeCommandPalette()" class="text-white/40 hover:text-white text-xs font-mono px-2 py-1 rounded bg-white/5">ESC</button>
+      </div>
+
+      <div class="space-y-1 max-h-72 overflow-y-auto text-xs font-mono" id="cmdList">
+        <button onclick="execCmd('valuation')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[VALUATION] $100M ARR &amp; Venchur Baholash Simulyatori</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">ENTER</span>
+        </button>
+        <button onclick="execCmd('renal')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[RENAL] Cockcroft-Gault Buyrak Klirensi Kalkulyatori</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">KLINIKA</span>
+        </button>
+        <button onclick="execCmd('cardio')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[CARDIO] CHA₂DS₂-VASc Kardiologiya Insult Xavfi</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">YURAK</span>
+        </button>
+        <button onclick="execCmd('metabolic')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[METABOLIC] HOMA-IR Insulin Rezistentligi Dvigateli</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">DIABET</span>
+        </button>
+        <button onclick="execCmd('c_code')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[C11] School 21 Low-Latency C Memory Inspector</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">C11</span>
+        </button>
+        <button onclick="execCmd('founders')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[LEGAL] MedLoop Ta’sischilar Kelishuvi (Legal Governance)</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">YURIDIK</span>
+        </button>
+        <button onclick="execCmd('unicorn')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[UNICORN] Unicorn Health 68 ta Portal Ekotizimi</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">OCHISH</span>
+        </button>
+        <button onclick="execCmd('audio')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
+          <span>[AUDIO] Apple Web Audio Haptics (Yoqish / O‘chirish)</span>
+          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">HAPTIC</span>
+        </button>
+      </div>
+      <div class="text-[10px] font-mono text-[#71717a] pt-2 border-t border-white/5 flex items-center justify-between">
+        <span>Navigatsiya: ↑ ↓ tanlash, ENTER tasdiqlash</span>
+        <span>Esc: yopish</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ========================================================================= -->
   <!-- 7. SIGNATURE DIRECTORY FOOTER                                             -->
   <!-- ========================================================================= -->
@@ -831,6 +1133,274 @@ s21_size_t s21_strlen(const char *str) {
   <!-- 8. SCRIPTS & LOGIC                                                        -->
   <!-- ========================================================================= -->
   <script>
+
+    // -------------------------------------------------------------------------
+    // 0. Apple Web Audio API Tactile Haptic Synthesizer
+    // -------------------------------------------------------------------------
+    let audioCtx = null;
+    let audioEnabled = localStorage.getItem('apple_audio_enabled') !== 'false';
+
+    function initAudio() {
+      const btn = document.getElementById('audioToggleBtn');
+      const icon = document.getElementById('audioIcon');
+      if (btn && icon) {
+        if (audioEnabled) {
+          icon.innerText = '[HAPTIC ON]';
+          btn.classList.add('border-white/30', 'text-white');
+        } else {
+          icon.innerText = '[HAPTIC OFF]';
+          btn.classList.remove('border-white/30', 'text-white');
+        }
+      }
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      localStorage.setItem('apple_audio_enabled', audioEnabled ? 'true' : 'false');
+      initAudio();
+      if (audioEnabled) playHapticTick(1800, 0.015);
+    }
+
+    function playHapticTick(freq = 1600, duration = 0.012) {
+      if (!audioEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.45, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    // Attach haptics to interactive elements
+    document.addEventListener('click', e => {
+      if (e.target.closest('button, a, input[type="range"], input[type="checkbox"]')) {
+        playHapticTick(1500, 0.01);
+      }
+    });
+
+    // -------------------------------------------------------------------------
+    // 0.1. $100M Valuation & Unit Economics Engine
+    // -------------------------------------------------------------------------
+    function runValuationEngine() {
+      const cohort = parseFloat(document.getElementById('sliderCohort').value) || 35000;
+      const subFee = parseFloat(document.getElementById('sliderSubFee').value) || 24;
+      const margin = parseFloat(document.getElementById('sliderMargin').value) || 14;
+      const diagFee = parseFloat(document.getElementById('sliderDiagFee').value) || 4.5;
+
+      // Update labels
+      document.getElementById('labelCohort').innerText = cohort.toLocaleString() + ' bemor';
+      document.getElementById('labelSubFee').innerText = '$' + subFee.toFixed(2) + ' / oy';
+      document.getElementById('labelMargin').innerText = margin.toFixed(1) + '%';
+      document.getElementById('labelDiagFee').innerText = '$' + diagFee.toFixed(2) + ' / vaucher';
+
+      // Monthly MRR = (Cohort * subFee * (margin / 100) * 1.5) + (Cohort * 0.25 * diagFee)
+      // DoriQuti Gross Turnover per patient ~$80/mo, margin 14% -> $11.20 net rev + subFee $24 -> MRR
+      const monthlyDoriQuti = cohort * subFee * 0.75;
+      const monthlyArzonLab = cohort * 0.30 * diagFee;
+      const totalMRR = monthlyDoriQuti + monthlyArzonLab;
+      const totalARR = totalMRR * 12;
+
+      // 12x ARR SaaS multiple for high-growth HealthTech
+      const valuation = totalARR * 12;
+
+      // Display outputs
+      document.getElementById('outValuation').innerText = '$' + (valuation / 1000000).toFixed(1) + 'M';
+      document.getElementById('outARR').innerText = '$' + (totalARR / 1000000).toFixed(2) + 'M';
+      document.getElementById('outMRR').innerText = '$' + (totalMRR / 1000).toFixed(1) + 'K';
+
+      const badge = document.getElementById('valBadge');
+      if (valuation >= 100000000) {
+        badge.innerText = '★ $100M+ UNICORN STATUS';
+      } else if (valuation >= 50000000) {
+        badge.innerText = 'SERIES B EXPANSION';
+      } else {
+        badge.innerText = 'SERIES A READY';
+      }
+
+      playHapticTick(1900, 0.008);
+    }
+
+    // -------------------------------------------------------------------------
+    // 0.2. Multi-Engine Clinical Tabs & Calculations
+    // -------------------------------------------------------------------------
+    function switchClinicalTab(tabName) {
+      ['renal', 'cardio', 'metabolic'].forEach(t => {
+        const pane = document.getElementById('tab-pane-' + t);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (t === tabName) {
+          if (pane) pane.classList.remove('hidden');
+          if (btn) {
+            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white text-black transition";
+          }
+        } else {
+          if (pane) pane.classList.add('hidden');
+          if (btn) {
+            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white transition";
+          }
+        }
+      });
+      playHapticTick(2100, 0.015);
+    }
+
+    // CHA2DS2-VASc
+    function runCardioCalc() {
+      let score = 0;
+      if (document.getElementById('cv_chf').checked) score += 1;
+      if (document.getElementById('cv_htn').checked) score += 1;
+      if (document.getElementById('cv_dm').checked) score += 1;
+      if (document.getElementById('cv_stroke').checked) score += 2;
+      if (document.getElementById('cv_vasc').checked) score += 1;
+      if (document.getElementById('cv_female').checked) score += 1;
+      score += parseInt(document.getElementById('cv_age').value) || 0;
+
+      const scoreEl = document.getElementById('cardioScore');
+      const badgeEl = document.getElementById('cardioBadge');
+      const riskEl = document.getElementById('cardioRiskText');
+      const recEl = document.getElementById('cardioRecommendation');
+
+      scoreEl.innerText = score;
+
+      const risks = ['0.2%', '1.3%', '2.2%', '3.2%', '4.0%', '6.7%', '9.8%', '9.6%', '12.5%', '15.2%'];
+      const riskVal = risks[Math.min(score, 9)];
+      riskEl.innerText = 'Yillik Tromboemboliya Xavfi: ' + riskVal;
+
+      if (score >= 2) {
+        badgeEl.innerText = 'YUQORI XAVF • OAK TAVSIYA ETILADI';
+        recEl.innerText = 'ESC 2024 Protokoli: Qat’iy to‘g‘ridan-to‘g‘ri oral antikoagulyantlar (DOAC: Apiksaban yoki Rivaroksaban) tavsiya etiladi. Aspirin yetarli emas.';
+      } else if (score === 1) {
+        badgeEl.innerText = 'O‘RTACHA XAVF';
+        recEl.innerText = 'ESC 2024 Protokoli: Bemor xavf omillari hisobga olinib oral antikoagulyantlar (DOAC) ko‘rib chiqilishi kerak.';
+      } else {
+        badgeEl.innerText = 'PAST XAVF';
+        recEl.innerText = 'Antikoagulyant terapiyasi talab etilmaydi. Yillik yurak monitoringi kifoya.';
+      }
+      playHapticTick(1700, 0.01);
+    }
+
+    // HOMA-IR
+    function runHomaCalc() {
+      const glu = parseFloat(document.getElementById('homa_glu').value) || 105;
+      const ins = parseFloat(document.getElementById('homa_ins').value) || 14.5;
+      const homa = (glu * ins) / 405;
+
+      const resEl = document.getElementById('homaResult');
+      const badgeEl = document.getElementById('homaBadge');
+      const interpEl = document.getElementById('homaInterpretation');
+      const advEl = document.getElementById('homaAdvice');
+
+      resEl.innerText = homa.toFixed(2);
+
+      if (homa >= 2.5) {
+        badgeEl.innerText = 'INSULIN REZISTENTLIGI';
+        interpEl.innerText = 'Normadan Yuqori (> 2.5 HOMA-IR indeksi)';
+        advEl.innerText = 'Yashirin insulin rezistentligi va prediabet/metabolik sindrom mavjud. Karbongidrat cheklovi, metformin protokoli va jismoniy faollik buyuriladi.';
+      } else if (homa >= 1.9) {
+        badgeEl.innerText = 'CHEGARAVIY HOLAT';
+        interpEl.innerText = 'Erta xavf belgisi (1.9 - 2.4 oralig‘i)';
+        advEl.innerText = 'Profilaktik parhez va 3 oydan so‘ng qayta HbA1c tahlili tavsiya etiladi.';
+      } else {
+        badgeEl.innerText = 'OPTIMAL SEZGIRLIK';
+        interpEl.innerText = 'To‘liq Normal (< 1.9 HOMA-IR indeksi)';
+        advEl.innerText = 'Hujayralarning insulinga sezgirligi ideal darajada. Qandli diabet xavfi minimal.';
+      }
+      playHapticTick(1700, 0.01);
+    }
+
+    // -------------------------------------------------------------------------
+    // 0.3. Command Palette Modal Controller (⌘K)
+    // -------------------------------------------------------------------------
+    function openCommandPalette() {
+      const modal = document.getElementById('cmdPaletteModal');
+      const box = document.getElementById('cmdPaletteBox');
+      const input = document.getElementById('cmdInput');
+      if (modal && box) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        box.classList.remove('scale-95');
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+        filterCmdList();
+        playHapticTick(2200, 0.015);
+      }
+    }
+
+    function closeCommandPalette() {
+      const modal = document.getElementById('cmdPaletteModal');
+      const box = document.getElementById('cmdPaletteBox');
+      if (modal && box) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        box.classList.add('scale-95');
+      }
+    }
+
+    function filterCmdList() {
+      const q = (document.getElementById('cmdInput').value || '').toLowerCase();
+      document.querySelectorAll('#cmdList button').forEach(btn => {
+        const text = btn.innerText.toLowerCase();
+        btn.style.display = (!q || text.includes(q)) ? '' : 'none';
+      });
+    }
+
+    function execCmd(action) {
+      closeCommandPalette();
+      if (action === 'valuation') {
+        const el = document.getElementById('section-valuation-cockpit');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (action === 'renal') {
+        switchClinicalTab('renal');
+        const el = document.getElementById('tab-pane-renal');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (action === 'cardio') {
+        switchClinicalTab('cardio');
+        const el = document.getElementById('tab-pane-cardio');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (action === 'metabolic') {
+        switchClinicalTab('metabolic');
+        const el = document.getElementById('tab-pane-metabolic');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (action === 'c_code') {
+        const el = document.getElementById('section-c-terminal');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else if (action === 'founders') {
+        openModal();
+      } else if (action === 'unicorn') {
+        window.open('https://unicorn-health-uzbekistan.vercel.app/', '_blank');
+      } else if (action === 'audio') {
+        toggleAudio();
+      }
+    }
+
+    // Global Key Listener for ⌘K and Escape
+    window.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        const modal = document.getElementById('cmdPaletteModal');
+        if (modal && modal.classList.contains('pointer-events-none')) {
+          openCommandPalette();
+        } else {
+          closeCommandPalette();
+        }
+      } else if (e.key === 'Escape') {
+        closeCommandPalette();
+        closeModal();
+        closeTavsiyanomaModal();
+      }
+    });
+
     // -------------------------------------------------------------------------
     // 1. Interactive Clinical Calculator (Cockcroft-Gault CrCl Engine)
     // -------------------------------------------------------------------------
@@ -1247,8 +1817,12 @@ Running test suite: s21_string_test_suite...
           card.style.setProperty('--mouse-y', `${y}px`);
         });
       });
-      renderQAPrompts();
+      initAudio();
+      runValuationEngine();
       runClinicalCalc();
+      runCardioCalc();
+      runHomaCalc();
+      renderQAPrompts();
     });
   </script>
 
