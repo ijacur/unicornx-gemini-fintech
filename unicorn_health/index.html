@@ -205,8 +205,23 @@
       </nav>
 
       <!-- Action Buttons -->
-      <div class="flex items-center space-x-2.5">
-        <button onclick="document.getElementById('portal-search').focus(); window.scrollTo({top: document.getElementById('portals').offsetTop - 80, behavior: 'smooth'})" class="hidden lg:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:border-white/25 text-xs transition">
+      <div class="flex items-center space-x-2">
+        <!-- Live Edge Telemetry -->
+        <div class="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-zinc-400">
+          <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+          <span>EDGE: 16ms</span>
+          <span class="text-white/20">•</span>
+          <span>FHIR R4: OK</span>
+          <span class="text-white/20">•</span>
+          <span class="text-white font-semibold">68 PORTALS</span>
+        </div>
+
+        <!-- Audio Haptics Toggle -->
+        <button id="audioToggleBtn" onclick="toggleAudio()" class="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white text-xs font-mono transition flex items-center gap-1" title="Apple Web Audio Haptics">
+          <span id="audioIcon">[HAPTIC ON]</span>
+        </button>
+
+        <button onclick="document.getElementById('portal-search').focus(); window.scrollTo({top: document.getElementById('portals').offsetTop - 80, behavior: 'smooth'})" class="hidden sm:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:border-white/25 text-xs transition font-mono">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           <span>Qidirish</span>
           <kbd class="text-[9px] font-mono bg-white/10 px-1 py-0.2 rounded text-zinc-400">⌘K</kbd>
@@ -214,11 +229,11 @@
 
         <a href="admin/dashboard.html" class="apple-btn-secondary text-xs !py-1 !px-3 font-mono">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-          <span>CEO Portal</span>
+          <span class="hidden sm:inline">CEO Portal</span>
         </a>
 
         <a href="https://jasur-universe-portfolio.vercel.app" target="_blank" rel="noopener" class="apple-btn-primary text-xs !py-1 !px-3 font-medium">
-          <span>Jasur Shukurov</span>
+          <span>Jasur Portfolio</span>
           <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </a>
       </div>
@@ -398,6 +413,100 @@
           <span>ArzonLab’ni ochish</span>
           <svg class="w-3.5 h-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- B2B CLINIC & DIAGNOSTIC ROI CALCULATOR -->
+  <section class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pb-20 w-full">
+    <div class="apple-card p-6 sm:p-8 space-y-6 border-white/20">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono text-zinc-400 uppercase tracking-wider">KLINIKALAR VA LABORATORIYALAR UCHUN B2B KALKULYATOR</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">MRT/KT Bo‘sh Soatlarini Yangi Kassa Tushumiga Aylantirish</h2>
+          <p class="text-xs text-zinc-400 mt-1 max-w-3xl leading-relaxed">ArzonLab orqali apparatlaringizning kechki va dam olish kunlaridagi bo‘sh vaqtlarini 25–35% chegirma bilan to‘ldirib, oylik sof yangi kassa tushumini hisoblang:</p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[11px] font-mono">
+          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+          <span>OFF-PEAK CAPACITY MONETIZATION</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Interactive Sliders -->
+        <div class="lg:col-span-6 space-y-5">
+          <!-- Slider 1: Extra Patients per Day -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-semibold">1. Kunlik Qo‘shimcha ArzonLab Bemorlari</span>
+              <span id="roiLabelPatients" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">6 nafar / kun</span>
+            </div>
+            <input type="range" id="roiSliderPatients" min="2" max="25" step="1" value="6" oninput="runClinicRoiEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-zinc-500">
+              <span>2 nafar (Kichik klinika)</span>
+              <span>25 nafar (Katta diagnostika markazi)</span>
+            </div>
+          </div>
+
+          <!-- Slider 2: Base Scan Price -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-semibold">2. Standart MRT / KT Skan Narxi</span>
+              <span id="roiLabelPrice" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">550 000 so‘m</span>
+            </div>
+            <input type="range" id="roiSliderPrice" min="300000" max="1000000" step="25000" value="550000" oninput="runClinicRoiEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-zinc-500">
+              <span>300 000 so‘m</span>
+              <span>1 000 000 so‘m</span>
+            </div>
+          </div>
+
+          <!-- Slider 3: Discount Percentage -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-white font-semibold">3. Bo‘sh Soatlar Chegirmasi (Bemor Uchun)</span>
+              <span id="roiLabelDiscount" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">30.0%</span>
+            </div>
+            <input type="range" id="roiSliderDiscount" min="15" max="40" step="1" value="30" oninput="runClinicRoiEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
+            <div class="flex justify-between text-[10px] font-mono text-zinc-500">
+              <span>15%</span>
+              <span>40% (Maksimal jalb qilish)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Real-Time Output Display -->
+        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono text-zinc-400 uppercase">Qo‘shimcha Oylik Kassa Tushumi</span>
+            <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black font-mono">+69.3M UZS/OY</span>
+          </div>
+
+          <div class="flex items-baseline gap-2">
+            <span id="roiMonthlyNet" class="text-4xl sm:text-5xl font-black text-white tracking-tight">58 905 000</span>
+            <span class="text-xs font-mono text-zinc-400">so‘m / oy sof tushum</span>
+          </div>
+
+          <!-- Metrics Grid -->
+          <div class="grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-xs font-mono">
+            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+              <span class="text-zinc-500 block text-[10px]">YILLIK QO‘SHIMCHA KASSA</span>
+              <span id="roiYearlyNet" class="text-base sm:text-lg font-bold text-white">706 860 000 UZS</span>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
+              <span class="text-zinc-500 block text-[10px]">BEMORLARGA TEJALGAN</span>
+              <span id="roiPatientSaved" class="text-base sm:text-lg font-bold text-white">297 000 000 UZS</span>
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-white/10 flex items-center justify-between">
+            <span class="text-xs text-zinc-400 font-mono">Nol boshlang‘ich to‘lov. Faqat natija asosida.</span>
+            <a href="arzonlab/clinic_onboarding.html" class="apple-btn-primary text-xs px-4 py-2">
+              <span>Klinikani Ulash ›</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -1793,6 +1902,82 @@
 
   <!-- DYNAMIC SPOTLIGHT & INTERACTIVE FILTER SCRIPT -->
   <script>
+
+    // -------------------------------------------------------------------------
+    // Web Audio Synthesized Micro-Haptics
+    // -------------------------------------------------------------------------
+    let audioCtx = null;
+    let audioEnabled = localStorage.getItem('unicorn_audio_enabled') !== 'false';
+
+    function initAudio() {
+      const icon = document.getElementById('audioIcon');
+      if (icon) {
+        icon.innerText = audioEnabled ? '[HAPTIC ON]' : '[HAPTIC OFF]';
+      }
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      localStorage.setItem('unicorn_audio_enabled', audioEnabled ? 'true' : 'false');
+      initAudio();
+      if (audioEnabled) playHaptic(1800, 0.015);
+    }
+
+    function playHaptic(freq = 1600, duration = 0.012) {
+      if (!audioEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 0.45, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    document.addEventListener('click', e => {
+      if (e.target.closest('button, a, input[type="range"]')) {
+        playHaptic(1500, 0.01);
+      }
+    });
+
+    // -------------------------------------------------------------------------
+    // B2B Clinic ROI Calculator
+    // -------------------------------------------------------------------------
+    function runClinicRoiEngine() {
+      const patients = parseFloat(document.getElementById('roiSliderPatients').value) || 6;
+      const price = parseFloat(document.getElementById('roiSliderPrice').value) || 550000;
+      const discount = parseFloat(document.getElementById('roiSliderDiscount').value) || 30;
+
+      document.getElementById('roiLabelPatients').innerText = patients + ' nafar / kun';
+      document.getElementById('roiLabelPrice').innerText = price.toLocaleString() + ' so‘m';
+      document.getElementById('roiLabelDiscount').innerText = discount.toFixed(1) + '%';
+
+      const discountedPrice = price * (1 - discount / 100);
+      const monthlyPatients = patients * 30;
+      const grossMonthly = monthlyPatients * discountedPrice;
+      const clinicNetMonthly = grossMonthly * 0.85; // 15% ArzonLab commission
+      const yearlyNet = clinicNetMonthly * 12;
+      const patientSavedYearly = (monthlyPatients * (price * (discount / 100))) * 12;
+
+      document.getElementById('roiMonthlyNet').innerText = Math.round(clinicNetMonthly).toLocaleString();
+      document.getElementById('roiYearlyNet').innerText = Math.round(yearlyNet).toLocaleString() + ' UZS';
+      document.getElementById('roiPatientSaved').innerText = Math.round(patientSavedYearly).toLocaleString() + ' UZS';
+
+      playHaptic(1900, 0.008);
+    }
+
     // Cursor hover spotlight on apple-cards
     function initCardSpotlights() {
       document.querySelectorAll('.apple-card').forEach(card => {
@@ -1806,6 +1991,8 @@
       });
     }
     initCardSpotlights();
+    initAudio();
+    runClinicRoiEngine();
 
     // Portal Category & Live Search Filtering
     let currentCategory = 'all';
