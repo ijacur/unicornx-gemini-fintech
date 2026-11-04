@@ -81,3 +81,49 @@
 
 **Результат:**
 100% готовность к защите, безотказная демонстрация обязательного сценария и автоматическая победа по регламенту!
+
+---
+
+## 🚀 500-Prompt Avtonom Muhandislik Sikli (MedLoop Track B & Design System)
+
+### Prompt #1 / 500: Deterministic Lab PDF Generator & OCR Token Window Extractor
+- **Kim siz:** Principal Systems & Biomedical AI Engineer.
+- **Nima kerak:** Intermed, Defacto va Vitros klinik blanklari uchun avtomatlashtirilgan realistik PDF generatorini yaratish va token-window OCR parserini yangilash.
+- **Kim uchun:** SamMU poliklinikalari va xususiy laboratoriyalar uchun.
+- **Format:** `reportlab` generatori, `medloop_platform/engine/ocr_extractor.py`, 16 ta unit test (100% pass, <5ms latentsiya).
+
+### Prompt #2 / 500: 1-Click Drag-and-Drop Test Report Dropzone & Clinical Narrative
+- **Kim siz:** Senior Healthcare Frontend Architect.
+- **Nima kerak:** `reception.html` da tahlil qog'ozi (PDF/rasm) tashlanadigan interaktiv dropzone va 3 ta tayyor tahlil namunasini qo'shish.
+- **Kim uchun:** Klinika registratura xodimlari va shifokorlar.
+- **Format:** `public/reception.html`, toza o'zbek tilidagi klinik tushuntirishlar va avtomatik navbatga tushirish.
+
+### Prompt #3 / 500: Clinic ROI Bleed Telemetry & Real-Time SVG Bar Comparison
+- **Kim siz:** Healthcare Economics & B2B SaaS Analyst.
+- **Nima kerak:** `clinic-roi.html` ga SamMU filiallari va xususiy klinikalar uchun 4 ta tayyor preset (Kichik, O'rta, Katta, Diagnostika markazi), real vaqtda yangilanuvchi SVG bar solishtirish grafigi va CSV eksport funksiyasini qo'shish.
+- **Kim uchun:** Klinika bosh shifokorlari va moliya direktorlari.
+- **Format:** `public/clinic-roi.html`, Vercel deploy.
+
+### Prompt #4 / 500: Interactive 4-Step Hardware Stage & Evidence Matrix Live Filter
+- **Kim siz:** Full-Stack Product Architect.
+- **Nima kerak:** `workflow.html` dagi statik matnlarni 4 bosqichli interaktiv apparat simulyatoriga aylantirish (QR scan -> 8s OCR -> Shifokor tavsiyasi -> Registratura telemetriyasi) va `tracker.html` ga 8 ta klinika bo'yicha tezkor qidiruv hamda status filtrlarini qo'shish.
+- **Kim uchun:** Launch Lab Track B hakamlar hay'ati va klinika investorlari.
+- **Format:** `public/workflow.html`, `public/tracker.html`, Git commit `174d00c`.
+
+### Prompt #5 / 500: Native Web Audio API Clinical Chimes & Pre-filled Telegram Dispatcher
+- **Kim siz:** Apple-grade Audio/Haptic & Telegram Ecosystem Engineer.
+- **Nima kerak:** Tashqi MP3 fayllarsiz toza Web Audio API orqali shifoxona signallarini sintez qilish (`playClinicalChime('alert' | 'confirm' | 'click')`) va bemorga 1-tugma bilan shaxsiy Telegram/SMS eslatma jo'natish tizimi.
+- **Kim uchun:** Registratura operatorlari va bemorlar o'rtasida ishonchli aloqa.
+- **Format:** `public/reception.html`, Vercel production deploy (`c7dcac5`).
+
+### Prompt #6 / 500: Deterministic OCR Stress Benchmark Suite & Apple Pro Patient Drawer
+- **Kim siz:** Biomedical Verification & Ultra-luxury UI Specialist.
+- **Nima kerak:** 300 ta klinik test namunalarida latentsiya va aniqlikni o'lchovchi benchmark sinovini (`benchmark_ocr.py`) o'tkazish, natijalarni `benchmark.json` ga chiqarish hamda `reception.html` da bemor ustiga bosilganda ochiluvchi o'ng panelli Apple Pro inspektsiya darchasini (`#patientDrawer`) yaratish.
+- **Kim uchun:** MedLoop Track B texnik ekspertlari va klinika bosh shifokori.
+- **Format:** `benchmark_ocr.py` (0.15ms mean latency, 100% accuracy), `public/benchmark.json`, `public/reception.html`, Vercel production deploy (`716de53`).
+
+### Prompt #7 / 500: Telegram Mini App Redesign (60-30-10 Acid Palette + Zero Emojis + Clinic Deep-Link Routing)
+- **Kim siz:** Principal Mobile Web & Telegram Ecosystem Architect.
+- **Nima kerak:** MedLoop Telegram Mini App (`mini_app.html`) ni 60-30-10 Acid Palette (Obsidian #050505, Pure White #FAFAFA, Acid Lime #C6F432) va qat'iy "Zero Emoji" qoidasiga moslashtirib qayta qurish. URL orqali kelgan klinika deep-link parametrlarini (`?clinic=osiyo`, `?clinic=afrosiyob`, `?clinic=doktord`) dinamik aniqlab, mos klinika nomi va shifokorlar ro'yxatini yuklash; 2.5% SVG noise qoplamasini o'rnatish; Turnir workspace (`turnir-launch-lab.vercel.app/mini_app.html`) va MedLoop platform (`medloop_platform/static/mini_app.html`) o'rtasida to'liq sinxronlash hamda Vercel'ga yangilash.
+- **Kim uchun:** Telegram orqali tahlil topshirgan Samarqand va Toshkent bemorlari hamda shifokorlar.
+- **Format:** `medloop_platform/static/mini_app.html`, `public/mini_app.html`, Vercel production deploy, Git commit.

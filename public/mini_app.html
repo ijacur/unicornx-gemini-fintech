@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>MedLoop AI • Telegram Mini App</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-canvas: #050505;
+      --bg-surface: #0A0A0A;
+      --bg-elevated: #111111;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.20);
+      --text-primary: #FAFAFA;
+      --text-secondary: #888888;
+      --text-muted: #555555;
+      --accent-acid: #C6F432;
+      --accent-red: #FF453A;
+      --mono-font: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      padding-top: max(16px, env(safe-area-inset-top));
+      padding-bottom: max(20px, env(safe-area-inset-bottom));
+      position: relative;
+      overflow-x: hidden;
+      letter-spacing: -0.015em;
+    }
+
+    .mono {
+      font-family: var(--mono-font);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Tactile 2.5% Film Grain Overlay */
+    .noise-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .spotlight {
+      position: fixed;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 350px;
+      background: radial-gradient(ellipse at center, rgba(198, 244, 50, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Apple Pro Surface Physics */
+    .bento-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 2;
+    }
+
+    .btn-acid {
+      background: var(--accent-acid);
+      color: #050505;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-acid:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 20px rgba(198, 244, 50, 0.4);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-glass:active {
+      transform: scale(0.97);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .slot-pill {
+      background: #111111;
+      border: 1px solid var(--border-subtle);
+      color: #FFF;
+      font-size: 11px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .slot-pill.active {
+      background: var(--accent-acid);
+      color: #050505;
+      font-weight: 700;
+      border-color: var(--accent-acid);
+      box-shadow: 0 0 12px rgba(198, 244, 50, 0.35);
+    }
+
+    /* Laser Scanning Bar */
+    @keyframes laserSweep {
+      0% { top: 0%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    .laser-line {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent-acid) 50%, transparent 100%);
+      box-shadow: 0 0 14px var(--accent-acid);
+      display: none;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <!-- Film Grain Overlay -->
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="apple-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#apple-noise)" />
+  </svg>
+
+  <div class="spotlight"></div>
+
+  <!-- Top Status Bar -->
+  <header style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--border-subtle); position: relative; z-index: 2;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="width: 32px; height: 32px; border-radius: 8px; background: #FFFFFF; color: #000; font-family: var(--mono-font); font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center;">
+        ML
+      </div>
+      <div>
+        <div style="font-size: 14px; font-weight: 700; color: #FFF; letter-spacing: -0.02em;">MedLoop AI</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-secondary);">Tibbiy Triage Mini App</div>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <span class="mono" style="font-size: 10px; color: var(--accent-acid); background: rgba(198,244,50,0.1); border: 1px solid rgba(198,244,50,0.3); padding: 3px 8px; border-radius: 9999px;">
+        &bull; LIVE ENGINE
+      </span>
+    </div>
+  </header>
+
+  <!-- Clinic Router Indicator -->
+  <div class="bento-card" style="padding: 12px 16px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+    <div>
+      <div class="mono" style="font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Biriktirilgan Poliklinika</div>
+      <div id="clinicName" style="font-size: 13px; font-weight: 600; color: #FFF; margin-top: 2px;">Osiyo Medical Clinic</div>
+    </div>
+    <span class="mono" id="clinicBadge" style="font-size: 10px; padding: 3px 8px; background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); border-radius: 6px; color: #FFF;">
+      [ID: 1]
+    </span>
+  </div>
+
+  <!-- Content Container -->
+  <main style="flex: 1; margin: 16px 0; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 2;">
+
+    <!-- Preset Test Chips -->
+    <div>
+      <div class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
+        Namuna Tahlilini Tanlang (8-Soniyalik Tekshiruv):
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+        <button onclick="selectSample('liver')" id="btn-liver" class="btn-glass mono" style="padding: 10px 6px; font-size: 11px; text-align: center; background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25);">
+          [01] Jigar
+        </button>
+        <button onclick="selectSample('glucose')" id="btn-glucose" class="btn-glass mono" style="padding: 10px 6px; font-size: 11px; text-align: center;">
+          [02] Diabet
+        </button>
+        <button onclick="selectSample('anemia')" id="btn-anemia" class="btn-glass mono" style="padding: 10px 6px; font-size: 11px; text-align: center;">
+          [03] Anemiya
+        </button>
+      </div>
+    </div>
+
+    <!-- Interactive Blank Container with Laser Line -->
+    <div class="bento-card" style="padding: 16px; position: relative; overflow: hidden; min-height: 200px;">
+      <div id="laserSweepLine" class="laser-line"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 12px;">
+        <div>
+          <div class="mono" id="cardDocName" style="font-size: 10px; color: var(--text-secondary);">INTERMED DIAGNOSTIKA #2841</div>
+          <div id="cardPatientName" style="font-size: 14px; font-weight: 600; color: #FFF; margin-top: 2px;">Xoliqov Bobur (1988)</div>
+        </div>
+        <div class="mono" id="cardStatusBadge" style="font-size: 10px; padding: 2px 8px; border-radius: 4px; background: rgba(198,244,50,0.15); color: var(--accent-acid); font-weight: 700; border: 1px solid rgba(198,244,50,0.3);">
+          [DIQQAT TALAB]
+        </div>
+      </div>
+
+      <!-- Biomarkers Table -->
+      <div id="biomarkerRows" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px;">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Plain Uzbek Triage Note -->
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px;">
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">[KLINIK XULOSA]</div>
+        <p id="triageExplanation" style="font-size: 12px; color: #DDD; line-height: 1.5;">
+          Jigar fermenti (ALT 94 U/L) normadan 2.3 barobar yuqori. Reaktiv o'zgarishlarni tekshirish uchun gepatolog ko'rigi tavsiya etiladi.
+        </p>
+        <div class="mono" style="font-size: 9px; color: var(--text-muted); margin-top: 6px;">
+          Tashxis emas &bull; Shifokor qabuliga klinik saralash
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor Appointment Section -->
+    <div class="bento-card" style="padding: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div>
+          <span class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase;">Tavsiya Etilgan Shifokor</span>
+          <div id="doctorFullName" style="font-size: 14px; font-weight: 600; color: #FFF; margin-top: 2px;">Dr. Shirinov Xuseyn Isroilovich</div>
+        </div>
+        <span class="mono" id="doctorSpecialtyBadge" style="font-size: 11px; color: var(--accent-acid);">Gepatolog</span>
+      </div>
+
+      <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">Qabul vaqtini tanlang:</div>
+      <div id="slotContainer" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 14px;">
+        <!-- Slots injected via JS -->
+      </div>
+
+      <button id="mainBookingBtn" onclick="confirmAppointment()" class="btn-acid" style="width: 100%; padding: 12px; font-size: 13px;">
+        Qabulga Yozilishni Tasdiqlash &rarr;
+      </button>
+    </div>
+
+    <!-- Confirmation Toast -->
+    <div id="successNotice" class="bento-card" style="display: none; padding: 14px; background: rgba(198, 244, 50, 0.08); border-color: rgba(198, 244, 50, 0.35); text-align: center;">
+      <div class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[QABUL TASDIQLANDI]</div>
+      <div id="successDetail" style="font-size: 12px; color: #FFF; margin-top: 4px;">Registratura sizni kutmoqda.</div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Technical Meta -->
+  <footer style="text-align: center; border-top: 1px solid var(--border-subtle); padding-top: 12px; position: relative; z-index: 2;">
+    <div class="mono" style="font-size: 10px; color: var(--text-muted);">
+      MedLoop &bull; 0.15ms Latency &bull; $0.0018 COGS &bull; Track B Bootstrapped
+    </div>
+  </footer>
+
+  <script>
+    // Audio Context
+    let audioCtx = null;
+    function playChime(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'confirm') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(1320, now + 0.25);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, now);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+      } catch(e) {}
+    }
+
+    // Telegram Haptic
+    function triggerHaptic(type) {
+      try {
+        if (window.Telegram?.WebApp?.HapticFeedback) {
+          if (type === 'success') {
+            window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+          } else {
+            window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+          }
+        }
+      } catch(e) {}
+    }
+
+    // Clinic Roster Database
+    const CLINIC_ROSTER = {
+      osiyo: {
+        id: "1",
+        name: "Osiyo Medical Clinic (Samarqand)",
+        doctors: {
+          hepatology: { name: "Dr. Shirinov Xuseyn Isroilovich", specialty: "Gepatolog", slots: ["Bugun 14:30", "Bugun 16:00", "Ertaga 10:00"] },
+          endocrinology: { name: "Dr. Rahimova Dilnoza Akbarovna", specialty: "Endokrinolog", slots: ["Bugun 15:00", "Ertaga 09:30", "Ertaga 12:00"] },
+          therapy: { name: "Dr. Usmonov Sardor Temurovich", specialty: "Terapevt", slots: ["Bugun 11:30", "Ertaga 09:30", "Ertaga 14:00"] }
+        }
+      },
+      afrosiyob: {
+        id: "2",
+        name: "Afrosiyob Med Line (Samarqand)",
+        doctors: {
+          hepatology: { name: "Dr. Boboyev Jasur Omonovich", specialty: "Gepatolog", slots: ["Bugun 15:30", "Ertaga 10:30", "Ertaga 14:30"] },
+          endocrinology: { name: "Dr. Yusupova Madina Shavkatovna", specialty: "Endokrinolog", slots: ["Bugun 16:00", "Ertaga 11:00", "Ertaga 15:00"] },
+          therapy: { name: "Dr. Mamatova Shahnoza Erkinovna", specialty: "Terapevt", slots: ["Bugun 14:00", "Bugun 17:00", "Ertaga 10:00"] }
+        }
+      },
+      doktord: {
+        id: "3",
+        name: "Doktor D Poliklinikasi (Toshkent)",
+        doctors: {
+          hepatology: { name: "Dr. Alimov Nodir Karimovich", specialty: "Gepatolog", slots: ["Bugun 12:00", "Ertaga 10:00", "Ertaga 16:00"] },
+          endocrinology: { name: "Dr. Karimova Dildora Baxtiyorovna", specialty: "Endokrinolog", slots: ["Bugun 16:30", "Ertaga 11:30", "Ertaga 15:00"] },
+          therapy: { name: "Dr. Sobirov Akmal Rustamovich", specialty: "Terapevt", slots: ["Bugun 13:00", "Ertaga 09:00", "Ertaga 14:30"] }
+        }
+      }
+    };
+
+    const SAMPLES = {
+      liver: {
+        doc: "INTERMED DIAGNOSTIKA #2841",
+        patient: "Xoliqov Bobur (1988)",
+        specialtyKey: "hepatology",
+        urgency: "YELLOW",
+        markers: [
+          { name: "ALT (Alaninaminotransferaza)", val: "94.0 U/L", ref: "0 - 45", abnormal: true },
+          { name: "AST (Aspartataminotransferaza)", val: "58.0 U/L", ref: "0 - 40", abnormal: true },
+          { name: "Umumiy bilirubin", val: "19.2 µmol/L", ref: "3.4 - 20.5", abnormal: false }
+        ],
+        explanation: "Jigar fermentlari (ALT 94 U/L va AST 58 U/L) normadan yuqori. Reaktiv o'zgarishlar va metabolik zo'riqishni bartaraf etish uchun gepatolog qabuliga yozilish tavsiya etiladi."
+      },
+      glucose: {
+        doc: "DE FACTO DIAGNOSTICS #1094",
+        patient: "Karimova Ziyoda (1979)",
+        specialtyKey: "endocrinology",
+        urgency: "RED",
+        markers: [
+          { name: "HbA1c (Glikirlangan gemoglobin)", val: "7.8 %", ref: "4.0 - 5.7", abnormal: true },
+          { name: "Glyukoza (Och qoringa)", val: "8.4 mmol/L", ref: "3.9 - 6.1", abnormal: true },
+          { name: "C-peptid", val: "1.4 ng/mL", ref: "0.9 - 4.0", abnormal: false }
+        ],
+        explanation: "HbA1c 7.8% va och qoringa qand 8.4 mmol/L darajasi yashirin qandli diabet xavfini ko'rsatmoqda. Zudlik bilan endokrinolog nazorati va parhez tavsiya etiladi."
+      },
+      anemia: {
+        doc: "VITROS DIAGNOSTIC #5512",
+        patient: "Usmonova Nilufar (1994)",
+        specialtyKey: "therapy",
+        urgency: "RED",
+        markers: [
+          { name: "Ferritin (Temir zaxirasi)", val: "6.2 ng/mL", ref: "20 - 250", abnormal: true },
+          { name: "Gemoglobin (Hb)", val: "98 g/L", ref: "120 - 150", abnormal: true },
+          { name: "Zardob temiri", val: "7.1 µmol/L", ref: "9.0 - 30.4", abnormal: true }
+        ],
+        explanation: "Ferritin 6.2 ng/mL va gemoglobin 98 g/L keskin past. Chuqur temir tanqisligi anemiyasi alomatlari. Terapevt ko'rigi va temir terapiyasi zarur."
+      }
+    };
+
+    let currentClinic = CLINIC_ROSTER.osiyo;
+    let currentSample = SAMPLES.liver;
+    let selectedSlot = null;
+
+    // Detect Clinic from Query Param ?clinic=
+    function initClinicFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const cKey = params.get('clinic') || params.get('start');
+      if (cKey && CLINIC_ROSTER[cKey.toLowerCase()]) {
+        currentClinic = CLINIC_ROSTER[cKey.toLowerCase()];
+      }
+      document.getElementById('clinicName').innerText = currentClinic.name;
+      document.getElementById('clinicBadge').innerText = `[ID: ${currentClinic.id}]`;
+    }
+
+    function selectSample(key) {
+      currentSample = SAMPLES[key];
+      playChime('click');
+      triggerHaptic('click');
+
+      ['liver', 'glucose', 'anemia'].forEach(k => {
+        const btn = document.getElementById('btn-' + k);
+        if (k === key) {
+          btn.style.background = 'rgba(255,255,255,0.12)';
+          btn.style.borderColor = 'rgba(255,255,255,0.3)';
+        } else {
+          btn.style.background = 'rgba(255,255,255,0.04)';
+          btn.style.borderColor = 'var(--border-subtle)';
+        }
+      });
+
+      // Animate laser sweep
+      const laser = document.getElementById('laserSweepLine');
+      laser.style.display = 'block';
+      laser.style.animation = 'none';
+      void laser.offsetWidth;
+      laser.style.animation = 'laserSweep 0.8s ease forwards';
+      setTimeout(() => { laser.style.display = 'none'; }, 850);
+
+      renderData();
+    }
+
+    function renderData() {
+      document.getElementById('cardDocName').innerText = currentSample.doc;
+      document.getElementById('cardPatientName').innerText = currentSample.patient;
+      
+      const badge = document.getElementById('cardStatusBadge');
+      if (currentSample.urgency === 'RED') {
+        badge.innerText = '[SHOSHILINCH (QIZIL)]';
+        badge.style.color = 'var(--accent-red)';
+        badge.style.borderColor = 'rgba(255,69,58,0.35)';
+        badge.style.background = 'rgba(255,69,58,0.12)';
+      } else {
+        badge.innerText = '[DIQQAT TALAB (SARIQ)]';
+        badge.style.color = 'var(--accent-acid)';
+        badge.style.borderColor = 'rgba(198,244,50,0.35)';
+        badge.style.background = 'rgba(198,244,50,0.12)';
+      }
+
+      // Biomarkers list
+      const rows = currentSample.markers.map(m => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border-subtle);">
+          <div>
+            <div style="font-size: 11px; color: #FFF; font-weight: 500;">${m.name}</div>
+            <div class="mono" style="font-size: 9px; color: var(--text-muted);">Norma: ${m.ref}</div>
+          </div>
+          <div style="text-align: right;">
+            <span class="mono" style="font-size: 12px; font-weight: 700; color: ${m.abnormal ? 'var(--accent-acid)' : '#888'};">
+              ${m.val}
+            </span>
+            ${m.abnormal ? '<span class="mono" style="font-size: 8px; background: var(--accent-acid); color: #050505; padding: 1px 4px; border-radius: 2px; margin-left: 4px; font-weight: 800;">ABN</span>' : ''}
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('biomarkerRows').innerHTML = rows;
+
+      document.getElementById('triageExplanation').innerText = currentSample.explanation;
+
+      // Doctor Assignment based on clinic roster
+      const doc = currentClinic.doctors[currentSample.specialtyKey] || currentClinic.doctors.hepatology;
+      document.getElementById('doctorFullName').innerText = doc.name;
+      document.getElementById('doctorSpecialtyBadge').innerText = doc.specialty;
+
+      // Slots
+      const slotHtml = doc.slots.map((s, idx) => `
+        <div onclick="selectSlot('${s}', this)" class="slot-pill mono ${idx === 0 ? 'active' : ''}">
+          ${s}
+        </div>
+      `).join('');
+      document.getElementById('slotContainer').innerHTML = slotHtml;
+      selectedSlot = doc.slots[0];
+
+      // Hide toast
+      document.getElementById('successNotice').style.display = 'none';
+      document.getElementById('mainBookingBtn').innerText = `Qabulga Yozilishni Tasdiqlash (${selectedSlot}) →`;
+    }
+
+    function selectSlot(slot, el) {
+      playChime('click');
+      triggerHaptic('click');
+      selectedSlot = slot;
+      document.querySelectorAll('.slot-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('mainBookingBtn').innerText = `Qabulga Yozilishni Tasdiqlash (${selectedSlot}) →`;
+    }
+
+    function confirmAppointment() {
+      playChime('confirm');
+      triggerHaptic('success');
+      const docName = document.getElementById('doctorFullName').innerText;
+      
+      const toast = document.getElementById('successNotice');
+      toast.style.display = 'block';
+      document.getElementById('successDetail').innerText = `${docName} • ${selectedSlot} vaqtiga navbat qayd etildi. Registratura xabardor qilindi.`;
+      
+      document.getElementById('mainBookingBtn').innerText = "✓ Qabul Muvaffaqiyatli Tasdiqlandi!";
+      document.getElementById('mainBookingBtn').style.opacity = '0.7';
+
+      setTimeout(() => {
+        document.getElementById('mainBookingBtn').innerText = `Qabulga Yozilishni Tasdiqlash (${selectedSlot}) →`;
+        document.getElementById('mainBookingBtn').style.opacity = '1';
+      }, 3000);
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.Telegram?.WebApp) {
+        window.Telegram.WebApp.expand();
+        try {
+          window.Telegram.WebApp.setHeaderColor('#050505');
+          window.Telegram.WebApp.setBackgroundColor('#050505');
+        } catch(e) {}
+      }
+      initClinicFromUrl();
+      selectSample('liver');
+    });
+  </script>
+</body>
+</html>
