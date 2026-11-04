@@ -89,6 +89,37 @@
       font-variant-numeric: tabular-nums;
     }
 
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #referralModal, #referralModal * {
+        visibility: visible;
+      }
+      #referralModal {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      #referralSheetPrintable {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 16px !important;
+      }
+    }
+
     nav.top-nav {
       position: fixed;
       top: 0;
@@ -505,6 +536,9 @@
               <button onclick="event.stopPropagation(); sendTelegramReminder(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px; border-color: rgba(198,244,50,0.35); color: var(--accent-acid);">
                 [TG/SMS Yuborish &rarr;]
               </button>
+              <button onclick="event.stopPropagation(); printReferralSheet(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px;">
+                [Yo'llanma &rarr;]
+              </button>
               <button onclick="event.stopPropagation(); reschedulePatient(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px;">
                 Vaqt
               </button>
@@ -803,6 +837,70 @@
       }
     }
 
+    function printReferralFromDrawer() {
+      if (activePatientId) {
+        printReferralSheet(activePatientId);
+      }
+    }
+
+    function printReferralSheet(id) {
+      const p = patients.find(item => item.id === id);
+      if (!p) return;
+      playClinicalChime('click');
+
+      document.getElementById('printPatientName').innerText = p.name;
+      document.getElementById('printPatientPhone').innerText = p.phone;
+      document.getElementById('printUrgency').innerText = p.urgency === 'RED' ? '[SHOSHILINCH (QIZIL)]' : '[DIQQAT TALAB (SARIQ)]';
+      document.getElementById('printUrgency').style.color = p.urgency === 'RED' ? '#D32F2F' : '#E65100';
+      document.getElementById('printTokenId').innerText = `ML-${p.id * 1842 + 1000}-UZ`;
+      document.getElementById('printDoctorName').innerText = p.doctor;
+      document.getElementById('printDoctorSpec').innerText = `${p.specialty} mutaxassisi • Kabinet 14`;
+      document.getElementById('printSlot').innerText = p.slot;
+
+      const now = new Date();
+      document.getElementById('printTimestamp').innerText = `Sana: ${now.toLocaleDateString('uz-UZ')} ${now.toLocaleTimeString('uz-UZ', {hour:'2-digit', minute:'2-digit'})}`;
+
+      // Biomarkers rows
+      const items = p.markers.split('•').map(s => s.trim()).filter(Boolean);
+      const rowsHtml = items.map(item => `
+        <tr style="border-bottom: 1px solid #EEE;">
+          <td style="padding: 5px 8px; border: 1px solid #DDD; font-weight: 600;">${item.split('[')[0].trim()}</td>
+          <td style="padding: 5px 8px; border: 1px solid #DDD; font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #C00;">PATOLOGIYA</td>
+          <td style="padding: 5px 8px; border: 1px solid #DDD; font-family: 'JetBrains Mono', monospace; color: #555;">${item.includes('[') ? item.split('[')[1].replace(']', '') : 'Standart'}</td>
+          <td style="padding: 5px 8px; border: 1px solid #DDD; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700; color: #C00;">[OG'ISH ANIQLANDI]</td>
+        </tr>
+      `).join('');
+      document.getElementById('printBiomarkerBody').innerHTML = rowsHtml;
+
+      const guidance = p.urgency === 'RED'
+        ? "Tahlil natijalarida belgilangan klinik me'yorlardan jiddiy og'ish qayd etildi. Asoratlarni oldini olish uchun zudlik bilan ixtisoslashtirilgan mutaxassis ko'rigi talab etiladi."
+        : "Tahlil natijalarida dinamik nazorat talab qiluvchi o'zgarishlar mavjud. Kerakli qo'shimcha tekshiruvlar va parhez tayinlash uchun ko'rikdan o'tish tavsiya qilinadi.";
+      document.getElementById('printExplanation').innerText = guidance;
+
+      const overlay = document.getElementById('referralModalOverlay');
+      const modal = document.getElementById('referralModal');
+      overlay.style.display = 'block';
+      modal.style.display = 'block';
+      setTimeout(() => {
+        overlay.style.opacity = '1';
+        modal.style.opacity = '1';
+        modal.style.transform = 'translate(-50%, -50%) scale(1)';
+      }, 10);
+    }
+
+    function closeReferralModal() {
+      playClinicalChime('click');
+      const overlay = document.getElementById('referralModalOverlay');
+      const modal = document.getElementById('referralModal');
+      overlay.style.opacity = '0';
+      modal.style.opacity = '0';
+      modal.style.transform = 'translate(-50%, -50%) scale(0.96)';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        modal.style.display = 'none';
+      }, 200);
+    }
+
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closePatientDrawer();
@@ -876,9 +974,148 @@
           [Telegram Xabarnoma]
         </button>
       </div>
+      <button onclick="printReferralFromDrawer()" class="btn-glass mono" style="width: 100%; padding: 10px; font-size: 12px; border-color: rgba(255,255,255,0.25); color: #FFF;">
+        [Klinik Yo'llanma Varaqasi (Chop Etish / PDF) &rarr;]
+      </button>
       <button onclick="closePatientDrawer()" class="btn-glass mono" style="width: 100%; padding: 8px; font-size: 11px; color: var(--text-muted);">
         Yopish [ESC]
       </button>
+    </div>
+  </div>
+
+  <!-- Referral Sheet Modal -->
+  <div id="referralModalOverlay" onclick="closeReferralModal()" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); z-index: 1000; opacity: 0; transition: opacity 0.2s ease;"></div>
+  
+  <div id="referralModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.96); width: 92%; max-width: 560px; max-height: 90vh; overflow-y: auto; background: #0A0A0A; border: 1px solid var(--border-subtle); border-radius: 16px; z-index: 1001; padding: 20px; box-shadow: 0 25px 60px rgba(0,0,0,0.9); opacity: 0; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
+    <div class="no-print" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+      <div class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[TIBBIY YO'LLANMA CHIQARISH]</div>
+      <div style="display: flex; gap: 8px;">
+        <button onclick="window.print()" class="btn-acid mono" style="padding: 5px 12px; font-size: 11px;">
+          Chop etish (Print / PDF)
+        </button>
+        <button onclick="closeReferralModal()" class="btn-glass mono" style="padding: 5px 10px; font-size: 11px;">
+          ESC &times;
+        </button>
+      </div>
+    </div>
+
+    <!-- Printable Paper Area -->
+    <div id="referralSheetPrintable" style="background: #FFFFFF; color: #111111; border-radius: 8px; padding: 24px; font-family: 'Inter', sans-serif;">
+      <!-- Header -->
+      <div style="border-bottom: 2px solid #111111; padding-bottom: 12px; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <div style="font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.01em; color: #000;">OSIYO MEDICAL CLINIC</div>
+            <div style="font-size: 10px; color: #555; margin-top: 2px;">Markaziy Laboratoriya &bull; Tibbiy Triage Xizmati</div>
+            <div style="font-size: 9px; color: #777; margin-top: 1px;">Samarqand sh., Dagbitskaya ko'chasi, 33 &bull; +998 (90) 031-11-00</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; background: #000; color: #FFF; padding: 2px 6px; border-radius: 3px;">FORMA #ML-2026/T</div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #666; margin-top: 3px;" id="printTimestamp">Sana: --.--.2026</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 14px;">
+          <h2 style="font-size: 14px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: #000; margin: 0;">
+            MUTAXASSIS SHIFOKOR KO'RIGIGA YO'LLANMA
+          </h2>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #666; margin-top: 2px;">
+            MedLoop Avtonom Klinik Saralash Tizimi
+          </div>
+        </div>
+      </div>
+
+      <!-- Patient Demographics -->
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 14px; font-size: 11px;">
+        <tr>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-weight: 600; width: 28%; background: #F8F8F8;">Bemor F.I.SH:</td>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-weight: 700;" id="printPatientName">Bemor Ismi</td>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-weight: 600; width: 20%; background: #F8F8F8;">Holati:</td>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-weight: 700;" id="printUrgency">NORMAL</td>
+        </tr>
+        <tr>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-weight: 600; background: #F8F8F8;">Telefon raqami:</td>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-family: 'JetBrains Mono', monospace;" id="printPatientPhone">+998...</td>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-weight: 600; background: #F8F8F8;">Token ID:</td>
+          <td style="padding: 4px 6px; border: 1px solid #DDD; font-family: 'JetBrains Mono', monospace;" id="printTokenId">ML-8924</td>
+        </tr>
+      </table>
+
+      <!-- Biomarkers -->
+      <div style="font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; color: #222;">
+        Aniqlangan Patologik O'zgarishlar (Biomarkerlar):
+      </div>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; font-size: 10.5px;">
+        <thead>
+          <tr style="background: #F0F0F0; border: 1px solid #CCC;">
+            <th style="padding: 4px 6px; text-align: left; border: 1px solid #DDD;">Ko'rsatkich</th>
+            <th style="padding: 4px 6px; text-align: left; border: 1px solid #DDD;">Tahlil Xulosasi</th>
+            <th style="padding: 4px 6px; text-align: left; border: 1px solid #DDD;">Me'yor (Ref)</th>
+            <th style="padding: 4px 6px; text-align: left; border: 1px solid #DDD;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="printBiomarkerBody">
+          <!-- Dynamically filled -->
+        </tbody>
+      </table>
+
+      <!-- Clinical Triage Guidance -->
+      <div style="border: 1px solid #DDD; border-left: 3px solid #000; padding: 8px 10px; background: #FBFBFB; margin-bottom: 14px;">
+        <div style="font-size: 9.5px; font-weight: 700; text-transform: uppercase; color: #444; margin-bottom: 2px;">
+          Klinik Yo'naltiruvchi Xulosa:
+        </div>
+        <div style="font-size: 10.5px; line-height: 1.45; color: #222;" id="printExplanation">
+          Tahlil xulosasi...
+        </div>
+      </div>
+
+      <!-- Doctor & Slot Details -->
+      <div style="border: 1.5px dashed #444; border-radius: 6px; padding: 10px 12px; background: #F7F7F7; margin-bottom: 16px;">
+        <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: #666; margin-bottom: 4px;">
+          Biriktirilgan Qabul Vaqti va Shifokor:
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: #000;" id="printDoctorName">Dr. Alimov N. K.</div>
+            <div style="font-size: 10.5px; color: #555;" id="printDoctorSpec">Gepatolog mutaxassisi &bull; Kabinet 14</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 800; color: #000; background: #FFF; border: 1px solid #333; padding: 3px 8px; border-radius: 4px;" id="printSlot">Bugun 15:30</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Signatures and QR Verification -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid #CCC; padding-top: 10px; font-size: 9.5px; color: #444;">
+        <div>
+          <div>Registrator / Navbatchi shifokor: ____________________</div>
+          <div style="margin-top: 6px;">Imzo &amp; Muhr o'rni: [ M. O'. ]</div>
+          <div style="margin-top: 4px; font-size: 8.5px; color: #777;">Ushbu varaq shifokor qabuliga navbatsiz kirish huquqini beradi.</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="border: 1px solid #000; padding: 4px; background: #FFF; width: 56px; height: 56px; display: inline-flex; align-items: center; justify-content: center;">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="16" height="16" fill="black" stroke="black" stroke-width="2"/>
+              <rect x="6" y="6" width="8" height="8" fill="white"/>
+              <rect x="30" y="2" width="16" height="16" fill="black" stroke="black" stroke-width="2"/>
+              <rect x="34" y="6" width="8" height="8" fill="white"/>
+              <rect x="2" y="30" width="16" height="16" fill="black" stroke="black" stroke-width="2"/>
+              <rect x="6" y="34" width="8" height="8" fill="white"/>
+              <rect x="22" y="6" width="4" height="4" fill="black"/>
+              <rect x="22" y="14" width="4" height="4" fill="black"/>
+              <rect x="6" y="22" width="4" height="4" fill="black"/>
+              <rect x="14" y="22" width="4" height="4" fill="black"/>
+              <rect x="22" y="22" width="4" height="4" fill="black"/>
+              <rect x="30" y="22" width="4" height="4" fill="black"/>
+              <rect x="38" y="22" width="4" height="4" fill="black"/>
+              <rect x="22" y="30" width="4" height="4" fill="black"/>
+              <rect x="30" y="30" width="4" height="4" fill="black"/>
+              <rect x="38" y="38" width="4" height="4" fill="black"/>
+              <rect x="22" y="38" width="4" height="4" fill="black"/>
+            </svg>
+          </div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; margin-top: 2px;">QR VERIFIED</div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

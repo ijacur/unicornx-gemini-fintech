@@ -133,3 +133,12 @@
 - **Nima kerak:** `index.html` va `tracker.html` da tashqi sahifaga o'tmasdan rasmiy hujjatlarni (Ta'sischilar ulushi bitimi `MedLoop_Agreement.pdf` va 14-kunlik pilot shartnomasi `loi.pdf`) bevosita ko'rish imkonini beruvchi Apple Pro shisha modal inspektorini (`#docPreviewModal`) qurish; `tracker.html` da tasdiqlangan poliklinikalar uchun 1-bosishda LOI ko'rish darchasini ulash; `workflow.html` da 1-bosqich QR kodini `mini_app.html?clinic=doktord` ga to'g'ridan-to'g'ri integratsiya qilish.
 - **Kim uchun:** Launch Lab Track B hakamlar hay'ati, investorlar va klinika rahbarlari.
 - **Format:** `index.html`, `public/tracker.html`, `public/workflow.html`, Vercel production deploy, Git commit.
+
+### Prompt #9 / 500: Official Clinical Referral Slip Generator (Print/PDF) & Diego 60-30-10 Hero Telemetry Strip
+- **Kim siz:** Lead Healthcare Systems & UI/UX Product Engineer.
+- **Nima kerak:** 
+  1. `medloop_platform/bot/handlers.py`, `keyboards.py` va `summarizer.py` dagi barcha bot emojilarini tozalab, monoxrom klinik teglarga (`[QABUL TASDIQLANDI]`, `• Klinika:`, `• Shifokor:`, `• Vaqt:`, `[TIZIM]`) o'tkazish, unit testlarni 100% yashil qilish.
+  2. `mini_app.html` va `reception.html` da qabul tasdiqlangandan so'ng 1-bosishda rasmiy tibbiy yo'llanma varaqasini (`FORMA #ML-2026/T`) generatsiya qiluvchi, QR verifikatsiyali va `@media print` orqali to'g'ridan-to'g'ri chop etish/PDF saqlash darchasini (`#referralModal`) yaratish.
+  3. `index.html` da Diego 60-30-10 dizayn formulasini (60% Midnight Black, 30% Pure White, 10% Acid Lime) aks ettiruvchi 4-talik yuqori kontrastli telemetriya blokini (`45%`, `7.4s`, `+150k UZS`, `98.2%`) va dual CTA harakat tugmalarini o'rnatish.
+- **Kim uchun:** Klinika registratorlari, qabulga kelgan bemorlar va mas'ul shifokorlar.
+- **Format:** `medloop_platform/bot/handlers.py`, `tests/test_phase3_bot.py`, `public/mini_app.html`, `public/reception.html`, `index.html`, Vercel production deploy (`https://turnir-launch-lab.vercel.app`), Git commit.
