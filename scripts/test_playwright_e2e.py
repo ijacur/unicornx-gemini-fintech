@@ -172,6 +172,41 @@ def test_e2e():
         print(f"  [OK] Bilingual toggle: UZ active ({sub_uz})")
         total_checks += 2
 
+        # Phase 5: Test Tracker Evidence Drawer & Filter Pills
+        print("\n[TRACKER EVIDENCE DRAWER & FILTER TEST]")
+        page.goto(f"http://localhost:{PORT}/tracker.html", wait_until="domcontentloaded")
+
+        # Click first row
+        page.click("#tableBody tr:first-child")
+        page.wait_for_timeout(200)
+        drawer_active = page.evaluate("document.getElementById('clinicEvidenceDrawer').classList.contains('active')")
+        assert drawer_active, "Evidence drawer did not open on row click"
+        drawer_clinic = page.inner_text("#drawerClinicName")
+        assert "Doktor D" in drawer_clinic, f"Expected Doktor D in drawer, got: {drawer_clinic}"
+        print(f"  [OK] Evidence drawer: Opened for {drawer_clinic}")
+
+        # Close with Escape
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        drawer_closed = not page.evaluate("document.getElementById('clinicEvidenceDrawer').classList.contains('active')")
+        assert drawer_closed, "Evidence drawer did not close on Escape key"
+        print("  [OK] Evidence drawer: Closed cleanly via ESC key")
+
+        # Filter DISQUALIFIED
+        page.click("#btn-flt-disq")
+        page.wait_for_timeout(200)
+        row_count = page.evaluate("document.querySelectorAll('#tableBody tr').length")
+        assert row_count == 3, f"Expected 3 disqualified labs, got: {row_count}"
+        print(f"  [OK] Filter pills: Filtered to {row_count} disqualified labs")
+
+        # Restore all
+        page.click("#btn-flt-all")
+        page.wait_for_timeout(200)
+        restored_count = page.evaluate("document.querySelectorAll('#tableBody tr').length")
+        assert restored_count == 8, f"Expected 8 total clinics, got: {restored_count}"
+        print(f"  [OK] Filter pills: Restored to {restored_count} total clinics")
+        total_checks += 4
+
         browser.close()
 
     httpd.shutdown()

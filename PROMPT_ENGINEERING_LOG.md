@@ -200,3 +200,20 @@
   3. `scripts/test_system_integrity.py` ga ushbu Playwright E2E testini 6-bosqich qilib qo'shish (ALL 6 SYSTEM INTEGRITY & E2E CHECKS PASSED).
 - **Kim uchun:** SamMU klinik bazalari bosh shifokorlari, registratorlar, texnik audit o'tkazuvchi hakamlar.
 - **Format:** `public/workflow.html`, `scripts/test_playwright_e2e.py`, `scripts/test_system_integrity.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #14 / 500: CustDev Evidence & Field Drawer, Deep LOI Contract Integration & 30-Assertion Playwright Suite
+- **Kim siz:** Lead CustDev Field Researcher & Full-Stack Platform Engineer.
+- **Nima kerak:**
+  1. `public/tracker.html` (CustDev Field Tracker) da 8 ta Samarqand va Toshkent klinikalari uchun Apple Pro / Linear uslubidagi interaktiv slide-over dalillar darchasini (`#clinicEvidenceDrawer`) qurish:
+     - Har qanday qator yoki `[Dalillar • Profil →]` bosilganda o'ng tomondan darcha ochilishi.
+     - Bosh shifokorlar va direktorlarning bevosita intervyu iqtiboslari (quotes), klinik to'siqlar, kunlik tahlil oqimi va oylik moliyaviy zarar (Bleed) hamda MedLoop tiklovchi tushumni ko'rsatish.
+     - Tasdiqlangan klinikalar uchun 1-bosishda rasmiy 14-kunlik pilot LOI shartnomasini (`/loi.pdf`) ochuvchi modal integratsiyasi (`previewDocument()`).
+     - Boshqaruvchilar uchun A4 formatida chop etish / PDF saqlash tugmasini (`window.print()`) yuqori navigatsiyaga qo'shish.
+     - `ESC` tugmasi bilan darcha va modallarni zudlik bilan yopish.
+  2. `scripts/test_playwright_e2e.py` ga Phase 5 sifatida Tracker intervyu darchasi va filtrlash xatti-harakatlarini qo'shish:
+     - Darchaning ochilishi, Doktor D profili aks etishi, `ESC` bilan yopilishi, `DISQUALIFIED (3)` va `ALL (8)` filtrlari dinamikasini tekshirish.
+     - Jami 30 ta Playwright Headless brauzer tekshiruvi (100% GREEN).
+  3. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash.
+- **Kim uchun:** Launch Lab Track B ekspertlari, mentorlar, poliklinika rahbarlari va investorlar.
+- **Format:** `public/tracker.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

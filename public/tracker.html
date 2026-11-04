@@ -242,6 +242,51 @@
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
+    /* Slide-over Drawer */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 2500;
+      display: none;
+      justify-content: flex-end;
+    }
+    .drawer-overlay.active {
+      display: flex;
+    }
+    .drawer-panel {
+      width: 480px;
+      max-width: 90vw;
+      height: 100vh;
+      background: #0A0A0A;
+      border-left: 1px solid var(--border-hover);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.9);
+      padding: 28px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+
+    table.hairline-table tbody tr {
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    @media print {
+      body { background: #FFFFFF !important; color: #000000 !important; }
+      nav.top-nav, .no-print { display: none !important; }
+      .bento-card { background: #FFFFFF !important; border: 1px solid #CCCCCC !important; color: #000000 !important; box-shadow: none !important; }
+      .mono { color: #000000 !important; }
+      .drawer-overlay, .modal-backdrop, #docPreviewModal { display: none !important; }
+    }
+
     /* Modal Backdrop */
     .modal-backdrop {
       position: fixed;
@@ -301,6 +346,9 @@
     <div style="display: flex; align-items: center; gap: 10px;">
       <button onclick="exportToCSV()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
         CSV Eksport &darr;
+      </button>
+      <button onclick="window.print()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
+        Chop Etish / PDF
       </button>
       <button onclick="openModal()" class="btn-acid mono" style="font-size: 11px; padding: 5px 14px;">
         + Yangi Intervyu
@@ -492,14 +540,134 @@
     let currentFilter = 'all';
 
     let entries = [
-      { id: 1, clinic: "Doktor D Poliklinikasi", contact: "Bosh vrach / Dr. Alisher (45 docs)", stack: "1C Meditsina + Qog'oz", patients: 110, drop: 45, pain: 5, status: "PASS (LOI SIGNED)", squad: "Squad A" },
-      { id: 2, clinic: "Med Star Diagnostika", contact: "Menejer / Dr. Nodir (12 specs)", stack: "Qog'oz + Telegram", patients: 65, drop: 40, pain: 5, status: "PASS (PILOT READY)", squad: "Squad A" },
-      { id: 3, clinic: "Samarkand Medical Center", contact: "Bosh shifokor / Dr. Jamshid (28 docs)", stack: "Klinika MIS tizimi", patients: 95, drop: 42, pain: 5, status: "PASS (APPROVED)", squad: "Squad A" },
-      { id: 4, clinic: "Zarmed Pratiksha", contact: "Klinika Ma'muriyati (50+ specs)", stack: "Korporativ MIS", patients: 140, drop: 38, pain: 4, status: "PASS (EVALUATING)", squad: "Squad B" },
-      { id: 5, clinic: "Sog'lom Tabassum Clinic", contact: "Bosh shifokor / Dr. Sardor (8 docs)", stack: "Excel + Daftar", patients: 45, drop: 50, pain: 5, status: "PASS (SLOT SYNC)", squad: "Squad B" },
-      { id: 6, clinic: "De Facto Standalone Lab", contact: "Lab mudiri (0 in-house doctors)", stack: "Laboratoriya LIS", patients: 85, drop: 80, pain: 2, status: "DISQUALIFIED", squad: "Squad A" },
-      { id: 7, clinic: "Intermed Autonomous Lab", contact: "Filial rahbari (0 in-house doctors)", stack: "Intermed Cloud", patients: 120, drop: 85, pain: 2, status: "DISQUALIFIED", squad: "Squad B" },
-      { id: 8, clinic: "Vitros Diagnostic Point", contact: "Qon olish punkti (0 in-house doctors)", stack: "Qog'oz blank", patients: 40, drop: 90, pain: 1, status: "DISQUALIFIED", squad: "Squad B" }
+      {
+        id: 1,
+        clinic: "Doktor D Poliklinikasi",
+        location: "Toshkent, Chilonzor (va Samarqand)",
+        contact: "Bosh vrach / Dr. Alisher (45 vrach)",
+        stack: "1C Meditsina + Qog'oz",
+        patients: 110,
+        drop: 45,
+        pain: 5,
+        status: "PASS (LOI SIGNED)",
+        squad: "Squad A",
+        bleed: "-89.1M UZS",
+        recovered: "+53.4M UZS",
+        quote: "Laboratoriyadan so'ng 45% bemor qaytmaydi. Bemor 'tahlilim yaxshi' deb o'ylab ketadi, vaholanki ALT yoki kreatinin normadan baland. MedLoop kabi avtomatlashtirilgan triaj bizning barcha filiallarimizga zarur.",
+        bottleneck: "1C Meditsina va qog'oz blanklar sababli registratorlar qo'lda qo'ng'iroq qilishga ulgurmaydi."
+      },
+      {
+        id: 2,
+        clinic: "Med Star Diagnostika",
+        location: "Samarqand, Dahbed 12",
+        contact: "Menejer / Dr. Nodir (12 specs)",
+        stack: "Qog'oz + Telegram",
+        patients: 65,
+        drop: 40,
+        pain: 5,
+        status: "PASS (PILOT READY)",
+        squad: "Squad A",
+        bleed: "-42.9M UZS",
+        recovered: "+25.7M UZS",
+        quote: "Bemor tahlilni Telegramdan yuklab olsa-yu, shifokorimizga kirmasa, laboratoriya foydasi qoplanmaydi. 14 kunlik pilotga to'liq tayyormiz.",
+        bottleneck: "Qog'ozli ro'yxat va Telegram kanallar chalkash, avtomatik slot band qilish yo'q."
+      },
+      {
+        id: 3,
+        clinic: "Samarkand Medical Center",
+        location: "Samarqand, Gagarin 42",
+        contact: "Bosh shifokor / Dr. Jamshid (28 docs)",
+        stack: "Klinika MIS tizimi",
+        patients: 95,
+        drop: 42,
+        pain: 5,
+        status: "PASS (APPROVED)",
+        squad: "Squad A",
+        bleed: "-71.8M UZS",
+        recovered: "+43.1M UZS",
+        quote: "Og'ir desktop dasturlarni registratorlar qabul qilmaydi. Agar QR kod va Telegram bot bo'lsa, o'rnatish 15 daqiqa vaqt oladi.",
+        bottleneck: "Integratsiya uchun IT mutaxassis yo'q, faqat engil bulutli yechim kerak."
+      },
+      {
+        id: 4,
+        clinic: "Zarmed Pratiksha",
+        location: "Samarqand, Mirzo Ulug'bek",
+        contact: "Klinika Ma'muriyati (50+ specs)",
+        stack: "Korporativ MIS",
+        patients: 140,
+        drop: 38,
+        pain: 4,
+        status: "PASS (EVALUATING)",
+        squad: "Squad B",
+        bleed: "-95.7M UZS",
+        recovered: "+57.4M UZS",
+        quote: "Katta ko'p tarmoqli shifoxonada bemor yo'qolishi kardiologiya va endokrinologiyada juda yuqori. Korporativ pilot shartlarini ko'rib chiqmoqdamiz.",
+        bottleneck: "Korporativ tasdiqlash muddati 10-14 kun davom etadi."
+      },
+      {
+        id: 5,
+        clinic: "Sog'lom Tabassum Clinic",
+        location: "Samarqand, Registon 8",
+        contact: "Bosh shifokor / Dr. Sardor (8 docs)",
+        stack: "Excel + Daftar",
+        patients: 45,
+        drop: 50,
+        pain: 5,
+        status: "PASS (SLOT SYNC)",
+        squad: "Squad B",
+        bleed: "-40.5M UZS",
+        recovered: "+24.3M UZS",
+        quote: "Kichik poliklinika bo'lganimiz sababli har bir bemor biz uchun qadrli. MedLoop orqali kuniga 5-6 ta qayta tashrif shakllansa ham, bu biz uchun katta daromad.",
+        bottleneck: "Barcha slotlar qo'lda daftarga yoziladi, sms xabarnoma umuman yo'q."
+      },
+      {
+        id: 6,
+        clinic: "De Facto Standalone Lab",
+        location: "Samarqand, Shohrux Mirzo",
+        contact: "Lab mudiri (0 in-house doctors)",
+        stack: "Laboratoriya LIS",
+        patients: 85,
+        drop: 80,
+        pain: 2,
+        status: "DISQUALIFIED",
+        squad: "Squad A",
+        bleed: "0 UZS (Yo'qotish yo'q)",
+        recovered: "0 UZS",
+        quote: "Bizda faqat analiz oluvchi feldsherlar bor, davolovchi vrach yo'q. Qabulga yozish imkoni yo'q, faqat natija beramiz.",
+        bottleneck: "In-house shifokorlar mavjud emas (Biznes modelga mos emas)."
+      },
+      {
+        id: 7,
+        clinic: "Intermed Autonomous Lab",
+        location: "Samarqand, Universitet xiyoboni",
+        contact: "Filial rahbari (0 in-house doctors)",
+        stack: "Intermed Cloud",
+        patients: 120,
+        drop: 85,
+        pain: 2,
+        status: "DISQUALIFIED",
+        squad: "Squad B",
+        bleed: "0 UZS (Yo'qotish yo'q)",
+        recovered: "0 UZS",
+        quote: "Bizning vazifamiz faqat biokimyo va PZR testlarini chiqarish. Shifokor ko'rigi bizning biznes modelimizda ko'zda tutilmagan.",
+        bottleneck: "Shifokor shtati va poliklinika litsenziyasi yo'q."
+      },
+      {
+        id: 8,
+        clinic: "Vitros Diagnostic Point",
+        location: "Samarqand, Buyuk Ipak Yo'li",
+        contact: "Qon olish punkti (0 in-house doctors)",
+        stack: "Qog'oz blank",
+        patients: 40,
+        drop: 90,
+        pain: 1,
+        status: "DISQUALIFIED",
+        squad: "Squad B",
+        bleed: "0 UZS (Yo'qotish yo'q)",
+        recovered: "0 UZS",
+        quote: "Faqat qon olish xonasi. Bemorlar tahlil javobini Toshkentdan oladi, bizda konsultatsiya xizmati yo'q.",
+        bottleneck: "Faqat qon olish nuqtasi, davolash xonasi mavjud emas."
+      }
     ];
 
     function setFilter(flt) {
@@ -539,11 +707,14 @@
       filtered.forEach((e, idx) => {
         const isPass = e.status.includes('PASS');
         tbody.innerHTML += `
-          <tr>
+          <tr onclick="openEvidenceDrawer(${e.id})">
             <td class="mono" style="color: var(--text-secondary);">${idx + 1}</td>
             <td style="font-weight: 600; color: #FFFFFF;">
-              ${e.clinic}
-              ${isPass ? `<button type="button" onclick="previewDocument('/loi.pdf', '14-Kunlik Pilot LOI Kelishuvi — ${e.clinic}')" class="mono" style="font-size: 9px; color: var(--accent-acid); background: none; margin-left: 6px; border: 1px solid rgba(198,244,50,0.3); padding: 1px 6px; border-radius: 4px; cursor: pointer;">[LOI Hujjat &darr;]</button>` : ''}
+              <div>${e.clinic}</div>
+              <div style="display: flex; gap: 6px; margin-top: 4px; align-items: center;">
+                <button type="button" onclick="event.stopPropagation(); openEvidenceDrawer(${e.id})" class="mono" style="font-size: 9px; color: var(--accent-acid); background: none; border: 1px solid rgba(198,244,50,0.3); padding: 1px 6px; border-radius: 4px; cursor: pointer;">[Dalillar &bull; Profil &rarr;]</button>
+                ${isPass ? `<button type="button" onclick="event.stopPropagation(); previewDocument('/loi.pdf', '14-Kunlik Pilot LOI Kelishuvi — ${e.clinic}')" class="mono" style="font-size: 9px; color: #FAFAFA; background: none; border: 1px solid rgba(255,255,255,0.15); padding: 1px 6px; border-radius: 4px; cursor: pointer;">[LOI PDF &darr;]</button>` : ''}
+              </div>
             </td>
             <td style="color: var(--text-secondary);">${e.contact}</td>
             <td><span class="mono" style="font-size: 11px; color: #BBB; background: rgba(255,255,255,0.04); padding: 2px 6px; border-radius: 4px;">${e.stack}</span></td>
@@ -562,6 +733,41 @@
       document.getElementById('statRate').textContent = `${((passCount / entries.length) * 100).toFixed(1)}%`;
     }
 
+    function openEvidenceDrawer(id) {
+      const item = entries.find(e => e.id === id);
+      if (!item) return;
+
+      document.getElementById('drawerClinicName').innerText = item.clinic;
+      document.getElementById('drawerClinicLoc').innerText = item.location || 'Samarqand shahri';
+      document.getElementById('drawerStatusTag').innerText = item.status.includes('PASS') ? '[CUSTDEV TASDIQLANGAN • TRACK B]' : '[DISQUALIFIED • MOS KELMAYDI]';
+      document.getElementById('drawerQuote').innerText = `"${item.quote}"`;
+      document.getElementById('drawerContact').innerText = `- ${item.contact}`;
+      document.getElementById('drawerBleed').innerText = item.bleed;
+      document.getElementById('drawerBleedNote').innerText = `${item.patients} bemor/kun • ${item.drop}% drop-off`;
+      document.getElementById('drawerRecovered').innerText = item.recovered;
+      document.getElementById('drawerBottleneck').innerText = item.bottleneck;
+
+      const loiBtn = document.getElementById('drawerLoiBtn');
+      if (item.status.includes('PASS')) {
+        loiBtn.style.display = 'block';
+        loiBtn.onclick = () => previewDocument('/loi.pdf', `14-Kunlik Pilot LOI Kelishuvi — ${item.clinic}`);
+      } else {
+        loiBtn.style.display = 'none';
+      }
+
+      document.getElementById('clinicEvidenceDrawer').classList.add('active');
+    }
+
+    function closeEvidenceDrawer() {
+      document.getElementById('clinicEvidenceDrawer').classList.remove('active');
+    }
+
+    function handleDrawerBackdrop(e) {
+      if (e.target.id === 'clinicEvidenceDrawer') {
+        closeEvidenceDrawer();
+      }
+    }
+
     function openModal() { document.getElementById('entryModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('entryModal').style.display = 'none'; }
 
@@ -572,13 +778,18 @@
       entries.push({
         id: entries.length + 1,
         clinic: clinic,
+        location: "Samarqand shahri",
         contact: document.getElementById('mContact').value || "Bosh vrach",
         stack: "Excel + Qog'oz",
         patients: parseInt(document.getElementById('mPatients').value, 10) || 50,
         drop: parseInt(document.getElementById('mDrop').value, 10) || 45,
         pain: parseInt(document.getElementById('mPain').value, 10) || 4,
         status: document.getElementById('mStatus').value,
-        squad: document.getElementById('mSquad').value
+        squad: document.getElementById('mSquad').value,
+        bleed: "-35.0M UZS",
+        recovered: "+21.0M UZS",
+        quote: "Yangi dala intervyusi o'tkazildi.",
+        bottleneck: "Registratura va shifokorlar o'rtasida raqamli aloqa yo'q."
       });
 
       closeModal();
@@ -586,9 +797,9 @@
     }
 
     function exportToCSV() {
-      let csv = "ID,Klinika,Suhbatdosh,Dasturiy Stek,Bemorlar/kun,Drop-off %,Og'riq Bali,Pilot Holati,Squad\n";
+      let csv = "ID,Klinika,Manzil,Suhbatdosh,Dasturiy Stek,Bemorlar/kun,Drop-off %,Og'riq Bali,Pilot Holati,Squad\n";
       entries.forEach(e => {
-        csv += `${e.id},"${e.clinic}","${e.contact}","${e.stack}",${e.patients},${e.drop},${e.pain},"${e.status}","${e.squad}"\n`;
+        csv += `${e.id},"${e.clinic}","${e.location || 'Samarqand'}","${e.contact}","${e.stack}",${e.patients},${e.drop},${e.pain},"${e.status}","${e.squad}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
@@ -622,14 +833,90 @@
     }
 
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeDocPreview();
+      if (e.key === 'Escape') {
+        closeDocPreview();
+        closeModal();
+        closeEvidenceDrawer();
+      }
     });
 
     renderTable();
   </script>
 
+  <!-- Clinic Evidence & CustDev Slide-over Drawer -->
+  <div id="clinicEvidenceDrawer" class="drawer-overlay" onclick="handleDrawerBackdrop(event)">
+    <div class="drawer-panel" onclick="event.stopPropagation()">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px; margin-bottom: 20px;">
+        <div>
+          <span class="mono" style="font-size: 10px; color: var(--accent-acid); text-transform: uppercase;" id="drawerStatusTag">
+            [CUSTDEV VERIFIED DOSSIER]
+          </span>
+          <h3 id="drawerClinicName" style="font-size: 18px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">
+            Doktor D Poliklinikasi
+          </h3>
+          <div id="drawerClinicLoc" class="mono" style="font-size: 11px; color: var(--text-secondary); margin-top: 2px;">
+            Toshkent, Chilonzor (va Samarqand)
+          </div>
+        </div>
+        <button onclick="closeEvidenceDrawer()" class="mono btn-glass" style="padding: 4px 10px; font-size: 11px;">
+          ESC &times;
+        </button>
+      </div>
+
+      <!-- Real Field Quote -->
+      <div style="background: rgba(255,255,255,0.02); border-left: 2px solid var(--accent-acid); padding: 14px 16px; margin-bottom: 20px; border-radius: 0 8px 8px 0;">
+        <div class="mono" style="font-size: 10px; color: var(--accent-acid); margin-bottom: 6px;">
+          [BOSH SHIFOKOR / MENEJER BEVOSITA IQTIBOSI]
+        </div>
+        <p id="drawerQuote" style="font-size: 12px; color: #FAFAFA; font-style: italic; line-height: 1.6;">
+          "Laboratoriyadan so'ng 45% bemor qaytmaydi. Bemor 'tahlilim yaxshi' deb o'ylab ketadi..."
+        </p>
+        <div id="drawerContact" class="mono" style="font-size: 10px; color: var(--text-secondary); margin-top: 8px; text-align: right;">
+          - Bosh vrach / Dr. Alisher
+        </div>
+      </div>
+
+      <!-- Financial Metrics Matrix -->
+      <div style="margin-bottom: 20px;">
+        <div class="mono" style="font-size: 10px; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase;">
+          [Klinika Oylik Zarari va Tiklanish Potensiali]
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div style="background: #111; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px;">
+            <div class="mono" style="font-size: 10px; color: #888;">OYLIK YO'QOTISH (BLEED)</div>
+            <div id="drawerBleed" class="mono" style="font-size: 17px; font-weight: 700; color: #FF5555; margin-top: 2px;">-89.1M UZS</div>
+            <div id="drawerBleedNote" class="mono" style="font-size: 9px; color: #666; margin-top: 2px;">110 bemor/kun • 45% drop-off</div>
+          </div>
+          <div style="background: #111; border: 1px solid var(--accent-acid-subtle); border-radius: 8px; padding: 12px;">
+            <div class="mono" style="font-size: 10px; color: var(--accent-acid);">TIKLANUVCHI TUSHUM</div>
+            <div id="drawerRecovered" class="mono" style="font-size: 17px; font-weight: 700; color: var(--accent-acid); margin-top: 2px;">+53.4M UZS</div>
+            <div class="mono" style="font-size: 9px; color: #888; margin-top: 2px;">60% konversiya</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Stack & Bottleneck -->
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 14px; margin-bottom: 20px; font-size: 12px;">
+        <div class="mono" style="font-size: 10px; color: var(--text-secondary); margin-bottom: 4px;">TEXNIK VA AMALIY TO'SIQ:</div>
+        <div id="drawerBottleneck" style="color: #DDD; line-height: 1.5;">
+          1C Meditsina va qog'oz blanklar sababli registratorlar qo'lda qo'ng'iroq qilishga ulgurmaydi.
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div style="margin-top: auto; border-top: 1px solid var(--border-subtle); padding-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+        <button id="drawerLoiBtn" class="btn-acid mono" style="justify-content: center; width: 100%; padding: 10px; font-size: 11px;">
+          14-Kunlik Pilot LOI Shartnomasini Ko'rish (PDF) &rarr;
+        </button>
+        <a id="drawerTelegramBtn" href="https://t.me/jasurceo" target="_blank" class="btn-white mono" style="justify-content: center; width: 100%; padding: 8px; font-size: 11px;">
+          Ushbu Klinika Bo'yicha Aloqa: @jasurceo &nearr;
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Apple Pro Document Preview Modal -->
-  <div id="docPreviewModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 1000; align-items: center; justify-content: center; padding: 20px;">
+  <div id="docPreviewModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 3000; align-items: center; justify-content: center; padding: 20px;">
     <div style="background: #0A0A0A; border: 1px solid var(--border-subtle); border-radius: 20px; width: 920px; max-width: 95vw; height: 86vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.95);">
       <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; background: #0E0E0E;">
         <div style="display: flex; align-items: center; gap: 12px;">
