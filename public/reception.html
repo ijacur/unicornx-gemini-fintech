@@ -490,7 +490,7 @@
               Specialist: <strong style="color: #FFF;">${p.doctor}</strong> (${p.specialty}) • Slot: <span style="color: #FFF;">${p.slot}</span>
             </div>
 
-            <div style="display: flex; gap: 8px;">
+            <div style="display: flex; gap: 8px; align-items: center;">
               ${p.status === 'CONFIRMED' ? `
                 <span class="badge-monochrome" style="background: var(--accent-acid); color: #050505; font-weight: 800; border: none; box-shadow: 0 0 12px rgba(198, 244, 50, 0.35);">
                   TASDIQLANDI (+150,000 UZS)
@@ -500,8 +500,11 @@
                   Qabulni Tasdiqlash
                 </button>
               `}
+              <button onclick="sendTelegramReminder(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px; border-color: rgba(198,244,50,0.35); color: var(--accent-acid);">
+                [TG/SMS Yuborish &rarr;]
+              </button>
               <button onclick="reschedulePatient(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px;">
-                Vaqtni O'zgartirish
+                Vaqt
               </button>
             </div>
           </div>
@@ -509,10 +512,58 @@
       `).join('');
     }
 
+    let audioCtx = null;
+    function playClinicalChime(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'alert') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(580, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.18);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'confirm') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(1320, now + 0.25);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+      } catch(e) {}
+    }
+
+    function sendTelegramReminder(id) {
+      const p = patients.find(item => item.id === id);
+      if (!p) return;
+      playClinicalChime('confirm');
+      const text = `Assalomu alaykum, ${p.name}! MedLoop klinika monitoringi: tahlil hisobotingizda ${p.markers.split('•')[0].trim()} aniqlandi. Siz uchun ${p.specialty} ${p.doctor} qabuliga ${p.slot} vaqtiga navbat tasdiqlandi. Savollar bo'lsa javob yozishingiz mumkin.`;
+      const url = `https://t.me/share/url?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    }
+
     function confirmPatient(id) {
       const p = patients.find(item => item.id === id);
       if (p) {
         p.status = 'CONFIRMED';
+        playClinicalChime('confirm');
         renderQueue();
         updateCounts();
       }
@@ -524,6 +575,7 @@
         const newSlot = prompt(`${p.name} uchun yangi vaqtni kiriting (masalan: Ertaga 11:30):`, "Ertaga 11:30");
         if (newSlot) {
           p.slot = newSlot;
+          playClinicalChime('click');
           renderQueue();
         }
       }
@@ -577,6 +629,7 @@
       if (!s) return;
 
       document.getElementById('fileStatus').innerText = `[OCR O'QILDI] ${s.name} - ${s.markers.split('•')[0]}`;
+      playClinicalChime('alert');
       patients.unshift({
         id: Date.now(),
         name: s.name,
@@ -594,6 +647,7 @@
     }
 
     function addSimulatedPatient() {
+      playClinicalChime('alert');
       const names = ["Ziyoda Oripova", "Otabek G'aniyev", "Gulbahor Xoliqova", "Farhod Yusupov"];
       const randomName = names[Math.floor(Math.random() * names.length)];
       const newP = {
@@ -655,33 +709,6 @@
           document.getElementById('fileStatus').innerText = 'PDF yoki tahlil rasmini tashlang yoki tanlang';
         }, 3000);
       }, 500);
-    }
-
-    function switchClinic() {
-      renderQueue();
-      updateCounts();
-    }
-
-    renderQueue();
-    updateCounts();
-          urgency: "YELLOW",
-          markers: "ALT 79 U/L [REF: 0-41] (Scanned from Blank)",
-          doctor: "Dr. Shirinov X. I.",
-          specialty: "Gepatolog",
-          slot: "Ertaga 10:30",
-          status: "PENDING",
-          time: new Date().toLocaleTimeString().slice(0, 5)
-        });
-        renderQueue();
-        updateCounts();
-
-        setTimeout(() => {
-          document.getElementById('manualFeedback').style.display = 'none';
-          document.getElementById('manualName').value = '';
-          document.getElementById('manualPhone').value = '';
-          document.getElementById('fileStatus').innerText = 'Bemor tahlilini bu yerga tashlang yoki tanlang';
-        }, 3000);
-      }, 700);
     }
 
     function switchClinic() {
