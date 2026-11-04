@@ -451,34 +451,54 @@
         </div>
       </div>
 
-      <!-- Right Column: Interactive Triage Queue Table -->
-      <div class="bento-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <div>
-            <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
-              [JONLI REGISTRATURA ISHI]
+      <!-- Right Column: Interactive Triage Queue Table & Live Dispatch Terminal -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="bento-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div>
+              <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
+                [JONLI REGISTRATURA ISHI]
+              </div>
+              <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF;">
+                Triage Navbati (Real Vaqt)
+              </h3>
             </div>
-            <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF;">
-              Triage Navbati (Real Vaqt)
-            </h3>
+
+            <!-- Filter Pills -->
+            <div style="display: flex; gap: 6px;">
+              <button onclick="setFilter('ALL')" id="filter-all" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; background: rgba(255,255,255,0.1); color: #FFF;">
+                All (3)
+              </button>
+              <button onclick="setFilter('RED')" id="filter-red" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
+                Red
+              </button>
+              <button onclick="setFilter('YELLOW')" id="filter-yellow" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
+                Yellow
+              </button>
+            </div>
           </div>
 
-          <!-- Filter Pills -->
-          <div style="display: flex; gap: 6px;">
-            <button onclick="setFilter('ALL')" id="filter-all" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; background: rgba(255,255,255,0.1); color: #FFF;">
-              All (3)
-            </button>
-            <button onclick="setFilter('RED')" id="filter-red" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
-              Red
-            </button>
-            <button onclick="setFilter('YELLOW')" id="filter-yellow" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
-              Yellow
-            </button>
+          <div id="patientList" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- Populated by JS -->
           </div>
         </div>
 
-        <div id="patientList" style="display: flex; flex-direction: column; gap: 10px;">
-          <!-- Populated by JS -->
+        <!-- Live Outgoing Webhook & SMS Dispatcher Stream -->
+        <div class="bento-card" style="font-family: var(--mono-font);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-acid); box-shadow: 0 0 8px var(--accent-acid);"></span>
+              <span style="font-size: 11px; font-weight: 700; color: #FFF; letter-spacing: 0.05em;">[JONLI INTEGRATSIYA DISPETCHERI]</span>
+              <span style="font-size: 10px; color: var(--text-secondary);">SMS Gateway &bull; Telegram Webhook &bull; MIS API</span>
+            </div>
+            <span style="font-size: 10px; color: var(--accent-acid); background: rgba(198,244,50,0.1); border: 1px solid rgba(198,244,50,0.25); padding: 2px 6px; border-radius: 4px;">
+              ● LIVE STREAM
+            </span>
+          </div>
+
+          <div id="dispatchLogList" style="display: flex; flex-direction: column; gap: 6px; max-height: 190px; overflow-y: auto; font-size: 11px;">
+            <!-- Injected via JS -->
+          </div>
         </div>
       </div>
 
@@ -647,9 +667,53 @@
       const p = patients.find(item => item.id === id);
       if (!p) return;
       playClinicalChime('confirm');
+      pushDispatchEvent("TELEGRAM BOT", p.name, "Shifokor qabuli xabarnomasi yuborildi");
       const text = `Assalomu alaykum, ${p.name}! MedLoop klinika monitoringi: tahlil hisobotingizda ${p.markers.split('•')[0].trim()} aniqlandi. Siz uchun ${p.specialty} ${p.doctor} qabuliga ${p.slot} vaqtiga navbat tasdiqlandi. Savollar bo'lsa javob yozishingiz mumkin.`;
       const url = `https://t.me/share/url?text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
+    }
+
+    let dispatchLogs = [
+      { time: "10:14:02", channel: "SMS GATEWAY", target: "+998 90 281 99 12", event: "Qabul eslatmasi jo'natildi (Dr. Alimov)", status: "OK 200", latency: "42ms" },
+      { time: "10:14:03", channel: "TELEGRAM BOT", target: "UID #88214", event: "Mini App yo'llanma sinxronlandi", status: "OK 200", latency: "18ms" },
+      { time: "10:08:15", channel: "MIS SYNC", target: "Osiyo Medical API", event: "POST /api/v1/appointments -> Room 14", status: "OK 201", latency: "65ms" },
+      { time: "09:54:20", channel: "OCR ENGINE", target: "Intermed #2841", event: "Biomarker ekstraksiya yakunlandi (3/3)", status: "OK 200", latency: "148ms" }
+    ];
+
+    function pushDispatchEvent(channel, target, eventText, status = "OK 200", latency = "38ms") {
+      const now = new Date();
+      const timeStr = now.toTimeString().split(' ')[0];
+      dispatchLogs.unshift({
+        time: timeStr,
+        channel: channel,
+        target: target,
+        event: eventText,
+        status: status,
+        latency: latency
+      });
+      if (dispatchLogs.length > 20) dispatchLogs.pop();
+      renderDispatchLogs();
+    }
+
+    function renderDispatchLogs() {
+      const container = document.getElementById('dispatchLogList');
+      if (!container) return;
+      container.innerHTML = dispatchLogs.map(item => `
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 6px 10px; display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="color: var(--text-muted); font-size: 10px;">${item.time}</span>
+            <span style="color: var(--accent-acid); font-weight: 700; font-size: 10px;">[${item.channel}]</span>
+            <span style="color: #FFF; font-weight: 500;">${item.target}</span>
+            <span style="color: var(--text-secondary);">&rarr; ${item.event}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="color: var(--text-muted); font-size: 9px;">${item.latency}</span>
+            <span style="background: rgba(198,244,50,0.15); color: var(--accent-acid); border: 1px solid rgba(198,244,50,0.3); padding: 1px 5px; border-radius: 3px; font-size: 9px; font-weight: 800;">
+              ${item.status}
+            </span>
+          </div>
+        </div>
+      `).join('');
     }
 
     function confirmPatient(id) {
@@ -657,6 +721,8 @@
       if (p) {
         p.status = 'CONFIRMED';
         playClinicalChime('confirm');
+        pushDispatchEvent("MIS SYNC", p.name, "Konsultatsiya tasdiqlandi (+150k UZS)");
+        pushDispatchEvent("SMS GATEWAY", p.phone, "Klinika eslatmasi jo'natildi");
         renderQueue();
         updateCounts();
       }
@@ -735,6 +801,7 @@
         status: s.status,
         time: new Date().toLocaleTimeString().slice(0, 5)
       });
+      pushDispatchEvent("OCR INGESTION", s.name, "Laboratoriya blankasi o'qildi (3/3)");
       renderQueue();
       updateCounts();
     }
@@ -966,6 +1033,7 @@
 
     renderQueue();
     updateCounts();
+    renderDispatchLogs();
   </script>
 
   <!-- Patient Detail Drawer (Apple Pro Inspector) -->

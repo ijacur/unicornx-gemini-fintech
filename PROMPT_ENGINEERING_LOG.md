@@ -152,3 +152,12 @@
   4. `test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, json telemetriyasi, shartnomalar va zero-emoji qoidalarini avtomatlashtirilgan tarzda tekshirish (100% green).
 - **Kim uchun:** Samarqand va Toshkent poliklinikalariga kelgan bemorlar, registratura hamshiralari va shifokorlar.
 - **Format:** `public/mini_app.html`, `public/reception.html`, `scripts/test_system_integrity.py`, Vercel production deploy (`https://turnir-launch-lab.vercel.app`), Git commit.
+
+### Prompt #11 / 500: Live Clinic Webhook/SMS Dispatch Terminal & Bilingual Medical Mode (UZ/RU)
+- **Kim siz:** Senior Healthcare Integration Architect & Telecom Systems Engineer.
+- **Nima kerak:**
+  1. `public/reception.html` da klinika registratori uchun jonli telemetriya terminali — "Chiquvchi Xabarnomalar va MIS Integratsiyasi" (`[JONLI INTEGRATSIYA DISPETCHERI]`) konsolini yaratish. Bemor qabuli tasdiqlanganda yoki yangi tahlil yuklanganda, real vaqtda SMS Gateway (+998 ...), Telegram Bot API va Klinika MIS tizimiga jo'natilgan xabarnoma paketlarini (timestamp, payload, latency, HTTP 200/201 statusi) monoxrom terminal uslubida oqimli ravishda aks ettirish (`pushDispatchEvent()`).
+  2. `public/mini_app.html` ga yuqori o'ng burchakda miltillashsiz (zero-flicker) `[UZ | RU]` tibbiy til almashtirgichini qo'shish. Til tanlanganda barcha klinik tavsiyalar, biomarker holatlari, yo'llanma varaqasi (`FORMA #ML-2026/T`) va tugmalar o'zbekcha va ruscha tibbiy terminologiya o'rtasida zudlik bilan almashishi va `localStorage` ga saqlanishi.
+  3. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, json telemetriyasi, shartnomalar va zero-emoji qoidalarini avtomatlashtirilgan tarzda tekshirish (100% green).
+- **Kim uchun:** Samarqand va Toshkentdagi ikki tilli bemorlar, registratura operatorlari va klinika IT ma'murlari.
+- **Format:** `public/reception.html`, `public/mini_app.html`, `scripts/test_system_integrity.py`, Vercel production deploy (`https://turnir-launch-lab.vercel.app`), Git commit.

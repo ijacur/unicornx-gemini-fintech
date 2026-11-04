@@ -200,10 +200,19 @@
       </div>
       <div>
         <div style="font-size: 14px; font-weight: 700; color: #FFF; letter-spacing: -0.02em;">MedLoop AI</div>
-        <div class="mono" style="font-size: 10px; color: var(--text-secondary);">Tibbiy Triage Mini App</div>
+        <div id="headerSubtitle" class="mono" style="font-size: 10px; color: var(--text-secondary);">Tibbiy Triage Mini App</div>
       </div>
     </div>
-    <div style="display: flex; align-items: center; gap: 6px;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <!-- Language Pill Switcher UZ / RU -->
+      <div style="display: flex; background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); border-radius: 9999px; padding: 2px;">
+        <button id="langBtnUz" onclick="setLanguage('uz')" class="mono" style="background: var(--accent-acid); color: #050505; border: none; border-radius: 9999px; padding: 2px 7px; font-size: 10px; font-weight: 800; cursor: pointer;">
+          UZ
+        </button>
+        <button id="langBtnRu" onclick="setLanguage('ru')" class="mono" style="background: transparent; color: var(--text-secondary); border: none; border-radius: 9999px; padding: 2px 7px; font-size: 10px; font-weight: 600; cursor: pointer;">
+          RU
+        </button>
+      </div>
       <span class="mono" style="font-size: 10px; color: var(--accent-acid); background: rgba(198,244,50,0.1); border: 1px solid rgba(198,244,50,0.3); padding: 3px 8px; border-radius: 9999px;">
         &bull; LIVE ENGINE
       </span>
@@ -213,7 +222,7 @@
   <!-- Clinic Router Indicator -->
   <div class="bento-card" style="padding: 12px 16px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
     <div>
-      <div class="mono" style="font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Biriktirilgan Poliklinika</div>
+      <div id="clinicCardLabel" class="mono" style="font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Biriktirilgan Poliklinika</div>
       <div id="clinicName" style="font-size: 13px; font-weight: 600; color: #FFF; margin-top: 2px;">Osiyo Medical Clinic</div>
     </div>
     <span class="mono" id="clinicBadge" style="font-size: 10px; padding: 3px 8px; background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); border-radius: 6px; color: #FFF;">
@@ -243,7 +252,7 @@
           <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
           <circle cx="12" cy="13" r="4"/>
         </svg>
-        <span>[KAMERADAN SURATGA OLISH / TAHLIL YUKLASH] &rarr;</span>
+        <span id="cameraBtnText">[KAMERADAN SURATGA OLISH / TAHLIL YUKLASH] &rarr;</span>
       </button>
     </div>
 
@@ -260,7 +269,7 @@
 
     <!-- Preset Test Chips -->
     <div>
-      <div class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
+      <div id="presetSectionTitle" class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
         Namuna Tahlilini Tanlang (8-Soniyalik Tekshiruv):
       </div>
       <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
@@ -297,11 +306,11 @@
 
       <!-- Plain Uzbek Triage Note -->
       <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px;">
-        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">[KLINIK XULOSA]</div>
+        <div id="triageNoteHeader" class="mono" style="font-size: 10px; color: var(--text-muted); margin-bottom: 4px;">[KLINIK XULOSA]</div>
         <p id="triageExplanation" style="font-size: 12px; color: #DDD; line-height: 1.5;">
           Jigar fermenti (ALT 94 U/L) normadan 2.3 barobar yuqori. Reaktiv o'zgarishlarni tekshirish uchun gepatolog ko'rigi tavsiya etiladi.
         </p>
-        <div class="mono" style="font-size: 9px; color: var(--text-muted); margin-top: 6px;">
+        <div id="triageDisclaimer" class="mono" style="font-size: 9px; color: var(--text-muted); margin-top: 6px;">
           Tashxis emas &bull; Shifokor qabuliga klinik saralash
         </div>
       </div>
@@ -311,13 +320,13 @@
     <div class="bento-card" style="padding: 16px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
         <div>
-          <span class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase;">Tavsiya Etilgan Shifokor</span>
+          <span id="doctorSectionLabel" class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase;">Tavsiya Etilgan Shifokor</span>
           <div id="doctorFullName" style="font-size: 14px; font-weight: 600; color: #FFF; margin-top: 2px;">Dr. Shirinov Xuseyn Isroilovich</div>
         </div>
         <span class="mono" id="doctorSpecialtyBadge" style="font-size: 11px; color: var(--accent-acid);">Gepatolog</span>
       </div>
 
-      <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">Qabul vaqtini tanlang:</div>
+      <div id="slotSectionLabel" class="mono" style="font-size: 10px; color: var(--text-muted); margin-bottom: 8px;">Qabul vaqtini tanlang:</div>
       <div id="slotContainer" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 14px;">
         <!-- Slots injected via JS -->
       </div>
@@ -329,10 +338,10 @@
 
     <!-- Confirmation Toast -->
     <div id="successNotice" class="bento-card" style="display: none; padding: 16px; background: rgba(198, 244, 50, 0.08); border-color: rgba(198, 244, 50, 0.35); text-align: center;">
-      <div class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[QABUL TASDIQLANDI]</div>
+      <div id="successNoticeTitle" class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[QABUL TASDIQLANDI]</div>
       <div id="successDetail" style="font-size: 12px; color: #FFF; margin-top: 4px;">Registratura sizni kutmoqda.</div>
       <button onclick="openReferralModal()" class="btn-acid mono" style="margin-top: 12px; width: 100%; padding: 10px; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-        <span>[Klinik Yo'llanma Varaqasi (Chop Etish / PDF)] &rarr;</span>
+        <span id="referralButtonText">[Klinik Yo'llanma Varaqasi (Chop Etish / PDF)] &rarr;</span>
       </button>
     </div>
 
@@ -557,6 +566,47 @@
       }
     };
 
+    let currentLang = 'uz';
+
+    const I18N = {
+      uz: {
+        subtitle: "Tibbiy Triage Mini App",
+        clinicCard: "Biriktirilgan Poliklinika",
+        cameraBtn: "[KAMERADAN SURATGA OLISH / TAHLIL YUKLASH] →",
+        presets: "Namuna Tahlilini Tanlang (8-Soniyalik Tekshiruv):",
+        btnLiver: "[01] Jigar",
+        btnGlucose: "[02] Diabet",
+        btnAnemia: "[03] Anemiya",
+        badgeUrgent: "[SHOSHILINCH (QIZIL)]",
+        badgeAttention: "[DIQQAT TALAB (SARIQ)]",
+        triageHeader: "[KLINIK XULOSA]",
+        triageDisc: "Tashxis emas • Shifokor qabuliga klinik saralash",
+        docLabel: "Tavsiya Etilgan Shifokor",
+        slotLabel: "Qabul vaqtini tanlang:",
+        bookBtn: "Qabulga Yozilishni Tasdiqlash",
+        toastTitle: "[QABUL TASDIQLANDI]",
+        referralBtn: "[Klinik Yo'llanma Varaqasi (Chop Etish / PDF)] →"
+      },
+      ru: {
+        subtitle: "Медицинский Триаж Mini App",
+        clinicCard: "Прикрепленная поликлиника",
+        cameraBtn: "[СНЯТЬ НА КАМЕРУ / ЗАГРУЗИТЬ АНАЛИЗ] →",
+        presets: "Выберите образец анализа (8-секундный скрининг):",
+        btnLiver: "[01] Печень",
+        btnGlucose: "[02] Диабет",
+        btnAnemia: "[03] Анемия",
+        badgeUrgent: "[СРОЧНО (КРАСНЫЙ)]",
+        badgeAttention: "[ТРЕБУЕТ ВНИМАНИЯ (ЖЕЛТЫЙ)]",
+        triageHeader: "[КЛИНИЧЕСКОЕ ЗАКЛЮЧЕНИЕ]",
+        triageDisc: "Не является диагнозом • Клиническая маршрутизация к врачу",
+        docLabel: "Рекомендованный специалист",
+        slotLabel: "Выберите время приема:",
+        bookBtn: "Подтвердить запись на прием",
+        toastTitle: "[ЗАПИСЬ ПОДТВЕРЖДЕНА]",
+        referralBtn: "[Медицинское направление (Печать / PDF)] →"
+      }
+    };
+
     const SAMPLES = {
       liver: {
         doc: "INTERMED DIAGNOSTIKA #2841",
@@ -568,7 +618,8 @@
           { name: "AST (Aspartataminotransferaza)", val: "58.0 U/L", ref: "0 - 40", abnormal: true },
           { name: "Umumiy bilirubin", val: "19.2 µmol/L", ref: "3.4 - 20.5", abnormal: false }
         ],
-        explanation: "Jigar fermentlari (ALT 94 U/L va AST 58 U/L) normadan yuqori. Reaktiv o'zgarishlar va metabolik zo'riqishni bartaraf etish uchun gepatolog qabuliga yozilish tavsiya etiladi."
+        explanation: "Jigar fermentlari (ALT 94 U/L va AST 58 U/L) normadan yuqori. Reaktiv o'zgarishlar va metabolik zo'riqishni bartaraf etish uchun gepatolog qabuliga yozilish tavsiya etiladi.",
+        explanation_ru: "Печеночные ферменты (АЛТ 94 Ед/л и АСТ 58 Ед/л) превышают референсные нормы. Рекомендуется консультация гепатолога для исключения реактивных изменений."
       },
       glucose: {
         doc: "DE FACTO DIAGNOSTICS #1094",
@@ -580,7 +631,8 @@
           { name: "Glyukoza (Och qoringa)", val: "8.4 mmol/L", ref: "3.9 - 6.1", abnormal: true },
           { name: "C-peptid", val: "1.4 ng/mL", ref: "0.9 - 4.0", abnormal: false }
         ],
-        explanation: "HbA1c 7.8% va och qoringa qand 8.4 mmol/L darajasi yashirin qandli diabet xavfini ko'rsatmoqda. Zudlik bilan endokrinolog nazorati va parhez tavsiya etiladi."
+        explanation: "HbA1c 7.8% va och qoringa qand 8.4 mmol/L darajasi yashirin qandli diabet xavfini ko'rsatmoqda. Zudlik bilan endokrinolog nazorati va parhez tavsiya etiladi.",
+        explanation_ru: "HbA1c 7.8% и сахар натощак 8.4 ммоль/л указывают на риск скрытого диабета. Безотлагательно показана консультация эндокринолога."
       },
       anemia: {
         doc: "VITROS DIAGNOSTIC #5512",
@@ -592,7 +644,8 @@
           { name: "Gemoglobin (Hb)", val: "98 g/L", ref: "120 - 150", abnormal: true },
           { name: "Zardob temiri", val: "7.1 µmol/L", ref: "9.0 - 30.4", abnormal: true }
         ],
-        explanation: "Ferritin 6.2 ng/mL va gemoglobin 98 g/L keskin past. Chuqur temir tanqisligi anemiyasi alomatlari. Terapevt ko'rigi va temir terapiyasi zarur."
+        explanation: "Ferritin 6.2 ng/mL va gemoglobin 98 g/L keskin past. Chuqur temir tanqisligi anemiyasi alomatlari. Terapevt ko'rigi va temir terapiyasi zarur.",
+        explanation_ru: "Ферритин 6.2 нг/мл и гемоглобин 98 г/л критически снижены. Симптомы выраженной анемии. Показан осмотр терапевта и терапия препаратами железа."
       }
     };
 
@@ -638,18 +691,65 @@
       renderData();
     }
 
+    function setLanguage(lang) {
+      currentLang = lang;
+      playChime('click');
+      try { localStorage.setItem('medloop_lang', lang); } catch(e) {}
+      
+      const btnUz = document.getElementById('langBtnUz');
+      const btnRu = document.getElementById('langBtnRu');
+      if (btnUz && btnRu) {
+        if (lang === 'uz') {
+          btnUz.style.background = 'var(--accent-acid)';
+          btnUz.style.color = '#050505';
+          btnRu.style.background = 'transparent';
+          btnRu.style.color = 'var(--text-secondary)';
+        } else {
+          btnRu.style.background = 'var(--accent-acid)';
+          btnRu.style.color = '#050505';
+          btnUz.style.background = 'transparent';
+          btnUz.style.color = 'var(--text-secondary)';
+        }
+      }
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+      const t = I18N[currentLang] || I18N.uz;
+      const setTxt = (id, txt) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = txt;
+      };
+      setTxt('headerSubtitle', t.subtitle);
+      setTxt('clinicCardLabel', t.clinicCard);
+      setTxt('cameraBtnText', t.cameraBtn);
+      setTxt('presetSectionTitle', t.presets);
+      setTxt('btn-liver', t.btnLiver);
+      setTxt('btn-glucose', t.btnGlucose);
+      setTxt('btn-anemia', t.btnAnemia);
+      setTxt('triageNoteHeader', t.triageHeader);
+      const disc = document.getElementById('triageDisclaimer');
+      if (disc) disc.innerHTML = t.triageDisc;
+      setTxt('doctorSectionLabel', t.docLabel);
+      setTxt('slotSectionLabel', t.slotLabel);
+      setTxt('referralButtonText', t.referralBtn);
+      setTxt('successNoticeTitle', t.toastTitle);
+      renderData();
+    }
+
     function renderData() {
+      const t = I18N[currentLang] || I18N.uz;
       document.getElementById('cardDocName').innerText = currentSample.doc;
       document.getElementById('cardPatientName').innerText = currentSample.patient;
       
       const badge = document.getElementById('cardStatusBadge');
       if (currentSample.urgency === 'RED') {
-        badge.innerText = '[SHOSHILINCH (QIZIL)]';
+        badge.innerText = t.badgeUrgent;
         badge.style.color = 'var(--accent-red)';
         badge.style.borderColor = 'rgba(255,69,58,0.35)';
         badge.style.background = 'rgba(255,69,58,0.12)';
       } else {
-        badge.innerText = '[DIQQAT TALAB (SARIQ)]';
+        badge.innerText = t.badgeAttention;
         badge.style.color = 'var(--accent-acid)';
         badge.style.borderColor = 'rgba(198,244,50,0.35)';
         badge.style.background = 'rgba(198,244,50,0.12)';
@@ -672,7 +772,7 @@
       `).join('');
       document.getElementById('biomarkerRows').innerHTML = rows;
 
-      document.getElementById('triageExplanation').innerText = currentSample.explanation;
+      document.getElementById('triageExplanation').innerText = currentLang === 'ru' && currentSample.explanation_ru ? currentSample.explanation_ru : (currentSample.explanation_uz || currentSample.explanation);
 
       // Doctor Assignment based on clinic roster
       const doc = currentClinic.doctors[currentSample.specialtyKey] || currentClinic.doctors.hepatology;
@@ -690,7 +790,7 @@
 
       // Hide toast
       document.getElementById('successNotice').style.display = 'none';
-      document.getElementById('mainBookingBtn').innerText = `Qabulga Yozilishni Tasdiqlash (${selectedSlot}) →`;
+      document.getElementById('mainBookingBtn').innerText = `${t.bookBtn} (${selectedSlot}) →`;
     }
 
     function selectSlot(slot, el) {
@@ -877,6 +977,21 @@
         } catch(e) {}
       }
       initClinicFromUrl();
+      try {
+        const savedLang = localStorage.getItem('medloop_lang');
+        if (savedLang && (savedLang === 'uz' || savedLang === 'ru')) {
+          currentLang = savedLang;
+          const btnUz = document.getElementById('langBtnUz');
+          const btnRu = document.getElementById('langBtnRu');
+          if (btnUz && btnRu && currentLang === 'ru') {
+            btnRu.style.background = 'var(--accent-acid)';
+            btnRu.style.color = '#050505';
+            btnUz.style.background = 'transparent';
+            btnUz.style.color = 'var(--text-secondary)';
+          }
+          applyLanguage();
+        }
+      } catch(e) {}
       selectSample('liver');
       initOfflinePersistence();
     });
