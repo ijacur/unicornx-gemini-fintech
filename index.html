@@ -626,6 +626,32 @@
             </span>
           </div>
 
+          <!-- Partner Clinic Selector Strip -->
+          <div style="margin-bottom: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 10px 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span class="mono" style="font-size: 10px; color: var(--accent-acid); font-weight: 600;">
+                [HAMKOR KLINIKANI TANLANG]
+              </span>
+              <span class="mono" style="font-size: 10px; color: var(--text-secondary);" id="activeClinicNotice">
+                Doktor D Poliklinikasi
+              </span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;">
+              <button onclick="setStageClinic('doktord')" id="stage-clinic-doktord" class="btn-glass mono" style="font-size: 10px; padding: 5px 6px; justify-content: center; border-color: var(--accent-acid); color: var(--accent-acid); background: rgba(198,244,50,0.1);">
+                Doktor D
+              </button>
+              <button onclick="setStageClinic('osiyo')" id="stage-clinic-osiyo" class="btn-glass mono" style="font-size: 10px; padding: 5px 6px; justify-content: center;">
+                Osiyo Med
+              </button>
+              <button onclick="setStageClinic('afrosiyob')" id="stage-clinic-afrosiyob" class="btn-glass mono" style="font-size: 10px; padding: 5px 6px; justify-content: center;">
+                Afrosiyob
+              </button>
+              <button onclick="setStageClinic('sammed')" id="stage-clinic-sammed" class="btn-glass mono" style="font-size: 10px; padding: 5px 6px; justify-content: center;">
+                SamMed
+              </button>
+            </div>
+          </div>
+
           <!-- Sample Selection Pills -->
           <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 16px;">
             <button onclick="loadSample('liver')" id="pill-liver" class="btn-glass mono" style="font-size: 11px; padding: 6px 8px; justify-content: center; background: rgba(255,255,255,0.12); color: #FFF; border-color: rgba(255,255,255,0.3);">
@@ -1060,6 +1086,113 @@
 
   <script>
     // =========================================================================
+    // PARTNER CLINIC ROSTER & SPECIALIST DIRECTORY
+    // =========================================================================
+    const CLINIC_ROSTER = {
+      doktord: {
+        name: "Doktor D Poliklinikasi (Toshkent)",
+        city: "Toshkent",
+        specialists: {
+          liver: { name: "Dr. Alimov (Gepatolog)", time: "Ertaga 10:00" },
+          glucose: { name: "Dr. Yo'ldosheva (Endokrinolog)", time: "Ertaga 11:30" },
+          anemia: { name: "Dr. Usmonov (Terapevt)", time: "Ertaga 09:30" }
+        }
+      },
+      osiyo: {
+        name: "Osiyo Medical Diagnostika (Samarqand)",
+        city: "Samarqand",
+        specialists: {
+          liver: { name: "Dr. Nazarov (Gastroenterolog)", time: "Ertaga 10:30" },
+          glucose: { name: "Dr. Karimov (Endokrinolog)", time: "Ertaga 12:00" },
+          anemia: { name: "Dr. Xamidova (Gematolog)", time: "Ertaga 09:00" }
+        }
+      },
+      afrosiyob: {
+        name: "Afrosiyob Med Servis (Samarqand)",
+        city: "Samarqand",
+        specialists: {
+          liver: { name: "Dr. Qodirov (Gepatolog)", time: "Ertaga 11:00" },
+          glucose: { name: "Dr. Raxmonova (Endokrinolog)", time: "Ertaga 14:00" },
+          anemia: { name: "Dr. Shukurova (Terapevt)", time: "Ertaga 10:00" }
+        }
+      },
+      sammed: {
+        name: "SamMed Triage Markazi (Samarqand)",
+        city: "Samarqand",
+        specialists: {
+          liver: { name: "Dr. To'rayev (Gepatolog)", time: "Ertaga 09:30" },
+          glucose: { name: "Dr. Boboyev (Endokrinolog)", time: "Ertaga 11:15" },
+          anemia: { name: "Dr. Fayziyev (Gematolog)", time: "Ertaga 15:30" }
+        }
+      }
+    };
+
+    let currentStageClinicKey = 'doktord';
+
+    // Native Web Audio API Clinical Sound Synthesis (Zero external audio asset latency)
+    function playClinicalChime(type = 'click') {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(560, now);
+          osc.frequency.exponentialRampToValueAtTime(780, now + 0.05);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === 'confirm') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(440, now);
+          osc.frequency.setValueAtTime(660, now + 0.08);
+          osc.frequency.setValueAtTime(880, now + 0.16);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        }
+      } catch (e) {
+        // AudioContext autoplay restrictions or disabled
+      }
+    }
+
+    function setStageClinic(clinicKey) {
+      if (!CLINIC_ROSTER[clinicKey]) return;
+      currentStageClinicKey = clinicKey;
+      playClinicalChime('click');
+
+      const notice = document.getElementById('activeClinicNotice');
+      if (notice) notice.innerText = CLINIC_ROSTER[clinicKey].name;
+
+      ['doktord', 'osiyo', 'afrosiyob', 'sammed'].forEach(k => {
+        const btn = document.getElementById('stage-clinic-' + k);
+        if (btn) {
+          if (k === clinicKey) {
+            btn.style.borderColor = 'var(--accent-acid)';
+            btn.style.color = 'var(--accent-acid)';
+            btn.style.background = 'rgba(198, 244, 50, 0.12)';
+            btn.style.boxShadow = '0 0 12px rgba(198, 244, 50, 0.2)';
+          } else {
+            btn.style.borderColor = 'var(--border-subtle)';
+            btn.style.color = 'var(--text-secondary)';
+            btn.style.background = 'rgba(255, 255, 255, 0.02)';
+            btn.style.boxShadow = 'none';
+          }
+        }
+      });
+
+      loadSample(currentSampleKey, false);
+    }
+
+    // =========================================================================
     // INTERACTIVE SAMPLES & LIVE TELEMETRY LOGIC
     // =========================================================================
     const SAMPLES = {
@@ -1139,9 +1272,16 @@
       });
     }
 
-    function loadSample(key) {
+    function loadSample(key, playAudio = true) {
       currentSampleKey = key;
       const data = SAMPLES[key];
+      if (playAudio) playClinicalChime('click');
+
+      const specialistInfo = CLINIC_ROSTER[currentStageClinicKey]?.specialists[key] || {
+        name: data.specialist,
+        time: data.slot
+      };
+      const buttonLabel = `${specialistInfo.name} qabuliga yozilish — ${specialistInfo.time} →`;
       
       // Update Pills styling with 60-30-10 Acid Lime active physics
       ['liver', 'glucose', 'anemia'].forEach(k => {
@@ -1170,7 +1310,7 @@
       document.getElementById('labPatientName').innerText = data.patient;
       renderBiomarkers(data.biomarkers);
       document.getElementById('triageNote').innerText = data.triage;
-      document.getElementById('bookingBtnText').innerText = data.buttonText;
+      document.getElementById('bookingBtnText').innerText = buttonLabel;
 
       const pdfLink = document.getElementById('samplePdfLink');
       if (pdfLink) {
@@ -1207,6 +1347,13 @@
       const prevRevenue = currentRevenue;
       currentRevenue += 150000;
       queueCount += 1;
+      playClinicalChime('confirm');
+
+      const specialistInfo = CLINIC_ROSTER[currentStageClinicKey]?.specialists[currentSampleKey] || {
+        name: data.specialist,
+        time: data.slot
+      };
+      const clinicName = CLINIC_ROSTER[currentStageClinicKey]?.name || "Hamkor Klinika";
 
       // Smooth numeric roll
       const counterEl = document.getElementById('revenueCounter');
@@ -1253,7 +1400,7 @@
       newCard.innerHTML = `
         <div>
           <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">${data.patient}</div>
-          <div class="mono" style="font-size: 11px; color: var(--text-secondary);">${data.specialist} • ${data.slot} • ${data.biomarkerShort}</div>
+          <div class="mono" style="font-size: 11px; color: var(--text-secondary);">${specialistInfo.name} • ${specialistInfo.time} • ${clinicName}</div>
         </div>
         <div style="text-align: right;">
           <span class="badge-pass" style="background: var(--accent-acid); color: #050505;">QAYTARILDI</span>

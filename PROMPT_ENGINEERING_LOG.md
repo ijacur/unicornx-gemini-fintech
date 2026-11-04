@@ -217,3 +217,18 @@
   3. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash.
 - **Kim uchun:** Launch Lab Track B ekspertlari, mentorlar, poliklinika rahbarlari va investorlar.
 - **Format:** `public/tracker.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #15 / 500: Dynamic Partner Clinic Selector Strip, Web Audio Chime Synthesis & 34-Assertion Headless Playwright Suite
+- **Kim siz:** Lead Interactive Experience Architect & Telemetry Systems Engineer.
+- **Nima kerak:**
+  1. `index.html` (Asosiy Sahifa) dagi apparat split-ekran interaktiv stendida (Interactive Hardware Split-Stage) 4 ta asosiy hamkor klinika o'rtasida real-vaqtda kommutatsiya qiluvchi selektor panelini (`[HAMKOR KLINIKANI TANLANG]`: `Doktor D`, `Osiyo Med`, `Afrosiyob`, `SamMed`) qurish:
+     - Har bir klinika tanlanganda uning shahri, faol xabarnomasi va har bir biomarker (Jigar ALT, Diabet HbA1c, Anemiya Ferritin) bo'yicha mas'ul shifokor va qabul vaqti dinamik o'zgarishi.
+     - Brauzerning tashqi audio fayllariga bog'liq bo'lmagan holda, toza Web Audio API osillyatorlari (Sine va Triangle to'lqinlari) yordamida har bir tanlov va bron qilishda kristaldek toza klinik chimes (`click` va `confirm`) ovozlarini sintez qilish.
+     - iPhone simulyatorida "Book Specialist" tugmasi bosilganda o'ng tarafdagi registratura jonli navbatiga (`#queueList`) tanlangan klinika va tayinlangan mutaxassis ko'rsatilgan karta avtomatik tarzda qo'shilib, tiklangan daromad hisoblagichi `+150,000 UZS` ga silliq odometr animatsiyasi bilan oshishi.
+  2. `scripts/test_playwright_e2e.py` ga Phase 6 sifatida Asosiy Sahifadagi apparat split-bosqichi va klinika almashish testlarini qo'shish:
+     - Osiyo Medical klinikasiga o'tish, HbA1c namunasini yuklash, Dr. Karimov tugmasini bosish orqali daromad 4,800,000 UZS ga oshishi va navbatga to'g'ri klinika bilan qo'shilishini tasdiqlash.
+     - Jami 34 ta Playwright Headless brauzer tekshiruvi (100% GREEN).
+  3. `scripts/test_system_integrity.py` orqali butun tizim yaxlitligini tasdiqlash, Vercel'ga yangilash va Git remote (`unicornx-gemini-fintech`) ga yuborish.
+- **Kim uchun:** Bosh vrachlar, poliklinika direktorlari, xalqaro hakamlar va investorlar.
+- **Format:** `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

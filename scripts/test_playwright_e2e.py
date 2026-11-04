@@ -207,6 +207,38 @@ def test_e2e():
         print(f"  [OK] Filter pills: Restored to {restored_count} total clinics")
         total_checks += 4
 
+        # Phase 6: Test Index Hardware Split-Stage & Clinic Selector
+        print("\n[INDEX HARDWARE SPLIT-STAGE & CLINIC SELECTOR TEST]")
+        page.goto(f"http://localhost:{PORT}/index.html", wait_until="domcontentloaded")
+
+        # Switch to Osiyo Medical clinic
+        page.click("#stage-clinic-osiyo")
+        page.wait_for_timeout(200)
+        clinic_notice = page.inner_text("#activeClinicNotice")
+        assert "Osiyo" in clinic_notice, f"Expected Osiyo in clinic notice, got: {clinic_notice}"
+        print(f"  [OK] Index clinic selector: Active clinic switched to {clinic_notice}")
+
+        # Select Glucose Sample (Diabet)
+        page.click("#pill-glucose")
+        page.wait_for_timeout(200)
+        patient_name = page.inner_text("#labPatientName")
+        assert "Karimova Ziyoda" in patient_name, f"Expected Karimova Ziyoda, got: {patient_name}"
+        btn_text = page.inner_text("#bookingBtnText")
+        assert "Karimov" in btn_text, f"Expected Dr. Karimov in booking button, got: {btn_text}"
+        print(f"  [OK] Index sample selector: Loaded {patient_name} with {btn_text}")
+
+        # Trigger 1-Click Booking
+        page.click("#bookingBtn")
+        page.wait_for_timeout(500)
+        rev_text = page.inner_text("#revenueCounter")
+        assert "4,800,000" in rev_text, f"Expected 4,800,000 UZS recovered, got: {rev_text}"
+        
+        # Verify prepended card in queue
+        first_queue_item = page.inner_text("#queueList > div:first-child")
+        assert "Karimova Ziyoda" in first_queue_item and "Osiyo" in first_queue_item, f"Queue item missing patient/clinic: {first_queue_item}"
+        print(f"  [OK] Index booking flywheel: Revenue increased to {rev_text} UZS, prepended to queue")
+        total_checks += 4
+
         browser.close()
 
     httpd.shutdown()
