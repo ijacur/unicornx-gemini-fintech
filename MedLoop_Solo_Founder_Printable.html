@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedLoop AI — Solo Founder Agreement & Declaration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #0284c7;
+      --accent: #2563eb;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --bg: #f8fafc;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #090d16;
+      color: var(--text);
+      line-height: 1.55;
+      padding: 35px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Screen Action Bar */
+    .action-bar {
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 14px 22px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    .badge-info {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-info strong {
+      color: #38bdf8;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 9px 18px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(2, 132, 199, 0.45);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* A4 Document */
+    .document-page {
+      width: 100%;
+      max-width: 820px;
+      background: #ffffff;
+      padding: 55px 65px;
+      border-radius: 4px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    .doc-header {
+      border-bottom: 2.5px solid var(--primary);
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title span {
+      color: var(--secondary);
+    }
+
+    .badge-solo {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      background: #e0f2fe;
+      color: #0369a1;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .doc-subtitle {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #475569;
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .doc-meta-right {
+      text-align: right;
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.45;
+    }
+
+    .doc-meta-right strong {
+      color: #0f172a;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 20px 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-left: 3.5px solid var(--secondary);
+      padding-left: 10px;
+    }
+
+    p, li {
+      font-size: 0.9rem;
+      color: #334155;
+      text-align: justify;
+      margin-bottom: 8px;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) td {
+      background: #fdfdfd;
+    }
+
+    .highlight-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      background: #f0f9ff;
+      color: #0284c7;
+      border: 1px solid #bae6fd;
+      font-size: 0.78rem;
+    }
+
+    /* Equity Grid */
+    .equity-cards {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .equity-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 14px 16px;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .equity-card.main {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+
+    .equity-card .pct {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1;
+    }
+
+    .equity-card .details .title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--primary);
+    }
+
+    .equity-card .details .sub {
+      font-size: 0.76rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    /* Signature Box */
+    .sign-section {
+      margin-top: 25px;
+      border: 1.5px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 20px 24px;
+      background: #fafafa;
+    }
+
+    .sign-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 20px;
+    }
+
+    .sign-field {
+      width: 45%;
+    }
+
+    .sign-line {
+      border-bottom: 1.5px solid #0f172a;
+      margin-bottom: 6px;
+      height: 30px;
+    }
+
+    .sign-label {
+      font-size: 0.75rem;
+      color: #64748b;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Print Specifics */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+
+      .action-bar {
+        display: none !important;
+      }
+
+      .document-page {
+        box-shadow: none;
+        max-width: 100%;
+        padding: 25px 35px;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Control Bar -->
+  <div class="action-bar">
+    <div class="badge-info">
+      <span>🚀 <strong>School 21 • Launch Lab</strong> (Modul 1: Yakka Asoschi / Solo Founder)</span>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-secondary" id="langToggleBtn" onclick="toggleLanguage()">
+        🌐 O'zbekcha / Русский
+      </button>
+      <button class="btn btn-primary" onclick="window.print()">
+        🖨️ PDF ga chop etish (Print)
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Document Container -->
+  <div class="document-page">
+    
+    <!-- UZBEK VERSION -->
+    <div id="versionUZ">
+      <div class="doc-header">
+        <div>
+          <div class="brand-title">MedLoop <span>AI</span> <span class="badge-solo">Solo Founder</span></div>
+          <div class="doc-subtitle">Yakka Asoschi Kelishuvi va Deklaratsiyasi (Solo Founder Agreement)</div>
+        </div>
+        <div class="doc-meta-right">
+          <div>Dastur: <strong>School 21 Launch Lab (3-kohorta)</strong></div>
+          <div>Loyiha: <strong>№ 7 (Jadval) / № 8 (PIN)</strong></div>
+          <div>Shahar: <strong>Samarqand, O‘zbekiston</strong></div>
+          <div>Sana: <strong>24-oktyabr, 2026-yil</strong></div>
+        </div>
+      </div>
+
+      <h2>1. Loyiha haqida va Umumiy Status</h2>
+      <p>
+        <strong>«MedLoop AI»</strong> — O‘zbekiston xususiy klinikalarida laboratoriya tahlillarini topshirib, shifokor qabuliga qaytib kirmayotgan 45% bemorlarni 8 soniyalik AI triaj orqali ushlab qoluvchi va klinikalarga oyiga 35–75 mln so‘m yo‘qotilgan tushumni qaytaruvchi B2B klinika dvigatelidir.
+      </p>
+      <p>
+        <strong>Jamoaviy status:</strong> Loyiha hozirgi bosqichda <strong>Yakka Asoschi (Solo Founder)</strong> boshqaruvida rivojlanmoqda. Barcha strategik va operatsion vazifalar asoschi tomonidan to‘liq ta’minlanadi.
+      </p>
+
+      <h2>2. Asoschi va Mas’uliyat Taqsimoti</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Yo‘nalish</th>
+            <th>Mas’ul Shaxs</th>
+            <th>Asosiy Faoliyat Doirasi</th>
+            <th>Vaqt (Commitment)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Boshqaruv & Savdo (CEO)</strong></td>
+            <td><strong>Shukurov Jasur Otabek o‘g‘li</strong></td>
+            <td>Klinika bosh shifokorlari bilan muzokaralar, pilot (LOI) bitimlari, investorlar bilan aloqa.</td>
+            <td><span class="highlight-pill">Full-Time (40+ soat/hafta)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Tibbiy Domen & Arxitektura</strong></td>
+            <td><strong>Shukurov Jasur Otabek o‘g‘li</strong></td>
+            <td>SamDTU klinik bazasi, biomarkerlar normativlari (gepatik, qand, ferritin) va xavfsizlik.</td>
+            <td>Integratsiyalashgan</td>
+          </tr>
+          <tr>
+            <td><strong>AI & Tizimli Injiniring</strong></td>
+            <td><strong>Shukurov Jasur Otabek o‘g‘li</strong></td>
+            <td>School 21 metodologiyasida promp-injiniring, OCR tahlil, Telegram bot va Web interfeys.</td>
+            <td>Integratsiyalashgan</td>
+          </tr>
+          <tr>
+            <td><strong>Sifat & Operatsiyalar (QA & Ops)</strong></td>
+            <td><strong>Shukurov Jasur Otabek o‘g‘li</strong></td>
+            <td>Klinikalar bo‘yicha pilot natijalari, konversiya hisoboti, hakamlar oldidagi taqdimotlar.</td>
+            <td>Integratsiyalashgan</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>3. Ulushlar Tuzilmasi (Cap Table) va Zaxira Puli (ESOP)</h2>
+      <div class="equity-cards">
+        <div class="equity-card main">
+          <div class="details">
+            <div class="title">Shukurov Jasur Otabek o‘g‘li</div>
+            <div class="sub">Yakka Asoschi (Founder & CEO) • 100% Ovoz huquqi</div>
+          </div>
+          <div class="pct">85%</div>
+        </div>
+        <div class="equity-card">
+          <div class="details">
+            <div class="title">Kelgusi Jamoa Zaxirasi (ESOP)</div>
+            <div class="sub">Key Hires & Advisors uchun zaxira</div>
+          </div>
+          <div class="pct">15%</div>
+        </div>
+      </div>
+      <p>
+        <strong>Asoschi majburiyati:</strong> Asoschi loyihani kamida 3 yil davomida full-time rivojlantirish hamda Launch Lab 21 Demo Day (2027-yil yanvar) bosqichida to‘liq natija ko‘rsatish majburiyatini oladi. 15% ulush kelgusida kuchli texnik muhandislar (Senior ML) va maslahatchilarni jalb qilish uchun zaxiralanadi.
+      </p>
+
+      <h2>4. Qaror Qabul Qilish va Tezkorlik (Deadlock Free)</h2>
+      <p>
+        Barcha strategik, operatsion va moliyaviy qarorlar yagona asoschi tomonidan qabul qilinadi. Loyihada hammuassislar o‘rtasidagi tushunmovchiliklar yoki ovozlar teng bo‘linishi (deadlock) xavfi mavjud emas, bu esa gipotezalarni sinash va pilotlarni joriy qilishda eng yuqori tezlikni ta’minlaydi.
+      </p>
+
+      <h2>5. Intellektual Mulk (IP) va Maxfiylik</h2>
+      <p>
+        Barcha yaratilgan dasturiy kodlar, ma’lumotlar bazalari, neyrotarmoq ko‘rsatmalari va dizaynlar alohida jismoniy shaxs emas, balki «MedLoop AI» loyihasining ajralmas mulki hisoblanadi va MChJ ro‘yxatdan o‘tkazilishi bilan uning balansiga o‘tkaziladi.
+      </p>
+
+      <h2>6. Asoschi Tasdig‘i va Imzosi</h2>
+      <div class="sign-section">
+        <p style="font-size: 0.88rem; margin-bottom: 14px;">
+          Men, <strong>Shukurov Jasur Otabek o‘g‘li</strong>, «MedLoop AI» loyihasining yakka asoschisi sifatida ushbu hujjatdagi barcha ma’lumotlarning haqqoniyligini, Launch Lab 21 inkubatsiya dasturini to‘liq yakunlashga va Demo Day'da g‘oliblik uchun barcha majburiyatlarni bajarishga tayyorligimni tasdiqlayman.
+        </p>
+        <div class="sign-row">
+          <div class="sign-field">
+            <div class="sign-line"></div>
+            <div class="sign-label">Asoschi Imzosi: Shukurov Jasur</div>
+          </div>
+          <div class="sign-field">
+            <div class="sign-line"></div>
+            <div class="sign-label">Sana: " 24 " oktyabr 2026-yil</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUSSIAN VERSION -->
+    <div id="versionRU" style="display: none;">
+      <div class="doc-header">
+        <div>
+          <div class="brand-title">MedLoop <span>AI</span> <span class="badge-solo">Solo Founder</span></div>
+          <div class="doc-subtitle">Меморандум и Соглашение Единственного Основателя (Solo Founder Agreement)</div>
+        </div>
+        <div class="doc-meta-right">
+          <div>Программа: <strong>Школа 21 • Launch Lab (Когорта 3)</strong></div>
+          <div>Проект: <strong>№ 7 (Таблица) / № 8 (PIN)</strong></div>
+          <div>Город: <strong>Самарканд, Узбекистан</strong></div>
+          <div>Дата: <strong>24 октября 2026 г.</strong></div>
+        </div>
+      </div>
+
+      <h2>1. О проекте и Текущий Статус</h2>
+      <p>
+        <strong>«MedLoop AI»</strong> — B2B платформа клинического триажа для частных клиник Узбекистана, устраняющая потерю 45% пациентов после сдачи анализов. Нейросеть за 8 секунд анализирует бланк, оценивает риски и в 1 клик возвращает пациента на приём к профильному врачу клиники, возвращая от 35 до 75 млн сумов упущенной выручки в месяц.
+      </p>
+      <p>
+        <strong>Статус команды:</strong> На данном этапе проект развивается в формате <strong>Solo Founder (Единственный основатель)</strong>. Все ключевые направления закрываются основателем лично за счёт кросс-функциональной экспертизы.
+      </p>
+
+      <h2>2. Зоны Ответственности Единственного Основателя</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Направление</th>
+            <th>Исполнитель</th>
+            <th>Ключевая Деятельность</th>
+            <th>Вовлечённость</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Управление и B2B продажи (CEO)</strong></td>
+            <td><strong>Шукуров Джасур Отабек угли</strong></td>
+            <td>Переговоры с главврачами, заключение пилотных контрактов (LOI), коммуникация с инвесторами.</td>
+            <td><span class="highlight-pill">Full-Time (40+ часов/нед)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Медицинский домен и архитектура</strong></td>
+            <td><strong>Шукуров Джасур Отабек угли</strong></td>
+            <td>Клиническая база СамГМУ, референсные биомаркеры (гепатический профиль, сахар, ферритин).</td>
+            <td>Интегрировано</td>
+          </tr>
+          <tr>
+            <td><strong>AI и системная инженерия</strong></td>
+            <td><strong>Шукуров Джасур Отабек угли</strong></td>
+            <td>Промпт-инжиниринг Школы 21, OCR бланков, Telegram-движок и реактивный Web-интерфейс.</td>
+            <td>Интегрировано</td>
+          </tr>
+          <tr>
+            <td><strong>Контроль качества и операции (QA & Ops)</strong></td>
+            <td><strong>Шукуров Джасур Отабек угли</strong></td>
+            <td>Метрики внедрений в клиниках, отчёты конверсий, подготовка и проведение питчей.</td>
+            <td>Интегрировано</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>3. Структура Долей (Cap Table) и Опционный Пул (ESOP)</h2>
+      <div class="equity-cards">
+        <div class="equity-card main">
+          <div class="details">
+            <div class="title">Шукуров Джасур Отабек угли</div>
+            <div class="sub">Единственный основатель (Founder & CEO) • 100% голосов</div>
+          </div>
+          <div class="pct">85%</div>
+        </div>
+        <div class="equity-card">
+          <div class="details">
+            <div class="title">Резервный пул команды (ESOP)</div>
+            <div class="sub">Опционы для будущих ключевых наймов</div>
+          </div>
+          <div class="pct">15%</div>
+        </div>
+      </div>
+      <p>
+        <strong>Обязательства:</strong> Основатель берет на себя обязательство развивать проект full-time минимум в течение 3 лет и успешно завершить инкубационную программу Launch Lab до Demo Day. 15% долей зарезервированы под опционы будущих ключевых инженеров (Senior ML / Tech Lead).
+      </p>
+
+      <h2>4. Принятие Решений и Скорость (Deadlock Free)</h2>
+      <p>
+        Все решения принимаются лично основателем. В проекте полностью отсутствуют риски раскола команды или тупиковых ситуаций (deadlock), что гарантирует максимальную скорость тестирования гипотез и запуска пилотов в клиниках.
+      </p>
+
+      <h2>5. Интеллектуальная Собственность (IP)</h2>
+      <p>
+        Весь программный код, нейросетевые алгоритмы, базы данных и дизайн принадлежат исключительно проекту «MedLoop AI» и будут переданы на баланс регистрируемого юридического лица (ООО).
+      </p>
+
+      <h2>6. Подтверждение и Подпись Основателя</h2>
+      <div class="sign-section">
+        <p style="font-size: 0.88rem; margin-bottom: 14px;">
+          Я, <strong>Шукуров Джасур Отабек угли</strong>, как единственный основатель стартапа «MedLoop AI», подтверждаю достоверность всех сведений и беру на себя персональную ответственность за достижение целей программы Launch Lab 21 и защиту проекта на Demo Day.
+        </p>
+        <div class="sign-row">
+          <div class="sign-field">
+            <div class="sign-line"></div>
+            <div class="sign-label">Подпись основателя: Шукуров Джасур</div>
+          </div>
+          <div class="sign-field">
+            <div class="sign-line"></div>
+            <div class="sign-label">Дата: " 24 " октября 2026 г.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentLang = 'UZ';
+    function toggleLanguage() {
+      const uz = document.getElementById('versionUZ');
+      const ru = document.getElementById('versionRU');
+      const btn = document.getElementById('langToggleBtn');
+
+      if (currentLang === 'UZ') {
+        uz.style.display = 'none';
+        ru.style.display = 'block';
+        currentLang = 'RU';
+        btn.innerHTML = '🌐 Til: Русский (O‘zbekchaga o‘tish)';
+      } else {
+        ru.style.display = 'none';
+        uz.style.display = 'block';
+        currentLang = 'UZ';
+        btn.innerHTML = '🌐 Til: O‘zbekcha (Русскийга ўтиш)';
+      }
+    }
+  </script>
+</body>
+</html>

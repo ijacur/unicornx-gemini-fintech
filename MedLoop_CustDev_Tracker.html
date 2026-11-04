@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedLoop AI — CustDev Field Tracker (Samarqand Klinikalari)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-6 selection:bg-cyan-500 selection:text-slate-950">
+
+  <div class="max-w-7xl mx-auto space-y-6">
+    
+    <!-- Top Bar -->
+    <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-5 rounded-3xl">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
+          Launch Lab 21 • 2-Modul (CustDev)
+        </div>
+        <h1 class="text-xl sm:text-2xl font-black text-white">
+          MedLoop AI • Samarqand Klinikalar CustDev Trekeri
+        </h1>
+        <p class="text-xs text-slate-400">
+          Squad A (Jasur + Munisa) &amp; Squad B (Shoxrux + Nargis) uchun dala intervyulari va LOI monitoringi
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="exportToCSV()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+          📥 CSV / Excel Eksport
+        </button>
+        <button onclick="openModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-cyan-500/20 flex items-center gap-1.5">
+          ➕ Yangi Intervyu Qo‘shish
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats Summary Row -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="text-xs text-slate-400 font-semibold">Jami Intervyular</div>
+        <div class="text-2xl font-black text-white mt-1" id="statTotal">4 ta</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="text-xs text-slate-400 font-semibold">O‘rtacha Og‘riq Boli (1-5)</div>
+        <div class="text-2xl font-black text-cyan-400 mt-1" id="statPain">4.5 / 5.0</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="text-xs text-slate-400 font-semibold">Yo‘qotish Darajasi</div>
+        <div class="text-2xl font-black text-amber-400 mt-1">42% Drop-off</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+        <div class="text-xs text-slate-400 font-semibold">Imzolangan Pilot LOI</div>
+        <div class="text-2xl font-black text-emerald-400 mt-1" id="statLOI">2 ta (50%)</div>
+      </div>
+    </div>
+
+    <!-- Main Table Card -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+        <h2 class="text-sm font-bold text-white uppercase tracking-wider">Intervyular Bazasi (Samarqand)</h2>
+        <span class="text-xs text-slate-400">Kamida 6/10 klinika 4+ og‘riq bali olsa — muammo 100% validatsiya hisoblanadi</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-950/80 text-slate-400 border-b border-slate-800 text-[11px] uppercase tracking-wider">
+              <th class="p-3.5 pl-5">#</th>
+              <th class="p-3.5">Klinika Nomi</th>
+              <th class="p-3.5">Suhbatdosh</th>
+              <th class="p-3.5">Dasturiy Stek</th>
+              <th class="p-3.5">Bemor Oqimi / kun</th>
+              <th class="p-3.5">Yo‘qotish %</th>
+              <th class="p-3.5">Og‘riq Bali (1-5)</th>
+              <th class="p-3.5">Pilot LOI Holati</th>
+              <th class="p-3.5 pr-5">Squad</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody" class="divide-y divide-slate-800/80 text-slate-200">
+            <!-- Dynamic rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal for New Entry -->
+  <div id="entryModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-white">Yangi CustDev Intervyusi Kiritish</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-400 mb-1">Klinika nomi</label>
+          <input type="text" id="mClinic" placeholder="Masalan: De Facto Diagnostika" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 mb-1">Suhbatdosh (Lavozimi)</label>
+            <input type="text" id="mContact" placeholder="Bosh vrach / Menejer" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Hozirgi tizimi</label>
+            <input type="text" id="mStack" placeholder="Excel / Telegram / Qog'oz" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-slate-400 mb-1">Bemorlar / kun</label>
+            <input type="number" id="mPatients" placeholder="70" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Yo‘qotish %</label>
+            <input type="number" id="mDrop" placeholder="45" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Og‘riq bali (1-5)</label>
+            <select id="mPain" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+              <option value="5">5 - Juda og'riqli</option>
+              <option value="4" selected>4 - Jiddiy muammo</option>
+              <option value="3">3 - O'rtacha</option>
+              <option value="2">2 - Past og'riq</option>
+              <option value="1">1 - Muammo emas</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 mb-1">Pilot LOI Holati</label>
+            <select id="mStatus" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+              <option value="Imzolandi">Imzolandi ✅</option>
+              <option value="O‘ylamoqda">O‘ylamoqda ⏳</option>
+              <option value="Rad etildi">Rad etildi ❌</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1">Mas’ul Squad</label>
+            <select id="mSquad" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+              <option value="Squad A">Squad A (Jasur + Munisa)</option>
+              <option value="Squad B">Squad B (Shoxrux + Nargis)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2 flex justify-end gap-2">
+        <button onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold">Bekor qilish</button>
+        <button onclick="addEntry()" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl text-xs font-bold">Saqlash</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let entries = [
+      { id: 1, clinic: "De Facto Diagnostika", contact: "Bosh vrach / Dr. Alisher", stack: "Qog'oz + Telegram", patients: 85, drop: 45, pain: 5, status: "Imzolandi", squad: "Squad A" },
+      { id: 2, clinic: "SamDTU 1-Klinika Xususiy", contact: "Menejer / Dr. Nodir", stack: "1C Meditsina + Excel", patients: 120, drop: 40, pain: 5, status: "Imzolandi", squad: "Squad A" },
+      { id: 3, clinic: "Samarqand Dental Star", contact: "Klinika egasi / Dr. Sardor", stack: "AmoCRM (chala ishlaydi)", patients: 40, drop: 35, pain: 4, status: "O‘ylamoqda", squad: "Squad B" },
+      { id: 4, clinic: "Shifokor Ko'p Tarmoqli", contact: "Bosh hamshira / Ma'muriyat", stack: "Daftar (qo'lda yoziladi)", patients: 65, drop: 50, pain: 4, status: "O‘ylamoqda", squad: "Squad B" }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      entries.forEach((e, idx) => {
+        let badgeColor = e.status === 'Imzolandi' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
+                         e.status === 'O‘ylamoqda' ? 'bg-amber-500/10 text-amber-400 border-amber-500/30' :
+                         'bg-red-500/10 text-red-400 border-red-500/30';
+
+        tbody.innerHTML += `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="p-3.5 pl-5 font-mono text-slate-400">${idx + 1}</td>
+            <td class="p-3.5 font-bold text-white">${e.clinic}</td>
+            <td class="p-3.5 text-slate-300">${e.contact}</td>
+            <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">${e.stack}</span></td>
+            <td class="p-3.5 font-mono text-slate-300">${e.patients} bemor</td>
+            <td class="p-3.5 font-bold text-red-400">${e.drop}%</td>
+            <td class="p-3.5"><span class="font-bold text-cyan-400">${e.pain} / 5</span></td>
+            <td class="p-3.5"><span class="px-2.5 py-1 rounded-full border text-[11px] font-bold ${badgeColor}">${e.status}</span></td>
+            <td class="p-3.5 pr-5 font-medium text-slate-400">${e.squad}</td>
+          </tr>
+        `;
+      });
+
+      document.getElementById('statTotal').textContent = entries.length + " ta";
+      const signed = entries.filter(e => e.status === 'Imzolandi').length;
+      document.getElementById('statLOI').textContent = `${signed} ta (${Math.round((signed/entries.length)*100)}%)`;
+    }
+
+    function openModal() { document.getElementById('entryModal').classList.remove('hidden'); }
+    function closeModal() { document.getElementById('entryModal').classList.add('hidden'); }
+
+    function addEntry() {
+      const clinic = document.getElementById('mClinic').value;
+      if (!clinic) return alert('Klinika nomini kiriting!');
+
+      entries.push({
+        id: entries.length + 1,
+        clinic: clinic,
+        contact: document.getElementById('mContact').value || "Bosh vrach",
+        stack: document.getElementById('mStack').value || "Excel",
+        patients: parseInt(document.getElementById('mPatients').value) || 50,
+        drop: parseInt(document.getElementById('mDrop').value) || 40,
+        pain: parseInt(document.getElementById('mPain').value) || 4,
+        status: document.getElementById('mStatus').value,
+        squad: document.getElementById('mSquad').value
+      });
+
+      closeModal();
+      renderTable();
+    }
+
+    function exportToCSV() {
+      let csv = "ID,Klinika,Suhbatdosh,Dasturiy Stek,Bemorlar/kun,Yo'qotish %,Og'riq Bali,LOI Holati,Squad\n";
+      entries.forEach(e => {
+        csv += `${e.id},"${e.clinic}","${e.contact}","${e.stack}",${e.patients},${e.drop},${e.pain},"${e.status}","${e.squad}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "MedLoop_CustDev_Samarkand.csv";
+      a.click();
+    }
+
+    renderTable();
+  </script>
+</body>
+</html>

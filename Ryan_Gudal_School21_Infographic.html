@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ryan Gudal Campus Visit Blueprint — School 21</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    width: 1920px;
+    height: 1080px;
+    background: radial-gradient(ellipse at 50% 0%, #162447 0%, #0d1322 60%, #070a12 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #e2e8f0;
+    overflow: hidden;
+    position: relative;
+    padding: 28px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Background glowing grid effect */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: 
+      linear-gradient(to right, rgba(56, 189, 248, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid rgba(56, 189, 248, 0.25);
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+  }
+  .main-title {
+    font-size: 31px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+  }
+  .main-title span {
+    color: #38bdf8;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+  }
+  .header-badge {
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #38bdf8;
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Main Container Layout: 3 Columns */
+  .content-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 410px 1fr 490px;
+    gap: 20px;
+    flex-grow: 1;
+  }
+
+  /* Card styling with glassmorphism */
+  .glass-panel {
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    position: relative;
+  }
+  .glass-panel-glow {
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    box-shadow: 0 0 25px rgba(14, 165, 233, 0.15), inset 0 0 15px rgba(14, 165, 233, 0.05);
+  }
+
+  .panel-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    letter-spacing: -0.2px;
+  }
+  .panel-title .glow-dot {
+    width: 8px;
+    height: 8px;
+    background: #38bdf8;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #38bdf8;
+  }
+
+  /* Column 1: Left (Profile + 3 Pillars) */
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .profile-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 18px;
+  }
+  .avatar-wrap {
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .avatar-img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #38bdf8;
+    box-shadow: 0 0 24px rgba(56, 189, 248, 0.5);
+  }
+  .verified-badge {
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    background: #0284c7;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+    border: 2px solid #0f172a;
+  }
+  .speaker-name {
+    font-size: 21px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 2px;
+  }
+  .speaker-role {
+    font-size: 12.5px;
+    color: #38bdf8;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .speaker-bio {
+    font-size: 11.5px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+
+  .pillars-card-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+  }
+  .pillar-item {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .pillar-icon {
+    font-size: 20px;
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .pillar-info h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 2px;
+  }
+  .pillar-info p {
+    font-size: 11px;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  /* Column 2: Center (Stats Grid 2x2 + Timeline) */
+  .center-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    flex-grow: 1;
+  }
+  .stat-card {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(71, 85, 105, 0.35);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: #0284c7;
+  }
+  .stat-card.card-accent-emerald::after { background: #10b981; }
+  .stat-card.card-accent-amber::after { background: #f59e0b; }
+  .stat-card.card-accent-purple::after { background: #a855f7; }
+
+  .stat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .stat-icon {
+    font-size: 22px;
+  }
+  .stat-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .stat-desc {
+    font-size: 11.5px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+  .stat-desc strong {
+    color: #38bdf8;
+  }
+
+  /* Timeline */
+  .timeline-panel {
+    padding: 16px 20px;
+  }
+  .timeline-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    position: relative;
+    margin-top: 10px;
+  }
+  .timeline-steps::before {
+    content: "";
+    position: absolute;
+    top: 18px; left: 20px; right: 20px;
+    height: 3px;
+    background: linear-gradient(90deg, #0284c7 0%, #38bdf8 50%, #10b981 100%);
+    z-index: 0;
+  }
+  .timeline-node {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .timeline-dot {
+    width: 36px;
+    height: 36px;
+    background: #0f172a;
+    border: 2px solid #38bdf8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #38bdf8;
+    margin-bottom: 8px;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  }
+  .timeline-time {
+    font-size: 12px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 2px;
+  }
+  .timeline-action {
+    font-size: 12px;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-bottom: 4px;
+  }
+  .timeline-sub {
+    font-size: 10.5px;
+    color: #94a3b8;
+    line-height: 1.3;
+  }
+
+  /* Column 3: Right (School 21 Bridge + Prompts) */
+  .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .synergy-panel {
+    display: flex;
+    flex-direction: column;
+  }
+  .bridge-graphic {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px dashed rgba(56, 189, 248, 0.4);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .bridge-end {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .bridge-end-badge {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #ffffff;
+    background: #1e293b;
+    border: 1px solid #475569;
+    padding: 3px 10px;
+    border-radius: 6px;
+  }
+  .bridge-arrow {
+    font-size: 16px;
+    color: #38bdf8;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .synergy-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .synergy-card {
+    background: rgba(30, 41, 59, 0.6);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .synergy-card h5 {
+    font-size: 12px;
+    font-weight: 700;
+    color: #38bdf8;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .synergy-card p {
+    font-size: 10.5px;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+
+  /* Prompts list */
+  .prompts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .prompt-item {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(71, 85, 105, 0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    gap: 10px;
+  }
+  .prompt-icon {
+    font-size: 15px;
+    color: #38bdf8;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .prompt-content strong {
+    display: block;
+    font-size: 11.5px;
+    color: #e2e8f0;
+    margin-bottom: 2px;
+  }
+  .prompt-content span {
+    font-size: 10.5px;
+    color: #94a3b8;
+    line-height: 1.35;
+    display: block;
+  }
+
+  /* Footer bar */
+  footer {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+    font-size: 11px;
+    color: #64748b;
+  }
+  .footer-tags {
+    display: flex;
+    gap: 14px;
+  }
+  .footer-tag {
+    color: #94a3b8;
+  }
+  .footer-tag b {
+    color: #38bdf8;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Title Bar -->
+  <header>
+    <div>
+      <h1 class="main-title">Ryan Gudal Campus Visit: <span>From C++ Unix to Microsecond High-Frequency Trading</span></h1>
+    </div>
+    <div class="header-badge">
+      <span>📍</span> School 21 (École 42) Campus • Today at 5:00 PM
+    </div>
+  </header>
+
+  <!-- 3-Column Content Grid -->
+  <div class="content-grid">
+    
+    <!-- LEFT COLUMN: Profile & 3 Pillars -->
+    <div class="left-col">
+      <div class="glass-panel glass-panel-glow profile-hero">
+        <div class="avatar-wrap">
+          <img class="avatar-img" src="data:image/jpeg;base64,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" alt="Ryan Gudal">
+          <div class="verified-badge">✓</div>
+        </div>
+        <div class="speaker-name">Ryan Gudal</div>
+        <div class="speaker-role">Software Engineer • Quantitative Trading Systems<br>Ex-Google SWE Intern • UMich Alum</div>
+        <div class="speaker-bio">
+          Engineers high-frequency trading systems at IMC Trading (Chicago). Brings elite experience from Google distributed infrastructure, autonomous robotics (Mars Rover & Solar Car), and top University of Michigan CS honors.
+        </div>
+      </div>
+
+      <div class="glass-panel" style="flex-grow: 1; display: flex; flex-direction: column;">
+        <div class="panel-title"><div class="glow-dot"></div> 3 Core Pillars of Engineering Mastery</div>
+        <div class="pillars-card-wrap">
+          <div class="pillar-item">
+            <div class="pillar-icon">⚡</div>
+            <div class="pillar-info">
+              <h4>Pillar 1: High-Frequency Trading (HFT)</h4>
+              <p>Ultra-low latency execution engines, market making, zero-allocation runtime loops, and memory-aligned modern C++.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon">☁️</div>
+            <div class="pillar-info">
+              <h4>Pillar 2: Big Tech Scale (Google)</h4>
+              <p>Google monorepo (Piper), enterprise distributed testing frameworks, code readability standards, and strict code review loops.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-icon">🤖</div>
+            <div class="pillar-info">
+              <h4>Pillar 3: Autonomous Robotics & Systems</h4>
+              <p>Michigan Mars Rover & Solar Car telemetry, embedded C++, Linux kernel bypass, and competitive chess strategy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER COLUMN: Stats Grid 2x2 + Timeline -->
+    <div class="center-col">
+      <div class="glass-panel" style="flex-grow: 1; display: flex; flex-direction: column;">
+        <div class="panel-title"><div class="glow-dot"></div> Key Qualifications & Proven Track Record</div>
+        <div class="stats-grid">
+          
+          <!-- Box 1 -->
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-icon">⏱️</span>
+              <div class="stat-title">Microsecond Latency Optimization</div>
+            </div>
+            <div class="stat-desc">
+              Engineers low-latency financial systems at <strong>IMC Trading</strong> using <strong>Modern C++17/20</strong>, Linux kernel bypass (Solarflare Onload), cache-friendly data structures, and lock-free concurrency.
+            </div>
+          </div>
+
+          <!-- Box 2 -->
+          <div class="stat-card card-accent-emerald">
+            <div class="stat-header">
+              <span class="stat-icon">🌐</span>
+              <div class="stat-title">Tier-1 Big Tech Engineering</div>
+            </div>
+            <div class="stat-desc">
+              Selected into <strong>Google's competitive 2021 SWE Intern cohort</strong> as a returning engineer, mastering large distributed systems, monolithic repos, and automated testing suites.
+            </div>
+          </div>
+
+          <!-- Box 3 -->
+          <div class="stat-card card-accent-amber">
+            <div class="stat-header">
+              <span class="stat-icon">🏆</span>
+              <div class="stat-title">2022 EECS Top Student Award</div>
+            </div>
+            <div class="stat-desc">
+              Honored with the <strong>University of Michigan Departmental Award</strong>. Rigorous mastery in EECS 281 (Algorithms), EECS 370 (Computer Org), EECS 280 (C++), and Linear Algebra.
+            </div>
+          </div>
+
+          <!-- Box 4 -->
+          <div class="stat-card card-accent-purple">
+            <div class="stat-header">
+              <span class="stat-icon">📑</span>
+              <div class="stat-title">Autonomous Robotics & Publications</div>
+            </div>
+            <div class="stat-desc">
+              Embedded systems on the <strong>Michigan Solar Car</strong> & <strong>Mars Rover Teams</strong>. Co-authored 2 peer-reviewed surgical data analytics papers in <em>PRS Global Open</em> and <em>PRS Journal</em>.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Timeline Panel -->
+      <div class="glass-panel timeline-panel">
+        <div class="panel-title"><div class="glow-dot"></div> Event Run-of-Show Timeline (Today @ 5:00 PM)</div>
+        <div class="timeline-steps">
+          <div class="timeline-node">
+            <div class="timeline-dot">1</div>
+            <div class="timeline-time">17:00 – 17:10</div>
+            <div class="timeline-action">Welcome & Check-in</div>
+            <div class="timeline-sub">Reception badge, meet directors</div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot">2</div>
+            <div class="timeline-time">17:10 – 17:35</div>
+            <div class="timeline-action">Campus Walkthrough</div>
+            <div class="timeline-sub">Clusters tour, peer learning, game levels</div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot">3</div>
+            <div class="timeline-time">17:35 – 18:15</div>
+            <div class="timeline-action">Fireside Q&A Session</div>
+            <div class="timeline-sub">Talk: "From C++ to Microseconds: IMC & Google"</div>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot">4</div>
+            <div class="timeline-time">18:15 – 18:30</div>
+            <div class="timeline-action">Networking & Photos</div>
+            <div class="timeline-sub">1-on-1 peer chats, LinkedIn, photos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: School 21 Synergy + Discussion Prompts -->
+    <div class="right-col">
+      <div class="glass-panel synergy-panel">
+        <div class="panel-title"><div class="glow-dot"></div> School 21 (École 42) Curriculum Synergy</div>
+        
+        <div class="bridge-graphic">
+          <div class="bridge-end">
+            <span style="font-size: 20px;">🏫</span>
+            <span class="bridge-end-badge">School 21 Peer Model</span>
+          </div>
+          <div class="bridge-arrow">
+            <span>─── Low-Level C/C++ ───▶</span>
+          </div>
+          <div class="bridge-end">
+            <span style="font-size: 20px;">📈</span>
+            <span class="bridge-end-badge">HFT & Big Tech</span>
+          </div>
+        </div>
+
+        <div style="font-size: 11px; color: #cbd5e1; margin-bottom: 10px; line-height: 1.4;">
+          School 21 students write foundational software without standard libraries. This mirrors the exact zero-heap and low-level architectural requirements of high-frequency trading engines.
+        </div>
+
+        <div class="synergy-items">
+          <div class="synergy-card">
+            <h5><span>🛠️</span> Libft (Custom C Library)</h5>
+            <p>Rebuilding libc teaches manual memory layout, pointer arithmetic, and cache lines vital for zero-allocation C++ trading loops.</p>
+          </div>
+          <div class="synergy-card">
+            <h5><span>🧵</span> Philosophers & Minishell</h5>
+            <p>Mastering POSIX threads, mutexes, processes, and IPC directly prepares students for lock-free queues in market-making engines.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Curated Student Discussion Prompts -->
+      <div class="glass-panel" style="flex-grow: 1; display: flex; flex-direction: column;">
+        <div class="panel-title"><div class="glow-dot"></div> Curated Student Discussion Prompts</div>
+        <div class="prompts-list">
+          
+          <div class="prompt-item">
+            <div class="prompt-icon">💬</div>
+            <div class="prompt-content">
+              <strong>HFT vs. Big Tech Engineering</strong>
+              <span>"How does building software for market-making at IMC differ in scale, latency, and culture from distributed systems at Google?"</span>
+            </div>
+          </div>
+
+          <div class="prompt-item">
+            <div class="prompt-icon">💬</div>
+            <div class="prompt-content">
+              <strong>C++ & Microsecond Performance</strong>
+              <span>"What practical C++ paradigms (cache alignment, lock-free queues, zero heap allocations) are essential when every microsecond counts?"</span>
+            </div>
+          </div>
+
+          <div class="prompt-item">
+            <div class="prompt-icon">💬</div>
+            <div class="prompt-content">
+              <strong>Cracking Tier-1 Coding Screens</strong>
+              <span>"What are the most common pitfalls talented developers make during algorithmic interviews at top global firms?"</span>
+            </div>
+          </div>
+
+          <div class="prompt-item">
+            <div class="prompt-icon">💬</div>
+            <div class="prompt-content">
+              <strong>From Peer-Academy to Global Engineering</strong>
+              <span>"How can self-taught, peer-learning students leverage their hands-on Unix mastery to compete internationally?"</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Footer -->
+  <footer>
+    <div class="footer-tags">
+      <span class="footer-tag"><b>Host:</b> School 21 (École 42 Partner Campus)</span>
+      <span class="footer-tag"><b>Format:</b> In-Person Guest Session & Cluster Tour</span>
+      <span class="footer-tag"><b>Tech Focus:</b> C++, Low Latency, Systems, FinTech</span>
+    </div>
+    <div>
+      Designed & Verified for School 21 Campus Display
+    </div>
+  </footer>
+
+</body>
+</html>

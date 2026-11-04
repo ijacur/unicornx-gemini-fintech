@@ -88,15 +88,16 @@ Muassislar o'rtasida 45/20/20/15 foizli rasmiy bitim imzolandi. Osiyo Medical Cl
     <div className="space-y-8 max-w-6xl mx-auto py-6 px-4">
 
       {/* Top Header */}
-      <div className="apple-card p-6 md:p-8 bg-gradient-to-br from-zinc-950 via-[#0B0B0E] to-zinc-900 border-white/15 relative overflow-hidden">
+      <div className="apple-card p-6 md:p-8 bg-gradient-to-br from-zinc-950 via-[#0B0B0E] to-zinc-900 border-[#FF5500]/25 relative overflow-hidden">
+        <div className="absolute -top-12 -right-12 w-80 h-80 bg-[#FF5500]/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-xs font-bold uppercase tracking-wider mb-3">
-              <Building2 className="w-3.5 h-3.5 text-white" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF5500]/10 border border-[#FF5500]/30 text-[#FF5500] text-xs font-bold uppercase tracking-wider mb-3">
+              <Building2 className="w-3.5 h-3.5 text-[#FF5500]" />
               Launch Lab 21 · 1-Nazorat Nuqtasi (6-Noyabr Checkpoint)
             </div>
             <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight">
-              MedLoop AI · 2-Modul CustDev Xulosalari
+              MedLoop AI · 2-Modul <span className="font-serif italic text-[#FF5500] font-normal">CustDev</span> Xulosalari
             </h1>
             <p className="text-sm text-zinc-400 mt-2 max-w-2xl leading-relaxed">
               Track B (B2B SaaS Bootstrapping): Xususiy klinikalarda laboratoriyadan keyingi 45% bemor tushib qolishini qaytarish orqali 5–10M+ so'm yo'qotilgan daromadni tiklash.
@@ -106,9 +107,9 @@ Muassislar o'rtasida 45/20/20/15 foizli rasmiy bitim imzolandi. Osiyo Medical Cl
           <div className="flex items-center gap-2.5">
             <a
               href="/clinic-roi.html"
-              className="apple-btn px-4 py-2.5 text-xs font-bold flex items-center gap-1.5 shadow-lg"
+              className="bg-[#FF5500] text-black hover:bg-[#FF6B1A] px-4 py-2.5 text-xs font-black rounded-xl flex items-center gap-1.5 shadow-[0_0_25px_rgba(255,85,0,0.35)] transition transform hover:scale-105"
             >
-              <TrendingUp className="w-3.5 h-3.5" />
+              <TrendingUp className="w-3.5 h-3.5 text-black" />
               Klinika ROI Cockpit
             </a>
             <a
@@ -127,69 +128,69 @@ Muassislar o'rtasida 45/20/20/15 foizli rasmiy bitim imzolandi. Osiyo Medical Cl
         <a
           href="/MedLoop_Agreement.pdf"
           target="_blank"
-          className="apple-card p-3.5 flex items-center justify-between hover:border-white/30 transition group"
+          className="apple-card p-3.5 flex items-center justify-between hover:border-[#FF5500]/40 transition group"
         >
           <div className="flex items-center gap-2.5">
             <FileText className="w-4 h-4 text-white" />
             <div>
-              <p className="text-xs font-bold text-white group-hover:text-cyan-400 transition">Bitim (45/20/20/15)</p>
+              <p className="text-xs font-bold text-white group-hover:text-[#FF5500] transition">Bitim (45/20/20/15)</p>
               <p className="text-[10px] text-zinc-400">MedLoop_Agreement.pdf</p>
             </div>
           </div>
-          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white" />
+          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#FF5500]" />
         </a>
 
         <a
           href="/loi.pdf"
           target="_blank"
-          className="apple-card p-3.5 flex items-center justify-between hover:border-white/30 transition group"
+          className="apple-card p-3.5 flex items-center justify-between hover:border-[#FF5500]/40 transition group"
         >
           <div className="flex items-center gap-2.5">
             <Building2 className="w-4 h-4 text-white" />
             <div>
-              <p className="text-xs font-bold text-white group-hover:text-cyan-400 transition">Pilot Niyat Xati</p>
+              <p className="text-xs font-bold text-white group-hover:text-[#FF5500] transition">Pilot Niyat Xati</p>
               <p className="text-[10px] text-zinc-400">Osiyo Medical LOI</p>
             </div>
           </div>
-          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white" />
+          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#FF5500]" />
         </a>
 
         <a
           href="/workflow.html"
           target="_blank"
-          className="apple-card p-3.5 flex items-center justify-between hover:border-white/30 transition group"
+          className="apple-card p-3.5 flex items-center justify-between hover:border-[#FF5500]/40 transition group"
         >
           <div className="flex items-center gap-2.5">
             <Clock className="w-4 h-4 text-white" />
             <div>
-              <p className="text-xs font-bold text-white group-hover:text-cyan-400 transition">Jarayon Xaritasi</p>
+              <p className="text-xs font-bold text-white group-hover:text-[#FF5500] transition">Jarayon Xaritasi</p>
               <p className="text-[10px] text-zinc-400">8s Triage Workflow</p>
             </div>
           </div>
-          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white" />
+          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#FF5500]" />
         </a>
 
         <a
           href="/tracker.html"
           target="_blank"
-          className="apple-card p-3.5 flex items-center justify-between hover:border-white/30 transition group"
+          className="apple-card p-3.5 flex items-center justify-between hover:border-[#FF5500]/40 transition group"
         >
           <div className="flex items-center gap-2.5">
             <CheckCircle2 className="w-4 h-4 text-white" />
             <div>
-              <p className="text-xs font-bold text-white group-hover:text-cyan-400 transition">Modul Treker</p>
+              <p className="text-xs font-bold text-white group-hover:text-[#FF5500] transition">Modul Treker</p>
               <p className="text-[10px] text-zinc-400">12 Haftalik Reja</p>
             </div>
           </div>
-          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-white" />
+          <ExternalLink className="w-3.5 h-3.5 text-zinc-500 group-hover:text-[#FF5500]" />
         </a>
       </div>
 
       {/* 2-Minute Teleprompter Card */}
-      <div className="apple-card p-6 md:p-7 border-white/20 bg-[#0E0E12] space-y-5">
+      <div className="apple-card p-6 md:p-7 border-[#FF5500]/25 bg-[#0E0E12] space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-white uppercase tracking-wider mb-1">
+            <div className="inline-flex items-center gap-2 text-xs font-bold text-[#FF5500] uppercase tracking-wider mb-1">
               🎙 6-Noyabr Teleprompter (2-Daqiqalik Nutq)
             </div>
             <p className="text-xs text-zinc-400">
@@ -203,22 +204,22 @@ Muassislar o'rtasida 45/20/20/15 foizli rasmiy bitim imzolandi. Osiyo Medical Cl
             <div className="flex items-center bg-black/50 border border-white/10 rounded-xl p-0.5 text-xs font-semibold">
               <button
                 onClick={() => setActiveSpeechLang('uz')}
-                className={`px-3 py-1.5 rounded-lg transition ${activeSpeechLang === 'uz' ? 'bg-white text-black' : 'text-zinc-400 hover:text-white'}`}
+                className={`px-3 py-1.5 rounded-lg transition ${activeSpeechLang === 'uz' ? 'bg-[#FF5500] text-black font-bold' : 'text-zinc-400 hover:text-white'}`}
               >
                 O'zbekcha
               </button>
               <button
                 onClick={() => setActiveSpeechLang('ru')}
-                className={`px-3 py-1.5 rounded-lg transition ${activeSpeechLang === 'ru' ? 'bg-white text-black' : 'text-zinc-400 hover:text-white'}`}
+                className={`px-3 py-1.5 rounded-lg transition ${activeSpeechLang === 'ru' ? 'bg-[#FF5500] text-black font-bold' : 'text-zinc-400 hover:text-white'}`}
               >
                 Русский
               </button>
             </div>
 
             {/* Timer Display */}
-            <div className="flex items-center gap-2 bg-black/60 border border-white/10 px-3 py-1.5 rounded-xl">
-              <Clock className="w-3.5 h-3.5 text-zinc-400" />
-              <span className={`text-sm font-mono font-bold ${timerSeconds <= 20 ? 'text-red-400 animate-pulse' : 'text-white'}`}>
+            <div className="flex items-center gap-2 bg-black/60 border border-[#FF5500]/30 px-3 py-1.5 rounded-xl shadow-[0_0_15px_rgba(255,85,0,0.2)]">
+              <Clock className="w-3.5 h-3.5 text-[#FF5500]" />
+              <span className={`text-sm font-mono font-bold ${timerSeconds <= 20 ? 'text-red-500 animate-pulse' : 'text-[#FF5500]'}`}>
                 {formatTime(timerSeconds)}
               </span>
               <button
@@ -226,7 +227,7 @@ Muassislar o'rtasida 45/20/20/15 foizli rasmiy bitim imzolandi. Osiyo Medical Cl
                 className="p-1 rounded hover:bg-white/10 text-zinc-300 hover:text-white"
                 title={isTimerRunning ? 'To‘xtatish' : 'Boshlash'}
               >
-                {isTimerRunning ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                {isTimerRunning ? <Pause className="w-3.5 h-3.5 text-[#FF5500]" /> : <Play className="w-3.5 h-3.5 text-[#FF5500]" />}
               </button>
               <button
                 onClick={resetTimer}

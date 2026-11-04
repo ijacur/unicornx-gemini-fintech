@@ -1,0 +1,26 @@
+# Project Guidelines & Roo Code Rules (Turnir / UnicornX)
+
+## 1. Spec-Driven Workflow (GSD Core)
+- Before writing code for non-trivial features or changes, review or create the corresponding spec in `gsd/active/`.
+- Respect the 5-phase lifecycle: `01-discuss` -> `02-plan` -> `03-execute` -> `04-verify` -> `05-ship`.
+- Check task items in `gsd/BOARD.md` to ensure alignment with active milestones.
+
+## 2. Technology Stack & Coding Standards
+- **Frontend**: React 19, TypeScript, Vite, Tailwind CSS v4, Lucide icons.
+- **Backend / Scripts**: Python 3.14, Node.js scripts.
+- **Linter & Type Checker**: `oxlint` (via `npm run lint`) and TypeScript compiler (`tsc -b`).
+- **Build Verification**: Every code modification MUST pass `npm run build` without TypeScript errors.
+- **TypeScript**: Strict mode is enabled. Do not suppress types with `any` or `@ts-ignore` without explicit rationale.
+- **React 19 Conventions**:
+  - Avoid synchronous `setState` inside `useEffect` bodies where values can be derived.
+  - Keep effect dependency arrays exhaustive and accurate.
+  - Never call impure functions (e.g. `Date.now()`, `Math.random()`) directly during component render bodies.
+
+## 3. Autonomous Iteration (Ralph Loop)
+- When executing autonomous tasks, adhere to the Ralph Loop protocol:
+  `Plan -> Code -> Test (oxlint + build) -> Auto-Fix -> Commit on Green`.
+- Always inspect command exit codes. If a test or build fails, fix errors incrementally before proceeding.
+
+## 4. Code Review & PR Standards (CodeRabbit)
+- Follow `.coderabbit.yaml` conventions.
+- Keep commits atomic and conventional: `feat(...)`, `fix(...)`, `refactor(...)`, `docs(...)`, `chore(...)`.

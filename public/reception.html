@@ -37,6 +37,24 @@
       border-radius: 12px;
     }
     .apple-btn-secondary:hover { background: #27272A; }
+    .badge-lime {
+      background: rgba(198, 244, 50, 0.12);
+      border: 1px solid rgba(198, 244, 50, 0.3);
+      color: #C6F432;
+    }
+    .btn-lime {
+      background: #C6F432;
+      color: #0B0B0C;
+      font-weight: 800;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 25px rgba(198, 244, 50, 0.35);
+    }
+    .btn-lime:hover {
+      background: #D4F855;
+      transform: scale(1.02);
+      box-shadow: 0 0 35px rgba(198, 244, 50, 0.5);
+    }
     .badge-yellow {
       background: rgba(234, 179, 8, 0.12);
       border: 1px solid rgba(234, 179, 8, 0.25);
@@ -193,8 +211,8 @@
               <p class="text-[10px] text-zinc-500 mt-0.5">Biomarkerlar avtomatik ajratib olinadi</p>
             </div>
 
-            <button type="submit" id="sendBtn" class="apple-btn w-full py-2.5 text-xs text-center font-bold">
-              ⚡️ MedLoop orqali Tahlilni Yuborish
+            <button type="submit" id="sendBtn" class="btn-lime w-full py-3 text-xs text-center font-black">
+              ⚡️ MedLoop orqali Tahlilni Yuborish (8s)
             </button>
           </form>
 

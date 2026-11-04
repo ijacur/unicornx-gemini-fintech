@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iqtisodiy tahlil - Barcha Nazorat Savollari | SamMU</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #131b2e;
+            --bg-card: #1c2640;
+            --border: #2a3756;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --success: #10b981;
+            --badge-bg: rgba(56, 189, 248, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 24px;
+            text-align: center;
+            position: relative;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--badge-bg);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .sub-header {
+            color: var(--text-secondary);
+            font-size: 15px;
+            max-width: 650px;
+            margin: 0 auto 20px;
+        }
+        .stats-grid {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 24px;
+            text-align: center;
+        }
+        .stat-val {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        .stat-lbl {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        .controls {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            flex: 1;
+            position: relative;
+            min-width: 280px;
+        }
+        .search-input {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 14px 18px 14px 44px;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        .btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: var(--bg-card);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .btn-primary {
+            background: #2563eb;
+            border-color: #3b82f6;
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            color: #ffffff;
+        }
+        .topic-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .topic-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+        .topic-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .topic-badge {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .question-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .question-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 14.5px;
+        }
+        .question-num {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            min-width: 28px;
+            text-align: center;
+        }
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10b981;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .header, .controls, .btn, .search-box {
+                display: none;
+            }
+            .topic-card {
+                border: 1px solid #ccc;
+                background: none;
+                page-break-inside: avoid;
+            }
+            .question-item {
+                background: none;
+                border: none;
+                color: black;
+            }
+            .topic-title {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Samarqand Davlat Tibbiyot Universiteti
+        </div>
+        <h1>«Iqtisodiy tahlil» Nazorat Savollari</h1>
+        <p class="sub-header">Moodle masofaviy ta'lim portali (mt.sammu.uz)dagi 24 ta mavzuning barcha nazorat savollari yagona interaktiv to'plam holida birlashtirildi.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-val">24</div>
+                <div class="stat-lbl">Mavzular</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">239</div>
+                <div class="stat-lbl">Nazorat Savollari</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-val">4819</div>
+                <div class="stat-lbl">Kurs ID</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <div class="search-box">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" id="searchInput" class="search-input" placeholder="Savol yoki mavzu bo'yicha qidirish...">
+            </div>
+            <button class="btn btn-primary" onclick="copyAllText()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                Barchasini nusxalash
+            </button>
+            <button class="btn" onclick="window.print()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                Chop etish (PDF)
+            </button>
+        </div>
+
+        <div id="topicsContainer"></div>
+    </div>
+
+    <div id="toast" class="toast">Nusxalandi!</div>
+
+    <script>
+        const topicsData = [{"topic_num": 1, "topic_title": "1-mavzu. Iqtisodiy tahlilning fan sifatida shakllanish va rivojlanish tarixi", "question_count": 10, "questions": [[1, "Iqtisodiy tahlil fan sifatida nimani o‘rganadi?"], [2, "Iqtisodiy tahlilning vujudga kelish asoslari nimalardan iborat?"], [3, "Iqtisodiy tahlil o‘z taraqqiyotida qanday bosqichlarni bosib o‘tdi?"], [4, "Iqtisodiy tahlilning rivojlanishiga kimlar katta hissa qo‘shgan?"], [5, "Korxonani boshqarish tizimida iqtisodiy tahlilning o‘rni qanday?"], [6, "Iqtisodiy tahlil qanday vazifalarni bajaradi?"], [7, "Zamonaviy iqtisodiy tahlil an’anaviy tahlildan nimasi bilan farq qiladi?"], [8, "Bozor iqtisodiyotining rivojlanishi iqtisodiy tahlilga qanday ta’sir ko‘rsatdi?"], [9, "Boshqaruv qarorlarini qabul qilishda iqtisodiy tahlilning ahamiyati qanday?"], [10, "Raqamli iqtisodiyot sharoitida iqtisodiy tahlilni rivojlantirish istiqbollari qanday?"]]}, {"topic_num": 2, "topic_title": "2-mavzu. Iqtisodiy tahlil usuli va uning o‘ziga xos xususiyatlari", "question_count": 10, "questions": [[1, "Iqtisodiy tahlil usuli deganda nima tushuniladi?"], [2, "Iqtisodiy tahlil usuli qanday xususiyatlarga ega?"], [3, "Iqtisodiy tahlil usulining predmeti nima?"], [4, "Iqtisodiy tahlil metodi asosida qanday ilmiy tamoyillar yotadi?"], [5, "Iqtisodiy tahlilning an’anaviy usullariga qaysi usullar kiradi?"], [6, "Iqtisodiy tahlilda qanday iqtisodiy-matematik usullardan foydalaniladi?"], [7, "Iqtisodiy tahlilda tizimli yondashuv nimadan iborat?"], [8, "Iqtisodiy tahlil usuli sifatida taqqoslashning o‘rni qanday?"], [9, "Omilli tahlil nima?"], [10, "Iqtisodiy tahlil usuli nima uchun kompleks hisoblanadi?"]]}, {"topic_num": 3, "topic_title": "3-mavzu. Nisbiy va o‘rtacha qiymatlardan foydalanish", "question_count": 10, "questions": [[1, "Iqtisodiy tahlilda nisbiy miqdor nima?"], [2, "Iqtisodiy tahlilda nisbiy miqdorlarning qanday turlari qo‘llaniladi?"], [3, "Dinamikaning nisbiy kattaliklari nimani xarakterlaydi?"], [4, "O‘rtacha miqdorlar deganda nima tushuniladi?"], [5, "Iqtisodiy tahlilda o‘rtacha miqdorlarning qanday turlaridan foydalaniladi?"], [6, "O‘rtacha arifmetik miqdor qanday hollarda qo‘llaniladi?"], [7, "Strukturaning nisbiy kattaliklari nima uchun ishlatiladi?"], [8, "O‘rtacha ko‘rsatkich qanday hisoblanadi?"], [9, "Korxona faoliyatini tahlil qilishda nisbiy va o‘rtacha kattaliklarning ahamiyati qanday?"], [10, "Iqtisodiy tahlilda nisbiy va o‘rtacha kattaliklardan foydalanishning qanday afzalliklari bor?"]]}, {"topic_num": 4, "topic_title": "4-mavzu. Integral usul va uning iqtisodiy tahlilda qo‘llanilishi", "question_count": 10, "questions": [[1, "Iqtisodiy tahlilning integral usuli nima?"], [2, "Integral usul qanday hollarda qo‘llaniladi?"], [3, "Integral usuldan foydalanishdan maqsad nima?"], [4, "Integral usul faktorli tahlilning boshqa usullariga nisbatan qanday afzalliklarga ega?"], [5, "Integral usul yordamida qanday ko‘rsatkichlarni tahlil qilish mumkin?"], [6, "Omillar ta’siri integral usulda qanday aniqlanadi?"], [7, "Integral usulni qo‘llashda omilli tahlilning mohiyati nimadan iborat?"], [8, "Integral usulni qo‘llashda qanday cheklovlar mavjud?"], [9, "Korxona moliya-xo‘jalik faoliyatini tahlil qilishda integral usuldan qanday foydalaniladi?"], [10, "Boshqaruv qarorlarini qabul qilishda integral usulning amaliy ahamiyati qanday?"]]}, {"topic_num": 5, "topic_title": "5-mavzu. Mahsulot ishlab chiqarish va sotish hajmini tahlil qilishning mazmuni va vazifalari", "question_count": 10, "questions": [[1, "Mahsulot ishlab chiqarish va sotish hajmini tahlil qilishdan maqsad nima?"], [2, "Ishlab chiqarish hajmini tahlil qilish qanday vazifalarni hal qiladi?"], [3, "Ishlab chiqarish hajmini tahlil qilishda qanday ko‘rsatkichlardan foydalaniladi?"], [4, "Mahsulot ishlab chiqarish va sotishni tahlil qilish uchun qanday axborot manbalari qo‘llaniladi?"], [5, "Sotilgan mahsulot hajmi deganda nima tushuniladi?"], [6, "Mahsulot ishlab chiqarish hajmiga qanday omillar ta’sir ko‘rsatadi?"], [7, "Ishlab chiqarish rejasi bajarilishi qanday tahlil qilinadi?"], [8, "Mahsulotni sotish rejasining bajarilishi qanday aniqlanadi?"], [9, "Korxonani boshqarishda ishlab chiqarish hajmini tahlil qilish qanday ahamiyatga ega?"], [10, "Tahlil natijalari asosida qanday boshqaruv qarorlari qabul qilinadi?"]]}, {"topic_num": 6, "topic_title": "6-mavzu. Tarkibiy o‘zgarishlarning mahsulot hajmiga ta’sirini tahlil qilish", "question_count": 10, "questions": [[1, "Mahsulot tarkibi deganda nima tushuniladi?"], [2, "Mahsulotning tarkibiy o‘zgarishlarini tahlil qilish nima uchun zarur?"], [3, "Mahsulot ishlab chiqarish tarkibining o‘zgarishiga qanday omillar sabab bo‘ladi?"], [4, "Tarkibiy o‘zgarishlar ishlab chiqarish hajmiga qanday ta’sir ko‘rsatadi?"], [5, "Strukturaviy o‘zgarishlarni tahlil qilishda qanday usullardan foydalaniladi?"], [6, "Tarkibning ishlab chiqarilgan mahsulot qiymatiga ta’siri qanday aniqlanadi?"], [7, "Tarkibiy siljish nima?"], [8, "Mahsulot assortimentining o‘zgarishi korxonaning moliyaviy natijalariga qanday ta’sir ko‘rsatadi?"], [9, "Mahsulot tarkibini tahlil qilishda qanday axborot manbalaridan foydalaniladi?"], [10, "Tahlil natijalaridan boshqaruv qarorlarini qabul qilishda qanday foydalaniladi?"]]}, {"topic_num": 7, "topic_title": "7-mavzu. Mehnat resurslarini tahlil qilishning vazifalari, asosiy yo‘nalishlari va axborot manbalari", "question_count": 10, "questions": [[1, "Mehnat resurslarini tahlil qilishdan maqsad nima?"], [2, "Mehnat resurslari tahlili qanday vazifalarni hal qiladi?"], [3, "Korxonaning mehnat resurslari bilan ta’minlanganligi qanday ko‘rsatkichlar bilan tavsiflanadi?"], [4, "Mehnat resurslarini tahlil qilishda qanday axborot manbalaridan foydalaniladi?"], [5, "Korxonaning mehnat resurslari deganda nima tushuniladi?"], [6, "Mehnat resurslaridan foydalanish samaradorligini baholashda qanday ko‘rsatkichlardan foydalaniladi?"], [7, "Mehnat unumdorligi qanday aniqlanadi?"], [8, "Mehnat unumdorligiga qanday omillar ta’sir ko‘rsatadi?"], [9, "Ish vaqtidan foydalanish qanday tahlil qilinadi?"], [10, "Korxona faoliyati samaradorligini oshirishda mehnat resurslari tahlilining ahamiyati qanday?"]]}, {"topic_num": 8, "topic_title": "8-mavzu. Korxonaning mehnat resurslari bilan ta’minlanganligi tahlili", "question_count": 10, "questions": [[1, "Korxonaning mehnat resurslari bilan ta’minlanganligi deganda nima tushuniladi?"], [2, "Korxonaning xodimlar bilan ta’minlanganligini baholashda qanday ko‘rsatkichlardan foydalaniladi?"], [3, "Ishchilarning ro‘yxatdagi o‘rtacha soni qanday aniqlanadi?"], [4, "Kadrlar bilan ta’minlanganlik koeffitsiyenti nimani tavsiflaydi?"], [5, "Qanday sabablar mehnat resurslari yetishmovchiligiga olib kelishi mumkin?"], [6, "Korxonada kadrlar harakati qanday tahlil qilinadi?"], [7, "Kadrlar qo‘nimsizligini qanday ko‘rsatkichlar tavsiflaydi?"], [8, "Mehnat resurslarining yetishmasligi korxona faoliyati natijalariga qanday ta’sir ko‘rsatadi?"], [9, "Qanday tadbirlar korxonaning mehnat resurslari bilan ta’minlanishini oshirish imkonini beradi?"], [10, "Mehnat resurslari bilan ta’minlanganlik tahlili natijalaridan boshqaruv qarorlarini qabul qilishda qanday foydalaniladi?"]]}, {"topic_num": 9, "topic_title": "9-mavzu. Moddiy resurslar bilan ta’minlanganlik va ulardan foydalanish samaradorligini tahlil qilishning vazifalari, axborot ta’minoti", "question_count": 10, "questions": [[1, "Korxonaning moddiy resurslar bilan ta’minlanganligini tahlil qilishdan maqsad nima?"], [2, "Moddiy resurslar tahlili qanday vazifalarni hal qiladi?"], [3, "Moddiy resurslarni tahlil qilishda qanday axborot manbalaridan foydalaniladi?"], [4, "Korxonaning moddiy resurslari deganda nima tushuniladi?"], [5, "Korxonaning moddiy resurslar bilan ta’minlanganligi qanday ko‘rsatkichlar bilan tavsiflanadi?"], [6, "Moddiy resurslardan foydalanish darajasi qanday aniqlanadi?"], [7, "Moddiy resurslardan foydalanish samaradorligiga qanday omillar ta’sir ko‘rsatadi?"], [8, "Moddiy resurslar zaxiralari qanday tahlil qilinadi?"], [9, "Moddiy resurslarning yetishmasligi yoki ortiqchaligi qanday oqibatlarga olib keladi?"], [10, "Tahlil natijalaridan korxona faoliyati samaradorligini oshirishda qanday foydalaniladi?"]]}, {"topic_num": 10, "topic_title": "10-mavzu. Moddiy resurslardan foydalanish samaradorligi ko‘rsatkichlari", "question_count": 10, "questions": [[1, "Moddiy resurslardan foydalanish samaradorligi deganda nima tushuniladi?"], [2, "Moddiy resurslardan foydalanish samaradorligini tavsiflovchi asosiy ko‘rsatkichlar qaysilar?"], [3, "Mahsulotning material sig‘imi nima?"], [4, "Material qaytimi nima?"], [5, "Materiallardan foydalanish koeffitsiyenti qanday hisoblanadi?"], [6, "Mahsulotning material sig‘imiga qanday omillar ta’sir qiladi?"], [7, "Moddiy resurslardan foydalanish samaradorligini qanday oshirish mumkin?"], [8, "Moddiy xarajatlarning o‘zgarishi mahsulot tannarxiga qanday ta’sir ko‘rsatadi?"], [9, "Samaradorlik ko‘rsatkichlarini hisoblashda qanday axborot manbalaridan foydalaniladi?"], [10, "Korxona uchun moddiy resurslardan foydalanish samaradorligini tahlil qilishning ahamiyati qanday?"]]}, {"topic_num": 11, "topic_title": "11-mavzu. Mahsulot tannarxi tahlilining vazifalari, asosiy yo‘nalishlari va axborot ta’minoti", "question_count": 10, "questions": [[1, "Mahsulot tannarxini tahlil qilishdan maqsad nima?"], [2, "Mahsulot tannarxini tahlil qilish qanday vazifalarni hal qiladi?"], [3, "Tannarxni tahlil qilishda qanday axborot manbalaridan foydalaniladi?"], [4, "Tannarxning qanday turlari mavjud?"], [5, "Mahsulot tannarxiga qanday elementlar kiritiladi?"], [6, "Mahsulot tannarxining o‘zgarishiga qanday omillar ta’sir ko‘rsatadi?"], [7, "Iqtisodiy elementlar bo‘yicha xarajatlar tahlili qanday o‘tkaziladi?"], [8, "Kalkulyatsiya moddalari bo‘yicha tannarx qanday tahlil qilinadi?"], [9, "Tannarxning pasayishi korxonaning moliyaviy natijalariga qanday ta’sir ko‘rsatadi?"], [10, "Tannarx tahlili natijalaridan boshqaruv qarorlarini qabul qilishda qanday foydalaniladi?"]]}, {"topic_num": 12, "topic_title": "12-mavzu. O‘zgaruvchan, doimiy va shartli-doimiy xarajatlar", "question_count": 10, "questions": [[1, "O‘zgaruvchan xarajatlar deganda nima tushuniladi?"], [2, "Doimiy xarajatlarga nimalar kiradi?"], [3, "Shartli doimiy xarajatlar nima?"], [4, "O‘zgaruvchan xarajatlar doimiy xarajatlardan qanday farq qiladi?"], [5, "O‘zgaruvchan xarajatlarga qanday misollar keltirish mumkin?"], [6, "Korxonaning doimiy xarajatlariga qanday xarajatlar kiradi?"], [7, "Ishlab chiqarish hajmining o‘zgarishi o‘zgaruvchan xarajatlarga qanday ta’sir ko‘rsatadi?"], [8, "Nima uchun xarajatlarni o‘zgaruvchan va doimiy xarajatlarga ajratish muhim?"], [9, "Mahsulot tannarxini tahlil qilishda xarajatlar tasnifidan qanday foydalaniladi?"], [10, "Xarajatlar tarkibini tahlil qilish natijalari korxona faoliyati samaradorligini oshirishga qanday yordam beradi?"]]}, {"topic_num": 13, "topic_title": "13-mavzu. Mehnatga haq to‘lash fondining mutlaq va nisbiy tejalishi yoki ortiqcha sarflanishini aniqlash", "question_count": 10, "questions": [[1, "Ish haqi fondi deganda nima tushuniladi?"], [2, "Ish haqi fondining mutlaq tejamkorligi nima?"], [3, "Ish haqi fondining nisbiy tejamkorligi nima?"], [4, "Absolyut tejamkorlik nisbiy tejamkorlikdan nimasi bilan farq qiladi?"], [5, "Ish haqi fondining o‘zgarishiga qanday omillar ta’sir ko‘rsatadi?"], [6, "Mehnatga haq to‘lash fondining mutlaq tejalishi (yoki ortiqcha sarflanishi) qanday hisoblanadi?"], [7, "Ish haqi fondining nisbiy tejalishi (yoki ortiqcha sarflanishi) qanday aniqlanadi?"], [8, "Mehnatga haq to‘lash fondini tahlil qilish uchun qanday axborot manbalaridan foydalaniladi?"], [9, "Ish haqi fondi tahlili natijalaridan korxonani boshqarishda qanday foydalaniladi?"], [10, "Mehnatga haq to‘lash fondidan samarali foydalanishga qanday tadbirlar yordam beradi?"]]}, {"topic_num": 14, "topic_title": "14-mavzu. Korxonaning moliyaviy holatini tahlil qilishning mazmuni va vazifalari", "question_count": 10, "questions": [[1, "Korxonaning moliyaviy holati deganda nimani tushunasiz?"], [2, "Korxonaning moliyaviy holatini tahlil qilishning maqsadi nima?"], [3, "Moliyaviy holatni tahlil qilish qanday muammolarni hal qiladi?"], [4, "Moliyaviy holatni tahlil qilish uchun qanday axborot manbalaridan foydalaniladi?"], [5, "Korxonaning moliyaviy holatini tavsiflovchi asosiy ko'rsatkichlar qanday?"], [6, "Korxonaning moliyaviy barqarorligi deganda nimani tushunasiz?"], [7, "Moliyaviy holatni tahlil qilish korxonani boshqarish uchun nima uchun muhim?"], [8, "Korxonaning moliyaviy holatiga qanday ichki va tashqi omillar ta'sir qiladi?"], [9, "Moliyaviy holatni tahlil qilish natijalari asosida qanday boshqaruv qarorlari qabul qilinadi?"], [10, "Moliyaviy holatni tahlil qilish korxona samaradorligini oshirishga qanday hissa qo'shadi?"]]}, {"topic_num": 15, "topic_title": "15-mavzu. Moliyaviy tahlilning bosqichlari va standart usullari", "question_count": 10, "questions": [[1, "Moliyaviy tahlil nima?"], [2, "Moliyaviy tahlil qanday asosiy bosqichlarni o'z ichiga oladi?"], [3, "Moliyaviy tahlilda qanday standart usullar qo'llaniladi?"], [4, "Gorizontal tahlil usuli nima?"], [5, "Vertikal tahlil nima?"], [6, "Trend tahlili nima?"], [7, "Nisbat tahlili qanday o'tkaziladi?"], [8, "Qiyosiy moliyaviy tahlil nimani anglatadi?"], [9, "Moliyaviy tahlilda ko'pincha qaysi ko'rsatkichlardan foydalaniladi?"], [10, "Moliyaviy tahlil natijalari boshqaruv qarorlarini qabul qilishda qanday qo'llaniladi?"]]}, {"topic_num": 16, "topic_title": "16-mavzu. Balansning mazmuni va tuzilishi", "question_count": 10, "questions": [[1, "Balans nima?"], [2, "Balansni tayyorlashning asosiy maqsadi nima?"], [3, "Balans qanday asosiy qismlardan iborat?"], [4, "Balans aktivlarida nima aks etadi?"], [5, "Balansning passivlarida nima aks etadi?"], [6, "Uzoq muddatli aktivlar nima deb hisoblanadi?"], [7, "Joriy aktivlarga nimalar kiradi?"], [8, "Korxonaning o'z kapitali deganda nimani tushunasiz?"], [9, "Balansda qanday majburiyatlar aks ettiriladi?"], [10, "Korxonaning moliyaviy holatini tahlil qilish uchun balans qanday ishlatiladi?"]]}, {"topic_num": 17, "topic_title": "17-mavzu. Korxonaning moliyaviy ko'rsatkichlarini tahlil qilishning mazmuni va maqsadlari", "question_count": 10, "questions": [[1, "Korxonaning moliyaviy ko'rsatkichlari deganda nimani tushunasiz?"], [2, "Moliyaviy ko'rsatkichlarni tahlil qilishdan maqsad nima?"], [3, "Moliyaviy ko'rsatkichlarni tahlil qilish qanday maqsadlarni hal qiladi?"], [4, "Moliyaviy ko'rsatkichlarni tahlil qilish uchun qanday axborot manbalaridan foydalaniladi?"], [5, "Korxonaning moliyaviy ko'rsatkichlarini qanday ko'rsatkichlar tavsiflaydi?"], [6, "Korxona foydasi nima va qanday foyda turlari mavjud?"], [7, "Moliyaviy natijalarning o'zgarishiga qanday omillar ta'sir qiladi?"], [8, "Foyda dinamikasi qanday tahlil qilinadi?"], [9, "Moliyaviy natijalarni tahlil qilish natijalari boshqaruv qarorlarini qabul qilishda qanday qo'llaniladi?"], [10, "Korxona samaradorligini oshirish uchun moliyaviy natijalarni tahlil qilishning ahamiyati nimada?"]]}, {"topic_num": 18, "topic_title": "18-mavzu. Moliyaviy natijalarni shakllantirish va hisoblash", "question_count": 10, "questions": [[1, "Moliyaviy natijalarni shakllantirish deganda nimani tushuniladi?"], [2, "Moliyaviy natijalarni hisoblashda qanday ko'rsatkichlar qo'llaniladi?"], [3, "Sotishdan tushgan daromad nima?"], [4, "Korxonaning yalpi foydasi qanday aniqlanadi?"], [5, "Sotishdan olingan foyda nima?"], [6, "Soliqdan oldingi foyda qanday hisoblanadi?"], [7, "Korxonaning sof foydasi nimani anglatadi?"], [8, "Foyda miqdoriga qanday omillar ta'sir qiladi?"], [9, "Moliyaviy natijalarni hisoblash uchun qanday axborot manbalaridan foydalaniladi?"], [10, "Korxona boshqaruvida moliyaviy natijalarni hisoblash natijalari qanday qo'llaniladi?"]]}, {"topic_num": 19, "topic_title": "19-mavzu. Debitorlik va kreditorlik qarzlarini tahlil qilishning mazmuni va maqsadlari", "question_count": 9, "questions": [[1, "Debitorlik va kreditorlik qarzlarini tahlil qilishning mazmuni va maqsadlari"], [2, "Kreditorlik qarzlarini tahlil qilishning maqsadi nima?"], [4, "Qarzlarni tahlil qilish qanday vazifalarni hal qiladi?"], [5, "Debitorlik va kreditorlik qarzlarini tahlil qilishda qanday axborot manbalaridan foydalaniladi?"], [6, "Debitorlik qarzlarini baholash uchun qanday ko'rsatkichlar qo'llaniladi?"], [7, "Debitorlik qarzlarining aylanmasi qanday aniqlanadi?"], [8, "Debitorlik qarzlarining yuqori bo'lishi bilan qanday xavflar bog'liq?"], [9, "Kreditorlik qarzlarini tahlil qilish korxonaning moliyaviy barqarorligiga qanday ta'sir qiladi?"], [10, "Debitorlik va kreditorlik qarzlarini boshqarish samaradorligini qanday oshirish mumkin?"]]}, {"topic_num": 20, "topic_title": "20-mavzu. Asosiy vositalarni tahlil qilishning maqsadlari, asosiy yo'nalishlari va axborot ta'minoti", "question_count": 10, "questions": [[1, "Korxonaning asosiy vositalari deganda nimani anglatadi?"], [2, "Asosiy vositalar tahlilining maqsadi nima?"], [3, "Asosiy vositalar tahlili qanday vazifalarni hal qiladi?"], [4, "Asosiy vositalar tahlilida qanday axborot manbalaridan foydalaniladi?"], [5, "Asosiy vositalarning holatini qanday ko'rsatkichlar tavsiflaydi?"], [6, "Asosiy vositalarni yangilash darajasi deganda nimani tushuniladi?"], [7, "Asosiy vositalarni iste'moldan chiqarish darajasini nima tavsiflaydi?"], [8, "Asosiy vositalardan foydalanish samaradorligiga qanday omillar ta'sir qiladi?"], [9, "Asosiy vositalar tahlili natijalari boshqaruv qarorlarini qabul qilishda qanday qo'llaniladi?"], [10, "Asosiy vositalar samaradorligini oshirishga qanday tadbirlar hissa qo'shadi?"]]}, {"topic_num": 21, "topic_title": "21-mavzu. Asosiy vositalar samaradorligini baholash ko'rsatkichlari", "question_count": 10, "questions": [[1, "Asosiy vositalar samaradorligi deganda nimani tushunasiz?"], [2, "Asosiy vositalar samaradorligini baholash uchun qanday ko'rsatkichlardan foydalaniladi?"], [3, "Aktivlarning daromadliligi nima?"], [4, "Kapital intensivligi qanday hisoblanadi?"], [5, "Kapital -mehnat nisbatini nima tavsiflaydi?"], [6, "Aktivlarning daromadliligiga qanday omillar ta'sir qiladi?"], [7, "Ishlab chiqarish uskunalaridan foydalanish darajasi qanday tahlil qilinadi?"], [8, "Asosiy vositalarning texnik holatini qanday ko'rsatkichlar tavsiflaydi?"], [9, "Asosiy vositalar samaradorligini oshirish kompaniya faoliyatiga qanday ta'sir qiladi?"], [10, "Tahlil natijalari boshqaruv qarorlarini qabul qilishda qanday qo'llaniladi?"]]}, {"topic_num": 22, "topic_title": "22-mavzu. Naqd pul tushumlarini tahlil qilish. Naqd pul chiqimlarini tahlil qilish", "question_count": 10, "questions": [[1, "Naqd pul tushumlari deganda nimani tushunasiz?"], [2, "Naqd pul tushumlarining asosiy manbalari nima?"], [3, "Naqd pul chiqimlari nima?"], [4, "Naqd pul oqimlarini tahlil qilishning maqsadi nima?"], [5, "Naqd pullarni tahlil qilish uchun qanday ma'lumot manbalaridan foydalaniladi?"], [6, "Naqd pul oqimlarini tahlil qilish uchun qanday ko'rsatkichlardan foydalaniladi?"], [7, "Operatsion faoliyatdan keladigan pul oqimlari qanday tahlil qilinadi?"], [8, "Nima uchun pul tushumlari va chiqimlari o'rtasidagi muvozanatni ta'minlash muhim?"], [9, "Naqd pul taqchilligiga nima sabab bo'lishi mumkin?"], [10, "Korxona boshqaruvida pul oqimlari tahlili natijalari qanday qo'llaniladi?"]]}, {"topic_num": 23, "topic_title": "23-mavzu. Kapital tahlilining mazmuni va maqsadlari", "question_count": 10, "questions": [[1, "Korxona kapitali deganda nimani tushunasiz?"], [2, "Kapitalga qanday elementlar kiradi?"], [3, "Kapital tahlilining maqsadi nima?"], [4, "Kapital tahlili qanday vazifalarni hal qiladi?"], [5, "Kapitalni tahlil qilish uchun qanday axborot manbalaridan foydalaniladi?"], [6, "Kapitaldan foydalanish samaradorligini qanday ko'rsatkichlar tavsiflaydi?"], [7, "Avtonomiya koeffitsienti nima?"], [8, "Kapitalning o'zgarishi korxonaning moliyaviy barqarorligiga qanday ta'sir qiladi?"], [9, "Kapital miqdoriga qanday omillar ta'sir qiladi?"], [10, "Kapital tahlili natijalari boshqaruv qarorlarini qabul qilishda qanday qo'llaniladi?"]]}, {"topic_num": 24, "topic_title": "24-mavzu. Ishlab chiqarish resurslaridan foydalanishni tahlil qilish. Taqsimot xarajatlarini tahlil qilish", "question_count": 10, "questions": [[1, "Korxona ishlab chiqarish resurslari deganda nimani tushunasiz?"], [2, "Ishlab chiqarish resurslaridan foydalanishni tahlil qilishning maqsadi nima?"], [3, "Ishlab chiqarish resurslarining qanday turlari tahlil qilinadi?"], [4, "Ishlab chiqarish resurslaridan foydalanish samaradorligini baholash uchun qanday ko'rsatkichlar qo'llaniladi?"], [5, "Tarqatish xarajatlari deganda nimani tushuniladi?"], [6, "Tarqatish xarajatlarining qanday turlari mavjud?"], [7, "Tarqatish xarajatlari miqdoriga qanday omillar ta'sir qiladi?"], [8, "Ishlab chiqarish resurslari va tarqatish xarajatlarini tahlil qilish uchun qanday axborot manbalaridan foydalaniladi?"], [9, "Tarqatish xarajatlarini qanday choralar kamaytirishi mumkin?"], [10, "Korxona samaradorligini oshirish uchun ishlab chiqarish resurslari va tarqatish xarajatlarini tahlil qilish natijalaridan qanday foydalaniladi?"]]}];
+        const container = document.getElementById('topicsContainer');
+        const searchInput = document.getElementById('searchInput');
+        const toast = document.getElementById('toast');
+
+        let globalIndex = 1;
+
+        function renderTopics(filter = '') {
+            container.innerHTML = '';
+            let currentGlobal = 1;
+            let matchCount = 0;
+
+            topicsData.forEach(topic => {
+                const matchingQuestions = topic.questions.filter(q => 
+                    q[1].toLowerCase().includes(filter.toLowerCase()) || 
+                    topic.topic_title.toLowerCase().includes(filter.toLowerCase())
+                );
+
+                if (matchingQuestions.length > 0) {
+                    matchCount += matchingQuestions.length;
+                    const card = document.createElement('div');
+                    card.className = 'topic-card';
+
+                    const header = document.createElement('div');
+                    header.className = 'topic-header';
+                    header.innerHTML = `
+                        <div class="topic-title">${topic.topic_title}</div>
+                        <div class="topic-badge">${topic.question_count} ta savol</div>
+                    `;
+                    card.appendChild(header);
+
+                    const ul = document.createElement('ul');
+                    ul.className = 'question-list';
+
+                    matchingQuestions.forEach(q => {
+                        const li = document.createElement('li');
+                        li.className = 'question-item';
+                        li.innerHTML = `
+                            <span class="question-num">${q[0]}</span>
+                            <span>${highlightText(q[1], filter)}</span>
+                        `;
+                        ul.appendChild(li);
+                    });
+
+                    card.appendChild(ul);
+                    container.appendChild(card);
+                }
+            });
+
+            if (matchCount === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 60px 20px; color: var(--text-secondary);">
+                    <h3>Hech qanday savol topilmadi</h3>
+                    <p style="margin-top: 8px;">Qidiruv so'zini o'zgartirib ko'ring.</p>
+                </div>`;
+            }
+        }
+
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
+            return text.replace(regex, '<mark style="background: rgba(250, 204, 21, 0.4); color: #fff; padding: 2px 4px; border-radius: 4px;">$1</mark>');
+        }
+
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function copyAllText() {
+            let fullText = "SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI\n";
+            fullText += "«IQTISODIY TAHLIL» FANI NAZORAT SAVOLLARI TO'PLAMI\n";
+            fullText += "Masofaviy ta'lim portali (mt.sammu.uz) | Kurs ID: 4819\n\n";
+
+            let absIdx = 1;
+            topicsData.forEach(t => {
+                fullText += `=== ${t.topic_title} ===\n`;
+                t.questions.forEach(q => {
+                    fullText += `${absIdx}. (${q[0]}) ${q[1]}\n`;
+                    absIdx++;
+                });
+                fullText += "\n";
+            });
+
+            navigator.clipboard.writeText(fullText).then(() => {
+                showToast("Barcha 239 ta savol nusxalandi!");
+            }).catch(() => {
+                showToast("Nusxalashda xatolik yuz berdi");
+            });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            renderTopics(e.target.value.trim());
+        });
+
+        renderTopics();
+    </script>
+</body>
+</html>

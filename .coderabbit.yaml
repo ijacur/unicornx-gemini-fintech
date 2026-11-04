@@ -1,0 +1,73 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# ==============================================================================
+# CodeRabbit Configuration for Turnir / UnicornX
+# https://docs.coderabbit.ai/guides/configure-coderabbit
+# ==============================================================================
+
+language: "en-US"
+early_access: false
+tone_instructions: "Act as a pragmatic Principal DevOps and Full-Stack Architect. Focus on correctness, security vulnerabilities, edge cases, React 19 performance, and clean type-safe patterns. Keep feedback concise, actionable, and constructive."
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: false
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+      - "master"
+      - "develop"
+
+  tools:
+    github-checks:
+      enabled: true
+    shellcheck:
+      enabled: true
+    oxlint:
+      enabled: true
+    markdownlint:
+      enabled: true
+    biome:
+      enabled: false
+
+  path_filters:
+    # Exclude binaries, large office documents, and compiled output
+    - "!**/*.min.*"
+    - "!dist/**"
+    - "!build/**"
+    - "!node_modules/**"
+    - "!deploy_site/**"
+    - "!*.docx"
+    - "!*.pptx"
+    - "!*.pdf"
+    - "!*.xlsx"
+    - "!*.zip"
+    - "!*.png"
+    - "!*.jpg"
+    - "!*.jpeg"
+    - "!__pycache__/**"
+    # Target source code, scripts, specs, and workflows
+    - "src/**/*.{ts,tsx}"
+    - "scripts/**/*.{sh,py}"
+    - "gsd/**/*.md"
+    - ".github/workflows/*.yml"
+    - "*.json"
+    - "*.ts"
+
+  path_instructions:
+    - path: "src/**/*.{ts,tsx}"
+      instructions: "Enforce strict TypeScript types (no unchecked 'any'). Ensure React 19 compliance: avoid calling setState synchronously inside useEffect, avoid calling impure functions during render, and ensure hook dependency arrays are exhaustive."
+
+    - path: "scripts/**/*.{sh,py}"
+      instructions: "Ensure bash scripts use 'set -euo pipefail', provide helpful usage instructions, and validate preconditions. Ensure Python scripts are type-hinted and handle network/SSL errors gracefully."
+
+    - path: "gsd/**/*.md"
+      instructions: "Verify adherence to GSD Core spec conventions: verify that acceptance criteria and test steps are explicitly defined."
+
+chat:
+  auto_reply: true

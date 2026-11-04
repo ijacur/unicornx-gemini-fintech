@@ -1,1832 +1,1582 @@
 <!DOCTYPE html>
-<html lang="uz" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jasur Shukurov — Master Portfolio & Online Mind (Second Brain)</title>
-  <meta name="description" content="Digital Second Brain & Master Portfolio of Jasur Shukurov: Chief Executive, Lead AI Architect, HealthTech Innovator (MedLoop AI, Unicorn Health, EpiVision XR), School 21 Low-Latency Engineer, and SamMU Rector Scholarship Nominee.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jasur Shukurov — Executive Portfolio &amp; About Me</title>
+<meta name="description" content="Portfolio of Jasur Shukurov: AI Systems Architect, School 21 Low-Latency C/C++ Engineer, SamSMU Healthcare Management, and Commercial Arbitrage Specialist. American Psycho Classic Edition.">
 
-  <!-- Apple / SF Pro Font Stack & Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            apple: {
-              bg: '#000000',
-              surface: '#0d0d0e',
-              elevated: '#161618',
-              blue: '#ffffff',
-              link: '#ffffff',
-              gray: '#86868b'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      background-color: #000000;
-      color: #f5f5f7;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", sans-serif;
-      -webkit-font-smoothing: antialiased;
-      letter-spacing: -0.014em;
-      position: relative;
-    }
-    /* 100% Strict Monochromatic Black & White Enforcement */
-    img, video, canvas, svg {
-      filter: grayscale(100%);
-      -webkit-filter: grayscale(100%);
-    }
-    /* Apple Liquid Glass Utility Classes (TahlilAI MVP Monochromatic Standard) */
-    .apple-glass {
-      background: rgba(18, 18, 20, 0.65);
-      backdrop-filter: blur(25px) saturate(180%);
-      -webkit-backdrop-filter: blur(25px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
-    }
-    .apple-card {
-      background: linear-gradient(145deg, rgba(28, 28, 30, 0.65) 0%, rgba(14, 14, 16, 0.8) 100%);
-      backdrop-filter: blur(30px) saturate(190%);
-      -webkit-backdrop-filter: blur(30px) saturate(190%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 26px;
-      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .apple-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08), transparent 40%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-    .apple-card:hover::before {
-      opacity: 1;
-    }
-    .apple-card:hover {
-      border-color: rgba(255, 255, 255, 0.28);
-      transform: translateY(-2px);
-      box-shadow: 0 35px 70px -10px rgba(0, 0, 0, 0.9), inset 0 1px 2px 0 rgba(255, 255, 255, 0.25);
-    }
-    .apple-glass-subtle {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .apple-btn-primary {
-      background: #ffffff;
-      color: #000000;
-      border-radius: 980px;
-      padding: 6px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 0 16px rgba(255, 255, 255, 0.18);
-    }
-    .apple-btn-primary:hover {
-      background: #e5e5e7;
-      transform: scale(1.02);
-      box-shadow: 0 0 22px rgba(255, 255, 255, 0.3);
-    }
-    .apple-btn-primary:active {
-      transform: scale(0.97);
-    }
-    .apple-btn-secondary {
-      background: rgba(255, 255, 255, 0.06);
-      color: #ffffff;
-      border: 0.5px solid rgba(255, 255, 255, 0.2);
-      border-radius: 980px;
-      padding: 6px 18px;
-      font-size: 13px;
-      font-weight: 500;
-      transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .apple-btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.14);
-      border-color: rgba(255, 255, 255, 0.45);
-    }
-    .apple-btn-secondary:active {
-      transform: scale(0.97);
-    }
-    .apple-link {
-      color: #ffffff;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 13px;
-      font-weight: 500;
-      text-decoration: none;
-      transition: opacity 0.15s ease;
-    }
-    .apple-link:hover {
-      opacity: 0.8;
-      text-decoration: underline;
-    }
-  </style>
+<style>
+/* CSS VARIABLES & THEMES */
+:root {
+  --font-serif: 'Cinzel', 'Copperplate', 'Didot', 'Times New Roman', serif;
+  --font-body: 'Cormorant Garamond', 'Garamond', 'Georgia', serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Theme: Bone (Patrick Bateman Ivory) */
+  --bg-core: #090a0d;
+  --bg-surface: rgba(18, 20, 26, 0.75);
+  --bg-surface-elevated: rgba(24, 27, 34, 0.9);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-focus: rgba(0, 245, 255, 0.4);
+  --text-primary: #f0f2f5;
+  --text-secondary: #9aa1ad;
+  --text-muted: #6b7280;
+  --gold: #00F5FF;
+  --gold-glow: rgba(0, 245, 255, 0.35);
+  
+  /* Card Themes */
+  --card-bg: #FAF6ED;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #FDFBF5 0%, #FAF6ED 65%, #F2ECE0 100%);
+  --ink-primary: #1C1916;
+  --ink-secondary: #3D3934;
+  --ink-muted: #6E675E;
+  --watermark-color: rgba(160, 140, 110, 0.08);
+  --card-border: rgba(60, 50, 40, 0.14);
+  --qr-border: rgba(60, 50, 40, 0.25);
+  --letterpress: 0 1px 0 rgba(255, 255, 255, 0.85), 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="eggshell"] {
+  --card-bg: #F4F3ED;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #FAF9F5 0%, #F4F3ED 65%, #ECEAE0 100%);
+  --ink-primary: #191B1B;
+  --ink-secondary: #383B3B;
+  --ink-muted: #666B6B;
+  --watermark-color: rgba(130, 140, 145, 0.08);
+  --card-border: rgba(40, 50, 50, 0.14);
+  --qr-border: rgba(40, 50, 50, 0.25);
+}
+
+[data-theme="nimbus"] {
+  --card-bg: #FCFBF8;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #FFFFFF 0%, #FCFBF8 65%, #F5F3EC 100%);
+  --ink-primary: #111111;
+  --ink-secondary: #2C2C2C;
+  --ink-muted: #5A5A5A;
+  --watermark-color: rgba(180, 150, 90, 0.09);
+  --card-border: rgba(30, 30, 30, 0.15);
+  --qr-border: rgba(30, 30, 30, 0.28);
+}
+
+[data-theme="noir"] {
+  --card-bg: #141416;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #1F1F24 0%, #141416 70%, #0C0C0E 100%);
+  --ink-primary: #E5C370;
+  --ink-secondary: #C8A752;
+  --ink-muted: #947E45;
+  --watermark-color: rgba(229, 195, 112, 0.07);
+  --card-border: rgba(229, 195, 112, 0.24);
+  --qr-border: rgba(229, 195, 112, 0.38);
+  --letterpress: 0 1px 1px rgba(0, 0, 0, 0.9), 0 -1px 0 rgba(229, 195, 112, 0.3);
+}
+
+/* RESET & CORE */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-core);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background Atmosphere */
+.ambient-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: 
+    radial-gradient(circle at 50% 12%, rgba(0, 245, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 85% 65%, rgba(60, 75, 100, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 15% 85%, rgba(40, 50, 70, 0.10) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAVIGATION */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: rgba(9, 10, 13, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-crest {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(0, 245, 255, 0.45);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--gold);
+  background: rgba(0, 245, 255, 0.08);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.15);
+}
+
+.brand-text h1 {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brand-text span {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--text-secondary);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--gold);
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 2px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-btn.active {
+  background: var(--gold);
+  color: #0c0b08;
+  box-shadow: 0 1px 6px rgba(212, 175, 55, 0.3);
+}
+
+/* Theme Switcher */
+.theme-picker {
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 2px;
+}
+
+.theme-opt {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-opt.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.theme-opt[data-theme="bone"].active { background: #FAF6ED; color: #1C1916; }
+.theme-opt[data-theme="eggshell"].active { background: #F4F3ED; color: #191B1B; }
+.theme-opt[data-theme="nimbus"].active { background: #FCFBF8; color: #111111; }
+.theme-opt[data-theme="noir"].active { background: #141416; color: #E5C370; }
+
+/* LAYOUT CONTAINER */
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* HERO SECTION */
+.hero-section {
+  position: relative;
+  z-index: 10;
+  padding-top: 150px;
+  padding-bottom: 90px;
+  text-align: center;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(0, 245, 255, 0.08);
+  border: 1px solid rgba(0, 245, 255, 0.24);
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.hero-firm-title {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.hero-name {
+  font-family: var(--font-serif);
+  font-size: clamp(38px, 6vw, 68px);
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+
+.hero-role {
+  font-family: var(--font-serif);
+  font-size: clamp(12px, 1.8vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-desc {
+  max-width: 780px;
+  margin: 0 auto 36px auto;
+  font-family: var(--font-body);
+  font-size: 20px;
+  line-height: 1.6;
+  color: #cfd5e0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 60px;
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 13px 26px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+}
+
+.btn-gold {
+  background: #00F5FF;
+  color: #08090C;
+  font-weight: 800;
+  box-shadow: 0 0 25px rgba(0, 245, 255, 0.45);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #e5c358 0%, #bd8624 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 245, 255, 0.45);
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #f0f2f5;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* STATS ROW */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-surface-elevated);
+  transform: translateY(-3px);
+}
+
+.stat-val {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+
+.stat-lbl {
+  font-size: 11px;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+/* SECTION TITLES */
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-badge {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 3.5vw, 38px);
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.section-sub {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* 3D BUSINESS CARD SECTION */
+.card-showcase-section {
+  position: relative;
+  z-index: 10;
+  padding: 80px 0;
+}
+
+.stage-3d {
+  perspective: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0 24px 0;
+}
+
+.card-scene {
+  width: 630px;
+  height: 360px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.2, 0.85, 0.4, 1.2), box-shadow 0.3s ease;
+  cursor: grab;
+}
+
+.card-scene:active {
+  cursor: grabbing;
+}
+
+.card-scene.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Face Styling */
+.card-3d-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 6px;
+  box-shadow: 
+    0 24px 50px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 0 1px 1px rgba(255, 255, 255, 0.6);
+  padding: 26px 32px;
+  overflow: hidden;
+}
+
+[data-theme="noir"] .card-3d-face {
+  box-shadow: 
+    0 24px 50px rgba(0, 0, 0, 0.8),
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    inset 0 0 1px 1px rgba(229, 195, 112, 0.25);
+}
+
+.card-face-back {
+  transform: rotateY(180deg);
+}
+
+/* SPECULAR REFLECTION OVERLAY */
+.card-specular-light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 5;
+  mix-blend-mode: overlay;
+  border-radius: 6px;
+}
+
+[data-theme="noir"] .card-specular-light {
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(229, 195, 112, 0.22) 0%, transparent 55%);
+}
+
+/* INTERNAL CARD LAYOUT */
+.card-face {
+  box-sizing: border-box;
+  background: var(--card-bg-gradient);
+  color: var(--ink-primary);
+  font-family: var(--font-serif);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64%;
+  height: 64%;
+  color: var(--watermark-color);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-watermark svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-content-layer {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-inner-border {
+  position: absolute;
+  top: 0.09in;
+  left: 0.09in;
+  right: 0.09in;
+  bottom: 0.09in;
+  border: 0.4pt solid var(--card-border);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Front card layout */
+.front-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.front-tel {
+  font-size: 5.6pt;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.front-firm {
+  text-align: right;
+}
+
+.front-firm-name {
+  font-size: 7.2pt;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  color: var(--ink-primary);
+}
+
+.front-firm-dept {
+  font-size: 4.5pt;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+  margin-top: 1px;
+}
+
+.front-center {
+  text-align: center;
+  margin: auto 0;
+  padding: 2px 0;
+}
+
+.front-name {
+  font-size: 15.5pt;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  margin: 0 0 2px 0;
+  color: var(--ink-primary);
+  text-shadow: var(--letterpress);
+  white-space: nowrap;
+}
+
+.front-title {
+  font-size: 6.4pt;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.front-subpillars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  font-size: 3.9pt;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  color: var(--ink-muted);
+}
+
+.subpillar-item {
+  white-space: nowrap;
+}
+
+.front-subpillars span.dot {
+  color: var(--gold);
+  font-size: 4pt;
+}
+
+.front-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 4.1pt;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  color: var(--ink-muted);
+  border-top: 0.4pt solid var(--card-border);
+  padding-top: 2.5px;
+}
+
+.footer-col-left { text-align: left; white-space: nowrap; }
+.footer-col-right { text-align: right; white-space: nowrap; }
+
+/* Back card layout */
+.back-header {
+  text-align: center;
+  border-bottom: 0.4pt solid var(--card-border);
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
+.back-header-title {
+  font-size: 5.3pt;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  color: var(--ink-primary);
+  white-space: nowrap;
+}
+
+.back-body {
+  display: flex;
+  gap: 0.12in;
+  align-items: center;
+  flex: 1;
+}
+
+.back-qr-box {
+  width: 0.95in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qr-frame {
+  width: 0.74in;
+  height: 0.74in;
+  padding: 2.5px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 0.5pt solid var(--qr-border);
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="noir"] .qr-frame { background: rgba(255, 255, 255, 0.08); }
+
+.qr-code-svg { width: 100%; height: 100%; color: var(--ink-primary); }
+
+.qr-caption {
+  font-size: 4pt;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-align: center;
+  color: var(--ink-secondary);
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.qr-handle { font-size: 4.2pt; letter-spacing: 0.08em; color: var(--gold); font-weight: 700; }
+.qr-tel { font-size: 3.8pt; letter-spacing: 0.06em; color: var(--ink-muted); }
+
+.back-pillars {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3px 6px;
+}
+
+.pillar-item { display: flex; flex-direction: column; }
+.pillar-title {
+  font-size: 4.8pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ink-primary);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 1px;
+}
+.pillar-num { color: var(--gold); font-size: 4.2pt; }
+.pillar-desc {
+  font-family: var(--font-body);
+  font-size: 5.1pt;
+  line-height: 1.15;
+  color: var(--ink-secondary);
+}
+
+.back-footer {
+  border-top: 0.4pt solid var(--card-border);
+  padding-top: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 4.2pt;
+  font-style: italic;
+  font-family: var(--font-body);
+  color: var(--ink-muted);
+}
+.back-quote { letter-spacing: 0.04em; }
+.back-inst {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: 4.4pt;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+}
+
+.flip-prompt {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.card-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* ABOUT SECTION */
+.about-section {
+  position: relative;
+  z-index: 10;
+  padding: 80px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.about-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 48px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.about-lead {
+  font-family: var(--font-body);
+  font-size: 22px;
+  line-height: 1.7;
+  color: #fff;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.about-body p {
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.7;
+  color: #c9d0dc;
+  margin-bottom: 20px;
+}
+
+.about-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* FOUR PILLARS SECTION */
+.pillars-section {
+  position: relative;
+  z-index: 10;
+  padding: 80px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.pillar-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 32px 26px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.pillar-card:hover {
+  border-color: var(--border-focus);
+  background: var(--bg-surface-elevated);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.pillar-card-num {
+  font-family: var(--font-serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.pillar-card-name {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.pillar-card-sub {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.pillar-card-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* TELEGRAM CHANNEL SHOWCASE */
+.channel-section {
+  position: relative;
+  z-index: 10;
+  padding: 80px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.channel-card-box {
+  background: linear-gradient(135deg, rgba(22, 26, 34, 0.95) 0%, rgba(14, 16, 22, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  padding: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 36px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.channel-left {
+  flex: 1;
+  min-width: 280px;
+}
+
+.channel-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.channel-qr-frame {
+  width: 170px;
+  height: 170px;
+  background: #FAF6ED;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--gold);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* EASTER EGG BANNER */
+.easter-section {
+  position: relative;
+  z-index: 10;
+  padding: 40px 0 80px 0;
+}
+
+.easter-box {
+  background: rgba(14, 16, 20, 0.7);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 12px;
+  padding: 26px 36px;
+  text-align: center;
+  max-width: 740px;
+  margin: 0 auto;
+  backdrop-filter: blur(12px);
+}
+
+.easter-quote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.6;
+  color: #cfd5e0;
+  margin-bottom: 8px;
+}
+
+.easter-speaker {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* CONTACT SECTION */
+.contact-section {
+  position: relative;
+  z-index: 10;
+  padding: 80px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.contact-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-card-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.contact-card-value {
+  font-size: 15px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contact-card-value:hover {
+  color: var(--gold);
+}
+
+/* FOOTER */
+.site-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 50px 24px;
+  text-align: center;
+  background: #060709;
+}
+
+.footer-copy {
+  font-family: var(--font-serif);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.footer-disc {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* RESPONSIVE */
+@media (max-width: 820px) {
+  .navbar {
+    padding: 0 20px;
+  }
+  .nav-links {
+    display: none;
+  }
+  .card-scene {
+    width: 92vw;
+    height: 52.5vw;
+  }
+  .about-box {
+    padding: 28px 20px;
+  }
+  .channel-card-box {
+    padding: 28px 20px;
+  }
+}
+</style>
 </head>
-<body class="min-h-screen selection:bg-white selection:text-black overflow-x-hidden relative">
+<body data-theme="bone">
+<svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+  <filter id="paper-grain" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+    <feDiffuseLighting in="noise" lighting-color="#fff" surfaceScale="1.2" result="light">
+      <feDistantLight azimuth="45" elevation="60" />
+    </feDiffuseLighting>
+    <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+  </filter>
+</svg>
+<div class="ambient-glow"></div>
 
-  <!-- Ambient Glass Light Core (matching TahlilAI MVP) -->
-  <div class="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-white/[0.04] rounded-full blur-[140px] pointer-events-none -z-10"></div>
-  <div class="fixed top-3/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-white/[0.025] rounded-full blur-[160px] pointer-events-none -z-10"></div>
+<!-- NAVIGATION BAR -->
+<nav class="navbar">
+  <a href="#hero" class="nav-brand">
+    <div class="brand-crest">JS</div>
+    <div class="brand-text">
+      <h1>JASUR SHUKUROV</h1>
+      <span>ANTIGRAVITY SYSTEMS</span>
+    </div>
+  </a>
 
-  <!-- ========================================================================= -->
-  <!-- 1. APPLE GLOBAL NAVIGATION RIBBON (44px) — ALL BLACK & WHITE              -->
-  <!-- ========================================================================= -->
-  <header class="h-[44px] apple-glass sticky top-0 z-50 px-4 sm:px-8 flex items-center justify-between border-b border-white/10">
-    <div class="flex items-center gap-3">
-      <svg class="w-4 h-4 fill-white" viewBox="0 0 170 170" aria-label="Apple">
-        <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.04-7.58-7.78-11.65-14.23-6.2-9.97-11.07-21.43-14.6-34.37-3.53-12.93-5.3-25.06-5.3-36.38 0-14.88 3.73-27.18 11.19-36.9 7.46-9.72 16.94-14.71 28.45-14.97 4.12 0 9.06 1.15 14.84 3.46 5.77 2.31 9.77 3.51 11.98 3.6 2.66 0 6.89-1.29 12.69-3.86 5.8-2.58 10.74-3.79 14.83-3.64 10.99.55 19.8 4.67 26.43 12.37-9.49 5.76-14.12 13.88-13.89 24.36.23 8.35 3.38 15.34 9.45 20.97 6.07 5.63 13.43 8.91 22.08 9.84-2.2 6.64-4.88 13.4-8.03 20.28zM119.22 31.84c0-7.07 2.53-13.79 7.59-20.16 5.06-6.37 11.39-10.42 18.99-12.16.23 1.19.35 2.29.35 3.3 0 7.23-2.67 14.15-8.01 20.76-5.34 6.61-11.75 10.51-19.23 11.7-.22-1.12-.34-2.23-.34-3.32z"/>
-      </svg>
-      <span class="text-xs font-semibold tracking-wider text-white">JASUR SHUKUROV • ONLINE MIND</span>
+  <div class="nav-links">
+    <a href="#about" data-i18n="nav_about">About</a>
+    <a href="#card" data-i18n="nav_card">3D Card</a>
+    <a href="#pillars" data-i18n="nav_pillars">Capabilities</a>
+    <a href="#channel" data-i18n="nav_channel">Telegram</a>
+    <a href="#contact" data-i18n="nav_contact">Contact</a>
+  </div>
+
+  <div class="nav-controls">
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="uz" onclick="switchLang('uz')">UZ</button>
+      <button class="lang-btn active" data-lang="en" onclick="switchLang('en')">EN</button>
+      <button class="lang-btn" data-lang="ru" onclick="switchLang('ru')">RU</button>
     </div>
 
-    <!-- Right Quick Links -->
-    <div class="flex items-center gap-2.5">
-      <!-- Live Telemetry Pill -->
-      <div class="hidden xl:flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] font-mono text-[#a1a1aa]">
-        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-        <span>EDGE: 14ms</span>
-        <span class="text-white/20">•</span>
-        <span>FHIR R4: OK</span>
-        <span class="text-white/20">•</span>
-        <span class="text-white font-semibold">$100M TAM</span>
-      </div>
+    <!-- Theme Switcher -->
+    <div class="theme-picker">
+      <button class="theme-opt active" data-theme="bone" onclick="switchTheme('bone')">Bone</button>
+      <button class="theme-opt" data-theme="eggshell" onclick="switchTheme('eggshell')">Eggshell</button>
+      <button class="theme-opt" data-theme="nimbus" onclick="switchTheme('nimbus')">Nimbus</button>
+      <button class="theme-opt" data-theme="noir" onclick="switchTheme('noir')">Noir</button>
+    </div>
+  </div>
+</nav>
 
-      <!-- Command Palette Trigger -->
-      <button onclick="openCommandPalette()" class="hidden md:flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white hover:border-white/30 text-xs font-mono transition">
-        <svg class="w-3 h-3 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        <span>Qidiruv</span>
-        <kbd class="text-[9px] bg-white/10 px-1 py-0.2 rounded text-white/50">⌘K</kbd>
-      </button>
+<!-- HERO SECTION -->
+<section class="hero-section" id="hero">
+  <div class="container">
+    <div class="status-badge" data-i18n="status_pill">● ACTIVE IN TELEGRAM &amp; LABS &bull; SAMARKAND / TASHKENT / CLOUD</div>
+    <div class="hero-firm-title" data-i18n="hero_firm">ANTIGRAVITY SYSTEMS &bull; COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+    <h1 class="hero-name" data-i18n="hero_name">JASUR SHUKUROV</h1>
+    <div class="hero-role" data-i18n="hero_role">CHIEF EXECUTIVE &bull; LEAD AI ARCHITECT &bull; HEALTHCARE STRATEGIST &bull; COMMERCIAL MASTERMIND</div>
+    <p class="hero-desc" data-i18n="hero_desc">
+      Unifying low-latency C/C++ systems engineering from School 21, healthcare administration from Samarkand State Medical University, and advanced Antigravity AI cognitive architectures. Ruthless execution from algorithmic reasoning to commercial machinery scale.
+    </p>
 
-      <!-- Audio Haptics Toggle -->
-      <button id="audioToggleBtn" onclick="toggleAudio()" class="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/70 hover:text-white text-xs font-mono transition flex items-center gap-1" title="Apple Web Audio Haptics">
-        <span id="audioIcon" class="font-mono text-[10px]">[HAPTIC ON]</span>
-        <span class="hidden lg:inline text-[10px]">HAPTIC</span>
-      </button>
-
-      <div class="bg-white/10 border border-white/20 rounded-full p-1 flex gap-1 text-[11px] font-semibold">
-        <button onclick="setLanguage('uz')" id="btn-uz" class="px-2 py-0.5 rounded-full bg-white text-black font-bold">UZ</button>
-        <button onclick="setLanguage('ru')" id="btn-ru" class="px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white">RU</button>
-        <button onclick="setLanguage('en')" id="btn-en" class="px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white">EN</button>
-      </div>
-
-      <a href="https://t.me/Shukurov_Jasur" target="_blank" class="apple-btn-primary !py-1 !px-3 text-xs">
-        <span>Aloqa</span>
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+    <div class="hero-actions">
+      <a href="https://t.me/Shukurov_Jasur" target="_blank" rel="noopener" class="btn btn-gold">
+        <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span data-i18n="cta_channel">Join Channel @Shukurov_Jasur</span>
+      </a>
+      <a href="#card" class="btn btn-outline">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 20V9"/></svg>
+        <span data-i18n="cta_card">Inspect 3D Card</span>
+      </a>
+      <a href="jasur_shukurov.vcf" download class="btn btn-outline">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3"/></svg>
+        <span data-i18n="cta_vcard">Save Contact (VCard)</span>
       </a>
     </div>
-  </header>
 
-  <!-- ========================================================================= -->
-  <!-- 2. HERO SECTION (BLACK & WHITE HIGH-PRECISION EDITORIAL)                   -->
-  <!-- ========================================================================= -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 space-y-16 relative z-10">
-    <section class="text-center space-y-5">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-white text-xs font-semibold uppercase tracking-wider">
-        <span class="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_#ffffff]"></span>
-        <span id="badge-status">SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI • REKTOR STIPENDIYASI NOMZODI</span>
+    <!-- METRICS GRID -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-val" data-i18n="stat1_val">18+ Mo.</div>
+        <div class="stat-lbl" data-i18n="stat1_lbl">Gemini Pro &amp; Prompt Architecture Depth</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" data-i18n="stat2_val">School 21</div>
+        <div class="stat-lbl" data-i18n="stat2_lbl">Low-Latency C/C++, Data Science &amp; Engines</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" data-i18n="stat3_val">SamSMU</div>
+        <div class="stat-lbl" data-i18n="stat3_lbl">Healthcare Administration &amp; Clinical Strategy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" data-i18n="stat4_val">Arbitrage</div>
+        <div class="stat-lbl" data-i18n="stat4_lbl">$2 vs $375 Strategy &amp; Industrial Machinery</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D BUSINESS CARD SHOWCASE -->
+<section class="card-showcase-section" id="card">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge" data-i18n="card_sec_badge">PRECISION ARTIFACT</div>
+      <h2 class="section-title" data-i18n="card_sec_title">The American Psycho Executive Card</h2>
+      <p class="section-sub" data-i18n="card_sec_sub">Tactile cotton paper stock, blind embossed watermark, and raised thermographic lettering. Rotates in real-time 3D.</p>
+    </div>
+
+    <div class="stage-3d">
+      <div class="card-scene" id="cardScene" onclick="toggleCardFlip()">
+        <div class="card-specular-light" id="cardSpecular"></div>
+        
+        <!-- CARD FRONT -->
+        <div class="card-3d-face card-face" id="cardFront">
+
+  <div class="card-inner-border"></div>
+  <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+  <div class="card-content-layer">
+    <div class="front-header">
+      <div class="front-tel">+998 88 223 33 34</div>
+      <div class="front-firm">
+        <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+        <div class="front-firm-dept" data-i18n="card_firm_dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+      </div>
+    </div>
+    <div class="front-center">
+      <div class="front-name">JASUR SHUKUROV</div>
+      <div class="front-title" data-i18n="card_front_title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+      <div class="front-subpillars">
+        <span class="subpillar-item" data-i18n="tag_ai">AI &amp; PROMPT SYSTEMS</span>
+        <span class="dot">◆</span>
+        <span class="subpillar-item" data-i18n="tag_code">LOW-LATENCY C/C++</span>
+        <span class="dot">◆</span>
+        <span class="subpillar-item" data-i18n="tag_health">HEALTHCARE MANAGEMENT</span>
+        <span class="dot">◆</span>
+        <span class="subpillar-item" data-i18n="tag_trade">ARBITRAGE</span>
+      </div>
+    </div>
+    <div class="front-footer">
+      <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+      <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+    </div>
+  </div>
+        </div>
+
+        <!-- CARD BACK -->
+        <div class="card-3d-face card-face card-face-back" id="cardBack">
+
+  <div class="card-inner-border"></div>
+  <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+  <div class="card-content-layer">
+    <div class="back-header">
+      <div class="back-header-title" data-i18n="card_dossier_title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+    </div>
+    <div class="back-body">
+      <div class="back-qr-box">
+        <div class="qr-frame">
+          <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+        </div>
+        <div class="qr-caption">
+          <span data-i18n="card_qr_caption">OFFICIAL TELEGRAM CHANNEL</span>
+          <div class="qr-handle">t.me/Shukurov_Jasur</div>
+          <div class="qr-tel">+998 88 223 33 34</div>
+        </div>
+      </div>
+      <div class="back-pillars">
+        <div class="pillar-item">
+          <div class="pillar-title"><span class="pillar-num">01</span> <span data-i18n="p1_title">AI &amp; PROMPT SYSTEMS</span></div>
+          <div class="pillar-desc" data-i18n="p1_desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-title"><span class="pillar-num">02</span> <span data-i18n="p2_title">COMPUTING ENGINES</span></div>
+          <div class="pillar-desc" data-i18n="p2_desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-title"><span class="pillar-num">03</span> <span data-i18n="p3_title">HEALTHCARE GOVERNANCE</span></div>
+          <div class="pillar-desc" data-i18n="p3_desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+        </div>
+        <div class="pillar-item">
+          <div class="pillar-title"><span class="pillar-num">04</span> <span data-i18n="p4_title">COMMERCIAL ARBITRAGE</span></div>
+          <div class="pillar-desc" data-i18n="p4_desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+        </div>
+      </div>
+    </div>
+    <div class="back-footer">
+      <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+      <div class="back-inst" data-i18n="card_auth">AUTHENTICATED PRINT EDITION</div>
+    </div>
+  </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-prompt" data-i18n="card_flip_hint">
+      Click card or press Space to flip between Front and Back
+    </div>
+
+    <div class="card-downloads">
+      <a href="Jasur_Shukurov_Business_Card_3.5x2.pdf" class="btn btn-gold" download>
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        <span data-i18n="dl_pdf_35">Download 3.5″ × 2″ Vector PDF</span>
+      </a>
+      <a href="Jasur_Shukurov_Business_Card_A4_Sheet.pdf" class="btn btn-outline" download>
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+        <span data-i18n="dl_pdf_a4">Download A4 Print Sheet (8 Cards)</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-box">
+      <div class="section-badge" data-i18n="about_badge">EXECUTIVE NARRATIVE</div>
+      <h2 class="section-title" style="text-align: left; margin-bottom: 24px;" data-i18n="about_title">Bridging Cognitive Intelligence, Low-Level Computation &amp; Enterprise Execution</h2>
+      
+      <div class="about-lead" data-i18n="about_p1">
+        I don't simply prompt models; I engineer deterministic cognitive execution loops. My architectural framework is built at the intersection of rigorous systems programming and strategic institutional governance.
+      </div>
+      <div class="about-body">
+        <p data-i18n="about_p2">
+          Trained in the high-stakes peer-to-peer programming protocol of <strong>School 21 (École 42 model)</strong>, I specialize in low-latency C and C++, manual memory architecture, pointer arithmetic, and algorithmic data structures. In parallel, at <strong>Samarkand State Medical University</strong>, I study the complex economics and administration of healthcare systems, directing innovative initiatives such as the <em>EpiVision XR</em> simulation platform.
+        </p>
+        <p data-i18n="about_p3">
+          In the commercial world, I command industrial garment technology as a master seller, leveraging ruthless price optimization and asymmetrical market dynamics (the <em>$2 vs $375 Strategy</em>) to turn high-volume supply chains into high-margin operations.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUR PILLARS SECTION -->
+<section class="pillars-section" id="pillars">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge" data-i18n="pillars_badge">VERIFIED ARCHITECTURE</div>
+      <h2 class="section-title" data-i18n="pillars_title">The Four Pillars of Mastery</h2>
+    </div>
+
+    <div class="pillars-grid">
+      <!-- PILLAR 1 -->
+      <div class="pillar-card">
+        <div class="pillar-card-num">PILLAR // 01</div>
+        <h3 class="pillar-card-name" data-i18n="pillar1_name">AI Systems &amp; Cognitive Engineering</h3>
+        <div class="pillar-card-sub" data-i18n="pillar1_sub">Antigravity &bull; Gemini Pro &bull; NotebookLM</div>
+        <p class="pillar-card-body" data-i18n="pillar1_body">
+          Over 18 months of intensive hands-on mastery with Gemini Pro architectures, metaprompting, deterministic tool orchestration, and knowledge synthesis with NotebookLM. Designing multi-agent swarms with autonomous execution boundaries.
+        </p>
       </div>
 
-      <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight text-white leading-tight">
-        Jasur Shukurov. <br />
-        <span class="bg-gradient-to-r from-white via-[#d4d4d8] to-[#71717a] bg-clip-text text-transparent">
-          Online Mind &amp; Architecture.
-        </span>
-      </h1>
+      <!-- PILLAR 2 -->
+      <div class="pillar-card">
+        <div class="pillar-card-num">PILLAR // 02</div>
+        <h3 class="pillar-card-name" data-i18n="pillar2_name">Low-Latency &amp; Systems Computation</h3>
+        <div class="pillar-card-sub" data-i18n="pillar2_sub">School 21 &bull; Modern C / C++ &bull; Data Science</div>
+        <p class="pillar-card-body" data-i18n="pillar2_body">
+          Deep low-level mastery in C and C++17/20, cache-conscious data layouts, lock-free memory models, custom allocators, and real-time graphics and game engine physics loops. Pure computational precision without high-level bloat.
+        </p>
+      </div>
 
-      <p class="text-base sm:text-lg text-[#a1a1aa] max-w-3xl mx-auto leading-relaxed" id="hero-desc">
-        Sog‘liqni saqlash boshqaruvi (SamDTU), School 21 past darajali C/C++ muhandisligi va avtonom AI tizimlari sintezi. MedLoop AI, Unicorn Health va EpiVision XR asoschisi.
-      </p>
+      <!-- PILLAR 3 -->
+      <div class="pillar-card">
+        <div class="pillar-card-num">PILLAR // 03</div>
+        <h3 class="pillar-card-name" data-i18n="pillar3_name">Healthcare Administration &amp; Governance</h3>
+        <div class="pillar-card-sub" data-i18n="pillar3_sub">SamSMU &bull; Health Economics &bull; EpiVision XR</div>
+        <p class="pillar-card-body" data-i18n="pillar3_body">
+          Strategic institutional management, clinical resource allocation, and digital healthcare transformation. Project Management Lead for 'EpiVision XR' simulation tools, bridging medical pedagogy with spatial computation.
+        </p>
+      </div>
 
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-        <a href="https://t.me/Shukurov_Jasur" target="_blank" class="apple-btn-primary text-sm px-6 py-2.5">
-          <span>Bog‘lanish (Telegram @Shukurov_Jasur)</span>
+      <!-- PILLAR 4 -->
+      <div class="pillar-card">
+        <div class="pillar-card-num">PILLAR // 04</div>
+        <h3 class="pillar-card-name" data-i18n="pillar4_name">Commercial Trade &amp; Asymmetric Arbitrage</h3>
+        <div class="pillar-card-sub" data-i18n="pillar4_sub">Industrial Machinery &bull; Margin Optimization</div>
+        <p class="pillar-card-body" data-i18n="pillar4_body">
+          Specialized market authority in industrial sewing machinery. Execution of asymmetric trade dynamics ($2 vs $375 margin arbitrage), enterprise supplier negotiation, and high-volume distribution networks across Central Asia.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TELEGRAM CHANNEL SHOWCASE -->
+<section class="channel-section" id="channel">
+  <div class="container">
+    <div class="channel-card-box">
+      <div class="channel-left">
+        <div class="section-badge" data-i18n="channel_badge">OFFICIAL TELEGRAM CHANNEL</div>
+        <h2 class="section-title" style="text-align:left; margin-bottom: 14px;" data-i18n="channel_title">Direct Insights &amp; Intelligence Feed</h2>
+        <p class="hero-desc" style="margin: 0 0 24px 0; text-align:left;" data-i18n="channel_sub">
+          Follow my official Telegram broadcast for technical breakdowns, AI architectural logs, and strategic market updates.
+        </p>
+        <a href="https://t.me/Shukurov_Jasur" target="_blank" rel="noopener" class="btn btn-gold">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          <span data-i18n="channel_btn">Open Channel @Shukurov_Jasur</span>
         </a>
-        <a href="https://www.instagram.com/jasurceo?stkn=MXQ2ZmN4bTJyY2pnNQ==" target="_blank" class="apple-btn-secondary text-sm px-6 py-2.5">
-          <span>Instagram @jasurceo</span>
-        </a>
-        <button onclick="openTavsiyanomaModal()" class="apple-btn-secondary text-sm px-6 py-2.5 border-white/30 text-white hover:border-white inline-flex items-center gap-2">
-          <svg class="w-4 h-4 text-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          <span>SamDTU Rasmiy Tavsiyanomasi</span>
-        </button>
       </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- 3. INTERACTIVE NEURAL MIND GRAPH (MONOCHROME CANVAS)                       -->
-    <!-- ========================================================================= -->
-    <section class="apple-card p-6 sm:p-8 space-y-6">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">NEURAL COGNITIVE MAP</span>
-          <h2 class="text-2xl font-bold text-white mt-1">Onlayn Miya: Asosiy Fikrlash Klasterlari</h2>
+      <div class="channel-right">
+        <div class="channel-qr-frame">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
         </div>
-        <div class="flex flex-wrap gap-2" id="cluster-buttons">
-          <button onclick="selectCluster('healthtech')" id="btn-healthtech" class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-black">HealthTech</button>
-          <button onclick="selectCluster('sammu')" id="btn-sammu" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10">SamDTU &amp; Rektor</button>
-          <button onclick="selectCluster('school21')" id="btn-school21" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10">School 21 C/C++</button>
-          <button onclick="selectCluster('arbitrage')" id="btn-arbitrage" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10">$2 vs $375 Savdo</button>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <!-- Interactive Canvas Orbital -->
-        <div class="lg:col-span-5 flex justify-center">
-          <canvas id="mindCanvas" width="360" height="360" class="max-w-full h-auto cursor-pointer"></canvas>
-        </div>
-
-        <!-- Dynamic Cluster Details -->
-        <div class="lg:col-span-7 space-y-4" id="cluster-content">
-          <div class="p-2.5 px-3 rounded-full bg-white/10 border border-white/20 inline-block text-white font-bold text-xs uppercase tracking-wider">
-            HEALTHTECH &amp; KLINIK AI TRIAJ
-          </div>
-          <h3 class="text-2xl font-bold text-white" id="cluster-title">MedLoop AI &amp; 169 Klinik Modul</h3>
-          <p class="text-sm text-[#a1a1aa] leading-relaxed" id="cluster-desc">
-            O‘zbekiston xususiy klinikalari va laboratoriyalarida bemorlarning 45 foizi laboratoriya tahlilidan so‘ng shifokorga bormay ketib qoladi. MedLoop AI bu bo‘shliqni 8 soniyada laboratoriya blankini o‘qib tushuntiruvchi OCR va triaj orqali yopadi va har bir klinikaga oyiga $6,000–$7,500 qo‘shimcha sof tushum olib keladi.
-          </p>
-
-          <div class="grid grid-cols-2 gap-3 pt-2">
-            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
-              <span class="text-[10px] text-[#71717a] uppercase font-mono block">Platforma</span>
-              <span class="text-sm font-bold text-white">Unicorn Health</span>
-              <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-link text-xs mt-1 block">Ochish ›</a>
-            </div>
-            <div class="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
-              <span class="text-[10px] text-[#71717a] uppercase font-mono block">Tahlil Bot</span>
-              <span class="text-sm font-bold text-white">@Tahlil_ai_bot</span>
-              <a href="https://t.me/Tahlil_ai_bot" target="_blank" class="apple-link text-xs mt-1 block">Telegramda Sinash ›</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- 4. VERIFIED VENTURES DIRECTORY (MONOCHROME BENTO)                         -->
-    <!-- ========================================================================= -->
-    <section class="space-y-6">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">ECOSYSTEM VENTURES</span>
-          <h2 class="text-2xl font-bold text-white mt-1">Barcha Jonli Loyihalar &amp; Xizmatlar</h2>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- MedLoop AI -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                CLINICAL B2B SAAS
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">2026</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">MedLoop AI</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Laboratoriya tahlillaridan keyin bemorlarning yo‘qotilishini 8 soniyada to‘xtatib, klinika qabuliga qaytaruvchi aqlli triaj.
-            </p>
-          </div>
-          <a href="https://turnir-launch-lab.vercel.app" target="_blank" class="apple-btn-primary justify-center w-full">
-            <span>Demosini Ko‘rish</span>
-          </a>
-        </div>
-
-        <!-- Unicorn Health Uzbekistan -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                169 KLINIK MODUL
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Production</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">Unicorn Health</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              169 ta tibbiy matematik formula, DoriQuti dorixona qidiruvi va ArzonLab laboratoriya xizmatlari agregatori.
-            </p>
-          </div>
-          <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-btn-primary justify-center w-full">
-            <span>unicorn-health.vercel.app ›</span>
-          </a>
-        </div>
-
-        <!-- Tahlil AI -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                LAB INTERPRETATION
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Live</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">Tahlil AI &amp; Bot</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Qon tahlillari va laboratoriya natijalarini xalq tilida tushuntirib, shifokorga yo‘naltiruvchi veb-ilova va bot.
-            </p>
-          </div>
-          <div class="flex gap-2">
-            <a href="https://tahlilai-mvp.vercel.app" target="_blank" class="apple-btn-primary flex-1 justify-center text-xs">Web MVP</a>
-            <a href="https://t.me/Tahlil_ai_bot" target="_blank" class="apple-btn-secondary flex-1 justify-center text-xs">@Tahlil_ai_bot</a>
-          </div>
-        </div>
-
-        <!-- Osiyo Medical Bot -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                TELEGRAM ADVISOR
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Active</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">@Osiyomedicalbot</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Bemorlar uchun tezkor klinik yo‘l-yo‘riq, tibbiy maslahat va klinikalarga navbatga yozilish Telegram boti.
-            </p>
-          </div>
-          <a href="https://t.me/Osiyomedicalbot" target="_blank" class="apple-btn-secondary justify-center w-full">
-            <span>Botni Ochish (@Osiyomedicalbot)</span>
-          </a>
-        </div>
-
-        <!-- EpiVision XR -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                SAMDTU SPATIAL XR
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Innovatsiya</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">EpiVision XR</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Tibbiyot xodimlari va talabalar uchun interaktiv 3D simulyatsiya. Rektor stipendiyasi tavsiyanomasida e'tirof etilgan.
-            </p>
-          </div>
-          <button onclick="openTavsiyanomaModal()" class="apple-btn-secondary justify-center w-full">
-            <span>Rasmiy Tavsiyanomani Ko‘rish</span>
-          </button>
-        </div>
-
-        <!-- Launch Lab 21 -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                SCHOOL 21 TOURNAMENT
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Apple Design</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">Launch Lab 21</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Startaplar uchun avtonom inkubator, hakamlar tekshiruvi va One-Pager generatsiya qiluvchi Apple.com interfeysli platforma.
-            </p>
-          </div>
-          <a href="https://turnir-launch-lab.vercel.app" target="_blank" class="apple-btn-primary justify-center w-full">
-            <span>turnir-launch-lab.vercel.app ›</span>
-          </a>
-        </div>
-
-        <!-- School 21 Low-Latency Systems Suite -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                LOW-LATENCY C/C++
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">0 Leaks</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">School 21 Systems Suite</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              s21_string+, s21_math, s21_decimal va SimpleBashUtils. Valgrind xotira tahlilida 0 bayt yo‘qotish bilan tasdiqlangan deterministik C kutubxonalari.
-            </p>
-          </div>
-          <button onclick="switchCodeSnippet('s21_string'); document.getElementById('section-c-terminal').scrollIntoView({behavior:'smooth'});" class="apple-btn-secondary justify-center w-full">
-            <span>C Kodlarini Ko‘rish</span>
-          </button>
-        </div>
-
-        <!-- $2 vs $375 Industrial Arbitrage -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                B2B ARBITRAGE
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Asimmetriya</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">$2 vs $375 Arbitraj Modeli</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Past marjali ommaviy tovarlardan voz kechib, har bir bitimda $375 sof marja beruvchi sanoat tikuv uskunalari bozoriga asoslangan kapital modeli.
-            </p>
-          </div>
-          <button onclick="askPrompt('$2 vs $375 marja arbitraji strategiyasi nima?'); document.getElementById('section-qa-terminal').scrollIntoView({behavior:'smooth'});" class="apple-btn-secondary justify-center w-full">
-            <span>Modelni Tahlil Qilish</span>
-          </button>
-        </div>
-
-        <!-- DoriQuti Intelligent Formulary -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                CLINICAL FORMULARY
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">10k+ Dori</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">DoriQuti Moduli</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Dori vositalarining xavfli o‘zaro ta’siri, keksalar uchun Beers mezonlari va vaznga qarab xavfsiz terapevtik doza hisoblagichi.
-            </p>
-          </div>
-          <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-btn-primary justify-center w-full">
-            <span>DoriQuti Formulari ›</span>
-          </a>
-        </div>
-
-        <!-- ArzonLab Diagnostics Aggregator -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                PRICE DISCOVERY
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Laboratoriya</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">ArzonLab Agregatori</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Samarqand va Toshkent xususiy tibbiyot laboratoriyalarining tahlil narxlarini real vaqtda solishtiruvchi shaffof tibbiy agregator.
-            </p>
-          </div>
-          <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-btn-secondary justify-center w-full">
-            <span>Narxlarni Solishtirish</span>
-          </a>
-        </div>
-
-        <!-- MedLoop Founders Legal Architecture -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                LEGAL GOVERNANCE
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">Vesting &amp; IP</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">Ta’sischilar Kelishuvi</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              MedLoop 3 va 4 ta’sischili korporativ shartnomasi: 4 yillik vesting, 1 yillik kliff, 100% IP himoyasi va deadlock yechimlari.
-            </p>
-          </div>
-          <button onclick="openFoundersModal()" class="apple-btn-primary justify-center w-full">
-            <span>Kelishuvni Ko‘rish</span>
-          </button>
-        </div>
-
-        <!-- SamMU Healthcare Management -->
-        <div class="apple-card p-6 flex flex-col justify-between space-y-4">
-          <div class="space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20">
-                HEALTHCARE MANAGEMENT
-              </span>
-              <span class="text-xs text-[#71717a] font-mono">SamDTU</span>
-            </div>
-            <h3 class="text-xl font-bold text-white">Kasalxona Menejmenti</h3>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed">
-              Kasalxona o‘rin fondi aylanmasi, resurslarni optimallashtirish va tibbiyot muassasalarida zamonaviy iqtisodiy boshqaruv izlanishlari.
-            </p>
-          </div>
-          <button onclick="openTavsiyanomaModal()" class="apple-btn-secondary justify-center w-full">
-            <span>Rektor Tavsiyanomasi</span>
-          </button>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ========================================================================= -->
-    <!-- 4.5. $100M VENTURE CAPITAL COCKPIT & UNIT ECONOMICS ENGINE               -->
-    <!-- ========================================================================= -->
-    <section id="section-valuation-cockpit" class="apple-card p-6 sm:p-8 space-y-6">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">SILICON VALLEY VENTURE ARCHITECTURE</span>
-          <h2 class="text-2xl font-bold text-white mt-1">Venchur Baholash &amp; Unit Economics Cockpit ($100M ARR Engine)</h2>
-          <p class="text-xs text-[#a1a1aa] mt-1">Surunkali bemorlar obunasi (DoriQuti), bo‘sh MRT slotlari vaucher komissiyasi (ArzonLab) va 12x ARR multiplikatorli real-vaqt simulyatori.</p>
-        </div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-white text-[11px] font-mono">
-          <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-          <span>12x ARR SAAS MULTIPLIER</span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <!-- Interactive Sliders -->
-        <div class="lg:col-span-6 space-y-5">
-          <!-- Slider 1: Active Patient Cohort -->
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-white font-semibold">1. Faol Bemorlar Kohortasi</span>
-              <span id="labelCohort" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">35,000 bemor</span>
-            </div>
-            <input type="range" id="sliderCohort" min="1000" max="200000" step="1000" value="35000" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
-              <span>1K (Toshkent Pilot)</span>
-              <span>8.2M (O‘zbekiston TAM)</span>
-            </div>
-          </div>
-
-          <!-- Slider 2: Monthly Medication Subscription -->
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-white font-semibold">2. Oylik DoriQuti Obunasi (ARPU)</span>
-              <span id="labelSubFee" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">$24.00 / oy</span>
-            </div>
-            <input type="range" id="sliderSubFee" min="10" max="60" step="1" value="24" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
-              <span>$10/oy (Baza)</span>
-              <span>$60/oy (Polipragmaziya)</span>
-            </div>
-          </div>
-
-          <!-- Slider 3: Wholesale Margin Arbitrage -->
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-white font-semibold">3. Ulgurji Dorixona Arbitraj Marjasi</span>
-              <span id="labelMargin" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">14.0%</span>
-            </div>
-            <input type="range" id="sliderMargin" min="8" max="25" step="0.5" value="14" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
-              <span>8% (Minimal)</span>
-              <span>25% (To‘g‘ridan-to‘g‘ri Zavod)</span>
-            </div>
-          </div>
-
-          <!-- Slider 4: ArzonLab Diagnostic Commission -->
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-white font-semibold">4. ArzonLab Diagnostika Vaucher Komissiyasi</span>
-              <span id="labelDiagFee" class="text-white font-bold bg-white/10 px-2 py-0.5 rounded">$4.50 / vaucher</span>
-            </div>
-            <input type="range" id="sliderDiagFee" min="2" max="15" step="0.5" value="4.5" oninput="runValuationEngine()" class="w-full accent-white bg-white/20 h-1.5 rounded-lg appearance-none cursor-pointer">
-            <div class="flex justify-between text-[10px] font-mono text-[#71717a]">
-              <span>$2 (Qon tahlili)</span>
-              <span>$15 (MRT / KT)</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Real-Time Output Display -->
-        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-5">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-mono text-[#a1a1aa] uppercase">Implied Venture Valuation (12x ARR)</span>
-            <span id="valBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black font-mono">SERIES A / B READY</span>
-          </div>
-
-          <div class="flex items-baseline gap-2">
-            <span id="outValuation" class="text-5xl sm:text-6xl font-black text-white tracking-tight">$100.8M</span>
-            <span class="text-xs font-mono text-[#a1a1aa]">USD</span>
-          </div>
-
-          <!-- KPI Matrix -->
-          <div class="grid grid-cols-2 gap-3 border-t border-white/10 pt-4 text-xs font-mono">
-            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-              <span class="text-[#71717a] block text-[10px]">YILLIK DAROMAD (ARR)</span>
-              <span id="outARR" class="text-lg font-bold text-white">$8.40M</span>
-            </div>
-            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-              <span class="text-[#71717a] block text-[10px]">OYLIK DAROMAD (MRR)</span>
-              <span id="outMRR" class="text-lg font-bold text-white">$700.0K</span>
-            </div>
-            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-              <span class="text-[#71717a] block text-[10px]">LTV / CAC RATIO</span>
-              <span id="outLtvCac" class="text-lg font-bold text-white">36.8x</span>
-            </div>
-            <div class="p-3 rounded-xl bg-white/[0.03] border border-white/10">
-              <span class="text-[#71717a] block text-[10px]">YALPI MARJA (GROSS MARGIN)</span>
-              <span id="outMargin" class="text-lg font-bold text-white">71.5%</span>
-            </div>
-          </div>
-
-          <p class="text-[11px] text-[#a1a1aa] leading-relaxed border-t border-white/10 pt-3">
-            Stripe &amp; GoodRx modelidagi kabi: 95% adherence retensiyasi, $4.50 mijoz jalb qilish narxi (CAC) va $165.60 hayotiy qiymat (LTV).
-          </p>
-
-          <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-1 font-mono">
-            <span>Metodologiya: Bessemer SaaS Benchmark</span>
-            <a href="docs/FINANCIAL_MODEL.html" target="_blank" class="apple-link text-xs">Moliyaviy Model ›</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- 5. MULTI-ENGINE CLINICAL CALCULATOR SUITE (169 ALGORITHMS CORE)           -->
-    <!-- ========================================================================= -->
-    <section class="apple-card p-6 sm:p-8 space-y-6">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">CLINICAL PRECISION ENGINES (UNICORN HEALTH)</span>
-          <h2 class="text-2xl font-bold text-white mt-1">Ko‘p Tarmoqli Klinik Dvigatellar To‘plami</h2>
-          <p class="text-xs text-[#a1a1aa] mt-1">Nefrologiya, kardiologiya va endokrinologiya bo‘yicha xalqaro tasdiqlangan matematik formulalar:</p>
-        </div>
-        <!-- Engine Selector Tabs -->
-        <div class="flex flex-wrap gap-2">
-          <button onclick="switchClinicalTab(renal)" id="tab-btn-renal" class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-black transition">Cockcroft-Gault (Buyrak)</button>
-          <button onclick="switchClinicalTab(cardio)" id="tab-btn-cardio" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white transition">CHA₂DS₂-VASc (Yurak)</button>
-          <button onclick="switchClinicalTab(metabolic)" id="tab-btn-metabolic" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white transition">HOMA-IR (Diabet)</button>
-        </div>
-      </div>
-
-      <!-- TAB 1: COCKCROFT-GAULT -->
-      <div id="tab-pane-renal" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <!-- Input Form -->
-        <div class="lg:col-span-6 space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-              <label class="text-xs font-semibold text-[#a1a1aa]">Yosh (Yillar)</label>
-              <input type="number" id="calcAge" value="48" min="1" max="120" oninput="runClinicalCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
-            </div>
-            <div class="space-y-1.5">
-              <label class="text-xs font-semibold text-[#a1a1aa]">Vazn (kg)</label>
-              <input type="number" id="calcWeight" value="72" min="10" max="300" oninput="runClinicalCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-              <label class="text-xs font-semibold text-[#a1a1aa]">Kreatinin (mg/dL)</label>
-              <input type="number" id="calcCreatinine" value="1.1" step="0.1" min="0.2" max="15.0" oninput="runClinicalCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
-            </div>
-            <div class="space-y-1.5">
-              <label class="text-xs font-semibold text-[#a1a1aa]">Jins</label>
-              <select id="calcGender" onchange="runClinicalCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
-                <option value="male">Erkak (Koeffitsient 1.0)</option>
-                <option value="female">Ayol (Koeffitsient 0.85)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-[#a1a1aa] font-mono leading-relaxed">
-            Formula: CrCl = [ (140 - Yosh) × Vazn(kg) ] / [ 72 × Kreatinin(mg/dL) ] × [0.85 agar ayol]
-          </div>
-        </div>
-
-        <!-- Real-Time Output Display -->
-        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-mono text-[#a1a1aa] uppercase">Hisoblangan Klirens</span>
-            <span id="calcStageBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black">G2 • YENGIL KAMAYISH</span>
-          </div>
-
-          <div class="flex items-baseline gap-2">
-            <span id="calcResultValue" class="text-5xl font-black text-white tracking-tight">72.7</span>
-            <span class="text-sm font-mono text-[#a1a1aa]">mL/min</span>
-          </div>
-
-          <div class="space-y-1.5 border-t border-white/10 pt-3">
-            <div class="text-xs font-semibold text-white" id="calcInterpretation">GFR Darajasi: G2 (Yengil kamaygan buyrak zaxirasi)</div>
-            <p class="text-xs text-[#a1a1aa] leading-relaxed" id="calcAdvice">
-              Klinik holat barqaror. Aksariyat dori vositalari standart terapevtik dozada qo‘llanilishi mumkin.
-            </p>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-white/10 font-mono">
-            <span>Algoritm: Cockcroft-Gault (1976)</span>
-            <a href="https://unicorn-health-uzbekistan.vercel.app/" target="_blank" class="apple-link text-xs">Unicorn Health ›</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 2: CHA2DS2-VASc -->
-      <div id="tab-pane-cardio" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div class="lg:col-span-6 space-y-3 text-xs font-mono">
-          <div class="grid grid-cols-2 gap-2">
-            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
-              <input type="checkbox" id="cv_chf" onchange="runCardioCalc()" class="accent-white">
-              <span>Yurak Yetishmovchiligi (+1)</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
-              <input type="checkbox" id="cv_htn" onchange="runCardioCalc()" checked class="accent-white">
-              <span>Gipertoniya (+1)</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
-              <input type="checkbox" id="cv_dm" onchange="runCardioCalc()" class="accent-white">
-              <span>Qandli Diabet (+1)</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
-              <input type="checkbox" id="cv_stroke" onchange="runCardioCalc()" class="accent-white">
-              <span>Insult / TIA Tarixi (+2)</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
-              <input type="checkbox" id="cv_vasc" onchange="runCardioCalc()" class="accent-white">
-              <span>Qon Tomir Kasalligi (+1)</span>
-            </label>
-            <label class="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/10 cursor-pointer hover:border-white/30">
-              <input type="checkbox" id="cv_female" onchange="runCardioCalc()" class="accent-white">
-              <span>Ayol Jinsi (+1)</span>
-            </label>
-          </div>
-          <div class="space-y-1 pt-1">
-            <label class="text-[#a1a1aa]">Bemor Yoshi Toifasi:</label>
-            <select id="cv_age" onchange="runCardioCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-white">
-              <option value="0">&lt; 65 yosh (0 ball)</option>
-              <option value="1" selected>65–74 yosh (+1 ball)</option>
-              <option value="2">≥ 75 yosh (+2 ball)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-mono text-[#a1a1aa] uppercase">CHA₂DS₂-VASc Ball</span>
-            <span id="cardioBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black font-mono">O‘RTACHA XAVF</span>
-          </div>
-
-          <div class="flex items-baseline gap-2">
-            <span id="cardioScore" class="text-5xl font-black text-white tracking-tight">2</span>
-            <span class="text-sm font-mono text-[#a1a1aa]">ball</span>
-          </div>
-
-          <div class="space-y-1.5 border-t border-white/10 pt-3 text-xs">
-            <div class="font-semibold text-white" id="cardioRiskText">Yillik Tromboemboliya Xavfi: 2.2%</div>
-            <p class="text-[#a1a1aa] leading-relaxed" id="cardioRecommendation">
-              ESC 2024 Protokoli: To‘g‘ridan-to‘g‘ri oral antikoagulyantlar (DOAC: Apiksaban yoki Rivaroksaban) tavsiya etiladi.
-            </p>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-white/10 font-mono">
-            <span>Standart: European Society of Cardiology</span>
-            <span class="text-white">DOAC Protokoli</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: HOMA-IR -->
-      <div id="tab-pane-metabolic" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        <div class="lg:col-span-6 space-y-4">
-          <div class="grid grid-cols-2 gap-4">
-            <div class="space-y-1.5">
-              <label class="text-xs font-semibold text-[#a1a1aa]">Och qoringa glyukoza (mg/dL)</label>
-              <input type="number" id="homa_glu" value="105" min="40" max="400" oninput="runHomaCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
-            </div>
-            <div class="space-y-1.5">
-              <label class="text-xs font-semibold text-[#a1a1aa]">Och qoringa insulin (µIU/mL)</label>
-              <input type="number" id="homa_ins" value="14.5" step="0.5" min="1" max="100" oninput="runHomaCalc()" class="w-full bg-black border border-white/20 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-white">
-            </div>
-          </div>
-          <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-[#a1a1aa] font-mono leading-relaxed">
-            Formula: HOMA-IR = [ Och qoringa glyukoza (mg/dL) × Insulin (µIU/mL) ] / 405
-          </div>
-        </div>
-
-        <div class="lg:col-span-6 p-6 rounded-2xl bg-black border border-white/20 space-y-4">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-mono text-[#a1a1aa] uppercase">HOMA-IR Indeksi</span>
-            <span id="homaBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white text-black font-mono">INSULIN REZISTENTLIGI</span>
-          </div>
-
-          <div class="flex items-baseline gap-2">
-            <span id="homaResult" class="text-5xl font-black text-white tracking-tight">3.76</span>
-            <span class="text-sm font-mono text-[#a1a1aa]">indeks</span>
-          </div>
-
-          <div class="space-y-1.5 border-t border-white/10 pt-3 text-xs">
-            <div class="font-semibold text-white" id="homaInterpretation">Normadan Yuqori (&gt; 2.5)</div>
-            <p class="text-[#a1a1aa] leading-relaxed" id="homaAdvice">
-              Yashirin insulin rezistentligi va prediabet/metabolik sindrom xavfi. Hayot tarzi korreksiyasi va endokrinolog nazorati talab etiladi.
-            </p>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-[#71717a] pt-2 border-t border-white/10 font-mono">
-            <span>Standart: Matthews et al. (Oxford)</span>
-            <span class="text-white">Prediabet Skriningi</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- 6. SCHOOL 21 LOW-LATENCY C SYSTEMS INSPECTOR                              -->
-    <!-- ========================================================================= -->
-    <section id="section-c-terminal" class="apple-card p-6 sm:p-8 space-y-6">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
-        <div>
-          <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">LOW-LEVEL SYSTEMS &amp; DETERMINISTIC C</span>
-          <h2 class="text-2xl font-bold text-white mt-1">School 21: Past Darajali C/C++ Arxitekturasi</h2>
-          <p class="text-xs text-[#a1a1aa] mt-1">École 42 qat’iy standartlari: xotira xatolarisiz (Valgrind clean), ko‘rsatkichlar arifmetikasi va POSIX tizimlari.</p>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <button onclick="switchCodeSnippet('s21_string')" id="btn-code-string" class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-black">s21_string.c</button>
-          <button onclick="switchCodeSnippet('s21_decimal')" id="btn-code-decimal" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white">s21_decimal.c</button>
-          <button onclick="switchCodeSnippet('memory_audit')" id="btn-code-memory" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white">Valgrind Audit</button>
-        </div>
-      </div>
-
-      <!-- Code & Terminal Box -->
-      <div class="bg-black border border-white/20 rounded-2xl overflow-hidden font-mono text-xs">
-        <div class="bg-white/[0.06] px-4 py-2.5 flex items-center justify-between border-b border-white/10">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
-            <span id="terminalFileTitle" class="text-[#a1a1aa] text-[11px] ml-2">src/s21_string.c — gcc -Wall -Werror -Wextra -std=c11</span>
-          </div>
-          <span class="text-[10px] text-white font-bold bg-white/10 px-2 py-0.5 rounded">0 MEMORY LEAKS</span>
-        </div>
-        <pre class="p-5 text-[#f5f5f7] overflow-x-auto leading-relaxed text-[12px]" id="terminalCodeBlock">#include "s21_string.h"
-
-// Low-latency pointer arithmetic memchr without libc overhead
-void *s21_memchr(const void *str, int c, s21_size_t n) {
-    const unsigned char *p = (const unsigned char *)str;
-    unsigned char target = (unsigned char)c;
-
-    while (n--) {
-        if (*p == target) {
-            return (void *)p;
-        }
-        p++;
-    }
-    return S21_NULL;
-}
-
-// Optimized string length calculation
-s21_size_t s21_strlen(const char *str) {
-    s21_size_t len = 0;
-    while (str && str[len] != '\0') {
-        len++;
-    }
-    return len;
-}</pre>
-      </div>
-    </section>
-
-    <!-- ========================================================================= -->
-    <!-- 7. V2 MULTI-CATEGORY NEURAL MIND SEARCH                                   -->
-    <!-- ========================================================================= -->
-    <section id="section-qa-terminal" class="apple-card p-6 sm:p-8 space-y-6">
-      <div class="space-y-1">
-        <span class="text-xs font-mono text-[#a1a1aa] uppercase tracking-wider">NEURAL KNOWLEDGE CORE (V2 SEARCH)</span>
-        <h2 class="text-2xl font-bold text-white">Jasurning Onlayn Miyasidan So‘rang</h2>
-        <p class="text-xs text-[#a1a1aa]">HealthTech, C/C++ xotira modellari, SamDTU Rektor stipendiyasi, savdo arbitraji yoki huquqiy boshqaruv bo‘yicha savol bering:</p>
-      </div>
-
-      <!-- Categories Filter Pills -->
-      <div class="flex flex-wrap gap-2 border-b border-white/10 pb-4" id="qaCategoryPills">
-        <button onclick="filterQACategory('all')" id="btn-qa-all" class="px-3 py-1 rounded-full text-xs font-semibold bg-white text-black">Barchasi</button>
-        <button onclick="filterQACategory('health')" id="btn-qa-health" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white">HealthTech &amp; AI</button>
-        <button onclick="filterQACategory('systems')" id="btn-qa-systems" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white">C/C++ Tizimlari</button>
-        <button onclick="filterQACategory('sammu')" id="btn-qa-sammu" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white">SamDTU &amp; Rektor</button>
-        <button onclick="filterQACategory('arbitrage')" id="btn-qa-arbitrage" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white">Arbitraj &amp; Savdo</button>
-        <button onclick="filterQACategory('legal')" id="btn-qa-legal" class="px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white">Huquq &amp; Boshqaruv</button>
-      </div>
-
-      <!-- Quick Suggested Prompts (Dynamic Category Grid) -->
-      <div class="flex flex-wrap gap-2" id="qaPromptsContainer">
-        <!-- Rendered by JS -->
-      </div>
-
-      <!-- Input Bar -->
-      <div class="flex items-center gap-2 bg-black border border-white/20 rounded-2xl p-2 px-4 focus-within:border-white transition">
-        <input type="text" id="mindQueryInput" placeholder="Savolingizni kiriting..." class="w-full bg-transparent text-sm text-white focus:outline-none placeholder:text-[#71717a]">
-        <button onclick="handleExecuteQuery()" class="apple-btn-primary text-xs px-4 py-1.5">Sintezlash</button>
-      </div>
-
-      <!-- Output Box -->
-      <div id="mindAnswerBox" class="hidden p-5 rounded-2xl bg-black border border-white/25 space-y-3 text-sm text-[#f5f5f7] leading-relaxed">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-white flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            <span>Sintez qilingan javob:</span>
-          </span>
-          <button onclick="copyAnswerText()" id="btn-copy-ans" class="apple-btn-secondary text-[11px] px-3 py-0.5">Nusxalash</button>
-        </div>
-        <p id="mindAnswerText"></p>
-      </div>
-    </section>
-  </main>
-
-  <!-- ========================================================================= -->
-  <!-- 6. MODAL: MEDLOOP AI TA’SISCHILAR KELISHUVI (LEGAL GOVERNANCE)            -->
-  <!-- ========================================================================= -->
-  <div id="foundersModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 hidden">
-    <div class="apple-card max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-white/20 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-          <span>MEDLOOP AI • TA’SISCHILAR KELISHUVI</span>
-        </span>
-        <button onclick="closeFoundersModal()" class="apple-btn-secondary text-xs px-3 py-1">✕ Yopish</button>
-      </div>
-
-      <div class="text-center space-y-1">
-        <p class="text-xs text-[#a1a1aa]">Xalqaro Y-Combinator / NVCA standarti asosidagi Ta’sischilar Nizomi</p>
-        <h3 class="text-xl font-bold text-white mt-1">FOUNDERS EQUITY &amp; IP AGREEMENT</h3>
-        <p class="text-xs text-[#d4d4d8]">Bosh Ijrochi Direktor: Jasur Shukurov</p>
-      </div>
-
-      <div class="space-y-4 text-xs sm:text-sm text-[#d4d4d8] leading-relaxed text-justify font-sans">
-        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-          <h4 class="font-bold text-white text-xs uppercase font-mono">1. 4-Yillik Standart Vesting &amp; 1-Yillik Kliff (Cliff)</h4>
-          <p class="text-xs text-[#a1a1aa]">
-            Har bir ta’sischining ulushi 48 oy davomida pro-rata ravishda ochiladi. Dastlabki 12 oy davomida (Kliff) hech qanday ulush berilmaydi. Agar ta’sischi dastlabki 12 oy ichida loyihani tark etsa, uning 100% ulushi kompaniyaga qaytadi (Dead-equity himoyasi).
-          </p>
-        </div>
-
-        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-          <h4 class="font-bold text-white text-xs uppercase font-mono">2. Intellektual Mulkni Kompaniyaga O‘tkazish (IP Assignment)</h4>
-          <p class="text-xs text-[#a1a1aa]">
-            Ta’sischilar tomonidan ishlab chiqilgan barcha dasturiy kodlar, OCR modellari, interfeys dizaynlari, patentlar va ma’lumotlar bazalari to‘liq va qaytarib olinmaydigan tarzda yuridik shaxs hisoblangan kompaniyaga tegishli bo‘ladi.
-          </p>
-        </div>
-
-        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-          <h4 class="font-bold text-white text-xs uppercase font-mono">3. Bad Leaver va Ulushlarni Qaytarib Sotib Olish (Repurchase)</h4>
-          <p class="text-xs text-[#a1a1aa]">
-            O‘g‘rilik, tijorat sirini oshkor qilish, raqobatchi bilan hamkorlik yoki qo‘pol qonunbuzarlik sodir etgan ta’sischi "Bad Leaver" deb topiladi va uning ochilmagan hamda ochilgan barcha ulushlari nominal qiymatda kompaniya tomonidan qaytarib sotib olinadi.
-          </p>
-        </div>
-
-        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-          <h4 class="font-bold text-white text-xs uppercase font-mono">4. Deadlock (Boshi Berk Ko‘cha) Holatlarini Yechish</h4>
-          <p class="text-xs text-[#a1a1aa]">
-            Strategik qarorlarda ovozlar 50/50 taqsimlanib nizo yuzaga kelganda, operatsion uzluksizlikni ta’minlash maqsadida Bosh Direktor (CEO) Jasur Shukurovning ovozi hal qiluvchi (Casting Vote) kuchga ega bo‘ladi.
-          </p>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between pt-2 border-t border-white/10">
-        <span class="text-[11px] text-[#71717a] font-mono">Hujjat formati: MedLoop Founders Dossier</span>
-        <div class="flex gap-2">
-          <button onclick="window.print()" class="apple-btn-secondary text-xs px-4 py-2">
-            Chop Etish / PDF
-          </button>
-          <button onclick="closeFoundersModal()" class="apple-btn-primary text-xs px-5 py-2">
-            Yopish
-          </button>
-        </div>
+        <span style="font-size: 11px; color: var(--gold); letter-spacing: 0.1em;" data-i18n="channel_scan">Scan with camera to open on Telegram</span>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ========================================================================= -->
-  <!-- 7. MODAL: SAMDTU RASMIY TAVSIYANOMASI (MONOCHROME NOIR)                  -->
-  <!-- ========================================================================= -->
-  <div id="tavsiyanomaModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex items-center justify-center p-4 hidden">
-    <div class="apple-card max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-white/20 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          <span>SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI</span>
-        </span>
-        <button onclick="closeTavsiyanomaModal()" class="apple-btn-secondary text-xs px-3 py-1">✕ Yopish</button>
+<!-- EASTER EGG CINEMATIC BANNER -->
+<section class="easter-section">
+  <div class="container">
+    <div class="easter-box">
+      <div class="easter-quote" data-i18n="easter_quote">“Look at that subtle off-white coloring. The tasteful thickness of it. Oh my god, it even has a watermark...”</div>
+      <div class="easter-speaker" data-i18n="easter_speaker">— Patrick Bateman, Vice President, Pierce &amp; Pierce (2000)</div>
+      <button class="btn btn-outline" style="padding: 8px 18px; font-size: 11px;" onclick="playVoiceQuote()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5L6 9H2v6h4l5 4V5zM19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.08"/></svg>
+        <span data-i18n="easter_btn">Play Cinematic Dialogue Voice</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge" data-i18n="contact_badge">COMMUNICATIONS</div>
+      <h2 class="section-title" data-i18n="contact_title">Direct Executive Coordinates</h2>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <span class="contact-card-label" data-i18n="tel_lbl">Direct Phone:</span>
+        <a href="tel:+998882233334" class="contact-card-value">+998 88 223 33 34</a>
       </div>
-
-      <div class="text-center space-y-1">
-        <p class="text-xs text-[#a1a1aa]">Boshqaruv va menejment fakulteti Menejment yo‘nalishi</p>
-        <h3 class="text-xl font-bold text-white mt-1">TAVSIYANOMA</h3>
-        <p class="text-xs text-[#d4d4d8]">Shukurov Jasur Otabek o‘g‘liga</p>
+      <div class="contact-card">
+        <span class="contact-card-label" data-i18n="tg_chan_lbl">Broadcast Channel:</span>
+        <a href="https://t.me/Shukurov_Jasur" target="_blank" rel="noopener" class="contact-card-value">t.me/Shukurov_Jasur</a>
       </div>
-
-      <div class="space-y-4 text-xs sm:text-sm text-[#d4d4d8] leading-relaxed text-justify">
-        <p>
-          Shukurov Jasur Otabek o‘g‘li 2025-yildan buyon Samarqand davlat tibbiyot universitetining Boshqaruv va menejment fakulteti Menejment yo‘nalishida tahsil olib, hozirda II bosqich 201-guruhning eng intiluvchan va iqtidorli talabalaridan biri hisoblanadi.
-        </p>
-        <p>
-          Shukurov Jasur o‘quv jarayonida o‘zining teran tahliliy tafakkuri, yuqori yetakchilik va tashkilotchilik qobiliyati, fanlarni a’lo baholarga o‘zlashtirishi bilan fakultet jamoasida alohida hurmat qozongan. U sog‘liqni saqlash sohasida zamonaviy menejment tamoyillari, tibbiyot iqtisodiyoti va strategik rejalashtirish usullarini chuqur egallab, murakkab boshqaruv vazifalariga tizimli yechimlar topishda o‘zining yuksak intellektual salohiyatini namoyon etib kelmoqda.
-        </p>
-        <p>
-          Talaba sog‘liqni saqlash tizimiga ilg‘or axborot texnologiyalari va raqamli innovatsiyalarni tatbiq etish yo‘nalishida intilib, universitet IT-inkubatsiya markazi faoliyatida tashabbuskor yetakchilardan biri sifatida qatnashmoqda. U markaz va iqtidorli talabalar ilmiy jamiyati doirasidagi ko‘rik-tanlovlar, xakatonlar hamda ilmiy-amaliy anjumanlarda o‘zining amaliy loyihalari bilan faol ishtirok etib, faxrli o‘rinlar, diplom va sertifikatlarga sazovor bo‘lgan.
-        </p>
-        <p>
-          Ayni vaqtda Shukurov Jasur tibbiyot sohasi xodimlari va talabalar uchun interaktiv simulyatsion vosita hisoblangan “EpiVision XR” Start-up loyihasining loyiha boshqaruvi (Project Management), biznes modeli hamda sog‘liqni saqlash amaliyotiga tatbiq etish mexanizmlari ustida qizg‘in izlanishlar olib bormoqda.
-        </p>
-        <p class="font-semibold text-white">
-          Ushbu tavsiyanoma Samarqand davlat tibbiyot universiteti Boshqaruv va menejment fakulteti Menejment yo‘nalishi talabasi Shukurov Jasur Otabek o‘g‘lining namunali xulqi, yetakchilik salohiyati, o‘quvdagi yutuqlari va innovatsion faolligini rag‘batlantirish maqsadida 2026–2027-o‘quv yili kuzgi semestri “Rektor stipendiyasi” tanlov komissiyasiga taqdim qilish uchun berildi.
-        </p>
+      <div class="contact-card">
+        <span class="contact-card-label" data-i18n="tg_pers_lbl">Personal Telegram:</span>
+        <a href="https://t.me/jasurceo" target="_blank" rel="noopener" class="contact-card-value">@jasurceo</a>
       </div>
-
-      <div class="pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
-          <span class="text-[#a1a1aa] block">Bo‘lim boshlig‘i:</span>
-          <span class="font-bold text-white">U.F. Payzullayeva</span>
-          <span class="text-[11px] text-[#71717a] block mt-0.5">Iqtidorli talabalarning ilmiy-tadqiqot faoliyatini tashkil etish bo‘limi</span>
-        </div>
-        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/10">
-          <span class="text-[#a1a1aa] block">Ilmiy ishlar prorektori:</span>
-          <span class="font-bold text-white">A.S. Kubayev</span>
-          <span class="text-[11px] text-[#71717a] block mt-0.5">Samarqand davlat tibbiyot universiteti</span>
-        </div>
+      <div class="contact-card">
+        <span class="contact-card-label" data-i18n="ig_lbl">Instagram:</span>
+        <a href="https://instagram.com/jasurceo" target="_blank" rel="noopener" class="contact-card-value">@jasurceo</a>
       </div>
-
-      <div class="flex justify-end pt-2">
-        <button onclick="closeTavsiyanomaModal()" class="apple-btn-primary text-xs px-6 py-2">
-          Yopish
-        </button>
+      <div class="contact-card">
+        <span class="contact-card-label" data-i18n="loc_lbl">Base Locations:</span>
+        <span class="contact-card-value" data-i18n="loc_val">Samarkand &bull; Tashkent &bull; Global Cloud</span>
       </div>
     </div>
   </div>
+</section>
 
-
-  <!-- ========================================================================= -->
-  <!-- APPLE SPOTLIGHT COMMAND PALETTE MODAL (⌘K)                                -->
-  <!-- ========================================================================= -->
-  <div id="cmdPaletteModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-2xl flex items-start justify-center pt-20 px-4 opacity-0 pointer-events-none transition-opacity duration-200">
-    <div class="w-full max-w-xl bg-zinc-950 border border-white/20 rounded-3xl overflow-hidden shadow-2xl space-y-4 p-5 scale-95 transition-transform duration-200" id="cmdPaletteBox">
-      <div class="flex items-center gap-3 border-b border-white/10 pb-3">
-        <svg class="w-5 h-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        <input type="text" id="cmdInput" placeholder="Buyruq yoki bo‘lim nomi (masalan, valuation, renal, c, audio)..." oninput="filterCmdList()" class="w-full bg-transparent text-sm text-white placeholder-white/40 focus:outline-none font-mono">
-        <button onclick="closeCommandPalette()" class="text-white/40 hover:text-white text-xs font-mono px-2 py-1 rounded bg-white/5">ESC</button>
-      </div>
-
-      <div class="space-y-1 max-h-72 overflow-y-auto text-xs font-mono" id="cmdList">
-        <button onclick="execCmd('valuation')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[VALUATION] $100M ARR &amp; Venchur Baholash Simulyatori</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">ENTER</span>
-        </button>
-        <button onclick="execCmd('renal')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[RENAL] Cockcroft-Gault Buyrak Klirensi Kalkulyatori</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">KLINIKA</span>
-        </button>
-        <button onclick="execCmd('cardio')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[CARDIO] CHA₂DS₂-VASc Kardiologiya Insult Xavfi</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">YURAK</span>
-        </button>
-        <button onclick="execCmd('metabolic')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[METABOLIC] HOMA-IR Insulin Rezistentligi Dvigateli</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">DIABET</span>
-        </button>
-        <button onclick="execCmd('c_code')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[C11] School 21 Low-Latency C Memory Inspector</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">C11</span>
-        </button>
-        <button onclick="execCmd('founders')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[LEGAL] MedLoop Ta’sischilar Kelishuvi (Legal Governance)</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">YURIDIK</span>
-        </button>
-        <button onclick="execCmd('unicorn')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[UNICORN] Unicorn Health 68 ta Portal Ekotizimi</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">OCHISH</span>
-        </button>
-        <button onclick="execCmd('audio')" class="w-full text-left p-2.5 rounded-xl bg-white/5 hover:bg-white hover:text-black transition flex items-center justify-between group">
-          <span>[AUDIO] Apple Web Audio Haptics (Yoqish / O‘chirish)</span>
-          <span class="text-[10px] text-white/40 group-hover:text-black font-semibold">HAPTIC</span>
-        </button>
-      </div>
-      <div class="text-[10px] font-mono text-[#71717a] pt-2 border-t border-white/5 flex items-center justify-between">
-        <span>Navigatsiya: ↑ ↓ tanlash, ENTER tasdiqlash</span>
-        <span>Esc: yopish</span>
-      </div>
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-copy" data-i18n="footer_copy">ANTIGRAVITY SYSTEMS &copy; 2026 JASUR SHUKUROV. ALL RIGHTS RESERVED.</div>
+    <div class="footer-disc" data-i18n="footer_disc">
+      DISCLAIMER: MERGERS, ACQUISITIONS, ALGORITHMIC SYSTEMS &amp; COMMERCIAL ARBITRAGE. DESIGNED IN THE AMERICAN PSYCHO PIERCE &amp; PIERCE CLASSIC AESTHETIC.
     </div>
   </div>
+</footer>
 
-  <!-- ========================================================================= -->
-  <!-- 7. SIGNATURE DIRECTORY FOOTER                                             -->
-  <!-- ========================================================================= -->
-  <footer class="bg-black/70 backdrop-blur-xl text-[#71717a] text-[11px] border-t border-white/10 mt-20 pt-8 pb-12 relative z-10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="border-b border-white/10 pb-4 mb-6 space-y-1 text-[#71717a]">
-        <p>1. Jasur Shukurov — SamDTU Menejment fakulteti 2-bosqich talabasi, 2026–2027 Rektor stipendiyasi nomzodi.</p>
-        <p>2. School 21 (École 42 modeli) dasturlash akademiyasi past darajali C/C++ tizimlari bitiruvchisi.</p>
-        <p>3. MedLoop AI, Unicorn Health, EpiVision XR va Tahlil AI loyihalari muallifi.</p>
-      </div>
+<!-- SCRIPT: i18n & 3D Interaction -->
+<script>
+  const i18n = {"en": {"nav_about": "About", "nav_card": "3D Card", "nav_pillars": "Capabilities", "nav_channel": "Telegram", "nav_contact": "Contact", "status_pill": "● ACTIVE IN TELEGRAM & LABS • SAMARKAND / TASHKENT / CLOUD", "hero_firm": "ANTIGRAVITY SYSTEMS • COGNITIVE ARCHITECTURE & QUANTITATIVE INTELLIGENCE", "hero_name": "JASUR SHUKUROV", "hero_role": "CHIEF EXECUTIVE • LEAD AI ARCHITECT • HEALTHCARE STRATEGIST • COMMERCIAL MASTERMIND", "hero_desc": "Unifying low-latency C/C++ systems engineering from School 21, healthcare administration from Samarkand State Medical University, and advanced Antigravity AI cognitive architectures. Ruthless execution from algorithmic reasoning to commercial machinery scale.", "cta_channel": "Join Channel @Shukurov_Jasur", "cta_card": "Inspect 3D Card", "cta_vcard": "Save Contact (VCard)", "stat1_val": "18+ Mo.", "stat1_lbl": "Gemini Pro & Prompt Architecture Depth", "stat2_val": "School 21", "stat2_lbl": "Low-Latency C/C++, Data Science & Engines", "stat3_val": "SamSMU", "stat3_lbl": "Healthcare Administration & Clinical Strategy", "stat4_val": "Arbitrage", "stat4_lbl": "$2 vs $375 Strategy & Industrial Machinery", "card_sec_badge": "PRECISION ARTIFACT", "card_sec_title": "The American Psycho Executive Card", "card_sec_sub": "Tactile cotton paper stock, blind embossed watermark, and raised thermographic lettering. Rotates in real-time 3D.", "card_flip_hint": "Click card or press Space to flip between Front and Back", "dl_pdf_35": "Download 3.5″ × 2″ Vector PDF", "dl_pdf_a4": "Download A4 Print Sheet (8 Cards)", "about_badge": "EXECUTIVE NARRATIVE", "about_title": "Bridging Cognitive Intelligence, Low-Level Computation & Enterprise Execution", "about_p1": "I don't simply prompt models; I engineer deterministic cognitive execution loops. My architectural framework is built at the intersection of rigorous systems programming and strategic institutional governance.", "about_p2": "Trained in the high-stakes peer-to-peer programming protocol of <strong>School 21 (École 42 model)</strong>, I specialize in low-latency C and C++, manual memory architecture, pointer arithmetic, and algorithmic data structures. In parallel, at <strong>Samarkand State Medical University</strong>, I study the complex economics and administration of healthcare systems, directing innovative initiatives such as the <em>EpiVision XR</em> simulation platform.", "about_p3": "In the commercial world, I command industrial garment technology as a master seller, leveraging ruthless price optimization and asymmetrical market dynamics (the <em>$2 vs $375 Strategy</em>) to turn high-volume supply chains into high-margin operations.", "pillars_badge": "VERIFIED ARCHITECTURE", "pillars_title": "The Four Pillars of Mastery", "pillar1_name": "AI Systems & Cognitive Engineering", "pillar1_sub": "Antigravity • Gemini Pro • NotebookLM", "pillar1_body": "Over 18 months of intensive hands-on mastery with Gemini Pro architectures, metaprompting, deterministic tool orchestration, and knowledge synthesis with NotebookLM. Designing multi-agent swarms with autonomous execution boundaries.", "pillar2_name": "Low-Latency & Systems Computation", "pillar2_sub": "School 21 • Modern C / C++ • Data Science", "pillar2_body": "Deep low-level mastery in C and C++17/20, cache-conscious data layouts, lock-free memory models, custom allocators, and real-time graphics and game engine physics loops. Pure computational precision without high-level bloat.", "pillar3_name": "Healthcare Administration & Governance", "pillar3_sub": "SamSMU • Health Economics • EpiVision XR", "pillar3_body": "Strategic institutional management, clinical resource allocation, and digital healthcare transformation. Project Management Lead for 'EpiVision XR' simulation tools, bridging medical pedagogy with spatial computation.", "pillar4_name": "Commercial Trade & Asymmetric Arbitrage", "pillar4_sub": "Industrial Machinery • Margin Optimization", "pillar4_body": "Specialized market authority in industrial sewing machinery. Execution of asymmetric trade dynamics ($2 vs $375 margin arbitrage), enterprise supplier negotiation, and high-volume distribution networks across Central Asia.", "channel_badge": "OFFICIAL TELEGRAM CHANNEL", "channel_title": "Direct Insights & Intelligence Feed", "channel_sub": "Follow my official Telegram broadcast for technical breakdowns, AI architectural logs, and strategic market updates.", "channel_scan": "Scan with camera to open immediately on Telegram", "channel_btn": "Open Channel @Shukurov_Jasur", "easter_quote": "“Look at that subtle off-white coloring. The tasteful thickness of it. Oh my god, it even has a watermark...”", "easter_speaker": "— Patrick Bateman, Vice President, Pierce & Pierce (2000)", "easter_btn": "Play Cinematic Dialogue Voice", "contact_badge": "COMMUNICATIONS", "contact_title": "Direct Executive Coordinates", "tel_lbl": "Direct Phone:", "tg_chan_lbl": "Broadcast Channel:", "tg_pers_lbl": "Personal Telegram:", "ig_lbl": "Instagram:", "loc_lbl": "Base Locations:", "loc_val": "Samarkand • Tashkent • Global Cloud", "card_firm_dept": "COGNITIVE ARCHITECTURE & QUANTITATIVE INTELLIGENCE", "card_front_title": "CHIEF EXECUTIVE & LEAD AI ARCHITECT", "tag_ai": "AI & PROMPT SYSTEMS", "tag_code": "LOW-LATENCY C/C++", "tag_health": "HEALTHCARE MANAGEMENT", "tag_trade": "ARBITRAGE", "card_dossier_title": "EXECUTIVE DOSSIER • VERIFIED CAPABILITIES MATRIX", "card_qr_caption": "OFFICIAL TELEGRAM CHANNEL", "p1_title": "AI & PROMPT SYSTEMS", "p1_desc": "Antigravity AI Engineering • Gemini Pro 18mo Lead • NotebookLM Master • LLM Reasoning Pipelines", "p2_title": "COMPUTING ENGINES", "p2_desc": "School 21 (École 42) • Low-Latency C & C++ • Data Science • Game Engine Systems Architecture", "p3_title": "HEALTHCARE GOVERNANCE", "p3_desc": "Samarkand State Medical University • Healthcare Management • Economics • EpiVision XR Platform", "p4_title": "COMMERCIAL ARBITRAGE", "p4_desc": "Industrial Sewing Machinery Master Seller • High-Margin Arbitrage ($2 vs $375 Strategy) • Scale Trade", "card_auth": "AUTHENTICATED PRINT EDITION", "footer_copy": "ANTIGRAVITY SYSTEMS © 2026 JASUR SHUKUROV. ALL RIGHTS RESERVED.", "footer_disc": "DISCLAIMER: MERGERS, ACQUISITIONS, ALGORITHMIC SYSTEMS & COMMERCIAL ARBITRAGE. DESIGNED IN THE AMERICAN PSYCHO PIERCE & PIERCE CLASSIC AESTHETIC."}, "uz": {"nav_about": "Haqida", "nav_card": "3D Vizitka", "nav_pillars": "Salohiyat", "nav_channel": "Telegram", "nav_contact": "Aloqa", "status_pill": "● STRATEGIK HAMKORLIK UCHUN OCHIQ • SAMARQAND / TOSHKENT / CLOUD", "hero_firm": "ANTIGRAVITY SYSTEMS • KOGNITIV ARXITEKTURA VA AMALIY INTELLEKT", "hero_name": "JASUR SHUKUROV", "hero_role": "BOSH DIREKTOR • AI ARXITEKTORI • SOG'LIQNI SAQLASH STRATEGI • TIJORAT MASTERI", "hero_desc": "School 21 C/C++ quyi tizimli dasturlash intizomi, Samarqand davlat tibbiyot universiteti boshqaruv menejmenti hamda Antigravity ilg'or sun'iy intellekt kognitiv arxitekturasini birlashtirgan yetakchi muhandis va tadbirkor.", "cta_channel": "Kanalga ulanish: @Shukurov_Jasur", "cta_card": "3D Vizitkani Ko'rish", "cta_vcard": "Kontaktni Saqlash (VCard)", "stat1_val": "18+ Oy", "stat1_lbl": "Gemini Pro & Prompt Arxitekturasi Tajribasi", "stat2_val": "School 21", "stat2_lbl": "C/C++, Data Science va O'yin Dvigatellari", "stat3_val": "SamDTU", "stat3_lbl": "Sog'liqni Saqlash Menejmenti va Iqtisodiyoti", "stat4_val": "Arbitraj", "stat4_lbl": "$2 vs $375 Strategiyasi va Sanoat Texnikalari", "card_sec_badge": "ELITA ARTIFAKTI", "card_sec_title": "American Psycho Klassik Vizitkasi", "card_sec_sub": "Paxta tolali Bone qog'ozi, bo'rtma bosma suv belgisi va relyefli bo'yoq. 3D fazoda to'liq aylanadi.", "card_flip_hint": "Orqa va old tomonini aylantirish uchun kartani bosing yoki Probeldan foydalaning", "dl_pdf_35": "3.5″ × 2″ Vektor PDF Yuklab Olish", "dl_pdf_a4": "A4 Chop Etish Varag'i (8 ta Vizitka)", "about_badge": "RAHBAR DOSYESI", "about_title": "Kognitiv Intellekt, Quyi Dasturlash va Katta Tijoratning Birlashuvi", "about_p1": "Men neyrotarmoqlarga shunchaki oddiy savollar bermayman — men barqaror va avtonom kognitiv ijro zanjirlarini quramman. Mening uslubim quyi darajadagi kompyuter muhandisligi va institutsional boshqaruv sinteziga asoslangan.", "about_p2": "<strong>School 21 (École 42 modeli)</strong> tizimida qattiq algoritmik tayyorgarlikdan o'tib, C va C++ tillarida xotirani bevosita boshqarish va optimallashtirish bo'yicha chuqur ko'nikmaga egaman. Shu bilan birga, <strong>Samarqand davlat tibbiyot universiteti</strong>da sog'liqni saqlash menejmenti va iqtisodiyotini o'rganib, <em>EpiVision XR</em> tibbiy simulyator loyihasiga yetakchilik qilmoqdaman.", "about_p3": "Katta biznes maydonida sanoat tikuv mashinalari bozorining yetakchi sotuvchisiman. Kuchli muzokara va <em>$2 vs $375 arbitraj strategiyasi</em> orqali yuqori aylanmali savdo tarmoqlarini katta marjali daromadga aylantiraman.", "pillars_badge": "TASDIQLANGAN YO'NALISHLAR", "pillars_title": "To'rt Asosiy Ustun", "pillar1_name": "AI Tizimlari va Kognitiv Muhandislik", "pillar1_sub": "Antigravity • Gemini Pro • NotebookLM", "pillar1_body": "Gemini Pro arxitekturasi, metaprompting, NotebookLM bilimlar bazasi va Antigravity avtonom agentlari bilan 18 oydan ortiq chuqur amaliy tajriba. Ko'p agentli avtomatlashtirilgan kognitiv tizimlar.", "pillar2_name": "Quyi Tizimlar va Yuqori Tezlik", "pillar2_sub": "School 21 • Modern C / C++ • Data Science", "pillar2_body": "School 21 maktabida C va C++17/20, ko'rsatkichlar arifmetikasi, xotira xavfsizligi, kesh bilan ishlash, ma'lumotlar tahlili va 3D o'yin dvigatellari matematikasi bo'yicha toza muhandislik.", "pillar3_name": "Sog'liqni Saqlash Boshqaruvi", "pillar3_sub": "SamDTU • Tibbiyot Iqtisodiyoti • EpiVision XR", "pillar3_body": "Klinika va tibbiyot muassasalarini strategik boshqarish, tibbiy iqtisodiyot va raqamli innovatsiyalar. Tibbiyot xodimlari uchun 'EpiVision XR' interaktiv simulyator loyihasining rahbari.", "pillar4_name": "Tijorat Savdosi va Arbitraj", "pillar4_sub": "Sanoat Texnikasi • Marja Optimallashtirish", "pillar4_body": "Sanoat tikuv mashinalari savdosida yetakchi mutaxassis. $2 vs $375 assimetrik narx arbitraji, ta'minot zanjirlari va Markaziy Osiyo bo'ylab ulgurji savdo logistikasi.", "channel_badge": "RASMIY TELEGRAM KANALI", "channel_title": "Jonli Fikrlar va Tahliliy Yangiliklar", "channel_sub": "Sun'iy intellekt arxitekturasi, quyi dasturlash va yirik strategik loyihalar bo'yicha yangiliklarni rasmiy kanalimda kuzatib boring.", "channel_scan": "Telegramda ochish uchun kamerangiz bilan skanerlang", "channel_btn": "@Shukurov_Jasur Kanaliga O'tish", "easter_quote": "“Uning nozik fil suyagi rangiga qarang. Qanchalik didli qalinlik. Xudo haqqi, hatto suv belgisi ham bor...”", "easter_speaker": "— Patrik Beytmen, Pierce & Pierce Vitse-Prezidenti (2000)", "easter_btn": "Kino Dialogini Ovozli Eshitish", "contact_badge": "BOG'LANISH", "contact_title": "To'g'ridan-To'g'ri Aloqa", "tel_lbl": "Telefon:", "tg_chan_lbl": "Rasmiy Kanal:", "tg_pers_lbl": "Shaxsiy Telegram:", "ig_lbl": "Instagram:", "loc_lbl": "Manzil:", "loc_val": "Samarqand • Toshkent • Global Bulut", "card_firm_dept": "KOGNITIV ARXITEKTURA VA AMALIY INTELLEKT", "card_front_title": "BOSH DIREKTOR VA YETAKCHI AI ARXITEKTORI", "tag_ai": "AI VA PROMPT TIZIMLARI", "tag_code": "QUYI TIZIMLAR C/C++", "tag_health": "SOG'LIQNI SAQLASH MENEJMENTI", "tag_trade": "ARBITRAJ", "card_dossier_title": "RAHBAR DOSYESI • TASDIQLANGAN MALAKA MATRITSASI", "card_qr_caption": "RASMIY TELEGRAM KANALI", "p1_title": "AI VA PROMPT TIZIMLARI", "p1_desc": "Antigravity AI Muhandisligi • Gemini Pro (18 Oy) • NotebookLM Master • Agent Zanjirlari", "p2_title": "QUYI HISOBLASH DVIGATELLARI", "p2_desc": "School 21 (École 42) • C va C++ • Data Science • O'yin Dvigatellari Arxitekturasi", "p3_title": "SOG'LIQNI SAQLASH BOSHQARUVI", "p3_desc": "Samarqand davlat tibbiyot universiteti • Menejment • Iqtisodiyot • EpiVision XR Loyihasi", "p4_title": "TIJORAT ARBITRAJI", "p4_desc": "Sanoat Tikuv Mashinalari Yetakchisi • $2 vs $375 Marja Strategiyasi • Katta Savdo", "card_auth": "AUTENTIFIKATSIYALANGAN CHOP ETISH NASHRI", "footer_copy": "ANTIGRAVITY SYSTEMS © 2026 JASUR SHUKUROV. BARCHA HUQUQLAR HIMOYA QILINGAN.", "footer_disc": "DISCLAIMER: MERGERS, ACQUISITIONS, ALGORITMIK TIZIMLAR VA TIJORAT ARBITRAJI. AMERICAN PSYCHO PIERCE & PIERCE KLASSIK USLUBIDA ISHLANGAN."}, "ru": {"nav_about": "Обо мне", "nav_card": "3D Визитка", "nav_pillars": "Компетенции", "nav_channel": "Telegram", "nav_contact": "Контакты", "status_pill": "● ДОСТУПЕН ДЛЯ СТРАТЕГИЧЕСКОГО ПАРТНЕРСТВА • САМАРКАНД / ТАШКЕНТ / CLOUD", "hero_firm": "ANTIGRAVITY SYSTEMS • КОГНИТИВНАЯ АРХИТЕКТУРА И ПРИКЛАДНОЙ ИНТЕЛЛЕКТ", "hero_name": "JASUR SHUKUROV", "hero_role": "ГЛАВНЫЙ ИСПОЛНИТЕЛЬНЫЙ ДИРЕКТОР • AI АРХИТЕКТОР • СТРАТЕГ ЗДРАВООХРАНЕНИЯ • МАСТЕР АРБИТРАЖА", "hero_desc": "Синтез низкоуровневой системной инженерии на C/C++ в School 21, менеджмента и экономики здравоохранения в СамГМУ и передовых когнитивных агентных архитектур Antigravity AI.", "cta_channel": "Подписаться: @Shukurov_Jasur", "cta_card": "Открыть 3D Визитку", "cta_vcard": "Сохранить Контакт (VCard)", "stat1_val": "18+ Мес.", "stat1_lbl": "Глубокая Экспертиза Gemini Pro & Prompting", "stat2_val": "School 21", "stat2_lbl": "C/C++, Data Science и Игровые Движки", "stat3_val": "СамГМУ", "stat3_lbl": "Менеджмент и Экономика Здравоохранения", "stat4_val": "Арбитраж", "stat4_lbl": "Стратегия $2 vs $375 & Промышленное Оборудование", "card_sec_badge": "ЭЛИТНЫЙ АРТЕФАКТ", "card_sec_title": "Классическая Визитка American Psycho", "card_sec_sub": "Хлопковая бумага цвета слоновой кости, слепое тиснение водяного знака и термографический рельеф. Интерактивное 3D-вращение.", "card_flip_hint": "Нажмите на карту или используйте Пробел для переворота между сторонами", "dl_pdf_35": "Скачать 3.5″ × 2″ Векторный PDF", "dl_pdf_a4": "Скачать Лист А4 (8 Визиток с Метками)", "about_badge": "ДОСЬЕ РУКОВОДИТЕЛЯ", "about_title": "Слияние Когнитивного ИИ, Системного Программирования и Коммерческого Масштаба", "about_p1": "Я не просто формулирую запросы к нейросетям — я проектирую автономные контуры детерминированного когнитивного исполнения на стыке низкоуровневой инженерии и управления институциональными системами.", "about_p2": "Пройдя суровую школу пирингового программирования <strong>School 21 (модель École 42)</strong>, я специализируюсь на C и C++, прямом управлении памятью, указателях и алгоритмических структурах. Параллельно в <strong>Самаркандском государственном медицинском университете</strong> изучаю управление и экономику здравоохранения, возглавляя проект медицинского симулятора <em>EpiVision XR</em>.", "about_p3": "В реальном секторе я являюсь признанным экспертом и ведущим поставщиком промышленного швейного оборудования. Применяя асимметричный ценовой арбитраж (<em>стратегию $2 vs $375</em>), я трансформирую высокооборотные цепочки поставок в высокомаржинальный бизнес.", "pillars_badge": "ВЕРИФИЦИРОВАННЫЕ КОМПЕТЕНЦИИ", "pillars_title": "Четыре Фундаментальных Направления", "pillar1_name": "ИИ-Системы и Когнитивная Инженерия", "pillar1_sub": "Antigravity • Gemini Pro • NotebookLM", "pillar1_body": "Более 18 месяцев практического проектирования решений на базе Gemini Pro, метапромптинг, графы знаний NotebookLM и многоагентные системы Antigravity с автономным циклом принятия решений.", "pillar2_name": "Низкоуровневые Системы и Производительность", "pillar2_sub": "School 21 • Modern C / C++ • Data Science", "pillar2_body": "Глубокая системная подготовка в School 21: C и C++17/20, кэш-ориентированные структуры, арифметика указателей, векторный анализ данных и математика трехмерных физических движков.", "pillar3_name": "Менеджмент Здравоохранения", "pillar3_sub": "СамГМУ • Экономика Медицины • EpiVision XR", "pillar3_body": "Стратегическое планирование клинических процессов, распределение медицинских ресурсов и цифровые инновации. Руководство проектом интерактивного симулятора 'EpiVision XR'.", "pillar4_name": "Коммерческий Торговый Арбитраж", "pillar4_sub": "Промышленное Оборудование • Оптимизация Маржи", "pillar4_body": "Лидерство на рынке промышленного швейного оборудования. Применение асимметричной стратегии $2 vs $375, прямые международные контракты и оптовая логистика в Центральной Азии.", "channel_badge": "ОФИЦИАЛЬНЫЙ TELEGRAM-КАНАЛ", "channel_title": "Прямой Канал Инсайтов и Аналитики", "channel_sub": "Следите за моим авторским блогом: архитектура искусственного интеллекта, системные разработки и масштабные бизнес-проекты.", "channel_scan": "Отсканируйте камерой смартфона для быстрого перехода", "channel_btn": "Перейти в канал @Shukurov_Jasur", "easter_quote": "«Посмотрите на этот благородный цвет слоновой кости. Какая приятная толщина. Боже мой, здесь даже есть водяной знак...»", "easter_speaker": "— Патрик Бэйтмен, Вице-Президент Pierce & Pierce (2000)", "easter_btn": "Слушать Голос Патрика Бэйтмена", "contact_badge": "КОНТАКТЫ", "contact_title": "Прямые Координаты", "tel_lbl": "Телефон:", "tg_chan_lbl": "Официальный Канал:", "tg_pers_lbl": "Личный Telegram:", "ig_lbl": "Instagram:", "loc_lbl": "Локации:", "loc_val": "Самарканд • Ташкент • Global Cloud", "card_firm_dept": "КОГНИТИВНАЯ АРХИТЕКТУРА И ПРИКЛАДНОЙ ИНТЕЛЛЕКТ", "card_front_title": "ГЛАВНЫЙ ИСПОЛНИТЕЛЬНЫЙ ДИРЕКТОР & ВЕДУЩИЙ AI АРХИТЕКТОР", "tag_ai": "ИИ И ПРОМПТ-СИСТЕМЫ", "tag_code": "НИЗКОУРОВНЕВЫЙ C/C++", "tag_health": "МЕНЕДЖМЕНТ ЗДРАВООХРАНЕНИЯ", "tag_trade": "АРБИТРАЖ", "card_dossier_title": "ДОСЬЕ РУКОВОДИТЕЛЯ • МАТРИЦА КОМПЕТЕНЦИЙ", "card_qr_caption": "ОФИЦИАЛЬНЫЙ TELEGRAM КАНАЛ", "p1_title": "ИИ И ПРОМПТ-СИСТЕМЫ", "p1_desc": "Antigravity AI Инженерия • Gemini Pro (18 Мес.) • NotebookLM Master • Агентные Контуры", "p2_title": "СИСТЕМНЫЕ ДВИЖКИ", "p2_desc": "School 21 (École 42) • C и C++ • Data Science • Архитектура Игровых Движков", "p3_title": "МЕНЕДЖМЕНТ ЗДРАВООХРАНЕНИЯ", "p3_desc": "Самаркандский медуниверситет • Менеджмент • Экономика • Проект EpiVision XR", "p4_title": "КОММЕРЧЕСКИЙ АРБИТРАЖ", "p4_desc": "Промышленное Швейное Оборудование • Стратегия $2 vs $375 • Крупная Торговля", "card_auth": "АУТЕНТИЧНОЕ ПЕЧАТНОЕ ИЗДАНИЕ", "footer_copy": "ANTIGRAVITY SYSTEMS © 2026 JASUR SHUKUROV. ВСЕ ПРАВА ЗАЩИЩЕНЫ.", "footer_disc": "DISCLAIMER: MERGERS, ACQUISITIONS, АЛГОРИТМИЧЕСКИЕ СИСТЕМЫ И КОММЕРЧЕСКИЙ АРБИТРАЖ. ДИЗАЙН В СТИЛЕ КЛАССИКИ AMERICAN PSYCHO PIERCE & PIERCE."}};
+  let currentLang = localStorage.getItem('jasur_lang') || 'en';
+  let isCardFlipped = false;
 
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[#71717a]">
-        <div class="flex flex-wrap items-center gap-3">
-          <span>Copyright © 2026 Jasur Shukurov. Barcha huquqlar himoyalangan.</span>
-          <span>•</span>
-          <a href="https://t.me/Shukurov_Jasur" target="_blank" class="hover:text-white transition">Telegram</a>
-          <span>•</span>
-          <a href="https://www.instagram.com/jasurceo?stkn=MXQ2ZmN4bTJyY2pnNQ==" target="_blank" class="hover:text-white transition">Instagram</a>
-        </div>
-        <div class="text-right">
-          <span class="text-[#a1a1aa]">O‘zbekiston (Samarqand • Toshkent)</span>
-        </div>
-      </div>
-    </div>
-  </footer>
+  function switchLang(lang) {
+    if (!i18n[lang]) return;
+    currentLang = lang;
+    localStorage.setItem('jasur_lang', lang);
 
-  <!-- ========================================================================= -->
-  <!-- 8. SCRIPTS & LOGIC                                                        -->
-  <!-- ========================================================================= -->
-  <script>
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
 
-    // -------------------------------------------------------------------------
-    // 0. Apple Web Audio API Tactile Haptic Synthesizer
-    // -------------------------------------------------------------------------
-    let audioCtx = null;
-    let audioEnabled = localStorage.getItem('apple_audio_enabled') !== 'false';
-
-    function initAudio() {
-      const btn = document.getElementById('audioToggleBtn');
-      const icon = document.getElementById('audioIcon');
-      if (btn && icon) {
-        if (audioEnabled) {
-          icon.innerText = '[HAPTIC ON]';
-          btn.classList.add('border-white/30', 'text-white');
-        } else {
-          icon.innerText = '[HAPTIC OFF]';
-          btn.classList.remove('border-white/30', 'text-white');
-        }
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (i18n[lang][key]) {
+        el.innerHTML = i18n[lang][key];
       }
-    }
+    });
+  }
 
-    function toggleAudio() {
-      audioEnabled = !audioEnabled;
-      localStorage.setItem('apple_audio_enabled', audioEnabled ? 'true' : 'false');
-      initAudio();
-      if (audioEnabled) playHapticTick(1800, 0.015);
-    }
+  function switchTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    document.querySelectorAll('.theme-opt').forEach(opt => {
+      opt.classList.toggle('active', opt.getAttribute('data-theme') === theme);
+    });
+  }
 
-    function playHapticTick(freq = 1600, duration = 0.012) {
-      if (!audioEnabled) return;
-      try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(freq * 0.45, audioCtx.currentTime + duration);
-        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
+  const cardScene = document.getElementById('cardScene');
+  const cardSpecular = document.getElementById('cardSpecular');
 
-    // Attach haptics to interactive elements
-    document.addEventListener('click', e => {
-      if (e.target.closest('button, a, input[type="range"], input[type="checkbox"]')) {
-        playHapticTick(1500, 0.01);
+  function toggleCardFlip() {
+    isCardFlipped = !isCardFlipped;
+    cardScene.classList.toggle('flipped', isCardFlipped);
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && e.target === document.body) {
+      e.preventDefault();
+      toggleCardFlip();
+    }
+  });
+
+  if (cardScene) {
+    cardScene.addEventListener('mousemove', (e) => {
+      const rect = cardScene.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -12;
+      const rotateY = ((x - centerX) / centerX) * 14;
+
+      const flipFactor = isCardFlipped ? 180 : 0;
+      cardScene.style.transform = `rotateY(${rotateY + flipFactor}deg) rotateX(${rotateX}deg)`;
+
+      const percentX = (x / rect.width) * 100;
+      const percentY = (y / rect.height) * 100;
+      if (cardSpecular) {
+        cardSpecular.style.setProperty('--mouse-x', `${percentX}%`);
+        cardSpecular.style.setProperty('--mouse-y', `${percentY}%`);
       }
     });
 
-    // -------------------------------------------------------------------------
-    // 0.1. $100M Valuation & Unit Economics Engine
-    // -------------------------------------------------------------------------
-    function runValuationEngine() {
-      const cohort = parseFloat(document.getElementById('sliderCohort').value) || 35000;
-      const subFee = parseFloat(document.getElementById('sliderSubFee').value) || 24;
-      const margin = parseFloat(document.getElementById('sliderMargin').value) || 14;
-      const diagFee = parseFloat(document.getElementById('sliderDiagFee').value) || 4.5;
-
-      // Update labels
-      document.getElementById('labelCohort').innerText = cohort.toLocaleString() + ' bemor';
-      document.getElementById('labelSubFee').innerText = '$' + subFee.toFixed(2) + ' / oy';
-      document.getElementById('labelMargin').innerText = margin.toFixed(1) + '%';
-      document.getElementById('labelDiagFee').innerText = '$' + diagFee.toFixed(2) + ' / vaucher';
-
-      // Monthly MRR = (Cohort * subFee * (margin / 100) * 1.5) + (Cohort * 0.25 * diagFee)
-      // DoriQuti Gross Turnover per patient ~$80/mo, margin 14% -> $11.20 net rev + subFee $24 -> MRR
-      const monthlyDoriQuti = cohort * subFee * 0.75;
-      const monthlyArzonLab = cohort * 0.30 * diagFee;
-      const totalMRR = monthlyDoriQuti + monthlyArzonLab;
-      const totalARR = totalMRR * 12;
-
-      // 12x ARR SaaS multiple for high-growth HealthTech
-      const valuation = totalARR * 12;
-
-      // Display outputs
-      document.getElementById('outValuation').innerText = '$' + (valuation / 1000000).toFixed(1) + 'M';
-      document.getElementById('outARR').innerText = '$' + (totalARR / 1000000).toFixed(2) + 'M';
-      document.getElementById('outMRR').innerText = '$' + (totalMRR / 1000).toFixed(1) + 'K';
-
-      const badge = document.getElementById('valBadge');
-      if (valuation >= 100000000) {
-        badge.innerText = '★ $100M+ UNICORN STATUS';
-      } else if (valuation >= 50000000) {
-        badge.innerText = 'SERIES B EXPANSION';
-      } else {
-        badge.innerText = 'SERIES A READY';
-      }
-
-      playHapticTick(1900, 0.008);
-    }
-
-    // -------------------------------------------------------------------------
-    // 0.2. Multi-Engine Clinical Tabs & Calculations
-    // -------------------------------------------------------------------------
-    function switchClinicalTab(tabName) {
-      ['renal', 'cardio', 'metabolic'].forEach(t => {
-        const pane = document.getElementById('tab-pane-' + t);
-        const btn = document.getElementById('tab-btn-' + t);
-        if (t === tabName) {
-          if (pane) pane.classList.remove('hidden');
-          if (btn) {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white text-black transition";
-          }
-        } else {
-          if (pane) pane.classList.add('hidden');
-          if (btn) {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white transition";
-          }
-        }
-      });
-      playHapticTick(2100, 0.015);
-    }
-
-    // CHA2DS2-VASc
-    function runCardioCalc() {
-      let score = 0;
-      if (document.getElementById('cv_chf').checked) score += 1;
-      if (document.getElementById('cv_htn').checked) score += 1;
-      if (document.getElementById('cv_dm').checked) score += 1;
-      if (document.getElementById('cv_stroke').checked) score += 2;
-      if (document.getElementById('cv_vasc').checked) score += 1;
-      if (document.getElementById('cv_female').checked) score += 1;
-      score += parseInt(document.getElementById('cv_age').value) || 0;
-
-      const scoreEl = document.getElementById('cardioScore');
-      const badgeEl = document.getElementById('cardioBadge');
-      const riskEl = document.getElementById('cardioRiskText');
-      const recEl = document.getElementById('cardioRecommendation');
-
-      scoreEl.innerText = score;
-
-      const risks = ['0.2%', '1.3%', '2.2%', '3.2%', '4.0%', '6.7%', '9.8%', '9.6%', '12.5%', '15.2%'];
-      const riskVal = risks[Math.min(score, 9)];
-      riskEl.innerText = 'Yillik Tromboemboliya Xavfi: ' + riskVal;
-
-      if (score >= 2) {
-        badgeEl.innerText = 'YUQORI XAVF • OAK TAVSIYA ETILADI';
-        recEl.innerText = 'ESC 2024 Protokoli: Qat’iy to‘g‘ridan-to‘g‘ri oral antikoagulyantlar (DOAC: Apiksaban yoki Rivaroksaban) tavsiya etiladi. Aspirin yetarli emas.';
-      } else if (score === 1) {
-        badgeEl.innerText = 'O‘RTACHA XAVF';
-        recEl.innerText = 'ESC 2024 Protokoli: Bemor xavf omillari hisobga olinib oral antikoagulyantlar (DOAC) ko‘rib chiqilishi kerak.';
-      } else {
-        badgeEl.innerText = 'PAST XAVF';
-        recEl.innerText = 'Antikoagulyant terapiyasi talab etilmaydi. Yillik yurak monitoringi kifoya.';
-      }
-      playHapticTick(1700, 0.01);
-    }
-
-    // HOMA-IR
-    function runHomaCalc() {
-      const glu = parseFloat(document.getElementById('homa_glu').value) || 105;
-      const ins = parseFloat(document.getElementById('homa_ins').value) || 14.5;
-      const homa = (glu * ins) / 405;
-
-      const resEl = document.getElementById('homaResult');
-      const badgeEl = document.getElementById('homaBadge');
-      const interpEl = document.getElementById('homaInterpretation');
-      const advEl = document.getElementById('homaAdvice');
-
-      resEl.innerText = homa.toFixed(2);
-
-      if (homa >= 2.5) {
-        badgeEl.innerText = 'INSULIN REZISTENTLIGI';
-        interpEl.innerText = 'Normadan Yuqori (> 2.5 HOMA-IR indeksi)';
-        advEl.innerText = 'Yashirin insulin rezistentligi va prediabet/metabolik sindrom mavjud. Karbongidrat cheklovi, metformin protokoli va jismoniy faollik buyuriladi.';
-      } else if (homa >= 1.9) {
-        badgeEl.innerText = 'CHEGARAVIY HOLAT';
-        interpEl.innerText = 'Erta xavf belgisi (1.9 - 2.4 oralig‘i)';
-        advEl.innerText = 'Profilaktik parhez va 3 oydan so‘ng qayta HbA1c tahlili tavsiya etiladi.';
-      } else {
-        badgeEl.innerText = 'OPTIMAL SEZGIRLIK';
-        interpEl.innerText = 'To‘liq Normal (< 1.9 HOMA-IR indeksi)';
-        advEl.innerText = 'Hujayralarning insulinga sezgirligi ideal darajada. Qandli diabet xavfi minimal.';
-      }
-      playHapticTick(1700, 0.01);
-    }
-
-    // -------------------------------------------------------------------------
-    // 0.3. Command Palette Modal Controller (⌘K)
-    // -------------------------------------------------------------------------
-    function openCommandPalette() {
-      const modal = document.getElementById('cmdPaletteModal');
-      const box = document.getElementById('cmdPaletteBox');
-      const input = document.getElementById('cmdInput');
-      if (modal && box) {
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        box.classList.remove('scale-95');
-        if (input) {
-          input.value = '';
-          input.focus();
-        }
-        filterCmdList();
-        playHapticTick(2200, 0.015);
-      }
-    }
-
-    function closeCommandPalette() {
-      const modal = document.getElementById('cmdPaletteModal');
-      const box = document.getElementById('cmdPaletteBox');
-      if (modal && box) {
-        modal.classList.add('opacity-0', 'pointer-events-none');
-        box.classList.add('scale-95');
-      }
-    }
-
-    function filterCmdList() {
-      const q = (document.getElementById('cmdInput').value || '').toLowerCase();
-      document.querySelectorAll('#cmdList button').forEach(btn => {
-        const text = btn.innerText.toLowerCase();
-        btn.style.display = (!q || text.includes(q)) ? '' : 'none';
-      });
-    }
-
-    function execCmd(action) {
-      closeCommandPalette();
-      if (action === 'valuation') {
-        const el = document.getElementById('section-valuation-cockpit');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else if (action === 'renal') {
-        switchClinicalTab('renal');
-        const el = document.getElementById('tab-pane-renal');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else if (action === 'cardio') {
-        switchClinicalTab('cardio');
-        const el = document.getElementById('tab-pane-cardio');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else if (action === 'metabolic') {
-        switchClinicalTab('metabolic');
-        const el = document.getElementById('tab-pane-metabolic');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else if (action === 'c_code') {
-        const el = document.getElementById('section-c-terminal');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else if (action === 'founders') {
-        openModal();
-      } else if (action === 'unicorn') {
-        window.open('https://unicorn-health-uzbekistan.vercel.app/', '_blank');
-      } else if (action === 'audio') {
-        toggleAudio();
-      }
-    }
-
-    // Global Key Listener for ⌘K and Escape
-    window.addEventListener('keydown', e => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        const modal = document.getElementById('cmdPaletteModal');
-        if (modal && modal.classList.contains('pointer-events-none')) {
-          openCommandPalette();
-        } else {
-          closeCommandPalette();
-        }
-      } else if (e.key === 'Escape') {
-        closeCommandPalette();
-        closeModal();
-        closeTavsiyanomaModal();
+    cardScene.addEventListener('mouseleave', () => {
+      const flipFactor = isCardFlipped ? 180 : 0;
+      cardScene.style.transform = `rotateY(${flipFactor}deg) rotateX(0deg)`;
+      if (cardSpecular) {
+        cardSpecular.style.setProperty('--mouse-x', '50%');
+        cardSpecular.style.setProperty('--mouse-y', '50%');
       }
     });
+  }
 
-    // -------------------------------------------------------------------------
-    // 1. Interactive Clinical Calculator (Cockcroft-Gault CrCl Engine)
-    // -------------------------------------------------------------------------
-    function runClinicalCalc() {
-      const age = parseFloat(document.getElementById('calcAge').value) || 48;
-      const weight = parseFloat(document.getElementById('calcWeight').value) || 72;
-      const creat = parseFloat(document.getElementById('calcCreatinine').value) || 1.1;
-      const gender = document.getElementById('calcGender').value;
-
-      if (creat <= 0) return;
-      let crcl = ((140 - age) * weight) / (72 * creat);
-      if (gender === 'female') {
-        crcl *= 0.85;
-      }
-
-      const valElem = document.getElementById('calcResultValue');
-      const badgeElem = document.getElementById('calcStageBadge');
-      const interpElem = document.getElementById('calcInterpretation');
-      const adviceElem = document.getElementById('calcAdvice');
-
-      valElem.innerText = crcl.toFixed(1);
-
-      if (crcl >= 90) {
-        badgeElem.innerText = 'G1 • NORMAL / OPTIMAL';
-        interpElem.innerText = 'GFR Darajasi: G1 (Normal yoki yuqori filtrlash)';
-        adviceElem.innerText = 'Buyrak funksiyasi ideal. Dori vositalarining klirensi to‘liq me’yorda. Dozani o‘zgartirish talab etilmaydi.';
-      } else if (crcl >= 60) {
-        badgeElem.innerText = 'G2 • YENGIL KAMAYISH';
-        interpElem.innerText = 'GFR Darajasi: G2 (Yengil kamaygan buyrak zaxirasi)';
-        adviceElem.innerText = 'Klinik holat barqaror. Nefrotoksik dori vositalarini (NSAID, aminoglikozidlar) ehtiyotkorlik bilan qo‘llash tavsiya etiladi.';
-      } else if (crcl >= 30) {
-        badgeElem.innerText = 'G3 • O‘RTACHA YETISHMOVCHILIK';
-        interpElem.innerText = 'GFR Darajasi: G3 (O‘rtacha buyrak disfunksiyasi)';
-        adviceElem.innerText = 'Ogohlantirish: Buyrak orqali chiqib ketuvchi antibiotiklar va antidiabetik vositalar dozasini 30-50% ga qisqartirish talab etiladi.';
-      } else if (crcl >= 15) {
-        badgeElem.innerText = 'G4 • OG‘IR DISFUNKSIYA';
-        interpElem.innerText = 'GFR Darajasi: G4 (Og‘ir buyrak yetishmovchiligi)';
-        adviceElem.innerText = 'Xavfli bosqich! Shoshilinch nefrologik konsultatsiya va qat’iy dori dozalash monitoringi (TDM) zarur.';
-      } else {
-        badgeElem.innerText = 'G5 • TERMINAL BOSQICH';
-        interpElem.innerText = 'GFR Darajasi: G5 (Buyrak yetishmovchiligi terminal fazasi)';
-        adviceElem.innerText = 'Buyrak o‘rnini bosuvchi terapiya (gemodializ yoki peritoneal dializ) ko‘rsatmasi mavjud.';
-      }
+  function playVoiceQuote() {
+    if (!('speechSynthesis' in window)) {
+      alert("Speech synthesis is not supported on this device.");
+      return;
     }
+    window.speechSynthesis.cancel();
+    const text = i18n[currentLang]["easter_quote"] || "Look at that subtle off-white coloring. The tasteful thickness of it. Oh my god, it even has a watermark...";
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.88;
+    utterance.pitch = 0.85;
+    const voices = window.speechSynthesis.getVoices();
+    const voice = voices.find(v => v.lang.startsWith(currentLang)) || voices[0];
+    if (voice) utterance.voice = voice;
+    window.speechSynthesis.speak(utterance);
+  }
 
-    // -------------------------------------------------------------------------
-    // 2. School 21 Low-Latency C Code Inspector Snippets
-    // -------------------------------------------------------------------------
-    const CODE_SNIPPETS = {
-      s21_string: {
-        title: "src/s21_string.c — École 42 Standard C11 Memory Functions",
-        code: `#include "s21_string.h"
-
-// Low-latency pointer arithmetic memchr without libc overhead
-void *s21_memchr(const void *str, int c, s21_size_t n) {
-    const unsigned char *p = (const unsigned char *)str;
-    unsigned char target = (unsigned char)c;
-
-    while (n--) {
-        if (*p == target) {
-            return (void *)p;
-        }
-        p++;
-    }
-    return S21_NULL;
-}
-
-// Optimized string length calculation
-s21_size_t s21_strlen(const char *str) {
-    s21_size_t len = 0;
-    while (str && str[len] != '\\0') {
-        len++;
-    }
-    return len;
-}`
-      },
-      s21_decimal: {
-        title: "src/s21_decimal.c — 128-bit Fixed Point High-Precision Finance Math",
-        code: `#include "s21_decimal.h"
-
-// 96-bit integer mantissa + 32-bit sign and scale header
-// Guarantees zero IEEE-754 floating point rounding drift
-int s21_add(s21_decimal value_1, s21_decimal value_2, s21_decimal *result) {
-    if (!result) return S21_CALC_ERROR;
-    s21_zero_decimal(result);
-
-    int scale_1 = s21_get_scale(value_1);
-    int scale_2 = s21_get_scale(value_2);
-
-    // Normalization to common base scale
-    s21_big_decimal b1 = s21_to_big(value_1);
-    s21_big_decimal b2 = s21_to_big(value_2);
-    s21_align_scales(&b1, &b2, &scale_1);
-
-    int overflow = s21_big_add(b1, b2, result, scale_1);
-    return overflow ? S21_INFINITY_ERROR : S21_SUCCESS;
-}`
-      },
-      memory_audit: {
-        title: "build/valgrind_audit.log — School 21 Automated Rigorous Verification",
-        code: `==19420== Memcheck, a memory error detector
-==19420== Copyright (C) 2002-2026, and GNU GPL'd, by Julian Seward et al.
-==19420== Using Valgrind-3.22.0 and LibVEX; rerun with -h for copyright info
-==19420== Command: ./test_s21_string_suite --all-cases
-==19420==
-Running test suite: s21_string_test_suite...
-[PASS] test_s21_memchr: 42/42 assertions OK
-[PASS] test_s21_strtok: 18/18 boundary checks OK
-[PASS] test_s21_sprintf: 120/120 specifier checks OK
-[PASS] test_s21_decimal: 64/64 overflow edge-cases OK
-==19420==
-==19420== HEAP SUMMARY:
-==19420==     in use at exit: 0 bytes in 0 blocks
-==19420==   total heap usage: 4,821 allocs, 4,821 frees, 1,248,192 bytes allocated
-==19420==
-==19420== All heap blocks were freed -- no leaks are possible
-==19420== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)`
-      }
-    };
-
-    function switchCodeSnippet(key) {
-      const snippet = CODE_SNIPPETS[key];
-      if (!snippet) return;
-      document.getElementById('terminalFileTitle').innerText = snippet.title;
-      document.getElementById('terminalCodeBlock').innerText = snippet.code;
-
-      ['s21_string', 's21_decimal', 'memory_audit'].forEach(k => {
-        const btnId = 'btn-code-' + (k === 's21_string' ? 'string' : k === 's21_decimal' ? 'decimal' : 'memory');
-        const btn = document.getElementById(btnId);
-        if (btn) {
-          if (k === key) {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white text-black";
-          } else {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white";
-          }
-        }
-      });
-    }
-
-    // -------------------------------------------------------------------------
-    // 3. Multi-Category Neural Knowledge Core (V2)
-    // -------------------------------------------------------------------------
-    const DETAILED_KNOWLEDGE = [
-      {
-        cat: "health",
-        q: "MedLoop AI nima va u qanday ishlaydi?",
-        a: "MedLoop AI — O'zbekiston xususiy klinikalari uchun B2B dvigatel bo'lib, laboratoriyadan chiqqan bemorlarning 40-45 foizi shifokorga bormay ketib qolish muammosini hal qiladi. 8 soniyada laboratoriya tahlil blankini OCR orqali o'qib, bemorga oddiy tilda xavfni tushuntiradi va uni bo'sh turgan shifokor qabuliga yozadi. Natijada klinika har oy $6,000–$7,500 yo'qotilgan daromadini qaytarib oladi."
-      },
-      {
-        cat: "health",
-        q: "Unicorn Health Uzbekistan (169 klinik modul) nima?",
-        a: "Unicorn Health Uzbekistan (unicorn-health-uzbekistan.vercel.app) — 169 ta klinik hisob-kitob dvigateliga ega yirik raqamli platforma. Unda pediatr dozalash, Mosteller BSA, Cockcroft-Gault buyrak klirensi, Beers va STOPP/START mezonlari, DoriQuti dorixona qidiruvi va ArzonLab laboratoriya agregatori jamlangan."
-      },
-      {
-        cat: "health",
-        q: "Tahlil AI va Telegram boti (@Tahlil_ai_bot) qanday afzalliklarga ega?",
-        a: "Tahlil AI — bemorlar tushunishi qiyin bo'lgan qon, biokimyo va siydik laboratoriya blanklarini sun'iy intellekt orqali oddiy xalq tiliga tarjima qilib beruvchi interaktiv tizim. Telegram bot orqali tahlil rasmini yuborish kifoya: bot 8 soniyada chetlanishlarni aniqlaydi va qaysi mutaxassisga uchrashish zarurligini aytadi."
-      },
-      {
-        cat: "sammu",
-        q: "SamDTU Rektor stipendiyasi tavsiyanomasi nima haqida?",
-        a: "Samarqand davlat tibbiyot universiteti Boshqaruv va menejment fakulteti Menejment yo'nalishi II bosqich talabasi Shukurov Jasur Otabek o'g'liga berilgan rasmiy Tavsiyanoma. Universitet Ilmiy ishlar va innovatsiyalar bo'yicha prorektori A.S. Kubayev va bo'lim boshlig'i U.F. Payzullayeva tomonidan imzolangan. Unda Jasurning a'lo o'qishi, IT-inkubatsiya markazidagi yetakchiligi va 'EpiVision XR' startapi alohida e'tirof etilib, 2026–2027 o'quv yili kuzgi semestri Rektor stipendiyasiga tavsiya etilgan."
-      },
-      {
-        cat: "sammu",
-        q: "EpiVision XR loyihasi qanday innovatsiyani taqdim etadi?",
-        a: "EpiVision XR — tibbiyot xodimlari, klinik ordinatorlar va talabalar uchun ishlab chiqilgan fazoviy 3D simulyatsion trenajyor. U tibbiyot oliygohlari va klinikalarda operatsiya oldi anatomik rejalashtirish va amaliy ko'nikmalarni interaktiv virtual fazoda xavfsiz mashq qilish imkonini beradi."
-      },
-      {
-        cat: "systems",
-        q: "School 21 sizning muhandislik qarashlaringizga qanday ta’sir qilgan?",
-        a: "School 21 (École 42 modeli) menga past darajali tizimli fikrlashni o'rgatdi: manual memory management (malloc/free), ko'rsatkichlar arifmetikasi, POSIX oqimlari va hech qanday chala 'placeholder' qoldirmasdan 100% ishlaydigan kod yozish madaniyati."
-      },
-      {
-        cat: "systems",
-        q: "s21_string va s21_decimal loyihalarida nima qilgansiz?",
-        a: "Standart C kutubxonalariga tayanmasdan, 42 Norminette standartlari asosida to'liq xotira xavfsiz s21_string kutubxonasini va moliya hisob-kitoblarida suzuvchi nuqta xatolarini yo'qotuvchi 128-bitli s21_decimal arifmetik dvigatelini ishlab chiqqanman. Har bir funksiya Valgrind orqali 0 bayt leak ko'rsatkichi bilan tasdiqlangan."
-      },
-      {
-        cat: "arbitrage",
-        q: "$2 vs $375 marja arbitraji strategiyasi nima?",
-        a: "Bu tijoratda past marjali ommaviy tovarlardan ($2 foyda) voz kechib, sanoat tikuv uskunalari va asimmetrik bozor talabiga ega yuqori marjali ($375 sof foyda) sanoat aktivlariga yo'naltirilgan biznes modeli. Bu usul minimal operatsion yuk bilan maksimal sof daromad keltiradi."
-      },
-      {
-        cat: "legal",
-        q: "Startap ta'sischilar shartnomasi (Founders Agreement) nima uchun zarur?",
-        a: "Startaplarda eng katta xavf jamoaning erta tarqalishi va 'dead equity' (ishlamaydigan ta'sischilar ulushi) vujudga kelishidir. MedLoop uchun tuzilgan kelishuvda 4 yillik vesting, 1 yillik kliff va 100% intellektual mulk (IP) transferi kafolatlangan."
-      },
-      {
-        cat: "legal",
-        q: "Startapda Deadlock holati qanday yechiladi?",
-        a: "50/50 ovozga ega sheriklar o'rtasida ziddiyat yuzaga kelganda, operatsion to'xtashni oldini olish uchun Bosh Direktor (CEO) qarorining ustuvorligi belgilanadi yoki mustaqil professional hakamlikka murojaat qilinadi."
-      }
-    ];
-
-    let currentQACat = 'all';
-
-    function filterQACategory(cat) {
-      currentQACat = cat;
-      ['all', 'health', 'systems', 'sammu', 'arbitrage', 'legal'].forEach(c => {
-        const btn = document.getElementById('btn-qa-' + c);
-        if (btn) {
-          if (c === cat) {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white text-black";
-          } else {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] border border-white/10 hover:text-white";
-          }
-        }
-      });
-      renderQAPrompts();
-    }
-
-    function renderQAPrompts() {
-      const container = document.getElementById('qaPromptsContainer');
-      if (!container) return;
-      const list = currentQACat === 'all'
-        ? DETAILED_KNOWLEDGE
-        : DETAILED_KNOWLEDGE.filter(item => item.cat === currentQACat);
-
-      container.innerHTML = list.map(item => `
-        <button onclick="askPrompt('${item.q.replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs text-white border border-white/10 transition inline-flex items-center gap-1.5 text-left">
-          <svg class="w-3.5 h-3.5 text-zinc-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-          <span>${item.q}</span>
-        </button>
-      `).join('');
-    }
-
-    function askPrompt(q) {
-      document.getElementById('mindQueryInput').value = q;
-      handleExecuteQuery();
-    }
-
-    function handleExecuteQuery() {
-      const rawInput = document.getElementById('mindQueryInput').value.trim();
-      const input = rawInput.toLowerCase();
-      const answerBox = document.getElementById('mindAnswerBox');
-      const answerText = document.getElementById('mindAnswerText');
-
-      if (!input) return;
-
-      const exactMatch = DETAILED_KNOWLEDGE.find(item => item.q.toLowerCase() === input);
-      if (exactMatch) {
-        answerText.innerText = exactMatch.a;
-        answerBox.classList.remove('hidden');
-        return;
-      }
-
-      const partialMatch = DETAILED_KNOWLEDGE.find(item => {
-        const words = input.split(' ').filter(w => w.length > 2);
-        return words.some(w => item.q.toLowerCase().includes(w) || item.a.toLowerCase().includes(w));
-      });
-
-      if (partialMatch) {
-        answerText.innerText = partialMatch.a;
-      } else {
-        answerText.innerText = "Jasurning onlayn miyasi HealthTech (MedLoop AI, Unicorn Health, EpiVision XR), School 21 past darajali tizimlari, SamDTU sog‘liqni saqlash menejmenti va korporativ huquqiy arxitekturaga ixtisoslashgan. Aloqa uchun: Telegram @Shukurov_Jasur yoki Instagram @jasurceo.";
-      }
-
-      answerBox.classList.remove('hidden');
-    }
-
-    function copyAnswerText() {
-      const text = document.getElementById('mindAnswerText').innerText;
-      if (!text) return;
-      navigator.clipboard.writeText(text);
-      const btn = document.getElementById('btn-copy-ans');
-      btn.innerText = "Nusxalandi ✓";
-      setTimeout(() => { btn.innerText = "Nusxalash"; }, 2000);
-    }
-
-    // Modal controls
-    function openTavsiyanomaModal() {
-      document.getElementById('tavsiyanomaModal').classList.remove('hidden');
-    }
-    function closeTavsiyanomaModal() {
-      document.getElementById('tavsiyanomaModal').classList.add('hidden');
-    }
-
-    function openFoundersModal() {
-      document.getElementById('foundersModal').classList.remove('hidden');
-    }
-    function closeFoundersModal() {
-      document.getElementById('foundersModal').classList.add('hidden');
-    }
-
-    // Clusters switching
-    const CLUSTERS = {
-      healthtech: {
-        title: "MedLoop AI & 169 Klinik Modul",
-        desc: "O‘zbekiston xususiy klinikalari va laboratoriyalarida bemorlarning 45 foizi laboratoriya tahlilidan so‘ng shifokorga bormay ketib qoladi. MedLoop AI bu bo‘shliqni 8 soniyada laboratoriya blankini o‘qib tushuntiruvchi OCR va triaj orqali yopadi va har bir klinikaga oyiga $6,000–$7,500 qo‘shimcha sof tushum olib keladi."
-      },
-      sammu: {
-        title: "SamDTU Rektor Stipendiyasi & EpiVision XR",
-        desc: "Samarqand davlat tibbiyot universiteti Boshqaruv va menejment fakulteti II bosqich talabasi. Universitet Ilmiy ishlar bo'yicha prorektori A.S. Kubayev va bo'lim boshlig'i U.F. Payzullayeva tomonidan 2026–2027 o'quv yili Rektor stipendiyasiga nomzod qilib ko'rsatilgan. EpiVision XR startapi yetakchisi."
-      },
-      school21: {
-        title: "School 21: Past Darajali C/C++ Muhandisligi",
-        desc: "École 42 qat’iy peer-to-peer metodologiyasi: ko‘rsatkichlar arifmetikasi, xotirani qo‘lda boshqarish (custom allocators), POSIX tizimlari va 100% deterministik arxitektura."
-      },
-      arbitrage: {
-        title: "$2 vs $375 Sanoat Marjasi Arbitraji",
-        desc: "Sanoat tikuv mashinalari va tekstil uskunalari bozorida asimmetrik savdo. Past marjali ommaviy tovarlardan har bir tranzaksiyadan $375 sof marja beruvchi sanoat uskunalariga o‘tish metodologiyasi."
-      }
-    };
-
-    function selectCluster(id) {
-      const data = CLUSTERS[id];
-      if (!data) return;
-      document.getElementById('cluster-title').innerText = data.title;
-      document.getElementById('cluster-desc').innerText = data.desc;
-
-      ['healthtech', 'sammu', 'school21', 'arbitrage'].forEach(k => {
-        const btn = document.getElementById('btn-' + k);
-        if (btn) {
-          if (k === id) {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white text-black";
-          } else {
-            btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-white/5 text-[#a1a1aa] hover:text-white border border-white/10";
-          }
-        }
-      });
-    }
-
-    // Canvas Orbit Animation — Monochrome Black & White
-    const canvas = document.getElementById('mindCanvas');
-    const ctx = canvas.getContext('2d');
-    let angle = 0;
-
-    function drawMind() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const r = 110;
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, 2 * Math.PI);
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      const nodes = [
-        { name: "HealthTech", color: "#ffffff", size: 14 },
-        { name: "SamMU", color: "#e4e4e7", size: 13 },
-        { name: "School 21", color: "#a1a1aa", size: 12 },
-        { name: "Arbitrage", color: "#d4d4d8", size: 13 }
-      ];
-
-      nodes.forEach((node, i) => {
-        const th = (i / nodes.length) * 2 * Math.PI + angle;
-        const x = cx + Math.cos(th) * r;
-        const y = cy + Math.sin(th) * r;
-
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
-        ctx.lineWidth = 1;
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.arc(x, y, node.size, 0, 2 * Math.PI);
-        ctx.fillStyle = node.color;
-        ctx.shadowColor = "#ffffff";
-        ctx.shadowBlur = 10;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, 26, 0, 2 * Math.PI);
-      ctx.fillStyle = "#ffffff";
-      ctx.shadowColor = "#ffffff";
-      ctx.shadowBlur = 24;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      angle += 0.004;
-      requestAnimationFrame(drawMind);
-    }
-    drawMind();
-
-    // Language switcher
-    function setLanguage(lang) {
-      ['uz', 'ru', 'en'].forEach(l => {
-        const btn = document.getElementById('btn-' + l);
-        if (btn) {
-          if (l === lang) {
-            btn.className = "px-2 py-0.5 rounded-full bg-white text-black font-bold";
-          } else {
-            btn.className = "px-2 py-0.5 rounded-full text-[#a1a1aa] hover:text-white";
-          }
-        }
-      });
-      if (lang === 'en') {
-        document.getElementById('badge-status').innerText = "SAMARKAND STATE MEDICAL UNIVERSITY • RECTOR SCHOLARSHIP NOMINEE";
-        document.getElementById('hero-desc').innerText = "Synthesizing healthcare governance (SamSMU), School 21 low-latency C/C++ systems engineering, and autonomous AI swarms. Founder of MedLoop AI, Unicorn Health, and EpiVision XR.";
-      } else if (lang === 'ru') {
-        document.getElementById('badge-status').innerText = "САМАРКАНДСКИЙ ГОСУДАРСТВЕННЫЙ МЕДИЦИНСКИЙ УНИВЕРСИТЕТ • СТИПЕНДИЯ РЕКТОРА";
-        document.getElementById('hero-desc').innerText = "Синтез управления здравоохранением (СамГМУ), низкоуровневых систем C/C++ (Школа 21) и автономного ИИ. Основатель MedLoop AI, Unicorn Health и EpiVision XR.";
-      } else {
-        document.getElementById('badge-status').innerText = "SAMARQAND DAVLAT TIBBIYOT UNIVERSITETI • REKTOR STIPENDIYASI NOMZODI";
-        document.getElementById('hero-desc').innerText = "Sog‘liqni saqlash boshqaruvi (SamDTU), School 21 past darajali C/C++ muhandisligi va avtonom AI tizimlari sintezi. MedLoop AI, Unicorn Health va EpiVision XR asoschisi.";
-      }
-    }
-
-    // Dynamic mouse spotlight on apple-card elements
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.apple-card').forEach(card => {
-        card.addEventListener('mousemove', e => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-        });
-      });
-      initAudio();
-      runValuationEngine();
-      runClinicalCalc();
-      runCardioCalc();
-      runHomaCalc();
-      renderQAPrompts();
-    });
-  </script>
-
-  <!-- TahlilAI Apple-Grade Monochromatic Interactive Background Engine -->
-  <script src="interactive-bg.js"></script>
+  // Initialize language on load
+  document.addEventListener('DOMContentLoaded', () => {
+    switchLang(currentLang);
+  });
+</script>
 </body>
 </html>

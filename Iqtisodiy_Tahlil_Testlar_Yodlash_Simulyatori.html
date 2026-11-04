@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iqtisodiy tahlil - Testlarni Yodlash va Mashq Qilish Simulyatori</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #090d16;
+            --bg-surface: #111827;
+            --bg-card: #1f2937;
+            --border: #374151;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.25);
+            --success: #10b981;
+            --success-glow: rgba(16, 185, 129, 0.2);
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: linear-gradient(180deg, #1e1b4b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 22px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-btn:hover {
+            background: var(--bg-card);
+            color: var(--text-main);
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+            flex: 1;
+        }
+
+        /* MODE 1: FLASHCARDS */
+        .flashcard-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        .flashcard-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 650px;
+        }
+        .flashcard {
+            width: 100%;
+            max-width: 650px;
+            min-height: 380px;
+            background: var(--bg-surface);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .flashcard:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .fc-tag {
+            font-size: 13px;
+            font-weight: 700;
+            color: #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .fc-question {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin: 20px 0;
+            color: #ffffff;
+        }
+        .fc-answer-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+        .fc-answer-box.visible {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        .fc-ans-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #34d399;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        .fc-ans-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .fc-hint {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* MODE 2: QUIZ / TEST TOPSHIRISH */
+        .quiz-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 28px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+        .quiz-q {
+            font-size: 19px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .option-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 16px 20px;
+            border-radius: 14px;
+            font-size: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.4;
+        }
+        .option-btn:hover:not(.disabled) {
+            background: #283548;
+            border-color: var(--primary);
+        }
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border-color: #10b981 !important;
+            color: #34d399 !important;
+            font-weight: 700;
+        }
+        .option-btn.wrong {
+            background: rgba(239, 68, 68, 0.2) !important;
+            border-color: #ef4444 !important;
+            color: #f87171 !important;
+        }
+        .quiz-next-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* MODE 3: JADVAL (CHEAT SHEET) */
+        .search-bar {
+            width: 100%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 24px;
+            outline: none;
+        }
+        .search-bar:focus {
+            border-color: var(--primary);
+        }
+        .table-item {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 22px;
+            margin-bottom: 12px;
+        }
+        .table-q {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .table-a {
+            color: #34d399;
+            font-weight: 600;
+            font-size: 14.5px;
+        }
+
+        .btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            background: var(--bg-card);
+        }
+        .btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">SamMU • Iqtisodiy tahlil • Kurs ID: 4819</div>
+        <h1>Testlarni Yodlash va Mashq Qilish Tizimi</h1>
+        <p style="color: var(--text-muted); font-size: 14.5px; max-width: 600px; margin: 0 auto;">
+            Moodle platformasidagi 50 ta «Test savollari» va 50 ta «Nazorat testlari» (jami 100 ta test) ning to'liq yechimlari.
+        </p>
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchMode('flashcards')">🃏 Flashcards (Yodlash)</button>
+            <button class="tab-btn" onclick="switchMode('quiz')">📝 Test Topshirish</button>
+            <button class="tab-btn" onclick="switchMode('cheatsheet')">📋 Shpargalka (Ro'yxat)</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- MODE 1: FLASHCARDS -->
+        <div id="flashcardsView" class="flashcard-wrapper">
+            <div class="flashcard-controls">
+                <span id="fcCategory" class="badge">Test savollari</span>
+                <span id="fcProgress" style="font-weight: 700; color: var(--text-muted);">1 / 100</span>
+            </div>
+
+            <div class="flashcard" onclick="toggleFlashcardAnswer()">
+                <div>
+                    <div id="fcTopNumber" class="fc-tag">Test #1</div>
+                    <div id="fcQuestion" class="fc-question">Yuklanmoqda...</div>
+                </div>
+
+                <div>
+                    <div id="fcAnswerBox" class="fc-answer-box">
+                        <div class="fc-ans-title">To'g'ri Javob:</div>
+                        <div id="fcAnswerText" class="fc-ans-text">...</div>
+                    </div>
+                    <div id="fcHint" class="fc-hint">👉 Javobni ko'rish uchun kartochkaga bosing</div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 14px;">
+                <button class="btn" onclick="prevFlashcard()">⬅ Oldingi</button>
+                <button class="btn btn-primary" onclick="nextFlashcard()">Keyingi ➡</button>
+            </div>
+        </div>
+
+        <!-- MODE 2: QUIZ -->
+        <div id="quizView" style="display: none;">
+            <div class="quiz-card">
+                <div class="quiz-header">
+                    <span id="quizBadge" class="badge">Test #1</span>
+                    <span id="quizScore" style="color: #34d399; font-weight: 700;">To'g'ri: 0 / 0</span>
+                </div>
+                <div id="quizQuestion" class="quiz-q">...</div>
+                <div id="quizOptions" class="options-list"></div>
+                <div class="quiz-next-bar">
+                    <div id="quizFeedback" style="font-weight: 700;"></div>
+                    <button id="quizNextBtn" class="btn btn-primary" onclick="nextQuizQuestion()" style="display: none;">Keyingi test ➡</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODE 3: CHEATSHEET -->
+        <div id="cheatsheetView" style="display: none;">
+            <input type="text" id="cheatSearch" class="search-bar" placeholder="Savol yoki javob bo'yicha tezkor qidirish..." oninput="renderCheatSheet(this.value)">
+            <div id="cheatList"></div>
+        </div>
+    </div>
+
+    <script>
+        const allTests = [{"num": 1, "category": "Test savollari (1-to'plam)", "question": "Matnda iqtisodiy tahlilning o‘rganish obyekti sifatida nimalar ko‘rsatilgan?", "options": [{"letter": "A", "text": "Faqat banklar va moliya bozorlaridagi qimmatli qog‘ozlar harakati", "is_correct": false}, {"letter": "B", "text": "Korxonalar, tashkilotlar va iqtisodiy tarmoqlarning faoliyati", "is_correct": true}, {"letter": "C", "text": "Davlatlararo siyosiy va ijtimoiy munosabatlar", "is_correct": false}, {"letter": "D", "text": "Faqat ishlab chiqarish korxonalarining texnologik xaritalari", "is_correct": false}], "correct_letter": "B", "correct_answer": "Korxonalar, tashkilotlar va iqtisodiy tarmoqlarning faoliyati"}, {"num": 2, "category": "Test savollari (1-to'plam)", "question": "Quyidagilardan qaysi biri matnda iqtisodiy tahlilning asosiy vazifalaridan biri sifatida keltirilmagan?", "options": [{"letter": "A", "text": "Iqtisodiy ko‘rsatkichlarning o‘zgarishi sabablarini aniqlash", "is_correct": false}, {"letter": "B", "text": "Ishlab chiqarish samaradorligini oshirish imkoniyatlarini aniqlash", "is_correct": false}, {"letter": "C", "text": "Soliq qonunchiligiga o‘zgartirish kiritish bo‘yicha davlat qarorlarini t...", "is_correct": true}, {"letter": "D", "text": "Boshqaruvni takomillashtirish bo‘yicha tavsiyalar ishlab chiqish", "is_correct": false}], "correct_letter": "C", "correct_answer": "Soliq qonunchiligiga o‘zgartirish kiritish bo‘yicha davlat qarorlarini t..."}, {"num": 3, "category": "Test savollari (1-to'plam)", "question": "Matnga muvofiq, iqtisodiy tahlil qaysi fanlar bilan chambarchas bog‘liq holda rivojlanadi?", "options": [{"letter": "A", "text": "Buxgalteriya hisobi, statistika, moliya, iqtisodiy nazariya, menejment", "is_correct": true}, {"letter": "B", "text": "Falsafa, siyosatshunoslik, sotsiologiya va davlat huquqi", "is_correct": false}, {"letter": "C", "text": "Faqat oliy matematika va axborot xavfsizligi", "is_correct": false}, {"letter": "D", "text": "Logistika, pedagogika va iqtisodiy geografiya", "is_correct": false}], "correct_letter": "A", "correct_answer": "Buxgalteriya hisobi, statistika, moliya, iqtisodiy nazariya, menejment"}, {"num": 4, "category": "Test savollari (1-to'plam)", "question": "Matnda iqtisodiy tahlilning paydo bo‘lishi bevosita nima bilan bog‘lanadi?", "options": [{"letter": "A", "text": "Pul birliklarining rasmiy muomalaga kiritilishi bilan", "is_correct": false}, {"letter": "B", "text": "Inson iqtisodiy faoliyatining rivojlanishi bilan", "is_correct": true}, {"letter": "C", "text": "Bank tizimlarining xalqaro miqyosda birlashishi bilan", "is_correct": false}, {"letter": "D", "text": "Birinchi hisoblash mashinalarining yaratilishi bilan", "is_correct": false}], "correct_letter": "B", "correct_answer": "Inson iqtisodiy faoliyatining rivojlanishi bilan"}, {"num": 5, "category": "Test savollari (1-to'plam)", "question": "Iqtisodiy tahlilning boshqaruvdagi o‘rni matnda qanday izohlanadi?", "options": [{"letter": "A", "text": "Korxona operatsiyalarini faqat qog‘ozda qayd etuvchi passiv tizim", "is_correct": false}, {"letter": "B", "text": "Boshqaruvni takomillashtirish bo‘yicha ilmiy tavsiyalar ishlab chiquvchi...", "is_correct": true}, {"letter": "C", "text": "Boshqaruvchining yakka hukmronligini ta’minlovchi ma’muriy bosim dastagi", "is_correct": false}, {"letter": "D", "text": "Faqat xodimlarga intizomiy jazo qo‘llash asosi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Boshqaruvni takomillashtirish bo‘yicha ilmiy tavsiyalar ishlab chiquvchi..."}, {"num": 6, "category": "Test savollari (1-to'plam)", "question": "Korxonada iqtisodiy ko‘rsatkichlar o‘zgarishini o‘rganishdan ko‘zlangan tub maqsad nima?", "options": [{"letter": "A", "text": "O‘zgarishlar sabablarini aniqlash va ichki imkoniyatlarni safarbar etish", "is_correct": true}, {"letter": "B", "text": "Ko‘rsatkichlarni shunchaki arxiv hisobotlariga joylash", "is_correct": false}, {"letter": "C", "text": "Rejali iqtisodiyot tamoyillariga to‘liq qaytish", "is_correct": false}, {"letter": "D", "text": "Moliyaviy hisobotlarni tashqi nazoratdan yashirish", "is_correct": false}], "correct_letter": "A", "correct_answer": "O‘zgarishlar sabablarini aniqlash va ichki imkoniyatlarni safarbar etish"}, {"num": 7, "category": "Test savollari (1-to'plam)", "question": "Iqtisodiy tahlil va buxgalteriya hisobi o‘rtasidagi bog‘liqlik nimada namoyon bo‘ladi?", "options": [{"letter": "A", "text": "Buxgalteriya hisobi tahlil uchun birlamchi aniq ma’lumotlar bazasini sha...", "is_correct": true}, {"letter": "B", "text": "Iqtisodiy tahlil buxgalteriya hisobini to‘liq almashtiradi", "is_correct": false}, {"letter": "C", "text": "Buxgalteriya hisobi faqat tahlil yakunlanganidan keyin yuritiladi", "is_correct": false}, {"letter": "D", "text": "Ular mutlaqo mustaqil bo‘lib, bir-birining ma’lumotlaridan foydalanmaydi", "is_correct": false}], "correct_letter": "A", "correct_answer": "Buxgalteriya hisobi tahlil uchun birlamchi aniq ma’lumotlar bazasini sha..."}, {"num": 8, "category": "Test savollari (1-to'plam)", "question": "Matnga ko‘ra, iqtisodiy tahlil iqtisodiy fanlar tizimida qanday maqomga ega?", "options": [{"letter": "A", "text": "Yordamchi amaliy qo‘llanma", "is_correct": false}, {"letter": "B", "text": "Eng muhim mustaqil iqtisodiy fanlardan biri", "is_correct": true}, {"letter": "C", "text": "Faqat statistika fanining bir tarmog‘i", "is_correct": false}, {"letter": "D", "text": "Buxgalteriyaning qisqa muddatli kursi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Eng muhim mustaqil iqtisodiy fanlardan biri"}, {"num": 9, "category": "Test savollari (1-to'plam)", "question": "Tarmoqlar miqyosida iqtisodiy jarayonlarni tahlil qilish nima uchun zarur?", "options": [{"letter": "A", "text": "Tarmoqdagi umumiy samaradorlik va qonuniyatlarni aniqlab, boshqaruv qaro...", "is_correct": true}, {"letter": "B", "text": "Barcha tarmoqlarni yagona standart bo‘yicha davlat tasarrufiga o‘tkazish...", "is_correct": false}, {"letter": "C", "text": "Faqat import mahsulotlari hajmini sun’iy cheklash uchun", "is_correct": false}, {"letter": "D", "text": "Korxonalarning mustaqilligini tugatish uchun", "is_correct": false}], "correct_letter": "A", "correct_answer": "Tarmoqdagi umumiy samaradorlik va qonuniyatlarni aniqlab, boshqaruv qaro..."}, {"num": 10, "category": "Test savollari (1-to'plam)", "question": "Iqtisodiy ko‘rsatkichlarning og‘ishi deganda matn mazmunidan kelib chiqib nima tushuniladi?", "options": [{"letter": "A", "text": "Buxgalteriya yozuvlaridagi matematik xatolar", "is_correct": false}, {"letter": "B", "text": "Haqiqiy natijalar va rejalashtirilgan ko‘rsatkichlar o‘rtasidagi farq", "is_correct": true}, {"letter": "C", "text": "Resurslar narxining sun’iy pasayishi", "is_correct": false}, {"letter": "D", "text": "Xodimlarning o‘z vazifasini tark etishi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Haqiqiy natijalar va rejalashtirilgan ko‘rsatkichlar o‘rtasidagi farq"}, {"num": 11, "category": "Test savollari (1-to'plam)", "question": "Qadimgi Misr, Bobil, Yunoniston va Rimda tahliliy hisob-kitoblar qaysi ob’yektlar bo‘yicha yuritilgan?", "options": [{"letter": "A", "text": "Aksiyalar qiymati va bank kreditlari", "is_correct": false}, {"letter": "B", "text": "Aktivlar, daromadlar va xarajatlar", "is_correct": true}, {"letter": "C", "text": "Birja kotirovkalari va investitsiya fondlari", "is_correct": false}, {"letter": "D", "text": "Mehnat unumdorligining regressiya modellari", "is_correct": false}], "correct_letter": "B", "correct_answer": "Aktivlar, daromadlar va xarajatlar"}, {"num": 12, "category": "Test savollari (1-to'plam)", "question": "Qadimgi davrlarda iqtisodiy hisob-kitoblar nima maqsadda amalga oshirilgan?", "options": [{"letter": "A", "text": "Resurslardan foydalanishni nazorat qilish, soliqlarni yig‘ish va samarad...", "is_correct": true}, {"letter": "B", "text": "Xalqaro valyuta bozorini tartibga solish", "is_correct": false}, {"letter": "C", "text": "Aksiyadorlik jamiyatlarini tashkil etish", "is_correct": false}, {"letter": "D", "text": "Qog‘oz pullar emissiyasini nazorat qilish", "is_correct": false}], "correct_letter": "A", "correct_answer": "Resurslardan foydalanishni nazorat qilish, soliqlarni yig‘ish va samarad..."}, {"num": 13, "category": "Test savollari (1-to'plam)", "question": "Qadimgi dunyodagi hisob-kitoblar nega mustaqil ilmiy fan hisoblanmagan?", "options": [{"letter": "A", "text": "Matematika fani mavjud bo‘lmaganligi sababli", "is_correct": false}, {"letter": "B", "text": "Ular asosan amaliy xususiyatga ega bo‘lib, nazariy-metodologik tizim sha...", "is_correct": true}, {"letter": "C", "text": "Faqat davlat idoralari tomonidan taqiqlangani uchun", "is_correct": false}, {"letter": "D", "text": "Yozuv tizimi rivojlanmaganligi tufayli", "is_correct": false}], "correct_letter": "B", "correct_answer": "Ular asosan amaliy xususiyatga ega bo‘lib, nazariy-metodologik tizim sha..."}, {"num": 14, "category": "Test savollari (1-to'plam)", "question": "XV asrda iqtisodiy tahlilning sifat jihatidan rivojlanishiga qaysi voqea jiddiy turtki berdi?", "options": [{"letter": "A", "text": "Sanoat inqilobining boshlanishi", "is_correct": false}, {"letter": "B", "text": "Luka Pachioli tomonidan ikki tomonlama yozuvli buxgalteriya hisobi tamoy...", "is_correct": true}, {"letter": "C", "text": "Birinchi xalqaro banklar ittifoqining tuzilishi", "is_correct": false}, {"letter": "D", "text": "Qog‘oz pullarning muomalaga kiritilishi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Luka Pachioli tomonidan ikki tomonlama yozuvli buxgalteriya hisobi tamoy..."}, {"num": 15, "category": "Test savollari (1-to'plam)", "question": "Ikki tomonlama yozuv tizimi tahlil uchun qanday yangi imkoniyat yaratdi?", "options": [{"letter": "A", "text": "Soliq to‘lash majburiyatini bekor qildi", "is_correct": false}, {"letter": "B", "text": "Biznes operatsiyalarini aniqroq qayd etish va korxona faoliyatini taqqos...", "is_correct": true}, {"letter": "C", "text": "Barcha hisob-kitoblarni avtomatlashtirdi", "is_correct": false}, {"letter": "D", "text": "Faqat davlat xarajatlarini nazorat qilish bilan cheklandi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Biznes operatsiyalarini aniqroq qayd etish va korxona faoliyatini taqqos..."}, {"num": 16, "category": "Test savollari (1-to'plam)", "question": "Luka Pachiolining vatani qaysi mamlakat?", "options": [{"letter": "A", "text": "Fransiya", "is_correct": false}, {"letter": "B", "text": "Buyuk Britaniya", "is_correct": false}, {"letter": "C", "text": "Italiya", "is_correct": true}, {"letter": "D", "text": "Germaniya", "is_correct": false}], "correct_letter": "C", "correct_answer": "Italiya"}, {"num": 17, "category": "Test savollari (1-to'plam)", "question": "O‘rta asrlardan so‘ng qaysi tarmoqlarning kengayishi iqtisodiy ko‘rsatkichlarni chuqurroq o‘rganish talabini keltirib...", "options": [{"letter": "A", "text": "Faqat qishloq xo‘jaligi", "is_correct": false}, {"letter": "B", "text": "Savdo, sanoat va bank faoliyati", "is_correct": true}, {"letter": "C", "text": "Faqat harbiy qurollanish tarmoqlari", "is_correct": false}, {"letter": "D", "text": "Dengiz qaroqchiligi va hunarmandchilik", "is_correct": false}], "correct_letter": "B", "correct_answer": "Savdo, sanoat va bank faoliyati"}, {"num": 18, "category": "Test savollari (1-to'plam)", "question": "Qadimgi davlatlarda soliqlarni yig‘ish tahlilning qaysi vazifasi bilan bevosita bog‘liq bo‘lgan?", "options": [{"letter": "A", "text": "Moliyaviy xatarlarni sug‘urtalash", "is_correct": false}, {"letter": "B", "text": "Daromad va aktivlarni nazorat qilish hamda hisobga olish", "is_correct": true}, {"letter": "C", "text": "Xalqaro savdo shartnomalarini tuzish", "is_correct": false}, {"letter": "D", "text": "Birja spekulyatsiyalarini tartibga solish", "is_correct": false}], "correct_letter": "B", "correct_answer": "Daromad va aktivlarni nazorat qilish hamda hisobga olish"}, {"num": 19, "category": "Test savollari (1-to'plam)", "question": "18- va 19-asrlarda iqtisodiy fanning jadal rivojlanishiga qaysi ijtimoiy-iqtisodiy omil sabab bo‘ldi?", "options": [{"letter": "A", "text": "Feodal tarqoqlikning kuchayishi", "is_correct": false}, {"letter": "B", "text": "Kapitalistik munosabatlarning rivojlanishi", "is_correct": true}, {"letter": "C", "text": "Rejali xo‘jalik tizimining paydo bo‘lishi", "is_correct": false}, {"letter": "D", "text": "Quldorlik tuzumining tiklanishi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Kapitalistik munosabatlarning rivojlanishi"}, {"num": 20, "category": "Test savollari (1-to'plam)", "question": "Matnda 18–19-asrlarda iqtisodiyot faniga katta hissa qo‘shgan qaysi olimlar nomi keltirilgan?", "options": [{"letter": "A", "text": "Luka Pachioli, Rene Dekart, Frensis Bekon", "is_correct": false}, {"letter": "B", "text": "Adam Smit, Devid Rikardo, Karl Marks, Alfred Marshall", "is_correct": true}, {"letter": "C", "text": "M. I. Bakanov, A. D. Sheremet, G. V. Savitskaya", "is_correct": false}, {"letter": "D", "text": "Jon Meynard Keyns, Milton Fridman, Pol Samuelson", "is_correct": false}], "correct_letter": "B", "correct_answer": "Adam Smit, Devid Rikardo, Karl Marks, Alfred Marshall"}, {"num": 21, "category": "Test savollari (1-to'plam)", "question": "Klassik iqtisodchilar moddiy tovarlar bo‘yicha qaysi qonuniyatlarni o‘rganib chiqdilar?", "options": [{"letter": "A", "text": "Faqat ularni davlat tomonidan musodara qilish qoidalarini", "is_correct": false}, {"letter": "B", "text": "Ishlab chiqarish, taqsimlash, ayirboshlash va iste’mol qilish qonuniyatl...", "is_correct": true}, {"letter": "C", "text": "Tovarlarni utilizatsiya qilish texnologiyalarini", "is_correct": false}, {"letter": "D", "text": "Faqat narxlarni sun’iy belgilash yo‘llarini", "is_correct": false}], "correct_letter": "B", "correct_answer": "Ishlab chiqarish, taqsimlash, ayirboshlash va iste’mol qilish qonuniyatl..."}, {"num": 22, "category": "Test savollari (1-to'plam)", "question": "18–19-asrlarda ilgari surilgan qaysi tushunchalar keyinchalik iqtisodiy tahlilning poydevoriga aylandi?", "options": [{"letter": "A", "text": "Faqat pul emissiyasi va oltin zaxirasi", "is_correct": false}, {"letter": "B", "text": "Resurslardan foydalanish samaradorligi, foyda, ishlab chiqarish xarajatl...", "is_correct": true}, {"letter": "C", "text": "Virtual aktivlar va elektron tijorat qoidalari", "is_correct": false}, {"letter": "D", "text": "Qayta sug‘urtalash va forvard bitimlari", "is_correct": false}], "correct_letter": "B", "correct_answer": "Resurslardan foydalanish samaradorligi, foyda, ishlab chiqarish xarajatl..."}, {"num": 23, "category": "Test savollari (1-to'plam)", "question": "18- va 19-asrlardagi iqtisodiy tahlilning holati haqida qaysi xulosa to‘g‘ri?", "options": [{"letter": "A", "text": "U to‘liq mustaqil fan sifatida universitetlarda o‘qitila boshlangan", "is_correct": false}, {"letter": "B", "text": "U hali alohida fan sifatida shakllanmagan bo‘lsa-da, ilmiy asoslari ayna...", "is_correct": true}, {"letter": "C", "text": "Tahlil faqat davlat byudjetini rejalashtirish bilan cheklandi", "is_correct": false}, {"letter": "D", "text": "Barcha tahlil usullari taqiqlangan edi", "is_correct": false}], "correct_letter": "B", "correct_answer": "U hali alohida fan sifatida shakllanmagan bo‘lsa-da, ilmiy asoslari ayna..."}, {"num": 24, "category": "Test savollari (1-to'plam)", "question": "Devid Rikardo va Adam Smitning tadqiqotlari tahlil rivojiga qanday ta’sir ko‘rsatdi?", "options": [{"letter": "A", "text": "Iqtisodiy ko‘rsatkichlarni matematik modellashtirishni butunlay to‘xtatdi", "is_correct": false}, {"letter": "B", "text": "Xarajatlar, mehnat qiymati va ishlab chiqarish samaradorligini ilmiy tus...", "is_correct": true}, {"letter": "C", "text": "Faqatgina qishloq xo‘jaligi soliqlarini hisoblash bilan cheklandi", "is_correct": false}, {"letter": "D", "text": "Bank foiz stavkalarini yagona markazdan boshqarishni taklif qildi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Xarajatlar, mehnat qiymati va ishlab chiqarish samaradorligini ilmiy tus..."}, {"num": 25, "category": "Test savollari (1-to'plam)", "question": "Mehnat unumdorligi tushunchasining ilmiy jihatdan asoslanishi iqtisodiy tahlilda nimani baholash imkonini berdi?", "options": [{"letter": "A", "text": "Ishchilarning jismoniy bo‘y-bastini", "is_correct": false}, {"letter": "B", "text": "Mehnat resurslaridan foydalanish samaradorligini", "is_correct": true}, {"letter": "C", "text": "Faqatgina ish kunining davomiyligini", "is_correct": false}, {"letter": "D", "text": "Ishchilarning shaxsiy xarajatlarini", "is_correct": false}], "correct_letter": "B", "correct_answer": "Mehnat resurslaridan foydalanish samaradorligini"}, {"num": 26, "category": "Test savollari (1-to'plam)", "question": "Iqtisodiy tahlil qaysi davrda mustaqil ilmiy fan sifatida faol shakllana boshladi?", "options": [{"letter": "A", "text": "XV asr boshlarida", "is_correct": false}, {"letter": "B", "text": "19-asr oxiri va 20-asr boshlarida", "is_correct": true}, {"letter": "C", "text": "Ikkinchi jahon urushidan so‘ng", "is_correct": false}, {"letter": "D", "text": "XXI asrning boshida", "is_correct": false}], "correct_letter": "B", "correct_answer": "19-asr oxiri va 20-asr boshlarida"}, {"num": 27, "category": "Test savollari (1-to'plam)", "question": "19-asr oxiri va 20-asr boshlarida iqtisodiy ko‘rsatkichlarni obyektiv baholash zarurati nima sababdan keskin oshdi?", "options": [{"letter": "A", "text": "Feodal xo‘jaliklarning qayta tiklanishi oqibatida", "is_correct": false}, {"letter": "B", "text": "Yirik korxonalar, aksiyadorlik jamiyatlari va banklarning o‘sishi tufayli", "is_correct": true}, {"letter": "C", "text": "Barcha xususiy korxonalarning yopilishi sababli", "is_correct": false}, {"letter": "D", "text": "Xalqaro savdoning butunlay to‘xtab qolishi oqibatida", "is_correct": false}], "correct_letter": "B", "correct_answer": "Yirik korxonalar, aksiyadorlik jamiyatlari va banklarning o‘sishi tufayli"}, {"num": 28, "category": "Test savollari (1-to'plam)", "question": "Mustaqil fan sifatida shakllanish davrida quyidagi qaysi sohalarni o‘rganish uchun ixtisoslashgan usullar paydo bo‘ldi?", "options": [{"letter": "A", "text": "Faqat xorijiy davlatlar bilan chegaralarni belgilash", "is_correct": false}, {"letter": "B", "text": "Moliyaviy natijalar, asosiy vositalar, joriy aktivlar, mehnat resurslari...", "is_correct": true}, {"letter": "C", "text": "Aholining tug‘ilish va o‘lim ko‘rsatkichlari", "is_correct": false}, {"letter": "D", "text": "Foydali qazilmalarning geologik qatlamlari", "is_correct": false}], "correct_letter": "B", "correct_answer": "Moliyaviy natijalar, asosiy vositalar, joriy aktivlar, mehnat resurslari..."}, {"num": 29, "category": "Test savollari (1-to'plam)", "question": "Ushbu davrda korxona darajasida tahlilning asosiy diqqat markazida nima turgan edi?", "options": [{"letter": "A", "text": "Korxona binosining arxitekturasini loyihalash", "is_correct": false}, {"letter": "B", "text": "Foydaga ta’sir qiluvchi omillarni aniqlash va ichki yo‘llarni topish", "is_correct": true}, {"letter": "C", "text": "Xodimlarni majburiy jamoat ishlariga jalb qilish", "is_correct": false}, {"letter": "D", "text": "Ishlab chiqarishni to‘xtatib, faqat zaxira to‘plash", "is_correct": false}], "correct_letter": "B", "correct_answer": "Foydaga ta’sir qiluvchi omillarni aniqlash va ichki yo‘llarni topish"}, {"num": 30, "category": "Test savollari (1-to'plam)", "question": "Aksiyadorlik jamiyatlarining kengayishi tahlil oldiga qanday yangi talab qo‘ydi?", "options": [{"letter": "A", "text": "Moliyaviy holat va natijalarni aksiyadorlar uchun shaffof va obyektiv ba...", "is_correct": true}, {"letter": "B", "text": "Hisobotlarni yashirin saqlash", "is_correct": false}, {"letter": "C", "text": "Barcha aksiyalarni davlatga bepul topshirish", "is_correct": false}, {"letter": "D", "text": "Yillik dividendlarni bekor qilish", "is_correct": false}], "correct_letter": "A", "correct_answer": "Moliyaviy holat va natijalarni aksiyadorlar uchun shaffof va obyektiv ba..."}, {"num": 31, "category": "Test savollari (1-to'plam)", "question": "\"Joriy aktivlar\"ni o‘rganish iqtisodiy tahlilda nimani anglatadi?", "options": [{"letter": "A", "text": "Korxonaning ko‘chmas mulki va yer maydonlarini", "is_correct": false}, {"letter": "B", "text": "Ishlab chiqarish jarayonida tez aylanadigan moddiy va pul mablag‘larini", "is_correct": true}, {"letter": "C", "text": "Korxona rahbarlarining shaxsiy avtomobillarini", "is_correct": false}, {"letter": "D", "text": "Faqat davlatdan olinadigan subsidiyalarni", "is_correct": false}], "correct_letter": "B", "correct_answer": "Ishlab chiqarish jarayonida tez aylanadigan moddiy va pul mablag‘larini"}, {"num": 32, "category": "Test savollari (1-to'plam)", "question": "Asosiy vositalardan foydalanish tahlili orqali nima aniqlanadi?", "options": [{"letter": "A", "text": "Bino, inshoot va uskunalarning ishlab chiqarishdagi unumdorligi va eskir...", "is_correct": true}, {"letter": "B", "text": "Ishchilarning oylik maoshi miqdori", "is_correct": false}, {"letter": "C", "text": "Faqat tayyor mahsulotning sifati", "is_correct": false}, {"letter": "D", "text": "Mahsulotning qadoqlanish dizayni", "is_correct": false}], "correct_letter": "A", "correct_answer": "Bino, inshoot va uskunalarning ishlab chiqarishdagi unumdorligi va eskir..."}, {"num": 33, "category": "Test savollari (1-to'plam)", "question": "Sovet davrida iqtisodiy tahlilning asosiy maqsadi nimaga bo‘ysundirilgan edi?", "options": [{"letter": "A", "text": "Korxona aksiyalarini fond birjasida qimmat sotishga", "is_correct": false}, {"letter": "B", "text": "Davlat rejalarining bajarilishini baholash va resurslardan foydalanishni...", "is_correct": true}, {"letter": "C", "text": "Raqobatchilarni bozordan siqib chiqarishga", "is_correct": false}, {"letter": "D", "text": "Xususiy tadbirkorlik manfaatlarini himoya qilishga", "is_correct": false}], "correct_letter": "B", "correct_answer": "Davlat rejalarining bajarilishini baholash va resurslardan foydalanishni..."}, {"num": 34, "category": "Test savollari (1-to'plam)", "question": "Sovet davrida tahlil orqali erishilishi lozim bo‘lgan eng muhim ikki ko‘rsatkich qaysi edi?", "options": [{"letter": "A", "text": "Reklama byudjetini oshirish va aksiyalar emissiyasi", "is_correct": false}, {"letter": "B", "text": "Ishlab chiqarish xarajatlarini kamaytirish va mehnat unumdorligini oshirish", "is_correct": true}, {"letter": "C", "text": "Xorijiy kreditlarni ko‘paytirish va importni oshirish", "is_correct": false}, {"letter": "D", "text": "Narxlarni har kuni erkin o‘zgartirish", "is_correct": false}], "correct_letter": "B", "correct_answer": "Ishlab chiqarish xarajatlarini kamaytirish va mehnat unumdorligini oshirish"}, {"num": 35, "category": "Test savollari (1-to'plam)", "question": "Aynan Sovet davrida korxona faoliyatini tahlil qilishning qaysi metodikasi chuqur ishlab chiqildi?", "options": [{"letter": "A", "text": "Kriptovalyutalar dinamikasi tahlili", "is_correct": false}, {"letter": "B", "text": "Omillar tahlili (omilli tahlil) va qiyosiy tahlil usullari", "is_correct": true}, {"letter": "C", "text": "Neyron to‘rlari orqali xatarlarni modellashtirish", "is_correct": false}, {"letter": "D", "text": "Kliring bitimlari tahlili", "is_correct": false}], "correct_letter": "B", "correct_answer": "Omillar tahlili (omilli tahlil) va qiyosiy tahlil usullari"}, {"num": 36, "category": "Test savollari (1-to'plam)", "question": "Matnda iqtisodiy tahlilga katta hissa qo‘shgan qaysi sovet olimlari tilga olingan?", "options": [{"letter": "A", "text": "N. D. Kondratyev, L. V. Kantorovich", "is_correct": false}, {"letter": "B", "text": "M. I. Bakanov, A. D. Sheremet, S. K. Tatur, G. V. Savitskaya", "is_correct": true}, {"letter": "C", "text": "V. I. Lenin, L. D. Trotskiy", "is_correct": false}, {"letter": "D", "text": "A. N. Kosigin, N. I. Rijkov", "is_correct": false}], "correct_letter": "B", "correct_answer": "M. I. Bakanov, A. D. Sheremet, S. K. Tatur, G. V. Savitskaya"}, {"num": 37, "category": "Test savollari (1-to'plam)", "question": "Matnga ko‘ra, ushbu sovet olimlarining ilmiy ishlari bugungi kunda qanday ahamiyatga ega?", "options": [{"letter": "A", "text": "Tarixiy ahamiyatini butunlay yo‘qotgan", "is_correct": false}, {"letter": "B", "text": "Hanuzgacha iqtisodiy mutaxassislarni tayyorlashda qo‘llanilmoqda", "is_correct": true}, {"letter": "C", "text": "Faqat arxivlarda saqlanadi, o‘qitishda taqiqlangan", "is_correct": false}, {"letter": "D", "text": "Faqat falsafa darslarida o‘rganiladi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Hanuzgacha iqtisodiy mutaxassislarni tayyorlashda qo‘llanilmoqda"}, {"num": 38, "category": "Test savollari (1-to'plam)", "question": "S. K. Tatur va A. D. Sheremetlarning tadqiqotlari asosan qaysi yo‘nalishni boyitgan?", "options": [{"letter": "A", "text": "Xo‘jalik hisobi va korxona faoliyatini kompleks iqtisodiy tahlil qilish ...", "is_correct": true}, {"letter": "B", "text": "Faqat kosmik dasturlarni moliyalashtirishni", "is_correct": false}, {"letter": "C", "text": "Qishloq xo‘jaligini majburiy kollektivlashtirishni", "is_correct": false}, {"letter": "D", "text": "Xalqaro valyuta fondi bilan ishlash qoidalarini", "is_correct": false}], "correct_letter": "A", "correct_answer": "Xo‘jalik hisobi va korxona faoliyatini kompleks iqtisodiy tahlil qilish ..."}, {"num": 39, "category": "Test savollari (1-to'plam)", "question": "Bozor iqtisodiyotiga o‘tish natijasida iqtisodiy tahlilning asosiy e’tibori nimaga qaratildi?", "options": [{"letter": "A", "text": "Davlat rejasini 100% bajarishga", "is_correct": false}, {"letter": "B", "text": "Raqobatbardoshlik, foydani oshirish, moliyaviy barqarorlik va to‘lov qob...", "is_correct": true}, {"letter": "C", "text": "Ishchilar sonini sun’iy ko‘paytirishga", "is_correct": false}, {"letter": "D", "text": "Faqat moddiy balanslarni to‘ldirishga", "is_correct": false}], "correct_letter": "B", "correct_answer": "Raqobatbardoshlik, foydani oshirish, moliyaviy barqarorlik va to‘lov qob..."}, {"num": 40, "category": "Test savollari (1-to'plam)", "question": "Bozor sharoitida qaysi yangi tahliliy yo‘nalishlar tobora muhim ahamiyat kasb etmoqda?", "options": [{"letter": "A", "text": "Mehnat intizomi jurnallarini qog‘ozda tikish", "is_correct": false}, {"letter": "B", "text": "Moliyaviy hisobotlarni tahlil qilish, xavflarni (risk) baholash va samar...", "is_correct": true}, {"letter": "C", "text": "Rejalashtirilgan tannarxni markazlashtirilgan narxlar bilan solishtirish", "is_correct": false}, {"letter": "D", "text": "Faqat importga qaramlikni davlat yo‘li bilan yopish", "is_correct": false}], "correct_letter": "B", "correct_answer": "Moliyaviy hisobotlarni tahlil qilish, xavflarni (risk) baholash va samar..."}, {"num": 41, "category": "Test savollari (1-to'plam)", "question": "\"To‘lov qobiliyati\" tahlili korxona uchun nimani anglatadi?", "options": [{"letter": "A", "text": "Xodimlarning o‘zaro qarz berish imkoniyatini", "is_correct": false}, {"letter": "B", "text": "Korxonaning o‘z majburiyatlari va qarzlarini o‘z vaqtida to‘lash imkoniy...", "is_correct": true}, {"letter": "C", "text": "Faqat naqd pul bilan hisob-kitob qilishni", "is_correct": false}, {"letter": "D", "text": "Mahsulotni tekinga tarqatish qobiliyatini", "is_correct": false}], "correct_letter": "B", "correct_answer": "Korxonaning o‘z majburiyatlari va qarzlarini o‘z vaqtida to‘lash imkoniy..."}, {"num": 42, "category": "Test savollari (1-to'plam)", "question": "Korxonaning \"investitsiya jozibadorligi\" qanday tahlil qilinadi?", "options": [{"letter": "A", "text": "Korxonaning tashqi dizayni va joylashuviga qarab", "is_correct": false}, {"letter": "B", "text": "Kapital samaradorligi, rentabellik va kutilayotgan daromadlar barqarorli...", "is_correct": true}, {"letter": "C", "text": "Faqat ishchilarning kasaba uyushmasi a’zoligiga qarab", "is_correct": false}, {"letter": "D", "text": "Korxona rahbarining qarindoshlik aloqalariga ko‘ra", "is_correct": false}], "correct_letter": "B", "correct_answer": "Kapital samaradorligi, rentabellik va kutilayotgan daromadlar barqarorli..."}, {"num": 43, "category": "Test savollari (1-to'plam)", "question": "Strategik boshqaruv qarorlarini ishlab chiqishda zamonaviy tahlilning o‘rni nimadan iborat?", "options": [{"letter": "A", "text": "O‘tmishdagi xatolarni shunchaki qayd etish", "is_correct": false}, {"letter": "B", "text": "Korxonaning uzoq muddatli rivojlanish yo‘nalishlarini xavflar va imkoniy...", "is_correct": true}, {"letter": "C", "text": "Kundalik mayda texnik nosozliklarni bartaraf etish", "is_correct": false}, {"letter": "D", "text": "Barcha boshqaruv vakolatlarini xorijiy maslahatchilarga berish", "is_correct": false}], "correct_letter": "B", "correct_answer": "Korxonaning uzoq muddatli rivojlanish yo‘nalishlarini xavflar va imkoniy..."}, {"num": 44, "category": "Test savollari (1-to'plam)", "question": "\"Kapital samaradorligi\" deganda matn mazmunidan kelib chiqib nima tushuniladi?", "options": [{"letter": "A", "text": "Sarflangan har bir so‘m mablag‘ evaziga olingan sof natija va foyda dara...", "is_correct": true}, {"letter": "B", "text": "Bank hisobvarag‘ida saqlanayotgan harakatsiz pul miqdori", "is_correct": false}, {"letter": "C", "text": "Korxona binosining umumiy maydoni", "is_correct": false}, {"letter": "D", "text": "Faqat jalb qilingan xorijiy grantlar hajmi", "is_correct": false}], "correct_letter": "A", "correct_answer": "Sarflangan har bir so‘m mablag‘ evaziga olingan sof natija va foyda dara..."}, {"num": 45, "category": "Test savollari (1-to'plam)", "question": "Matnda iqtisodiy tahlilning eng keng tarqalgan an’anaviy usullari qatoriga qaysilar kiritilgan?", "options": [{"letter": "A", "text": "Skoring, benchmarking va kroudsorsing", "is_correct": false}, {"letter": "B", "text": "Taqqoslash, guruhlash, indeks, balans, omil tahlili, grafik va statistik...", "is_correct": true}, {"letter": "C", "text": "Faqat so‘rovnomalar va intervyular", "is_correct": false}, {"letter": "D", "text": "Ekspert baholash va delfi usullari", "is_correct": false}], "correct_letter": "B", "correct_answer": "Taqqoslash, guruhlash, indeks, balans, omil tahlili, grafik va statistik..."}, {"num": 46, "category": "Test savollari (1-to'plam)", "question": "Zamonaviy iqtisodiy tahlilda qo‘llaniladigan ilg‘or matematik usullar qaysilar?", "options": [{"letter": "A", "text": "Modellashtirish, korrelyatsiya va regressiya tahlili, prognozlash usullari", "is_correct": true}, {"letter": "B", "text": "Faqat arifmetik qo‘shish va ayirish", "is_correct": false}, {"letter": "C", "text": "Oddiy proporsiyalar tuzish", "is_correct": false}, {"letter": "D", "text": "Geometrik chizmalar yasash", "is_correct": false}], "correct_letter": "A", "correct_answer": "Modellashtirish, korrelyatsiya va regressiya tahlili, prognozlash usullari"}, {"num": 47, "category": "Test savollari (1-to'plam)", "question": "Kompyuter dasturlari va raqamli texnologiyalardan foydalanish tahlilga qanday ustunlik beradi?", "options": [{"letter": "A", "text": "Hisobotlarni chop etish xarajatlarini oshiradi", "is_correct": false}, {"letter": "B", "text": "Katta hajmdagi ma’lumotlarni tezkor qayta ishlash va asoslangan boshqaru...", "is_correct": true}, {"letter": "C", "text": "Boshqaruvchilarning tahlil jarayonidagi ishtirokini butunlay yo‘q qiladi", "is_correct": false}, {"letter": "D", "text": "Faqat soliq tekshiruvlarini cheklaydi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Katta hajmdagi ma’lumotlarni tezkor qayta ishlash va asoslangan boshqaru..."}, {"num": 48, "category": "Test savollari (1-to'plam)", "question": "Bugungi kunda biznes rahbarlari iqtisodiy tahlil natijalaridan qaysi amaliy maqsadda foydalanadilar?", "options": [{"letter": "A", "text": "Korxonani zudlik bilan tugatish uchun", "is_correct": false}, {"letter": "B", "text": "Rivojlanish strategiyalarini ishlab chiqish, rejalashtirish, investitsiy...", "is_correct": true}, {"letter": "C", "text": "Faqat xodimlarning ishga kelish-ketish vaqtini daftarga yozishda", "is_correct": false}, {"letter": "D", "text": "Yangi soliq turlarini joriy qilishda", "is_correct": false}], "correct_letter": "B", "correct_answer": "Rivojlanish strategiyalarini ishlab chiqish, rejalashtirish, investitsiy..."}, {"num": 49, "category": "Test savollari (1-to'plam)", "question": "Iqtisodiy tahlil orqali \"haqiqiy natijalar va rejalashtirilgan ko‘rsatkichlar o‘rtasidagi og‘ishlar\" aniqlangach, rah...", "options": [{"letter": "A", "text": "Rejani shunchaki bekor qiladi", "is_correct": false}, {"letter": "B", "text": "Og‘ish sabablarini bartaraf etish va ichki zaxiralarni aniqlash orqali o...", "is_correct": true}, {"letter": "C", "text": "Barcha moliyaviy hisoblarni to‘xtatadi", "is_correct": false}, {"letter": "D", "text": "Ko‘rsatkichlarni qo‘lda reja darajasiga tenglashtirib qo‘yadi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Og‘ish sabablarini bartaraf etish va ichki zaxiralarni aniqlash orqali o..."}, {"num": 50, "category": "Test savollari (1-to'plam)", "question": "Matn xulosasiga ko‘ra, axborot texnologiyalari va sun’iy intellektning rivojlanishi iqtisodiy tahlilga qanday ta’sir ...", "options": [{"letter": "A", "text": "Iqtisodiy tahlil fanining ahamiyatini pasaytirib, uni keraksiz sohaga ay...", "is_correct": false}, {"letter": "B", "text": "Iqtisodiy tahlilni va qabul qilinadigan boshqaruv qarorlari sifatini yan...", "is_correct": true}, {"letter": "C", "text": "Barcha iqtisodiy qonuniyatlarni inkor etmoqda", "is_correct": false}, {"letter": "D", "text": "Korxona boshqaruvini faqat texnik xodimlarga topshirishni talab qilmoqda", "is_correct": false}], "correct_letter": "B", "correct_answer": "Iqtisodiy tahlilni va qabul qilinadigan boshqaruv qarorlari sifatini yan..."}, {"num": 1, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlil fan sifatida asosan qaysi jarayonlarni o'rganadi?", "options": [{"letter": "A", "text": "Faqatgina davlat byudjetining taqsimlanishini", "is_correct": false}, {"letter": "B", "text": "Korxona moliya-xo'jalik faoliyatidagi iqtisodiy qonuniyatlarni", "is_correct": true}, {"letter": "C", "text": "Bozordagi raqobatchilarning psixologik holatini", "is_correct": false}, {"letter": "D", "text": "Kasaba uyushmalarining faoliyatini", "is_correct": false}], "correct_letter": "B", "correct_answer": "Korxona moliya-xo'jalik faoliyatidagi iqtisodiy qonuniyatlarni"}, {"num": 2, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlilning predmeti - bu...", "options": [{"letter": "A", "text": "Xalqaro savdo bitimlarini rasmiylashtirish", "is_correct": false}, {"letter": "B", "text": "Iqtisodiyotdagi inflyatsiya darajasini nazorat qilish", "is_correct": false}, {"letter": "C", "text": "Korxona arxitekturasini loyihalash", "is_correct": false}, {"letter": "D", "text": "Boshqaruv qarorlari va ularning moliya-xo'jalik natijalariga ta'siri", "is_correct": true}], "correct_letter": "D", "correct_answer": "Boshqaruv qarorlari va ularning moliya-xo'jalik natijalariga ta'siri"}, {"num": 3, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlil ob'ektiga quyidagilardan qaysi biri kirmaydi?", "options": [{"letter": "A", "text": "Mahsulot tannarxi", "is_correct": false}, {"letter": "B", "text": "Asosiy va joriy vositalardan foydalanish", "is_correct": false}, {"letter": "C", "text": "Korxona xodimlarining siyosiy qarashlari", "is_correct": true}, {"letter": "D", "text": "Ishlab chiqarish hajmi va sifati", "is_correct": false}], "correct_letter": "C", "correct_answer": "Korxona xodimlarining siyosiy qarashlari"}, {"num": 4, "category": "Nazorat testlari (2-to'plam)", "question": "Korxona faoliyatini iqtisodiy tahlil qilishning yakuniy maqsadi nima?", "options": [{"letter": "A", "text": "Raqobatchilarni bozordan jismonan siqib chiqarish", "is_correct": false}, {"letter": "B", "text": "Buxgalteriya xatolarini jazolash", "is_correct": false}, {"letter": "C", "text": "Soliqlardan qochishning qonuniy yo'llarini izlash", "is_correct": false}, {"letter": "D", "text": "Samaradorlikni oshirish va yashirin zaxiralarni aniqlash", "is_correct": true}], "correct_letter": "D", "correct_answer": "Samaradorlikni oshirish va yashirin zaxiralarni aniqlash"}, {"num": 5, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlil qaysi fan bilan eng ko'p chambarchas bog'liq?", "options": [{"letter": "A", "text": "Buxgalteriya hisobi va audit", "is_correct": true}, {"letter": "B", "text": "Huquqshunoslik va etika", "is_correct": false}, {"letter": "C", "text": "Oliy matematika va fizika", "is_correct": false}, {"letter": "D", "text": "Sotsiologiya va falsafa", "is_correct": false}], "correct_letter": "A", "correct_answer": "Buxgalteriya hisobi va audit"}, {"num": 6, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlilning vujudga kelishiga nima asosiy turtki bo'lgan?", "options": [{"letter": "A", "text": "Internet va raqamli texnologiyalar", "is_correct": false}, {"letter": "B", "text": "Oltin tangalarning kashf qilinishi", "is_correct": false}, {"letter": "C", "text": "Davlat chegaralarining paydo bo'lishi", "is_correct": false}, {"letter": "D", "text": "Ishlab chiqarishning kengayishi va xo'jalik hisobining murakkablashuvi", "is_correct": true}], "correct_letter": "D", "correct_answer": "Ishlab chiqarishning kengayishi va xo'jalik hisobining murakkablashuvi"}, {"num": 7, "category": "Nazorat testlari (2-to'plam)", "question": "Tarixan iqtisodiy hisob-kitoblar qanday maqsadda boshlangan?", "options": [{"letter": "A", "text": "Astronomik kalendarlarni tuzish uchun", "is_correct": false}, {"letter": "B", "text": "Resurslarni hisobga olish va mulkni saqlash maqsadida", "is_correct": true}, {"letter": "C", "text": "Urush xarajatlarini ko'paytirish uchun", "is_correct": false}, {"letter": "D", "text": "Faqat xayriya ishlarini nazorat qilish uchun", "is_correct": false}], "correct_letter": "B", "correct_answer": "Resurslarni hisobga olish va mulkni saqlash maqsadida"}, {"num": 8, "category": "Nazorat testlari (2-to'plam)", "question": "Ikki tomonlama yozuv tizimining paydo bo'lishi tahlil uchun qanday ahamiyatga ega bo'ldi?", "options": [{"letter": "A", "text": "Tahlilni butunlay bekor qildi", "is_correct": false}, {"letter": "B", "text": "Qog'oz pullarning yuzaga kelishini ta'minladi", "is_correct": false}, {"letter": "C", "text": "Faqat soliq yig'ishni osonlashtirdi", "is_correct": false}, {"letter": "D", "text": "Tahlil uchun tizimli va aniq ma'lumotlar bazasini yaratdi", "is_correct": true}], "correct_letter": "D", "correct_answer": "Tahlil uchun tizimli va aniq ma'lumotlar bazasini yaratdi"}, {"num": 9, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlil mustaqil fan sifatida qachon to'liq shakllana boshladi?", "options": [{"letter": "A", "text": "Qadimgi Misr va Bobilda", "is_correct": false}, {"letter": "B", "text": "XIX asr oxiri - XX asr boshlarida", "is_correct": true}, {"letter": "C", "text": "XV asrda Italiyada", "is_correct": false}, {"letter": "D", "text": "XXI asr raqamli davrida", "is_correct": false}], "correct_letter": "B", "correct_answer": "XIX asr oxiri - XX asr boshlarida"}, {"num": 10, "category": "Nazorat testlari (2-to'plam)", "question": "Kapitalistik munosabatlarning rivojlanishi tahlilga qanday ta'sir qildi?", "options": [{"letter": "A", "text": "Tahlil faqat qishloq xo'jaligida qo'llanila boshladi", "is_correct": false}, {"letter": "B", "text": "Iqtisodiy ko'rsatkichlarning ahamiyatini tushirdi", "is_correct": false}, {"letter": "C", "text": "Davlat monopoliyasini kuchaytirdi", "is_correct": false}, {"letter": "D", "text": "Foyda va rentabellikni aniq hisoblash ehtiyojini tug'dirdi", "is_correct": true}], "correct_letter": "D", "correct_answer": "Foyda va rentabellikni aniq hisoblash ehtiyojini tug'dirdi"}, {"num": 11, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlil taraqqiyotining Qadimgi davriga nima xos?", "options": [{"letter": "A", "text": "Ekspert tizimlari va neyron to'rlar", "is_correct": false}, {"letter": "B", "text": "Aksiyadorlik jamiyatlari balansi tahlili", "is_correct": false}, {"letter": "C", "text": "Soliq yig'ish va oddiy xo'jalik yozuvlari", "is_correct": true}, {"letter": "D", "text": "Moliyaviy koeffitsiyentlarni hisoblash", "is_correct": false}], "correct_letter": "C", "correct_answer": "Soliq yig'ish va oddiy xo'jalik yozuvlari"}, {"num": 12, "category": "Nazorat testlari (2-to'plam)", "question": "XV asrda qaysi olimning asari tahlil tarixida burilish yasadi?", "options": [{"letter": "A", "text": "Adam Smit", "is_correct": false}, {"letter": "B", "text": "Luka Pachioli", "is_correct": true}, {"letter": "C", "text": "Devid Rikardo", "is_correct": false}, {"letter": "D", "text": "Karl Marks", "is_correct": false}], "correct_letter": "B", "correct_answer": "Luka Pachioli"}, {"num": 13, "category": "Nazorat testlari (2-to'plam)", "question": "Sanoat inqilobi davrida (XVIII-XIX asrlar) iqtisodiy tahlilda nimalar kashf qilindi?", "options": [{"letter": "A", "text": "Kriptovalyutalar aylanmasi", "is_correct": false}, {"letter": "B", "text": "Mehnat unumdorligi va qiymat qonuniyatlari", "is_correct": true}, {"letter": "C", "text": "Xalqaro audit standartlari", "is_correct": false}, {"letter": "D", "text": "Ikki tomonlama yozuv tamoyili", "is_correct": false}], "correct_letter": "B", "correct_answer": "Mehnat unumdorligi va qiymat qonuniyatlari"}, {"num": 14, "category": "Nazorat testlari (2-to'plam)", "question": "Sovet davrida iqtisodiy tahlil qanday xususiyatga ega edi?", "options": [{"letter": "A", "text": "Reja bajarilishini qattiq nazorat qilishga qaratilgan edi", "is_correct": true}, {"letter": "B", "text": "Erkin bozor raqobatini baholashga ixtisoslashgan edi", "is_correct": false}, {"letter": "C", "text": "Tahlil o'tkazish qonun bilan taqiqlangan edi", "is_correct": false}, {"letter": "D", "text": "Faqat xususiy biznes uchun xizmat qilar edi", "is_correct": false}], "correct_letter": "A", "correct_answer": "Reja bajarilishini qattiq nazorat qilishga qaratilgan edi"}, {"num": 15, "category": "Nazorat testlari (2-to'plam)", "question": "Zamonaviy bosqichda iqtisodiy tahlil nimaga yo'naltirilgan?", "options": [{"letter": "A", "text": "Faqat o'tmish xatolarini arxivlashga", "is_correct": false}, {"letter": "B", "text": "Oddiy arifmetik hisob-kitoblarga", "is_correct": false}, {"letter": "C", "text": "Davlat rejasini markazlashgan holda tuzishga", "is_correct": false}, {"letter": "D", "text": "Strategik qarorlar qabul qilish va xatarlarni boshqarishga", "is_correct": true}], "correct_letter": "D", "correct_answer": "Strategik qarorlar qabul qilish va xatarlarni boshqarishga"}, {"num": 16, "category": "Nazorat testlari (2-to'plam)", "question": "Klassik iqtisodiyot maktabi vakillaridan kimlar tahlil rivojiga hissa qo'shgan?", "options": [{"letter": "A", "text": "S.K. Tatur va M.I. Bakanov", "is_correct": false}, {"letter": "B", "text": "Adam Smit va Devid Rikardo", "is_correct": true}, {"letter": "C", "text": "Platon va Aristotel", "is_correct": false}, {"letter": "D", "text": "Luka Pachioli va F. Kojio", "is_correct": false}], "correct_letter": "B", "correct_answer": "Adam Smit va Devid Rikardo"}, {"num": 17, "category": "Nazorat testlari (2-to'plam)", "question": "Mehnat qiymati nazariyasini rivojlantirish orqali xarajatlar tahliliga hissa qo'shgan olimlar?", "options": [{"letter": "A", "text": "Klassik iqtisodchilar (Smit, Rikardo, Marks)", "is_correct": true}, {"letter": "B", "text": "XX asr kibernektiklari", "is_correct": false}, {"letter": "C", "text": "O'rta asr rohiblari", "is_correct": false}, {"letter": "D", "text": "Zamonaviy IT mutaxassislari", "is_correct": false}], "correct_letter": "A", "correct_answer": "Klassik iqtisodchilar (Smit, Rikardo, Marks)"}, {"num": 18, "category": "Nazorat testlari (2-to'plam)", "question": "Sovet maktabida iqtisodiy tahlil metodikasini yaratgan yetakchi olimlar qatoriga kimlar kiradi?", "options": [{"letter": "A", "text": "M.I. Bakanov, A.D. Sheremet", "is_correct": true}, {"letter": "B", "text": "F. Teylor, H. Ford", "is_correct": false}, {"letter": "C", "text": "Jon Keyns, Milton Fridman", "is_correct": false}, {"letter": "D", "text": "Deyl Karnegi, Filip Kotler", "is_correct": false}], "correct_letter": "A", "correct_answer": "M.I. Bakanov, A.D. Sheremet"}, {"num": 19, "category": "Nazorat testlari (2-to'plam)", "question": "A.D. Sheremet asosan qaysi yo'nalish bo'yicha katta tadqiqotlar olib borgan?", "options": [{"letter": "A", "text": "Korxona faoliyatining kompleks iqtisodiy tahlili", "is_correct": true}, {"letter": "B", "text": "Psixologik testlar yordamida kadrlarni tanlash", "is_correct": false}, {"letter": "C", "text": "Kriptologiya va ma'lumotlarni shifrlash", "is_correct": false}, {"letter": "D", "text": "Makroiqtisodiy inflyatsiya modellarini tuzish", "is_correct": false}], "correct_letter": "A", "correct_answer": "Korxona faoliyatining kompleks iqtisodiy tahlili"}, {"num": 20, "category": "Nazorat testlari (2-to'plam)", "question": "G.V. Savitskayaning iqtisodiy tahlil faniga qo'shgan hissasi nima bilan bog'liq?", "options": [{"letter": "A", "text": "Amaliy omilli tahlil usullari va darsliklar yaratishi", "is_correct": true}, {"letter": "B", "text": "Oliy matematika teoremalarini isbotlashi", "is_correct": false}, {"letter": "C", "text": "Birinchi buxgalteriya dasturini yozishi", "is_correct": false}, {"letter": "D", "text": "Audit standartlarini bekor qilishi", "is_correct": false}], "correct_letter": "A", "correct_answer": "Amaliy omilli tahlil usullari va darsliklar yaratishi"}, {"num": 21, "category": "Nazorat testlari (2-to'plam)", "question": "Korxonani boshqarish siklida iqtisodiy tahlil qanday o'rin tutadi?", "options": [{"letter": "A", "text": "Xodimlarni ishga qabul qilish vositasi", "is_correct": false}, {"letter": "B", "text": "Faqat yil yakunida qilinadigan rasmiyatchilik", "is_correct": false}, {"letter": "C", "text": "Rejalashtirish va qaror qabul qilish o'rtasidagi bog'lovchi halqa", "is_correct": true}, {"letter": "D", "text": "Ishlab chiqarish texnologiyasining bir qismi", "is_correct": false}], "correct_letter": "C", "correct_answer": "Rejalashtirish va qaror qabul qilish o'rtasidagi bog'lovchi halqa"}, {"num": 22, "category": "Nazorat testlari (2-to'plam)", "question": "Boshqaruvning axborot tizimida tahlilning vazifasi nima?", "options": [{"letter": "A", "text": "Xaridorlar sirlarini fosh qilish", "is_correct": false}, {"letter": "B", "text": "Axborotni qayta ishlash va boshqaruv qarori uchun tayyorlash", "is_correct": true}, {"letter": "C", "text": "Axborot tarqalishini bloklash", "is_correct": false}, {"letter": "D", "text": "Ma'lumotlarni arxivga topshirish", "is_correct": false}], "correct_letter": "B", "correct_answer": "Axborotni qayta ishlash va boshqaruv qarori uchun tayyorlash"}, {"num": 23, "category": "Nazorat testlari (2-to'plam)", "question": "Boshqaruv samaradorligini oshirishda tahlilning o'rni nimada ko'rinadi?", "options": [{"letter": "A", "text": "Resurslarni optimallashtirish va samarasiz xarajatlarni qisqartirishda", "is_correct": true}, {"letter": "B", "text": "Asoslanmagan narxlarni belgilashda", "is_correct": false}, {"letter": "C", "text": "Boshqaruv apparati xodimlari sonini sun'iy oshirishda", "is_correct": false}, {"letter": "D", "text": "Buxgalteriya hujjatlarini yo'q qilishda", "is_correct": false}], "correct_letter": "A", "correct_answer": "Resurslarni optimallashtirish va samarasiz xarajatlarni qisqartirishda"}, {"num": 24, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlil natijalari birinchi navbatda kimlar uchun eng zarur?", "options": [{"letter": "A", "text": "Raqobatchi korxonalar uchun", "is_correct": false}, {"letter": "B", "text": "Oddiy farroshlar uchun", "is_correct": false}, {"letter": "C", "text": "Faqat arxivariuslar uchun", "is_correct": false}, {"letter": "D", "text": "Korxona rahbarlari, investorlar va aksiyadorlar", "is_correct": true}], "correct_letter": "D", "correct_answer": "Korxona rahbarlari, investorlar va aksiyadorlar"}, {"num": 25, "category": "Nazorat testlari (2-to'plam)", "question": "Rejalarni ishlab chiqishda iqtisodiy tahlil qanday ishlatiladi?", "options": [{"letter": "A", "text": "Rejani butunlay bekor qilish uchun asos sifatida", "is_correct": false}, {"letter": "B", "text": "O'tgan davr tendensiyalariga asoslanib real istiqbolni belgilashda", "is_correct": true}, {"letter": "C", "text": "O'zboshimchalik bilan yuqori raqamlarni yozishda", "is_correct": false}, {"letter": "D", "text": "Faqat xodimlarning talablarini inkor etishda", "is_correct": false}], "correct_letter": "B", "correct_answer": "O'tgan davr tendensiyalariga asoslanib real istiqbolni belgilashda"}, {"num": 26, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy tahlilning asosiy vazifalaridan biri bu - ...", "options": [{"letter": "A", "text": "Mahsulot sifatini pasaytirish", "is_correct": false}, {"letter": "B", "text": "Soliq to'lashdan bo'yin tovlash", "is_correct": false}, {"letter": "C", "text": "Ichki yashirin zaxiralarni aniqlash va ularni ishga solish", "is_correct": true}, {"letter": "D", "text": "Buxgalterlarning ish vaqtini qisqartirish", "is_correct": false}], "correct_letter": "C", "correct_answer": "Ichki yashirin zaxiralarni aniqlash va ularni ishga solish"}, {"num": 27, "category": "Nazorat testlari (2-to'plam)", "question": "Biznes-reja bajarilishini baholashda tahlilning vazifasi nimadan iborat?", "options": [{"letter": "A", "text": "Reja ko'rsatkichlaridan og'ishlarni va ularning sabablarini aniqlash", "is_correct": true}, {"letter": "B", "text": "Rejani qanday bo'lmasin bajarilgan deb hisobot berish", "is_correct": false}, {"letter": "C", "text": "Reja tuzishdan butunlay voz kechish", "is_correct": false}, {"letter": "D", "text": "Raqobatchilarning biznes-rejasini o'g'irlash", "is_correct": false}], "correct_letter": "A", "correct_answer": "Reja ko'rsatkichlaridan og'ishlarni va ularning sabablarini aniqlash"}, {"num": 28, "category": "Nazorat testlari (2-to'plam)", "question": "Omilli tahlil (faktor tahlili) qanday vazifani bajaradi?", "options": [{"letter": "A", "text": "Moliya bozoridagi kunlik yangiliklarni o'qish", "is_correct": false}, {"letter": "B", "text": "Natijaviy ko'rsatkichga ta'sir qilgan alohida omillar ulushini o'lchash", "is_correct": true}, {"letter": "C", "text": "Ishchilarning shaxsiy xarakteristikalarini baholash", "is_correct": false}, {"letter": "D", "text": "Hamma xarajatlarni bitta moddaga yig'ish", "is_correct": false}], "correct_letter": "B", "correct_answer": "Natijaviy ko'rsatkichga ta'sir qilgan alohida omillar ulushini o'lchash"}, {"num": 29, "category": "Nazorat testlari (2-to'plam)", "question": "Iqtisodiy qonuniyatlarni o'rganish tahlilning qaysi vazifasiga kiradi?", "options": [{"letter": "A", "text": "Davlat qonunlarini qabul qilish", "is_correct": false}, {"letter": "B", "text": "Kompaniya rahbariyatining shaxsiy manfaatlarini himoya qilish", "is_correct": false}, {"letter": "C", "text": "Korxona hududida huquqbuzarliklarni qidirish", "is_correct": false}, {"letter": "D", "text": "Iqtisodiy hodisalar o'rtasidagi sabab-oqibat bog'lanishlarini izlash", "is_correct": true}], "correct_letter": "D", "correct_answer": "Iqtisodiy hodisalar o'rtasidagi sabab-oqibat bog'lanishlarini izlash"}, {"num": 30, "category": "Nazorat testlari (2-to'plam)", "question": "Diagnostika vazifasi iqtisodiy tahlilda nimani anglatadi?", "options": [{"letter": "A", "text": "Reklama samaradorligini inkor etish", "is_correct": false}, {"letter": "B", "text": "Moliyaviy inqiroz xavfini oldindan sezish va baholash", "is_correct": true}, {"letter": "C", "text": "Xodimlarning tibbiy ko'rigini o'tkazish", "is_correct": false}, {"letter": "D", "text": "Kompyuter texnikalarini ta'mirlash", "is_correct": false}], "correct_letter": "B", "correct_answer": "Moliyaviy inqiroz xavfini oldindan sezish va baholash"}, {"num": 31, "category": "Nazorat testlari (2-to'plam)", "question": "Zamonaviy iqtisodiy tahlil an'anaviy tahlildan asosan nima bilan farq qiladi?", "options": [{"letter": "A", "text": "Qo'lda hisob-kitob qilishni rag'batlantirishi bilan", "is_correct": false}, {"letter": "B", "text": "Faqat o'tgan davrdagi xatolarni izlashi bilan", "is_correct": false}, {"letter": "C", "text": "Kelajakni prognozlash va strategik tahlilga ko'proq e'tibor berishi bilan", "is_correct": true}, {"letter": "D", "text": "Tahlil usullarining butunlay yo'q qilinganligi bilan", "is_correct": false}], "correct_letter": "C", "correct_answer": "Kelajakni prognozlash va strategik tahlilga ko'proq e'tibor berishi bilan"}, {"num": 32, "category": "Nazorat testlari (2-to'plam)", "question": "An'anaviy tahlilda asosan qanday yondashuv ustun edi?", "options": [{"letter": "A", "text": "Retrospektiv (o'tmishga qaratilgan) yondashuv", "is_correct": true}, {"letter": "B", "text": "Proaktiv (oldindan chora ko'ruvchi) yondashuv", "is_correct": false}, {"letter": "C", "text": "Sinergetik yondashuv", "is_correct": false}, {"letter": "D", "text": "Xalqaro standartlarga moslashish", "is_correct": false}], "correct_letter": "A", "correct_answer": "Retrospektiv (o'tmishga qaratilgan) yondashuv"}, {"num": 33, "category": "Nazorat testlari (2-to'plam)", "question": "Zamonaviy tahlilda qaysi omillarning roli keskin oshdi?", "options": [{"letter": "A", "text": "Faqat xom-ashyo hajmi", "is_correct": false}, {"letter": "B", "text": "Xodimlarning jismoniy kuchi", "is_correct": false}, {"letter": "C", "text": "Tansiq mahsulotlarni omborda saqlash", "is_correct": false}, {"letter": "D", "text": "Sifat omillari (innovatsiyalar, intellektual mulk, brend)", "is_correct": true}], "correct_letter": "D", "correct_answer": "Sifat omillari (innovatsiyalar, intellektual mulk, brend)"}, {"num": 34, "category": "Nazorat testlari (2-to'plam)", "question": "Bugungi kunda tahlil tezkorligini ta'minlovchi asosiy vosita nima?", "options": [{"letter": "A", "text": "ERP tizimlari va raqamli tahlil dasturlari", "is_correct": true}, {"letter": "B", "text": "Qog'ozdagi hisoblash cho'tlari", "is_correct": false}, {"letter": "C", "text": "Faqat oylik yig'ilishlar", "is_correct": false}, {"letter": "D", "text": "Xat tashuvchi kuryerlar", "is_correct": false}], "correct_letter": "A", "correct_answer": "ERP tizimlari va raqamli tahlil dasturlari"}, {"num": 35, "category": "Nazorat testlari (2-to'plam)", "question": "Zamonaviy tahlil kimlarning manfaatini ko'proq hisobga oladi?", "options": [{"letter": "A", "text": "Keng steykxolderlar (investor, ekolog, jamiyat)", "is_correct": true}, {"letter": "B", "text": "Faqat soliq inspeksiyasining", "is_correct": false}, {"letter": "C", "text": "Faqat xom-ashyo yetkazib beruvchilarning", "is_correct": false}, {"letter": "D", "text": "Faqat yagona davlat boshqaruv organining", "is_correct": false}], "correct_letter": "A", "correct_answer": "Keng steykxolderlar (investor, ekolog, jamiyat)"}, {"num": 36, "category": "Nazorat testlari (2-to'plam)", "question": "Bozor iqtisodiyoti iqtisodiy tahlil oldiga qanday yangi talabni qo'ydi?", "options": [{"letter": "A", "text": "Moliyaviy hisobotlarni yashirin yuritish", "is_correct": false}, {"letter": "B", "text": "Raqobatbardoshlik va moliyaviy barqarorlikni doimiy kuzatish", "is_correct": true}, {"letter": "C", "text": "Barcha narxlarni davlat tomonidan belgilanishini nazorat qilish", "is_correct": false}, {"letter": "D", "text": "Foyda olishni cheklash", "is_correct": false}], "correct_letter": "B", "correct_answer": "Raqobatbardoshlik va moliyaviy barqarorlikni doimiy kuzatish"}, {"num": 37, "category": "Nazorat testlari (2-to'plam)", "question": "Bozor sharoitida qaysi ko'rsatkichlar tahlili eng ustuvor hisoblanadi?", "options": [{"letter": "A", "text": "Ishlab chiqarilgan yaroqsiz mahsulotlar hajmi", "is_correct": false}, {"letter": "B", "text": "Foyda, rentabellik va to'lov qobiliyati", "is_correct": true}, {"letter": "C", "text": "Davlat byudjetidan olinadigan dotatsiyalar", "is_correct": false}, {"letter": "D", "text": "Xodimlarning kasaba uyushmasidagi faolligi", "is_correct": false}], "correct_letter": "B", "correct_answer": "Foyda, rentabellik va to'lov qobiliyati"}, {"num": 38, "category": "Nazorat testlari (2-to'plam)", "question": "Investitsion jozibadorlikni tahlil qilish nega muhim bo'lib qoldi?", "options": [{"letter": "A", "text": "Buxgalteriya balansini murakkablashtirish uchun", "is_correct": false}, {"letter": "B", "text": "Erkin kapital bozoridan sarmoya jalb qilish ehtiyoji sababli", "is_correct": true}, {"letter": "C", "text": "Davlat majburan pul ajratishi uchun", "is_correct": false}, {"letter": "D", "text": "Raqobatchilarni qo'rqitish uchun", "is_correct": false}], "correct_letter": "B", "correct_answer": "Erkin kapital bozoridan sarmoya jalb qilish ehtiyoji sababli"}, {"num": 39, "category": "Nazorat testlari (2-to'plam)", "question": "Bozor iqtisodiyotida xavflarni (risklarni) tahlil qilishning maqsadi nima?", "options": [{"letter": "A", "text": "Xatarlarni hisobga olmaslikni qonuniylashtirish", "is_correct": false}, {"letter": "B", "text": "Korxonani ataylab inqirozga olib borish", "is_correct": false}, {"letter": "C", "text": "Noaniqlik sharoitida ehtimoliy yo'qotishlarni minimallashtirish", "is_correct": true}, {"letter": "D", "text": "Faqat banklarni ayblash uchun sabab topish", "is_correct": false}], "correct_letter": "C", "correct_answer": "Noaniqlik sharoitida ehtimoliy yo'qotishlarni minimallashtirish"}, {"num": 40, "category": "Nazorat testlari (2-to'plam)", "question": "Auditorlik tahlili nima uchun bozor iqtisodiyotida keng rivojlandi?", "options": [{"letter": "A", "text": "Kompaniya sirlarini sotish uchun", "is_correct": false}, {"letter": "B", "text": "Faqat soliq to'lovlarini oshirish uchun", "is_correct": false}, {"letter": "C", "text": "Tashqi foydalanuvchilarga mustaqil xulosa berish uchun", "is_correct": true}, {"letter": "D", "text": "Ichki xodimlarni jazolash vositasi sifatida", "is_correct": false}], "correct_letter": "C", "correct_answer": "Tashqi foydalanuvchilarga mustaqil xulosa berish uchun"}, {"num": 41, "category": "Nazorat testlari (2-to'plam)", "question": "Boshqaruv qarorini qabul qilishdan oldin nima uchun tahlil o'tkaziladi?", "options": [{"letter": "A", "text": "Qaror ijrosini kechiktirish uchun", "is_correct": false}, {"letter": "B", "text": "Qarorning oqibatlarini baholash va muqobil variantlarni solishtirish uchun", "is_correct": true}, {"letter": "C", "text": "Faqat hujjatlar sonini ko'paytirish uchun", "is_correct": false}, {"letter": "D", "text": "Raqobatchilarga vaqt yutqazish uchun", "is_correct": false}], "correct_letter": "B", "correct_answer": "Qarorning oqibatlarini baholash va muqobil variantlarni solishtirish uchun"}, {"num": 42, "category": "Nazorat testlari (2-to'plam)", "question": "Muqobil variantlar tahlili qanday amalga oshiriladi?", "options": [{"letter": "A", "text": "Bir nechta yechimlar orasidan iqtisodiy eng samaralisi tanlab olinadi", "is_correct": true}, {"letter": "B", "text": "Faqat eng ko'p mablag' talab qiladigan variant tanlanadi", "is_correct": false}, {"letter": "C", "text": "Hamma variantlar bir vaqtda qo'llaniladi", "is_correct": false}, {"letter": "D", "text": "Qura tashlash yo'li bilan tanlanadi", "is_correct": false}], "correct_letter": "A", "correct_answer": "Bir nechta yechimlar orasidan iqtisodiy eng samaralisi tanlab olinadi"}, {"num": 43, "category": "Nazorat testlari (2-to'plam)", "question": "Operatsion qarorlar qabul qilishda iqtisodiy tahlil qanday rol o'ynaydi?", "options": [{"letter": "A", "text": "Faqat yillik hisobotlarda aks etadi", "is_correct": false}, {"letter": "B", "text": "Operatsion faoliyatni butunlay to'xtatadi", "is_correct": false}, {"letter": "C", "text": "Kundalik xarajatlar va daromadlarni optimallashtirishga yordam beradi", "is_correct": true}, {"letter": "D", "text": "Hech qanday rol o'ynamaydi", "is_correct": false}], "correct_letter": "C", "correct_answer": "Kundalik xarajatlar va daromadlarni optimallashtirishga yordam beradi"}, {"num": 44, "category": "Nazorat testlari (2-to'plam)", "question": "Tahlil asosida qabul qilingan qarorning afzalligi nimada?", "options": [{"letter": "A", "text": "Hech qachon xato qilinmasligini kafolatlashida", "is_correct": false}, {"letter": "B", "text": "Barcha mas'uliyatni kompyuter dasturiga yuklashida", "is_correct": false}, {"letter": "C", "text": "Faqat rahbarning intuitsiyasiga (hissiyotiga) tayanishida", "is_correct": false}, {"letter": "D", "text": "Ob'ektiv dalillarga, aniq raqam va hisob-kitoblarga tayanishida", "is_correct": true}], "correct_letter": "D", "correct_answer": "Ob'ektiv dalillarga, aniq raqam va hisob-kitoblarga tayanishida"}, {"num": 45, "category": "Nazorat testlari (2-to'plam)", "question": "Marginal (chegaraviy) tahlil usuli qaror qabul qilishda nima uchun kerak?", "options": [{"letter": "A", "text": "Qo'shimcha mahsulot ishlab chiqarishning foyda-zararini aniqlash uchun", "is_correct": true}, {"letter": "B", "text": "Xodimlarning ish vaqtini chegaralash uchun", "is_correct": false}, {"letter": "C", "text": "Buxgalterlarning oyligini qisqartirish uchun", "is_correct": false}, {"letter": "D", "text": "Korxona devorlarini qayerdan qurishni belgilash uchun", "is_correct": false}], "correct_letter": "A", "correct_answer": "Qo'shimcha mahsulot ishlab chiqarishning foyda-zararini aniqlash uchun"}, {"num": 46, "category": "Nazorat testlari (2-to'plam)", "question": "Raqamli iqtisodiyot iqtisodiy tahlilga qanday asosiy yangilik kiritmoqda?", "options": [{"letter": "A", "text": "Tahlilchilarni ishdan bo'shatishni", "is_correct": false}, {"letter": "B", "text": "Hisob-kitoblarni faqat qog'ozda yuritishni", "is_correct": false}, {"letter": "C", "text": "Buxgalteriya hisobidan voz kechishni", "is_correct": false}, {"letter": "D", "text": "Big Data (katta ma'lumotlar) va avtomatlashtirilgan tahlilni", "is_correct": true}], "correct_letter": "D", "correct_answer": "Big Data (katta ma'lumotlar) va avtomatlashtirilgan tahlilni"}, {"num": 47, "category": "Nazorat testlari (2-to'plam)", "question": "Sun'iy intellektning iqtisodiy tahlildagi kelajakdagi o'rni qanday baholanmoqda?", "options": [{"letter": "A", "text": "Standart operatsiyalarni bajarib, murakkab bashoratlarni aniqroq qiladi", "is_correct": true}, {"letter": "B", "text": "Uning ahamiyati faqat kiberxavfsizlikda seziladi", "is_correct": false}, {"letter": "C", "text": "Tahlil jarayonini sekinlashtiradi va qimmatlashtiradi", "is_correct": false}, {"letter": "D", "text": "Iqtisodiy tahlilni mutlaqo taqiqlab qo'yadi", "is_correct": false}], "correct_letter": "A", "correct_answer": "Standart operatsiyalarni bajarib, murakkab bashoratlarni aniqroq qiladi"}, {"num": 48, "category": "Nazorat testlari (2-to'plam)", "question": "Data mining (ma'lumotlarni qazib olish) usuli tahlilda qanday ishlatiladi?", "options": [{"letter": "A", "text": "Yashirin qonuniyatlar va katta ma'lumotlar ichidagi trendlarni topish uchun", "is_correct": true}, {"letter": "B", "text": "Kriptovalyuta qazib olish uchun", "is_correct": false}, {"letter": "C", "text": "Raqobatchilarning serverlarini buzib kirish uchun", "is_correct": false}, {"letter": "D", "text": "Geologik qazilma boyliklarini izlash uchun", "is_correct": false}], "correct_letter": "A", "correct_answer": "Yashirin qonuniyatlar va katta ma'lumotlar ichidagi trendlarni topish uchun"}, {"num": 49, "category": "Nazorat testlari (2-to'plam)", "question": "Bulutli texnologiyalar tahlilchilarga qanday qulaylik yaratadi?", "options": [{"letter": "A", "text": "Kompyuter xotirasini tezroq to'ldirish", "is_correct": false}, {"letter": "B", "text": "Istagan joydan turib onlayn bazalarga kirish va guruhda ishlash", "is_correct": true}, {"letter": "C", "text": "Hisobotlarni qog'ozda tezroq chop etish", "is_correct": false}, {"letter": "D", "text": "Faqat ma'lumotlarni o'chirish", "is_correct": false}], "correct_letter": "B", "correct_answer": "Istagan joydan turib onlayn bazalarga kirish va guruhda ishlash"}, {"num": 50, "category": "Nazorat testlari (2-to'plam)", "question": "Raqamli davrda vizualizatsiya (Dashboard) ning ahamiyati nimada?", "options": [{"letter": "A", "text": "Murakkab natijalarni interaktiv, vizual grafik ko'rinishda taqdim etishda", "is_correct": true}, {"letter": "B", "text": "Buxgalterlarni ishdan chalg'itishda", "is_correct": false}, {"letter": "C", "text": "Kompyuter ekranining yorqinligini oshirishda", "is_correct": false}, {"letter": "D", "text": "Faqat ofisni bezatib turishda", "is_correct": false}], "correct_letter": "A", "correct_answer": "Murakkab natijalarni interaktiv, vizual grafik ko'rinishda taqdim etishda"}];
+
+        let currentFcIndex = 0;
+        let isFcAnswerShown = false;
+
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        function switchMode(mode) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('flashcardsView').style.display = (mode === 'flashcards') ? 'flex' : 'none';
+            document.getElementById('quizView').style.display = (mode === 'quiz') ? 'block' : 'none';
+            document.getElementById('cheatsheetView').style.display = (mode === 'cheatsheet') ? 'block' : 'none';
+
+            if (mode === 'flashcards') updateFlashcard();
+            if (mode === 'quiz') loadQuizQuestion();
+            if (mode === 'cheatsheet') renderCheatSheet();
+        }
+
+        /* FLASHCARD LOGIC */
+        function updateFlashcard() {
+            const test = allTests[currentFcIndex];
+            document.getElementById('fcTopNumber').textContent = `Test #${currentFcIndex + 1} (${test.category})`;
+            document.getElementById('fcCategory').textContent = test.category;
+            document.getElementById('fcProgress').textContent = `${currentFcIndex + 1} / ${allTests.length}`;
+            document.getElementById('fcQuestion').textContent = test.question;
+            document.getElementById('fcAnswerText').textContent = `${test.correct_letter}) ${test.correct_answer}`;
+
+            isFcAnswerShown = false;
+            document.getElementById('fcAnswerBox').classList.remove('visible');
+            document.getElementById('fcHint').style.display = 'block';
+        }
+
+        function toggleFlashcardAnswer() {
+            isFcAnswerShown = !isFcAnswerShown;
+            const box = document.getElementById('fcAnswerBox');
+            const hint = document.getElementById('fcHint');
+            if (isFcAnswerShown) {
+                box.classList.add('visible');
+                hint.style.display = 'none';
+            } else {
+                box.classList.remove('visible');
+                hint.style.display = 'block';
+            }
+        }
+
+        function nextFlashcard() {
+            if (currentFcIndex < allTests.length - 1) {
+                currentFcIndex++;
+                updateFlashcard();
+            }
+        }
+
+        function prevFlashcard() {
+            if (currentFcIndex > 0) {
+                currentFcIndex--;
+                updateFlashcard();
+            }
+        }
+
+        /* QUIZ LOGIC */
+        function loadQuizQuestion() {
+            quizAnswered = false;
+            const test = allTests[currentQuizIndex];
+            document.getElementById('quizBadge').textContent = `Test #${currentQuizIndex + 1} / ${allTests.length} (${test.category})`;
+            document.getElementById('quizQuestion').textContent = test.question;
+            document.getElementById('quizFeedback').textContent = '';
+            document.getElementById('quizNextBtn').style.display = 'none';
+
+            const optsDiv = document.getElementById('quizOptions');
+            optsDiv.innerHTML = '';
+
+            test.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `<strong>${opt.letter})</strong> <span>${opt.text}</span>`;
+                btn.onclick = () => selectQuizOption(btn, opt.is_correct);
+                optsDiv.appendChild(btn);
+            });
+        }
+
+        function selectQuizOption(btn, isCorrect) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.classList.add('disabled'));
+
+            if (isCorrect) {
+                btn.classList.add('correct');
+                quizScore++;
+                document.getElementById('quizFeedback').innerHTML = '<span style="color:#34d399;">✔ Barakalla, to‘g‘ri javob!</span>';
+            } else {
+                btn.classList.add('wrong');
+                buttons.forEach(b => {
+                    if (b.innerText.includes(allTests[currentQuizIndex].correct_answer)) {
+                        b.classList.add('correct');
+                    }
+                });
+                document.getElementById('quizFeedback').innerHTML = '<span style="color:#f87171;">✖ Noto‘g‘ri. Yashil variant to‘g‘ri javob!</span>';
+            }
+
+            document.getElementById('quizScore').textContent = `To‘g‘ri: ${quizScore} / ${currentQuizIndex + 1}`;
+            document.getElementById('quizNextBtn').style.display = 'inline-block';
+        }
+
+        function nextQuizQuestion() {
+            if (currentQuizIndex < allTests.length - 1) {
+                currentQuizIndex++;
+                loadQuizQuestion();
+            } else {
+                alert(`Test yakunlandi! Natijangiz: ${quizScore} / ${allTests.length}`);
+            }
+        }
+
+        /* CHEATSHEET LOGIC */
+        function renderCheatSheet(filter = '') {
+            const list = document.getElementById('cheatList');
+            list.innerHTML = '';
+            const filtered = allTests.filter(t => 
+                t.question.toLowerCase().includes(filter.toLowerCase()) || 
+                t.correct_answer.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            filtered.forEach(t => {
+                const d = document.createElement('div');
+                d.className = 'table-item';
+                d.innerHTML = `
+                    <div style="font-size: 12px; color: #60a5fa; font-weight: 700; margin-bottom: 4px;">Test #${t.num} • ${t.category}</div>
+                    <div class="table-q">${t.question}</div>
+                    <div class="table-a">✅ To'g'ri javob: ${t.correct_letter}) ${t.correct_answer}</div>
+                `;
+                list.appendChild(d);
+            });
+        }
+
+        // Initialize
+        updateFlashcard();
+    </script>
+</body>
+</html>

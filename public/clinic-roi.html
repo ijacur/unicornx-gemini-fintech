@@ -50,9 +50,27 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #FFFFFF;
+      background: #C6F432;
       cursor: pointer;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 15px rgba(198, 244, 50, 0.7);
+    }
+    .badge-lime {
+      background: rgba(198, 244, 50, 0.12);
+      border: 1px solid rgba(198, 244, 50, 0.3);
+      color: #C6F432;
+    }
+    .btn-lime {
+      background: #C6F432;
+      color: #0B0B0C;
+      font-weight: 800;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 25px rgba(198, 244, 50, 0.35);
+    }
+    .btn-lime:hover {
+      background: #D4F855;
+      transform: scale(1.02);
+      box-shadow: 0 0 35px rgba(198, 244, 50, 0.5);
     }
     @media print {
       body { background-color: #FFFFFF !important; color: #000000 !important; }
@@ -89,8 +107,8 @@
         <a href="/reception.html" class="apple-btn-secondary px-3 py-1.5 text-xs">
           Registratura navbati →
         </a>
-        <button onclick="window.print()" class="apple-btn px-3 py-1.5 text-xs flex items-center gap-1.5">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="window.print()" class="btn-lime px-3.5 py-1.5 text-xs flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
           </svg>
           Hisobotni PDF yuklab olish
@@ -116,21 +134,22 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
 
     <!-- Value Proposition Banner -->
-    <div class="apple-card p-5 bg-gradient-to-r from-zinc-900/90 to-zinc-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-[11px] font-semibold uppercase tracking-wider mb-2">
-          📈 B2B SaaS Qiymat Formulasi (Track B)
+    <div class="apple-card p-5 bg-gradient-to-r from-zinc-900/90 to-zinc-950 border-[#C6F432]/25 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="absolute -top-12 -right-12 w-64 h-64 bg-[#C6F432]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-lime text-[11px] font-bold uppercase tracking-wider mb-2">
+          ⚡️ 60/30/10 B2B SaaS Qiymat Modeli (Track B)
         </div>
-        <h2 class="text-lg font-black text-white tracking-tight">
-          Laboratoriyadan keyingi 45% bemor yo'qotilishini (drop-off) qaytarish
+        <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">
+          Laboratoriyadan keyingi <span class="font-serif italic text-[#C6F432] font-normal">45% drop-off</span> yo'qotilishini tiklash
         </h2>
         <p class="text-xs text-zinc-400 mt-1 max-w-3xl leading-relaxed">
           Klinikangizda qon topshirgan har 100 bemordan 45 nafari natijasini olib uyiga ketadi va shifokor ko'rigiga kirmaydi. 
           MedLoop ushbu bemorlarni 8 soniyada aniqlaydi va qabulga qaytaradi.
         </p>
       </div>
-      <div class="text-right">
-        <span class="text-3xl font-black text-white mono block" id="headerRoi">28.5x</span>
+      <div class="text-right relative z-10">
+        <span class="text-3xl font-black text-[#C6F432] mono block" id="headerRoi">28.5x</span>
         <span class="text-[11px] text-zinc-400">Investitsiya ROI ko'paytmasi</span>
       </div>
     </div>

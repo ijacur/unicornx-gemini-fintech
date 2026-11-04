@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jasur Shukurov - A4 Print Sheet (8-Up Cards with Crop Marks)</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root {
+  --font-serif: 'Cinzel', 'Copperplate', 'Didot', 'Times New Roman', serif;
+  --font-body: 'Cormorant Garamond', 'Garamond', 'Georgia', serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  --card-bg: #FAF6ED;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #FDFBF5 0%, #FAF6ED 65%, #F2ECE0 100%);
+  --ink-primary: #1C1916;
+  --ink-secondary: #3D3934;
+  --ink-muted: #6E675E;
+  --watermark-color: rgba(160, 140, 110, 0.08);
+  --border-color: rgba(60, 50, 40, 0.14);
+  --qr-border: rgba(60, 50, 40, 0.25);
+  --letterpress: 0 1px 0 rgba(255, 255, 255, 0.85), 0 -1px 0 rgba(0, 0, 0, 0.25);
+  --gold-accent: #A38038;
+}
+
+[data-theme="eggshell"] {
+  --card-bg: #F4F3ED;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #FAF9F5 0%, #F4F3ED 65%, #ECEAE0 100%);
+  --ink-primary: #191B1B;
+  --ink-secondary: #383B3B;
+  --ink-muted: #666B6B;
+  --watermark-color: rgba(130, 140, 145, 0.08);
+  --border-color: rgba(40, 50, 50, 0.14);
+  --qr-border: rgba(40, 50, 50, 0.25);
+  --letterpress: 0 1px 0 rgba(255, 255, 255, 0.85), 0 -1px 0 rgba(0, 0, 0, 0.25);
+  --gold-accent: #7A8084;
+}
+
+[data-theme="nimbus"] {
+  --card-bg: #FCFBF8;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #FFFFFF 0%, #FCFBF8 65%, #F5F3EC 100%);
+  --ink-primary: #111111;
+  --ink-secondary: #2C2C2C;
+  --ink-muted: #5A5A5A;
+  --watermark-color: rgba(180, 150, 90, 0.09);
+  --border-color: rgba(30, 30, 30, 0.15);
+  --qr-border: rgba(30, 30, 30, 0.28);
+  --letterpress: 0 1px 0 rgba(255, 255, 255, 0.9), 0 -1px 0 rgba(0, 0, 0, 0.3);
+  --gold-accent: #B08D38;
+}
+
+[data-theme="noir"] {
+  --card-bg: #141416;
+  --card-bg-gradient: radial-gradient(circle at 50% 35%, #1F1F24 0%, #141416 70%, #0C0C0E 100%);
+  --ink-primary: #E5C370;
+  --ink-secondary: #C8A752;
+  --ink-muted: #947E45;
+  --watermark-color: rgba(229, 195, 112, 0.07);
+  --border-color: rgba(229, 195, 112, 0.24);
+  --qr-border: rgba(229, 195, 112, 0.38);
+  --letterpress: 0 1px 1px rgba(0, 0, 0, 0.9), 0 -1px 0 rgba(229, 195, 112, 0.3);
+  --gold-accent: #E5C370;
+}
+
+.card-face {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  background: var(--card-bg-gradient);
+  color: var(--ink-primary);
+  font-family: var(--font-serif);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64%;
+  height: 64%;
+  color: var(--watermark-color);
+  pointer-events: none;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-watermark svg {
+  width: 100%;
+  height: 100%;
+}
+
+.card-content-layer {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-inner-border {
+  position: absolute;
+  top: 0.09in;
+  left: 0.09in;
+  right: 0.09in;
+  bottom: 0.09in;
+  border: 0.4pt solid var(--border-color);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Front Header */
+.front-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.front-tel {
+  font-size: 5.6pt;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.front-firm {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.front-firm-name {
+  font-size: 7.2pt;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  color: var(--ink-primary);
+}
+
+.front-firm-dept {
+  font-size: 4.5pt;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--ink-muted);
+  margin-top: 1px;
+}
+
+/* Front Center */
+.front-center {
+  text-align: center;
+  margin: auto 0;
+  padding: 2px 0;
+}
+
+.front-name {
+  font-size: 15.5pt;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  margin: 0 0 2px 0;
+  color: var(--ink-primary);
+  text-shadow: var(--letterpress);
+  white-space: nowrap;
+}
+
+.front-title {
+  font-size: 6.4pt;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.front-subpillars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+  font-size: 3.9pt;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  color: var(--ink-muted);
+}
+
+.subpillar-item {
+  white-space: nowrap;
+}
+
+.front-subpillars span.dot {
+  color: var(--gold-accent);
+  font-size: 4pt;
+}
+
+/* Front Footer */
+.front-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 4.1pt;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  color: var(--ink-muted);
+  border-top: 0.4pt solid var(--border-color);
+  padding-top: 2.5px;
+}
+
+.footer-col-left {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.footer-col-right {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Back Layout */
+.back-header {
+  text-align: center;
+  border-bottom: 0.4pt solid var(--border-color);
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
+.back-header-title {
+  font-size: 5.3pt;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  color: var(--ink-primary);
+  white-space: nowrap;
+}
+
+.back-body {
+  display: flex;
+  gap: 0.12in;
+  align-items: center;
+  flex: 1;
+}
+
+.back-qr-box {
+  width: 0.95in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.qr-frame {
+  width: 0.74in;
+  height: 0.74in;
+  padding: 2.5px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 0.5pt solid var(--qr-border);
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="noir"] .qr-frame {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.qr-code-svg {
+  width: 100%;
+  height: 100%;
+  color: var(--ink-primary);
+}
+
+.qr-caption {
+  font-size: 4pt;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-align: center;
+  color: var(--ink-secondary);
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
+.qr-handle {
+  font-size: 4.2pt;
+  letter-spacing: 0.08em;
+  color: var(--gold-accent);
+  font-weight: 700;
+}
+
+.qr-tel {
+  font-size: 3.8pt;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+
+.back-pillars {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3px 6px;
+}
+
+.pillar-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.pillar-title {
+  font-size: 4.8pt;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ink-primary);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 1px;
+}
+
+.pillar-num {
+  color: var(--gold-accent);
+  font-size: 4.2pt;
+}
+
+.pillar-desc {
+  font-family: var(--font-body);
+  font-size: 5.1pt;
+  line-height: 1.15;
+  color: var(--ink-secondary);
+}
+
+.back-footer {
+  border-top: 0.4pt solid var(--border-color);
+  padding-top: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 4.2pt;
+  font-style: italic;
+  font-family: var(--font-body);
+  color: var(--ink-muted);
+}
+
+.back-quote {
+  letter-spacing: 0.04em;
+}
+
+.back-inst {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-size: 4.4pt;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+}
+
+/* Single Sided Layout */
+.single-body {
+  display: flex;
+  gap: 0.12in;
+  align-items: center;
+  margin: auto 0;
+}
+
+.single-info {
+  flex: 1;
+}
+
+.single-name {
+  font-size: 13.5pt !important;
+  letter-spacing: 0.22em !important;
+}
+
+.single-title {
+  font-size: 5.8pt !important;
+  letter-spacing: 0.22em !important;
+}
+
+.single-desc {
+  font-family: var(--font-body);
+  font-size: 5.2pt;
+  color: var(--ink-secondary);
+  margin-top: 3.5px;
+  line-height: 1.25;
+}
+
+.single-qr-box {
+  width: 0.76in;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.single-qr-frame {
+  width: 0.68in;
+  height: 0.68in;
+  padding: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 0.5pt solid var(--qr-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="noir"] .single-qr-frame {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.single-qr-caption {
+  font-size: 3.7pt;
+  margin-top: 2px;
+  text-align: center;
+  line-height: 1.15;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #eef0f2;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.sheet-page {
+  width: 210mm;
+  height: 297mm;
+  page-break-after: always;
+  box-sizing: border-box;
+  padding: 20mm 15mm;
+  background: #fff;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+.sheet-header {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 7pt;
+  letter-spacing: 0.2em;
+  color: #888;
+  border-bottom: 0.5pt solid #ddd;
+  padding-bottom: 4mm;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 3.5in);
+  grid-template-rows: repeat(4, 2.0in);
+  justify-content: center;
+  align-content: center;
+  gap: 5mm;
+}
+.card-cell {
+  width: 3.5in;
+  height: 2.0in;
+  position: relative;
+}
+.crop-mark {
+  position: absolute;
+  border-color: #999;
+  pointer-events: none;
+  z-index: 10;
+}
+.crop-tl-h { top: 0; left: -4mm; width: 3mm; border-top: 0.4pt solid #777; }
+.crop-tl-v { top: -4mm; left: 0; height: 3mm; border-left: 0.4pt solid #777; }
+.crop-tr-h { top: 0; right: -4mm; width: 3mm; border-top: 0.4pt solid #777; }
+.crop-tr-v { top: -4mm; right: 0; height: 3mm; border-right: 0.4pt solid #777; }
+.crop-bl-h { bottom: 0; left: -4mm; width: 3mm; border-bottom: 0.4pt solid #777; }
+.crop-bl-v { bottom: -4mm; left: 0; height: 3mm; border-left: 0.4pt solid #777; }
+.crop-br-h { bottom: 0; right: -4mm; width: 3mm; border-bottom: 0.4pt solid #777; }
+.crop-br-v { bottom: -4mm; right: 0; height: 3mm; border-right: 0.4pt solid #777; }
+
+.card-sheet-face {
+  width: 100%;
+  height: 100%;
+  padding: 0.15in 0.17in;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border: 0.2pt solid rgba(0,0,0,0.05);
+}
+.sheet-footer {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 8pt;
+  color: #999;
+  border-top: 0.5pt solid #ddd;
+  padding-top: 4mm;
+}
+@media screen {
+  body {
+    padding: 20px 0;
+  }
+  .sheet-page {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+}
+</style>
+</head>
+<body data-theme="bone">
+  <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+  <filter id="paper-grain" x="0%" y="0%" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise" />
+    <feDiffuseLighting in="noise" lighting-color="#fff" surfaceScale="1.2" result="light">
+      <feDistantLight azimuth="45" elevation="60" />
+    </feDiffuseLighting>
+    <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+  </filter>
+</svg>
+  <div class="sheet-page">
+    <div class="sheet-header">
+      JASUR SHUKUROV &bull; AMERICAN PSYCHO CLASSIC EDITION &bull; FRONT SIDE (8 CARDS &bull; TRIM ALONG GUIDES)
+    </div>
+    <div class="grid-container">
+      
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="front-header">
+        <div class="front-tel">+998 88 223 33 34</div>
+        <div class="front-firm">
+          <div class="front-firm-name">ANTIGRAVITY SYSTEMS</div>
+          <div class="front-firm-dept">COGNITIVE ARCHITECTURE &amp; QUANTITATIVE INTELLIGENCE</div>
+        </div>
+      </div>
+      <div class="front-center">
+        <div class="front-name">JASUR SHUKUROV</div>
+        <div class="front-title">CHIEF EXECUTIVE &amp; LEAD AI ARCHITECT</div>
+        <div class="front-subpillars">
+          <span class="subpillar-item">AI &amp; PROMPT SYSTEMS</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">LOW-LATENCY C/C++</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">HEALTHCARE MANAGEMENT</span>
+          <span class="dot">◆</span>
+          <span class="subpillar-item">ARBITRAGE</span>
+        </div>
+      </div>
+      <div class="front-footer">
+        <div class="footer-col-left">CHANNEL: @SHUKUROV_JASUR &bull; IG: @JASURCEO</div>
+        <div class="footer-col-right">SAMSMU HEALTHCARE &bull; SCHOOL 21 (ÉCOLE 42)</div>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+    <div class="sheet-footer">
+      Print at 100% Scale (Actual Size) on 280–350 gsm Cotton / Linen Heavy Cardstock &bull; Trim with Paper Cutter along Corner Marks
+    </div>
+  </div>
+
+  <div class="sheet-page">
+    <div class="sheet-header">
+      JASUR SHUKUROV &bull; EXECUTIVE DOSSIER MATRIX &bull; REVERSE SIDE (8 CARDS &bull; VECTOR QR CODE INCLUDED)
+    </div>
+    <div class="grid-container">
+      
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card-cell">
+  <div class="crop-mark crop-tl-h"></div><div class="crop-mark crop-tl-v"></div>
+  <div class="crop-mark crop-tr-h"></div><div class="crop-mark crop-tr-v"></div>
+  <div class="crop-mark crop-bl-h"></div><div class="crop-mark crop-bl-v"></div>
+  <div class="crop-mark crop-br-h"></div><div class="crop-mark crop-br-v"></div>
+  <div class="card-sheet-face card-face">
+    
+    <div class="card-inner-border"></div>
+    <div class="card-watermark"><svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" class="watermark-svg">
+  <defs>
+    <path id="circlePathW" d="M 120, 120 m -86, 0 a 86,86 0 1,1 172,0 a 86,86 0 1,1 -172,0" />
+  </defs>
+  <circle cx="120" cy="120" r="112" fill="none" stroke="currentColor" stroke-width="0.75" stroke-dasharray="2.5,2.5" />
+  <circle cx="120" cy="120" r="107" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="95" fill="none" stroke="currentColor" stroke-width="0.6" />
+  <circle cx="120" cy="120" r="78" fill="none" stroke="currentColor" stroke-width="1.2" />
+  <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="1.5,2.5" />
+
+  <text font-family="'Cinzel', 'Copperplate', 'Didot', serif" font-size="8" font-weight="600" fill="currentColor" letter-spacing="3.2">
+    <textPath href="#circlePathW" startOffset="50%" text-anchor="middle">
+      • ANTIGRAVITY SYSTEMS • EXCELLENTIA PER SCIENTIAM •
+    </textPath>
+  </text>
+
+  <g transform="translate(120, 120)">
+    <path d="M -42,6 C -42,-24 -24,-46 0,-50 C 24,-46 42,-24 42,6 C 42,34 22,50 0,55 C -22,50 -42,34 -42,6 Z" fill="none" stroke="currentColor" stroke-width="0.9" opacity="0.65" />
+    <polygon points="0,-34 5,-22 17,-22 8,-14 11,-2 0,-9 -11,-2 -8,-14 -17,-22 -5,-22" fill="currentColor" opacity="0.8" />
+    <text x="0" y="20" font-family="'Cinzel', 'Copperplate', serif" font-size="34" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="1.5">JS</text>
+    <text x="0" y="33" font-family="'Cinzel', 'Copperplate', serif" font-size="6.5" font-weight="600" fill="currentColor" text-anchor="middle" letter-spacing="3">MCMLXXXVII</text>
+  </g>
+</svg></div>
+    <div class="card-content-layer">
+      <div class="back-header">
+        <div class="back-header-title">EXECUTIVE DOSSIER &bull; VERIFIED CAPABILITIES MATRIX</div>
+      </div>
+      <div class="back-body">
+        <div class="back-qr-box">
+          <div class="qr-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 400 400" class="qr-code-svg">
+	<!-- Created with https://api.qrserver.com (QR Code API, see goQR.me/api for information) -->
+	<title>QR Code</title>
+	<desc>https://t.me/Shukurov_Jasur</desc>
+	<rect style="fill:rgb(255, 255, 255);fill-opacity:1" x="0" y="0" viewBox="0 0 400 400" class="qr-code-svg" />
+	<g id="elements">
+		<path style="fill:rgb(0, 0, 0)" d="M 0,0 l 16,0 0,16 -16,0 z M 16,0 l 16,0 0,16 -16,0 z M 32,0 l 16,0 0,16 -16,0 z M 48,0 l 16,0 0,16 -16,0 z M 64,0 l 16,0 0,16 -16,0 z M 80,0 l 16,0 0,16 -16,0 z M 96,0 l 16,0 0,16 -16,0 z M 160,0 l 16,0 0,16 -16,0 z M 192,0 l 16,0 0,16 -16,0 z M 224,0 l 16,0 0,16 -16,0 z M 256,0 l 16,0 0,16 -16,0 z M 288,0 l 16,0 0,16 -16,0 z M 304,0 l 16,0 0,16 -16,0 z M 320,0 l 16,0 0,16 -16,0 z M 336,0 l 16,0 0,16 -16,0 z M 352,0 l 16,0 0,16 -16,0 z M 368,0 l 16,0 0,16 -16,0 z M 384,0 l 16,0 0,16 -16,0 z M 0,16 l 16,0 0,16 -16,0 z M 96,16 l 16,0 0,16 -16,0 z M 128,16 l 16,0 0,16 -16,0 z M 160,16 l 16,0 0,16 -16,0 z M 224,16 l 16,0 0,16 -16,0 z M 240,16 l 16,0 0,16 -16,0 z M 256,16 l 16,0 0,16 -16,0 z M 288,16 l 16,0 0,16 -16,0 z M 384,16 l 16,0 0,16 -16,0 z M 0,32 l 16,0 0,16 -16,0 z M 32,32 l 16,0 0,16 -16,0 z M 48,32 l 16,0 0,16 -16,0 z M 64,32 l 16,0 0,16 -16,0 z M 96,32 l 16,0 0,16 -16,0 z M 192,32 l 16,0 0,16 -16,0 z M 224,32 l 16,0 0,16 -16,0 z M 288,32 l 16,0 0,16 -16,0 z M 320,32 l 16,0 0,16 -16,0 z M 336,32 l 16,0 0,16 -16,0 z M 352,32 l 16,0 0,16 -16,0 z M 384,32 l 16,0 0,16 -16,0 z M 0,48 l 16,0 0,16 -16,0 z M 32,48 l 16,0 0,16 -16,0 z M 48,48 l 16,0 0,16 -16,0 z M 64,48 l 16,0 0,16 -16,0 z M 96,48 l 16,0 0,16 -16,0 z M 128,48 l 16,0 0,16 -16,0 z M 144,48 l 16,0 0,16 -16,0 z M 160,48 l 16,0 0,16 -16,0 z M 192,48 l 16,0 0,16 -16,0 z M 208,48 l 16,0 0,16 -16,0 z M 224,48 l 16,0 0,16 -16,0 z M 288,48 l 16,0 0,16 -16,0 z M 320,48 l 16,0 0,16 -16,0 z M 336,48 l 16,0 0,16 -16,0 z M 352,48 l 16,0 0,16 -16,0 z M 384,48 l 16,0 0,16 -16,0 z M 0,64 l 16,0 0,16 -16,0 z M 32,64 l 16,0 0,16 -16,0 z M 48,64 l 16,0 0,16 -16,0 z M 64,64 l 16,0 0,16 -16,0 z M 96,64 l 16,0 0,16 -16,0 z M 144,64 l 16,0 0,16 -16,0 z M 224,64 l 16,0 0,16 -16,0 z M 256,64 l 16,0 0,16 -16,0 z M 288,64 l 16,0 0,16 -16,0 z M 320,64 l 16,0 0,16 -16,0 z M 336,64 l 16,0 0,16 -16,0 z M 352,64 l 16,0 0,16 -16,0 z M 384,64 l 16,0 0,16 -16,0 z M 0,80 l 16,0 0,16 -16,0 z M 96,80 l 16,0 0,16 -16,0 z M 128,80 l 16,0 0,16 -16,0 z M 144,80 l 16,0 0,16 -16,0 z M 176,80 l 16,0 0,16 -16,0 z M 192,80 l 16,0 0,16 -16,0 z M 208,80 l 16,0 0,16 -16,0 z M 240,80 l 16,0 0,16 -16,0 z M 256,80 l 16,0 0,16 -16,0 z M 288,80 l 16,0 0,16 -16,0 z M 384,80 l 16,0 0,16 -16,0 z M 0,96 l 16,0 0,16 -16,0 z M 16,96 l 16,0 0,16 -16,0 z M 32,96 l 16,0 0,16 -16,0 z M 48,96 l 16,0 0,16 -16,0 z M 64,96 l 16,0 0,16 -16,0 z M 80,96 l 16,0 0,16 -16,0 z M 96,96 l 16,0 0,16 -16,0 z M 128,96 l 16,0 0,16 -16,0 z M 160,96 l 16,0 0,16 -16,0 z M 192,96 l 16,0 0,16 -16,0 z M 224,96 l 16,0 0,16 -16,0 z M 256,96 l 16,0 0,16 -16,0 z M 288,96 l 16,0 0,16 -16,0 z M 304,96 l 16,0 0,16 -16,0 z M 320,96 l 16,0 0,16 -16,0 z M 336,96 l 16,0 0,16 -16,0 z M 352,96 l 16,0 0,16 -16,0 z M 368,96 l 16,0 0,16 -16,0 z M 384,96 l 16,0 0,16 -16,0 z M 144,112 l 16,0 0,16 -16,0 z M 160,112 l 16,0 0,16 -16,0 z M 176,112 l 16,0 0,16 -16,0 z M 240,112 l 16,0 0,16 -16,0 z M 256,112 l 16,0 0,16 -16,0 z M 0,128 l 16,0 0,16 -16,0 z M 16,128 l 16,0 0,16 -16,0 z M 32,128 l 16,0 0,16 -16,0 z M 48,128 l 16,0 0,16 -16,0 z M 64,128 l 16,0 0,16 -16,0 z M 96,128 l 16,0 0,16 -16,0 z M 112,128 l 16,0 0,16 -16,0 z M 128,128 l 16,0 0,16 -16,0 z M 144,128 l 16,0 0,16 -16,0 z M 176,128 l 16,0 0,16 -16,0 z M 192,128 l 16,0 0,16 -16,0 z M 208,128 l 16,0 0,16 -16,0 z M 224,128 l 16,0 0,16 -16,0 z M 240,128 l 16,0 0,16 -16,0 z M 256,128 l 16,0 0,16 -16,0 z M 272,128 l 16,0 0,16 -16,0 z M 304,128 l 16,0 0,16 -16,0 z M 336,128 l 16,0 0,16 -16,0 z M 368,128 l 16,0 0,16 -16,0 z M 16,144 l 16,0 0,16 -16,0 z M 48,144 l 16,0 0,16 -16,0 z M 128,144 l 16,0 0,16 -16,0 z M 160,144 l 16,0 0,16 -16,0 z M 192,144 l 16,0 0,16 -16,0 z M 208,144 l 16,0 0,16 -16,0 z M 256,144 l 16,0 0,16 -16,0 z M 368,144 l 16,0 0,16 -16,0 z M 16,160 l 16,0 0,16 -16,0 z M 48,160 l 16,0 0,16 -16,0 z M 80,160 l 16,0 0,16 -16,0 z M 96,160 l 16,0 0,16 -16,0 z M 128,160 l 16,0 0,16 -16,0 z M 160,160 l 16,0 0,16 -16,0 z M 192,160 l 16,0 0,16 -16,0 z M 208,160 l 16,0 0,16 -16,0 z M 224,160 l 16,0 0,16 -16,0 z M 240,160 l 16,0 0,16 -16,0 z M 272,160 l 16,0 0,16 -16,0 z M 336,160 l 16,0 0,16 -16,0 z M 368,160 l 16,0 0,16 -16,0 z M 384,160 l 16,0 0,16 -16,0 z M 0,176 l 16,0 0,16 -16,0 z M 16,176 l 16,0 0,16 -16,0 z M 64,176 l 16,0 0,16 -16,0 z M 112,176 l 16,0 0,16 -16,0 z M 176,176 l 16,0 0,16 -16,0 z M 192,176 l 16,0 0,16 -16,0 z M 224,176 l 16,0 0,16 -16,0 z M 240,176 l 16,0 0,16 -16,0 z M 304,176 l 16,0 0,16 -16,0 z M 384,176 l 16,0 0,16 -16,0 z M 16,192 l 16,0 0,16 -16,0 z M 32,192 l 16,0 0,16 -16,0 z M 64,192 l 16,0 0,16 -16,0 z M 96,192 l 16,0 0,16 -16,0 z M 112,192 l 16,0 0,16 -16,0 z M 128,192 l 16,0 0,16 -16,0 z M 144,192 l 16,0 0,16 -16,0 z M 160,192 l 16,0 0,16 -16,0 z M 208,192 l 16,0 0,16 -16,0 z M 224,192 l 16,0 0,16 -16,0 z M 272,192 l 16,0 0,16 -16,0 z M 288,192 l 16,0 0,16 -16,0 z M 304,192 l 16,0 0,16 -16,0 z M 320,192 l 16,0 0,16 -16,0 z M 352,192 l 16,0 0,16 -16,0 z M 368,192 l 16,0 0,16 -16,0 z M 384,192 l 16,0 0,16 -16,0 z M 0,208 l 16,0 0,16 -16,0 z M 16,208 l 16,0 0,16 -16,0 z M 32,208 l 16,0 0,16 -16,0 z M 64,208 l 16,0 0,16 -16,0 z M 112,208 l 16,0 0,16 -16,0 z M 176,208 l 16,0 0,16 -16,0 z M 224,208 l 16,0 0,16 -16,0 z M 256,208 l 16,0 0,16 -16,0 z M 304,208 l 16,0 0,16 -16,0 z M 336,208 l 16,0 0,16 -16,0 z M 368,208 l 16,0 0,16 -16,0 z M 0,224 l 16,0 0,16 -16,0 z M 32,224 l 16,0 0,16 -16,0 z M 48,224 l 16,0 0,16 -16,0 z M 64,224 l 16,0 0,16 -16,0 z M 96,224 l 16,0 0,16 -16,0 z M 208,224 l 16,0 0,16 -16,0 z M 224,224 l 16,0 0,16 -16,0 z M 240,224 l 16,0 0,16 -16,0 z M 256,224 l 16,0 0,16 -16,0 z M 272,224 l 16,0 0,16 -16,0 z M 304,224 l 16,0 0,16 -16,0 z M 320,224 l 16,0 0,16 -16,0 z M 336,224 l 16,0 0,16 -16,0 z M 368,224 l 16,0 0,16 -16,0 z M 384,224 l 16,0 0,16 -16,0 z M 0,240 l 16,0 0,16 -16,0 z M 32,240 l 16,0 0,16 -16,0 z M 48,240 l 16,0 0,16 -16,0 z M 112,240 l 16,0 0,16 -16,0 z M 128,240 l 16,0 0,16 -16,0 z M 144,240 l 16,0 0,16 -16,0 z M 160,240 l 16,0 0,16 -16,0 z M 272,240 l 16,0 0,16 -16,0 z M 288,240 l 16,0 0,16 -16,0 z M 304,240 l 16,0 0,16 -16,0 z M 320,240 l 16,0 0,16 -16,0 z M 384,240 l 16,0 0,16 -16,0 z M 0,256 l 16,0 0,16 -16,0 z M 96,256 l 16,0 0,16 -16,0 z M 112,256 l 16,0 0,16 -16,0 z M 144,256 l 16,0 0,16 -16,0 z M 160,256 l 16,0 0,16 -16,0 z M 224,256 l 16,0 0,16 -16,0 z M 240,256 l 16,0 0,16 -16,0 z M 256,256 l 16,0 0,16 -16,0 z M 272,256 l 16,0 0,16 -16,0 z M 288,256 l 16,0 0,16 -16,0 z M 304,256 l 16,0 0,16 -16,0 z M 320,256 l 16,0 0,16 -16,0 z M 352,256 l 16,0 0,16 -16,0 z M 128,272 l 16,0 0,16 -16,0 z M 144,272 l 16,0 0,16 -16,0 z M 176,272 l 16,0 0,16 -16,0 z M 208,272 l 16,0 0,16 -16,0 z M 224,272 l 16,0 0,16 -16,0 z M 256,272 l 16,0 0,16 -16,0 z M 320,272 l 16,0 0,16 -16,0 z M 336,272 l 16,0 0,16 -16,0 z M 0,288 l 16,0 0,16 -16,0 z M 16,288 l 16,0 0,16 -16,0 z M 32,288 l 16,0 0,16 -16,0 z M 48,288 l 16,0 0,16 -16,0 z M 64,288 l 16,0 0,16 -16,0 z M 80,288 l 16,0 0,16 -16,0 z M 96,288 l 16,0 0,16 -16,0 z M 128,288 l 16,0 0,16 -16,0 z M 208,288 l 16,0 0,16 -16,0 z M 224,288 l 16,0 0,16 -16,0 z M 240,288 l 16,0 0,16 -16,0 z M 256,288 l 16,0 0,16 -16,0 z M 288,288 l 16,0 0,16 -16,0 z M 320,288 l 16,0 0,16 -16,0 z M 352,288 l 16,0 0,16 -16,0 z M 368,288 l 16,0 0,16 -16,0 z M 384,288 l 16,0 0,16 -16,0 z M 0,304 l 16,0 0,16 -16,0 z M 96,304 l 16,0 0,16 -16,0 z M 176,304 l 16,0 0,16 -16,0 z M 192,304 l 16,0 0,16 -16,0 z M 224,304 l 16,0 0,16 -16,0 z M 256,304 l 16,0 0,16 -16,0 z M 320,304 l 16,0 0,16 -16,0 z M 336,304 l 16,0 0,16 -16,0 z M 368,304 l 16,0 0,16 -16,0 z M 0,320 l 16,0 0,16 -16,0 z M 32,320 l 16,0 0,16 -16,0 z M 48,320 l 16,0 0,16 -16,0 z M 64,320 l 16,0 0,16 -16,0 z M 96,320 l 16,0 0,16 -16,0 z M 128,320 l 16,0 0,16 -16,0 z M 144,320 l 16,0 0,16 -16,0 z M 160,320 l 16,0 0,16 -16,0 z M 224,320 l 16,0 0,16 -16,0 z M 240,320 l 16,0 0,16 -16,0 z M 256,320 l 16,0 0,16 -16,0 z M 272,320 l 16,0 0,16 -16,0 z M 288,320 l 16,0 0,16 -16,0 z M 304,320 l 16,0 0,16 -16,0 z M 320,320 l 16,0 0,16 -16,0 z M 352,320 l 16,0 0,16 -16,0 z M 0,336 l 16,0 0,16 -16,0 z M 32,336 l 16,0 0,16 -16,0 z M 48,336 l 16,0 0,16 -16,0 z M 64,336 l 16,0 0,16 -16,0 z M 96,336 l 16,0 0,16 -16,0 z M 128,336 l 16,0 0,16 -16,0 z M 144,336 l 16,0 0,16 -16,0 z M 160,336 l 16,0 0,16 -16,0 z M 176,336 l 16,0 0,16 -16,0 z M 208,336 l 16,0 0,16 -16,0 z M 256,336 l 16,0 0,16 -16,0 z M 272,336 l 16,0 0,16 -16,0 z M 288,336 l 16,0 0,16 -16,0 z M 320,336 l 16,0 0,16 -16,0 z M 336,336 l 16,0 0,16 -16,0 z M 352,336 l 16,0 0,16 -16,0 z M 368,336 l 16,0 0,16 -16,0 z M 384,336 l 16,0 0,16 -16,0 z M 0,352 l 16,0 0,16 -16,0 z M 32,352 l 16,0 0,16 -16,0 z M 48,352 l 16,0 0,16 -16,0 z M 64,352 l 16,0 0,16 -16,0 z M 96,352 l 16,0 0,16 -16,0 z M 128,352 l 16,0 0,16 -16,0 z M 144,352 l 16,0 0,16 -16,0 z M 160,352 l 16,0 0,16 -16,0 z M 208,352 l 16,0 0,16 -16,0 z M 256,352 l 16,0 0,16 -16,0 z M 336,352 l 16,0 0,16 -16,0 z M 352,352 l 16,0 0,16 -16,0 z M 384,352 l 16,0 0,16 -16,0 z M 0,368 l 16,0 0,16 -16,0 z M 96,368 l 16,0 0,16 -16,0 z M 128,368 l 16,0 0,16 -16,0 z M 144,368 l 16,0 0,16 -16,0 z M 160,368 l 16,0 0,16 -16,0 z M 192,368 l 16,0 0,16 -16,0 z M 240,368 l 16,0 0,16 -16,0 z M 256,368 l 16,0 0,16 -16,0 z M 272,368 l 16,0 0,16 -16,0 z M 288,368 l 16,0 0,16 -16,0 z M 304,368 l 16,0 0,16 -16,0 z M 320,368 l 16,0 0,16 -16,0 z M 336,368 l 16,0 0,16 -16,0 z M 384,368 l 16,0 0,16 -16,0 z M 0,384 l 16,0 0,16 -16,0 z M 16,384 l 16,0 0,16 -16,0 z M 32,384 l 16,0 0,16 -16,0 z M 48,384 l 16,0 0,16 -16,0 z M 64,384 l 16,0 0,16 -16,0 z M 80,384 l 16,0 0,16 -16,0 z M 96,384 l 16,0 0,16 -16,0 z M 128,384 l 16,0 0,16 -16,0 z M 144,384 l 16,0 0,16 -16,0 z M 192,384 l 16,0 0,16 -16,0 z M 208,384 l 16,0 0,16 -16,0 z M 224,384 l 16,0 0,16 -16,0 z M 240,384 l 16,0 0,16 -16,0 z M 272,384 l 16,0 0,16 -16,0 z M 288,384 l 16,0 0,16 -16,0 z M 304,384 l 16,0 0,16 -16,0 z M 320,384 l 16,0 0,16 -16,0 z M 336,384 l 16,0 0,16 -16,0 z M 352,384 l 16,0 0,16 -16,0 z M 368,384 l 16,0 0,16 -16,0 z M 384,384 l 16,0 0,16 -16,0 z " />
+	</g>
+</svg>
+          </div>
+          <div class="qr-caption">
+            OFFICIAL TELEGRAM CHANNEL
+            <div class="qr-handle">t.me/Shukurov_Jasur</div>
+            <div class="qr-tel">+998 88 223 33 34</div>
+          </div>
+        </div>
+        <div class="back-pillars">
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">01</span> AI &amp; PROMPT SYSTEMS</div>
+            <div class="pillar-desc">Antigravity AI Engineering &bull; Gemini Pro 18mo Lead &bull; NotebookLM Master &bull; LLM Reasoning Pipelines</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">02</span> COMPUTING ENGINES</div>
+            <div class="pillar-desc">School 21 (École 42) &bull; Low-Latency C &amp; C++ &bull; Data Science &bull; Game Engine Systems Architecture</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">03</span> HEALTHCARE GOVERNANCE</div>
+            <div class="pillar-desc">Samarkand State Medical University &bull; Healthcare Management &bull; Economics &bull; EpiVision XR Platform</div>
+          </div>
+          <div class="pillar-item">
+            <div class="pillar-title"><span class="pillar-num">04</span> COMMERCIAL ARBITRAGE</div>
+            <div class="pillar-desc">Industrial Sewing Machinery Master Seller &bull; High-Margin Arbitrage ($2 vs $375 Strategy) &bull; Scale Trade</div>
+          </div>
+        </div>
+      </div>
+      <div class="back-footer">
+        <div class="back-quote">&ldquo;Look at that subtle off-white coloring. The tasteful thickness of it.&rdquo;</div>
+        <div class="back-inst">AUTHENTICATED PRINT EDITION</div>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+    <div class="sheet-footer">
+      Duplex Align Mode &bull; Flip on Short Edge for Duplex Printers &bull; Vector QR Matrix Scannable at 300+ DPI
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Gudal — Comprehensive Intelligence Dossier & School 21 Visit</title>
+<style>
+  @page {
+    size: A4;
+    margin: 12mm 12mm 12mm 12mm;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.45;
+    font-size: 12px;
+    padding: 0;
+  }
+  .header-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+  }
+  .photo-container {
+    flex-shrink: 0;
+  }
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #38bdf8;
+    box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+    display: block;
+  }
+  .header-info {
+    flex-grow: 1;
+  }
+  .header-info h1 {
+    font-size: 23px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 3px;
+    color: #ffffff;
+  }
+  .header-subtitle {
+    font-size: 13.5px;
+    color: #93c5fd;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 9px;
+    border-radius: 9999px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .badge-imc { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+  .badge-google { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+  .badge-umich { background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.4); }
+  .badge-award { background: rgba(168, 85, 247, 0.25); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
+  .badge-visit { background: rgba(34, 197, 94, 0.25); color: #86efac; border: 1px solid rgba(34, 197, 94, 0.4); }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+    border-bottom: 1.5px solid #e2e8f0;
+    padding-bottom: 5px;
+  }
+  .card-title .icon {
+    font-size: 15px;
+  }
+  .metric-box {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .metric-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0284c7;
+  }
+  .metric-label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    color: #64748b;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  ul.clean-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.clean-list li {
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 5px;
+    font-size: 11.5px;
+    color: #334155;
+  }
+  ul.clean-list li::before {
+    content: "•";
+    position: absolute;
+    left: 3px;
+    color: #0284c7;
+    font-weight: bold;
+  }
+
+  table.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  table.custom-table th {
+    background-color: #e2e8f0;
+    color: #1e293b;
+    text-align: left;
+    padding: 5px 8px;
+    font-weight: 700;
+  }
+  table.custom-table td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+  table.custom-table tr:nth-child(even) td {
+    background-color: #f1f5f9;
+  }
+
+  .highlight-box {
+    background: #eff6ff;
+    border-left: 3.5px solid #2563eb;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin: 10px 0;
+    font-size: 11px;
+    color: #1e3a8a;
+  }
+  .highlight-box strong {
+    color: #1d4ed8;
+  }
+
+  .footer-note {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 10.5px;
+    color: #94a3b8;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Header Card -->
+  <div class="header-card">
+    <div class="photo-container">
+      <img class="profile-photo" src="data:image/jpeg;base64,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" alt="Ryan Gudal">
+    </div>
+    <div class="header-info">
+      <h1>Ryan Gudal</h1>
+      <div class="header-subtitle">Software Engineer • Quantitative Trading Systems • Ex-Google SWE</div>
+      <div class="badges-row">
+        <span class="badge badge-imc">🏛 IMC Trading (Chicago)</span>
+        <span class="badge badge-google">⚡ Ex-Google SWE Intern</span>
+        <span class="badge badge-umich">🎓 University of Michigan (CS)</span>
+        <span class="badge badge-award">🏆 2022 EECS Student Award</span>
+        <span class="badge badge-visit">📍 School 21 Visit • 5:00 PM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metric Quick Stats (6 metrics) -->
+  <div class="grid-3">
+    <div class="metric-box">
+      <div class="metric-value">IMC Trading</div>
+      <div class="metric-label">Software Engineer (Chicago)</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-value">Google SWE</div>
+      <div class="metric-label">2021 Intern Cohort</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-value">Univ. of Michigan</div>
+      <div class="metric-label">B.S. Computer Science ('22)</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-value">2022 EECS Award</div>
+      <div class="metric-label">Top Undergraduate Honors</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-value">Solar Car & Rover</div>
+      <div class="metric-label">Autonomous Engineering</div>
+    </div>
+    <div class="metric-box">
+      <div class="metric-value">2 Peer-Reviewed</div>
+      <div class="metric-label">Medical Analytics Papers</div>
+    </div>
+  </div>
+
+  <!-- Row 1: Deep Industry Experience & Projects -->
+  <div class="grid-2">
+    <!-- Card 1: Experience -->
+    <div class="card">
+      <div class="card-title"><span class="icon">💼</span> Professional Industry Experience</div>
+      <div style="margin-bottom: 10px;">
+        <strong style="color: #0f172a; font-size: 12.5px;">IMC Trading (Chicago, IL)</strong> — <em style="color: #64748b;">Software Engineer (2022 – Present)</em>
+        <ul class="clean-list" style="margin-top: 4px;">
+          <li>Global algorithmic market maker and proprietary trading firm.</li>
+          <li>Engineers ultra-low latency execution engines, risk models, and exchange feeds.</li>
+          <li>Focus on modern C++ (C++17/20), CPU cache alignment, lock-free queues, Linux kernel bypass (Solarflare Onload), and zero-heap runtime loops.</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="color: #0f172a; font-size: 12.5px;">Google</strong> — <em style="color: #64748b;">Software Engineering Intern (2021)</em>
+        <ul class="clean-list" style="margin-top: 4px;">
+          <li>Returned as a multi-term SWE intern in Google's core engineering organization.</li>
+          <li>Contributed to large distributed systems within Google's monorepo (Piper/Citadel).</li>
+          <li>Mastered high-bar testing architectures, code readability certifications, and multi-tier code reviews.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Card 2: Academic Core & Elite Student Projects -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🎓</span> Academic Honors & Deep Engineering</div>
+      <div style="margin-bottom: 8px;">
+        <strong style="color: #0f172a; font-size: 12px;">University of Michigan (Ann Arbor)</strong> — <em>B.S. in Computer Science</em>
+        <ul class="clean-list" style="margin-top: 4px;">
+          <li><strong>2022 EECS Undergraduate Student Award:</strong> Prestigious departmental distinction for academic excellence and technical leadership.</li>
+          <li><strong>Michigan Solar Car Team & Mars Rover Team:</strong> Embedded hardware/software integration, telemetry, battery management systems.</li>
+          <li><strong>Entrepreneurship & Leadership:</strong> Minor in Entrepreneurship; Chess Club Vice President (tactical decision-making, game theory).</li>
+        </ul>
+      </div>
+      <table class="custom-table">
+        <tr>
+          <th>Course</th>
+          <th>Subject Area</th>
+          <th>Key Competency</th>
+        </tr>
+        <tr>
+          <td><strong>EECS 281</strong></td>
+          <td>Data Structures & Algorithms</td>
+          <td>Asymptotic analysis, DP, graphs, heaps</td>
+        </tr>
+        <tr>
+          <td><strong>EECS 370</strong></td>
+          <td>Computer Organization</td>
+          <td>Datapaths, assembly, cache hierarchy</td>
+        </tr>
+        <tr>
+          <td><strong>EECS 280</strong></td>
+          <td>Intro Data Structures in C++</td>
+          <td>Pointers, manual memory layout, OOP</td>
+        </tr>
+        <tr>
+          <td><strong>MATH 214/216</strong></td>
+          <td>Linear Algebra & DiffEq</td>
+          <td>Mathematical foundations for FinTech</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Row 2: School 21 Alignment & Visit Agenda -->
+  <div class="grid-2">
+    <!-- Card 3: School 21 Synergy -->
+    <div class="card">
+      <div class="card-title"><span class="icon">🤝</span> Synergy with School 21 (École 42)</div>
+      <div class="highlight-box">
+        <strong>Direct Curriculum Alignment:</strong> School 21 peers build foundational C/C++ projects (Libft, Minishell, Philosophers) without standard libraries. Ryan's high-frequency trading work at IMC is the exact commercial realization of low-level systems programming.
+      </div>
+      <ul class="clean-list">
+        <li><strong>Low-Level Systems to HFT:</strong> Explaining how memory management and POSIX threads translate directly into multi-million-dollar microsecond systems.</li>
+        <li><strong>FinTech vs Big Tech:</strong> Contrasting the fast-cycle P&L accountability of trading shops with the hyper-scale infrastructure of Google.</li>
+        <li><strong>Global Engineering Mindset:</strong> Practical tactics for passing competitive coding screens and entering top international firms.</li>
+      </ul>
+    </div>
+
+    <!-- Card 4: Run of Show / Agenda -->
+    <div class="card">
+      <div class="card-title"><span class="icon">⏱️</span> 5:00 PM Campus Visit Agenda</div>
+      <table class="custom-table">
+        <tr>
+          <th style="width: 25%;">Time</th>
+          <th style="width: 35%;">Activity</th>
+          <th>Details</th>
+        </tr>
+        <tr>
+          <td><strong>17:00 – 17:10</strong></td>
+          <td>Welcome & Check-in</td>
+          <td>Badge issuing at reception, meeting staff & directors.</td>
+        </tr>
+        <tr>
+          <td><strong>17:10 – 17:35</strong></td>
+          <td>Campus Walkthrough</td>
+          <td>Clusters tour, peer-learning model, peer reviews & gamification.</td>
+        </tr>
+        <tr>
+          <td><strong>17:35 – 18:15</strong></td>
+          <td>Fireside Q&A Session</td>
+          <td>Interactive talk: "From C++ to Microseconds: Life at IMC & Google".</td>
+        </tr>
+        <tr>
+          <td><strong>18:15 – 18:30</strong></td>
+          <td>Networking & Photos</td>
+          <td>1-on-1 peer discussions, LinkedIn connects, group photo.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bottom Research & Publications Bar -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📑</span> Data Science & Academic Publications</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11px;">
+      <div style="background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+        <strong>PRS Global Open (Feb 2020):</strong>
+        <p style="color: #475569; margin-top: 2px;"><em>"Quality Measures in Postmastectomy Breast Reconstruction: Identifying Metrics to Improve Care"</em> — Clinical data extraction and quality metrics synthesis.</p>
+      </div>
+      <div style="background: #ffffff; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd5e1;">
+        <strong>Plastic & Reconstructive Surgery (Nov 2019):</strong>
+        <p style="color: #475569; margin-top: 2px;"><em>"Critical Assessment of Surveys in Plastic and Reconstructive Surgery: A Systematic Review"</em> — Systematic methodological evaluation and statistical meta-analysis.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    School 21 Guest Visit Dossier • Tashkent / Samarkand, Uzbekistan • Optimized for NotebookLM Deep Dive & Infographics
+  </div>
+
+</body>
+</html>

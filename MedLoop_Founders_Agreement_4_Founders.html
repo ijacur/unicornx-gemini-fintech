@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedLoop AI — Founders' Agreement (4 Founders)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #0284c7;
+      --accent: #2563eb;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #090d16;
+      color: var(--text);
+      line-height: 1.45;
+      padding: 25px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .action-bar {
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 12px 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .badge-info {
+      color: #94a3b8;
+      font-size: 0.82rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-info strong { color: #38bdf8; }
+
+    .btn-group { display: flex; gap: 8px; }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #f1f5f9;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .document-page {
+      width: 100%;
+      max-width: 820px;
+      background: #ffffff;
+      padding: 40px 50px;
+      border-radius: 4px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .doc-header {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title span { color: var(--secondary); }
+
+    .doc-subtitle {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #475569;
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .doc-meta-right {
+      text-align: right;
+      font-size: 0.76rem;
+      color: #64748b;
+      line-height: 1.35;
+    }
+
+    .doc-meta-right strong { color: #0f172a; }
+
+    h2 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 14px 0 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border-left: 3px solid var(--secondary);
+      padding-left: 8px;
+    }
+
+    p, li {
+      font-size: 0.82rem;
+      color: #334155;
+      text-align: justify;
+      margin-bottom: 5px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px;
+      font-size: 0.78rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 6px 9px;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    .highlight-pill {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      background: #f0f9ff;
+      color: #0284c7;
+      font-size: 0.72rem;
+    }
+
+    .equity-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .equity-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 8px;
+      text-align: center;
+      background: #f8fafc;
+    }
+
+    .equity-card.main {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+
+    .equity-card .pct {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1.1;
+    }
+
+    .equity-card .name {
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: var(--primary);
+      margin-top: 3px;
+    }
+
+    .equity-card .role {
+      font-size: 0.68rem;
+      color: #64748b;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .sign-box {
+      border: 1px dashed #94a3b8;
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: #fafafa;
+    }
+
+    .sign-name {
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: #0f172a;
+    }
+
+    .sign-role {
+      font-size: 0.68rem;
+      color: #64748b;
+      margin-bottom: 14px;
+    }
+
+    .sign-line {
+      border-bottom: 1px solid #334155;
+      margin-bottom: 4px;
+    }
+
+    .sign-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      color: #64748b;
+    }
+
+    @media print {
+      body { background: #ffffff; padding: 0; }
+      .action-bar { display: none !important; }
+      .document-page { box-shadow: none; max-width: 100%; padding: 20px 30px; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Action Bar -->
+  <div class="action-bar">
+    <div class="badge-info">
+      <span>🚀 <strong>School 21 • Launch Lab</strong> (Hammuassislar Kelishuvi • 4 Kishi)</span>
+    </div>
+    <div class="btn-group">
+      <button class="btn btn-secondary" id="langToggleBtn" onclick="toggleLanguage()">
+        🌐 O'zbekcha / Русский
+      </button>
+      <button class="btn btn-primary" onclick="window.print()">
+        🖨️ PDF ga chop etish (Print)
+      </button>
+    </div>
+  </div>
+
+  <!-- Document Page -->
+  <div class="document-page">
+    
+    <!-- UZBEK VERSION -->
+    <div id="versionUZ">
+      <div class="doc-header">
+        <div>
+          <div class="brand-title">MedLoop <span>AI</span></div>
+          <div class="doc-subtitle">HAMMUASSISLAR KELISHUVI (FOUNDERS' AGREEMENT)</div>
+        </div>
+        <div class="doc-meta-right">
+          <div>Dastur: <strong>School 21 • Launch Lab (3-kohorta)</strong></div>
+          <div>Loyiha: <strong>№ 7 (Jadval) / № 8 (PIN)</strong></div>
+          <div>Sana: <strong>25-oktyabr, 2026-yil</strong></div>
+        </div>
+      </div>
+
+      <h2>1. Loyiha haqida va Umumiy Maqsad</h2>
+      <p>
+        <strong>«MedLoop AI»</strong> — O‘zbekistondagi xususiy klinikalarning har oy tahlil topshirib shifokor qabuliga kirmayotgan 45% bemorlarini neyrotarmoqlar orqali 8 soniyada triaj qilib, to‘g‘ridan-to‘g‘ri profil shifokorlar qabuliga qayta yozuvchi va har bir klinika uchun oyiga 35–75 mln so‘m yo‘qotilgan tushumni tiklovchi B2B klinika dvigatelidir.
+      </p>
+      <p>
+        <strong>Inkubatsiya maqsadi:</strong> 12 haftalik Launch Lab davrida Samarqand va Toshkent shaharlarida kamida 3 ta to‘lovli pilot shartnomani (LOI) imzolash, 2027-yil 15-yanvarda Toshkentdagi Demo Day'da g‘alaba qozonish va Pre-Seed investitsiya jalb qilish.
+      </p>
+
+      <h2>2. Asoschilar Tarkibi va Rollari</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>F.I.Sh. (School 21 Login)</th>
+            <th>Roli</th>
+            <th>Asosiy Mas’uliyat Sohasi</th>
+            <th>Vaqt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Shukurov Jasur Otabek o‘g‘li</strong> (`machampk`)</td>
+            <td><span class="highlight-pill">CEO & AI Architect</span></td>
+            <td>Tibbiy arxitektura (SamDTU), AI injiniring, klinika rahbarlari bilan B2B savdo va investitsiyalar.</td>
+            <td>30+ soat/hafta</td>
+          </tr>
+          <tr>
+            <td><strong>Salimova Nargis</strong> (`meteorsh`)</td>
+            <td><span class="highlight-pill">DevOps & Cloud Lead</span></td>
+            <td>Server infratuzilmasi, Docker, CI/CD, bulutli xavfsizlik, ma’lumotlar bazasi va tizim barqarorligi.</td>
+            <td>20+ soat/hafta</td>
+          </tr>
+          <tr>
+            <td><strong>Nuridinov Shoxrux</strong> (`@Is_it_Blaze`)</td>
+            <td><span class="highlight-pill">QA & Pitch Lead</span></td>
+            <td>Tizim sinovlari (Zero-bug), mahsulot sifat kafolati, hakamlar va investorlar oldidagi Pitch taqdimotlar.</td>
+            <td>20+ soat/hafta</td>
+          </tr>
+          <tr>
+            <td><strong>Munisa Abdisattorovna</strong></td>
+            <td><span class="highlight-pill">Clinical Ops & CustDev</span></td>
+            <td>Klinikalarda CustDev intervyulari, bemorlar oqimi va laboratoriya tahlillari hisoboti, operatsion aloqa.</td>
+            <td>20+ soat/hafta</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>3. Ulushlar Taqsimoti (Equity Split) va Vesting</h2>
+      <div class="equity-cards">
+        <div class="equity-card main">
+          <div class="pct">45%</div>
+          <div class="name">Jasur Shukurov</div>
+          <div class="role">Founder & CEO</div>
+        </div>
+        <div class="equity-card">
+          <div class="pct">20%</div>
+          <div class="name">Munisa Abdisattorovna</div>
+          <div class="role">CPO & Clinical Ops</div>
+        </div>
+        <div class="equity-card">
+          <div class="pct">20%</div>
+          <div class="name">Nuridinov Shoxrux</div>
+          <div class="role">CTO & Security Lead</div>
+        </div>
+        <div class="equity-card">
+          <div class="pct">15%</div>
+          <div class="name">Nargis Salimova</div>
+          <div class="role">Head of Growth & CustDev</div>
+        </div>
+      </div>
+      <p>
+        <strong>Vesting qoidasi:</strong> 6 oylik klif (Cliff period) va 2 yillik umumiy vesting. Agar asoschi 6 oygacha loyihani o‘z xohishi bilan tark etsa, uning ulushi 0% hisoblanadi va loyihaga qaytadi. Demo Day (2027-yil 15-yanvar) yakuniga qadar barcha a’zolar to‘liq ishtirok etishi shart.
+      </p>
+
+      <h2>4. Qaror Qabul Qilish va Hal Qiluvchi Ovoz (Tie-Breaker)</h2>
+      <p>
+        Kundalik operatsion qarorlar har bir soha yetakchisi tomonidan mustaqil hal qilinadi. Strategik masalalar kamida 75% ovoz bilan qabul qilinadi. Fikrlar teng bo‘linib, kelishuvga erishilmagan holatda <strong>Bosh Ijrochi Direktor (Jasur Shukurov)</strong> hal qiluvchi ovozga (Tie-Breaker / Deciding Vote) ega.
+      </p>
+
+      <h2>5. Intellektual Mulk (IP) va Chiqish Shartlari</h2>
+      <p>
+        Yaratilgan barcha kod, modellar, ma’lumotlar bazalari, dizayn va taqdimotlar «MedLoop AI» loyihasining yagona mulki hisoblanadi. Jamoadan chiqmoqchi bo‘lgan a’zo kamida 30 kun oldin ogohlantiradi va o‘z hissasini to‘liq topshiradi.
+      </p>
+
+      <h2>6. Asoschilarning Tasdiq Imzolari</h2>
+      <div class="signature-grid">
+        <div class="sign-box">
+          <div class="sign-name">Shukurov Jasur Otabek o‘g‘li</div>
+          <div class="sign-role">CEO & AI Architect (@jasurceo / `machampk`)</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Imzo: ___________</span><span>Sana: ___/10/26</span></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-name">Salimova Nargis</div>
+          <div class="sign-role">DevOps & Cloud Lead (`meteorsh`)</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Imzo: ___________</span><span>Sana: ___/10/26</span></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-name">Nuridinov Shoxrux</div>
+          <div class="sign-role">QA & Pitch Lead (@Is_it_Blaze)</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Imzo: ___________</span><span>Sana: ___/10/26</span></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-name">Munisa Abdisattorovna</div>
+          <div class="sign-role">Clinical Ops & CustDev Lead</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Imzo: ___________</span><span>Sana: ___/10/26</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RUSSIAN VERSION -->
+    <div id="versionRU" style="display: none;">
+      <div class="doc-header">
+        <div>
+          <div class="brand-title">MedLoop <span>AI</span></div>
+          <div class="doc-subtitle">СОГЛАШЕНИЕ ОСНОВАТЕЛЕЙ (FOUNDERS' AGREEMENT)</div>
+        </div>
+        <div class="doc-meta-right">
+          <div>Программа: <strong>Школа 21 • Launch Lab (Когорта 3)</strong></div>
+          <div>Проект: <strong>№ 7 (Таблица) / № 8 (PIN)</strong></div>
+          <div>Дата: <strong>25 октября 2026 г.</strong></div>
+        </div>
+      </div>
+
+      <h2>1. О проекте и Общая Цель</h2>
+      <p>
+        <strong>«MedLoop AI»</strong> — B2B платформа клинического триажа для частных клиник Узбекистана, устраняющая потерю 45% пациентов после сдачи анализов. Нейросеть за 8 секунд анализирует бланк, оценивает риски и в 1 клик записывает пациента к профильному врачу клиники, возвращая от 35 до 75 млн сумов упущенной выручки в месяц.
+      </p>
+      <p>
+        <strong>Цель инкубации:</strong> В рамках 12 недель Launch Lab подписать минимум 3 платных пилота (LOI) в Самарканде и Ташкенте, выиграть Demo Day 15 января 2027 года в Ташкенте и закрыть Pre-Seed раунд.
+      </p>
+
+      <h2>2. Состав Основателей и Роли (4 человека)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Ф.И.О. (Логин School 21)</th>
+            <th>Роль</th>
+            <th>Зона Ответственности</th>
+            <th>Время</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Шукуров Джасур Отабек угли</strong> (`machampk`)</td>
+            <td><span class="highlight-pill">CEO & AI Architect</span></td>
+            <td>Медицинская архитектура (СамГМУ), AI промпт-инжиниринг, B2B продажи главврачам и инвестиции.</td>
+            <td>30+ часов/нед</td>
+          </tr>
+          <tr>
+            <td><strong>Салимова Наргис</strong> (`meteorsh`)</td>
+            <td><span class="highlight-pill">DevOps & Cloud Lead</span></td>
+            <td>Серверная инфраструктура, Docker, Kubernetes, CI/CD, защита облачных данных, базы данных.</td>
+            <td>20+ часов/нед</td>
+          </tr>
+          <tr>
+            <td><strong>Нуридинов Шохрух</strong> (`@Is_it_Blaze`)</td>
+            <td><span class="highlight-pill">QA Lead & Pitch Lead</span></td>
+            <td>Тестирование (Zero-bug), проведение питчей перед жюри и инвесторами, B2B маркетинг.</td>
+            <td>20+ часов/нед</td>
+          </tr>
+          <tr>
+            <td><strong>Муниса Абдисатторовна</strong></td>
+            <td><span class="highlight-pill">Clinical Ops & CustDev</span></td>
+            <td>Проведение CustDev интервью в клиниках, аналитика потока пациентов и лабораторных бланков.</td>
+            <td>20+ часов/нед</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>3. Распределение Долей (Equity Split) и Вестинг</h2>
+      <div class="equity-cards">
+        <div class="equity-card main">
+          <div class="pct">45%</div>
+          <div class="name">Джасур Шукуров</div>
+          <div class="role">Founder & CEO</div>
+        </div>
+        <div class="equity-card">
+          <div class="pct">20%</div>
+          <div class="name">Муниса Абдисатторовна</div>
+          <div class="role">CPO & Clinical Ops</div>
+        </div>
+        <div class="equity-card">
+          <div class="pct">20%</div>
+          <div class="name">Нуридинов Шохрух</div>
+          <div class="role">CTO & Security Lead</div>
+        </div>
+        <div class="equity-card">
+          <div class="pct">15%</div>
+          <div class="name">Наргис Салимова</div>
+          <div class="role">Head of Growth & CustDev</div>
+        </div>
+      </div>
+      <p>
+        <strong>Условия вестинга:</strong> 6 месяцев клифф (Cliff period) и 24 месяца полный вестинг. При выходе до 6 месяцев доля аннулируется (0%). Все основатели обязуются сохранять текущие роли вплоть до завершения Demo Day (15 января 2027 г.).
+      </p>
+
+      <h2>4. Принятие Решений и Tie-Breaker (Решающий Голос)</h2>
+      <p>
+        Операционные вопросы решаются лидерами направлений самостоятельно. Стратегические решения требуют не менее 75% голосов. При равном разделении голосов право решающего голоса принадлежит <strong>CEO (Джасуру Шукурову)</strong>.
+      </p>
+
+      <h2>5. Интеллектуальная Собственность (IP)</h2>
+      <p>
+        Весь создаваемый программный код, нейросетевые алгоритмы, базы данных и дизайн принадлежат исключительно проекту «MedLoop AI».
+      </p>
+
+      <h2>6. Подписи Основателей</h2>
+      <div class="signature-grid">
+        <div class="sign-box">
+          <div class="sign-name">Шукуров Джасур Отабек угли</div>
+          <div class="sign-role">CEO & AI Architect (@jasurceo / `machampk`)</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Подпись: ___________</span><span>Дата: ___/10/26</span></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-name">Салимова Наргис</div>
+          <div class="sign-role">DevOps & Cloud Lead (`meteorsh`)</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Подпись: ___________</span><span>Дата: ___/10/26</span></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-name">Нуридинов Шохрух</div>
+          <div class="sign-role">QA & Pitch Lead (@Is_it_Blaze)</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Подпись: ___________</span><span>Дата: ___/10/26</span></div>
+        </div>
+        <div class="sign-box">
+          <div class="sign-name">Муниса Абдисатторовна</div>
+          <div class="sign-role">Clinical Ops & CustDev Lead</div>
+          <div class="sign-line"></div>
+          <div class="sign-footer"><span>Подпись: ___________</span><span>Дата: ___/10/26</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentLang = 'UZ';
+    function toggleLanguage() {
+      const uz = document.getElementById('versionUZ');
+      const ru = document.getElementById('versionRU');
+      const btn = document.getElementById('langToggleBtn');
+
+      if (currentLang === 'UZ') {
+        uz.style.display = 'none';
+        ru.style.display = 'block';
+        currentLang = 'RU';
+        btn.innerHTML = '🌐 Til: Русский (O‘zbekchaga o‘tish)';
+      } else {
+        ru.style.display = 'none';
+        uz.style.display = 'block';
+        currentLang = 'UZ';
+        btn.innerHTML = '🌐 Til: O‘zbekcha (Русскийга ўтиш)';
+      }
+    }
+  </script>
+</body>
+</html>

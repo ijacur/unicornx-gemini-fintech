@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedLoop AI — Klinika Ish Jarayoni & Qayta Konversiya Arxitekturasi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    @media print {
+      body { background: white !important; color: black !important; padding: 0 !important; }
+      .no-print { display: none !important; }
+      .paper-card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-8 flex flex-col items-center selection:bg-cyan-500 selection:text-slate-950">
+
+  <div class="max-w-4xl w-full space-y-6">
+    
+    <!-- Action Bar -->
+    <div class="no-print flex items-center justify-between bg-slate-900/80 backdrop-blur-md p-3.5 px-5 rounded-2xl border border-slate-800">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="text-xs font-bold text-slate-300">MedLoop AI • Bosh Shifokorlar Uchun 1-Varaqlik Vizual Taqdimot</span>
+      </div>
+      <button onclick="window.print()" class="px-4 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl text-xs font-bold shadow-lg shadow-cyan-500/20 hover:scale-105 transition">
+        🖨️ A4 Chop Etish (Print)
+      </button>
+    </div>
+
+    <!-- Main Visual Infographic Card -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl relative overflow-hidden paper-card">
+      
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[11px] font-extrabold uppercase tracking-wider mb-2">
+            Klinika Daromadini Qaytarish Tizimi
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold text-white font-heading">
+            MedLoop <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">AI</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            Laboratoriyadan chiqqan bemorlarni 8 soniyada shifokor ko‘rigiga qaytaruvchi avtonom zanjir
+          </p>
+        </div>
+        <div class="text-right sm:border-l sm:border-slate-800 sm:pl-6 text-xs text-slate-400 space-y-1">
+          <div>O‘rnatish vaqti: <strong class="text-emerald-400">15 daqiqa</strong></div>
+          <div>Klinika xarajati: <strong class="text-white">Nol (0 UZS)</strong></div>
+          <div>Sinov muddati: <strong class="text-cyan-400">14 kun bepul</strong></div>
+        </div>
+      </div>
+
+      <!-- Before vs After Comparison Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- BEFORE: An'anaviy Yo'qotish -->
+        <div class="p-5 rounded-2xl bg-red-950/20 border border-red-500/20 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase text-red-400 tracking-wider">Hozirgi Holat (Yo‘qotish)</span>
+            <span class="text-xs font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">45% yo‘qoladi</span>
+          </div>
+          <div class="space-y-2 text-xs text-slate-300">
+            <div class="flex items-start gap-2">
+              <span class="text-red-400 font-bold">✕</span>
+              <span>Bemor tahlil varag‘ini oladi, lotincha raqamlarni tushunmaydi va uyiga ketadi.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-red-400 font-bold">✕</span>
+              <span>Registratura qo‘ng‘iroq qilib chiqishga jismonan ulgurmaydi (32% qolib ketadi).</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-red-400 font-bold">✕</span>
+              <span><strong>Natija:</strong> Har 100 bemordan 45 tasi shifokorga kirmaydi. Klinika har oy 75 mln so‘m sof tushumni yo‘qotadi.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AFTER: MedLoop AI Bilan -->
+        <div class="p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase text-cyan-400 tracking-wider">MedLoop AI Bilan</span>
+            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">+38% qaytish</span>
+          </div>
+          <div class="space-y-2 text-xs text-slate-300">
+            <div class="flex items-start gap-2">
+              <span class="text-cyan-400 font-bold">✓</span>
+              <span>Bemor Telegram botga fotosurat yoki PDF yuklaydi — 8 soniyada tahlil qilinadi.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-cyan-400 font-bold">✓</span>
+              <span>AI bemorga xavfni tushuntiradi: <em>«Jigar fermenti 2.4 baravar yuqori, shifokor ko‘rigi zarur»</em>.</span>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-cyan-400 font-bold">✓</span>
+              <span><strong>Natija:</strong> 1 bosishda o‘sha klinika shifokori qabuliga qayta yoziladi. Klinika kassasiga qo‘shimcha tushum kiradi!</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 3-Step Visual Process Timeline -->
+      <div class="space-y-3">
+        <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider">3 Bosqichli Avtonom Ish Jarayoni:</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          
+          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+            <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs">01</div>
+            <div class="font-bold text-sm text-white">Yengil Ulanish</div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Klinika kompyuterlariga hech narsa yuklanmaydi. QR-kod orqali bemorlar Telegram botga ulanadi.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+            <div class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs">02</div>
+            <div class="font-bold text-sm text-white">8-Soniyalik AI Triaj</div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Biomarkerlar (jigar, qand, ferritin, kardiologiya) 96.4% aniqlikda tahlil qilinib, saralanadi.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs">03</div>
+            <div class="font-bold text-sm text-white">Shifokorga Qayta Qabul</div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Bo‘sh turgan mutaxassis jadvaliga slot band qilinadi va bemor davolash kursini to‘liq yakunlaydi.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Value Props Banner -->
+      <div class="bg-gradient-to-r from-blue-950/40 via-cyan-950/30 to-slate-900 border border-cyan-500/20 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="text-sm font-extrabold text-white">14 Kunlik Xatarsiz Sinov (Zero Risk Pilot)</div>
+          <p class="text-xs text-slate-300">
+            Klinikangizdan hech qanday oldindan to‘lov talab qilinmaydi. Tizim bemor keltirsagina hamkorlik davom ettiriladi.
+          </p>
+        </div>
+        <div class="text-xs font-mono font-bold text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 px-3.5 py-2 rounded-xl whitespace-nowrap">
+          Hamkorlik: @jasurceo
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

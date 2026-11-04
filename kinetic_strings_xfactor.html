@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Kinetic Strings & Percussion Score — X-Factor Edition</title>
+  <style>
+    :root {
+      --bg: #080a0e;
+      --panel: rgba(16, 20, 28, 0.82);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-active: rgba(255, 207, 86, 0.45);
+      --text: #eceae4;
+      --muted: rgba(236, 234, 228, 0.45);
+      --xfactor: #ffcf56;
+      --accent: #6ec6f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+    }
+
+    canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    /* Minimal floating HUD pill */
+    .hud {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      background: var(--panel);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      z-index: 10;
+    }
+
+    .btn {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid transparent;
+      padding: 6px 13px;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.85;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn:hover {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .btn.active {
+      background: rgba(255, 207, 86, 0.16);
+      border-color: var(--border-active);
+      color: var(--xfactor);
+      opacity: 1;
+    }
+
+    .btn.x-btn {
+      color: var(--xfactor);
+      background: rgba(255, 207, 86, 0.12);
+      border-color: rgba(255, 207, 86, 0.3);
+      font-weight: 600;
+    }
+
+    .btn.x-btn:hover {
+      background: rgba(255, 207, 86, 0.22);
+      border-color: rgba(255, 207, 86, 0.6);
+      box-shadow: 0 0 16px rgba(255, 207, 86, 0.3);
+    }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background: var(--border);
+      margin: 0 2px;
+    }
+
+    .hint {
+      position: fixed;
+      top: 22px;
+      left: 24px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      pointer-events: none;
+      z-index: 10;
+      line-height: 1.5;
+      transition: opacity 0.5s ease;
+      background: rgba(16, 20, 28, 0.5);
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+    }
+
+    .hint strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hint span.x-word {
+      color: var(--xfactor);
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .hud {
+        top: auto;
+        bottom: 28%;
+        right: 12px;
+        left: 12px;
+        justify-content: center;
+        border-radius: 16px;
+      }
+      .hint {
+        top: 14px;
+        left: 14px;
+        right: 14px;
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hint" id="hint">
+    <strong>Swipe</strong> to strum · <strong>Drag nodes</strong> to tune · <strong>Drag drums / <span class="x-word">✕</span></strong> · <strong>Sling open space</strong> to launch movers
+  </div>
+
+  <div class="hud">
+    <button class="btn x-btn" id="xPulseBtn" title="Trigger full harmonic resonant chord">✕ Trigger Chord</button>
+    <button class="btn" id="addMoverBtn">+ Mover</button>
+    <button class="btn" id="flowBtn">Flow: Bounce</button>
+    <button class="btn" id="chordBtn">Chord: Em9</button>
+    <button class="btn" id="tuningBtn">Tuning: Pentatonic</button>
+    <div class="divider"></div>
+    <button class="btn" id="replayBtn">▶ Replay Score</button>
+    <button class="btn" id="clearScoreBtn">Clear</button>
+  </div>
+
+  <canvas id="appCanvas"></canvas>
+
+  <script>
+  (() => {
+    const canvas = document.getElementById('appCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const SCORE_RATIO = 0.26;
+    let stageHeight = height * (1 - SCORE_RATIO);
+
+    // ==========================================
+    // AUDIO ENGINE (Web Audio API)
+    // ==========================================
+    let audioCtx = null;
+    let masterGain = null;
+    let delayNode = null;
+    let reverbConvolver = null;
+    let noiseBuffer = null;
+
+    function initAudio() {
+      if (audioCtx) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        return;
+      }
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContextClass();
+
+      masterGain = audioCtx.createGain();
+      masterGain.gain.setValueAtTime(0.72, audioCtx.currentTime);
+
+      // Studio Space Stereo Delay
+      delayNode = audioCtx.createDelay();
+      delayNode.delayTime.setValueAtTime(0.24, audioCtx.currentTime);
+
+      const delayFeedback = audioCtx.createGain();
+      delayFeedback.gain.setValueAtTime(0.26, audioCtx.currentTime);
+
+      const delayFilter = audioCtx.createBiquadFilter();
+      delayFilter.type = 'lowpass';
+      delayFilter.frequency.setValueAtTime(2100, audioCtx.currentTime);
+
+      delayNode.connect(delayFilter);
+      delayFilter.connect(delayFeedback);
+      delayFeedback.connect(delayNode);
+      delayFilter.connect(masterGain);
+
+      masterGain.connect(audioCtx.destination);
+
+      // Pre-render white noise burst buffer for drums & pick transients
+      const bufferLength = audioCtx.sampleRate * 1.5;
+      noiseBuffer = audioCtx.createBuffer(1, bufferLength, audioCtx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferLength; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+    }
+
+    // Synthesize Acoustic/Electric Hybrid Guitar Pluck
+    function playGuitarNote(freq, velocity = 0.85, delaySec = 0) {
+      initAudio();
+      const now = audioCtx.currentTime + delaySec;
+
+      const out = audioCtx.createGain();
+      const peakGain = Math.min(0.32 * velocity, 0.42);
+      out.gain.setValueAtTime(0.0001, now);
+      out.gain.linearRampToValueAtTime(peakGain, now + 0.005);
+      out.gain.exponentialRampToValueAtTime(0.0008, now + 2.2);
+
+      // Dynamic lowpass envelope for string brightness decay
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.Q.setValueAtTime(2.2, now);
+      filter.frequency.setValueAtTime(Math.min(freq * 7.5, 9600), now);
+      filter.frequency.exponentialRampToValueAtTime(freq * 1.25, now + 0.48);
+
+      // Dual harmonic oscillators (Sawtooth body + Triangle warmth)
+      const osc1 = audioCtx.createOscillator();
+      osc1.type = 'sawtooth';
+      osc1.frequency.setValueAtTime(freq, now);
+
+      const osc2 = audioCtx.createOscillator();
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(freq * 2, now);
+
+      const osc2Gain = audioCtx.createGain();
+      osc2Gain.gain.setValueAtTime(0.24, now);
+
+      // Pick transient noise burst
+      const pick = audioCtx.createBufferSource();
+      pick.buffer = noiseBuffer;
+      const pickFilter = audioCtx.createBiquadFilter();
+      pickFilter.type = 'bandpass';
+      pickFilter.frequency.setValueAtTime(2600, now);
+      const pickGain = audioCtx.createGain();
+      pickGain.gain.setValueAtTime(0.12 * velocity, now);
+      pickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.02);
+
+      osc1.connect(filter);
+      osc2.connect(osc2Gain);
+      osc2Gain.connect(filter);
+      pick.connect(pickFilter);
+      pickFilter.connect(pickGain);
+      pickGain.connect(filter);
+
+      filter.connect(out);
+      out.connect(masterGain);
+      out.connect(delayNode);
+
+      osc1.start(now);
+      osc2.start(now);
+      pick.start(now);
+
+      osc1.stop(now + 2.25);
+      osc2.stop(now + 2.25);
+      pick.stop(now + 0.03);
+    }
+
+    // Synthesize Percussion (Kick, Snare, Hi-Hat, Tom)
+    function playDrum(type, velocity = 0.9) {
+      initAudio();
+      const now = audioCtx.currentTime;
+
+      if (type === 'kick') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(155, now);
+        osc.frequency.exponentialRampToValueAtTime(36, now + 0.14);
+        gain.gain.setValueAtTime(0.72 * velocity, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
+        osc.connect(gain);
+        gain.connect(masterGain);
+        osc.start(now);
+        osc.stop(now + 0.44);
+      } else if (type === 'snare') {
+        // Snare shell fundamental
+        const osc = audioCtx.createOscillator();
+        const oscGain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(210, now);
+        osc.frequency.exponentialRampToValueAtTime(95, now + 0.09);
+        oscGain.gain.setValueAtTime(0.35 * velocity, now);
+        oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        osc.connect(oscGain);
+        oscGain.connect(masterGain);
+        osc.start(now);
+        osc.stop(now + 0.16);
+
+        // Snare wires highpass noise
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = noiseBuffer;
+        const hp = audioCtx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.setValueAtTime(1150, now);
+        const nGain = audioCtx.createGain();
+        nGain.gain.setValueAtTime(0.38 * velocity, now);
+        nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+        noise.connect(hp);
+        hp.connect(nGain);
+        nGain.connect(masterGain);
+        nGain.connect(delayNode);
+        noise.start(now);
+        noise.stop(now + 0.26);
+      } else if (type === 'hihat') {
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = noiseBuffer;
+        const hp = audioCtx.createBiquadFilter();
+        hp.type = 'highpass';
+        hp.frequency.setValueAtTime(6800, now);
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(0.25 * velocity, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.075);
+        noise.connect(hp);
+        hp.connect(gain);
+        gain.connect(masterGain);
+        noise.start(now);
+        noise.stop(now + 0.09);
+      } else if (type === 'tom') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(235, now);
+        osc.frequency.exponentialRampToValueAtTime(102, now + 0.22);
+        gain.gain.setValueAtTime(0.48 * velocity, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.34);
+        osc.connect(gain);
+        gain.connect(masterGain);
+        osc.start(now);
+        osc.stop(now + 0.36);
+      }
+    }
+
+    // ==========================================
+    // MUSICAL THEORY HELPERS
+    // ==========================================
+    const NOTE_NAMES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+    const DIATONIC_STEP_MAP = [0, 0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6];
+    const IS_SHARP_MAP = [false, true, false, true, false, false, true, false, true, false, true, false];
+
+    function midiToFreq(m) {
+      return 440 * Math.pow(2, (m - 69) / 12);
+    }
+
+    function midiToLabel(m) {
+      const name = NOTE_NAMES[m % 12];
+      const oct = Math.floor(m / 12) - 1;
+      return `${name}${oct}`;
+    }
+
+    // Steps relative to E4 (bottom line of treble staff, MIDI 64 = 0)
+    function midiToStaffStep(m) {
+      const oct = Math.floor(m / 12) - 1;
+      const stepInOct = DIATONIC_STEP_MAP[m % 12];
+      const absStep = oct * 7 + stepInOct;
+      const e4Step = 4 * 7 + 2; // E4 = step 30
+      return absStep - e4Step;
+    }
+
+    const TUNINGS = {
+      Pentatonic: [72, 69, 67, 64, 62, 60], // C5, A4, G4, E4, D4, C4
+      Standard: [64, 59, 55, 50, 45, 40]   // E4, B3, G3, D3, A2, E2 (+8va)
+    };
+    let currentTuningName = 'Pentatonic';
+
+    const CHORD_PRESETS = {
+      'Em9':   [0.25, 0.42, 0.33, 0.50, 0.17, 0.33],
+      'Cmaj7': [0.58, 0.50, 0.42, 0.33, 0.25, 0.08],
+      'Dadd9': [0.75, 0.58, 0.50, 0.33, 0.42, 0.25],
+      'Asus2': [0.42, 0.33, 0.58, 0.25, 0.50, 0.17]
+    };
+    const CHORD_KEYS = Object.keys(CHORD_PRESETS);
+    let chordIdx = 0;
+
+    // ==========================================
+    // STAGE STATE
+    // ==========================================
+    const strings = [];
+    const drums = [];
+    const movers = [];
+    const beams = [];
+    const ripples = [];
+    const scoreNotes = [];
+    const MAX_SCORE_NOTES = 26;
+
+    let flowMode = 'bounce'; // 'bounce' or 'rain'
+    let isReplaying = false;
+    let replayIndex = -1;
+    let replayTimer = null;
+
+    // The Golden "X-Factor" Portal Node
+    const xNode = {
+      x: 0,
+      y: 0,
+      radius: 28,
+      pulse: 0,
+      angle: 0
+    };
+
+    function setupInstruments() {
+      strings.length = 0;
+      drums.length = 0;
+
+      const baseMidiList = TUNINGS[currentTuningName];
+      const leftX = width * 0.07;
+      const rightX = width * 0.60;
+      const topY = stageHeight * 0.16;
+      const bottomY = stageHeight * 0.86;
+      const spacing = (bottomY - topY) / 5;
+
+      const initialRatios = CHORD_PRESETS[CHORD_KEYS[chordIdx]];
+      const shapeTypes = ['diamond', 'triangle', 'hexagon', 'circle', 'diamond', 'triangle'];
+      const colors = ['#7bdff2', '#80ed99', '#f6bd60', '#b8c0ff', '#ff9ebb', '#6ec6f0'];
+
+      for (let i = 0; i < 6; i++) {
+        const y = topY + i * spacing;
+        const ratio = initialRatios[i];
+        const fretSemitones = Math.round(ratio * 12);
+        const baseMidi = baseMidiList[i];
+        const midi = baseMidi + fretSemitones;
+
+        strings.push({
+          index: i,
+          x1: leftX,
+          x2: rightX,
+          y: y,
+          baseMidi: baseMidi,
+          midi: midi,
+          freq: midiToFreq(midi),
+          amp: 0,
+          vel: 0,
+          phase: 0,
+          glow: 0,
+          color: colors[i],
+          node: {
+            ratio: ratio,
+            x: leftX + (rightX - leftX) * ratio,
+            y: y,
+            radius: 17,
+            shape: shapeTypes[i],
+            pulse: 0,
+            rotation: i * 0.5
+          }
+        });
+      }
+
+      // Golden X-Factor Node placement in central focal point
+      xNode.x = width * 0.69;
+      xNode.y = stageHeight * 0.50;
+
+      // 4 Percussion Shapes on Right Flank
+      const drumSpecs = [
+        { id: 'hihat', label: 'HI-HAT', shape: 'triangle', color: '#f6bd60', rx: 0.82, ry: 0.24, radius: 24, staffStep: 9 },
+        { id: 'snare', label: 'SNARE', shape: 'diamond', color: '#f07b6e', rx: 0.91, ry: 0.44, radius: 27, staffStep: 4 },
+        { id: 'tom',   label: 'TOM',   shape: 'hexagon', color: '#c792ea', rx: 0.81, ry: 0.66, radius: 26, staffStep: 2 },
+        { id: 'kick',  label: 'KICK',  shape: 'circle', color: '#6ec6f0', rx: 0.91, ry: 0.82, radius: 31, staffStep: -1 }
+      ];
+
+      drumSpecs.forEach(spec => {
+        drums.push({
+          ...spec,
+          x: width * spec.rx,
+          y: stageHeight * spec.ry,
+          pulse: 0,
+          rotation: 0
+        });
+      });
+    }
+
+    function updateStringTuning() {
+      const baseMidiList = TUNINGS[currentTuningName];
+      strings.forEach((s, i) => {
+        s.baseMidi = baseMidiList[i];
+        const fretSemitones = Math.round(s.node.ratio * 12);
+        s.midi = s.baseMidi + fretSemitones;
+        s.freq = midiToFreq(s.midi);
+      });
+    }
+
+    function spawnMover(x, y, vx, vy) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2.8 + Math.random() * 1.4;
+      movers.push({
+        x: x !== undefined ? x : width * (0.28 + Math.random() * 0.44),
+        y: y !== undefined ? y : stageHeight * (0.25 + Math.random() * 0.5),
+        vx: vx !== undefined ? vx : Math.cos(angle) * speed,
+        vy: vy !== undefined ? vy : Math.sin(angle) * speed,
+        radius: 6,
+        trail: [],
+        cooldowns: new Map()
+      });
+    }
+
+    function recordNoteToScore(entry) {
+      scoreNotes.push({ ...entry, birth: performance.now(), highlight: 1.0 });
+      if (scoreNotes.length > MAX_SCORE_NOTES) {
+        scoreNotes.shift();
+      }
+    }
+
+    function triggerGuitarString(s, velocity = 0.85, record = true) {
+      s.amp = 16 * velocity;
+      s.glow = 1.0;
+      s.node.pulse = 1.0;
+      playGuitarNote(s.freq, velocity);
+
+      ripples.push({
+        x: s.node.x,
+        y: s.node.y,
+        radius: s.node.radius,
+        maxRadius: 60,
+        alpha: 0.75,
+        color: s.color
+      });
+
+      if (record) {
+        const displayMidi = currentTuningName === 'Standard' ? s.midi + 12 : s.midi;
+        recordNoteToScore({
+          kind: 'guitar',
+          midi: s.midi,
+          displayMidi: displayMidi,
+          freq: s.freq,
+          label: midiToLabel(s.midi),
+          staffStep: midiToStaffStep(displayMidi),
+          isSharp: IS_SHARP_MAP[displayMidi % 12],
+          color: s.color
+        });
+      }
+    }
+
+    function triggerDrumShape(d, velocity = 0.9) {
+      d.pulse = 1.0;
+      playDrum(d.id, velocity);
+
+      ripples.push({
+        x: d.x,
+        y: d.y,
+        radius: d.radius,
+        maxRadius: 68,
+        alpha: 0.8,
+        color: d.color
+      });
+
+      recordNoteToScore({
+        kind: 'drum',
+        drumId: d.id,
+        label: d.label,
+        staffStep: d.staffStep,
+        color: d.color
+      });
+    }
+
+    // Trigger Golden ✕-Factor Portal
+    function triggerXFactor() {
+      xNode.pulse = 1.4;
+      const chosen = [strings[5], strings[3], strings[2], strings[1], strings[0]];
+      const chordNotes = [];
+
+      chosen.forEach((s, idx) => {
+        setTimeout(() => {
+          s.amp = 17;
+          s.glow = 1.0;
+          s.node.pulse = 1.0;
+          playGuitarNote(s.freq, 0.78);
+        }, idx * 36);
+
+        beams.push({
+          x1: xNode.x,
+          y1: xNode.y,
+          x2: s.node.x,
+          y2: s.node.y,
+          alpha: 0.95,
+          color: '#ffcf56'
+        });
+
+        const dispMidi = currentTuningName === 'Standard' ? s.midi + 12 : s.midi;
+        chordNotes.push({
+          staffStep: midiToStaffStep(dispMidi),
+          isSharp: IS_SHARP_MAP[dispMidi % 12],
+          color: s.color
+        });
+      });
+
+      playDrum('kick', 0.85);
+
+      ripples.push({
+        x: xNode.x,
+        y: xNode.y,
+        radius: xNode.radius,
+        maxRadius: 90,
+        alpha: 0.9,
+        color: '#ffcf56'
+      });
+
+      recordNoteToScore({
+        kind: 'chord',
+        label: CHORD_KEYS[chordIdx],
+        notes: chordNotes,
+        staffStep: chordNotes[0].staffStep,
+        color: '#ffcf56'
+      });
+    }
+
+    // ==========================================
+    // RESIZE & INIT
+    // ==========================================
+    function handleResize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      stageHeight = height * (1 - SCORE_RATIO);
+
+      if (strings.length === 0) {
+        setupInstruments();
+      } else {
+        const leftX = width * 0.07;
+        const rightX = width * 0.60;
+        const topY = stageHeight * 0.16;
+        const bottomY = stageHeight * 0.86;
+        const spacing = (bottomY - topY) / 5;
+
+        strings.forEach((s, i) => {
+          s.x1 = leftX;
+          s.x2 = rightX;
+          s.y = topY + i * spacing;
+          s.node.x = leftX + (rightX - leftX) * s.node.ratio;
+          s.node.y = s.y;
+        });
+
+        xNode.x = Math.max(40, Math.min(width - 40, xNode.x));
+        xNode.y = Math.max(40, Math.min(stageHeight - 40, xNode.y));
+
+        drums.forEach(d => {
+          d.x = Math.max(40, Math.min(width - 40, d.x));
+          d.y = Math.max(40, Math.min(stageHeight - 40, d.y));
+        });
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    // Spawn 2 initial kinetic movers
+    spawnMover(width * 0.32, stageHeight * 0.32, 3.2, 2.2);
+    spawnMover(width * 0.72, stageHeight * 0.56, -2.8, -2.4);
+
+    // ==========================================
+    // INTERACTION ENGINE (Mouse, Touch, Slingshot)
+    // ==========================================
+    let draggingItem = null;
+    let slingStart = null;
+    let slingCurrent = null;
+    let lastPointer = { x: 0, y: 0, active: false };
+
+    function dismissHint() {
+      const hint = document.getElementById('hint');
+      if (hint) hint.style.opacity = '0.22';
+    }
+
+    function getPointerPos(e) {
+      if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+      return { x: e.clientX, y: e.clientY };
+    }
+
+    function onPointerDown(e) {
+      if (e.target !== canvas) return;
+      initAudio();
+      dismissHint();
+
+      const pos = getPointerPos(e);
+      lastPointer = { x: pos.x, y: pos.y, active: true };
+
+      // 1. Check if clicking note on sheet music staff to audition
+      if (pos.y > stageHeight) {
+        for (let i = 0; i < scoreNotes.length; i++) {
+          const n = scoreNotes[i];
+          if (n._screenX && Math.hypot(pos.x - n._screenX, pos.y - n._screenY) < 24) {
+            n.highlight = 1.0;
+            if (n.kind === 'guitar') playGuitarNote(n.freq, 0.85);
+            else if (n.kind === 'chord') triggerXFactor();
+            else playDrum(n.drumId, 0.9);
+            return;
+          }
+        }
+        return;
+      }
+
+      // 2. Check Golden X-Factor Node
+      if (Math.hypot(pos.x - xNode.x, pos.y - xNode.y) <= xNode.radius + 12) {
+        draggingItem = { type: 'xNode' };
+        triggerXFactor();
+        return;
+      }
+
+      // 3. Check Guitar Fret Shape Nodes
+      for (const s of strings) {
+        if (Math.hypot(pos.x - s.node.x, pos.y - s.node.y) <= s.node.radius + 10) {
+          draggingItem = { type: 'stringNode', string: s };
+          triggerGuitarString(s, 0.9);
+          return;
+        }
+      }
+
+      // 4. Check Drum Shapes
+      for (const d of drums) {
+        if (Math.hypot(pos.x - d.x, pos.y - d.y) <= d.radius + 10) {
+          draggingItem = { type: 'drum', drum: d };
+          triggerDrumShape(d, 0.95);
+          return;
+        }
+      }
+
+      // 5. Check direct pluck close to a string
+      for (const s of strings) {
+        if (pos.x >= s.x1 && pos.x <= s.x2 && Math.abs(pos.y - s.y) < 14) {
+          triggerGuitarString(s, 0.85);
+          return;
+        }
+      }
+
+      // 6. Empty space: initiate slingshot trajectory to launch a mover
+      slingStart = { x: pos.x, y: pos.y };
+      slingCurrent = { x: pos.x, y: pos.y };
+    }
+
+    function onPointerMove(e) {
+      if (!lastPointer.active) return;
+      const pos = getPointerPos(e);
+
+      if (draggingItem) {
+        if (draggingItem.type === 'stringNode') {
+          const s = draggingItem.string;
+          const clampedX = Math.max(s.x1 + 22, Math.min(s.x2 - 22, pos.x));
+          s.node.x = clampedX;
+          s.node.ratio = (clampedX - s.x1) / (s.x2 - s.x1);
+          const newSemi = Math.round(s.node.ratio * 12);
+          const newMidi = s.baseMidi + newSemi;
+          if (newMidi !== s.midi) {
+            s.midi = newMidi;
+            s.freq = midiToFreq(s.midi);
+            triggerGuitarString(s, 0.65);
+          }
+        } else if (draggingItem.type === 'drum') {
+          const d = draggingItem.drum;
+          d.x = Math.max(38, Math.min(width - 38, pos.x));
+          d.y = Math.max(38, Math.min(stageHeight - 38, pos.y));
+        } else if (draggingItem.type === 'xNode') {
+          xNode.x = Math.max(40, Math.min(width - 40, pos.x));
+          xNode.y = Math.max(40, Math.min(stageHeight - 40, pos.y));
+        }
+      } else {
+        // Strum check: crossing across any guitar string
+        for (const s of strings) {
+          if (pos.x >= s.x1 && pos.x <= s.x2) {
+            const prevSide = lastPointer.y - s.y;
+            const currSide = pos.y - s.y;
+            if (prevSide * currSide < 0 || (prevSide === 0 && currSide !== 0)) {
+              const speed = Math.min(Math.abs(pos.y - lastPointer.y) / 16, 1.0);
+              triggerGuitarString(s, Math.max(0.6, speed));
+              // Cancel slingshot if user was strumming
+              slingStart = null;
+              slingCurrent = null;
+            }
+          }
+        }
+
+        if (slingStart) {
+          slingCurrent = { x: pos.x, y: pos.y };
+        }
+      }
+
+      lastPointer.x = pos.x;
+      lastPointer.y = pos.y;
+    }
+
+    function onPointerUp() {
+      if (slingStart && slingCurrent) {
+        const dx = slingCurrent.x - slingStart.x;
+        const dy = slingCurrent.y - slingStart.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist > 15) {
+          const scale = 0.07;
+          const vx = Math.max(-8, Math.min(8, dx * scale));
+          const vy = Math.max(-8, Math.min(8, dy * scale));
+          spawnMover(slingStart.x, slingStart.y, vx, vy);
+        }
+      }
+
+      draggingItem = null;
+      slingStart = null;
+      slingCurrent = null;
+      lastPointer.active = false;
+    }
+
+    canvas.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      onPointerDown(e);
+    }, { passive: false });
+
+    window.addEventListener('touchmove', (e) => {
+      onPointerMove(e);
+    }, { passive: false });
+
+    window.addEventListener('touchend', onPointerUp);
+
+    // ==========================================
+    // UI BUTTONS
+    // ==========================================
+    document.getElementById('xPulseBtn').addEventListener('click', () => {
+      initAudio();
+      triggerXFactor();
+    });
+
+    document.getElementById('addMoverBtn').addEventListener('click', () => {
+      initAudio();
+      spawnMover(xNode.x, xNode.y);
+      if (movers.length > 9) movers.shift();
+    });
+
+    const flowBtn = document.getElementById('flowBtn');
+    flowBtn.addEventListener('click', () => {
+      flowMode = flowMode === 'bounce' ? 'rain' : 'bounce';
+      flowBtn.textContent = flowMode === 'bounce' ? 'Flow: Bounce' : 'Flow: Cascade';
+      flowBtn.classList.toggle('active', flowMode === 'rain');
+    });
+
+    const chordBtn = document.getElementById('chordBtn');
+    chordBtn.addEventListener('click', () => {
+      initAudio();
+      chordIdx = (chordIdx + 1) % CHORD_KEYS.length;
+      const key = CHORD_KEYS[chordIdx];
+      chordBtn.textContent = `Chord: ${key}`;
+      const ratios = CHORD_PRESETS[key];
+      strings.forEach((s, i) => {
+        s.node.ratio = ratios[i];
+        s.node.x = s.x1 + (s.x2 - s.x1) * s.node.ratio;
+        s.midi = s.baseMidi + Math.round(s.node.ratio * 12);
+        s.freq = midiToFreq(s.midi);
+      });
+      triggerXFactor();
+    });
+
+    const tuningBtn = document.getElementById('tuningBtn');
+    tuningBtn.addEventListener('click', () => {
+      currentTuningName = currentTuningName === 'Pentatonic' ? 'Standard' : 'Pentatonic';
+      tuningBtn.textContent = `Tuning: ${currentTuningName}`;
+      updateStringTuning();
+    });
+
+    const replayBtn = document.getElementById('replayBtn');
+    replayBtn.addEventListener('click', () => {
+      initAudio();
+      if (isReplaying) {
+        stopReplay();
+        return;
+      }
+      if (scoreNotes.length === 0) return;
+
+      isReplaying = true;
+      replayIndex = 0;
+      replayBtn.textContent = '■ Stop';
+      replayBtn.classList.add('active');
+
+      const stepReplay = () => {
+        if (!isReplaying || replayIndex >= scoreNotes.length) {
+          stopReplay();
+          return;
+        }
+        const n = scoreNotes[replayIndex];
+        n.highlight = 1.0;
+        if (n.kind === 'guitar') {
+          playGuitarNote(n.freq, 0.85);
+        } else if (n.kind === 'chord') {
+          triggerXFactor();
+        } else {
+          playDrum(n.drumId, 0.9);
+        }
+        replayIndex++;
+        replayTimer = setTimeout(stepReplay, 240);
+      };
+      stepReplay();
+    });
+
+    function stopReplay() {
+      isReplaying = false;
+      replayIndex = -1;
+      if (replayTimer) clearTimeout(replayTimer);
+      replayBtn.textContent = '▶ Replay Score';
+      replayBtn.classList.remove('active');
+    }
+
+    document.getElementById('clearScoreBtn').addEventListener('click', () => {
+      stopReplay();
+      scoreNotes.length = 0;
+    });
+
+    // ==========================================
+    // DRAWING GEOMETRY UTILITIES
+    // ==========================================
+    function drawPolygon(ctx, x, y, radius, sides, rotation = 0) {
+      ctx.beginPath();
+      for (let i = 0; i < sides; i++) {
+        const a = rotation + (i * Math.PI * 2) / sides;
+        const px = x + Math.cos(a) * radius;
+        const py = y + Math.sin(a) * radius;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+    }
+
+    function drawShape(ctx, shape, x, y, radius, rotation = 0) {
+      if (shape === 'circle') {
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+      } else if (shape === 'triangle') {
+        drawPolygon(ctx, x, y, radius * 1.12, 3, rotation - Math.PI / 2);
+      } else if (shape === 'diamond') {
+        drawPolygon(ctx, x, y, radius * 1.08, 4, rotation);
+      } else if (shape === 'hexagon') {
+        drawPolygon(ctx, x, y, radius * 1.04, 6, rotation);
+      }
+    }
+
+    // ==========================================
+    // MAIN LOOP: PHYSICS & RENDERING
+    // ==========================================
+    function loop(now) {
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Stage Background
+      ctx.fillStyle = '#080a0e';
+      ctx.fillRect(0, 0, width, stageHeight);
+
+      // 2. Physics & Collisions for Movers
+      for (const m of movers) {
+        m.trail.push({ x: m.x, y: m.y });
+        if (m.trail.length > 18) m.trail.shift();
+
+        if (flowMode === 'rain') {
+          m.vy += 0.025;
+          if (m.vy > 4.2) m.vy = 4.2;
+          m.x += m.vx * 0.7;
+          m.y += m.vy;
+          if (m.y > stageHeight - 12) {
+            m.y = 14;
+            m.x = width * (0.1 + Math.random() * 0.8);
+            m.trail.length = 0;
+          }
+          if (m.x < 14 || m.x > width - 14) m.vx *= -1;
+        } else {
+          m.x += m.vx;
+          m.y += m.vy;
+          if (m.x < 14) { m.x = 14; m.vx *= -1; }
+          if (m.x > width - 14) { m.x = width - 14; m.vx *= -1; }
+          if (m.y < 14) { m.y = 14; m.vy *= -1; }
+          if (m.y > stageHeight - 14) { m.y = stageHeight - 14; m.vy *= -1; }
+        }
+
+        // Check Golden X-Factor Collision
+        const lastXHit = m.cooldowns.get('xnode') || 0;
+        const xDist = Math.hypot(m.x - xNode.x, m.y - xNode.y);
+        if (xDist < xNode.radius + m.radius + 6 && now - lastXHit > 500) {
+          m.cooldowns.set('xnode', now);
+          triggerXFactor();
+          // Gentle deflection
+          const nx = (m.x - xNode.x) / (xDist || 1);
+          const ny = (m.y - xNode.y) / (xDist || 1);
+          const spd = Math.hypot(m.vx, m.vy);
+          m.vx = nx * spd;
+          m.vy = ny * spd;
+        }
+
+        // Check Guitar Fret Shapes
+        for (const s of strings) {
+          const key = `str_${s.index}`;
+          const lastHit = m.cooldowns.get(key) || 0;
+          const dist = Math.hypot(m.x - s.node.x, m.y - s.node.y);
+          if (dist < s.node.radius + m.radius + 6 && now - lastHit > 260) {
+            m.cooldowns.set(key, now);
+            triggerGuitarString(s, 0.82);
+          }
+        }
+
+        // Check Drum Shapes
+        for (const d of drums) {
+          const key = `drum_${d.id}`;
+          const lastHit = m.cooldowns.get(key) || 0;
+          const dist = Math.hypot(m.x - d.x, m.y - d.y);
+          if (dist < d.radius + m.radius + 6 && now - lastHit > 250) {
+            m.cooldowns.set(key, now);
+            triggerDrumShape(d, 0.9);
+            // Deflection
+            const nx = (m.x - d.x) / (dist || 1);
+            const ny = (m.y - d.y) / (dist || 1);
+            const spd = Math.hypot(m.vx, m.vy);
+            m.vx = nx * spd;
+            m.vy = ny * spd;
+          }
+        }
+      }
+
+      // 3. Draw Laser Energy Beams from X-Factor
+      for (let i = beams.length - 1; i >= 0; i--) {
+        const b = beams[i];
+        b.alpha *= 0.89;
+        if (b.alpha < 0.02) {
+          beams.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(b.x1, b.y1);
+        ctx.lineTo(b.x2, b.y2);
+        ctx.strokeStyle = b.color;
+        ctx.globalAlpha = b.alpha;
+        ctx.lineWidth = 2.2;
+        ctx.shadowColor = b.color;
+        ctx.shadowBlur = 12;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 4. Draw Guitar Strings & Fret Nodes
+      for (const s of strings) {
+        s.phase += 0.44;
+        s.amp *= 0.92;
+        s.glow *= 0.93;
+        s.node.pulse *= 0.90;
+        s.node.rotation += 0.003 + s.node.pulse * 0.04;
+
+        const vib = Math.sin(s.phase) * s.amp;
+
+        // Tuning pegs
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.beginPath();
+        ctx.arc(s.x1, s.y, 3.5, 0, Math.PI * 2);
+        ctx.arc(s.x2, s.y, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Vibrating String
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(s.x1, s.y);
+        ctx.quadraticCurveTo(s.node.x, s.y + vib, s.x2, s.y);
+        ctx.strokeStyle = s.glow > 0.05 ? s.color : 'rgba(236, 234, 228, 0.22)';
+        ctx.lineWidth = 1.5 + s.glow * 2.2;
+        if (s.glow > 0.05) {
+          ctx.shadowColor = s.color;
+          ctx.shadowBlur = 14 * s.glow;
+        }
+        ctx.stroke();
+        ctx.restore();
+
+        // Fret Shape Node
+        const r = s.node.radius + s.node.pulse * 6;
+        ctx.save();
+        drawShape(ctx, s.node.shape, s.node.x, s.node.y + vib * 0.35, r, s.node.rotation);
+        ctx.fillStyle = '#0c1017';
+        ctx.fill();
+        ctx.lineWidth = 1.8 + s.node.pulse * 1.5;
+        ctx.strokeStyle = s.color;
+        ctx.shadowColor = s.color;
+        ctx.shadowBlur = 10 + s.node.pulse * 16;
+        ctx.stroke();
+
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = '#eceae4';
+        ctx.font = '600 10px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(midiToLabel(s.midi), s.node.x, s.node.y + vib * 0.35);
+        ctx.restore();
+      }
+
+      // 5. Draw The Golden ✕-Factor Portal
+      xNode.pulse *= 0.90;
+      xNode.angle += 0.007 + xNode.pulse * 0.04;
+      const xr = xNode.radius + xNode.pulse * 9;
+
+      ctx.save();
+      ctx.translate(xNode.x, xNode.y);
+      ctx.rotate(xNode.angle);
+
+      // Outer glow aura
+      ctx.strokeStyle = '#ffcf56';
+      ctx.shadowColor = '#ffcf56';
+      ctx.shadowBlur = 16 + xNode.pulse * 24;
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+
+      ctx.beginPath();
+      ctx.moveTo(-xr * 0.68, -xr * 0.68);
+      ctx.lineTo(xr * 0.68, xr * 0.68);
+      ctx.moveTo(xr * 0.68, -xr * 0.68);
+      ctx.lineTo(-xr * 0.68, xr * 0.68);
+      ctx.stroke();
+
+      ctx.restore();
+
+      // Label below X Node
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 207, 86, 0.75)';
+      ctx.font = '600 9px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'top';
+      ctx.fillText('✕-FACTOR', xNode.x, xNode.y + xr + 6);
+      ctx.restore();
+
+      // 6. Draw Drum Shapes
+      for (const d of drums) {
+        d.pulse *= 0.89;
+        d.rotation += 0.003 + d.pulse * 0.03;
+        const r = d.radius + d.pulse * 8;
+
+        ctx.save();
+        drawShape(ctx, d.shape, d.x, d.y, r, d.rotation);
+        ctx.fillStyle = '#10141d';
+        ctx.fill();
+        ctx.lineWidth = 2 + d.pulse * 2;
+        ctx.strokeStyle = d.color;
+        ctx.shadowColor = d.color;
+        ctx.shadowBlur = 12 + d.pulse * 18;
+        ctx.stroke();
+
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = '#eceae4';
+        ctx.font = '600 9px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(d.label, d.x, d.y);
+        ctx.restore();
+      }
+
+      // 7. Shockwave Ripples
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const rp = ripples[i];
+        rp.radius += (rp.maxRadius - rp.radius) * 0.14;
+        rp.alpha *= 0.91;
+        if (rp.alpha < 0.02) {
+          ripples.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, rp.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = rp.color;
+        ctx.globalAlpha = rp.alpha;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 8. Draw Movers & Trails
+      for (const m of movers) {
+        if (m.trail.length > 1) {
+          ctx.save();
+          ctx.beginPath();
+          m.trail.forEach((p, idx) => {
+            if (idx === 0) ctx.moveTo(p.x, p.y);
+            else ctx.lineTo(p.x, p.y);
+          });
+          ctx.strokeStyle = 'rgba(255, 207, 86, 0.28)';
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff9eb';
+        ctx.shadowColor = '#ffcf56';
+        ctx.shadowBlur = 14;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // 9. Draw Slingshot Trajectory
+      if (slingStart && slingCurrent) {
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(slingStart.x, slingStart.y);
+        ctx.lineTo(slingCurrent.x, slingCurrent.y);
+        ctx.setLineDash([4, 4]);
+        ctx.strokeStyle = 'rgba(255, 207, 86, 0.7)';
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(slingStart.x, slingStart.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffcf56';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // 10. Live Sheet Music Staff
+      drawSheetMusic();
+
+      requestAnimationFrame(loop);
+    }
+
+    // ==========================================
+    // SHEET MUSIC NOTATION RENDERING
+    // ==========================================
+    function drawSheetMusic() {
+      const scoreTop = stageHeight;
+      const scoreHeight = height - stageHeight;
+
+      // Dark sheet music backdrop
+      ctx.fillStyle = '#0f1218';
+      ctx.fillRect(0, scoreTop, width, scoreHeight);
+
+      // Border separator line
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, scoreTop);
+      ctx.lineTo(width, scoreTop);
+      ctx.stroke();
+
+      const lineSpacing = Math.max(11, Math.min(14, scoreHeight * 0.075));
+      const staffHeight = lineSpacing * 4;
+      const bottomLineY = scoreTop + scoreHeight * 0.64; // E4 line
+      const topLineY = bottomLineY - staffHeight;         // F5 line
+      const staffLeft = Math.max(36, width * 0.05);
+      const staffRight = width - Math.max(36, width * 0.05);
+
+      // Draw 5 staff lines
+      ctx.strokeStyle = 'rgba(236, 234, 228, 0.22)';
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 5; i++) {
+        const ly = bottomLineY - i * lineSpacing;
+        ctx.beginPath();
+        ctx.moveTo(staffLeft, ly);
+        ctx.lineTo(staffRight, ly);
+        ctx.stroke();
+      }
+
+      // Start & End double barlines
+      ctx.strokeStyle = 'rgba(236, 234, 228, 0.45)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(staffLeft, topLineY);
+      ctx.lineTo(staffLeft, bottomLineY);
+      ctx.moveTo(staffRight, topLineY);
+      ctx.lineTo(staffRight, bottomLineY);
+      ctx.stroke();
+
+      // Treble Clef 𝄞
+      ctx.fillStyle = 'rgba(236, 234, 228, 0.8)';
+      ctx.font = `${Math.round(lineSpacing * 4.6)}px serif`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText('𝄞', staffLeft + 8, bottomLineY - lineSpacing * 0.45);
+
+      if (currentTuningName === 'Standard') {
+        ctx.font = '600 10px Inter, sans-serif';
+        ctx.fillStyle = 'rgba(236, 234, 228, 0.45)';
+        ctx.fillText('8vb', staffLeft + 14, bottomLineY + lineSpacing * 1.4);
+      }
+
+      if (scoreNotes.length === 0) {
+        ctx.fillStyle = 'rgba(236, 234, 228, 0.25)';
+        ctx.font = '400 12px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Notes plucked by movers or your cursor are transcribed here in real time (click notes to replay)', width / 2, topLineY + staffHeight / 2 + 4);
+        return;
+      }
+
+      const firstNoteX = staffLeft + 68;
+      const usableWidth = staffRight - firstNoteX - 24;
+      const stepX = Math.min(44, usableWidth / Math.max(scoreNotes.length, 12));
+
+      for (let i = 0; i < scoreNotes.length; i++) {
+        const n = scoreNotes[i];
+        n.highlight *= 0.93;
+        const nx = firstNoteX + i * stepX;
+        n._screenX = nx;
+
+        // Measure barline every 4 notes
+        if (i > 0 && i % 4 === 0) {
+          const barX = nx - stepX * 0.5;
+          ctx.strokeStyle = 'rgba(236, 234, 228, 0.15)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(barX, topLineY);
+          ctx.lineTo(barX, bottomLineY);
+          ctx.stroke();
+        }
+
+        ctx.save();
+        const activeColor = n.highlight > 0.08 ? n.color : '#eceae4';
+        ctx.strokeStyle = activeColor;
+        ctx.fillStyle = activeColor;
+
+        if (n.highlight > 0.08) {
+          ctx.shadowColor = n.color;
+          ctx.shadowBlur = 12 * n.highlight;
+        }
+
+        if (n.kind === 'chord') {
+          // Draw Stacked Chord Notes
+          let minStep = 999;
+          let maxStep = -999;
+
+          n.notes.forEach(cn => {
+            const cny = bottomLineY - cn.staffStep * (lineSpacing / 2);
+            minStep = Math.min(minStep, cn.staffStep);
+            maxStep = Math.max(maxStep, cn.staffStep);
+
+            // Ledger lines for chord note
+            if (cn.staffStep <= -2) {
+              for (let s = -2; s >= cn.staffStep; s -= 2) {
+                const ly = bottomLineY - s * (lineSpacing / 2);
+                ctx.beginPath();
+                ctx.moveTo(nx - 10, ly);
+                ctx.lineTo(nx + 10, ly);
+                ctx.stroke();
+              }
+            } else if (cn.staffStep >= 10) {
+              for (let s = 10; s <= cn.staffStep; s += 2) {
+                const ly = bottomLineY - s * (lineSpacing / 2);
+                ctx.beginPath();
+                ctx.moveTo(nx - 10, ly);
+                ctx.lineTo(nx + 10, ly);
+                ctx.stroke();
+              }
+            }
+
+            if (cn.isSharp) {
+              ctx.font = '600 11px serif';
+              ctx.textAlign = 'right';
+              ctx.textBaseline = 'middle';
+              ctx.fillText('♯', nx - 8, cny);
+            }
+
+            ctx.beginPath();
+            ctx.ellipse(nx, cny, 5.8, 4.2, -0.3, 0, Math.PI * 2);
+            ctx.fill();
+          });
+
+          // Chord stem
+          const botY = bottomLineY - minStep * (lineSpacing / 2);
+          const topY = bottomLineY - maxStep * (lineSpacing / 2);
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.moveTo(nx + 5.5, botY);
+          ctx.lineTo(nx + 5.5, topY - lineSpacing * 2.2);
+          ctx.stroke();
+
+          n._screenY = (topY + botY) / 2;
+
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = n.highlight > 0.1 ? '#ffcf56' : 'rgba(236, 234, 228, 0.45)';
+          ctx.font = '600 9px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText(n.label, nx, bottomLineY + lineSpacing * 1.45);
+
+        } else {
+          // Single Note (Guitar or Drum)
+          const ny = bottomLineY - n.staffStep * (lineSpacing / 2);
+          n._screenY = ny;
+
+          // Ledger lines below E4 (staffStep <= -2) or above F5 (staffStep >= 10)
+          if (n.staffStep <= -2) {
+            for (let s = -2; s >= n.staffStep; s -= 2) {
+              const ly = bottomLineY - s * (lineSpacing / 2);
+              ctx.beginPath();
+              ctx.moveTo(nx - 10, ly);
+              ctx.lineTo(nx + 10, ly);
+              ctx.stroke();
+            }
+          } else if (n.staffStep >= 10) {
+            for (let s = 10; s <= n.staffStep; s += 2) {
+              const ly = bottomLineY - s * (lineSpacing / 2);
+              ctx.beginPath();
+              ctx.moveTo(nx - 10, ly);
+              ctx.lineTo(nx + 10, ly);
+              ctx.stroke();
+            }
+          }
+
+          // Stem
+          const stemUp = n.staffStep < 4;
+          const stemLen = lineSpacing * 2.8;
+          const stemX = stemUp ? nx + 5.2 : nx - 5.2;
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(stemX, ny);
+          ctx.lineTo(stemX, stemUp ? ny - stemLen : ny + stemLen);
+          ctx.stroke();
+
+          if (n.kind === 'guitar') {
+            if (n.isSharp) {
+              ctx.font = '600 12px serif';
+              ctx.textAlign = 'right';
+              ctx.textBaseline = 'middle';
+              ctx.fillText('♯', nx - 8, ny);
+            }
+            ctx.beginPath();
+            ctx.ellipse(nx, ny, 6, 4.3, -0.32, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            // Percussion Noteheads
+            if (n.drumId === 'hihat') {
+              ctx.lineWidth = 1.8;
+              ctx.beginPath();
+              ctx.moveTo(nx - 4.5, ny - 4.5);
+              ctx.lineTo(nx + 4.5, ny + 4.5);
+              ctx.moveTo(nx + 4.5, ny - 4.5);
+              ctx.lineTo(nx - 4.5, ny + 4.5);
+              ctx.stroke();
+            } else if (n.drumId === 'snare' || n.drumId === 'tom') {
+              drawPolygon(ctx, nx, ny, 5.8, 4, 0);
+              ctx.fill();
+            } else {
+              ctx.beginPath();
+              ctx.ellipse(nx, ny, 6.2, 4.6, -0.25, 0, Math.PI * 2);
+              ctx.lineWidth = 1.8;
+              ctx.stroke();
+            }
+          }
+
+          // Caption label below staff
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = n.highlight > 0.1 ? n.color : 'rgba(236, 234, 228, 0.42)';
+          ctx.font = '500 9px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          const shortLabel = n.kind === 'guitar' ? n.label : n.drumId.toUpperCase().slice(0, 2);
+          ctx.fillText(shortLabel, nx, bottomLineY + lineSpacing * 1.45);
+        }
+
+        ctx.restore();
+      }
+    }
+
+    requestAnimationFrame(loop);
+  })();
+  </script>
+</body>
+</html>

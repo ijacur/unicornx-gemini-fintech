@@ -1,0 +1,35 @@
+{
+  "providerProfiles": {
+    "currentApiConfigName": "Gemini-Flash",
+    "apiConfigs": {
+      "Gemini-Flash": {
+        "id": "gemini-profile-turnir",
+        "apiProvider": "gemini",
+        "apiModelId": "gemini-2.5-flash",
+        "apiKey": "AIzaSyCW2X48VbLi-3gaUq-USPGSZ-AlCOFv07Y"
+      },
+      "Anthropic-Claude": {
+        "id": "anthropic-profile-turnir",
+        "apiProvider": "anthropic",
+        "apiModelId": "claude-3-7-sonnet-20250219",
+        "apiKey": "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"
+      },
+      "OpenRouter": {
+        "id": "openrouter-profile-turnir",
+        "apiProvider": "openrouter",
+        "apiModelId": "anthropic/claude-3.7-sonnet",
+        "apiKey": ""
+      },
+      "OpenAI": {
+        "id": "openai-profile-turnir",
+        "apiProvider": "openai",
+        "apiModelId": "gpt-4o",
+        "apiKey": ""
+      }
+    }
+  },
+  "globalSettings": {
+    "autoApprovalEnabled": false,
+    "telemetrySetting": "disabled"
+  }
+}
