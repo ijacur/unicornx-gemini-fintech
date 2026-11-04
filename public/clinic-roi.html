@@ -234,8 +234,11 @@
     </div>
 
     <div style="display: flex; align-items: center; gap: 10px;">
-      <button onclick="window.print()" class="btn-white mono" style="padding: 5px 14px; font-size: 11px;">
-        Print / PDF Report
+      <button onclick="exportCSVReport()" class="btn-glass mono" style="padding: 5px 14px; font-size: 11px;">
+        CSV Eksport &darr;
+      </button>
+      <button onclick="window.print()" class="btn-acid mono" style="padding: 5px 14px; font-size: 11px;">
+        Chop Etish / PDF &rarr;
       </button>
     </div>
   </nav>
@@ -309,9 +312,27 @@
         <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
           [CLINIC PARAMETERS]
         </div>
-        <h3 style="font-size: 17px; font-weight: 600; color: #FFFFFF; margin-bottom: 20px;">
+        <h3 style="font-size: 17px; font-weight: 600; color: #FFFFFF; margin-bottom: 16px;">
           Klinikangiz Ko'rsatkichlarini Kiriting
         </h3>
+
+        <!-- Quick Clinic Presets -->
+        <div style="margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px;">
+          <div class="mono" style="font-size: 10px; color: var(--accent-acid); margin-bottom: 6px;">
+            [SAMARQAND KLINIKALARI TEZKOR SHABLONLARI]
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+            <button type="button" onclick="loadClinicPreset('doktord')" id="preset-doktord" class="btn-glass mono" style="font-size: 10px; padding: 5px 8px; justify-content: center;">
+              Doktor D (45 vrach)
+            </button>
+            <button type="button" onclick="loadClinicPreset('medstar')" id="preset-medstar" class="btn-glass mono" style="font-size: 10px; padding: 5px 8px; justify-content: center;">
+              Med Star (12 vrach)
+            </button>
+            <button type="button" onclick="loadClinicPreset('sammed')" id="preset-sammed" class="btn-glass mono" style="font-size: 10px; padding: 5px 8px; justify-content: center;">
+              SamMed (28 vrach)
+            </button>
+          </div>
+        </div>
 
         <!-- Slider 1 -->
         <div style="margin-bottom: 22px;">
@@ -407,6 +428,30 @@
           </div>
         </div>
 
+        <!-- Real-time SVG Comparison Visualizer -->
+        <div class="bento-card" style="padding: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span class="mono" style="font-size: 11px; color: var(--text-secondary);">[VIZUAL TAHLIL: YO'QOTISH VS QAYTA TUSHUM]</span>
+            <span class="mono" style="font-size: 10px; color: var(--accent-acid); font-weight: 600;">● OYLIK FARQ</span>
+          </div>
+          <svg id="roiSvgChart" viewBox="0 0 400 90" style="width: 100%; height: 90px; overflow: visible;">
+            <!-- Background grid lines -->
+            <line x1="0" y1="20" x2="400" y2="20" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 2" />
+            <line x1="0" y1="50" x2="400" y2="50" stroke="rgba(255,255,255,0.05)" stroke-dasharray="2 2" />
+            <line x1="0" y1="80" x2="400" y2="80" stroke="rgba(255,255,255,0.08)" />
+
+            <!-- Bars -->
+            <g id="chartBars">
+              <!-- Rendered via JS -->
+            </g>
+          </svg>
+          <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 10px;" class="mono">
+            <span style="color: #FF5555;">■ Yo'qotilayotgan tushum</span>
+            <span style="color: var(--accent-acid);">■ MedLoop qaytaradigan tushum</span>
+            <span style="color: #FFFFFF;">■ Sof foyda (+30 kun)</span>
+          </div>
+        </div>
+
         <!-- 14-Day Pilot Guarantee Card -->
         <div class="bento-card">
           <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
@@ -430,6 +475,103 @@
   </main>
 
   <script>
+    let currentCalcData = {};
+
+    function loadClinicPreset(preset) {
+      const presets = {
+        doktord: { daily: 90, dropOff: 40, check: 180000, name: 'Doktor D (45 vrach)' },
+        medstar: { daily: 25, dropOff: 50, check: 140000, name: 'Med Star (12 vrach)' },
+        sammed: { daily: 60, dropOff: 45, check: 150000, name: 'SamMed (28 vrach)' }
+      };
+
+      const data = presets[preset];
+      if (!data) return;
+
+      document.getElementById('sliderDaily').value = data.daily;
+      document.getElementById('sliderDropOff').value = data.dropOff;
+      document.getElementById('sliderCheck').value = data.check;
+
+      ['doktord', 'medstar', 'sammed'].forEach(p => {
+        const btn = document.getElementById('preset-' + p);
+        if (btn) {
+          if (p === preset) {
+            btn.style.borderColor = 'var(--accent-acid)';
+            btn.style.color = 'var(--accent-acid)';
+            btn.style.background = 'rgba(198, 244, 50, 0.08)';
+          } else {
+            btn.style.borderColor = 'var(--border-subtle)';
+            btn.style.color = 'var(--text-secondary)';
+            btn.style.background = 'var(--bg-glass)';
+          }
+        }
+      });
+
+      calculateSimulator();
+    }
+
+    function drawChart(bleed, recovered, netGain) {
+      const g = document.getElementById('chartBars');
+      if (!g) return;
+
+      const maxVal = Math.max(bleed, recovered, netGain, 1);
+      const hBleed = Math.max(4, Math.round((bleed / maxVal) * 55));
+      const hRec = Math.max(4, Math.round((recovered / maxVal) * 55));
+      const hNet = Math.max(4, Math.round((netGain / maxVal) * 55));
+
+      const base = 75;
+
+      g.innerHTML = `
+        <!-- Bar 1: Monthly Bleed -->
+        <rect x="50" y="${base - hBleed}" width="60" height="${hBleed}" rx="4" fill="#FF5555" fill-opacity="0.85" />
+        <text x="80" y="${base - hBleed - 6}" font-family="'JetBrains Mono', monospace" font-size="9" fill="#FF5555" text-anchor="middle" font-weight="600">-${(bleed/1000000).toFixed(1)}M</text>
+        <text x="80" y="87" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888888" text-anchor="middle">Yo'qotish</text>
+
+        <!-- Bar 2: Recovered Revenue -->
+        <rect x="170" y="${base - hRec}" width="60" height="${hRec}" rx="4" fill="#C6F432" fill-opacity="0.9" />
+        <text x="200" y="${base - hRec - 6}" font-family="'JetBrains Mono', monospace" font-size="9" fill="#C6F432" text-anchor="middle" font-weight="600">+${(recovered/1000000).toFixed(1)}M</text>
+        <text x="200" y="87" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888888" text-anchor="middle">Qaytarilgan</text>
+
+        <!-- Bar 3: Net Profit -->
+        <rect x="290" y="${base - hNet}" width="60" height="${hNet}" rx="4" fill="#FFFFFF" fill-opacity="0.9" />
+        <text x="320" y="${base - hNet - 6}" font-family="'JetBrains Mono', monospace" font-size="9" fill="#FFFFFF" text-anchor="middle" font-weight="600">+${(netGain/1000000).toFixed(1)}M</text>
+        <text x="320" y="87" font-family="'JetBrains Mono', monospace" font-size="9" fill="#888888" text-anchor="middle">Sof Foyda</text>
+      `;
+    }
+
+    function exportCSVReport() {
+      const data = currentCalcData;
+      if (!data || !data.daily) {
+        alert("Ma'lumotlar hisoblanmoqda...");
+        return;
+      }
+
+      const csvContent = 
+`MedLoop Klinika ROI Hisoboti,Sana: ${new Date().toISOString().slice(0, 10)}
+Ko'rsatkich,Qiymat,Birlik
+Kunlik laboratoriya bemorlari,${data.daily},bemor/kun
+Tahlildan so'ng yo'qolish darajasi,${data.dropOff},%
+O'rtacha konsultatsiya cheki,${data.check},UZS
+Oylik bemorlar oqimi,${data.monthlyPatients},bemor/oy
+Oylik yo'qotilayotgan bemorlar,${data.lostPatients},bemor/oy
+Klinika oylik yo'qotayotgan tushumi,${data.monthlyBleed},UZS
+MedLoop orqali qaytariladigan bemorlar (60%),${data.recoveredPatients},bemor/oy
+MedLoop orqali yangi qaytarilgan tushum,${data.recoveredRevenue},UZS
+MedLoop oylik SaaS obunasi,${data.sub},UZS
+Klinikaning oylik sof foydasi,${data.netGain},UZS
+Investitsiya rentabelligi (ROI),${data.roi}x,barobar
+Kafolatlangan pilot muddati,14 kun (bepul sinov),kun
+`;
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `MedLoop_Klinika_ROI_Hisobot_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     function calculateSimulator() {
       const daily = parseInt(document.getElementById('sliderDaily').value, 10);
       const dropOff = parseInt(document.getElementById('sliderDropOff').value, 10);
@@ -449,6 +591,12 @@
       const netGain = recoveredRevenue - sub;
       const roi = (recoveredRevenue / sub).toFixed(1);
 
+      currentCalcData = {
+        daily, dropOff, check, monthlyPatients, lostPatients,
+        monthlyBleed, recoveredPatients, recoveredRevenue, sub,
+        netGain, roi
+      };
+
       document.getElementById('simMonthlyBleed').innerText = `-${monthlyBleed.toLocaleString()} UZS`;
       document.getElementById('simRecovered').innerText = `+${recoveredRevenue.toLocaleString()} UZS`;
       document.getElementById('simNetGain').innerText = `+${netGain.toLocaleString()} UZS`;
@@ -459,6 +607,8 @@
       document.getElementById('kpiRevenue').innerText = (recoveredRevenue / 1000000).toFixed(1) + "M";
       document.getElementById('kpiNetProfit').innerText = `+${(netGain / 1000000).toFixed(1)}M`;
       document.getElementById('unitRoiDisplay').innerText = `1 so'm → ${Math.round(roi)} so'm`;
+
+      drawChart(monthlyBleed, recoveredRevenue, netGain);
     }
 
     calculateSimulator();

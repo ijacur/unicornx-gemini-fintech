@@ -282,15 +282,15 @@
 
       <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
         
-        <div class="bento-card" style="padding: 16px;">
-          <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 01]</div>
+        <div class="bento-card" id="step-card-1" onclick="activateStep(1)" style="padding: 16px; cursor: pointer; border-color: var(--accent-acid); background: rgba(198, 244, 50, 0.04);">
+          <div class="mono" style="font-size: 12px; font-weight: 700; color: var(--accent-acid); margin-bottom: 6px;">[STEP 01]</div>
           <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">Yengil Ulanish</div>
           <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
             Klinika kompyuterlariga og'ir dastur o'rnatilmaydi. QR-kod yoki Telegram havola orqali bemor ulanadi.
           </p>
         </div>
 
-        <div class="bento-card" style="padding: 16px;">
+        <div class="bento-card" id="step-card-2" onclick="activateStep(2)" style="padding: 16px; cursor: pointer;">
           <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 02]</div>
           <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">8s Multimodal OCR</div>
           <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
@@ -298,7 +298,7 @@
           </p>
         </div>
 
-        <div class="bento-card" style="padding: 16px;">
+        <div class="bento-card" id="step-card-3" onclick="activateStep(3)" style="padding: 16px; cursor: pointer;">
           <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 03]</div>
           <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">1-Click Rebooking</div>
           <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
@@ -306,7 +306,7 @@
           </p>
         </div>
 
-        <div class="bento-card" style="padding: 16px;">
+        <div class="bento-card" id="step-card-4" onclick="activateStep(4)" style="padding: 16px; cursor: pointer;">
           <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 04]</div>
           <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">Registratura Tushumi</div>
           <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
@@ -314,6 +314,11 @@
           </p>
         </div>
 
+      </div>
+
+      <!-- Interactive Step Hardware Stage -->
+      <div id="stepInteractiveStage" class="bento-card" style="margin-top: 18px; padding: 20px; background: rgba(10, 10, 10, 0.85); border: 1px solid var(--border-hover);">
+        <!-- Injected via activateStep() -->
       </div>
     </div>
 
@@ -328,10 +333,150 @@
           Oldindan to'lov talab etilmaydi. Tizim kamida 3M UZS qo'shimcha tushum keltirsagina hamkorlik davom etadi.
         </div>
       </div>
-      <a href="https://t.me/jasurceo" target="_blank" class="btn-white mono" style="font-size: 12px;">
+      <a href="https://t.me/jasurceo" target="_blank" class="btn-acid mono" style="font-size: 12px;">
         Pilotni Ulash (@jasurceo) &rarr;
       </a>
     </div>
+
+  </main>
+
+  <script>
+    function activateStep(n) {
+      for (let i = 1; i <= 4; i++) {
+        const card = document.getElementById('step-card-' + i);
+        if (!card) continue;
+        const tag = card.querySelector('.mono');
+        if (i === n) {
+          card.style.borderColor = 'var(--accent-acid)';
+          card.style.background = 'rgba(198, 244, 50, 0.05)';
+          if (tag) tag.style.color = 'var(--accent-acid)';
+        } else {
+          card.style.borderColor = 'var(--border-subtle)';
+          card.style.background = 'linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%)';
+          if (tag) tag.style.color = '#FFFFFF';
+        }
+      }
+
+      const stage = document.getElementById('stepInteractiveStage');
+      if (!stage) return;
+
+      if (n === 1) {
+        stage.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="mono" style="font-size: 11px; color: var(--accent-acid);">[STEP 01: QR VA TELEGRAM HAVOLA SIMULYATORI]</span>
+            <span class="mono" style="font-size: 10px; color: #888;">● ZERO-INSTALL CLOUD DEPLOY</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 20px; align-items: center;">
+            <div style="background: #FFF; padding: 10px; border-radius: 12px; text-align: center;">
+              <svg viewBox="0 0 100 100" style="width: 100%; height: auto;">
+                <rect x="0" y="0" width="30" height="30" fill="#000"/>
+                <rect x="5" y="5" width="20" height="20" fill="#FFF"/>
+                <rect x="10" y="10" width="10" height="10" fill="#000"/>
+                <rect x="70" y="0" width="30" height="30" fill="#000"/>
+                <rect x="75" y="5" width="20" height="20" fill="#FFF"/>
+                <rect x="80" y="10" width="10" height="10" fill="#000"/>
+                <rect x="0" y="70" width="30" height="30" fill="#000"/>
+                <rect x="5" y="75" width="20" height="20" fill="#FFF"/>
+                <rect x="10" y="80" width="10" height="10" fill="#000"/>
+                <rect x="40" y="10" width="10" height="20" fill="#000"/>
+                <rect x="40" y="40" width="20" height="20" fill="#000"/>
+                <rect x="70" y="50" width="20" height="10" fill="#000"/>
+                <rect x="20" y="40" width="10" height="20" fill="#000"/>
+                <rect x="50" y="70" width="20" height="20" fill="#000"/>
+              </svg>
+              <span class="mono" style="font-size: 9px; color: #000; font-weight: 700;">SCAN FOR TRIAGE</span>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 6px;">Klinika Tahlil Blanki uchun QR-kod</div>
+              <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Bemor qabulxona qog'ozidagi yoki registratura stoliga qo'yilgan akril taglikdagi QR-kodni skaner qiladi. Hech qanday ilova yuklab olish talab etilmaydi.</p>
+              <div class="mono" style="font-size: 11px; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); padding: 6px 12px; border-radius: 8px; color: var(--accent-acid); display: inline-block;">
+                t.me/MedLoopBot?start=clinic_doktord
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (n === 2) {
+        stage.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="mono" style="font-size: 11px; color: var(--accent-acid);">[STEP 02: 8s DETERMINISTIK MULTIMODAL OCR SCAN]</span>
+            <span class="mono" style="font-size: 10px; color: var(--accent-acid);">● LATENCY: 3.4ms (SLA &lt; 8,000ms)</span>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <span class="mono" style="font-size: 11px; color: #FFF; font-weight: 600;">Intermed Lab Hisoboti: Bobur Xoliqov (38 yosh)</span>
+              <span class="mono" style="font-size: 10px; color: #FF5555; background: rgba(255,85,85,0.1); border: 1px solid rgba(255,85,85,0.3); padding: 2px 6px; border-radius: 4px;">2 TA KRITIK OG'ISH</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+              <div style="background: #111; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,85,85,0.3);">
+                <div class="mono" style="font-size: 10px; color: #888;">ALT (Alaninaminotransferaza)</div>
+                <div class="mono" style="font-size: 18px; font-weight: 700; color: #FF5555; margin-top: 2px;">94.0 U/L &uarr;</div>
+                <div class="mono" style="font-size: 9px; color: #888;">Norma: 0.0 - 41.0 U/L (2.3x)</div>
+              </div>
+              <div style="background: #111; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,85,85,0.3);">
+                <div class="mono" style="font-size: 10px; color: #888;">AST (Aspartataminotransferaza)</div>
+                <div class="mono" style="font-size: 18px; font-weight: 700; color: #FF5555; margin-top: 2px;">58.0 U/L &uarr;</div>
+                <div class="mono" style="font-size: 9px; color: #888;">Norma: 0.0 - 40.0 U/L (1.45x)</div>
+              </div>
+              <div style="background: #111; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+                <div class="mono" style="font-size: 10px; color: #888;">Umumiy Bilirubin</div>
+                <div class="mono" style="font-size: 18px; font-weight: 700; color: #FFF; margin-top: 2px;">19.2 &micro;mol/L</div>
+                <div class="mono" style="font-size: 9px; color: #888;">Norma: 3.4 - 20.5 &micro;mol/L [OK]</div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (n === 3) {
+        stage.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="mono" style="font-size: 11px; color: var(--accent-acid);">[STEP 03: ILIQ O'ZBEKCHA KLINIK XULOSA VA 1-CLICK REBOOKING]</span>
+            <span class="mono" style="font-size: 10px; color: #FFF;">● CONVERSION TRIGGER</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 280px; gap: 16px; align-items: center;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 12px;">
+              <div style="font-size: 12px; color: #FAFAFA; line-height: 1.6;">
+                Hurmatli Bobur aka, tahlilingizda jigar fermentlari (ALT 94 U/L) normadan 2.3 barobar yuqori chiqqan. Bu jigar to'qimasida o'tkir yuklama borligini ko'rsatadi. Ushbu ko'rsatkichni e'tiborsiz qoldirish xavfli. <strong>Doktor D klinikasining yetakchi gepatologi Dr. Alimov</strong> zudlik bilan qo'shimcha tekshiruv va davolash rejasini tayinlaydi.
+              </div>
+            </div>
+            <div style="background: #121212; border: 1px solid var(--accent-acid); padding: 16px; border-radius: 12px; text-align: center;">
+              <div class="mono" style="font-size: 10px; color: var(--accent-acid); margin-bottom: 4px;">BO'SH QABUL VAQTI</div>
+              <div style="font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 2px;">Dr. Alimov (Gepatolog)</div>
+              <div class="mono" style="font-size: 11px; color: #888; margin-bottom: 12px;">Ertaga, 10:00 (1-xona)</div>
+              <a href="/reception.html" class="btn-acid mono" style="font-size: 11px; width: 100%; justify-content: center;">
+                Qabulga Yozilish (150,000 UZS) &rarr;
+              </a>
+            </div>
+          </div>
+        `;
+      } else if (n === 4) {
+        stage.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="mono" style="font-size: 11px; color: var(--accent-acid);">[STEP 04: REGISTRATURA TELEMETRIYASI VA DAROMAD TIKLANISHI]</span>
+            <span class="mono" style="font-size: 10px; color: var(--accent-acid); font-weight: 700;">+150,000 UZS TIKLANDI</span>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 12px;">
+              <div class="mono" style="font-size: 10px; color: #888; margin-bottom: 4px;">REGISTRATOR MONITORI (LIVE FEED)</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; margin-bottom: 8px;">
+                <div>
+                  <div style="font-size: 12px; font-weight: 600; color: #FFF;">Bobur Xoliqov (ALT 94&uarr;)</div>
+                  <div class="mono" style="font-size: 10px; color: #888;">Gepatolog Dr. Alimov qabuliga</div>
+                </div>
+                <span class="mono" style="font-size: 10px; color: var(--accent-acid); background: rgba(198,244,50,0.1); padding: 2px 6px; border-radius: 4px;">TASDIQLANDI</span>
+              </div>
+              <div class="mono" style="font-size: 10px; color: #888;">Holati: SMS eslatma jo'natildi • Navbat: #04</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center;">
+              <div class="mono" style="font-size: 10px; color: var(--text-secondary);">OYLIK QAYTA TIKLANGAN TUSHUM</div>
+              <div class="mono" style="font-size: 26px; font-weight: 700; color: var(--accent-acid); margin-top: 2px;">+43,200,000 UZS</div>
+              <div class="mono" style="font-size: 10px; color: #888; margin-top: 4px;">800,000 UZS SaaS xarajati evaziga 54.0x ROI rentabellik</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    activateStep(1);
+  </script>
 
   </main>
 </body>

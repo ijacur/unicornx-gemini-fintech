@@ -132,6 +132,28 @@
       border-color: var(--border-hover);
     }
 
+    .btn-acid {
+      background: var(--accent-acid);
+      color: #000000;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 8px 18px;
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 0 20px var(--accent-acid-glow);
+      transition: all 0.15s ease;
+    }
+    .btn-acid:hover {
+      background: #D8FF54;
+      transform: translateY(-1px);
+      box-shadow: 0 0 30px rgba(198, 244, 50, 0.5);
+    }
+
     .btn-white {
       background: #FFFFFF;
       color: #000000;
@@ -277,10 +299,10 @@
 
     <div style="display: flex; align-items: center; gap: 10px;">
       <button onclick="exportToCSV()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
-        Export CSV
+        CSV Eksport &darr;
       </button>
-      <button onclick="openModal()" class="btn-white mono" style="font-size: 11px; padding: 5px 12px;">
-        + Add Interview
+      <button onclick="openModal()" class="btn-acid mono" style="font-size: 11px; padding: 5px 14px;">
+        + Yangi Intervyu
       </button>
     </div>
   </nav>
@@ -353,8 +375,26 @@
         </div>
 
         <span class="mono" style="font-size: 11px; color: var(--text-secondary);">
-          Rule: Poliklinikalar PASS • Alohida lablar DISQUALIFIED
+          Qoida: Poliklinikalar PASS &bull; Alohida lablar DISQUALIFIED
         </span>
+      </div>
+
+      <!-- Interactive Filter Pills and Real-time Search -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 14px;">
+        <div style="display: flex; gap: 8px;">
+          <button type="button" onclick="setFilter('all')" id="btn-flt-all" class="btn-acid mono" style="font-size: 11px; padding: 5px 12px;">
+            Barchasi (8)
+          </button>
+          <button type="button" onclick="setFilter('pass')" id="btn-flt-pass" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
+            Faqat PASS (5 poliklinika)
+          </button>
+          <button type="button" onclick="setFilter('disq')" id="btn-flt-disq" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
+            Faqat DISQUALIFIED (3 lab)
+          </button>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="text" id="clinicSearch" oninput="renderTable()" placeholder="Klinika yoki vrach qidirish..." style="background: #111111; border: 1px solid var(--border-subtle); border-radius: 9999px; padding: 6px 14px; font-size: 11px; color: #FFF; outline: none; width: 220px;" class="mono">
+        </div>
       </div>
 
       <div style="overflow-x: auto;">
@@ -448,6 +488,8 @@
   </div>
 
   <script>
+    let currentFilter = 'all';
+
     let entries = [
       { id: 1, clinic: "Doktor D Poliklinikasi", contact: "Bosh vrach / Dr. Alisher (45 docs)", stack: "1C Meditsina + Qog'oz", patients: 110, drop: 45, pain: 5, status: "PASS (LOI SIGNED)", squad: "Squad A" },
       { id: 2, clinic: "Med Star Diagnostika", contact: "Menejer / Dr. Nodir (12 specs)", stack: "Qog'oz + Telegram", patients: 65, drop: 40, pain: 5, status: "PASS (PILOT READY)", squad: "Squad A" },
@@ -459,16 +501,49 @@
       { id: 8, clinic: "Vitros Diagnostic Point", contact: "Qon olish punkti (0 in-house doctors)", stack: "Qog'oz blank", patients: 40, drop: 90, pain: 1, status: "DISQUALIFIED", squad: "Squad B" }
     ];
 
+    function setFilter(flt) {
+      currentFilter = flt;
+      ['all', 'pass', 'disq'].forEach(f => {
+        const btn = document.getElementById('btn-flt-' + f);
+        if (btn) {
+          if (f === flt) {
+            btn.className = 'btn-acid mono';
+            btn.style.color = '#000000';
+            btn.style.background = 'var(--accent-acid)';
+          } else {
+            btn.className = 'btn-glass mono';
+            btn.style.color = 'var(--text-primary)';
+            btn.style.background = 'rgba(255, 255, 255, 0.04)';
+          }
+        }
+      });
+      renderTable();
+    }
+
     function renderTable() {
       const tbody = document.getElementById('tableBody');
       tbody.innerHTML = '';
 
-      entries.forEach((e, idx) => {
+      const query = (document.getElementById('clinicSearch')?.value || '').toLowerCase().trim();
+
+      const filtered = entries.filter(e => {
+        const matchesQuery = !query || e.clinic.toLowerCase().includes(query) || e.contact.toLowerCase().includes(query);
+        if (!matchesQuery) return false;
+
+        if (currentFilter === 'pass') return e.status.includes('PASS');
+        if (currentFilter === 'disq') return e.status.includes('DISQUALIFIED');
+        return true;
+      });
+
+      filtered.forEach((e, idx) => {
         const isPass = e.status.includes('PASS');
         tbody.innerHTML += `
           <tr>
             <td class="mono" style="color: var(--text-secondary);">${idx + 1}</td>
-            <td style="font-weight: 600; color: #FFFFFF;">${e.clinic}</td>
+            <td style="font-weight: 600; color: #FFFFFF;">
+              ${e.clinic}
+              ${isPass ? '<a href="/loi.pdf" target="_blank" class="mono" style="font-size: 9px; color: var(--accent-acid); text-decoration: none; margin-left: 6px; border: 1px solid rgba(198,244,50,0.3); padding: 1px 4px; border-radius: 3px;">[LOI &darr;]</a>' : ''}
+            </td>
             <td style="color: var(--text-secondary);">${e.contact}</td>
             <td><span class="mono" style="font-size: 11px; color: #BBB; background: rgba(255,255,255,0.04); padding: 2px 6px; border-radius: 4px;">${e.stack}</span></td>
             <td class="mono">${e.patients} / kun</td>
