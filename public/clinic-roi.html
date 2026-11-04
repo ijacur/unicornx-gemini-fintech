@@ -3,319 +3,424 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MedLoop AI — Klinika Boshqaruvchisi ROI & Daromad Qaytishi (Executive Cockpit)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>MedLoop AI — Klinika Boshqaruvchisi ROI &amp; Daromad Qaytishi (Executive Cockpit)</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <style>
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #050507;
-      color: #E4E4E7;
+    :root {
+      --bg-canvas: #050505;
+      --bg-surface: #0A0A0A;
+      --bg-elevated: #111111;
+      --bg-glass: rgba(15, 15, 15, 0.72);
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #FAFAFA;
+      --text-secondary: #888888;
+      --text-muted: #444444;
+      --accent-acid: #C6F432;
+      --accent-acid-glow: rgba(198, 244, 50, 0.35);
+      --accent-acid-subtle: rgba(198, 244, 50, 0.12);
+      --mono-font: 'JetBrains Mono', monospace;
+      --sans-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-    .apple-card {
-      background: #0E0E12;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--sans-font);
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.5;
     }
-    .apple-btn {
+
+    .spotlight-radial {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 75vh;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(198, 244, 50, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .architectural-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .mono {
+      font-family: var(--mono-font);
+      font-variant-numeric: tabular-nums;
+    }
+
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: rgba(5, 5, 5, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+    }
+
+    .bento-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .bento-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .btn-white {
       background: #FFFFFF;
       color: #000000;
       font-weight: 600;
-      border-radius: 12px;
+      border-radius: 9999px;
+      padding: 8px 18px;
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
       transition: all 0.15s ease;
     }
-    .apple-btn:hover { background: #E4E4E7; }
-    .apple-btn:active { transform: scale(0.98); }
-    .apple-btn-secondary {
-      background: #18181B;
-      color: #FFFFFF;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .btn-white:hover {
+      background: #E5E5E5;
+      transform: translateY(-1px);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
       font-weight: 500;
-      border-radius: 12px;
+      border-radius: 9999px;
+      padding: 8px 16px;
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
-    .slider {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 6px;
-      border-radius: 3px;
-      background: #27272A;
-      outline: none;
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-hover);
     }
-    .slider::-webkit-slider-thumb {
+
+    input[type=range] {
       -webkit-appearance: none;
       appearance: none;
-      width: 18px;
-      height: 18px;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.15);
+      outline: none;
+      border-radius: 2px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: #C6F432;
+      background: #FFFFFF;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(198, 244, 50, 0.7);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      border: none;
     }
-    .badge-lime {
-      background: rgba(198, 244, 50, 0.12);
-      border: 1px solid rgba(198, 244, 50, 0.3);
-      color: #C6F432;
-    }
-    .btn-lime {
-      background: #C6F432;
-      color: #0B0B0C;
-      font-weight: 800;
-      border-radius: 12px;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 25px rgba(198, 244, 50, 0.35);
-    }
-    .btn-lime:hover {
-      background: #D4F855;
-      transform: scale(1.02);
-      box-shadow: 0 0 35px rgba(198, 244, 50, 0.5);
-    }
+
     @media print {
-      body { background-color: #FFFFFF !important; color: #000000 !important; }
-      header, .no-print { display: none !important; }
-      .apple-card { background: #FFFFFF !important; border: 1px solid #CCCCCC !important; color: #000000 !important; box-shadow: none !important; }
-      .text-white { color: #000000 !important; }
-      .text-zinc-400, .text-zinc-500 { color: #555555 !important; }
+      body { background: #FFFFFF !important; color: #000000 !important; }
+      nav.top-nav, .no-print { display: none !important; }
+      .bento-card { background: #FFFFFF !important; border: 1px solid #CCCCCC !important; color: #000000 !important; box-shadow: none !important; }
       .mono { color: #000000 !important; }
     }
   </style>
 </head>
-<body class="min-h-screen">
+<body>
 
-  <!-- Header -->
-  <header class="border-b border-white/10 bg-[#0A0A0D]/90 sticky top-0 z-50 backdrop-blur-xl no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <a href="/" class="flex items-center gap-2 text-zinc-400 hover:text-white transition">
-          <span class="text-xs font-semibold">← Launch Lab Hub</span>
-        </a>
-        <span class="text-white/20">|</span>
-        <div class="flex items-center gap-2">
-          <div class="w-7 h-7 rounded-lg bg-white text-black font-black flex items-center justify-center text-xs">
-            ROI
-          </div>
-          <div>
-            <h1 class="text-sm font-bold text-white tracking-tight leading-none">MedLoop ROI Cockpit</h1>
-            <p class="text-[10px] text-zinc-400 mt-0.5">Klinika Egasi & Bosh Shifokor uchun Iqtisodiy Dalil</p>
-          </div>
-        </div>
-      </div>
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="apple-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#apple-noise)" />
+  </svg>
 
-      <div class="flex items-center gap-3">
-        <a href="/reception.html" class="apple-btn-secondary px-3 py-1.5 text-xs">
-          Registratura navbati →
-        </a>
-        <button onclick="window.print()" class="btn-lime px-3.5 py-1.5 text-xs flex items-center gap-1.5">
-          <svg class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
-          </svg>
-          Hisobotni PDF yuklab olish
-        </button>
-      </div>
+  <div class="spotlight-radial no-print"></div>
+  <div class="architectural-grid no-print"></div>
+
+  <!-- Top 48px Blurred Navigation Bar -->
+  <nav class="top-nav no-print">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="/" style="font-weight: 700; font-size: 14px; color: #FFFFFF; text-decoration: none; letter-spacing: -0.02em;">
+        MedLoop <span class="mono" style="font-size: 11px; font-weight: 400; color: #888888;">AI</span>
+      </a>
+      <span class="mono" style="font-size: 11px; color: #888888; border: 1px solid rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 9999px;">
+        [ROI COCKPIT ● DIRECTOR]
+      </span>
     </div>
-  </header>
 
-  <!-- Printable Header for A4 (Only visible when printing) -->
-  <div class="hidden print:block p-6 border-b border-black mb-6">
-    <div class="flex items-center justify-between">
+    <div class="nav-links">
+      <a href="/" class="nav-link">[01] Overview</a>
+      <a href="/reception.html" class="nav-link">[02] Reception Queue</a>
+      <a href="/clinic-roi.html" class="nav-link active">[03] ROI Simulator</a>
+      <a href="/workflow.html" class="nav-link">[04] Clinical Workflow</a>
+      <a href="/tracker.html" class="nav-link">[05] CustDev Tracker</a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button onclick="window.print()" class="btn-white mono" style="padding: 5px 14px; font-size: 11px;">
+        Print / PDF Report
+      </button>
+    </div>
+  </nav>
+
+  <main style="max-width: 1200px; margin: 0 auto; padding: 84px 24px 60px; position: relative; z-index: 10;">
+    
+    <!-- Printable Header for A4 -->
+    <div style="display: none;" class="print:block" style="padding-bottom: 20px; border-bottom: 1px solid #000; margin-bottom: 24px;">
+      <h1 style="font-size: 18px; font-weight: 800;">MEDLOOP AI — KLINIKA IQTISODIY SAMARADORLIK HISOBOTI</h1>
+      <div class="mono" style="font-size: 11px; color: #444;">Samarqand viloyati poliklinika va tibbiyot markazlari uchun • Launch Lab 21</div>
+    </div>
+
+    <!-- Executive Summary Banner -->
+    <div class="bento-card" style="padding: 24px; margin-bottom: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
       <div>
-        <h1 class="text-xl font-black">MEDLOOP AI — KLINIKA IQTISODIY SAMARADORLIK HISOBOTI</h1>
-        <p class="text-xs text-gray-600 mt-1">Osiyo Medical Clinic (Samarqand) · Oylik Daromad Qaytishi Tahlili</p>
-      </div>
-      <div class="text-right text-xs">
-        <p><strong>Sana:</strong> 2026-yil Noyabr</p>
-        <p><strong>Model:</strong> Track B B2B SaaS (800,000 UZS/oy)</p>
-      </div>
-    </div>
-  </div>
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
-
-    <!-- Value Proposition Banner -->
-    <div class="apple-card p-5 bg-gradient-to-r from-zinc-900/90 to-zinc-950 border-[#C6F432]/25 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-      <div class="absolute -top-12 -right-12 w-64 h-64 bg-[#C6F432]/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="relative z-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full badge-lime text-[11px] font-bold uppercase tracking-wider mb-2">
-          ⚡️ 60/30/10 B2B SaaS Qiymat Modeli (Track B)
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+          [EXECUTIVE TELEMETRY • TRACK B SAAS]
         </div>
-        <h2 class="text-xl md:text-2xl font-black text-white tracking-tight">
-          Laboratoriyadan keyingi <span class="font-serif italic text-[#C6F432] font-normal">45% drop-off</span> yo'qotilishini tiklash
+        <h2 style="font-size: 22px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+          Klinika Boshqaruvchisi ROI &amp; Daromad Tiklash Cockpit
         </h2>
-        <p class="text-xs text-zinc-400 mt-1 max-w-3xl leading-relaxed">
-          Klinikangizda qon topshirgan har 100 bemordan 45 nafari natijasini olib uyiga ketadi va shifokor ko'rigiga kirmaydi. 
-          MedLoop ushbu bemorlarni 8 soniyada aniqlaydi va qabulga qaytaradi.
+        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px; max-width: 680px;">
+          Laboratoriya tahlillaridan so'ng 45% bemorlarning yo'qolishi natijasida yuzaga keladigan moliyaviy zararni (bleed) hisoblang va MedLoop tiklab beruvchi sof daromadni ko'ring.
         </p>
       </div>
-      <div class="text-right relative z-10">
-        <span class="text-3xl font-black text-[#C6F432] mono block" id="headerRoi">28.5x</span>
-        <span class="text-[11px] text-zinc-400">Investitsiya ROI ko'paytmasi</span>
+
+      <div style="display: flex; gap: 20px;">
+        <div style="text-align: right;">
+          <div class="mono" style="font-size: 10px; color: var(--text-secondary);">NET REVENUE ROI</div>
+          <div id="headerRoi" class="mono" style="font-size: 38px; font-weight: 700; color: #FFFFFF;">30.7x</div>
+        </div>
+        <div style="text-align: right; border-left: 1px solid var(--border-subtle); padding-left: 20px;">
+          <div class="mono" style="font-size: 10px; color: var(--text-secondary);">MONTHLY SAAS COST</div>
+          <div class="mono" style="font-size: 38px; font-weight: 700; color: #FFFFFF;">800k</div>
+        </div>
       </div>
     </div>
 
-    <!-- Top KPI Strip -->
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
-      <div class="apple-card p-4">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-1">Oylik Skanlar</span>
-        <div class="text-2xl font-black text-white mono" id="kpiScans">540</div>
-        <p class="text-[10px] text-zinc-500 mt-1">Laboratoriya tahlili</p>
+    <!-- 4 High-Impact KPI Cards -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px;">
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">MONTHLY LAB SCANS</div>
+        <div id="kpiScans" class="mono" style="font-size: 28px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">1,200</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">40 ta / kun (30 kunlik)</div>
       </div>
 
-      <div class="apple-card p-4">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-1">Og'ish Aniqlangan</span>
-        <div class="text-2xl font-black text-white mono" id="kpiFlagged">42.6%</div>
-        <p class="text-[10px] text-zinc-500 mt-1">230 bemor shifokorga muhtoj</p>
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">RECOVERED VISITS</div>
+        <div id="kpiVisits" class="mono" style="font-size: 28px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">324</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">60% avtomatik konversiya</div>
       </div>
 
-      <div class="apple-card p-4">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-1">Qaytarilgan Qabullar</span>
-        <div class="text-2xl font-black text-white mono" id="kpiVisits">152</div>
-        <p class="text-[10px] text-zinc-500 mt-1">66.1% konversiya darajasi</p>
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">TIKLANGAN DAROMAD</div>
+        <div id="kpiRevenue" class="mono" style="font-size: 28px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">48.6M</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">UZS / oyiga qo'shimcha</div>
       </div>
 
-      <div class="apple-card p-4">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-1">Qaytarilgan Tushum</span>
-        <div class="text-xl sm:text-2xl font-black text-white mono" id="kpiRevenue">22,800,000</div>
-        <p class="text-[10px] text-zinc-500 mt-1">UZS / oy</p>
-      </div>
-
-      <div class="apple-card p-4 border-white/20 bg-white/[0.04]">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-white block mb-1">Sof Foyda (Net Profit)</span>
-        <div class="text-xl sm:text-2xl font-black text-white mono" id="kpiNetProfit">+22.0M</div>
-        <p class="text-[10px] text-zinc-400 mt-1">800k obuna xarajati ayirilgach</p>
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">SOF FOYDA (SURPLUS)</div>
+        <div id="kpiNetProfit" class="mono" style="font-size: 28px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">+47.8M</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">SaaS to'lovi (800k) chegirilgach</div>
       </div>
     </div>
 
-    <!-- Simulator & Financial Proof (2 Columns) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-      <!-- Interactive "Clinic Bleed Simulator" -->
-      <div class="apple-card p-6 space-y-5">
-        <div>
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 text-red-400 text-[10px] font-bold uppercase tracking-wider mb-2">
-            🩸 Klinika Daromad Oqishi Simulyatori
-          </div>
-          <h3 class="text-base font-bold text-white tracking-tight">Klinikangiz qancha tushum yo'qotmoqda?</h3>
-          <p class="text-xs text-zinc-400 mt-1">
-            Slayderlarni o'zgartiring va oylik yo'qotish hamda MedLoop yordamida qancha tushumni saqlab qolish mumkinligini hisoblang.
-          </p>
+    <!-- Interactive Simulator & Unit Economics Grid -->
+    <div style="display: grid; grid-template-columns: minmax(380px, 1.4fr) minmax(320px, 1fr); gap: 24px; align-items: start;">
+      
+      <!-- Left: Simulator Sliders -->
+      <div class="bento-card">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
+          [CLINIC PARAMETERS]
         </div>
+        <h3 style="font-size: 17px; font-weight: 600; color: #FFFFFF; margin-bottom: 20px;">
+          Klinikangiz Ko'rsatkichlarini Kiriting
+        </h3>
 
-        <!-- Sliders -->
-        <div class="space-y-4">
-          <div>
-            <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
-              <span class="text-zinc-300">Kunlik laboratoriya bemorlari soni:</span>
-              <span class="mono text-white text-sm" id="valDailyPatients">40 bemor/kun</span>
-            </div>
-            <input type="range" id="sliderDaily" min="10" max="200" step="5" value="40" class="slider" oninput="calculateSimulator()">
-            <div class="flex justify-between text-[10px] text-zinc-600 mt-1 mono">
-              <span>10 ta</span>
-              <span>100 ta</span>
-              <span>200 ta</span>
-            </div>
+        <!-- Slider 1 -->
+        <div style="margin-bottom: 22px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <label class="mono" style="font-size: 12px; color: var(--text-secondary);">Kunlik laboratoriya bemorlari soni:</label>
+            <span id="valDailyPatients" class="mono" style="font-size: 12px; font-weight: 600; color: #FFFFFF;">40 bemor/kun</span>
           </div>
-
-          <div>
-            <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
-              <span class="text-zinc-300">Shifokorga kirmaydigan bemorlar (Drop-off %):</span>
-              <span class="mono text-amber-400 text-sm" id="valDropOff">45%</span>
-            </div>
-            <input type="range" id="sliderDropOff" min="20" max="60" step="1" value="45" class="slider" oninput="calculateSimulator()">
-            <div class="flex justify-between text-[10px] text-zinc-600 mt-1 mono">
-              <span>20% (Eng yaxshi)</span>
-              <span>45% (O'rtacha me'yor)</span>
-              <span>60% (Yuqori yo'qotish)</span>
-            </div>
-          </div>
-
-          <div>
-            <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
-              <span class="text-zinc-300">O'rtacha shifokor cheki + muolaja (UZS):</span>
-              <span class="mono text-white text-sm" id="valCheck">150,000 UZS</span>
-            </div>
-            <input type="range" id="sliderCheck" min="100000" max="400000" step="10000" value="150000" class="slider" oninput="calculateSimulator()">
-            <div class="flex justify-between text-[10px] text-zinc-600 mt-1 mono">
-              <span>100,000</span>
-              <span>250,000</span>
-              <span>400,000</span>
-            </div>
+          <input type="range" id="sliderDaily" min="10" max="150" value="40" step="5" oninput="calculateSimulator()">
+          <div class="mono" style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            <span>10</span>
+            <span>50</span>
+            <span>100</span>
+            <span>150</span>
           </div>
         </div>
 
-        <!-- Calculated Bleed Box -->
-        <div class="apple-card p-4 bg-zinc-950/60 border-white/10 space-y-3">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-zinc-400">Oylik yo'qotilayotgan tushum (Klinika yo'qotishi):</span>
-            <span class="mono font-bold text-red-400 text-sm" id="simMonthlyBleed">-81,000,000 UZS</span>
+        <!-- Slider 2 -->
+        <div style="margin-bottom: 22px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <label class="mono" style="font-size: 12px; color: var(--text-secondary);">Shifokorga qaytmaydigan bemorlar (Drop-off %):</label>
+            <span id="valDropOff" class="mono" style="font-size: 12px; font-weight: 600; color: #FFFFFF;">45%</span>
           </div>
-
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-zinc-400">MedLoop orqali qaytariladigan oylik tushum (60% konversiya):</span>
-            <span class="mono font-black text-emerald-400 text-base" id="simRecovered">+48,600,000 UZS</span>
+          <input type="range" id="sliderDropOff" min="20" max="70" value="45" step="1" oninput="calculateSimulator()">
+          <div class="mono" style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            <span>20% (Kam yo'qotish)</span>
+            <span>45% (O'rtacha me'yor)</span>
+            <span>70% (Kritik yo'qotish)</span>
           </div>
+        </div>
 
-          <div class="flex items-center justify-between text-xs pt-2 border-t border-white/10">
-            <span class="text-zinc-400">MedLoop B2B oylik obuna to'lovi:</span>
-            <span class="mono text-zinc-300">800,000 UZS/oy</span>
+        <!-- Slider 3 -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+            <label class="mono" style="font-size: 12px; color: var(--text-secondary);">Mutaxassis shifokor ko'rigi o'rtacha cheki:</label>
+            <span id="valCheck" class="mono" style="font-size: 12px; font-weight: 600; color: #FFFFFF;">150,000 UZS</span>
           </div>
+          <input type="range" id="sliderCheck" min="80000" max="300000" value="150000" step="10000" oninput="calculateSimulator()">
+          <div class="mono" style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+            <span>80k UZS</span>
+            <span>150k UZS</span>
+            <span>300k UZS</span>
+          </div>
+        </div>
 
-          <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-white">Klinika sof oylik foydasi (Net Gain):</span>
-            <span class="mono font-black text-white text-base" id="simNetGain">+47,800,000 UZS</span>
+        <!-- Live Breakdown -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px;">
+            <span style="color: var(--text-secondary);">Oylik yo'qotilayotgan daromad (Bleed):</span>
+            <span class="mono" style="color: #FFFFFF; font-weight: 600;" id="simMonthlyBleed">-81,000,000 UZS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 12px;">
+            <span style="color: var(--text-secondary);">MedLoop qaytaradigan tushum (60%):</span>
+            <span class="mono" style="color: #FFFFFF; font-weight: 700;" id="simRecovered">+48,600,000 UZS</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 10px; font-size: 13px;">
+            <span style="font-weight: 600; color: #FFFFFF;">Klinika uchun sof oylik foyda:</span>
+            <span class="mono" style="font-weight: 700; color: #FFFFFF;" id="simNetGain">+47,800,000 UZS</span>
           </div>
         </div>
       </div>
 
-      <!-- Unit Economics & Financial Proof -->
-      <div class="space-y-4">
-        <div class="apple-card p-6 space-y-4">
-          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-white text-[10px] font-bold uppercase tracking-wider">
-            ⚡️ Unit Economics & Marjinallik
+      <!-- Right: Unit Economics & Pilot Guarantee -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="bento-card">
+          <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
+            [UNIT ECONOMICS &amp; MARGINALITY]
           </div>
-          <h3 class="text-base font-bold text-white tracking-tight">Nega MedLoop narxi 800,000 UZS?</h3>
+          <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 14px;">
+            Nega MedLoop narxi 800,000 UZS?
+          </h3>
 
-          <div class="space-y-3 text-xs">
-            <div class="flex items-center justify-between py-2 border-b border-white/5">
-              <span class="text-zinc-400">1 ta tahlilni o'qish tannarxi (COGS):</span>
-              <span class="mono text-white font-bold">$0.0018 (~23 so'm)</span>
+          <div class="mono" style="display: flex; flex-direction: column; gap: 10px; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+              <span style="color: var(--text-secondary);">1 skan COGS API tannarxi:</span>
+              <span style="color: #FFFFFF; font-weight: 600;">$0.0018 (~23 so'm)</span>
             </div>
-
-            <div class="flex items-center justify-between py-2 border-b border-white/5">
-              <span class="text-zinc-400">Oylik 1,000 ta skan API xarajati:</span>
-              <span class="mono text-white font-bold">$1.80 (~23,000 so'm)</span>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+              <span style="color: var(--text-secondary);">1,000 skan oylik xarajat:</span>
+              <span style="color: #FFFFFF; font-weight: 600;">$1.80 (~23,000 so'm)</span>
             </div>
-
-            <div class="flex items-center justify-between py-2 border-b border-white/5">
-              <span class="text-zinc-400">MedLoop Brutto Marjasi (Gross Margin):</span>
-              <span class="mono text-emerald-400 font-black text-sm">98.2%</span>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+              <span style="color: var(--text-secondary);">MedLoop Brutto Marjasi:</span>
+              <span style="color: #FFFFFF; font-weight: 700;">98.2%</span>
             </div>
-
-            <div class="flex items-center justify-between py-2 border-b border-white/5">
-              <span class="text-zinc-400">Klinika uchun sarflangan har 1 so'mning qaytishi:</span>
-              <span class="mono text-white font-black text-sm" id="unitRoiDisplay">1 so'm → 32 so'm tushum</span>
+            <div style="display: flex; justify-content: space-between; padding-top: 2px;">
+              <span style="color: var(--text-secondary);">Klinikaga sarflangan har 1 so'm:</span>
+              <span style="color: #FFFFFF; font-weight: 700;" id="unitRoiDisplay">1 so'm &rarr; 60 so'm</span>
             </div>
           </div>
 
-          <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/5">
-            <p class="text-[11px] text-zinc-300 leading-relaxed">
-              💡 <strong>Xulosa:</strong> MedLoop xarajat emas, balki birinchi haftaning o'zidayoq o'z xarajatini 10 barobar qoplab beruvchi <em>daromad generatori</em> hisoblanadi.
-            </p>
+          <div class="mono" style="font-size: 11px; color: var(--text-secondary); background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; margin-top: 14px;">
+            [XULOSA] MedLoop xarajat emas — birinchi haftaning o'zidayoq o'z qiymatini 10 barobar qoplab beruvchi daromad tiklash quroli.
           </div>
         </div>
 
         <!-- 14-Day Pilot Guarantee Card -->
-        <div class="apple-card p-5 bg-gradient-to-br from-zinc-900 to-black space-y-3">
-          <h4 class="text-xs font-bold text-white uppercase tracking-wider">
-            🛡 14-Kunlik Pilotsiz Kafolat
+        <div class="bento-card">
+          <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
+            [PILOT ASSURANCE PROTOCOL]
+          </div>
+          <h4 style="font-size: 15px; font-weight: 600; color: #FFFFFF; margin-bottom: 8px;">
+            14-Kunlik Kafolatlangan Pilot
           </h4>
-          <p class="text-xs text-zinc-400 leading-relaxed">
-            Klinikangizda 14 kunlik bepul pilot ishga tushiriladi. Agar MedLoop kamida 3,000,000 UZS qo'shimcha tushum keltirmasa, tizimdan foydalanish bepul to'xtatiladi.
+          <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
+            Klinikangizda 14 kunlik bepul pilot ishga tushiriladi. Agar MedLoop kamida 3,000,000 UZS qo'shimcha tushum keltirmasa, shartnoma majburiyatsiz to'xtatiladi.
           </p>
-          <div class="pt-2 flex items-center justify-between">
-            <span class="text-xs text-zinc-400">Pilotni ulash muddati:</span>
-            <span class="text-xs font-bold text-emerald-400">24 soat ichida</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 10px;">
+            <span class="mono" style="font-size: 11px; color: var(--text-secondary);">Pilotni ulash muddati:</span>
+            <span class="mono" style="font-size: 11px; font-weight: 600; color: #FFFFFF;">&lt; 24 soat</span>
           </div>
         </div>
       </div>
@@ -326,9 +431,9 @@
 
   <script>
     function calculateSimulator() {
-      const daily = parseInt(document.getElementById('sliderDaily').value);
-      const dropOff = parseInt(document.getElementById('sliderDropOff').value);
-      const check = parseInt(document.getElementById('sliderCheck').value);
+      const daily = parseInt(document.getElementById('sliderDaily').value, 10);
+      const dropOff = parseInt(document.getElementById('sliderDropOff').value, 10);
+      const check = parseInt(document.getElementById('sliderCheck').value, 10);
 
       document.getElementById('valDailyPatients').innerText = `${daily} bemor/kun`;
       document.getElementById('valDropOff').innerText = `${dropOff}%`;
@@ -338,7 +443,6 @@
       const lostPatients = Math.round(monthlyPatients * (dropOff / 100));
       const monthlyBleed = lostPatients * check;
 
-      // 60% recovery rate via MedLoop 8s automated triage
       const recoveredPatients = Math.round(lostPatients * 0.60);
       const recoveredRevenue = recoveredPatients * check;
       const sub = 800000;
@@ -350,11 +454,11 @@
       document.getElementById('simNetGain').innerText = `+${netGain.toLocaleString()} UZS`;
 
       document.getElementById('headerRoi').innerText = `${roi}x`;
-      document.getElementById('kpiScans').innerText = monthlyPatients;
-      document.getElementById('kpiVisits').innerText = recoveredPatients;
+      document.getElementById('kpiScans').innerText = monthlyPatients.toLocaleString();
+      document.getElementById('kpiVisits').innerText = recoveredPatients.toLocaleString();
       document.getElementById('kpiRevenue').innerText = (recoveredRevenue / 1000000).toFixed(1) + "M";
       document.getElementById('kpiNetProfit').innerText = `+${(netGain / 1000000).toFixed(1)}M`;
-      document.getElementById('unitRoiDisplay').innerText = `1 so'm → ${Math.round(roi)} so'm tushum`;
+      document.getElementById('unitRoiDisplay').innerText = `1 so'm → ${Math.round(roi)} so'm`;
     }
 
     calculateSimulator();

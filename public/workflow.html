@@ -1,158 +1,338 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MedLoop AI — Klinika Ish Jarayoni & Qayta Konversiya Arxitekturasi</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>MedLoop AI — Klinika Ish Jarayoni &amp; Qayta Konversiya Arxitekturasi (Workflow)</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-heading { font-family: 'Space Grotesk', sans-serif; }
+    :root {
+      --bg-canvas: #050505;
+      --bg-surface: #0A0A0A;
+      --bg-elevated: #111111;
+      --bg-glass: rgba(15, 15, 15, 0.72);
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #FAFAFA;
+      --text-secondary: #888888;
+      --text-muted: #444444;
+      --accent-acid: #C6F432;
+      --accent-acid-glow: rgba(198, 244, 50, 0.35);
+      --accent-acid-subtle: rgba(198, 244, 50, 0.12);
+      --mono-font: 'JetBrains Mono', monospace;
+      --sans-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--sans-font);
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .spotlight-radial {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 75vh;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(198, 244, 50, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .architectural-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .mono {
+      font-family: var(--mono-font);
+      font-variant-numeric: tabular-nums;
+    }
+
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: rgba(5, 5, 5, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+    }
+
+    .bento-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .bento-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .btn-white {
+      background: #FFFFFF;
+      color: #000000;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 8px 18px;
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .badge-monochrome {
+      display: inline-block;
+      padding: 2px 7px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFFFFF;
+      font-family: var(--mono-font);
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
     @media print {
-      body { background: white !important; color: black !important; padding: 0 !important; }
-      .no-print { display: none !important; }
-      .paper-card { border: 1px solid #cbd5e1 !important; box-shadow: none !important; }
+      body { background: #FFFFFF !important; color: #000000 !important; }
+      nav.top-nav, .no-print { display: none !important; }
+      .bento-card { background: #FFFFFF !important; border: 1px solid #CCCCCC !important; color: #000000 !important; box-shadow: none !important; }
+      .mono { color: #000000 !important; }
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-8 flex flex-col items-center selection:bg-cyan-500 selection:text-slate-950">
+<body>
 
-  <div class="max-w-4xl w-full space-y-6">
-    
-    <!-- Action Bar -->
-    <div class="no-print flex items-center justify-between bg-slate-900/80 backdrop-blur-md p-3.5 px-5 rounded-2xl border border-slate-800">
-      <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
-        <span class="text-xs font-bold text-slate-300">MedLoop AI • Bosh Shifokorlar Uchun 1-Varaqlik Vizual Taqdimot</span>
-      </div>
-      <button onclick="window.print()" class="px-4 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-xl text-xs font-bold shadow-lg shadow-cyan-500/20 hover:scale-105 transition">
-        🖨️ A4 Chop Etish (Print)
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="apple-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#apple-noise)" />
+  </svg>
+
+  <div class="spotlight-radial no-print"></div>
+  <div class="architectural-grid no-print"></div>
+
+  <!-- Top 48px Blurred Navigation Bar -->
+  <nav class="top-nav no-print">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="/" style="font-weight: 700; font-size: 14px; color: #FFFFFF; text-decoration: none; letter-spacing: -0.02em;">
+        MedLoop <span class="mono" style="font-size: 11px; font-weight: 400; color: #888888;">AI</span>
+      </a>
+      <span class="mono" style="font-size: 11px; color: #888888; border: 1px solid rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 9999px;">
+        [WORKFLOW SPEC]
+      </span>
+    </div>
+
+    <div class="nav-links">
+      <a href="/" class="nav-link">[01] Overview</a>
+      <a href="/reception.html" class="nav-link">[02] Reception Queue</a>
+      <a href="/clinic-roi.html" class="nav-link">[03] ROI Simulator</a>
+      <a href="/workflow.html" class="nav-link active">[04] Clinical Workflow</a>
+      <a href="/tracker.html" class="nav-link">[05] CustDev Tracker</a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button onclick="window.print()" class="btn-white mono" style="padding: 5px 14px; font-size: 11px;">
+        Print / PDF
       </button>
     </div>
+  </nav>
 
-    <!-- Main Visual Infographic Card -->
-    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 space-y-8 shadow-2xl relative overflow-hidden paper-card">
+  <main style="max-width: 1000px; margin: 0 auto; padding: 84px 24px 60px; position: relative; z-index: 10;">
+    
+    <!-- Printable Header for A4 -->
+    <div style="display: none;" class="print:block" style="padding-bottom: 20px; border-bottom: 1px solid #000; margin-bottom: 24px;">
+      <h1 style="font-size: 18px; font-weight: 800;">MEDLOOP AI — KLINIKA ISH JARAYONI &amp; QAYTA KONVERSIYA ARXITEKTURASI</h1>
+      <div class="mono" style="font-size: 11px; color: #444;">Bosh shifokorlar va direktorlar uchun 1-varaqlik texnik-iqtisodiy xulosa</div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="bento-card" style="padding: 24px; margin-bottom: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+      <div>
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+          [CLOSED-LOOP FLYWHEEL ARCHITECTURE]
+        </div>
+        <h2 style="font-size: 22px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+          Klinika Ish Jarayoni &amp; Bemorlarni Qaytarish Zanjiri
+        </h2>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px; max-width: 620px;">
+          Laboratoriyadan chiqqan bemorlarni 8 soniyada shifokor ko'rigiga qaytaruvchi avtonom zanjir.
+        </p>
+      </div>
+
+      <div class="mono" style="text-align: right; font-size: 12px; color: var(--text-secondary);">
+        <div>O'rnatish: <strong style="color: #FFF;">&lt; 15 daqiqa</strong></div>
+        <div>Klinika xarajati: <strong style="color: #FFF;">0 UZS boshlang'ich</strong></div>
+        <div>Pilot sinovi: <strong style="color: #FFF;">14 kun kafolat</strong></div>
+      </div>
+    </div>
+
+    <!-- Before vs After Comparison Grid -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;">
       
-      <!-- Header -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[11px] font-extrabold uppercase tracking-wider mb-2">
-            Klinika Daromadini Qaytarish Tizimi
-          </div>
-          <h1 class="text-2xl sm:text-4xl font-extrabold text-white font-heading">
-            MedLoop <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">AI</span>
-          </h1>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">
-            Laboratoriyadan chiqqan bemorlarni 8 soniyada shifokor ko‘rigiga qaytaruvchi avtonom zanjir
-          </p>
+      <!-- BEFORE: An'anaviy Yo'qotish -->
+      <div class="bento-card" style="padding: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+            [BEFORE: AN'ANAVIY AMALIYOT]
+          </span>
+          <span class="badge-monochrome" style="background: rgba(255,255,255,0.06); color: #888;">45% DROP-OFF</span>
         </div>
-        <div class="text-right sm:border-l sm:border-slate-800 sm:pl-6 text-xs text-slate-400 space-y-1">
-          <div>O‘rnatish vaqti: <strong class="text-emerald-400">15 daqiqa</strong></div>
-          <div>Klinika xarajati: <strong class="text-white">Nol (0 UZS)</strong></div>
-          <div>Sinov muddati: <strong class="text-cyan-400">14 kun bepul</strong></div>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--text-secondary);">
+          <div>1. Bemor qog'oz tahlil blankini oladi, lotincha raqam va terminlarni tushunmasdan uyiga ketadi.</div>
+          <div>2. Registratura barcha bemorlarga qo'lda qo'ng'iroq qilishga ulgurmaydi (32% o'qilmay qoladi).</div>
+          <div>3. <strong>Oqibat:</strong> Har 100 bemordan 45 tasi shifokorga kirmaydi. Klinika har oy 70M+ UZS daromadni yo'qotadi.</div>
         </div>
       </div>
 
-      <!-- Before vs After Comparison Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        
-        <!-- BEFORE: An'anaviy Yo'qotish -->
-        <div class="p-5 rounded-2xl bg-red-950/20 border border-red-500/20 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase text-red-400 tracking-wider">Hozirgi Holat (Yo‘qotish)</span>
-            <span class="text-xs font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">45% yo‘qoladi</span>
-          </div>
-          <div class="space-y-2 text-xs text-slate-300">
-            <div class="flex items-start gap-2">
-              <span class="text-red-400 font-bold">✕</span>
-              <span>Bemor tahlil varag‘ini oladi, lotincha raqamlarni tushunmaydi va uyiga ketadi.</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-red-400 font-bold">✕</span>
-              <span>Registratura qo‘ng‘iroq qilib chiqishga jismonan ulgurmaydi (32% qolib ketadi).</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-red-400 font-bold">✕</span>
-              <span><strong>Natija:</strong> Har 100 bemordan 45 tasi shifokorga kirmaydi. Klinika har oy 75 mln so‘m sof tushumni yo‘qotadi.</span>
-            </div>
-          </div>
+      <!-- AFTER: MedLoop AI Bilan -->
+      <div class="bento-card" style="padding: 20px; border-color: rgba(255,255,255,0.2);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span class="mono" style="font-size: 11px; color: #FFFFFF; text-transform: uppercase;">
+            [AFTER: MEDLOOP REVENUE FLYWHEEL]
+          </span>
+          <span class="badge-monochrome" style="background: #FFFFFF; color: #000; font-weight: 700;">+38% RECOVERED</span>
         </div>
-
-        <!-- AFTER: MedLoop AI Bilan -->
-        <div class="p-5 rounded-2xl bg-cyan-950/20 border border-cyan-500/30 space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase text-cyan-400 tracking-wider">MedLoop AI Bilan</span>
-            <span class="text-xs font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">+38% qaytish</span>
-          </div>
-          <div class="space-y-2 text-xs text-slate-300">
-            <div class="flex items-start gap-2">
-              <span class="text-cyan-400 font-bold">✓</span>
-              <span>Bemor Telegram botga fotosurat yoki PDF yuklaydi — 8 soniyada tahlil qilinadi.</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-cyan-400 font-bold">✓</span>
-              <span>AI bemorga xavfni tushuntiradi: <em>«Jigar fermenti 2.4 baravar yuqori, shifokor ko‘rigi zarur»</em>.</span>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-cyan-400 font-bold">✓</span>
-              <span><strong>Natija:</strong> 1 bosishda o‘sha klinika shifokori qabuliga qayta yoziladi. Klinika kassasiga qo‘shimcha tushum kiradi!</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- 3-Step Visual Process Timeline -->
-      <div class="space-y-3">
-        <h3 class="text-xs font-black uppercase text-slate-400 tracking-wider">3 Bosqichli Avtonom Ish Jarayoni:</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-          
-          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div class="w-7 h-7 rounded-lg bg-blue-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs">01</div>
-            <div class="font-bold text-sm text-white">Yengil Ulanish</div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">
-              Klinika kompyuterlariga hech narsa yuklanmaydi. QR-kod orqali bemorlar Telegram botga ulanadi.
-            </p>
-          </div>
-
-          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div class="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs">02</div>
-            <div class="font-bold text-sm text-white">8-Soniyalik AI Triaj</div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">
-              Biomarkerlar (jigar, qand, ferritin, kardiologiya) 96.4% aniqlikda tahlil qilinib, saralanadi.
-            </p>
-          </div>
-
-          <div class="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs">03</div>
-            <div class="font-bold text-sm text-white">Shifokorga Qayta Qabul</div>
-            <p class="text-[11px] text-slate-400 leading-relaxed">
-              Bo‘sh turgan mutaxassis jadvaliga slot band qilinadi va bemor davolash kursini to‘liq yakunlaydi.
-            </p>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Bottom Value Props Banner -->
-      <div class="bg-gradient-to-r from-blue-950/40 via-cyan-950/30 to-slate-900 border border-cyan-500/20 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="space-y-1">
-          <div class="text-sm font-extrabold text-white">14 Kunlik Xatarsiz Sinov (Zero Risk Pilot)</div>
-          <p class="text-xs text-slate-300">
-            Klinikangizdan hech qanday oldindan to‘lov talab qilinmaydi. Tizim bemor keltirsagina hamkorlik davom ettiriladi.
-          </p>
-        </div>
-        <div class="text-xs font-mono font-bold text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 px-3.5 py-2 rounded-xl whitespace-nowrap">
-          Hamkorlik: @jasurceo
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #E5E5E5;">
+          <div>1. Bemor Telegram Mini App yoki botga tahlil fotosini yuklaydi — 8 soniyada OCR saralash bajariladi.</div>
+          <div>2. AI bemorga xavfni tushuntiradi: <em>"Jigar fermenti 2.3 barobar yuqori, gepatolog ko'rigi zarur."</em></div>
+          <div>3. <strong>Oqibat:</strong> 1 bosishda o'sha klinikaning bo'sh slotiga qabul belgilanadi. +150,000 UZS kassaga qaytadi.</div>
         </div>
       </div>
 
     </div>
 
-  </div>
+    <!-- 4-Step Linear Flow Diagram -->
+    <div class="bento-card" style="padding: 24px; margin-bottom: 28px;">
+      <div class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 4px;">
+        [END-TO-END STEP ARCHITECTURE]
+      </div>
+      <h3 style="font-size: 17px; font-weight: 600; color: #FFFFFF; margin-bottom: 20px;">
+        4 Bosqichli Avtonom Qayta Konversiya Zanjiri
+      </h3>
 
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;">
+        
+        <div class="bento-card" style="padding: 16px;">
+          <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 01]</div>
+          <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">Yengil Ulanish</div>
+          <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
+            Klinika kompyuterlariga og'ir dastur o'rnatilmaydi. QR-kod yoki Telegram havola orqali bemor ulanadi.
+          </p>
+        </div>
+
+        <div class="bento-card" style="padding: 16px;">
+          <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 02]</div>
+          <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">8s Multimodal OCR</div>
+          <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
+            PDF yoki xira fotosuratdan biomarkerlar aniqlanadi va deterministik klinik chegaralar bilan tekshiriladi.
+          </p>
+        </div>
+
+        <div class="bento-card" style="padding: 16px;">
+          <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 03]</div>
+          <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">1-Click Rebooking</div>
+          <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
+            Bemorga iliq, tushunarli xulosa berilib, to'g'ri mutaxassisning bo'sh soatiga 1 bosishda yozilish tugmasi ko'rsatiladi.
+          </p>
+        </div>
+
+        <div class="bento-card" style="padding: 16px;">
+          <div class="mono" style="font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px;">[STEP 04]</div>
+          <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 4px;">Registratura Tushumi</div>
+          <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">
+            Registrator monitorida bemor qabuli va +150,000 UZS tiklangan daromad darhol qayd etiladi.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom 14-Day Pilot Banner -->
+    <div class="bento-card" style="padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div class="mono" style="font-size: 10px; color: var(--text-secondary);">[ZERO-RISK PILOT AGREEMENT]</div>
+        <div style="font-size: 14px; font-weight: 600; color: #FFFFFF;">
+          14-Kunlik Kafolatlangan Pilot Sinovi
+        </div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
+          Oldindan to'lov talab etilmaydi. Tizim kamida 3M UZS qo'shimcha tushum keltirsagina hamkorlik davom etadi.
+        </div>
+      </div>
+      <a href="https://t.me/jasurceo" target="_blank" class="btn-white mono" style="font-size: 12px;">
+        Pilotni Ulash (@jasurceo) &rarr;
+      </a>
+    </div>
+
+  </main>
 </body>
 </html>

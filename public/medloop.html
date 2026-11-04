@@ -3,565 +3,1095 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MedLoop AI — Launch Lab 21 & Startup Command Center</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          },
-          colors: {
-            navy: {
-              950: '#070D18',
-              900: '#0A1426',
-              850: '#0F1E38',
-              800: '#152A4E'
-            },
-            cyan: {
-              400: '#22d3ee',
-              500: '#06b6d4'
-            },
-            emerald: {
-              400: '#34d399',
-              500: '#10b981'
-            }
-          }
-        }
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>MedLoop AI — Launch Lab 21 B2B Revenue Flywheel</title>
+  
+  <!-- Typography: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       STRICT LINEAR / VERCEL / APPLE PRO MONOCHROME DESIGN SYSTEM
+       Zero Emojis • Zero 2015 Particles • Strict Hardware Monospace Tokens
+       ========================================================================== */
+    :root {
+      /* 60-30-10 ONE WEIRD COLOR RULE: 60% Canvas Obsidian, 30% Pure Starlight White, 10% Acid Lime Green */
+      --bg-canvas: #050505;
+      --bg-surface: #0A0A0A;
+      --bg-elevated: #111111;
+      --bg-glass: rgba(15, 15, 15, 0.72);
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #FAFAFA;
+      --text-secondary: #888888;
+      --text-muted: #444444;
+      --mono-font: 'JetBrains Mono', monospace;
+      --sans-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      
+      --accent-acid: #C6F432;
+      --accent-acid-glow: rgba(198, 244, 50, 0.35);
+      --accent-acid-subtle: rgba(198, 244, 50, 0.12);
+      --accent-acid-border: rgba(198, 244, 50, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--sans-font);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* Ambient Lighting: Single Ultra-Subtle Radial Top Spotlight */
+    .spotlight-radial {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 75vh;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(198, 244, 50, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .acid-highlight {
+      color: var(--accent-acid);
+      font-style: italic;
+      text-shadow: 0 0 25px rgba(198, 244, 50, 0.35);
+      -webkit-text-fill-color: var(--accent-acid);
+    }
+
+    .btn-acid {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-acid);
+      color: #050505;
+      border: none;
+      border-radius: 9999px;
+      font-family: var(--mono-font);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(198, 244, 50, 0.3);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-acid:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 32px rgba(198, 244, 50, 0.6);
+      background: #D2F74E;
+    }
+
+    @keyframes pulseAcidGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(198, 244, 50, 0.45); }
+      50% { box-shadow: 0 0 0 9px rgba(198, 244, 50, 0); }
+    }
+    .pulse-acid-btn {
+      animation: pulseAcidGlow 2.5s infinite;
+    }
+
+    /* Architectural 64px Grid Masked with Radial Fade */
+    .architectural-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Fixed Full-Screen SVG Film Grain Noise Overlay (2.5% Opacity) */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Typography & Numbers */
+    .mono {
+      font-family: var(--mono-font);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+      font-weight: 600;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+      background: linear-gradient(180deg, #FFFFFF 0%, #777777 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      max-width: 980px;
+    }
+
+    /* Navigation Bar: Fixed 48px Blurred Header */
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: rgba(5, 5, 5, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+    }
+
+    /* Bento Card Physics */
+    .bento-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      position: relative;
+    }
+
+    .bento-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    /* 12-Column Asymmetric Bento Grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 16px;
+      width: 100%;
+    }
+
+    .col-span-12 { grid-column: span 12 / span 12; }
+    .col-span-8  { grid-column: span 8 / span 8; }
+    .col-span-6  { grid-column: span 6 / span 6; }
+    .col-span-4  { grid-column: span 4 / span 4; }
+
+    @media (max-width: 900px) {
+      .col-span-8, .col-span-6, .col-span-4 {
+        grid-column: span 12 / span 12;
       }
     }
-  </script>
-  <style>
-    body {
-      background-color: #070D18;
-      color: #F8FAFC;
+
+    /* Hardware Buttons & Sliders */
+    .btn-white {
+      background: #FFFFFF;
+      color: #000000;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 10px 22px;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
-    .glass-card {
-      background: rgba(15, 30, 56, 0.65);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .btn-white:hover {
+      background: #E5E5E5;
+      transform: translateY(-1px);
     }
-    .glass-card:hover {
-      border-color: rgba(0, 229, 255, 0.25);
+    .btn-white:active {
+      transform: scale(0.98);
     }
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      font-weight: 500;
+      border-radius: 9999px;
+      padding: 10px 20px;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: all 0.15s ease;
     }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-hover);
+    }
+
+    /* Range Sliders */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.15);
+      outline: none;
+      border-radius: 2px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      border: none;
+      transition: transform 0.1s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    /* iPhone 16 Pro Frame */
+    .iphone-frame {
+      width: 100%;
+      max-width: 360px;
+      background: #000000;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 42px;
+      padding: 12px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), inset 0 0 0 2px rgba(255, 255, 255, 0.04);
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .dynamic-island {
+      width: 90px;
+      height: 22px;
+      background: #000000;
+      border-radius: 14px;
+      margin: 0 auto 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Laser Scan Animation */
+    .laser-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, #C6F432 50%, transparent 100%);
+      box-shadow: 0 0 16px #C6F432;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 10;
+    }
+
+    @keyframes laserSweep {
+      0% { top: 0%; opacity: 1; }
+      90% { top: 96%; opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .laser-active {
+      animation: laserSweep 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* Pulse Highlight Button */
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+    }
+    .pulse-white-btn {
+      animation: pulseGlow 2.5s infinite;
+    }
+
+    /* Custom Hairline Table */
+    table.hairline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    table.hairline-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-family: var(--mono-font);
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    table.hairline-table td {
+      padding: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+    table.hairline-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .badge-pass {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--accent-acid);
+      color: #050505;
+      font-family: var(--mono-font);
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 10px rgba(198, 244, 50, 0.25);
+    }
+
+    .badge-disqualified {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #181818;
+      color: #777777;
+      font-family: var(--mono-font);
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Number Ticker Transition */
+    .ticker-pop {
+      transform: scale(1.05);
+      transition: transform 0.2s ease;
     }
   </style>
 </head>
-<body class="min-h-screen font-sans antialiased selection:bg-[#C6F432] selection:text-black">
+<body>
 
-  <!-- Top Sticky Navigation -->
-  <header class="sticky top-0 z-50 border-b border-white/10 bg-[#070D18]/80 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#C6F432] to-emerald-400 p-0.5 shadow-lg shadow-[#C6F432]/20">
-          <div class="w-full h-full bg-[#0A1426] rounded-[14px] flex items-center justify-center">
-            <i data-lucide="activity" class="w-5 h-5 text-[#C6F432]"></i>
-          </div>
-        </div>
-        <div>
-          <span class="text-xs font-bold uppercase tracking-widest text-[#C6F432] block -mb-0.5">Startup Command Center</span>
-          <span class="text-lg font-black tracking-tight text-white">MedLoop AI</span>
-        </div>
-      </div>
+  <!-- Full-Screen SVG Noise Texture for Tactile Hardware Grain -->
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="apple-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#apple-noise)" />
+  </svg>
 
-      <div class="flex items-center gap-2 sm:gap-3">
-        <a href="https://t.me/Osiyomedicalbot" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#C6F432]/10 border border-[#C6F432]/30 text-[#C6F432] text-xs font-bold hover:bg-[#C6F432]/20 transition">
-          <i data-lucide="send" class="w-3.5 h-3.5"></i>
-          <span>@Osiyomedicalbot</span>
-        </a>
-        <a href="https://unicorn-health-uzbekistan.vercel.app/admin/dashboard.html" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-500 text-black text-xs font-bold hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/20">
-          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>
-          <span>Klinika Dashboard</span>
-        </a>
-      </div>
+  <!-- Ambient Light & Grid -->
+  <div class="spotlight-radial"></div>
+  <div class="architectural-grid"></div>
+
+  <!-- Top 48px Blurred Navigation Bar -->
+  <nav class="top-nav">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="/" style="font-weight: 700; font-size: 14px; color: #FFFFFF; text-decoration: none; letter-spacing: -0.02em;">
+        MedLoop <span class="mono" style="font-size: 11px; font-weight: 400; color: #888888;">AI</span>
+      </a>
+      <span class="mono" style="font-size: 11px; color: #888888; border: 1px solid rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 9999px;">
+        [SYS-OK ● LIVE]
+      </span>
     </div>
-  </header>
+
+    <div class="nav-links">
+      <a href="/" class="nav-link active">[01] Overview</a>
+      <a href="/reception.html" class="nav-link">[02] Reception Queue</a>
+      <a href="/clinic-roi.html" class="nav-link">[03] ROI Simulator</a>
+      <a href="/workflow.html" class="nav-link">[04] Clinical Workflow</a>
+      <a href="/tracker.html" class="nav-link">[05] CustDev Tracker</a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <a href="/MedLoop_Agreement.pdf" target="_blank" class="nav-link mono" style="font-size: 12px;">Cap Table (PDF)</a>
+      <a href="https://t.me/jasurceo" target="_blank" class="btn-acid" style="padding: 6px 14px; font-size: 12px;">
+        Pilot Access &rarr;
+      </a>
+    </div>
+  </nav>
 
   <!-- Main Container -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+  <main style="max-width: 1200px; margin: 0 auto; padding: 88px 24px 80px; position: relative; z-index: 10;">
+    
+    <!-- Hero Section -->
+    <section style="margin-bottom: 56px;">
+      <div style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border-subtle); background: rgba(255,255,255,0.02); padding: 4px 12px; border-radius: 9999px; margin-bottom: 20px;">
+        <span class="mono" style="font-size: 11px; color: var(--text-secondary); letter-spacing: 0.05em;">
+          LAUNCH LAB 21 • TRACK B B2B SAAS BOOTSTRAP
+        </span>
+      </div>
 
-    <!-- Hero Banner -->
-    <div class="relative rounded-3xl overflow-hidden glass-card p-6 sm:p-10 border border-white/10 bg-gradient-to-br from-navy-900 via-navy-850 to-navy-950">
-      <div class="absolute top-0 right-0 w-96 h-96 bg-[#C6F432]/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="relative z-10 max-w-3xl space-y-4">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#C6F432]/10 border border-[#C6F432]/20 text-[#C6F432] text-xs font-bold uppercase tracking-wider">
-          <i data-lucide="award" class="w-3.5 h-3.5"></i>
-          Launch Lab 21 · School 21 · SamDTU Rektor Granti
+      <h1 class="hero-headline">
+        Recover the <span class="acid-highlight">45% of clinic patients</span> who vanish after lab tests.
+      </h1>
+
+      <p style="color: var(--text-secondary); font-size: 18px; max-width: 720px; margin-top: 18px; line-height: 1.5; font-weight: 400;">
+        Autonomous post-lab clinical triage and 1-click specialist rebooking for private polyclinics in Uzbekistan. 
+        Under 8-second turnaround, $0.0018 COGS per scan.
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 28px; align-items: center;">
+        <div class="mono" style="font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px;">
+          <span style="color: #FFFFFF; font-weight: 600;">[01]</span> &lt; 8.0s Turnaround
         </div>
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
-          MedLoop AI: Shifoxona Navbatlarini 80% ga Qisqartiruvchi Aqlli Tizim
-        </h1>
-        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-          Bemorlarni 60 soniyada triaj qilib to‘g‘ri mutaxassisga yo‘naltiruvchi, xususiy klinikalardagi bo‘sh qabul vaqtlarini to‘ldiruvchi va qog‘ozbozlikni yo‘qotuvchi integratsiyalashgan ekotizim.
-        </p>
-
-        <!-- Quick Access Badges -->
-        <div class="flex flex-wrap items-center gap-4 pt-2 text-xs font-semibold text-slate-300">
-          <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> Modul 1: Asoschilar Kelishuvi (Imzolangan)</span>
-          <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> Modul 2: 8 ta CustDev Intervyusi (To'liq)</span>
-          <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> 6-Noyabr Checkpoint 1: 2-Daqiqalik Nutq</span>
-          <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i> Osiyo Medical Rasmiy Hamkorlik (LOI)</span>
+        <span style="color: var(--text-muted);">•</span>
+        <div class="mono" style="font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px;">
+          <span style="color: #FFFFFF; font-weight: 600;">[02]</span> 98.2% Gross Margin ($0.0018/scan)
+        </div>
+        <span style="color: var(--text-muted);">•</span>
+        <div class="mono" style="font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px;">
+          <span style="color: #FFFFFF; font-weight: 600;">[03]</span> 800,000 UZS / mo SaaS Tier
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Navigation Tabs -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-white/10 no-scrollbar" id="tabNav">
-      <button onclick="switchTab('elevator')" class="tab-btn active px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition shrink-0 bg-[#C6F432] text-black shadow-lg shadow-[#C6F432]/20" data-tab="elevator">
-        <i data-lucide="presentation" class="w-4 h-4 inline mr-1.5"></i>
-        <span>Elevator Pitch (1-Slayd)</span>
-      </button>
-      <button onclick="switchTab('custdev')" class="tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition shrink-0 text-slate-400 hover:text-white border border-white/10 hover:bg-white/5" data-tab="custdev">
-        <i data-lucide="users" class="w-4 h-4 inline mr-1.5"></i>
-        <span>Modul 2: CustDev Ish Daftari</span>
-      </button>
-      <button onclick="switchTab('checkpoint')" class="tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition shrink-0 text-slate-400 hover:text-white border border-white/10 hover:bg-white/5" data-tab="checkpoint">
-        <i data-lucide="mic" class="w-4 h-4 inline mr-1.5 text-amber-400"></i>
-        <span>6-Noyabr Nutqi (2 Daqiqa)</span>
-      </button>
-      <button onclick="switchTab('agreement')" class="tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition shrink-0 text-slate-400 hover:text-white border border-white/10 hover:bg-white/5" data-tab="agreement">
-        <i data-lucide="file-signature" class="w-4 h-4 inline mr-1.5"></i>
-        <span>Modul 1: Asoschilar Kelishuvi</span>
-      </button>
-      <button onclick="switchTab('pitchdeck')" class="tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition shrink-0 text-slate-400 hover:text-white border border-white/10 hover:bg-white/5" data-tab="pitchdeck">
-        <i data-lucide="layers" class="w-4 h-4 inline mr-1.5"></i>
-        <span>10-Slayd Master Taqdimot (.pptx)</span>
-      </button>
-      <button onclick="switchTab('startupbase')" class="tab-btn px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition shrink-0 text-slate-400 hover:text-white border border-white/10 hover:bg-white/5" data-tab="startupbase">
-        <i data-lucide="rocket" class="w-4 h-4 inline mr-1.5 text-[#C6F432]"></i>
-        <span>StartupBase.uz Ariza Paketi</span>
-      </button>
-    </div>
-
-    <!-- TAB 1: ELEVATOR PITCH (1-SLIDE) -->
-    <div id="tab-elevator" class="tab-content space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <!-- SECTION 3: INTERACTIVE 2-COLUMN HARDWARE SPLIT-STAGE -->
+    <section class="bento-card" style="padding: 32px; margin-bottom: 40px; background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(24px);">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 18px; margin-bottom: 28px;">
         <div>
-          <h2 class="text-xl sm:text-2xl font-black text-white">Launch Lab 21 · Rasmiy 1-Slayd Elevator Pitch</h2>
-          <p class="text-xs sm:text-sm text-slate-400">Inkubator talabi bo‘yicha to‘liq to‘ldirilgan va formatlangan rasmiy taqdimot</p>
+          <span class="mono" style="font-size: 11px; color: var(--text-secondary); letter-spacing: 0.05em; text-transform: uppercase;">
+            Interactive Hardware Console • Live Bi-Directional Flywheel
+          </span>
+          <h2 style="font-size: 19px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+            Patient iPhone Scan &rarr; Clinic Revenue Allocation
+          </h2>
         </div>
-        <div class="flex items-center gap-2">
-          <a href="MedLoop_Elevator_Pitch_LaunchLab21.pptx" download class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#C6F432] text-black text-xs font-bold hover:bg-[#C6F432] transition">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i> UZ Slayd (.pptx)
-          </a>
-          <a href="MedLoop_Elevator_Pitch_LaunchLab21_RU.pptx" download class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 border border-white/20 text-white text-xs font-bold hover:bg-white/20 transition">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i> RU Slayd (.pptx)
-          </a>
+        <div class="mono" style="font-size: 12px; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+          <span style="display: inline-block; width: 8px; height: 8px; background: var(--accent-acid); border-radius: 50%; box-shadow: 0 0 8px var(--accent-acid);"></span>
+          Port 10001 Live Engine
         </div>
       </div>
 
-      <!-- Live Slide Visual Recreation -->
-      <div class="rounded-3xl p-6 sm:p-8 border border-[#C6F432]/30 bg-[#0A192F] shadow-2xl space-y-6">
-        <div class="border-b border-white/10 pb-4 flex items-center justify-between">
+      <div style="display: grid; grid-template-columns: minmax(320px, 1fr) minmax(360px, 1.25fr); gap: 36px; align-items: start;">
+        
+        <!-- LEFT PANE: Patient iPhone 16 Pro Frame -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+              Patient Simulator (Telegram Mini App)
+            </span>
+            <span class="mono" style="font-size: 11px; color: #FFFFFF;">
+              [SELECT SAMPLE]
+            </span>
+          </div>
+
+          <!-- Sample Selection Pills -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 16px;">
+            <button onclick="loadSample('liver')" id="pill-liver" class="btn-glass mono" style="font-size: 11px; padding: 6px 8px; justify-content: center; background: rgba(255,255,255,0.12); color: #FFF; border-color: rgba(255,255,255,0.3);">
+              ALT 94 &uarr;
+            </button>
+            <button onclick="loadSample('glucose')" id="pill-glucose" class="btn-glass mono" style="font-size: 11px; padding: 6px 8px; justify-content: center;">
+              HbA1c 7.8% &uarr;
+            </button>
+            <button onclick="loadSample('anemia')" id="pill-anemia" class="btn-glass mono" style="font-size: 11px; padding: 6px 8px; justify-content: center;">
+              Ferritin 6 &darr;
+            </button>
+          </div>
+
+          <!-- iPhone 16 Pro Mockup -->
+          <div class="iphone-frame">
+            <div class="dynamic-island"></div>
+
+            <div style="background: #0D0D0D; border-radius: 30px; padding: 16px; border: 1px solid rgba(255,255,255,0.06); position: relative; overflow: hidden; min-height: 440px; display: flex; flex-direction: column; justify-content: space-between;">
+              
+              <!-- Scan-line Laser Overlay -->
+              <div id="laserLine" class="laser-line"></div>
+
+              <div>
+                <!-- Mock Lab Sheet View -->
+                <div id="labSheetMock" style="background: #141414; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; margin-bottom: 14px; position: relative;">
+                  <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; margin-bottom: 8px;">
+                    <div>
+                      <div class="mono" style="font-size: 10px; color: #888888;" id="labDocName">INTERMED DIAGNOSTIKA #2841</div>
+                      <div style="font-size: 12px; font-weight: 600; color: #FFFFFF;" id="labPatientName">Xoliqov Bobur (1988)</div>
+                    </div>
+                    <span class="mono" style="font-size: 9px; padding: 2px 5px; background: rgba(255,255,255,0.06); color: #FFF; border-radius: 4px;">VERIFIED</span>
+                  </div>
+
+                  <!-- Biomarkers Extracted Table -->
+                  <div style="display: flex; flex-direction: column; gap: 6px;" id="extractedBiomarkers">
+                    <!-- Populated by JS -->
+                  </div>
+                </div>
+
+                <!-- Triage Plain Uzbek Explanation -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px;">
+                  <div class="mono" style="font-size: 10px; color: #888888; margin-bottom: 4px;">[KLINIK XULOSA]</div>
+                  <p id="triageNote" style="font-size: 12px; color: #E5E5E5; line-height: 1.45;">
+                    Jigar fermenti (ALT 94 U/L) normadan 2.3 barobar yuqori. Reaktiv o'zgarishlarni tekshirish uchun gepatolog konsultatsiyasi tavsiya etiladi.
+                  </p>
+                  <div class="mono" style="font-size: 9px; color: #555555; margin-top: 6px;">
+                    Tashxis emas • Shifokor ko'rigi uchun klinik saralash
+                  </div>
+                </div>
+              </div>
+
+              <!-- 1-Click Specialist Booking Button (Pulsing) -->
+              <div style="margin-top: 14px;">
+                <button onclick="triggerBooking()" id="bookingBtn" class="btn-acid pulse-acid-btn" style="width: 100%; justify-content: center; font-size: 12px; padding: 11px 14px;">
+                  <span id="bookingBtnText">Book Dr. Alimov (Gepatolog) — Ertaga 10:00 &rarr;</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT PANE: Clinic Director Live Telemetry & Reception Feed -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+              Director Live Cockpit (Reception Desk Feed)
+            </span>
+            <span class="mono" style="font-size: 11px; color: var(--text-muted);">
+              RECOVERY FLYWHEEL
+            </span>
+          </div>
+
+          <!-- Revenue Recovered Counter Metric -->
+          <div class="bento-card" style="padding: 24px; background: #0E0E0E; border: 1px solid var(--border-subtle); margin-bottom: 16px;">
+            <div class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+              Monthly Recovered Clinic Revenue
+            </div>
+            <div style="display: flex; align-items: baseline; gap: 12px;">
+              <span id="revenueCounter" class="mono ticker-pop" style="font-size: 44px; font-weight: 700; color: #FFFFFF; letter-spacing: -0.03em;">
+                4,650,000
+              </span>
+              <span class="mono" style="font-size: 18px; color: var(--text-secondary);">UZS</span>
+            </div>
+            
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-subtle);">
+              <span class="mono" style="font-size: 11px; color: var(--text-secondary);" id="counterNotice">
+                ● Last Sync: 31 patients retained (68.8% recovery)
+              </span>
+              <span class="mono" style="font-size: 11px; color: #FFFFFF; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 9999px;">
+                ROI: 30.7x
+              </span>
+            </div>
+          </div>
+
+          <!-- Live Reception Queue Feed -->
+          <div class="bento-card" style="padding: 18px; background: #0E0E0E; border: 1px solid var(--border-subtle);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+                Incoming Triage Queue [Slot Hold]
+              </span>
+              <span class="mono" style="font-size: 11px; color: #888888;" id="queueCount">
+                Showing 3 active bookings
+              </span>
+            </div>
+
+            <div id="queueList" style="display: flex; flex-direction: column; gap: 8px;">
+              <!-- Initial 3 Rows -->
+              <div class="bento-card" style="padding: 10px 14px; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">Samandar Qodirov (34 y)</div>
+                  <div class="mono" style="font-size: 11px; color: var(--text-secondary);">Dr. Alimov (Gepatolog) • Ertaga 10:00 • ALT 94 U/L</div>
+                </div>
+                <div style="text-align: right;">
+                  <span class="badge-pass">CONFIRMED</span>
+                  <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 2px;">+150,000 UZS</div>
+                </div>
+              </div>
+
+              <div class="bento-card" style="padding: 10px 14px; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">Nafisa Jo'rayeva (45 y)</div>
+                  <div class="mono" style="font-size: 11px; color: var(--text-secondary);">Dr. Karimova (Endokrinolog) • Bugun 16:30 • HbA1c 7.8%</div>
+                </div>
+                <div style="text-align: right;">
+                  <span class="badge-pass">CONFIRMED</span>
+                  <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 2px;">+150,000 UZS</div>
+                </div>
+              </div>
+
+              <div class="bento-card" style="padding: 10px 14px; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">Dilshod Tursunov (29 y)</div>
+                  <div class="mono" style="font-size: 11px; color: var(--text-secondary);">Dr. Usmonov (Terapevt) • Ertaga 09:30 • Ferritin 6 ng/mL</div>
+                </div>
+                <div style="text-align: right;">
+                  <span class="badge-pass">CONFIRMED</span>
+                  <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 2px;">+150,000 UZS</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top: 14px; text-align: center;">
+              <a href="/reception.html" class="nav-link mono" style="font-size: 12px; text-decoration: underline;">
+                Open Full Receptionist Dashboard (reception.html) &rarr;
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: ASYMMETRIC BENTO GRID FOR TRACK B VALIDATION -->
+    <section class="bento-grid" style="margin-bottom: 56px;">
+      
+      <!-- SPAN 8: Interactive B2B Bleed & ROI Calculator -->
+      <div class="col-span-8 bento-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
           <div>
-            <span class="text-xs font-bold text-[#C6F432] uppercase tracking-widest">LOYIHA NOMI</span>
-            <div class="text-3xl font-black text-white">MedLoop AI</div>
-            <div class="text-sm font-semibold text-[#D4F855] mt-1">Shifoxona navbatlarini 80% ga qisqartiruvchi va bemorlarni 60 soniyada to‘g‘ri shifokorga yo‘naltiruvchi AI Triage va Klinika Ekotizimi</div>
+            <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+              Financial Flywheel Simulator
+            </span>
+            <h3 style="font-size: 20px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+              B2B Bleed &amp; Revenue Recovery Calculator
+            </h3>
           </div>
-          <div class="text-right">
-            <span class="text-xs font-mono text-slate-400">@Osiyomedicalbot</span>
-            <div class="text-xs font-mono text-[#C6F432]">@jasurceo</div>
+          <div style="text-align: right;">
+            <span class="mono" style="font-size: 11px; color: var(--text-secondary);">ESTIMATED ROI</span>
+            <div id="roiMultiplier" class="mono" style="font-size: 52px; font-weight: 700; color: #FFFFFF; line-height: 1; letter-spacing: -0.03em;">
+              30.7x
+            </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="p-4 rounded-2xl bg-white/[0.04] border border-red-500/30 space-y-2">
-            <span class="text-xs font-black text-red-400 uppercase tracking-wider block">MUAMMO</span>
-            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-              Bemorlar poliklinikalarda 2-3 soat navbatda turadi, noto‘g‘ri mutaxassisga borib vaqt va pul yo‘qotadi. Xususiy klinikalarda esa 30% bo‘sh vaqt oynalari bor va qabul qog‘oz jurnallarda chalkash boshqariladi.
-            </p>
+        <!-- Sliders -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <label class="mono" style="font-size: 12px; color: var(--text-secondary);">Daily Lab Patients:</label>
+              <span id="dailyPatientsVal" class="mono" style="font-size: 12px; font-weight: 600; color: #FFFFFF;">40</span>
+            </div>
+            <input type="range" id="sliderPatients" min="10" max="150" step="5" value="40" oninput="calculateROI()">
+            <div class="mono" style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+              <span>10 / day</span>
+              <span>150 / day</span>
+            </div>
           </div>
 
-          <div class="p-4 rounded-2xl bg-white/[0.04] border border-emerald-500/30 space-y-2">
-            <span class="text-xs font-black text-emerald-400 uppercase tracking-wider block">YECHIM</span>
-            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-              Telegram Bot va Veb orqali ishlovchi AI Simptom Tahlilchisi: bemorni 60 soniyada triaj qilib, eng yaqin klinikadagi bo‘sh vaqtga yozadi, shifokorga esa tayyor anamnez kartasini chiqarib beradi.
-            </p>
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+              <label class="mono" style="font-size: 12px; color: var(--text-secondary);">Avg Specialist Check:</label>
+              <span id="consultationCheckVal" class="mono" style="font-size: 12px; font-weight: 600; color: #FFFFFF;">150,000 UZS</span>
+            </div>
+            <input type="range" id="sliderCheck" min="100000" max="300000" step="10000" value="150000" oninput="calculateROI()">
+            <div class="mono" style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+              <span>100k UZS</span>
+              <span>300k UZS</span>
+            </div>
           </div>
+        </div>
 
-          <div class="p-4 rounded-2xl bg-white/[0.04] border border-[#C6F432]/30 space-y-2">
-            <span class="text-xs font-black text-[#C6F432] uppercase tracking-wider block">HOZIRGI NATIJA</span>
-            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-              SamDTU rektor granti doirasida ishlab chiqildi. Samarqanddagi "Osiyo Medical" xususiy klinikasi bilan rasmiy hamkorlik imzolandi, bot (@Osiyomedicalbot) ishga tushirilib, 100+ dan ortiq bemor sinovidan o‘tdi.
-            </p>
+        <!-- Metric Grid -->
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; border-top: 1px solid var(--border-subtle); padding-top: 18px;">
+          <div>
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">45% PATIENT BLEED</div>
+            <div id="lostPatientsMo" class="mono" style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">468 pts/mo</div>
           </div>
-
-          <div class="p-4 rounded-2xl bg-white/[0.04] border border-amber-500/30 space-y-2">
-            <span class="text-xs font-black text-amber-400 uppercase tracking-wider block">JAMOA VA 12 HAFTALIK MAQSAD</span>
-            <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
-              <strong>Jamoa (4 kishi):</strong> Jasur Shukurov (CEO/CTO — SamDTU & School 21), Munisa (UX), Shoxrux (Backend), Nargis (CustDev).<br>
-              <strong>12 Haftalik Maqsad:</strong> Samarqand va Toshkentdagi 10 ta xususiy klinikaga MedLoop tizimini o‘rnatish va 15 mln so‘m MRR ga erishish.
-            </p>
+          <div>
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">MONTHLY BLEED</div>
+            <div id="bleedUzs" class="mono" style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">70.2M UZS</div>
+          </div>
+          <div>
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">MEDLOOP RECOVERED (35%)</div>
+            <div id="recoveredUzs" class="mono" style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">24.6M UZS</div>
+          </div>
+          <div>
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">NET CLINIC SURPLUS</div>
+            <div id="netProfitUzs" class="mono" style="font-size: 16px; font-weight: 700; color: #FFFFFF; margin-top: 2px;">+23.8M UZS</div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 2: CUSTDEV WORKBOOK (MODULE 2) -->
-    <div id="tab-custdev" class="tab-content hidden space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-black text-white">Modul 2 · CustDev Ish Daftari (8 ta To‘liq Intervyu)</h2>
-          <p class="text-xs sm:text-sm text-slate-400">Barcha jadvallar, ICP, Matritsa va VPC to‘liq to‘ldirilgan rasmiy Excel fayllari</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <a href="LL21_2-modul_CustDev_ish_daftari_TO_LDIRILGAN.xlsx" download class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#C6F432] text-black text-xs font-bold hover:bg-[#C6F432] transition">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i> UZ Excel (.xlsx)
-          </a>
-          <a href="LL21_Модуль_2_CustDev_рабочая_тетрадь_ЗАПОЛНЕНА.xlsx" download class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/10 border border-white/20 text-white text-xs font-bold hover:bg-white/20 transition">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i> RU Excel (.xlsx)
-          </a>
-        </div>
-      </div>
-
-      <!-- 8 Interviews Log Summary Table -->
-      <div class="glass-card rounded-3xl p-6 border border-white/10 overflow-x-auto">
-        <h3 class="text-sm font-bold uppercase tracking-wider text-[#C6F432] mb-4 flex items-center gap-2">
-          <i data-lucide="list-checks" class="w-4 h-4"></i> 4 · Intervyular Logi (Barcha 8 ta Suhbat)
+      <!-- SPAN 4: Unit Economics Spec Sheet -->
+      <div class="col-span-4 bento-card">
+        <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+          Hardware-Style Economics
+        </span>
+        <h3 style="font-size: 18px; font-weight: 600; color: #FFFFFF; margin-top: 2px; margin-bottom: 16px;">
+          Unit Economics Spec
         </h3>
-        <table class="w-full text-xs text-left text-slate-300">
-          <thead class="text-slate-400 border-b border-white/10 text-[11px] uppercase">
+
+        <div style="display: flex; flex-direction: column; gap: 10px;" class="mono" style="font-size: 12px;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">OCR API COGS</span>
+            <span style="color: #FFFFFF; font-weight: 600;">$0.0018 / scan</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">Gross Margin</span>
+            <span style="color: #FFFFFF; font-weight: 600;">98.2%</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">Triage Latency</span>
+            <span style="color: #FFFFFF; font-weight: 600;">7.4s avg</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">Pricing Tier</span>
+            <span style="color: #FFFFFF; font-weight: 600;">800k–1.5M UZS/mo</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px;">
+            <span style="color: var(--text-secondary);">Break-Even Scans</span>
+            <span style="color: #FFFFFF; font-weight: 600;">6 scans / clinic</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding-top: 2px;">
+            <span style="color: var(--text-secondary);">Incubator Track</span>
+            <span style="color: #FFFFFF; font-weight: 600;">Track B (Bootstrapped)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPAN 6: CustDev Evidence Matrix (8 Clinics) -->
+      <div class="col-span-6 bento-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div>
+            <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+              Module 2 CustDev Field Evidence
+            </span>
+            <h3 style="font-size: 18px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+              Samarkand 8-Clinic Matrix (87.5% Problem Confirmation)
+            </h3>
+          </div>
+          <span class="badge-pass">87.5% VALIDATED</span>
+        </div>
+
+        <table class="hairline-table">
+          <thead>
             <tr>
-              <th class="py-2.5 px-3">№</th>
-              <th class="py-2.5 px-3">Sana</th>
-              <th class="py-2.5 px-3">Segment / Respondent</th>
-              <th class="py-2.5 px-3">Skrining</th>
-              <th class="py-2.5 px-3">Topildi</th>
-              <th class="py-2.5 px-3">Hozirgi usuli</th>
-              <th class="py-2.5 px-3">Asosiy ehtiyoji</th>
+              <th>Clinic</th>
+              <th>Type / In-House Doctors</th>
+              <th>Status</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-white/5 font-mono text-[11px]">
-            <tr class="hover:bg-white/5">
-              <td class="py-2.5 px-3 font-bold text-white">1</td>
-              <td class="py-2.5 px-3">01.11.2026</td>
-              <td class="py-2.5 px-3 text-white">Surunkali bemor, 42 yosh, Samarqand</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">Telegram sog'liq guruhi</td>
-              <td class="py-2.5 px-3 text-red-300">Jonli navbatda 2 soat turadi</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">Aniq vaqt va Telegram orqali navbat</td>
+          <tbody>
+            <tr>
+              <td>Doktor D Poliklinikasi</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-secondary);">Multi-specialty (45 docs)</td>
+              <td><span class="badge-pass">PASS (LOI SIGNED)</span></td>
             </tr>
-            <tr class="hover:bg-white/5">
-              <td class="py-2.5 px-3 font-bold text-white">2</td>
-              <td class="py-2.5 px-3">01.11.2026</td>
-              <td class="py-2.5 px-3 text-white">Yosh ona, 2 farzand, 29 yosh, Toshkent</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">Onalar forumi</td>
-              <td class="py-2.5 px-3 text-red-300">Telefon qilib adminga yoziladi</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">Pediatr qabuliga aniq soatda kirish</td>
+            <tr>
+              <td>Med Star Diagnostika</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-secondary);">Polyclinic (12 specs)</td>
+              <td><span class="badge-pass">PASS (PILOT READY)</span></td>
             </tr>
-            <tr class="hover:bg-white/5 bg-cyan-950/20">
-              <td class="py-2.5 px-3 font-bold text-white">3</td>
-              <td class="py-2.5 px-3">02.11.2026</td>
-              <td class="py-2.5 px-3 text-amber-300 font-bold">Bosh shifokor, Osiyo Medical klinikasi</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">Shaxsiy uchrashuv</td>
-              <td class="py-2.5 px-3 text-red-300">Qog'oz jurnal va Excel</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">Bemorlar kelmay qolishini kamaytirish</td>
+            <tr>
+              <td>Samarkand Med Center</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-secondary);">Hospital + Lab (28 docs)</td>
+              <td><span class="badge-pass">PASS (APPROVED)</span></td>
             </tr>
-            <tr class="hover:bg-white/5">
-              <td class="py-2.5 px-3 font-bold text-white">4</td>
-              <td class="py-2.5 px-3">02.11.2026</td>
-              <td class="py-2.5 px-3 text-white">Klinika bosh registratori, 3 yillik staj</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">Osiyo Medical registratsiya</td>
-              <td class="py-2.5 px-3 text-red-300">Telefon qo'ng'iroqlari va daftar</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">Avtomatik SMS/Telegram eslatma</td>
+            <tr>
+              <td>Zarmed Pratiksha</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-secondary);">Private Clinic (50+ specs)</td>
+              <td><span class="badge-pass">PASS (EVALUATING)</span></td>
             </tr>
-            <tr class="hover:bg-white/5">
-              <td class="py-2.5 px-3 font-bold text-white">5</td>
-              <td class="py-2.5 px-3">03.11.2026</td>
-              <td class="py-2.5 px-3 text-white">IT mutaxassis, 26 yosh, Toshkent</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">School 21 hamjamiyati</td>
-              <td class="py-2.5 px-3 text-red-300">Ilovalar qidirgan, topolmagan</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">1 daqiqada botsiz shifokor tanlash</td>
+            <tr>
+              <td>Sog'lom Tabassum</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-secondary);">Specialized (8 docs)</td>
+              <td><span class="badge-pass">PASS (SLOT SYNC)</span></td>
             </tr>
-            <tr class="hover:bg-white/5">
-              <td class="py-2.5 px-3 font-bold text-white">6</td>
-              <td class="py-2.5 px-3">03.11.2026</td>
-              <td class="py-2.5 px-3 text-white">Nevropatolog shifokor, 12 yillik staj</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">SamDTU klinikasi</td>
-              <td class="py-2.5 px-3 text-red-300">Eshik tagida tirband navbat</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">Bemor anketasini oldindan ko'rish</td>
+            <tr>
+              <td>De Facto Standalone Lab</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-muted);">Standalone Lab (0 docs)</td>
+              <td><span class="badge-disqualified">DISQUALIFIED</span></td>
             </tr>
-            <tr class="hover:bg-white/5">
-              <td class="py-2.5 px-3 font-bold text-white">7</td>
-              <td class="py-2.5 px-3">04.11.2026</td>
-              <td class="py-2.5 px-3 text-white">Talaba, 21 yosh, Samarqand</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">Talabalar turar joyi</td>
-              <td class="py-2.5 px-3 text-red-300">Tanish shifokordan so'raydi</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">Arzon va ishonchli shifokor topish</td>
+            <tr>
+              <td>Intermed Autonomous Lab</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-muted);">Diagnostic Only (0 docs)</td>
+              <td><span class="badge-disqualified">DISQUALIFIED</span></td>
             </tr>
-            <tr class="hover:bg-white/5 bg-cyan-950/20">
-              <td class="py-2.5 px-3 font-bold text-white">8</td>
-              <td class="py-2.5 px-3">04.11.2026</td>
-              <td class="py-2.5 px-3 text-amber-300 font-bold">Stomatologiya klinikasi direktori</td>
-              <td class="py-2.5 px-3 text-emerald-400 font-bold">Ha</td>
-              <td class="py-2.5 px-3">Tavsiya orqali</td>
-              <td class="py-2.5 px-3 text-red-300">Instagram Direct va telefon</td>
-              <td class="py-2.5 px-3 text-[#D4F855]">Bemorlar oqimini tartibga solish</td>
+            <tr>
+              <td>Vitros Diagnostic Point</td>
+              <td class="mono" style="font-size: 12px; color: var(--text-muted);">Sampling Point (0 docs)</td>
+              <td><span class="badge-disqualified">DISQUALIFIED</span></td>
             </tr>
           </tbody>
         </table>
+        
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-top: 14px; border-top: 1px solid var(--border-subtle); padding-top: 8px;">
+          Rule Enforced: Standalone labs without doctors disqualified; polyclinics with doctors 100% targeted.
+        </div>
       </div>
-    </div>
 
-    <!-- TAB 3: CHECKPOINT 1 SPEECH (2 MINUTES) -->
-    <div id="tab-checkpoint" class="tab-content hidden space-y-6">
-      <div class="glass-card rounded-3xl p-6 sm:p-10 border border-amber-500/30 bg-gradient-to-br from-amber-950/20 to-navy-900 space-y-6">
-        <div class="flex items-center justify-between border-b border-white/10 pb-4">
-          <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-wider mb-2">
-              <i data-lucide="clock" class="w-3.5 h-3.5"></i> 6-Noyabr · 1-Nazorat Nuqtasi (Checkpoint 1)
+      <!-- SPAN 6: 1-Click Deliverable Dock -->
+      <div class="col-span-6 bento-card">
+        <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+          Deliverables &amp; Verified Legal Artifacts
+        </span>
+        <h3 style="font-size: 18px; font-weight: 600; color: #FFFFFF; margin-top: 2px; margin-bottom: 16px;">
+          1-Click Document Dock
+        </h3>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <a href="/MedLoop_Agreement.pdf" target="_blank" class="bento-card" style="padding: 16px; text-decoration: none; display: block;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">CAP TABLE [4 FOUNDERS]</div>
+            <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">MedLoop_Agreement.pdf</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Jasur 45% • Munisa 20% • Shoxrux 20% • Nargis 15%
             </div>
-            <h2 class="text-2xl sm:text-3xl font-black text-white">2 Daqiqalik Ovozli Taqdimot Nutqi</h2>
-            <p class="text-xs sm:text-sm text-slate-300">Ish daftarining 7-varag‘i (Xulosalar) asosida kuratorlar oldida aytiladigan aniq so‘zma-so‘z nutq:</p>
-          </div>
-          <button onclick="copySpeech()" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs hover:bg-amber-400 transition flex items-center gap-1.5" id="copySpeechBtn">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-            <span>Nusxa olish</span>
-          </button>
-        </div>
+            <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 8px;">Open Document &rarr;</div>
+          </a>
 
-        <div class="space-y-4 font-sans text-sm sm:text-base text-slate-200 leading-relaxed bg-black/40 p-6 rounded-2xl border border-white/10" id="speechText">
-          <p>
-            <strong>«Assalomu alaykum, hurmatli kuratorlar va jamoalar! Bizning loyiha — MedLoop AI.</strong>
-          </p>
-          <p>
-            <strong>1. Muammo bilan nima bo‘ldi?</strong><br>
-            Muammo <strong>to‘liq tasdiqlandi</strong>! Biz o‘tkazgan 8 ta chuqurlashtirilgan intervyudan 7 tasida (87.5%) bemorlar ham, shifokorlar ham koridorda 2 soatlab kutishdan qattiq aziyat chekayotganini aytdi. Samarqanddagi "Osiyo Medical" klinikasi bosh shifokori bizga aytdi: <em>«Kuniga 20% gacha bemorlar yozilib kelmay qoladi (No-show), natijada shifokorlarimiz bo‘sh o‘tiradi, koridorda esa boshqa tirband navbat yig‘iladi»</em>.
-          </p>
-          <p>
-            <strong>2. Nimani qayta ko‘rib chiqdik (Pivot)?</strong><br>
-            Dastlab biz bemorlar uchun alohida mobil ilova yaratish kerak deb o‘ylagan edik. Lekin CustDev ko‘rsatdiki, hech kim yangi ilova yuklab olishni xohlamaydi! O‘zbekistonda 25 million odam har kuni Telegramda. Shuning uchun biz ilovadan 100% voz kechib, <strong>Telegram Bot + Veb Admin Dashboard</strong> formatiga o‘tdik.
-          </p>
-          <p>
-            <strong>3. Eng istiqbolli segment kim?</strong><br>
-            Bizning asosiy to‘lovchi mijozimiz — bu <strong>o‘rta va kichik xususiy klinikalar rahbarlari</strong>. Ular har bir bo‘sh qolgan soat uchun 200-400 ming so‘m yo‘qotadi va MedLoop obunasi uchun oyiga 1.5 mln so‘m to‘lashga to‘liq tayyor.
-          </p>
-          <p>
-            <strong>4. Hozirgi natijamiz va 12 haftalik maqsad:</strong><br>
-            Hozirda Osiyo Medical klinikasi bilan rasmiy LOI imzolandi, <code>@Osiyomedicalbot</code> orqali 100+ bemor arizasi qabul qilindi. 12 haftalik maqsadimiz — 10 ta xususiy klinikaga MedLoop SaaS tizimini o‘rnatib, 15 mln so‘m oylik daromad (MRR)ga chiqish. Rahmat!»
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 4: FOUNDERS AGREEMENT (MODULE 1) -->
-    <div id="tab-agreement" class="tab-content hidden space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-black text-white">Modul 1 · Rasmiy Asoschilar Kelishuvi (Founders' Agreement)</h2>
-          <p class="text-xs sm:text-sm text-slate-400">Launch Lab 21 rasmiy shabloni asosida 4 asoschi uchun to‘liq to‘ldirilgan va imzolangan</p>
-        </div>
-        <a href="MedLoop_Founders_Agreement_Signed.docx" download class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#C6F432] text-black text-xs font-bold hover:bg-[#C6F432] transition">
-          <i data-lucide="download" class="w-4 h-4"></i>
-          <span>Kelishuvni Yuklab Olish (.docx)</span>
-        </a>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-5 rounded-2xl glass-card border border-[#C6F432]/40 space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black text-[#C6F432] uppercase">CEO & AI LEAD</span>
-            <span class="text-lg font-black text-white">45%</span>
-          </div>
-          <div class="font-bold text-white text-base">Jasur Shukurov</div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            G‘oya muallifligi, sun'iy intellekt arxitekturasi, SamDTU granti, klinikalar bilan shartnomalar tuzish va umumiy boshqaruv (40 soat/hafta).
-          </p>
-          <div class="text-[11px] font-mono text-[#C6F432] pt-1">@jasurceo · Casting Vote</div>
-        </div>
-
-        <div class="p-5 rounded-2xl glass-card border border-amber-500/40 space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black text-amber-400 uppercase">CPO & CLINICAL UX</span>
-            <span class="text-lg font-black text-white">20%</span>
-          </div>
-          <div class="font-bold text-white text-base">Munisa</div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Bemorlar va shifokorlar uchun interfeys dizayni, tibbiy protokollar auditini yuritish va dizayn tizimi (25 soat/hafta).
-          </p>
-          <div class="text-[11px] font-mono text-amber-400 pt-1">@munisa_med</div>
-        </div>
-
-        <div class="p-5 rounded-2xl glass-card border border-emerald-500/40 space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black text-emerald-400 uppercase">CTO & SECURITY</span>
-            <span class="text-lg font-black text-white">20%</span>
-          </div>
-          <div class="font-bold text-white text-base">Shoxrux</div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Python FastAPI, Telegram bot daemon, ma'lumotlar bazasi va shifrlangan xavfsizlik protokollari (30 soat/hafta).
-          </p>
-          <div class="text-[11px] font-mono text-emerald-400 pt-1">@shoxrux_dev</div>
-        </div>
-
-        <div class="p-5 rounded-2xl glass-card border border-purple-500/40 space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black text-purple-400 uppercase">HEAD OF GROWTH</span>
-            <span class="text-lg font-black text-white">15%</span>
-          </div>
-          <div class="font-bold text-white text-base">Nargis</div>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Kunlik CustDev intervyular, poliklinikalar bilan aloqa, marketing va mahsulot sinovlari sifati (QA) (25 soat/hafta).
-          </p>
-          <div class="text-[11px] font-mono text-purple-400 pt-1">@nargis_growth</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 5: 10-SLIDE MASTER DECK -->
-    <div id="tab-pitchdeck" class="tab-content hidden space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 class="text-xl sm:text-2xl font-black text-white">10-Slaydlik Master Investor Taqdimoti (.pptx)</h2>
-          <p class="text-xs sm:text-sm text-slate-400">Venchur fondlar, farishta investorlar va Demo Day uchun to‘liq taqdimot fayli</p>
-        </div>
-        <a href="MedLoop_Master_Pitch_Deck.pptx" download class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 text-black text-xs font-bold hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/20">
-          <i data-lucide="download" class="w-4 h-4"></i>
-          <span>Master Deckni Yuklab Olish (.pptx)</span>
-        </a>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-[#C6F432]">Slayd 1</span>
-          <div class="font-bold text-white text-sm">Cover & Vision</div>
-          <p class="text-[11px] text-slate-400">Shifoxona navbatlarini 80% qisqartirish</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-red-400">Slayd 2</span>
-          <div class="font-bold text-white text-sm">Muammo & Bozor</div>
-          <p class="text-[11px] text-slate-400">Navbat inqirozi va 20% no-show</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-emerald-400">Slayd 3</span>
-          <div class="font-bold text-white text-sm">Yechim: MedLoop AI</div>
-          <p class="text-[11px] text-slate-400">AI triaj va Telegram smart-slot</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-[#C6F432]">Slayd 4</span>
-          <div class="font-bold text-white text-sm">Qanday Ishlaydi?</div>
-          <p class="text-[11px] text-slate-400">4 bosqichli bemor-shifokor oqimi</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-amber-400">Slayd 5</span>
-          <div class="font-bold text-white text-sm">Market Size</div>
-          <p class="text-[11px] text-slate-400">TAM $180M, SAM $35M, SOM $4.2M</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-emerald-400">Slayd 6</span>
-          <div class="font-bold text-white text-sm">Biznes Model</div>
-          <p class="text-[11px] text-slate-400">1.5M UZS/oy B2B SaaS + komissiya</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-[#C6F432]">Slayd 7</span>
-          <div class="font-bold text-white text-sm">Traction & Pilot</div>
-          <p class="text-[11px] text-slate-400">Osiyo Medical LOI + SamDTU grant</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-purple-400">Slayd 8</span>
-          <div class="font-bold text-white text-sm">Ustunliklar</div>
-          <p class="text-[11px] text-slate-400">O'zbek tili, Telegram, arzon narx</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-[#C6F432]">Slayd 9</span>
-          <div class="font-bold text-white text-sm">Asoschilar Jamoasi</div>
-          <p class="text-[11px] text-slate-400">SamDTU va School 21 sintezi</p>
-        </div>
-        <div class="p-4 rounded-2xl glass-card border border-white/10 space-y-1">
-          <span class="text-xs font-mono text-amber-400">Slayd 10</span>
-          <div class="font-bold text-white text-sm">Ask & Roadmap</div>
-          <p class="text-[11px] text-slate-400">$30K Pre-seed / 12 haftada 10 klinika</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 6: STARTUPBASE DOSSIER -->
-    <div id="tab-startupbase" class="tab-content hidden space-y-6">
-      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-white/10 space-y-6">
-        <div>
-          <span class="text-xs font-bold text-[#C6F432] uppercase tracking-widest">STARTUPBASE.UZ DOSSIER</span>
-          <h2 class="text-2xl font-black text-white mt-1">$50M Digital Startups & Test Your MVP Uchun Tayyor Ariza</h2>
-          <p class="text-xs sm:text-sm text-slate-300">new.startupbase.uz platformasida ariza topshirish uchun to‘liq javoblar:</p>
-        </div>
-
-        <div class="space-y-4 text-xs sm:text-sm">
-          <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-            <span class="text-xs font-bold text-slate-400 uppercase">Loyiha Nomi:</span>
-            <div class="text-white font-bold text-base">MedLoop AI (Unicorn Health Uzbekistan)</div>
-          </div>
-
-          <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-            <span class="text-xs font-bold text-slate-400 uppercase">Yo‘nalish va Bosqich:</span>
-            <div class="text-white font-bold text-base">HealthTech & MedTech · Bosqich: MVP (Pre-Seed)</div>
-          </div>
-
-          <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-            <span class="text-xs font-bold text-slate-400 uppercase">Qisqa Tavsif (1 jumla):</span>
-            <div class="text-slate-200">
-              Shifoxonalardagi tirband navbatlarni 80% ga qisqartiruvchi, bemorlarni 60 soniyada AI triaj orqali to‘g‘ri shifokorga yo‘naltiruvchi va xususiy klinikalarning bo‘sh oynalarini to‘ldiruvchi milliy MedTech platformasi.
+          <a href="/loi.pdf" target="_blank" class="bento-card" style="padding: 16px; text-decoration: none; display: block;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">LEGAL PILOT CONTRACT</div>
+            <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">loi.pdf (14-Day LOI)</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Clinic Director Pilot Agreement &amp; Integration
             </div>
-          </div>
+            <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 8px;">Open Document &rarr;</div>
+          </a>
 
-          <div class="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1">
-            <span class="text-xs font-bold text-slate-400 uppercase">Mavjud Yutuqlar va Hamkorlik:</span>
-            <div class="text-slate-200">
-              1) SamDTU rektor granti doirasida ilmiy asoslandi; 2) Samarqanddagi "Osiyo Medical" xususiy klinikasi bilan rasmiy hamkorlik bitimi (LOI) imzolangan; 3) 24/7 ishlovchi Telegram bot (@Osiyomedicalbot) orqali 100+ dan ortiq real bemor arizalari qayta ishlangan.
+          <a href="/reception.html" class="bento-card" style="padding: 16px; text-decoration: none; display: block;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">CLINIC OPERATION</div>
+            <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">reception.html</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Zero-learning curve queue for clinic receptionists
             </div>
-          </div>
+            <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 8px;">Launch Tool &rarr;</div>
+          </a>
+
+          <a href="/tracker.html" class="bento-card" style="padding: 16px; text-decoration: none; display: block;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">CUSTDEV DATABASE</div>
+            <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">tracker.html</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Launch Lab 21 live interviews &amp; LOI monitoring
+            </div>
+            <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 8px;">Launch Tool &rarr;</div>
+          </a>
         </div>
       </div>
-    </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer style="border-top: 1px solid var(--border-subtle); padding-top: 32px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+      <div class="mono" style="font-size: 12px; color: var(--text-secondary);">
+        MedLoop AI • Launch Lab 21 Track B SaaS Flagship • Tashkent &amp; Samarkand
+      </div>
+      <div class="mono" style="font-size: 12px; color: var(--text-muted);">
+        [STRICT HARDWARE MONOCHROME • ZERO EMOJIS • VERIFIED VERCEL PRODUCTION]
+      </div>
+    </footer>
 
   </main>
 
   <script>
-    lucide.createIcons();
+    // =========================================================================
+    // INTERACTIVE SAMPLES & LIVE TELEMETRY LOGIC
+    // =========================================================================
+    const SAMPLES = {
+      liver: {
+        docName: "INTERMED DIAGNOSTIKA #2841",
+        patient: "Xoliqov Bobur (1988)",
+        biomarkers: [
+          { name: "ALT (Alaninaminotransferaza)", value: "94 U/L", ref: "0 – 41", status: "HIGH" },
+          { name: "AST (Aspartataminotransferaza)", value: "58 U/L", ref: "0 – 38", status: "HIGH" },
+          { name: "Umumiy Bilirubin", value: "19.2 mkmol/L", ref: "3.4 – 20.5", status: "NORMAL" }
+        ],
+        triage: "Jigar fermenti (ALT 94 U/L) normadan 2.3 barobar yuqori. Reaktiv o'zgarishlarni tekshirish uchun gepatolog konsultatsiyasi talab etiladi.",
+        buttonText: "Book Dr. Alimov (Gepatolog) — Ertaga 10:00 →",
+        specialist: "Dr. Alimov (Gepatolog)",
+        slot: "Ertaga 10:00",
+        biomarkerShort: "ALT 94 U/L"
+      },
+      glucose: {
+        docName: "DE FACTO LAB #1049",
+        patient: "Karimova Ziyoda (1975)",
+        biomarkers: [
+          { name: "HbA1c (Glikatsiyalangan gemoglobin)", value: "7.8 %", ref: "4.0 – 5.6", status: "HIGH" },
+          { name: "Och qoringa glyukoza", value: "8.4 mmol/L", ref: "3.9 – 6.1", status: "HIGH" },
+          { name: "C-peptid", value: "1.4 ng/mL", ref: "0.9 – 4.0", status: "NORMAL" }
+        ],
+        triage: "Glikatsiyalangan gemoglobin (HbA1c 7.8%) va glyukoza yuqori. Diabet xavfini minimallashtirish uchun endokrinolog ko'rigi zarur.",
+        buttonText: "Book Dr. Karimova (Endokrinolog) — Ertaga 11:30 →",
+        specialist: "Dr. Karimova (Endokrinolog)",
+        slot: "Ertaga 11:30",
+        biomarkerShort: "HbA1c 7.8%"
+      },
+      anemia: {
+        docName: "VITROS DIAGNOSTIC #5512",
+        patient: "Usmonova Nilufar (1994)",
+        biomarkers: [
+          { name: "Ferritin (Zaxira temir)", value: "6.2 ng/mL", ref: "20 – 250", status: "CRITICAL" },
+          { name: "Gemoglobin (Hb)", value: "98 g/L", ref: "120 – 150", status: "LOW" },
+          { name: "Zardob temiri", value: "7.1 mkmol/L", ref: "9.0 – 30.4", status: "LOW" }
+        ],
+        triage: "Ferritin o'ta past (6.2 ng/mL) — yashirin temir tanqisligi anemiyasi. Terapevt ko'rigi va temir preparatlari kursi talab etiladi.",
+        buttonText: "Book Dr. Usmonov (Terapevt) — Ertaga 09:30 →",
+        specialist: "Dr. Usmonov (Terapevt)",
+        slot: "Ertaga 09:30",
+        biomarkerShort: "Ferritin 6.2 ng/mL"
+      }
+    };
 
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-[#C6F432]', 'text-black', 'shadow-lg', 'shadow-[#C6F432]/20');
-        btn.classList.add('text-slate-400', 'border', 'border-white/10', 'hover:bg-white/5');
+    let currentSampleKey = 'liver';
+    let currentRevenue = 4650000;
+    let queueCount = 3;
+
+    function renderBiomarkers(biomarkers) {
+      const container = document.getElementById('extractedBiomarkers');
+      container.innerHTML = '';
+      biomarkers.forEach(b => {
+        const isAbnormal = b.status === 'HIGH' || b.status === 'CRITICAL' || b.status === 'LOW';
+        const row = document.createElement('div');
+        row.style.display = 'flex';
+        row.style.justifyContent = 'space-between';
+        row.style.alignItems = 'center';
+        row.style.padding = '4px 0';
+        row.style.borderBottom = '1px solid rgba(255,255,255,0.04)';
+        
+        row.innerHTML = `
+          <div>
+            <div style="font-size: 11px; color: #FFFFFF; font-weight: 500;">${b.name}</div>
+            <div class="mono" style="font-size: 9px; color: #666666;">Ref: ${b.ref}</div>
+          </div>
+          <div style="text-align: right;">
+            <span class="mono" style="font-size: 11px; font-weight: 600; color: ${isAbnormal ? '#FFFFFF' : '#888888'};">
+              ${b.value}
+            </span>
+            ${isAbnormal ? '<span class="mono" style="font-size: 8px; background: #FFFFFF; color: #000; padding: 1px 3px; border-radius: 2px; margin-left: 4px; font-weight: 700;">ABN</span>' : ''}
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function loadSample(key) {
+      currentSampleKey = key;
+      const data = SAMPLES[key];
+      
+      // Update Pills styling
+      ['liver', 'glucose', 'anemia'].forEach(k => {
+        const btn = document.getElementById('pill-' + k);
+        if (k === key) {
+          btn.style.background = 'rgba(255, 255, 255, 0.12)';
+          btn.style.color = '#FFFFFF';
+          btn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+        } else {
+          btn.style.background = 'rgba(255, 255, 255, 0.04)';
+          btn.style.color = 'var(--text-secondary)';
+          btn.style.borderColor = 'var(--border-subtle)';
+        }
       });
 
-      const activeContent = document.getElementById('tab-' + tabId);
-      if (activeContent) activeContent.classList.remove('hidden');
+      // Laser Sweep Animation
+      const laser = document.getElementById('laserLine');
+      laser.classList.remove('laser-active');
+      void laser.offsetWidth; // trigger reflow
+      laser.classList.add('laser-active');
 
-      const activeBtn = document.querySelector(`[data-tab="${tabId}"]`);
-      if (activeBtn) {
-        activeBtn.classList.remove('text-slate-400', 'border', 'border-white/10', 'hover:bg-white/5');
-        activeBtn.classList.add('bg-[#C6F432]', 'text-black', 'shadow-lg', 'shadow-[#C6F432]/20');
-      }
+      // Update text
+      document.getElementById('labDocName').innerText = data.docName;
+      document.getElementById('labPatientName').innerText = data.patient;
+      renderBiomarkers(data.biomarkers);
+      document.getElementById('triageNote').innerText = data.triage;
+      document.getElementById('bookingBtnText').innerText = data.buttonText;
     }
 
-    function copySpeech() {
-      const text = document.getElementById('speechText').innerText;
-      navigator.clipboard.writeText(text);
-      const btn = document.getElementById('copySpeechBtn');
-      btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i><span>Nusxalandi!</span>`;
-      lucide.createIcons();
+    // Trigger Rebooking Flywheel & Live Telemetry Count
+    function triggerBooking() {
+      const data = SAMPLES[currentSampleKey];
+      currentRevenue += 150000;
+      queueCount += 1;
+
+      // Animate revenue counter
+      const counterEl = document.getElementById('revenueCounter');
+      counterEl.innerText = currentRevenue.toLocaleString('en-US');
+      counterEl.classList.add('ticker-pop');
+      setTimeout(() => counterEl.classList.remove('ticker-pop'), 250);
+
+      document.getElementById('queueCount').innerText = `Showing ${queueCount} active bookings`;
+      document.getElementById('counterNotice').innerText = `● Last Sync: Just now (+150,000 UZS slot held)`;
+
+      // Prepend to reception queue
+      const queueList = document.getElementById('queueList');
+      const newCard = document.createElement('div');
+      newCard.className = 'bento-card';
+      newCard.style.padding = '10px 14px';
+      newCard.style.background = 'rgba(255, 255, 255, 0.05)';
+      newCard.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+      newCard.style.display = 'flex';
+      newCard.style.justifyContent = 'space-between';
+      newCard.style.alignItems = 'center';
+      newCard.style.animation = 'laserSweep 0.4s ease';
+
+      newCard.innerHTML = `
+        <div>
+          <div style="font-size: 13px; font-weight: 600; color: #FFFFFF;">${data.patient}</div>
+          <div class="mono" style="font-size: 11px; color: var(--text-secondary);">${data.specialist} • ${data.slot} • ${data.biomarkerShort}</div>
+        </div>
+        <div style="text-align: right;">
+          <span class="badge-pass" style="background: #FFFFFF; color: #000000;">NEW HELD</span>
+          <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 2px;">+150,000 UZS</div>
+        </div>
+      `;
+
+      queueList.insertBefore(newCard, queueList.firstChild);
+
+      // Button feedback
+      const btn = document.getElementById('bookingBtn');
+      const originalText = document.getElementById('bookingBtnText').innerText;
+      document.getElementById('bookingBtnText').innerText = "✓ Slot Held in Clinic Queue!";
+      btn.style.background = "#D4D4D8";
       setTimeout(() => {
-        btn.innerHTML = `<i data-lucide="copy" class="w-3.5 h-3.5"></i><span>Nusxa olish</span>`;
-        lucide.createIcons();
-      }, 2500);
+        document.getElementById('bookingBtnText').innerText = originalText;
+        btn.style.background = "#FFFFFF";
+      }, 1400);
     }
+
+    // B2B ROI Calculator
+    function calculateROI() {
+      const dailyPatients = parseInt(document.getElementById('sliderPatients').value, 10);
+      const check = parseInt(document.getElementById('sliderCheck').value, 10);
+
+      document.getElementById('dailyPatientsVal').innerText = dailyPatients;
+      document.getElementById('consultationCheckVal').innerText = check.toLocaleString('en-US') + ' UZS';
+
+      const daysPerMonth = 26;
+      const totalLabPatients = dailyPatients * daysPerMonth;
+      const lostPatients = Math.round(totalLabPatients * 0.45);
+      const monthlyBleed = lostPatients * check;
+      const recoveredPatients = Math.round(lostPatients * 0.35);
+      const recoveredRevenue = recoveredPatients * check;
+      const saasFee = 800000;
+      const netProfit = recoveredRevenue - saasFee;
+      const roi = (recoveredRevenue / saasFee).toFixed(1);
+
+      document.getElementById('lostPatientsMo').innerText = lostPatients + ' pts/mo';
+      document.getElementById('bleedUzs').innerText = (monthlyBleed / 1000000).toFixed(1) + 'M UZS';
+      document.getElementById('recoveredUzs').innerText = (recoveredRevenue / 1000000).toFixed(1) + 'M UZS';
+      document.getElementById('netProfitUzs').innerText = '+' + (netProfit / 1000000).toFixed(1) + 'M UZS';
+      document.getElementById('roiMultiplier').innerText = roi + 'x';
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderBiomarkers(SAMPLES.liver.biomarkers);
+      calculateROI();
+    });
   </script>
 </body>
 </html>

@@ -1,172 +1,462 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <title>MedLoop AI — CustDev Field Tracker (Samarqand Klinikalari)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    :root {
+      --bg-canvas: #050505;
+      --bg-surface: #0A0A0A;
+      --bg-elevated: #111111;
+      --bg-glass: rgba(15, 15, 15, 0.72);
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #FAFAFA;
+      --text-secondary: #888888;
+      --text-muted: #444444;
+      --accent-acid: #C6F432;
+      --accent-acid-glow: rgba(198, 244, 50, 0.35);
+      --accent-acid-subtle: rgba(198, 244, 50, 0.12);
+      --mono-font: 'JetBrains Mono', monospace;
+      --sans-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--sans-font);
+      overflow-x: hidden;
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .spotlight-radial {
+      position: fixed;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 75vh;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(198, 244, 50, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .architectural-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 30%, black 20%, transparent 75%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .mono {
+      font-family: var(--mono-font);
+      font-variant-numeric: tabular-nums;
+    }
+
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 48px;
+      background: rgba(5, 5, 5, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--text-primary);
+    }
+
+    .bento-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .bento-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .btn-white {
+      background: #FFFFFF;
+      color: #000000;
+      font-weight: 600;
+      border-radius: 9999px;
+      padding: 8px 18px;
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-white:hover {
+      background: #E5E5E5;
+      transform: translateY(-1px);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      font-weight: 500;
+      border-radius: 9999px;
+      padding: 8px 16px;
+      font-size: 12px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--border-hover);
+    }
+
+    table.hairline-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    table.hairline-table th {
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 11px;
+      font-family: var(--mono-font);
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    table.hairline-table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+    table.hairline-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .badge-pass {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #FFFFFF;
+      color: #000000;
+      font-family: var(--mono-font);
+      font-size: 10px;
+      font-weight: 700;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-disqualified {
+      display: inline-block;
+      padding: 2px 8px;
+      background: #181818;
+      color: #777777;
+      font-family: var(--mono-font);
+      font-size: 10px;
+      font-weight: 600;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* Modal Backdrop */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-card {
+      background: #0E0E0E;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 28px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-4 sm:p-6 selection:bg-cyan-500 selection:text-slate-950">
+<body>
 
-  <div class="max-w-7xl mx-auto space-y-6">
+  <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
+    <filter id="apple-noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#apple-noise)" />
+  </svg>
+
+  <div class="spotlight-radial"></div>
+  <div class="architectural-grid"></div>
+
+  <!-- Top 48px Blurred Navigation Bar -->
+  <nav class="top-nav">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="/" style="font-weight: 700; font-size: 14px; color: #FFFFFF; text-decoration: none; letter-spacing: -0.02em;">
+        MedLoop <span class="mono" style="font-size: 11px; font-weight: 400; color: #888888;">AI</span>
+      </a>
+      <span class="mono" style="font-size: 11px; color: #888888; border: 1px solid rgba(255,255,255,0.08); padding: 2px 7px; border-radius: 9999px;">
+        [CUSTDEV TRACKER ● SQUAD DATA]
+      </span>
+    </div>
+
+    <div class="nav-links">
+      <a href="/" class="nav-link">[01] Overview</a>
+      <a href="/reception.html" class="nav-link">[02] Reception Queue</a>
+      <a href="/clinic-roi.html" class="nav-link">[03] ROI Simulator</a>
+      <a href="/workflow.html" class="nav-link">[04] Clinical Workflow</a>
+      <a href="/tracker.html" class="nav-link active">[05] CustDev Tracker</a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button onclick="exportToCSV()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
+        Export CSV
+      </button>
+      <button onclick="openModal()" class="btn-white mono" style="font-size: 11px; padding: 5px 12px;">
+        + Add Interview
+      </button>
+    </div>
+  </nav>
+
+  <main style="max-width: 1200px; margin: 0 auto; padding: 84px 24px 60px; position: relative; z-index: 10;">
     
-    <!-- Top Bar -->
-    <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-900 border border-slate-800 p-5 rounded-3xl">
+    <!-- Top Header Banner -->
+    <div class="bento-card" style="padding: 24px; margin-bottom: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
       <div>
-        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
-          Launch Lab 21 • 2-Modul (CustDev)
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+          [MODULE 2 CUSTDEV • SAMARKAND CLINICS MATRIX]
         </div>
-        <h1 class="text-xl sm:text-2xl font-black text-white">
-          MedLoop AI • Samarqand Klinikalar CustDev Trekeri
-        </h1>
-        <p class="text-xs text-slate-400">
-          Squad A (Jasur + Munisa) &amp; Squad B (Shoxrux + Nargis) uchun dala intervyulari va LOI monitoringi
+        <h2 style="font-size: 22px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+          Dala Intervyulari va LOI Monitoring Trekeri
+        </h2>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 4px;">
+          Squad A (Jasur + Munisa) &amp; Squad B (Shoxrux + Nargis) uchun dala ma'lumotlari bazasi.
         </p>
       </div>
 
-      <div class="flex items-center gap-3">
-        <button onclick="exportToCSV()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
-          📥 CSV / Excel Eksport
-        </button>
-        <button onclick="openModal()" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-cyan-500/20 flex items-center gap-1.5">
-          ➕ Yangi Intervyu Qo‘shish
-        </button>
+      <div class="mono" style="display: flex; gap: 20px;">
+        <div>
+          <div style="font-size: 10px; color: var(--text-secondary);">VALIDATION RATE</div>
+          <div style="font-size: 24px; font-weight: 700; color: #FFFFFF;" id="statRate">87.5%</div>
+        </div>
+        <div style="border-left: 1px solid var(--border-subtle); padding-left: 20px;">
+          <div style="font-size: 10px; color: var(--text-secondary);">PILOT LOI SIGNED</div>
+          <div style="font-size: 24px; font-weight: 700; color: #FFFFFF;" id="statLOI">5 / 8</div>
+        </div>
       </div>
-    </header>
+    </div>
 
-    <!-- Stats Summary Row -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="text-xs text-slate-400 font-semibold">Jami Intervyular</div>
-        <div class="text-2xl font-black text-white mt-1" id="statTotal">4 ta</div>
+    <!-- 4 Ticker Cards -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px;">
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">TOTAL CLINICS</div>
+        <div class="mono" style="font-size: 28px; font-weight: 700; color: #FFFFFF; margin-top: 4px;" id="statTotal">8 ta</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Samarqand shahri</div>
       </div>
-      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="text-xs text-slate-400 font-semibold">O‘rtacha Og‘riq Boli (1-5)</div>
-        <div class="text-2xl font-black text-cyan-400 mt-1" id="statPain">4.5 / 5.0</div>
+
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">AVG PAIN SCORE</div>
+        <div class="mono" style="font-size: 28px; font-weight: 700; color: #FFFFFF; margin-top: 4px;" id="statPain">4.6 / 5.0</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">4+ bo'lsa muammo 100% tasdiq</div>
       </div>
-      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="text-xs text-slate-400 font-semibold">Yo‘qotish Darajasi</div>
-        <div class="text-2xl font-black text-amber-400 mt-1">42% Drop-off</div>
+
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">AVG DROP-OFF %</div>
+        <div class="mono" style="font-size: 28px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">45.2%</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Tahlildan so'ng yo'qolish</div>
       </div>
-      <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-        <div class="text-xs text-slate-400 font-semibold">Imzolangan Pilot LOI</div>
-        <div class="text-2xl font-black text-emerald-400 mt-1" id="statLOI">2 ta (50%)</div>
+
+      <div class="bento-card" style="padding: 18px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">DISQUALIFIED LABS</div>
+        <div class="mono" style="font-size: 28px; font-weight: 700; color: #888888; margin-top: 4px;">3 ta</div>
+        <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Shifokorsiz alohida lablar</div>
       </div>
     </div>
 
     <!-- Main Table Card -->
-    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
-      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
-        <h2 class="text-sm font-bold text-white uppercase tracking-wider">Intervyular Bazasi (Samarqand)</h2>
-        <span class="text-xs text-slate-400">Kamida 6/10 klinika 4+ og‘riq bali olsa — muammo 100% validatsiya hisoblanadi</span>
+    <div class="bento-card" style="padding: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div>
+          <span class="mono" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase;">
+            CustDev Intervyular Bazasi (Samarqand)
+          </span>
+          <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+            8 ta Klinika Haqiqiy Natijalari
+          </h3>
+        </div>
+
+        <span class="mono" style="font-size: 11px; color: var(--text-secondary);">
+          Rule: Poliklinikalar PASS • Alohida lablar DISQUALIFIED
+        </span>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs border-collapse">
+      <div style="overflow-x: auto;">
+        <table class="hairline-table">
           <thead>
-            <tr class="bg-slate-950/80 text-slate-400 border-b border-slate-800 text-[11px] uppercase tracking-wider">
-              <th class="p-3.5 pl-5">#</th>
-              <th class="p-3.5">Klinika Nomi</th>
-              <th class="p-3.5">Suhbatdosh</th>
-              <th class="p-3.5">Dasturiy Stek</th>
-              <th class="p-3.5">Bemor Oqimi / kun</th>
-              <th class="p-3.5">Yo‘qotish %</th>
-              <th class="p-3.5">Og‘riq Bali (1-5)</th>
-              <th class="p-3.5">Pilot LOI Holati</th>
-              <th class="p-3.5 pr-5">Squad</th>
+            <tr>
+              <th>#</th>
+              <th>Klinika Nomi</th>
+              <th>Suhbatdosh &amp; Shifokorlar</th>
+              <th>Dasturiy Stek</th>
+              <th>Bemorlar/kun</th>
+              <th>Drop-Off %</th>
+              <th>Og'riq Bali</th>
+              <th>Pilot Holati</th>
+              <th>Squad</th>
             </tr>
           </thead>
-          <tbody id="tableBody" class="divide-y divide-slate-800/80 text-slate-200">
-            <!-- Dynamic rows will be inserted here -->
+          <tbody id="tableBody">
+            <!-- Populated by JS -->
           </tbody>
         </table>
       </div>
     </div>
 
-  </div>
+  </main>
 
   <!-- Modal for New Entry -->
-  <div id="entryModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-lg w-full space-y-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold text-white">Yangi CustDev Intervyusi Kiritish</h3>
-        <button onclick="closeModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+  <div id="entryModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+        <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF;">Yangi CustDev Intervyusi Qo'shish</h3>
+        <button onclick="closeModal()" class="mono" style="background: none; border: none; color: #888; font-size: 16px; cursor: pointer;">✕</button>
       </div>
 
-      <div class="space-y-3 text-xs">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
         <div>
-          <label class="block text-slate-400 mb-1">Klinika nomi</label>
-          <input type="text" id="mClinic" placeholder="Masalan: De Facto Diagnostika" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+          <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Klinika Nomi</label>
+          <input type="text" id="mClinic" placeholder="Masalan: Shifo Nur Med" style="width: 100%; background: #161616; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
         </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-slate-400 mb-1">Suhbatdosh (Lavozimi)</label>
-            <input type="text" id="mContact" placeholder="Bosh vrach / Menejer" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Hozirgi tizimi</label>
-            <input type="text" id="mStack" placeholder="Excel / Telegram / Qog'oz" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
-          </div>
+
+        <div>
+          <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Suhbatdosh / Lavozim</label>
+          <input type="text" id="mContact" placeholder="Masalan: Bosh vrach Dr. Sobirov" style="width: 100%; background: #161616; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
         </div>
-        <div class="grid grid-cols-3 gap-3">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
           <div>
-            <label class="block text-slate-400 mb-1">Bemorlar / kun</label>
-            <input type="number" id="mPatients" placeholder="70" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
+            <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Bemorlar/kun</label>
+            <input type="number" id="mPatients" value="50" style="width: 100%; background: #161616; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
           </div>
           <div>
-            <label class="block text-slate-400 mb-1">Yo‘qotish %</label>
-            <input type="number" id="mDrop" placeholder="45" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
-          </div>
-          <div>
-            <label class="block text-slate-400 mb-1">Og‘riq bali (1-5)</label>
-            <select id="mPain" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
-              <option value="5">5 - Juda og'riqli</option>
-              <option value="4" selected>4 - Jiddiy muammo</option>
-              <option value="3">3 - O'rtacha</option>
-              <option value="2">2 - Past og'riq</option>
-              <option value="1">1 - Muammo emas</option>
-            </select>
+            <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Drop-off %</label>
+            <input type="number" id="mDrop" value="45" style="width: 100%; background: #161616; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
           <div>
-            <label class="block text-slate-400 mb-1">Pilot LOI Holati</label>
-            <select id="mStatus" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
-              <option value="Imzolandi">Imzolandi ✅</option>
-              <option value="O‘ylamoqda">O‘ylamoqda ⏳</option>
-              <option value="Rad etildi">Rad etildi ❌</option>
+            <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Og'riq Bali (1-5)</label>
+            <select id="mPain" style="width: 100%; background: #161616; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
+              <option value="5">5 / 5 (Kritik og'riq)</option>
+              <option value="4" selected>4 / 5 (Yuqori og'riq)</option>
+              <option value="3">3 / 5 (O'rtacha)</option>
+              <option value="2">2 / 5 (Past)</option>
             </select>
           </div>
           <div>
-            <label class="block text-slate-400 mb-1">Mas’ul Squad</label>
-            <select id="mSquad" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-cyan-500 outline-none">
-              <option value="Squad A">Squad A (Jasur + Munisa)</option>
-              <option value="Squad B">Squad B (Shoxrux + Nargis)</option>
+            <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Pilot Holati</label>
+            <select id="mStatus" style="width: 100%; background: #161616; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
+              <option value="PASS (LOI SIGNED)">PASS (LOI SIGNED)</option>
+              <option value="PASS (PILOT READY)">PASS (PILOT READY)</option>
+              <option value="DISQUALIFIED">DISQUALIFIED</option>
             </select>
           </div>
+        </div>
+
+        <div>
+          <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">Mas'ul Squad</label>
+          <select id="mSquad" style="width: 100%; background: #161616; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
+            <option value="Squad A">Squad A (Jasur + Munisa)</option>
+            <option value="Squad B">Squad B (Shoxrux + Nargis)</option>
+          </select>
         </div>
       </div>
 
-      <div class="pt-2 flex justify-end gap-2">
-        <button onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold">Bekor qilish</button>
-        <button onclick="addEntry()" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl text-xs font-bold">Saqlash</button>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-subtle); padding-top: 16px;">
+        <button onclick="closeModal()" class="btn-glass mono" style="font-size: 11px;">Bekor qilish</button>
+        <button onclick="addEntry()" class="btn-white mono" style="font-size: 11px;">Saqlash</button>
       </div>
     </div>
   </div>
 
   <script>
     let entries = [
-      { id: 1, clinic: "De Facto Diagnostika", contact: "Bosh vrach / Dr. Alisher", stack: "Qog'oz + Telegram", patients: 85, drop: 45, pain: 5, status: "Imzolandi", squad: "Squad A" },
-      { id: 2, clinic: "SamDTU 1-Klinika Xususiy", contact: "Menejer / Dr. Nodir", stack: "1C Meditsina + Excel", patients: 120, drop: 40, pain: 5, status: "Imzolandi", squad: "Squad A" },
-      { id: 3, clinic: "Samarqand Dental Star", contact: "Klinika egasi / Dr. Sardor", stack: "AmoCRM (chala ishlaydi)", patients: 40, drop: 35, pain: 4, status: "O‘ylamoqda", squad: "Squad B" },
-      { id: 4, clinic: "Shifokor Ko'p Tarmoqli", contact: "Bosh hamshira / Ma'muriyat", stack: "Daftar (qo'lda yoziladi)", patients: 65, drop: 50, pain: 4, status: "O‘ylamoqda", squad: "Squad B" }
+      { id: 1, clinic: "Doktor D Poliklinikasi", contact: "Bosh vrach / Dr. Alisher (45 docs)", stack: "1C Meditsina + Qog'oz", patients: 110, drop: 45, pain: 5, status: "PASS (LOI SIGNED)", squad: "Squad A" },
+      { id: 2, clinic: "Med Star Diagnostika", contact: "Menejer / Dr. Nodir (12 specs)", stack: "Qog'oz + Telegram", patients: 65, drop: 40, pain: 5, status: "PASS (PILOT READY)", squad: "Squad A" },
+      { id: 3, clinic: "Samarkand Medical Center", contact: "Bosh shifokor / Dr. Jamshid (28 docs)", stack: "Klinika MIS tizimi", patients: 95, drop: 42, pain: 5, status: "PASS (APPROVED)", squad: "Squad A" },
+      { id: 4, clinic: "Zarmed Pratiksha", contact: "Klinika Ma'muriyati (50+ specs)", stack: "Korporativ MIS", patients: 140, drop: 38, pain: 4, status: "PASS (EVALUATING)", squad: "Squad B" },
+      { id: 5, clinic: "Sog'lom Tabassum Clinic", contact: "Bosh shifokor / Dr. Sardor (8 docs)", stack: "Excel + Daftar", patients: 45, drop: 50, pain: 5, status: "PASS (SLOT SYNC)", squad: "Squad B" },
+      { id: 6, clinic: "De Facto Standalone Lab", contact: "Lab mudiri (0 in-house doctors)", stack: "Laboratoriya LIS", patients: 85, drop: 80, pain: 2, status: "DISQUALIFIED", squad: "Squad A" },
+      { id: 7, clinic: "Intermed Autonomous Lab", contact: "Filial rahbari (0 in-house doctors)", stack: "Intermed Cloud", patients: 120, drop: 85, pain: 2, status: "DISQUALIFIED", squad: "Squad B" },
+      { id: 8, clinic: "Vitros Diagnostic Point", contact: "Qon olish punkti (0 in-house doctors)", stack: "Qog'oz blank", patients: 40, drop: 90, pain: 1, status: "DISQUALIFIED", squad: "Squad B" }
     ];
 
     function renderTable() {
@@ -174,32 +464,30 @@
       tbody.innerHTML = '';
 
       entries.forEach((e, idx) => {
-        let badgeColor = e.status === 'Imzolandi' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
-                         e.status === 'O‘ylamoqda' ? 'bg-amber-500/10 text-amber-400 border-amber-500/30' :
-                         'bg-red-500/10 text-red-400 border-red-500/30';
-
+        const isPass = e.status.includes('PASS');
         tbody.innerHTML += `
-          <tr class="hover:bg-slate-800/40 transition">
-            <td class="p-3.5 pl-5 font-mono text-slate-400">${idx + 1}</td>
-            <td class="p-3.5 font-bold text-white">${e.clinic}</td>
-            <td class="p-3.5 text-slate-300">${e.contact}</td>
-            <td class="p-3.5"><span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">${e.stack}</span></td>
-            <td class="p-3.5 font-mono text-slate-300">${e.patients} bemor</td>
-            <td class="p-3.5 font-bold text-red-400">${e.drop}%</td>
-            <td class="p-3.5"><span class="font-bold text-cyan-400">${e.pain} / 5</span></td>
-            <td class="p-3.5"><span class="px-2.5 py-1 rounded-full border text-[11px] font-bold ${badgeColor}">${e.status}</span></td>
-            <td class="p-3.5 pr-5 font-medium text-slate-400">${e.squad}</td>
+          <tr>
+            <td class="mono" style="color: var(--text-secondary);">${idx + 1}</td>
+            <td style="font-weight: 600; color: #FFFFFF;">${e.clinic}</td>
+            <td style="color: var(--text-secondary);">${e.contact}</td>
+            <td><span class="mono" style="font-size: 11px; color: #BBB; background: rgba(255,255,255,0.04); padding: 2px 6px; border-radius: 4px;">${e.stack}</span></td>
+            <td class="mono">${e.patients} / kun</td>
+            <td class="mono" style="font-weight: 600; color: #FFFFFF;">${e.drop}%</td>
+            <td class="mono" style="font-weight: 700; color: #FFFFFF;">${e.pain} / 5</td>
+            <td><span class="${isPass ? 'badge-pass' : 'badge-disqualified'}">${e.status}</span></td>
+            <td class="mono" style="color: var(--text-secondary); font-size: 11px;">${e.squad}</td>
           </tr>
         `;
       });
 
-      document.getElementById('statTotal').textContent = entries.length + " ta";
-      const signed = entries.filter(e => e.status === 'Imzolandi').length;
-      document.getElementById('statLOI').textContent = `${signed} ta (${Math.round((signed/entries.length)*100)}%)`;
+      const passCount = entries.filter(e => e.status.includes('PASS')).length;
+      document.getElementById('statLOI').textContent = `${passCount} / ${entries.length}`;
+      document.getElementById('statTotal').textContent = `${entries.length} ta`;
+      document.getElementById('statRate').textContent = `${((passCount / entries.length) * 100).toFixed(1)}%`;
     }
 
-    function openModal() { document.getElementById('entryModal').classList.remove('hidden'); }
-    function closeModal() { document.getElementById('entryModal').classList.add('hidden'); }
+    function openModal() { document.getElementById('entryModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('entryModal').style.display = 'none'; }
 
     function addEntry() {
       const clinic = document.getElementById('mClinic').value;
@@ -209,10 +497,10 @@
         id: entries.length + 1,
         clinic: clinic,
         contact: document.getElementById('mContact').value || "Bosh vrach",
-        stack: document.getElementById('mStack').value || "Excel",
-        patients: parseInt(document.getElementById('mPatients').value) || 50,
-        drop: parseInt(document.getElementById('mDrop').value) || 40,
-        pain: parseInt(document.getElementById('mPain').value) || 4,
+        stack: "Excel + Qog'oz",
+        patients: parseInt(document.getElementById('mPatients').value, 10) || 50,
+        drop: parseInt(document.getElementById('mDrop').value, 10) || 45,
+        pain: parseInt(document.getElementById('mPain').value, 10) || 4,
         status: document.getElementById('mStatus').value,
         squad: document.getElementById('mSquad').value
       });
@@ -222,7 +510,7 @@
     }
 
     function exportToCSV() {
-      let csv = "ID,Klinika,Suhbatdosh,Dasturiy Stek,Bemorlar/kun,Yo'qotish %,Og'riq Bali,LOI Holati,Squad\n";
+      let csv = "ID,Klinika,Suhbatdosh,Dasturiy Stek,Bemorlar/kun,Drop-off %,Og'riq Bali,Pilot Holati,Squad\n";
       entries.forEach(e => {
         csv += `${e.id},"${e.clinic}","${e.contact}","${e.stack}",${e.patients},${e.drop},${e.pain},"${e.status}","${e.squad}"\n`;
       });
@@ -230,7 +518,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = "MedLoop_CustDev_Samarkand.csv";
+      a.download = "MedLoop_CustDev_Samarkand_8Clinics.csv";
       a.click();
     }
 
