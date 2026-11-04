@@ -42,7 +42,8 @@ import {
   ChevronUp,
   ChevronDown,
   Music,
-  Brain
+  Brain,
+  Scale
 } from 'lucide-react'
 import {
   INCUBATOR_MODULES,
@@ -64,6 +65,7 @@ import { type Language, UI_TRANSLATIONS, MODULES_TRANSLATIONS, LOCALIZED_DEMO_PR
 import { UnicornStudio } from './components/UnicornStudio/UnicornStudio'
 import { ArcadeHub } from './components/Arcade/ArcadeHub'
 import { MulkXHub } from './components/RealEstateEdu/MulkXHub'
+import { LexGuardHub } from './components/LexGuard/LexGuardHub'
 import { OnlineMind } from './components/OnlineMind/OnlineMind'
 import { InteractiveBackground } from './components/InteractiveBackground'
 
@@ -161,14 +163,14 @@ export default function App() {
   const [activeRole, setActiveRole] = useState<'participant' | 'curator'>(() => loadUserRole())
   const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0)
   const [activeView, setActiveView] = useState<
-    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade' | 'mulk-detective' | 'online-mind'
-  >(() => (window.location.hash === '#online-mind' ? 'online-mind' : window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : window.location.hash === '#mulk-detective' ? 'mulk-detective' : 'online-mind'))
+    'modules' | 'onepager' | 'curator' | 'gallery' | 'reels' | 'pitch-cockpit' | 'unicorn-studio' | 'arcade' | 'mulk-detective' | 'online-mind' | 'lexguard'
+  >(() => (window.location.hash === '#lexguard' ? 'lexguard' : window.location.hash === '#online-mind' ? 'online-mind' : window.location.hash === '#arcade' ? 'arcade' : window.location.hash === '#modules' ? 'modules' : window.location.hash === '#jury-check' ? 'pitch-cockpit' : window.location.hash === '#reels' ? 'reels' : window.location.hash === '#mulk-detective' ? 'mulk-detective' : 'online-mind'))
 
   // Synchronize hash with activeView for deep linking and history
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '')
-      const validViews = ['modules', 'onepager', 'curator', 'gallery', 'reels', 'pitch-cockpit', 'unicorn-studio', 'arcade', 'mulk-detective', 'online-mind']
+      const validViews = ['modules', 'onepager', 'curator', 'gallery', 'reels', 'pitch-cockpit', 'unicorn-studio', 'arcade', 'mulk-detective', 'online-mind', 'lexguard']
       if (validViews.includes(hash)) {
         setActiveView(hash as any)
       } else if (hash === 'jury-check') {
@@ -914,6 +916,16 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
             >
               <Building2 className="w-3.5 h-3.5 text-white inline" />
               <span>Mulk Detektivi</span>
+            </button>
+            <button
+              onClick={() => {
+                playBeep(670, 'sine', 0.08)
+                setActiveView('lexguard')
+              }}
+              className={`apple-nav-link flex items-center gap-1.5 ${activeView === 'lexguard' ? 'apple-nav-link-active font-semibold text-cyan-400' : ''}`}
+            >
+              <Scale className="w-3.5 h-3.5 text-cyan-400 inline" />
+              <span>LexGuard AI</span>
             </button>
             <button
               onClick={() => setActiveView('modules')}
@@ -2838,7 +2850,10 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
         {/* VIEW 9: MULK DETEKTIVI (REAL ESTATE & KADASTR DETECTIVE) */}
         {activeView === 'mulk-detective' && <MulkXHub />}
 
-        {/* VIEW 10: JASUR SHUKUROV — MASTER EXECUTIVE PORTFOLIO & ONLINE MIND */}
+        {/* VIEW 10: LEXGUARD AI (LEXHACKATHON 2026 - ADLIYA & TDYuU) */}
+        {activeView === 'lexguard' && <LexGuardHub />}
+
+        {/* VIEW 11: JASUR SHUKUROV — MASTER EXECUTIVE PORTFOLIO & ONLINE MIND */}
         {activeView === 'online-mind' && <OnlineMind currentLang={currentLang} />}
       </main>
 
