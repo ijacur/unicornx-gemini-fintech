@@ -127,3 +127,9 @@
 - **Nima kerak:** MedLoop Telegram Mini App (`mini_app.html`) ni 60-30-10 Acid Palette (Obsidian #050505, Pure White #FAFAFA, Acid Lime #C6F432) va qat'iy "Zero Emoji" qoidasiga moslashtirib qayta qurish. URL orqali kelgan klinika deep-link parametrlarini (`?clinic=osiyo`, `?clinic=afrosiyob`, `?clinic=doktord`) dinamik aniqlab, mos klinika nomi va shifokorlar ro'yxatini yuklash; 2.5% SVG noise qoplamasini o'rnatish; Turnir workspace (`turnir-launch-lab.vercel.app/mini_app.html`) va MedLoop platform (`medloop_platform/static/mini_app.html`) o'rtasida to'liq sinxronlash hamda Vercel'ga yangilash.
 - **Kim uchun:** Telegram orqali tahlil topshirgan Samarqand va Toshkent bemorlari hamda shifokorlar.
 - **Format:** `medloop_platform/static/mini_app.html`, `public/mini_app.html`, Vercel production deploy, Git commit.
+
+### Prompt #8 / 500: In-App Glass Modal PDF Document Inspector & Cross-Platform Deep Linking
+- **Kim siz:** Full-Stack Design Systems Architect & Legal Tech Specialist.
+- **Nima kerak:** `index.html` va `tracker.html` da tashqi sahifaga o'tmasdan rasmiy hujjatlarni (Ta'sischilar ulushi bitimi `MedLoop_Agreement.pdf` va 14-kunlik pilot shartnomasi `loi.pdf`) bevosita ko'rish imkonini beruvchi Apple Pro shisha modal inspektorini (`#docPreviewModal`) qurish; `tracker.html` da tasdiqlangan poliklinikalar uchun 1-bosishda LOI ko'rish darchasini ulash; `workflow.html` da 1-bosqich QR kodini `mini_app.html?clinic=doktord` ga to'g'ridan-to'g'ri integratsiya qilish.
+- **Kim uchun:** Launch Lab Track B hakamlar hay'ati, investorlar va klinika rahbarlari.
+- **Format:** `index.html`, `public/tracker.html`, `public/workflow.html`, Vercel production deploy, Git commit.
