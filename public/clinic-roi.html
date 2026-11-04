@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedLoop AI — Klinika Boshqaruvchisi ROI & Daromad Qaytishi (Executive Cockpit)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #050507;
+      color: #E4E4E7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .apple-card {
+      background: #0E0E12;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+    }
+    .apple-btn {
+      background: #FFFFFF;
+      color: #000000;
+      font-weight: 600;
+      border-radius: 12px;
+      transition: all 0.15s ease;
+    }
+    .apple-btn:hover { background: #E4E4E7; }
+    .apple-btn:active { transform: scale(0.98); }
+    .apple-btn-secondary {
+      background: #18181B;
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-weight: 500;
+      border-radius: 12px;
+    }
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #27272A;
+      outline: none;
+    }
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    @media print {
+      body { background-color: #FFFFFF !important; color: #000000 !important; }
+      header, .no-print { display: none !important; }
+      .apple-card { background: #FFFFFF !important; border: 1px solid #CCCCCC !important; color: #000000 !important; box-shadow: none !important; }
+      .text-white { color: #000000 !important; }
+      .text-zinc-400, .text-zinc-500 { color: #555555 !important; }
+      .mono { color: #000000 !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-white/10 bg-[#0A0A0D]/90 sticky top-0 z-50 backdrop-blur-xl no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2 text-zinc-400 hover:text-white transition">
+          <span class="text-xs font-semibold">← Launch Lab Hub</span>
+        </a>
+        <span class="text-white/20">|</span>
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-white text-black font-black flex items-center justify-center text-xs">
+            ROI
+          </div>
+          <div>
+            <h1 class="text-sm font-bold text-white tracking-tight leading-none">MedLoop ROI Cockpit</h1>
+            <p class="text-[10px] text-zinc-400 mt-0.5">Klinika Egasi & Bosh Shifokor uchun Iqtisodiy Dalil</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="/reception.html" class="apple-btn-secondary px-3 py-1.5 text-xs">
+          Registratura navbati →
+        </a>
+        <button onclick="window.print()" class="apple-btn px-3 py-1.5 text-xs flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+          </svg>
+          Hisobotni PDF yuklab olish
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Printable Header for A4 (Only visible when printing) -->
+  <div class="hidden print:block p-6 border-b border-black mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-xl font-black">MEDLOOP AI — KLINIKA IQTISODIY SAMARADORLIK HISOBOTI</h1>
+        <p class="text-xs text-gray-600 mt-1">Osiyo Medical Clinic (Samarqand) · Oylik Daromad Qaytishi Tahlili</p>
+      </div>
+      <div class="text-right text-xs">
+        <p><strong>Sana:</strong> 2026-yil Noyabr</p>
+        <p><strong>Model:</strong> Track B B2B SaaS (800,000 UZS/oy)</p>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- Value Proposition Banner -->
+    <div class="apple-card p-5 bg-gradient-to-r from-zinc-900/90 to-zinc-950 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-[11px] font-semibold uppercase tracking-wider mb-2">
+          📈 B2B SaaS Qiymat Formulasi (Track B)
+        </div>
+        <h2 class="text-lg font-black text-white tracking-tight">
+          Laboratoriyadan keyingi 45% bemor yo'qotilishini (drop-off) qaytarish
+        </h2>
+        <p class="text-xs text-zinc-400 mt-1 max-w-3xl leading-relaxed">
+          Klinikangizda qon topshirgan har 100 bemordan 45 nafari natijasini olib uyiga ketadi va shifokor ko'rigiga kirmaydi. 
+          MedLoop ushbu bemorlarni 8 soniyada aniqlaydi va qabulga qaytaradi.
+        </p>
+      </div>
+      <div class="text-right">
+        <span class="text-3xl font-black text-white mono block" id="headerRoi">28.5x</span>
+        <span class="text-[11px] text-zinc-400">Investitsiya ROI ko'paytmasi</span>
+      </div>
+    </div>
+
+    <!-- Top KPI Strip -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3.5">
+      <div class="apple-card p-4">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-1">Oylik Skanlar</span>
+        <div class="text-2xl font-black text-white mono" id="kpiScans">540</div>
+        <p class="text-[10px] text-zinc-500 mt-1">Laboratoriya tahlili</p>
+      </div>
+
+      <div class="apple-card p-4">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-amber-400 block mb-1">Og'ish Aniqlangan</span>
+        <div class="text-2xl font-black text-white mono" id="kpiFlagged">42.6%</div>
+        <p class="text-[10px] text-zinc-500 mt-1">230 bemor shifokorga muhtoj</p>
+      </div>
+
+      <div class="apple-card p-4">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-1">Qaytarilgan Qabullar</span>
+        <div class="text-2xl font-black text-white mono" id="kpiVisits">152</div>
+        <p class="text-[10px] text-zinc-500 mt-1">66.1% konversiya darajasi</p>
+      </div>
+
+      <div class="apple-card p-4">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block mb-1">Qaytarilgan Tushum</span>
+        <div class="text-xl sm:text-2xl font-black text-white mono" id="kpiRevenue">22,800,000</div>
+        <p class="text-[10px] text-zinc-500 mt-1">UZS / oy</p>
+      </div>
+
+      <div class="apple-card p-4 border-white/20 bg-white/[0.04]">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-white block mb-1">Sof Foyda (Net Profit)</span>
+        <div class="text-xl sm:text-2xl font-black text-white mono" id="kpiNetProfit">+22.0M</div>
+        <p class="text-[10px] text-zinc-400 mt-1">800k obuna xarajati ayirilgach</p>
+      </div>
+    </div>
+
+    <!-- Simulator & Financial Proof (2 Columns) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+      <!-- Interactive "Clinic Bleed Simulator" -->
+      <div class="apple-card p-6 space-y-5">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 text-red-400 text-[10px] font-bold uppercase tracking-wider mb-2">
+            🩸 Klinika Daromad Oqishi Simulyatori
+          </div>
+          <h3 class="text-base font-bold text-white tracking-tight">Klinikangiz qancha tushum yo'qotmoqda?</h3>
+          <p class="text-xs text-zinc-400 mt-1">
+            Slayderlarni o'zgartiring va oylik yo'qotish hamda MedLoop yordamida qancha tushumni saqlab qolish mumkinligini hisoblang.
+          </p>
+        </div>
+
+        <!-- Sliders -->
+        <div class="space-y-4">
+          <div>
+            <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
+              <span class="text-zinc-300">Kunlik laboratoriya bemorlari soni:</span>
+              <span class="mono text-white text-sm" id="valDailyPatients">40 bemor/kun</span>
+            </div>
+            <input type="range" id="sliderDaily" min="10" max="200" step="5" value="40" class="slider" oninput="calculateSimulator()">
+            <div class="flex justify-between text-[10px] text-zinc-600 mt-1 mono">
+              <span>10 ta</span>
+              <span>100 ta</span>
+              <span>200 ta</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
+              <span class="text-zinc-300">Shifokorga kirmaydigan bemorlar (Drop-off %):</span>
+              <span class="mono text-amber-400 text-sm" id="valDropOff">45%</span>
+            </div>
+            <input type="range" id="sliderDropOff" min="20" max="60" step="1" value="45" class="slider" oninput="calculateSimulator()">
+            <div class="flex justify-between text-[10px] text-zinc-600 mt-1 mono">
+              <span>20% (Eng yaxshi)</span>
+              <span>45% (O'rtacha me'yor)</span>
+              <span>60% (Yuqori yo'qotish)</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between text-xs font-semibold mb-1.5">
+              <span class="text-zinc-300">O'rtacha shifokor cheki + muolaja (UZS):</span>
+              <span class="mono text-white text-sm" id="valCheck">150,000 UZS</span>
+            </div>
+            <input type="range" id="sliderCheck" min="100000" max="400000" step="10000" value="150000" class="slider" oninput="calculateSimulator()">
+            <div class="flex justify-between text-[10px] text-zinc-600 mt-1 mono">
+              <span>100,000</span>
+              <span>250,000</span>
+              <span>400,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculated Bleed Box -->
+        <div class="apple-card p-4 bg-zinc-950/60 border-white/10 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-zinc-400">Oylik yo'qotilayotgan tushum (Klinika yo'qotishi):</span>
+            <span class="mono font-bold text-red-400 text-sm" id="simMonthlyBleed">-81,000,000 UZS</span>
+          </div>
+
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-zinc-400">MedLoop orqali qaytariladigan oylik tushum (60% konversiya):</span>
+            <span class="mono font-black text-emerald-400 text-base" id="simRecovered">+48,600,000 UZS</span>
+          </div>
+
+          <div class="flex items-center justify-between text-xs pt-2 border-t border-white/10">
+            <span class="text-zinc-400">MedLoop B2B oylik obuna to'lovi:</span>
+            <span class="mono text-zinc-300">800,000 UZS/oy</span>
+          </div>
+
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-white">Klinika sof oylik foydasi (Net Gain):</span>
+            <span class="mono font-black text-white text-base" id="simNetGain">+47,800,000 UZS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unit Economics & Financial Proof -->
+      <div class="space-y-4">
+        <div class="apple-card p-6 space-y-4">
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-white text-[10px] font-bold uppercase tracking-wider">
+            ⚡️ Unit Economics & Marjinallik
+          </div>
+          <h3 class="text-base font-bold text-white tracking-tight">Nega MedLoop narxi 800,000 UZS?</h3>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex items-center justify-between py-2 border-b border-white/5">
+              <span class="text-zinc-400">1 ta tahlilni o'qish tannarxi (COGS):</span>
+              <span class="mono text-white font-bold">$0.0018 (~23 so'm)</span>
+            </div>
+
+            <div class="flex items-center justify-between py-2 border-b border-white/5">
+              <span class="text-zinc-400">Oylik 1,000 ta skan API xarajati:</span>
+              <span class="mono text-white font-bold">$1.80 (~23,000 so'm)</span>
+            </div>
+
+            <div class="flex items-center justify-between py-2 border-b border-white/5">
+              <span class="text-zinc-400">MedLoop Brutto Marjasi (Gross Margin):</span>
+              <span class="mono text-emerald-400 font-black text-sm">98.2%</span>
+            </div>
+
+            <div class="flex items-center justify-between py-2 border-b border-white/5">
+              <span class="text-zinc-400">Klinika uchun sarflangan har 1 so'mning qaytishi:</span>
+              <span class="mono text-white font-black text-sm" id="unitRoiDisplay">1 so'm → 32 so'm tushum</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/5">
+            <p class="text-[11px] text-zinc-300 leading-relaxed">
+              💡 <strong>Xulosa:</strong> MedLoop xarajat emas, balki birinchi haftaning o'zidayoq o'z xarajatini 10 barobar qoplab beruvchi <em>daromad generatori</em> hisoblanadi.
+            </p>
+          </div>
+        </div>
+
+        <!-- 14-Day Pilot Guarantee Card -->
+        <div class="apple-card p-5 bg-gradient-to-br from-zinc-900 to-black space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">
+            🛡 14-Kunlik Pilotsiz Kafolat
+          </h4>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Klinikangizda 14 kunlik bepul pilot ishga tushiriladi. Agar MedLoop kamida 3,000,000 UZS qo'shimcha tushum keltirmasa, tizimdan foydalanish bepul to'xtatiladi.
+          </p>
+          <div class="pt-2 flex items-center justify-between">
+            <span class="text-xs text-zinc-400">Pilotni ulash muddati:</span>
+            <span class="text-xs font-bold text-emerald-400">24 soat ichida</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    function calculateSimulator() {
+      const daily = parseInt(document.getElementById('sliderDaily').value);
+      const dropOff = parseInt(document.getElementById('sliderDropOff').value);
+      const check = parseInt(document.getElementById('sliderCheck').value);
+
+      document.getElementById('valDailyPatients').innerText = `${daily} bemor/kun`;
+      document.getElementById('valDropOff').innerText = `${dropOff}%`;
+      document.getElementById('valCheck').innerText = `${check.toLocaleString()} UZS`;
+
+      const monthlyPatients = daily * 30;
+      const lostPatients = Math.round(monthlyPatients * (dropOff / 100));
+      const monthlyBleed = lostPatients * check;
+
+      // 60% recovery rate via MedLoop 8s automated triage
+      const recoveredPatients = Math.round(lostPatients * 0.60);
+      const recoveredRevenue = recoveredPatients * check;
+      const sub = 800000;
+      const netGain = recoveredRevenue - sub;
+      const roi = (recoveredRevenue / sub).toFixed(1);
+
+      document.getElementById('simMonthlyBleed').innerText = `-${monthlyBleed.toLocaleString()} UZS`;
+      document.getElementById('simRecovered').innerText = `+${recoveredRevenue.toLocaleString()} UZS`;
+      document.getElementById('simNetGain').innerText = `+${netGain.toLocaleString()} UZS`;
+
+      document.getElementById('headerRoi').innerText = `${roi}x`;
+      document.getElementById('kpiScans').innerText = monthlyPatients;
+      document.getElementById('kpiVisits').innerText = recoveredPatients;
+      document.getElementById('kpiRevenue').innerText = (recoveredRevenue / 1000000).toFixed(1) + "M";
+      document.getElementById('kpiNetProfit').innerText = `+${(netGain / 1000000).toFixed(1)}M`;
+      document.getElementById('unitRoiDisplay').innerText = `1 so'm → ${Math.round(roi)} so'm tushum`;
+    }
+
+    calculateSimulator();
+  </script>
+</body>
+</html>
