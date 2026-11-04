@@ -302,17 +302,38 @@
         </h3>
 
         <!-- Drag & Drop Zone -->
-        <div style="border: 1px dashed var(--border-hover); border-radius: 12px; padding: 24px 16px; text-align: center; background: rgba(255,255,255,0.01); margin-bottom: 16px;">
+        <div id="dropZone" style="border: 1.5px dashed rgba(198, 244, 50, 0.35); border-radius: 14px; padding: 20px 16px; text-align: center; background: rgba(198, 244, 50, 0.02); margin-bottom: 16px; transition: all 0.2s ease;">
           <input type="file" id="labFileInput" accept=".pdf,image/*" onchange="onFileSelected(event)" style="display: none;">
-          <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">
-            Tahlil qog'ozi fotosurati yoki PDF fayli
+          <div class="mono" style="font-size: 11px; color: var(--accent-acid); margin-bottom: 6px;">
+            [8 SONIYADA AVTOMATIK OCR TRIAGE]
           </div>
-          <div id="fileStatus" class="mono" style="font-size: 12px; color: #FFFFFF; font-weight: 500; margin-bottom: 12px;">
-            Bemor tahlilini bu yerga tashlang yoki tanlang
+          <div id="fileStatus" class="mono" style="font-size: 12px; color: #FFFFFF; font-weight: 500; margin-bottom: 10px;">
+            PDF yoki tahlil rasmini tashlang yoki tanlang
           </div>
-          <button onclick="document.getElementById('labFileInput').click()" class="btn-glass mono" style="font-size: 11px;">
-            Faylni Tanlash
-          </button>
+          
+          <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+            <button type="button" onclick="document.getElementById('labFileInput').click()" class="btn-acid mono" style="font-size: 11px; padding: 6px 14px;">
+              Faylni Tanlash &rarr;
+            </button>
+          </div>
+
+          <!-- Fast 1-Click Real Sample Ingestion Pills -->
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 10px; margin-top: 8px;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary); margin-bottom: 6px;">
+              Yoki tayyor laboratoriya namunalarini sinab ko'ring:
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;">
+              <button type="button" onclick="loadSampleToQueue('liver')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                Intermed: Jigar
+              </button>
+              <button type="button" onclick="loadSampleToQueue('glucose')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                De Facto: Qand
+              </button>
+              <button type="button" onclick="loadSampleToQueue('anemia')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                Vitros: Temir
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Manual Patient Info Form -->
@@ -471,14 +492,16 @@
 
             <div style="display: flex; gap: 8px;">
               ${p.status === 'CONFIRMED' ? `
-                <span class="badge-monochrome" style="background: #FFFFFF; color: #000; font-weight: 700;">CONFIRMED</span>
+                <span class="badge-monochrome" style="background: var(--accent-acid); color: #050505; font-weight: 800; border: none; box-shadow: 0 0 12px rgba(198, 244, 50, 0.35);">
+                  TASDIQLANDI (+150,000 UZS)
+                </span>
               ` : `
-                <button onclick="confirmPatient(${p.id})" class="btn-white mono" style="padding: 4px 10px; font-size: 11px;">
-                  Confirm Slot
+                <button onclick="confirmPatient(${p.id})" class="btn-acid mono" style="padding: 4px 10px; font-size: 11px;">
+                  Qabulni Tasdiqlash
                 </button>
               `}
               <button onclick="reschedulePatient(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px;">
-                Reschedule
+                Vaqtni O'zgartirish
               </button>
             </div>
           </div>
@@ -512,8 +535,62 @@
       const confs = patients.filter(p => p.status === 'CONFIRMED').length;
       document.getElementById('countRed').innerText = reds;
       document.getElementById('countYellow').innerText = yellows;
-      document.getElementById('countConfirmed').innerText = confs + 12;
-      document.getElementById('countRevenue').innerText = `${((confs + 12) * 150000).toLocaleString()} UZS`;
+      document.getElementById('countConfirmed').innerText = confs;
+      document.getElementById('countRevenue').innerText = `${(confs * 150000).toLocaleString()} UZS`;
+    }
+
+    function loadSampleToQueue(key) {
+      const samples = {
+        liver: {
+          name: "Bobur Xoliqov (36 y)",
+          phone: "+998 91 552 14 33",
+          urgency: "YELLOW",
+          markers: "ALT 94.0 U/L [REF: 0-41] • AST 58.0 U/L • Bilirubin 19.2",
+          doctor: "Dr. Alimov N. K.",
+          specialty: "Gepatolog",
+          slot: "Ertaga 10:00",
+          status: "CONFIRMED"
+        },
+        glucose: {
+          name: "Karimova Ziyoda (49 y)",
+          phone: "+998 90 712 34 56",
+          urgency: "RED",
+          markers: "HbA1c 7.8% [REF: 4.0-5.6] • Glyukoza 8.4 mmol/L",
+          doctor: "Dr. Karimova D. B.",
+          specialty: "Endokrinolog",
+          slot: "Bugun 16:30",
+          status: "CONFIRMED"
+        },
+        anemia: {
+          name: "Nilufar Usmonova (30 y)",
+          phone: "+998 93 415 67 80",
+          urgency: "RED",
+          markers: "Ferritin 6.2 ng/mL [REF: 20-250] • Gemoglobin 98 g/L",
+          doctor: "Dr. Usmonov S. T.",
+          specialty: "Terapevt",
+          slot: "Ertaga 09:30",
+          status: "CONFIRMED"
+        }
+      };
+
+      const s = samples[key];
+      if (!s) return;
+
+      document.getElementById('fileStatus').innerText = `[OCR O'QILDI] ${s.name} - ${s.markers.split('•')[0]}`;
+      patients.unshift({
+        id: Date.now(),
+        name: s.name,
+        phone: s.phone,
+        urgency: s.urgency,
+        markers: s.markers,
+        doctor: s.doctor,
+        specialty: s.specialty,
+        slot: s.slot,
+        status: s.status,
+        time: new Date().toLocaleTimeString().slice(0, 5)
+      });
+      renderQueue();
+      updateCounts();
     }
 
     function addSimulatedPatient() {
@@ -539,7 +616,10 @@
     function onFileSelected(e) {
       const file = e.target.files[0];
       if (file) {
-        document.getElementById('fileStatus').innerText = `[SELECTED] ${file.name}`;
+        document.getElementById('fileStatus').innerText = `[YUKLANDI] ${file.name} (Tahlil qilinmoqda...)`;
+        setTimeout(() => {
+          loadSampleToQueue('liver');
+        }, 600);
       }
     }
 
@@ -547,16 +627,43 @@
       e.preventDefault();
       const name = document.getElementById('manualName').value;
       const phone = document.getElementById('manualPhone').value;
-      document.getElementById('sendBtn').innerText = "Processing OCR...";
+      document.getElementById('sendBtn').innerText = "OCR Tahlili bajarilmoqda...";
 
       setTimeout(() => {
-        document.getElementById('sendBtn').innerText = "Yuborish & 8s Saralash →";
+        document.getElementById('sendBtn').innerText = "Tahlilni O'qish va Shifokorga Biriktirish →";
         document.getElementById('manualFeedback').style.display = 'block';
 
         patients.unshift({
           id: Date.now(),
           name: name,
           phone: phone,
+          urgency: "YELLOW",
+          markers: "ALT 94 U/L [REF: 0-41] • AST 58 U/L (Blankdan o'qildi)",
+          doctor: "Dr. Alimov N. K.",
+          specialty: "Gepatolog",
+          slot: "Ertaga 10:00",
+          status: "CONFIRMED",
+          time: new Date().toLocaleTimeString().slice(0, 5)
+        });
+        renderQueue();
+        updateCounts();
+
+        setTimeout(() => {
+          document.getElementById('manualFeedback').style.display = 'none';
+          document.getElementById('manualName').value = '';
+          document.getElementById('manualPhone').value = '';
+          document.getElementById('fileStatus').innerText = 'PDF yoki tahlil rasmini tashlang yoki tanlang';
+        }, 3000);
+      }, 500);
+    }
+
+    function switchClinic() {
+      renderQueue();
+      updateCounts();
+    }
+
+    renderQueue();
+    updateCounts();
           urgency: "YELLOW",
           markers: "ALT 79 U/L [REF: 0-41] (Scanned from Blank)",
           doctor: "Dr. Shirinov X. I.",

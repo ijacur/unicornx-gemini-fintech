@@ -639,7 +639,12 @@
                       <div class="mono" style="font-size: 10px; color: #888888;" id="labDocName">INTERMED DIAGNOSTIKA #2841</div>
                       <div style="font-size: 12px; font-weight: 600; color: #FFFFFF;" id="labPatientName">Xoliqov Bobur (1988)</div>
                     </div>
-                    <span class="mono" style="font-size: 9px; padding: 2px 5px; background: rgba(255,255,255,0.06); color: #FFF; border-radius: 4px;">VERIFIED</span>
+                    <div style="display: flex; gap: 6px; align-items: center;">
+                      <a id="samplePdfLink" href="/samples/sample_1_liver_intermed.pdf" target="_blank" class="mono" style="font-size: 9px; padding: 2px 6px; background: rgba(198, 244, 50, 0.12); color: var(--accent-acid); border: 1px solid rgba(198, 244, 50, 0.3); border-radius: 4px; text-decoration: none;">
+                        [PDF Blank]
+                      </a>
+                      <span class="mono" style="font-size: 9px; padding: 2px 5px; background: rgba(255,255,255,0.06); color: #FFF; border-radius: 4px;">VERIFIED</span>
+                    </div>
                   </div>
 
                   <!-- Biomarkers Extracted Table -->
@@ -1116,6 +1121,16 @@
       renderBiomarkers(data.biomarkers);
       document.getElementById('triageNote').innerText = data.triage;
       document.getElementById('bookingBtnText').innerText = data.buttonText;
+
+      const pdfLink = document.getElementById('samplePdfLink');
+      if (pdfLink) {
+        const pdfFiles = {
+          liver: '/samples/sample_1_liver_intermed.pdf',
+          glucose: '/samples/sample_2_glucose_defacto.pdf',
+          anemia: '/samples/sample_3_anemia_vitros.pdf'
+        };
+        pdfLink.href = pdfFiles[key] || '#';
+      }
     }
 
     // Smooth Numeric Odometer Roll
