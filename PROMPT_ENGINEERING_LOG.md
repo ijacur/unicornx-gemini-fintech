@@ -180,3 +180,23 @@
   4. `.btn-acid` uslubini to'liq CSS spetsifikatsiyasiga kiritish va barcha interfeyslarda 0 ta emoji qoidasiga 100% rioya qilish.
 - **Kim uchun:** Samarqand va Toshkent xususiy klinikalari bosh shifokorlari, boshqaruv kengashi a'zolari va Launch Lab Track B investorlari.
 - **Format:** `public/clinic-roi.html`, `scripts/test_system_integrity.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #13 / 500: Interactive Clinical SOP Generator, Dynamic QR Routing in `workflow.html` & Automated Playwright E2E Headless Test Suite
+- **Kim siz:** Lead Clinical Operations Engineer & Automated QA Testing Specialist.
+- **Nima kerak:**
+  1. `public/workflow.html` ni Diego 60-30-10 Acid Palette va to'liq interaktivlik bilan takomillashtirish:
+     - `.btn-acid` va `.btn-glass` CSS uslublarini to'liq kiritish.
+     - 4 bosqichli slayder uchun oldinga/orqaga navigatsiya (`[Oldingi Bosqich]`, `[Keyingi Bosqich]`) va klaviatura yordamchilari (`1`, `2`, `3`, `4`, `ArrowLeft`, `ArrowRight`) orqali bosqichlarni almashish imkoniyatini qo'shish.
+     - 1-bosqichdagi QR simulyatorida 4 ta klinika filtrlari (`[Osiyo Medical]`, `[Afrosiyob]`, `[Doktor D]`, `[SamMed]`) qo'shilib, tanlanganida QR kod ostidagi havola dinamik tarzda `mini_app.html?clinic=...` ga moslanishi va klinika manzili hamda navbatchi shifokor aks etishi.
+     - 2-bosqichda biomarkerlarni tezkor almashtirish (`ALT 94`, `HbA1c 7.8%`, `Ferritin 6`) imkoniyati.
+     - Bosh vrachlar va klinika direktorlari uchun rasmiy "Standart Operatsion Qo'llanma (SOP #ML-SOP/2026)" modal generatorini (`#sopModal`) qurish (tahlil olingan paytdan boshlab 8 soniyada Telegram Mini App orqali bemorga xulosa berish va registratura navbatiga yozishning rasmiy 4 moddali nizomi, `@media print` bilan A4 chop etish).
+  2. Barcha 6 ta asosiy sahifa uchun haqiqiy Playwright Headless E2E test to'plamini (`scripts/test_playwright_e2e.py`) yaratish:
+     - Headless Chromium orqali `index.html`, `reception.html`, `clinic-roi.html`, `workflow.html`, `tracker.html`, `mini_app.html` sahifalarini ochish.
+     - Har bir sahifada JavaScript konsol xatolari (console.error) yo'qligini tekshirish (0 xato).
+     - Har bir sahifaning jonli DOM `document.body.innerText` matnida 0 ta emoji mavjudligini tasdiqlash.
+     - Modallar (`#sopModal`, `#commercialProposalModal`) ochilishi va `Escape` tugmasi bilan to'liq yopilishini real browser hodisalari orqali tekshirish.
+     - `clinic-roi.html` dagi shablon almashtirish (`#preset-doktord`) va `mini_app.html` dagi ikki tilli rejim (`[UZ | RU]`) dinamikligini tasdiqlash (jami 26 ta Playwright assertion, 100% GREEN).
+  3. `scripts/test_system_integrity.py` ga ushbu Playwright E2E testini 6-bosqich qilib qo'shish (ALL 6 SYSTEM INTEGRITY & E2E CHECKS PASSED).
+- **Kim uchun:** SamMU klinik bazalari bosh shifokorlari, registratorlar, texnik audit o'tkazuvchi hakamlar.
+- **Format:** `public/workflow.html`, `scripts/test_playwright_e2e.py`, `scripts/test_system_integrity.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
