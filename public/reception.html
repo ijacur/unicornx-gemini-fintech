@@ -240,7 +240,7 @@
         <option value="3" style="background: #111;">Samarqand Shifo Diagnostic</option>
       </select>
       <button onclick="addSimulatedPatient()" class="btn-white mono" style="padding: 5px 12px; font-size: 11px;">
-        + Simulate Lab Arrival
+        + Yangi Tahlil Kelishini Simulyatsiya Qilish
       </button>
     </div>
   </nav>
@@ -258,32 +258,32 @@
         </div>
       </div>
       <div class="mono" style="font-size: 11px; color: #FFFFFF; background: rgba(255,255,255,0.06); padding: 4px 10px; border-radius: 6px;">
-        Target: 0 paper journals
+        Maqsad: Qog'ozsiz va sarsonliksiz xizmat
       </div>
     </div>
 
     <!-- 4 Metric Ticker Cards -->
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px;">
       <div class="bento-card" style="padding: 18px;">
-        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">CRITICAL RED ALERTS</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">SHOSHILINCH (QIZIL TOIFA)</div>
         <div id="countRed" class="mono" style="font-size: 32px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">1</div>
         <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Tezkor shifokor ko'rigi talab</div>
       </div>
 
       <div class="bento-card" style="padding: 18px;">
-        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">ATTENTION YELLOW</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">DIQQAT TALAB (SARIQ TOIFA)</div>
         <div id="countYellow" class="mono" style="font-size: 32px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">2</div>
         <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Me'yordan chetlashish</div>
       </div>
 
       <div class="bento-card" style="padding: 18px;">
-        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">CONFIRMED TODAY</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">BUGUN QABULGA YOZILGANLAR</div>
         <div id="countConfirmed" class="mono" style="font-size: 32px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">14</div>
         <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">Qabulga yozilgan bemorlar</div>
       </div>
 
       <div class="bento-card" style="padding: 18px;">
-        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">RECOVERED REVENUE</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">TIKLANGAN KLINIKA XIZMATI</div>
         <div id="countRevenue" class="mono" style="font-size: 26px; font-weight: 700; color: #FFFFFF; margin-top: 6px;">2,100,000 UZS</div>
         <div class="mono" style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">150k UZS o'rtacha konsultatsiya</div>
       </div>
@@ -298,17 +298,17 @@
           [INGESTION POINT]
         </div>
         <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 16px;">
-          Laboratoriya Blankini Yuklash
+          Bemorning Laboratoriya Tahlilini Yuklash
         </h3>
 
         <!-- Drag & Drop Zone -->
         <div style="border: 1px dashed var(--border-hover); border-radius: 12px; padding: 24px 16px; text-align: center; background: rgba(255,255,255,0.01); margin-bottom: 16px;">
           <input type="file" id="labFileInput" accept=".pdf,image/*" onchange="onFileSelected(event)" style="display: none;">
           <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">
-            PDF yoki foto (JPEG/PNG)
+            Tahlil qog'ozi fotosurati yoki PDF fayli
           </div>
           <div id="fileStatus" class="mono" style="font-size: 12px; color: #FFFFFF; font-weight: 500; margin-bottom: 12px;">
-            Faylni sudrab tashlang yoki tanlang
+            Bemor tahlilini bu yerga tashlang yoki tanlang
           </div>
           <button onclick="document.getElementById('labFileInput').click()" class="btn-glass mono" style="font-size: 11px;">
             Faylni Tanlash
@@ -319,7 +319,7 @@
         <form onsubmit="handleManualSend(event)" style="display: flex; flex-direction: column; gap: 12px;">
           <div>
             <label class="mono" style="font-size: 10px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
-              BEMOR F.I.SH.
+              BEMORNING TO'LIQ ISMI
             </label>
             <input type="text" id="manualName" required placeholder="Masalan: Sardor Rahimov" style="width: 100%; background: #0E0E0E; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
           </div>
@@ -332,7 +332,7 @@
           </div>
 
           <button type="submit" id="sendBtn" class="btn-white mono" style="width: 100%; justify-content: center; padding: 10px; margin-top: 4px;">
-            Yuborish &amp; 8s Saralash &rarr;
+            Tahlilni O'qish va Shifokorga Biriktirish &rarr;
           </button>
         </form>
 
@@ -346,7 +346,7 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div>
             <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
-              [ACTIVE WORKSPACE]
+              [JONLI REGISTRATURA ISHI]
             </div>
             <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF;">
               Triage Navbati (Real Vaqt)
@@ -450,7 +450,7 @@
             <div>
               <div style="display: flex; align-items: center; gap: 8px;">
                 <span class="${p.urgency === 'RED' ? 'badge-urgent' : 'badge-monochrome'}">
-                  ${p.urgency === 'RED' ? '[URGENT RED]' : '[ATTENTION YELLOW]'}
+                  ${p.urgency === 'RED' ? '[URGENT RED]' : '[DIQQAT TALAB (SARIQ TOIFA)]'}
                 </span>
                 <span style="font-size: 14px; font-weight: 600; color: #FFFFFF;">${p.name}</span>
                 <span class="mono" style="font-size: 11px; color: var(--text-secondary);">${p.phone}</span>
@@ -572,7 +572,7 @@
           document.getElementById('manualFeedback').style.display = 'none';
           document.getElementById('manualName').value = '';
           document.getElementById('manualPhone').value = '';
-          document.getElementById('fileStatus').innerText = 'Faylni sudrab tashlang yoki tanlang';
+          document.getElementById('fileStatus').innerText = 'Bemor tahlilini bu yerga tashlang yoki tanlang';
         }, 3000);
       }, 700);
     }
