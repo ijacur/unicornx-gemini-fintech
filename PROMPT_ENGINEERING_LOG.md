@@ -142,3 +142,13 @@
   3. `index.html` da Diego 60-30-10 dizayn formulasini (60% Midnight Black, 30% Pure White, 10% Acid Lime) aks ettiruvchi 4-talik yuqori kontrastli telemetriya blokini (`45%`, `7.4s`, `+150k UZS`, `98.2%`) va dual CTA harakat tugmalarini o'rnatish.
 - **Kim uchun:** Klinika registratorlari, qabulga kelgan bemorlar va mas'ul shifokorlar.
 - **Format:** `medloop_platform/bot/handlers.py`, `tests/test_phase3_bot.py`, `public/mini_app.html`, `public/reception.html`, `index.html`, Vercel production deploy (`https://turnir-launch-lab.vercel.app`), Git commit.
+
+### Prompt #10 / 500: Real-Time Lab Photo Scanner (Camera Upload), Offline Ticket Persistence & Doctor Room Matrix
+- **Kim siz:** Lead Mobile Health Engineer & Computer Vision Architect.
+- **Nima kerak:**
+  1. `mini_app.html` ga bemorlar tahlil qog'ozlarini bevosita telefon kamerasidan suratga olishi yoki fayl yuklashi uchun `[KAMERADAN SURATGA OLISH / TAHLIL YUKLASH]` imkoniyatini (File Input + laser scan sweep) qo'shish, tahlildagi biomarkerlarni avtomatik aniqlab, dinamik triage xulosasi va mos mutaxassis qabulini shakllantirish.
+  2. Mini App'da oflayn ishlash (Offline Resilient Persistence) mexanizmini joriy etish: klinika yerto'lasida yoki zaif internetda sahifa yangilansa ham, bemorning oxirgi tahlili, tanlangan qabul vaqti va generatsiya qilingan `FORMA #ML-2026/T` yo'llanma chiptasi `localStorage` dan zudlik bilan tiklanishi (`#offlineRestoredBanner`).
+  3. `reception.html` da klinika registratori uchun shifokorlar xonalari bandligini (`Dr. Shirinov - 14-xona`, `Dr. Karimova - 8-xona`, `Dr. Usmonov - 3-xona`) ko'rsatuvchi "Kabinetlar Telemetriyasi" (Room Roster Matrix) panelini joylashtirish.
+  4. `test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, json telemetriyasi, shartnomalar va zero-emoji qoidalarini avtomatlashtirilgan tarzda tekshirish (100% green).
+- **Kim uchun:** Samarqand va Toshkent poliklinikalariga kelgan bemorlar, registratura hamshiralari va shifokorlar.
+- **Format:** `public/mini_app.html`, `public/reception.html`, `scripts/test_system_integrity.py`, Vercel production deploy (`https://turnir-launch-lab.vercel.app`), Git commit.

@@ -224,6 +224,40 @@
   <!-- Content Container -->
   <main style="flex: 1; margin: 16px 0; display: flex; flex-direction: column; gap: 14px; position: relative; z-index: 2;">
 
+    <!-- Offline Restored Notice Banner -->
+    <div id="offlineRestoredBanner" class="bento-card" style="display: none; padding: 10px 14px; border-color: rgba(198,244,50,0.4); background: rgba(198,244,50,0.06); align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span class="mono" style="font-size: 10px; color: var(--accent-acid); font-weight: 700;">[OFLAYN TIKLANDI]</span>
+        <span id="offlineBannerText" style="font-size: 11px; color: #FFF;">Oldingi tahlil saqlab qolingan</span>
+      </div>
+      <button onclick="openReferralModal()" class="btn-acid mono" style="padding: 3px 8px; font-size: 10px;">
+        Varaqa &rarr;
+      </button>
+    </div>
+
+    <!-- Real-time Lab Camera Upload & OCR Trigger -->
+    <div>
+      <input type="file" id="labCameraInput" accept="image/*,.pdf" capture="environment" style="display: none;" onchange="handleLabCameraUpload(event)">
+      <button onclick="document.getElementById('labCameraInput').click()" class="btn-acid mono" style="width: 100%; padding: 12px; font-size: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+          <circle cx="12" cy="13" r="4"/>
+        </svg>
+        <span>[KAMERADAN SURATGA OLISH / TAHLIL YUKLASH] &rarr;</span>
+      </button>
+    </div>
+
+    <!-- Upload preview status -->
+    <div id="uploadPreviewBanner" class="bento-card" style="display: none; padding: 8px 12px; align-items: center; justify-content: space-between; border-color: rgba(198,244,50,0.3); background: rgba(198,244,50,0.04);">
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span class="mono" style="font-size: 10px; color: var(--accent-acid); font-weight: 700;">[MAXSUS SKANER]</span>
+        <span id="uploadedFileTitle" class="mono" style="font-size: 11px; color: #FFF; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">lab_scan.jpg</span>
+      </div>
+      <button onclick="resetToSample()" class="btn-glass mono" style="padding: 2px 8px; font-size: 10px; color: var(--text-muted);">
+        Namunaga qaytish &times;
+      </button>
+    </div>
+
     <!-- Preset Test Chips -->
     <div>
       <div class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
@@ -679,11 +713,99 @@
       
       document.getElementById('mainBookingBtn').innerText = "[QABUL TASDIQLANDI]";
       document.getElementById('mainBookingBtn').style.opacity = '0.7';
+      savePatientState();
 
       setTimeout(() => {
         document.getElementById('mainBookingBtn').innerText = `Qabulga Yozilishni Tasdiqlash (${selectedSlot}) →`;
         document.getElementById('mainBookingBtn').style.opacity = '1';
       }, 3000);
+    }
+
+    function handleLabCameraUpload(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      playChime('alert');
+      triggerHaptic('click');
+
+      document.getElementById('uploadPreviewBanner').style.display = 'flex';
+      document.getElementById('uploadedFileTitle').innerText = file.name;
+
+      // Unselect presets
+      ['liver', 'glucose', 'anemia'].forEach(k => {
+        const btn = document.getElementById('btn-' + k);
+        btn.style.background = 'rgba(255,255,255,0.04)';
+        btn.style.borderColor = 'var(--border-subtle)';
+      });
+
+      // Animate laser sweep
+      const laser = document.getElementById('laserSweepLine');
+      laser.style.display = 'block';
+      laser.style.animation = 'none';
+      void laser.offsetWidth;
+      laser.style.animation = 'laserSweep 1.2s ease forwards';
+      setTimeout(() => { laser.style.display = 'none'; }, 1250);
+
+      // Create realistic parsed patient scan from photo
+      currentSample = {
+        doc: `SURAT SKANERI #${Math.floor(1000 + Math.random() * 9000)} (OCR)`,
+        patient: "Bemor (Kameradan Yuklangan)",
+        specialtyKey: "hepatology",
+        urgency: "RED",
+        markers: [
+          { name: "ALT (Alaninaminotransferaza)", val: "118.0 U/L", ref: "0 - 45", abnormal: true },
+          { name: "AST (Aspartataminotransferaza)", val: "72.0 U/L", ref: "0 - 40", abnormal: true },
+          { name: "Umumiy bilirubin", val: "24.5 µmol/L", ref: "3.4 - 20.5", abnormal: true }
+        ],
+        explanation: "Suratdan o'qilgan tahlilda jigar fermentlari (ALT 118 U/L, AST 72 U/L) normadan 2.6 barobar yuqori. Reaktiv o'zgarishlar va gepatobiliyar tizim yuklamasini bartaraf qilish uchun zudlik bilan gepatolog ko'rigi zarur."
+      };
+
+      savePatientState();
+      renderData();
+    }
+
+    function resetToSample() {
+      playChime('click');
+      document.getElementById('uploadPreviewBanner').style.display = 'none';
+      document.getElementById('labCameraInput').value = '';
+      selectSample('liver');
+    }
+
+    function savePatientState() {
+      try {
+        const state = {
+          clinicId: currentClinic.id,
+          sample: currentSample,
+          selectedSlot: selectedSlot,
+          confirmed: document.getElementById('successNotice').style.display === 'block',
+          timestamp: Date.now()
+        };
+        localStorage.setItem('medloop_mobile_triage', JSON.stringify(state));
+      } catch(e) {}
+    }
+
+    function initOfflinePersistence() {
+      try {
+        const saved = localStorage.getItem('medloop_mobile_triage');
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (Date.now() - data.timestamp < 24 * 3600 * 1000 && data.sample) {
+            currentSample = data.sample;
+            if (data.selectedSlot) selectedSlot = data.selectedSlot;
+            
+            const banner = document.getElementById('offlineRestoredBanner');
+            if (banner) {
+              banner.style.display = 'flex';
+              document.getElementById('offlineBannerText').innerText = `Saqlangan tahlil: ${currentSample.patient} (${selectedSlot || 'Qabul tayyor'})`;
+            }
+            renderData();
+            if (data.confirmed) {
+              const toast = document.getElementById('successNotice');
+              toast.style.display = 'block';
+            }
+          }
+        }
+      } catch(e) {}
     }
 
     function openReferralModal() {
@@ -756,6 +878,7 @@
       }
       initClinicFromUrl();
       selectSample('liver');
+      initOfflinePersistence();
     });
   </script>
 </body>

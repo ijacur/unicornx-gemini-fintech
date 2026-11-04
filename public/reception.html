@@ -324,73 +324,130 @@
     <!-- Main Workspace Grid: Drag-and-Drop & Queue List -->
     <div style="display: grid; grid-template-columns: minmax(320px, 1fr) minmax(460px, 2fr); gap: 24px; align-items: start;">
       
-      <!-- Left Column: Manual Lab Scan Ingestion Dropzone -->
-      <div class="bento-card">
-        <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
-          [INGESTION POINT]
-        </div>
-        <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 16px;">
-          Bemorning Laboratoriya Tahlilini Yuklash
-        </h3>
+      <!-- Left Column: Manual Lab Scan Ingestion Dropzone & Room Telemetry -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div class="bento-card">
+          <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 2px;">
+            [INGESTION POINT]
+          </div>
+          <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 16px;">
+            Bemorning Laboratoriya Tahlilini Yuklash
+          </h3>
 
-        <!-- Drag & Drop Zone -->
-        <div id="dropZone" style="border: 1.5px dashed rgba(198, 244, 50, 0.35); border-radius: 14px; padding: 20px 16px; text-align: center; background: rgba(198, 244, 50, 0.02); margin-bottom: 16px; transition: all 0.2s ease;">
-          <input type="file" id="labFileInput" accept=".pdf,image/*" onchange="onFileSelected(event)" style="display: none;">
-          <div class="mono" style="font-size: 11px; color: var(--accent-acid); margin-bottom: 6px;">
-            [8 SONIYADA AVTOMATIK OCR TRIAGE]
+          <!-- Drag & Drop Zone -->
+          <div id="dropZone" style="border: 1.5px dashed rgba(198, 244, 50, 0.35); border-radius: 14px; padding: 20px 16px; text-align: center; background: rgba(198, 244, 50, 0.02); margin-bottom: 16px; transition: all 0.2s ease;">
+            <input type="file" id="labFileInput" accept=".pdf,image/*" onchange="onFileSelected(event)" style="display: none;">
+            <div class="mono" style="font-size: 11px; color: var(--accent-acid); margin-bottom: 6px;">
+              [8 SONIYADA AVTOMATIK OCR TRIAGE]
+            </div>
+            <div id="fileStatus" class="mono" style="font-size: 12px; color: #FFFFFF; font-weight: 500; margin-bottom: 10px;">
+              PDF yoki tahlil rasmini tashlang yoki tanlang
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
+              <button type="button" onclick="document.getElementById('labFileInput').click()" class="btn-acid mono" style="font-size: 11px; padding: 6px 14px;">
+                Faylni Tanlash &rarr;
+              </button>
+            </div>
+
+            <!-- Fast 1-Click Real Sample Ingestion Pills -->
+            <div style="border-top: 1px solid var(--border-subtle); padding-top: 10px; margin-top: 8px;">
+              <div class="mono" style="font-size: 10px; color: var(--text-secondary); margin-bottom: 6px;">
+                Yoki tayyor laboratoriya namunalarini sinab ko'ring:
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;">
+                <button type="button" onclick="loadSampleToQueue('liver')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                  Intermed: Jigar
+                </button>
+                <button type="button" onclick="loadSampleToQueue('glucose')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                  De Facto: Qand
+                </button>
+                <button type="button" onclick="loadSampleToQueue('anemia')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                  Vitros: Temir
+                </button>
+              </div>
+            </div>
           </div>
-          <div id="fileStatus" class="mono" style="font-size: 12px; color: #FFFFFF; font-weight: 500; margin-bottom: 10px;">
-            PDF yoki tahlil rasmini tashlang yoki tanlang
-          </div>
-          
-          <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;">
-            <button type="button" onclick="document.getElementById('labFileInput').click()" class="btn-acid mono" style="font-size: 11px; padding: 6px 14px;">
-              Faylni Tanlash &rarr;
+
+          <!-- Manual Patient Info Form -->
+          <form onsubmit="handleManualSend(event)" style="display: flex; flex-direction: column; gap: 12px;">
+            <div>
+              <label class="mono" style="font-size: 10px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
+                BEMORNING TO'LIQ ISMI
+              </label>
+              <input type="text" id="manualName" required placeholder="Masalan: Sardor Rahimov" style="width: 100%; background: #0E0E0E; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
+            </div>
+
+            <div>
+              <label class="mono" style="font-size: 10px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
+                TELEFON RAQAMI
+              </label>
+              <input type="text" id="manualPhone" required placeholder="+998 90 123 45 67" style="width: 100%; background: #0E0E0E; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; font-family: var(--mono-font); outline: none;">
+            </div>
+
+            <button type="submit" id="sendBtn" class="btn-white mono" style="width: 100%; justify-content: center; padding: 10px; margin-top: 4px;">
+              Tahlilni O'qish va Shifokorga Biriktirish &rarr;
             </button>
-          </div>
+          </form>
 
-          <!-- Fast 1-Click Real Sample Ingestion Pills -->
-          <div style="border-top: 1px solid var(--border-subtle); padding-top: 10px; margin-top: 8px;">
-            <div class="mono" style="font-size: 10px; color: var(--text-secondary); margin-bottom: 6px;">
-              Yoki tayyor laboratoriya namunalarini sinab ko'ring:
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;">
-              <button type="button" onclick="loadSampleToQueue('liver')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
-                Intermed: Jigar
-              </button>
-              <button type="button" onclick="loadSampleToQueue('glucose')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
-                De Facto: Qand
-              </button>
-              <button type="button" onclick="loadSampleToQueue('anemia')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
-                Vitros: Temir
-              </button>
-            </div>
+          <div id="manualFeedback" class="mono" style="display: none; font-size: 11px; color: #FFFFFF; background: rgba(255,255,255,0.08); padding: 8px; border-radius: 6px; margin-top: 12px; text-align: center;">
+            [OK] Bemor tahlili o'qildi va navbatga qo'shildi!
           </div>
         </div>
 
-        <!-- Manual Patient Info Form -->
-        <form onsubmit="handleManualSend(event)" style="display: flex; flex-direction: column; gap: 12px;">
-          <div>
-            <label class="mono" style="font-size: 10px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
-              BEMORNING TO'LIQ ISMI
-            </label>
-            <input type="text" id="manualName" required placeholder="Masalan: Sardor Rahimov" style="width: 100%; background: #0E0E0E; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; outline: none;">
+        <!-- Doctor Room Roster Matrix -->
+        <div class="bento-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div>
+              <div class="mono" style="font-size: 10px; color: var(--accent-acid); letter-spacing: 0.05em; text-transform: uppercase;">
+                [KABINETLAR TELEMETRIYASI]
+              </div>
+              <h4 style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">
+                Shifokorlar va Xonalar Bandligi
+              </h4>
+            </div>
+            <span class="mono" style="font-size: 9px; padding: 2px 6px; background: rgba(198,244,50,0.12); color: var(--accent-acid); border: 1px solid rgba(198,244,50,0.3); border-radius: 4px;">
+              ● 3 XONA FAOL
+            </span>
           </div>
 
-          <div>
-            <label class="mono" style="font-size: 10px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
-              TELEFON RAQAMI
-            </label>
-            <input type="text" id="manualPhone" required placeholder="+998 90 123 45 67" style="width: 100%; background: #0E0E0E; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 8px 12px; color: #FFF; font-size: 13px; font-family: var(--mono-font); outline: none;">
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Doctor 1 -->
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: #FFF;">Dr. Shirinov X. I.</div>
+                <div class="mono" style="font-size: 10px; color: var(--text-secondary);">Gepatolog &bull; 14-xona (2-qavat)</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="mono" style="font-size: 11px; font-weight: 700; color: var(--accent-acid);">4 band / 2 bo'sh</div>
+                <div class="mono" style="font-size: 9px; color: var(--text-muted);">Keyingi slot: 11:30</div>
+              </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: #FFF;">Dr. Karimova D. B.</div>
+                <div class="mono" style="font-size: 10px; color: var(--text-secondary);">Endokrinolog &bull; 8-xona (1-qavat)</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="mono" style="font-size: 11px; font-weight: 700; color: #FFFFFF;">3 band / 3 bo'sh</div>
+                <div class="mono" style="font-size: 9px; color: var(--text-muted);">Keyingi slot: 12:00</div>
+              </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <div style="font-size: 12px; font-weight: 600; color: #FFF;">Dr. Usmonov S. T.</div>
+                <div class="mono" style="font-size: 10px; color: var(--text-secondary);">Terapevt &bull; 3-xona (1-qavat)</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="mono" style="font-size: 11px; font-weight: 700; color: var(--accent-acid);">5 band / 1 bo'sh</div>
+                <div class="mono" style="font-size: 9px; color: var(--text-muted);">Keyingi slot: 14:00</div>
+              </div>
+            </div>
           </div>
-
-          <button type="submit" id="sendBtn" class="btn-white mono" style="width: 100%; justify-content: center; padding: 10px; margin-top: 4px;">
-            Tahlilni O'qish va Shifokorga Biriktirish &rarr;
-          </button>
-        </form>
-
-        <div id="manualFeedback" class="mono" style="display: none; font-size: 11px; color: #FFFFFF; background: rgba(255,255,255,0.08); padding: 8px; border-radius: 6px; margin-top: 12px; text-align: center;">
-          [OK] Bemor tahlili o'qildi va navbatga qo'shildi!
         </div>
       </div>
 
