@@ -161,3 +161,22 @@
   3. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, json telemetriyasi, shartnomalar va zero-emoji qoidalarini avtomatlashtirilgan tarzda tekshirish (100% green).
 - **Kim uchun:** Samarqand va Toshkentdagi ikki tilli bemorlar, registratura operatorlari va klinika IT ma'murlari.
 - **Format:** `public/reception.html`, `public/mini_app.html`, `scripts/test_system_integrity.py`, Vercel production deploy (`https://turnir-launch-lab.vercel.app`), Git commit.
+
+
+### Prompt #12 / 500: Partner Clinic Dossiers, Dynamic Deep-Link Outreach & Official Commercial Proposal Generator (PDF/Print)
+- **Kim siz:** Principal Healthcare B2B Growth Engineer & Clinic Systems Architect.
+- **Nima kerak:**
+  1. `public/clinic-roi.html` dagi tezkor shablonlarni Samarqand va Toshkentdagi 4 ta real hamkor klinika dosyesiga kengaytirish:
+     - *Osiyo Medical Clinic* (Samarqand, Dagbitskaya 33 — 50 vrach, 110 bemor/kun, chek 160,000 UZS)
+     - *Afrosiyob Diagnostics* (Samarqand, Dahbed 12 — 35 vrach, 75 bemor/kun, chek 140,000 UZS)
+     - *Doktor D Poliklinikasi* (Toshkent, Chilonzor — 45 vrach, 90 bemor/kun, chek 180,000 UZS)
+     - *SamMed Markazi* (Samarqand, Gagarin 42 — 28 vrach, 60 bemor/kun, chek 150,000 UZS)
+  2. Boshqaruv kengashi va bosh shifokorlar uchun to'g'ridan-to'g'ri aloqa konsoli (Executive Outreach Console):
+     - Telegram orqali Jasur Shukurovga yozish (`https://t.me/jasurceo?text=...`) — slaydlar bo'yicha hisoblangan oylik yo'qotish va qaytariladigan daromad parametrlari matnga dinamik URL-kodlangan bo'ladi.
+     - 14-kunlik kafolatlangan pilot LOI shartnomasini bevosita ko'rish va yuklab olish (`/loi.pdf`).
+  3. Bosh vrachlar uchun 1-bosishda "Rasmiy Tijoriy Taklif" (`#commercialProposalModal`) generatori:
+     - Diego 60-30-10 dizayni asosidagi monoxrom, yuqori kontrastli rasmiy hujjat darchasi: taklif raqami (`#ML-TAK/2026`), klinika nomi, kunlik laboratoriya oqimi, oylik zaruriyat (Bleed), MedLoop orqali tiklanuvchi tushum, 800,000 UZS obuna, ROI karraligi, 14 kunlik xavf-xatarsiz kafolat va Jasur Shukurovning aloqa rekvizitlari.
+     - Bir bosishda to'g'ridan-to'g'ri chop etish (`window.print()`) yoki PDF qilib saqlash imkoniyati (`@media print` optimallashtirilgan).
+  4. `.btn-acid` uslubini to'liq CSS spetsifikatsiyasiga kiritish va barcha interfeyslarda 0 ta emoji qoidasiga 100% rioya qilish.
+- **Kim uchun:** Samarqand va Toshkent xususiy klinikalari bosh shifokorlari, boshqaruv kengashi a'zolari va Launch Lab Track B investorlari.
+- **Format:** `public/clinic-roi.html`, `scripts/test_system_integrity.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
