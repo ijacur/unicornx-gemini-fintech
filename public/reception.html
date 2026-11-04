@@ -466,7 +466,7 @@
       }
 
       container.innerHTML = filtered.map(p => `
-        <div class="bento-card" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 10px;">
+        <div class="bento-card" onclick="openPatientDrawer(${p.id})" style="padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; cursor: pointer; transition: all 0.15s ease;">
           <div style="display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
               <div style="display: flex; align-items: center; gap: 8px;">
@@ -475,6 +475,7 @@
                 </span>
                 <span style="font-size: 14px; font-weight: 600; color: #FFFFFF;">${p.name}</span>
                 <span class="mono" style="font-size: 11px; color: var(--text-secondary);">${p.phone}</span>
+                <span class="mono" style="font-size: 10px; color: var(--accent-acid); opacity: 0.85;">[Batafsil &rarr;]</span>
               </div>
               <div class="mono" style="font-size: 11px; color: #CCCCCC; margin-top: 4px;">
                 ${p.markers}
@@ -496,14 +497,14 @@
                   TASDIQLANDI (+150,000 UZS)
                 </span>
               ` : `
-                <button onclick="confirmPatient(${p.id})" class="btn-acid mono" style="padding: 4px 10px; font-size: 11px;">
+                <button onclick="event.stopPropagation(); confirmPatient(${p.id})" class="btn-acid mono" style="padding: 4px 10px; font-size: 11px;">
                   Qabulni Tasdiqlash
                 </button>
               `}
-              <button onclick="sendTelegramReminder(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px; border-color: rgba(198,244,50,0.35); color: var(--accent-acid);">
+              <button onclick="event.stopPropagation(); sendTelegramReminder(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px; border-color: rgba(198,244,50,0.35); color: var(--accent-acid);">
                 [TG/SMS Yuborish &rarr;]
               </button>
-              <button onclick="reschedulePatient(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px;">
+              <button onclick="event.stopPropagation(); reschedulePatient(${p.id})" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px;">
                 Vaqt
               </button>
             </div>
@@ -716,8 +717,168 @@
       updateCounts();
     }
 
+    let activePatientId = null;
+
+    function openPatientDrawer(id) {
+      const p = patients.find(item => item.id === id);
+      if (!p) return;
+      activePatientId = id;
+      playClinicalChime('click');
+
+      document.getElementById('drawerPatientName').innerText = p.name;
+      document.getElementById('drawerPhone').innerText = p.phone;
+      document.getElementById('drawerUrgency').innerText = p.urgency === 'RED' ? '[QIZIL: SHOSHILINCH]' : '[SARIQ: DIQQAT]';
+      document.getElementById('drawerUrgency').style.color = p.urgency === 'RED' ? '#FF453A' : 'var(--accent-acid)';
+      document.getElementById('drawerTime').innerText = p.time;
+      document.getElementById('drawerDoctor').innerText = p.doctor;
+      document.getElementById('drawerSpecialty').innerText = p.specialty;
+      document.getElementById('drawerSlot').innerText = p.slot;
+
+      // Guidance note based on markers
+      let guidance = "";
+      if (p.markers.includes("ALT") || p.markers.includes("Bilirubin")) {
+        guidance = "Bemor tahlilida jigar fermentlarining (ALT/AST) ruxsat etilgan me'yordan ortishi kuzatilgan. Spetsifik tekshiruv va parhez rejasini tuzish uchun zudlik bilan Gepatolog ko'rigiga yo'naltirilgan.";
+      } else if (p.markers.includes("HbA1c") || p.markers.includes("Glyukoza")) {
+        guidance = "Glyukozaning yuqori darajasi metabolik sindrom va qandli diabet xavfini ko'rsatmoqda. Endokrinolog konsultatsiyasi va qand nazorati talab etiladi.";
+      } else if (p.markers.includes("Ferritin") || p.markers.includes("Hb") || p.markers.includes("Gemoglobin")) {
+        guidance = "Ferritin va gemoglobin miqdori normadan past (anemiya sindromi). Bemorga temir preparatlari va terapevt tekshiruvi tavsiya qilingan.";
+      } else {
+        guidance = "Klinik ko'rsatkichlar me'yor chegarasida yoki profilaktik ko'rik talab etiladi.";
+      }
+      document.getElementById('drawerGuidance').innerText = guidance;
+
+      // Markers
+      const markersHtml = p.markers.split('•').map(m => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px;">
+          <span class="mono" style="font-size: 12px; color: #FFF;">${m.trim()}</span>
+          <span class="mono" style="font-size: 10px; color: ${p.urgency === 'RED' ? '#FF453A' : 'var(--accent-acid)'}; font-weight: 700;">[ANOMAL]</span>
+        </div>
+      `).join('');
+      document.getElementById('drawerBiomarkers').innerHTML = markersHtml;
+
+      // Buttons state
+      const confBtn = document.getElementById('drawerConfirmBtn');
+      if (p.status === 'CONFIRMED') {
+        confBtn.innerText = "TASDIQLANGAN (+150k UZS)";
+        confBtn.style.opacity = "0.6";
+        confBtn.disabled = true;
+      } else {
+        confBtn.innerText = "Qabulni Tasdiqlash (+150k UZS)";
+        confBtn.style.opacity = "1";
+        confBtn.disabled = false;
+      }
+
+      // Open drawer
+      const overlay = document.getElementById('drawerOverlay');
+      const drawer = document.getElementById('patientDrawer');
+      overlay.style.display = 'block';
+      setTimeout(() => {
+        overlay.style.opacity = '1';
+        drawer.style.right = '0px';
+      }, 10);
+    }
+
+    function closePatientDrawer() {
+      const overlay = document.getElementById('drawerOverlay');
+      const drawer = document.getElementById('patientDrawer');
+      overlay.style.opacity = '0';
+      drawer.style.right = '-520px';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        activePatientId = null;
+      }, 250);
+    }
+
+    function confirmFromDrawer() {
+      if (activePatientId) {
+        confirmPatient(activePatientId);
+        openPatientDrawer(activePatientId);
+      }
+    }
+
+    function sendTgFromDrawer() {
+      if (activePatientId) {
+        sendTelegramReminder(activePatientId);
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closePatientDrawer();
+      }
+    });
+
     renderQueue();
     updateCounts();
   </script>
+
+  <!-- Patient Detail Drawer (Apple Pro Inspector) -->
+  <div id="drawerOverlay" onclick="closePatientDrawer()" style="display: none; opacity: 0; position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(10px); z-index: 998; transition: opacity 0.2s ease;"></div>
+  
+  <div id="patientDrawer" style="position: fixed; top: 0; right: -520px; width: 480px; max-width: 92vw; height: 100vh; background: #0A0A0A; border-left: 1px solid var(--border-subtle); box-shadow: -12px 0 40px rgba(0,0,0,0.85); z-index: 999; display: flex; flex-direction: column; transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);">
+    <div style="padding: 24px 28px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div class="mono" style="font-size: 11px; color: var(--accent-acid); letter-spacing: 0.08em; text-transform: uppercase;">[KLINIK TEKSHIRUV PROTOKOLI]</div>
+        <h3 id="drawerPatientName" style="font-size: 20px; font-weight: 700; color: #FFF; margin: 4px 0 0 0; letter-spacing: -0.02em;">Bemor Ismi</h3>
+      </div>
+      <button onclick="closePatientDrawer()" class="btn-glass mono" style="padding: 6px 12px; font-size: 12px;">ESC &times;</button>
+    </div>
+
+    <div style="flex: 1; overflow-y: auto; padding: 24px 28px; display: flex; flex-direction: column; gap: 20px;">
+      <!-- Patient Meta -->
+      <div class="bento-card" style="padding: 16px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">BEMORNING IDENTIFIKATSIYASI</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+          <div>Telefon: <span id="drawerPhone" class="mono" style="color: #FFF; font-weight: 600;">+998...</span></div>
+          <div>Holati: <span id="drawerUrgency" class="mono" style="font-weight: 700;">NORMAL</span></div>
+          <div>Filial: <span class="mono" style="color: #FFF;">Osiyo Medical</span></div>
+          <div>Qayd vaqti: <span id="drawerTime" class="mono" style="color: #FFF;">--:--</span></div>
+        </div>
+      </div>
+
+      <!-- Biomarkers -->
+      <div class="bento-card" style="padding: 16px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 12px;">ANIQLANGAN PATOLOGIK KO'RSATKICHLAR (OCR)</div>
+        <div id="drawerBiomarkers" style="display: flex; flex-direction: column; gap: 8px;">
+          <!-- Dynamically injected -->
+        </div>
+      </div>
+
+      <!-- Clinical Triage Guidance -->
+      <div class="bento-card" style="padding: 16px; border-color: rgba(198, 244, 50, 0.25);">
+        <div class="mono" style="font-size: 11px; color: var(--accent-acid); margin-bottom: 8px;">[KLINIK XULOSA VA TAVSIYA]</div>
+        <p id="drawerGuidance" style="font-size: 13px; line-height: 1.6; color: #E0E0E0; margin: 0;">
+          Tahlil xulosasi kutilmoqda...
+        </p>
+      </div>
+
+      <!-- Doctor Slot Assignment -->
+      <div class="bento-card" style="padding: 16px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">BIRIKTIRILGAN SHIFOKOR VA QABUL VAQTI</div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div id="drawerDoctor" style="font-size: 15px; font-weight: 600; color: #FFF;">Dr. Alimov N. K.</div>
+            <div id="drawerSpecialty" class="mono" style="font-size: 12px; color: var(--accent-acid);">Gepatolog</div>
+          </div>
+          <div id="drawerSlot" class="mono badge-monochrome" style="font-size: 12px; color: #FFF;">Ertaga 10:00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Footer -->
+    <div style="padding: 20px 28px; border-top: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 10px; background: #080808;">
+      <div style="display: flex; gap: 10px;">
+        <button id="drawerConfirmBtn" onclick="confirmFromDrawer()" class="btn-acid mono" style="flex: 1; padding: 12px; font-size: 13px;">
+          Qabulni Tasdiqlash (+150k UZS)
+        </button>
+        <button id="drawerTgBtn" onclick="sendTgFromDrawer()" class="btn-glass mono" style="flex: 1; padding: 12px; font-size: 13px; border-color: rgba(198,244,50,0.35); color: var(--accent-acid);">
+          [Telegram Xabarnoma]
+        </button>
+      </div>
+      <button onclick="closePatientDrawer()" class="btn-glass mono" style="width: 100%; padding: 8px; font-size: 11px; color: var(--text-muted);">
+        Yopish [ESC]
+      </button>
+    </div>
+  </div>
 </body>
 </html>
