@@ -9,6 +9,7 @@
   <!-- Typography: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <style>
@@ -182,19 +183,78 @@
       color: var(--text-primary);
     }
 
-    /* Bento Card Physics */
+    /* 4D ULTRA GRAPHICS BENTO CARD PHYSICS */
     .bento-card {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.005) 100%);
+      background: linear-gradient(180deg, rgba(18, 18, 20, 0.75) 0%, rgba(10, 10, 12, 0.88) 100%);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
-      padding: 24px;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      padding: 28px;
       position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
+    /* 4D Dynamic Cursor Specular Border Glare */
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: radial-gradient(500px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(198, 244, 50, 0.18), transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .bento-card:hover::before {
+      opacity: 1;
+    }
     .bento-card:hover {
-      border-color: var(--border-hover);
+      border-color: rgba(198, 244, 50, 0.35);
+      box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.95), 0 0 35px rgba(198, 244, 50, 0.1);
+    }
+
+    /* Tactile Spring Buttons */
+    .btn-acid, .btn-glass, .btn-white {
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease !important;
+      will-change: transform;
+      user-select: none;
+    }
+    .btn-acid:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 35px rgba(198, 244, 50, 0.55);
+    }
+    .btn-acid:active, .btn-glass:active, .btn-white:active {
+      transform: translateY(2px) scale(0.96) !important;
+    }
+
+    /* Floating Revenue Toast Animation */
+    @keyframes floatUpFade {
+      0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+      20% { opacity: 1; transform: translateY(0) scale(1.1); }
+      75% { opacity: 1; transform: translateY(-15px) scale(1); }
+      100% { opacity: 0; transform: translateY(-30px) scale(0.9); }
+    }
+    .floating-revenue-toast {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      font-family: var(--mono-font);
+      font-size: 13px;
+      font-weight: 800;
+      color: #050505;
+      background: var(--accent-acid);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      box-shadow: 0 0 25px rgba(198, 244, 50, 0.6);
+      animation: floatUpFade 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: none;
+      z-index: 50;
     }
 
     /* 12-Column Asymmetric Bento Grid */
@@ -398,6 +458,8 @@
   </style>
 </head>
 <body>
+  <!-- 4D Real-Time Spatial Biomarker Mesh Canvas -->
+  <canvas id="spatialCanvas" style="position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; opacity: 0.65;"></canvas>
 
   <!-- Full-Screen SVG Noise Texture for Tactile Hardware Grain -->
   <svg class="noise-overlay" xmlns="http://www.w3.org/2000/svg">
@@ -960,19 +1022,19 @@
         row.style.display = 'flex';
         row.style.justifyContent = 'space-between';
         row.style.alignItems = 'center';
-        row.style.padding = '4px 0';
-        row.style.borderBottom = '1px solid rgba(255,255,255,0.04)';
+        row.style.padding = '5px 0';
+        row.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
         
         row.innerHTML = `
           <div>
             <div style="font-size: 11px; color: #FFFFFF; font-weight: 500;">${b.name}</div>
-            <div class="mono" style="font-size: 9px; color: #666666;">Ref: ${b.ref}</div>
+            <div class="mono" style="font-size: 9px; color: #777777;">Ref: ${b.ref}</div>
           </div>
           <div style="text-align: right;">
-            <span class="mono" style="font-size: 11px; font-weight: 600; color: ${isAbnormal ? '#FFFFFF' : '#888888'};">
+            <span class="mono" style="font-size: 11px; font-weight: 700; color: ${isAbnormal ? 'var(--accent-acid)' : '#888888'};">
               ${b.value}
             </span>
-            ${isAbnormal ? '<span class="mono" style="font-size: 8px; background: #FFFFFF; color: #000; padding: 1px 3px; border-radius: 2px; margin-left: 4px; font-weight: 700;">ABN</span>' : ''}
+            ${isAbnormal ? '<span class="mono" style="font-size: 8px; background: var(--accent-acid); color: #050505; padding: 1px 4px; border-radius: 2px; margin-left: 5px; font-weight: 800; box-shadow: 0 0 8px rgba(198,244,50,0.3);">ABN</span>' : ''}
           </div>
         `;
         container.appendChild(row);
@@ -983,24 +1045,26 @@
       currentSampleKey = key;
       const data = SAMPLES[key];
       
-      // Update Pills styling
+      // Update Pills styling with 60-30-10 Acid Lime active physics
       ['liver', 'glucose', 'anemia'].forEach(k => {
         const btn = document.getElementById('pill-' + k);
         if (k === key) {
-          btn.style.background = 'rgba(255, 255, 255, 0.12)';
-          btn.style.color = '#FFFFFF';
-          btn.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+          btn.style.background = 'rgba(198, 244, 50, 0.15)';
+          btn.style.color = '#C6F432';
+          btn.style.borderColor = 'rgba(198, 244, 50, 0.5)';
+          btn.style.boxShadow = '0 0 16px rgba(198, 244, 50, 0.25)';
         } else {
           btn.style.background = 'rgba(255, 255, 255, 0.04)';
           btn.style.color = 'var(--text-secondary)';
           btn.style.borderColor = 'var(--border-subtle)';
+          btn.style.boxShadow = 'none';
         }
       });
 
-      // Laser Sweep Animation
+      // Laser Sweep Animation in Acid Lime
       const laser = document.getElementById('laserLine');
       laser.classList.remove('laser-active');
-      void laser.offsetWidth; // trigger reflow
+      void laser.offsetWidth;
       laser.classList.add('laser-active');
 
       // Update text
@@ -1011,28 +1075,68 @@
       document.getElementById('bookingBtnText').innerText = data.buttonText;
     }
 
+    // Smooth Numeric Odometer Roll
+    function animateNumber(element, start, end, duration = 350) {
+      const startTime = performance.now();
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(start + (end - start) * easeOut);
+        element.innerText = current.toLocaleString('en-US');
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          element.innerText = end.toLocaleString('en-US');
+        }
+      }
+      requestAnimationFrame(update);
+    }
+
     // Trigger Rebooking Flywheel & Live Telemetry Count
     function triggerBooking() {
       const data = SAMPLES[currentSampleKey];
+      const prevRevenue = currentRevenue;
       currentRevenue += 150000;
       queueCount += 1;
 
-      // Animate revenue counter
+      // Smooth numeric roll
       const counterEl = document.getElementById('revenueCounter');
-      counterEl.innerText = currentRevenue.toLocaleString('en-US');
+      animateNumber(counterEl, prevRevenue, currentRevenue, 400);
       counterEl.classList.add('ticker-pop');
       setTimeout(() => counterEl.classList.remove('ticker-pop'), 250);
 
       document.getElementById('queueCount').innerText = `Showing ${queueCount} active bookings`;
       document.getElementById('counterNotice').innerText = `● Last Sync: Just now (+150,000 UZS slot held)`;
 
-      // Prepend to reception queue
+      // Spawn 4D Floating Revenue Toast
+      const parentBento = document.getElementById('revenueCounter').closest('.bento-card');
+      if (parentBento) {
+        const toast = document.createElement('div');
+        toast.className = 'floating-revenue-toast';
+        toast.innerText = '+150,000 UZS';
+        parentBento.appendChild(toast);
+        setTimeout(() => toast.remove(), 1300);
+      }
+
+      // 4D Confetti Blast in Acid Lime & Platinum
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 45,
+          spread: 75,
+          origin: { x: 0.78, y: 0.45 },
+          colors: ['#C6F432', '#FFFFFF', '#D2F74E', '#111111'],
+          disableForReducedMotion: true
+        });
+      }
+
+      // Prepend to reception queue with specular entry
       const queueList = document.getElementById('queueList');
       const newCard = document.createElement('div');
       newCard.className = 'bento-card';
-      newCard.style.padding = '10px 14px';
-      newCard.style.background = 'rgba(255, 255, 255, 0.05)';
-      newCard.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+      newCard.style.padding = '12px 16px';
+      newCard.style.background = 'rgba(198, 244, 50, 0.05)';
+      newCard.style.borderColor = 'rgba(198, 244, 50, 0.35)';
       newCard.style.display = 'flex';
       newCard.style.justifyContent = 'space-between';
       newCard.style.alignItems = 'center';
@@ -1044,28 +1148,37 @@
           <div class="mono" style="font-size: 11px; color: var(--text-secondary);">${data.specialist} • ${data.slot} • ${data.biomarkerShort}</div>
         </div>
         <div style="text-align: right;">
-          <span class="badge-pass" style="background: #FFFFFF; color: #000000;">NEW HELD</span>
-          <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 2px;">+150,000 UZS</div>
+          <span class="badge-pass" style="background: var(--accent-acid); color: #050505;">RECOVERED</span>
+          <div class="mono" style="font-size: 11px; color: var(--accent-acid); margin-top: 2px; font-weight: 700;">+150,000 UZS</div>
         </div>
       `;
 
       queueList.insertBefore(newCard, queueList.firstChild);
 
-      // Button feedback
+      // Button feedback with tactile spring
       const btn = document.getElementById('bookingBtn');
       const originalText = document.getElementById('bookingBtnText').innerText;
       document.getElementById('bookingBtnText').innerText = "✓ Slot Held in Clinic Queue!";
-      btn.style.background = "#D4D4D8";
+      btn.style.background = "#D2F74E";
       setTimeout(() => {
         document.getElementById('bookingBtnText').innerText = originalText;
-        btn.style.background = "#FFFFFF";
+        btn.style.background = "var(--accent-acid)";
       }, 1400);
     }
 
-    // B2B ROI Calculator
+    // B2B ROI Calculator with Dynamic Slider Track Fill
     function calculateROI() {
-      const dailyPatients = parseInt(document.getElementById('sliderPatients').value, 10);
-      const check = parseInt(document.getElementById('sliderCheck').value, 10);
+      const sliderP = document.getElementById('sliderPatients');
+      const sliderC = document.getElementById('sliderCheck');
+      const dailyPatients = parseInt(sliderP.value, 10);
+      const check = parseInt(sliderC.value, 10);
+
+      // Update dynamic slider track progress
+      const pPercent = ((dailyPatients - 10) / (150 - 10)) * 100;
+      sliderP.style.background = `linear-gradient(to right, #C6F432 0%, #C6F432 ${pPercent}%, rgba(255,255,255,0.15) ${pPercent}%, rgba(255,255,255,0.15) 100%)`;
+      
+      const cPercent = ((check - 100000) / (300000 - 100000)) * 100;
+      sliderC.style.background = `linear-gradient(to right, #C6F432 0%, #C6F432 ${cPercent}%, rgba(255,255,255,0.15) ${cPercent}%, rgba(255,255,255,0.15) 100%)`;
 
       document.getElementById('dailyPatientsVal').innerText = dailyPatients;
       document.getElementById('consultationCheckVal').innerText = check.toLocaleString('en-US') + ' UZS';
@@ -1087,10 +1200,145 @@
       document.getElementById('roiMultiplier').innerText = roi + 'x';
     }
 
+    // =========================================================================
+    // 4D SPATIAL TILT & SPECULAR MOUSE TRACKING ENGINE
+    // =========================================================================
+    function init4DEngine() {
+      // 1. Dynamic Cursor Coordinates for Border Glow
+      document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.bento-card, .iphone-frame');
+        cards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+
+      // 2. 3D Perspective Tilt on Interactive Cards
+      const tiltElements = document.querySelectorAll('.bento-card, .iphone-frame');
+      tiltElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -5;
+          const rotateY = ((x - centerX) / centerX) * 5;
+          el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.01, 1.01, 1.01)`;
+        });
+
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+
+      // 3. 4D Real-Time Spatial Biomarker Mesh Canvas
+      const canvas = document.getElementById('spatialCanvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        const points = [];
+        const numPoints = 28;
+        for (let i = 0; i < numPoints; i++) {
+          points.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.45,
+            vy: (Math.random() - 0.5) * 0.45,
+            radius: Math.random() * 1.8 + 0.8
+          });
+        }
+
+        let mouseX = -1000;
+        let mouseY = -1000;
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        function animateSpatialMesh() {
+          ctx.clearRect(0, 0, width, height);
+
+          // Update and draw points
+          for (let i = 0; i < numPoints; i++) {
+            const p = points[i];
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+
+            // Soft mouse repulsion
+            const dx = mouseX - p.x;
+            const dy = mouseY - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              p.x -= (dx / dist) * 0.8;
+              p.y -= (dy / dist) * 0.8;
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(198, 244, 50, 0.45)';
+            ctx.fill();
+
+            // Connect nearby points with delicate filaments
+            for (let j = i + 1; j < numPoints; j++) {
+              const p2 = points[j];
+              const d2x = p.x - p2.x;
+              const d2y = p.y - p2.y;
+              const d2 = Math.sqrt(d2x * d2x + d2y * d2y);
+              if (d2 < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = `rgba(198, 244, 50, ${0.12 * (1 - d2 / 120)})`;
+                ctx.lineWidth = 0.75;
+                ctx.stroke();
+              }
+            }
+          }
+
+          requestAnimationFrame(animateSpatialMesh);
+        }
+        requestAnimationFrame(animateSpatialMesh);
+      }
+
+      // 4. Keyboard Shortcuts ("Can't escape or skip or not clicking")
+      window.addEventListener('keydown', (e) => {
+        // Prevent shortcuts if user is typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === '1') {
+          loadSample('liver');
+        } else if (e.key === '2') {
+          loadSample('glucose');
+        } else if (e.key === '3') {
+          loadSample('anemia');
+        } else if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          triggerBooking();
+        } else if (e.key === 'Escape') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+
     // Initialize on load
     window.addEventListener('DOMContentLoaded', () => {
-      renderBiomarkers(SAMPLES.liver.biomarkers);
+      loadSample('liver');
       calculateROI();
+      init4DEngine();
     });
   </script>
 </body>
