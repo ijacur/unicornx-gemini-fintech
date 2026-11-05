@@ -260,7 +260,7 @@ export const NeonShooter: React.FC = () => {
                   gameId: 'neon-starfighter',
                   gameTitle: 'Neon Starfighter',
                   score: stateRef.current.score,
-                  avatar: '🛸',
+                  avatar: '[INNOVATSIYA]',
                 });
               }
               return newLives;
@@ -366,7 +366,7 @@ export const NeonShooter: React.FC = () => {
           <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center animate-fadeIn">
             {gameState === 'IDLE' ? (
               <>
-                <div className="text-4xl mb-2">🛸</div>
+                <div className="text-4xl mb-2">[INNOVATSIYA]</div>
                 <h3 className="text-2xl font-black text-white tracking-wide">
                   Neon Starfighter: Bullet Blitz
                 </h3>
@@ -383,7 +383,7 @@ export const NeonShooter: React.FC = () => {
               </>
             ) : (
               <>
-                <div className="text-4xl mb-2">💥</div>
+                <div className="text-4xl mb-2">[ACTION]</div>
                 <h3 className="text-2xl font-black text-rose-400 tracking-wide">
                   Kemangiz Portlatildi!
                 </h3>

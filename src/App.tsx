@@ -125,10 +125,10 @@ export default function App() {
     triggerConfetti()
     setSaveToast(
       lang === 'uz'
-        ? "🇺🇿 Til O'zbekchaga o'zgartirildi!"
+        ? "[UZ] Til O'zbekchaga o'zgartirildi!"
         : lang === 'ru'
-        ? "🇷🇺 Язык переключён на Русский!"
-        : "🇬🇧 Language switched to English!"
+        ? "[RU] Язык переключён на Русский!"
+        : "[EN] Language switched to English!"
     )
     setTimeout(() => setSaveToast(null), 2500)
   }
@@ -777,7 +777,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
   // Copy Prompt Engineering Dossier
   const handleCopyDossier = () => {
-    const dossier = `# 🤖 Досье промпт-инжиниринга: School 21 • Launch Lab 21
+    const dossier = `# [AI] Досье промпт-инжиниринга: School 21 • Launch Lab 21
 Команда: ${currentProject.name} (${currentProject.teamMembers})
 Формула промптов: [KIM SIZ] + [NIMA KERAK] + [KIM UCHUN] + [FORMAT]
 
@@ -1775,8 +1775,8 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                       }`}
                     >
                       {staffLockEnabled
-                        ? '🔒 Только сотрудники (Staff Only: PIN 2121)'
-                        : '🔓 Открытый доступ для всех (Public Edit)'}
+                        ? '[XAVFSIZ] Только сотрудники (Staff Only: PIN 2121)'
+                        : '[OCHIQ] Открытый доступ для всех (Public Edit)'}
                     </span>
                   </div>
                   <p className="text-[11px] text-[#86868b] mt-0.5">
@@ -1993,14 +1993,14 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                           className="px-2 py-1 rounded-full bg-white/5 hover:bg-white/15 text-[11px] border border-white/10 transition"
                           title="Огонь"
                         >
-                          🔥 {proj.reactions?.fire || 0}
+                          [FAOL] {proj.reactions?.fire || 0}
                         </button>
                         <button
                           onClick={() => handleAddReaction(proj.id, 'rocket')}
                           className="px-2 py-1 rounded-full bg-white/5 hover:bg-white/15 text-[11px] border border-white/10 transition"
                           title="Ракета"
                         >
-                          🚀 {proj.reactions?.rocket || 0}
+                          [START] {proj.reactions?.rocket || 0}
                         </button>
                       </div>
                     </div>
@@ -2344,7 +2344,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition transform hover:scale-125 active:scale-95"
                         title="Olov / Огонь"
                       >
-                        🔥
+                        [FAOL]
                       </button>
                       <span className="text-[9px] font-mono font-bold text-zinc-300">
                         {reactions.fire || 0}
@@ -2355,7 +2355,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition transform hover:scale-125 active:scale-95"
                         title="Unicorn / Единорог"
                       >
-                        🦄
+                        [UNICORN]
                       </button>
                       <span className="text-[9px] font-mono font-bold text-zinc-300">
                         {reactions.unicorn || 0}
@@ -2366,7 +2366,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                         className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-xs transition transform hover:scale-125 active:scale-95"
                         title="Raketa / Ракета"
                       >
-                        🚀
+                        [START]
                       </button>
                       <span className="text-[9px] font-mono font-bold text-zinc-300">
                         {reactions.rocket || 0}
@@ -2496,7 +2496,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
                     <div className="flex items-center gap-2 pt-1 text-[10px] text-[#86868b] font-mono overflow-hidden">
                       <Music className="w-3 h-3 text-white animate-spin" />
                       <div className="truncate text-zinc-300">
-                        <span>🎵 School 21 • Launch Lab 21 Pitch Audio (Original) • {currentReel.name}</span>
+                        <span>[AUDIO] School 21 • Launch Lab 21 Pitch Audio (Original) • {currentReel.name}</span>
                       </div>
                     </div>
                   </div>
@@ -2574,7 +2574,7 @@ ${currentProject.answers[m.id]?.trim() || '[Модуль пока не запо�
 
                     {/* Quick Reactions Bar */}
                     <div className="flex items-center gap-1.5 overflow-x-auto py-1">
-                      {['🔥 Ajoyib g\'oya!', '🚀 1-o\'rin loyiq!', '🦄 Investitsiya tayyor!', '💡 Bozor kutilgandek!'].map((emoji) => (
+                      {['[FAOL] Ajoyib g\'oya!', '[START] 1-o\'rin loyiq!', '[UNICORN] Investitsiya tayyor!', '[GOYA] Bozor kutilgandek!'].map((emoji) => (
                         <button
                           key={emoji}
                           onClick={() => setNewReelComment(emoji)}

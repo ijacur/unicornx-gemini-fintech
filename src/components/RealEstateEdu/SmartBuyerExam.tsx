@@ -340,7 +340,7 @@ export const SmartBuyerExam: React.FC = () => {
               <div className="p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-6 shadow-2xl animate-fadeIn">
                 <div className="space-y-2">
                   <div className="text-4xl">
-                    {score >= 4 ? '🏆' : '📚'}
+                    {score >= 4 ? '[YUTUQ]' : '[QOLLANMA]'}
                   </div>
                   <h4 className="text-2xl font-black text-white">
                     {score >= 4 ? 'Tabriklaymiz! Siz Haqiqiy Aqlli Xaridorsiz!' : 'Yana Ozgina O‘rganish Kerak'}

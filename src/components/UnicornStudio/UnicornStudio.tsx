@@ -189,7 +189,7 @@ export const UnicornStudio: React.FC = () => {
           </form>
 
           <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10 text-xs text-zinc-300 leading-relaxed space-y-2">
-            <span className="font-bold text-white block">💡 Demo Day kafolati:</span>
+            <span className="font-bold text-white block">[GOYA] Demo Day kafolati:</span>
             <p>
               Agar API kalitingiz bo'lmasa yoki internet tezligi past bo'lsa, xavotir olmang! Tizimda o'rnatilgan yuqori aniqlikdagi mahalliy emulyator mavjud bo'lib, ICT Week taqdimotida hech qanday kechikishsiz cheklarni skanerlaydi va o'yin dialoglarini namoyish etadi.
             </p>

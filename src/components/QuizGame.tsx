@@ -194,7 +194,7 @@ export const QuizGame: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 font-sans">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg">
-        <h1 className="text-2xl font-bold text-center text-blue-900 mb-6">🏆 Liderlar Do'skasi</h1>
+        <h1 className="text-2xl font-bold text-center text-blue-900 mb-6">[YUTUQ] Liderlar Do'skasi</h1>
         {hasPlayed && (
           <div className="bg-green-100 text-green-800 p-4 rounded-lg text-center mb-6">
             Sizning natijangiz: <strong>{score} / {QUESTIONS.length}</strong>

@@ -31,6 +31,13 @@ def check_emojis():
         os.path.join(MEDLOOP_DIR, "bot", "keyboards.py"),
         os.path.join(MEDLOOP_DIR, "engine", "summarizer.py")
     ]
+    # Include all React & TypeScript sources in src/
+    src_dir = os.path.join(TURNIR_DIR, "src")
+    if os.path.exists(src_dir):
+        for root, dirs, files in os.walk(src_dir):
+            for f in sorted(files):
+                if f.endswith(('.ts', '.tsx', '.js', '.jsx', '.css')):
+                    files_to_check.append(os.path.join(root, f))
     emoji_pattern = re.compile(r"[\U00010000-\U0010ffff]")
     violations = 0
     for path in files_to_check:

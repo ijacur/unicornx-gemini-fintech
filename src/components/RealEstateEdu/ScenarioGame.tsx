@@ -18,7 +18,7 @@ export const SCENARIO_CASES: ScenarioCase[] = [
     tag: 'Novostroyka',
     characterName: 'Bobur «Brendfeys»',
     characterRole: 'Instagram bloger & Yangi dom ambassadori',
-    characterAvatar: '🏎️',
+    characterAvatar: '[TEZLIK]️',
     situation:
       'Instagramda 26 yoshida millioner bo‘lganini aytib, Tahoe va Malibu mashinalarida yurgan yigit sizni yangi dom kotlovaniga taklif qildi. «Aka, o‘zim qurdiryapman, 100% kafolat, 1 yilda bitadi, 50%ini hozir bersangiz kvadratini 5 mln dan beraman» deya chiroyli qizlar orqali qahva quydirib shartnoma uzatmoqda.',
     offerPrice: 'Kvadratura: 70 m² | Taklif narxi: 350,000,000 UZS ($28,000)',
@@ -58,7 +58,7 @@ export const SCENARIO_CASES: ScenarioCase[] = [
     tag: 'Novostroyka',
     characterName: 'Murod Makler',
     characterRole: 'Rieltorlik agentligi vakili',
-    characterAvatar: '🏢',
+    characterAvatar: '[OFIS]',
     situation:
       'Bozorda domlarning kvadrati 8–9 mln so‘m bo‘lib turgan bir paytda, makler sizga Family Park atrofidagi yangi domni 5.2 mln so‘mdan taklif qildi. «Aka, shoshiling, quruvchiga srochno pul kerak bo‘lib tannarxida sotyapti, bunaqa narx Samarqandda boshqa yo‘q!» deya shoshiltirmoqda.',
     offerPrice: 'Kvadratura: 80 m² | 416,000,000 UZS (Bozordan 220 mln arzon)',
@@ -97,7 +97,7 @@ export const SCENARIO_CASES: ScenarioCase[] = [
     tag: 'Novostroyka',
     characterName: 'Qo‘chqor aka',
     characterRole: 'O‘z hovlisiga dom qurgan shaxs',
-    characterAvatar: '🧱',
+    characterAvatar: '[BLOK]',
     situation:
       'Katta hovli ichiga 6 qavatli g‘ishtin dom qurilgan. Sotuvchi: «Ukam, o‘zim uchun mustahkam qilib qurganman. Kadastri hali chiqmadi, lekin notariusdan tilxat (tirxat) qilib beraman, 6 oydan keyin kadastri chiqsa o‘z nomingizga o‘tkazib olasiz, unga qadar bemalol yashayvering» demoqda.',
     offerPrice: 'Kvadratura: 65 m² | 280,000,000 UZS (Juda arzon)',
@@ -136,7 +136,7 @@ export const SCENARIO_CASES: ScenarioCase[] = [
     tag: 'Shartnoma va Huquq',
     characterName: 'Abror Sotuvchi',
     characterRole: 'Kvartira egasi',
-    characterAvatar: '📜',
+    characterAvatar: '[HUJJAT]',
     situation:
       'Tayyor ikkilamchi (vtorichka) uyni ko‘rdingiz, sizga yoqdi. Lekin notariusga borish oldidan sotuvchi: «Aka, oldi-sotdi qilsak 12% foyda solig‘i to‘lashim kerak bo‘ladi. Keling, sizga Hadya (Doreniye) qilib rasmiylashtiraylik, sizga ham tekinga tushadi, menga ham soliq chiqmaydi» deb turib oldi.',
     offerPrice: 'Kvartira narxi: $42,000 | Oldi-sotdi o‘rniga Hadya taklifi',
@@ -175,7 +175,7 @@ export const SCENARIO_CASES: ScenarioCase[] = [
     tag: 'Hovli va Yer',
     characterName: 'Eshonqul oqsoqol',
     characterRole: 'Hovli sotuvchisi',
-    characterAvatar: '🏡',
+    characterAvatar: '[MASKAN]',
     situation:
       'Trassa yoqasida joylashgan chiroyli hovlini ko‘rdingiz. Sotuvchi devorlarni ko‘rsatib: «Bolam, mana shlankoblok devorni ko‘ryapsanmi, boshidan oxirigacha rosa 6 sotix joy. Narxi juda qulay, yerning o‘zi qimmat turadi» deb dalada metr bilan o‘lchab ko‘rsatmoqda.',
     offerPrice: 'Yer: 6 sotix deb ko‘rsatilmoqda | Narxi: $36,000',
@@ -266,7 +266,7 @@ export const ScenarioGame: React.FC = () => {
               +${totalSaved.toLocaleString()}
             </div>
           </div>
-          <span className="text-2xl">💰</span>
+          <span className="text-2xl">[MOLIYA]</span>
         </div>
 
         <div className="bg-rose-950/40 border border-rose-500/30 rounded-2xl p-4 flex items-center justify-between">

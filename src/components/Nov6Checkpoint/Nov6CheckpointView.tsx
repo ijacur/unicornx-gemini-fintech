@@ -191,7 +191,7 @@ Muassislar o'rtasida 45/20/20/15 foizli rasmiy bitim imzolandi. Osiyo Medical Cl
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-bold text-[#FF5500] uppercase tracking-wider mb-1">
-              🎙 6-Noyabr Teleprompter (2-Daqiqalik Nutq)
+              [OVOZ] 6-Noyabr Teleprompter (2-Daqiqalik Nutq)
             </div>
             <p className="text-xs text-zinc-400">
               Uchrashuvda ovoz chiqarib aytish uchun tayyorlangan so'zma-so'z ssenariy

@@ -183,7 +183,7 @@ export const GameSubmissionModal: React.FC<GameSubmissionModalProps> = ({ onClos
       description: 'Nexus Arcade ochiq platformasiga joylangan yangi o\'yin.',
       category: category,
       author: author.trim() || 'Anonim Dasturchi',
-      thumbnail: category === 'action' ? '⚡' : category === 'puzzle' ? '🧩' : category === '3D' ? '🛸' : '🕹️',
+      thumbnail: category === 'action' ? '⚡' : category === 'puzzle' ? '[MODUL]' : category === '3D' ? '[INNOVATSIYA]' : '[INTERAKTIV]️',
       type: tab === 'url' ? 'embed' : 'custom',
       url: tab === 'url' ? gameUrl : undefined,
       customCode: tab !== 'url' ? customHtml : undefined,
@@ -198,7 +198,7 @@ export const GameSubmissionModal: React.FC<GameSubmissionModalProps> = ({ onClos
     addPlayerXp(350);
     onGameAdded(newGame);
     triggerConfetti();
-    alert("🎉 Tabriklaymiz! O'yiningiz muvaffaqiyatli joylandi va sizga +350 XP berildi!");
+    alert("[MUVAFFAQ] Tabriklaymiz! O'yiningiz muvaffaqiyatli joylandi va sizga +350 XP berildi!");
     onClose();
   };
 

@@ -235,7 +235,7 @@ export const DocumentInspector: React.FC = () => {
             )}
 
             <div className="p-4 rounded-2xl bg-slate-950/50 border border-slate-800/80 text-[11px] text-slate-400 mt-6">
-              💡 <strong>Eslatma:</strong> «Sudda faqat qog‘oz va rasmiy davlat bazasidagi ma’lumot gapiradi. Sotuvchining og‘zaki va’dalari nolga teng!»
+              [GOYA] <strong>Eslatma:</strong> «Sudda faqat qog‘oz va rasmiy davlat bazasidagi ma’lumot gapiradi. Sotuvchining og‘zaki va’dalari nolga teng!»
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ const SAMPLE_RECEIPTS = [
     badge: 'Oziq-ovqat',
     date: '2026-09-23',
     total: '165,000 UZS',
-    imagePlaceholder: '🛒 Korzinka Chilonzor Cheki #84920',
+    imagePlaceholder: '[BUYURTMA] Korzinka Chilonzor Cheki #84920',
   },
   {
     id: 'uzum',
@@ -28,7 +28,7 @@ const SAMPLE_RECEIPTS = [
     badge: 'Elektronika',
     date: '2026-09-22',
     total: '1,450,000 UZS',
-    imagePlaceholder: '📱 Uzum Nasiya Shartnomasi #UZ-9921',
+    imagePlaceholder: '[MOBIL] Uzum Nasiya Shartnomasi #UZ-9921',
   },
   {
     id: 'click',

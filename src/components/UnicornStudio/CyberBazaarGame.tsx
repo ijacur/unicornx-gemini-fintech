@@ -15,7 +15,7 @@ const BAZAAR_NPCS: BazaarNpc[] = [
     id: 'akram',
     name: 'Akram aka',
     role: 'Chorsu Kiber-Savdogar',
-    avatar: '👨‍💼',
+    avatar: '[MUTAXASSIS]‍[BIZNES]',
     personality: 'Tajribali Chorsu savdogari, savdolashishni yaxshi ko\'radi, hurmat qilgan xaridorga chegirma beradi.',
     inventory: [
       { name: 'Kvant Foton Protsessori', basePrice: 12000, description: 'Malika bozoridan keltirilgan yuqori quvvatli chip' },
@@ -27,7 +27,7 @@ const BAZAAR_NPCS: BazaarNpc[] = [
     id: 'sora',
     name: 'Sora 2.0',
     role: 'TBC-2050 Kiber-Bankir',
-    avatar: '🤖',
+    avatar: '[AI]',
     personality: 'Yuqori intellektli AI moliyaviy agent, aniq hisob-kitob va likvidlikni xush ko\'radi.',
     inventory: [
       { name: 'TBC Kripto-Obligatsiyasi', basePrice: 20000, description: 'Kunlik 1.2% kafolatlangan daromad keltiruvchi token' },
@@ -38,7 +38,7 @@ const BAZAAR_NPCS: BazaarNpc[] = [
     id: 'rustam',
     name: 'Mayor Rustam',
     role: 'Toshkent Kiber-Bojxonachi',
-    avatar: '👮‍♂️',
+    avatar: '[NAZORAT]‍♂️',
     personality: 'Qat\'iy tartib tarafdori, sertifikatsiz yuklarni o\'tkazmaydi, ammo yuridik bilim egalarini qadrlaydi.',
     inventory: [
       { name: 'Ekspress Tranzit Ruxsatnomasi', basePrice: 9500, description: 'Barcha nazorat punktlaridan navbatsiz o\'tish kodi' },

@@ -163,7 +163,7 @@ export const GameArena: React.FC<GameArenaProps> = ({
             if (msg.type === 'SYSTEM') {
               return (
                 <div key={msg.id} className="mx-auto bg-blue-100 text-blue-900 p-4 rounded-lg text-center max-w-lg shadow-sm border border-blue-200">
-                  <span className="font-bold block mb-1">📢 Moderator e'loni</span>
+                  <span className="font-bold block mb-1">[ELON] Moderator e'loni</span>
                   <p className="italic">{msg.content}</p>
                 </div>
               );
@@ -172,7 +172,7 @@ export const GameArena: React.FC<GameArenaProps> = ({
             if (msg.type === 'DECISION') {
               return (
                 <div key={msg.id} className="mx-auto bg-green-100 text-green-900 p-6 rounded-lg text-center max-w-2xl shadow-md border-2 border-green-500 my-6">
-                  <span className="text-xl font-bold block mb-3">🏆 Yakuniy Qaror</span>
+                  <span className="text-xl font-bold block mb-3">[YUTUQ] Yakuniy Qaror</span>
                   <p className="text-lg">{msg.content}</p>
                 </div>
               );

@@ -249,7 +249,7 @@ export const CreditScorer: React.FC = () => {
                       {decision.monthlyPayment.toLocaleString()} UZS
                     </div>
                     <span className="text-[11px] text-emerald-400 font-medium block">
-                      {decision.interestRate === 0 ? '🎉 0% Foizsiz Nasiya (0-0-12)' : `Yillik stavka: ${decision.interestRate}%`}
+                      {decision.interestRate === 0 ? '[MUVAFFAQ] 0% Foizsiz Nasiya (0-0-12)' : `Yillik stavka: ${decision.interestRate}%`}
                     </span>
                   </div>
                 </div>

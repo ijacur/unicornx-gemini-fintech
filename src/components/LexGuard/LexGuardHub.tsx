@@ -352,7 +352,7 @@ export const LexGuardHub: React.FC = () => {
                         {clause.clauseNumber}
                       </span>
                       <span className="px-2 py-0.5 rounded-md bg-white/10 text-zinc-300 text-xs font-semibold">
-                        {clause.riskLevel === 'critical' ? '🔴 O‘ta Xavfli' : '🟠 Yuqori Xavf'}
+                        {clause.riskLevel === 'critical' ? '[DIQQAT] O‘ta Xavfli' : '[OGOHLANTIRISH] Yuqori Xavf'}
                       </span>
                     </div>
 
