@@ -378,9 +378,24 @@
 
   </main>
 
-  <!-- Bottom Technical Meta -->
-  <footer style="text-align: center; border-top: 1px solid var(--border-subtle); padding-top: 12px; position: relative; z-index: 2;">
-    <div class="mono" style="font-size: 10px; color: var(--text-muted);">
+  <!-- Bottom Navigation & Legal Deliverables Dock -->
+  <footer style="border-top: 1px solid var(--border-subtle); padding-top: 14px; position: relative; z-index: 2; margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+      <a href="/" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; text-decoration: none;">[01] Asosiy</a>
+      <a href="/reception.html" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; text-decoration: none;">[02] Registratura</a>
+      <a href="/clinic-roi.html" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; text-decoration: none;">[03] ROI Cockpit</a>
+      <a href="/workflow.html" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; text-decoration: none;">[04] Jarayon</a>
+      <a href="/tracker.html" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; text-decoration: none;">[05] 8 Klinika</a>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 8px;">
+      <button id="miniAppAgreementBtn" onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Shartnomasi')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
+        Ta'sis Bitimi &uarr;
+      </button>
+      <button id="miniAppLoiBtn" onclick="previewDocument('/loi.pdf', '14-Kunlik Kafolatlangan Pilot Shartnomasi (LOI)')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
+        14-Kun LOI &uarr;
+      </button>
+    </div>
+    <div class="mono" style="font-size: 10px; color: var(--text-muted); text-align: center;">
       MedLoop &bull; 0.15ms Latency &bull; $0.0018 COGS &bull; Track B Bootstrapped
     </div>
   </footer>
@@ -1066,8 +1081,33 @@
       }, 200);
     }
 
+    function previewDocument(url, title) {
+      playChime('confirm');
+      const m = document.getElementById('docPreviewModal');
+      const iframe = document.getElementById('docViewerIframe');
+      const titleEl = document.getElementById('docPreviewTitle');
+      const dlBtn = document.getElementById('docDownloadBtn');
+      if (m && iframe && titleEl && dlBtn) {
+        titleEl.innerText = title;
+        iframe.src = url;
+        dlBtn.href = url;
+        m.style.display = 'flex';
+      }
+    }
+
+    function closeDocPreview() {
+      playChime('click');
+      const m = document.getElementById('docPreviewModal');
+      const iframe = document.getElementById('docViewerIframe');
+      if (m) m.style.display = 'none';
+      if (iframe) iframe.src = '';
+    }
+
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeReferralModal();
+      if (e.key === 'Escape') {
+        closeReferralModal();
+        closeDocPreview();
+      }
     });
 
     // Initialize
@@ -1099,5 +1139,27 @@
       initOfflinePersistence();
     });
   </script>
+  <!-- Apple Pro Document Preview Modal -->
+  <div id="docPreviewModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 3000; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: #0A0A0A; border: 1px solid var(--border-subtle); border-radius: 20px; width: 920px; max-width: 95vw; height: 86vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.95);">
+      <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; background: #0E0E0E;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[VERIFIED &bull; TRACK B]</span>
+          <h3 id="docPreviewTitle" style="font-size: 15px; font-weight: 600; color: #FFF; margin: 0;">Hujjat Ko'rinishi</h3>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="docDownloadBtn" href="/MedLoop_Agreement.pdf" download class="btn-acid mono" style="padding: 6px 14px; font-size: 11px; text-decoration: none;">
+            PDF Yuklab Olish &darr;
+          </a>
+          <button onclick="closeDocPreview()" class="btn-glass mono" style="padding: 6px 12px; font-size: 11px;">
+            ESC &times;
+          </button>
+        </div>
+      </div>
+      <div style="flex: 1; background: #050505; position: relative;">
+        <iframe id="docViewerIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

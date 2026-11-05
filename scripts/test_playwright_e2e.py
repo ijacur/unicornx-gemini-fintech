@@ -452,7 +452,34 @@ def test_e2e():
         ref_closed = not page.is_visible("#referralModal")
         assert ref_closed, "Referral modal did not close on Escape key"
         print("  [OK] Mini App referral modal: Closed cleanly via ESC key")
-        total_checks += 16
+
+        # Test Mini App Legal Deliverables Dock: Founders Agreement & 14-Day LOI modals
+        page.click("#miniAppAgreementBtn")
+        page.wait_for_timeout(300)
+        ma_modal_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert ma_modal_display == "flex", f"Expected docPreviewModal to be flex in mini app, got: {ma_modal_display}"
+        ma_iframe_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in ma_iframe_src, f"Expected MedLoop_Agreement.pdf in iframe, got: {ma_iframe_src}"
+
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        ma_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert ma_modal_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {ma_modal_after_esc}"
+        print("  [OK] Mini App Dock: Opened Founders Agreement modal and dismissed via ESC")
+
+        page.click("#miniAppLoiBtn")
+        page.wait_for_timeout(300)
+        ma_loi_modal_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert ma_loi_modal_display == "flex", f"Expected docPreviewModal to be flex for LOI, got: {ma_loi_modal_display}"
+        ma_loi_iframe_src = page.get_attribute("#docViewerIframe", "src")
+        assert "loi.pdf" in ma_loi_iframe_src, f"Expected loi.pdf in iframe, got: {ma_loi_iframe_src}"
+
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        ma_loi_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert ma_loi_modal_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {ma_loi_modal_after_esc}"
+        print("  [OK] Mini App Dock: Opened 14-Day Pilot LOI modal and dismissed via ESC")
+        total_checks += 21
 
         # Phase 5: Test Tracker Evidence Drawer & Filter Pills
         print("\n[TRACKER EVIDENCE DRAWER & FILTER TEST]")

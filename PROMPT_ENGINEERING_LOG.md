@@ -624,3 +624,17 @@
   5. Vite orqali qayta qurish (96ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Bosh shifokorlar, klinika direktorlari, bosh buxgalterlar, moliya bo'limi rahbarlari, School 21 texnik hakamlar hay'ati va investorlar.
 - **Format:** `public/clinic-roi.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #49 / 500: Telegram Mini App Legal Deliverables Dock, Dual Modals & 140-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal Mini App Architecture & Legal Deliverables Integration Architect.
+- **Nima kerak:**
+  1. `public/mini_app.html` (Telegram Mini App interfeysi) ga pastki navigatsiya va yuridik hujjatlar dockini kiritish:
+     - 5 ta asosiy ichki marshrutlarga o'tish tugmalari (`[01] Asosiy`, `[02] Registratura`, `[03] ROI Cockpit`, `[04] Jarayon`, `[05] 8 Klinika`).
+     - Ikkita rasmiy yuridik hujjatni ochish tugmalari: `#miniAppAgreementBtn` (Ta'sis Bitimi) va `#miniAppLoiBtn` (14-Kun LOI Shartnomasi).
+     - Apple Pro `docPreviewModal` glass modali orqali `/MedLoop_Agreement.pdf` va `/loi.pdf` hujjatlarini toza ko'rsatish, yuklab olish tugmasi va `Escape` klaviatura buyrug'i bilan yopish imkoniyati.
+  2. `scripts/test_playwright_e2e.py` da Phase 4 ni kengaytirib, `#miniAppAgreementBtn` va `#miniAppLoiBtn` modallarining ochilishi, tegishli PDF manzilini yuklashi va `Escape` tugmasi bilan yopilishini tekshiruvchi 5 ta yangi avtomatlashtirilgan sinovni qo'shish. Umumiy Playwright E2E assertatsiyalar sonini 135 tadan **140 taga (140 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 140 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI 5/5 va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (87ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 31s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Bemorlar, poliklinika rahbarlari, investorlar, School 21 hakamlar hay'ati va tibbiy koordinatorlar.
+- **Format:** `public/mini_app.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
