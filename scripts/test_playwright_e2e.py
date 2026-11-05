@@ -1000,6 +1000,31 @@ def test_e2e():
         assert all_queue_count == page.evaluate("patients.length"), f"Expected {page.evaluate('patients.length')} total patients, got {all_queue_count}"
         print(f"  [OK] Reception urgency filter: Restored full queue ({all_queue_count} patients)")
 
+        # Test Doctor Room Specialty Filter Pills (#filter-room-gepatolog, #filter-room-endokrinolog, #filter-room-terapevt, #filter-room-all)
+        page.click("#filter-room-gepatolog")
+        page.wait_for_timeout(200)
+        gep_count = page.evaluate("document.querySelectorAll('#patientList > div.bento-card').length")
+        assert gep_count >= 1, f"Expected at least 1 Gepatolog patient, got {gep_count}"
+        print(f"  [OK] Reception room filter: Filtered to {gep_count} Gepatolog room patients")
+
+        page.click("#filter-room-endokrinolog")
+        page.wait_for_timeout(200)
+        endo_count = page.evaluate("document.querySelectorAll('#patientList > div.bento-card').length")
+        assert endo_count >= 1, f"Expected at least 1 Endokrinolog patient, got {endo_count}"
+        print(f"  [OK] Reception room filter: Filtered to {endo_count} Endokrinolog room patients")
+
+        page.click("#filter-room-terapevt")
+        page.wait_for_timeout(200)
+        tera_count = page.evaluate("document.querySelectorAll('#patientList > div.bento-card').length")
+        assert tera_count >= 1, f"Expected at least 1 Terapevt patient, got {tera_count}"
+        print(f"  [OK] Reception room filter: Filtered to {tera_count} Terapevt room patients")
+
+        page.click("#filter-room-all")
+        page.wait_for_timeout(200)
+        restored_room_count = page.evaluate("document.querySelectorAll('#patientList > div.bento-card').length")
+        assert restored_room_count == page.evaluate("patients.length"), f"Expected {page.evaluate('patients.length')} total patients after room reset, got {restored_room_count}"
+        print(f"  [OK] Reception room filter: Restored all rooms ({restored_room_count} patients)")
+
         # Test Manual OCR Blank Intake Form
         page.fill("#manualName", "Hamidov Bobur")
         page.fill("#manualPhone", "+998 93 111 22 33")
@@ -1059,7 +1084,7 @@ def test_e2e():
         rec_loi_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
         assert rec_loi_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {rec_loi_after_esc}"
         print("  [OK] Reception Top Nav: Opened 14-Day Pilot LOI modal and dismissed via ESC")
-        total_checks += 29
+        total_checks += 33
 
         # Phase 8: Test MedLoop B2B Pitch & Interactive Stage
         print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")

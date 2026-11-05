@@ -471,17 +471,34 @@
               </h3>
             </div>
 
-            <!-- Filter Pills -->
-            <div style="display: flex; gap: 6px;">
-              <button onclick="setFilter('ALL')" id="filter-all" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; background: rgba(255,255,255,0.1); color: #FFF;">
-                All (3)
-              </button>
-              <button onclick="setFilter('RED')" id="filter-red" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
-                Red
-              </button>
-              <button onclick="setFilter('YELLOW')" id="filter-yellow" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
-                Yellow
-              </button>
+            <!-- Filter Pills (Urgency & Doctor Rooms) -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+              <div style="display: flex; gap: 4px;">
+                <button onclick="setFilter('ALL')" id="filter-all" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; background: rgba(255,255,255,0.1); color: #FFF;">
+                  All (3)
+                </button>
+                <button onclick="setFilter('RED')" id="filter-red" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
+                  Red
+                </button>
+                <button onclick="setFilter('YELLOW')" id="filter-yellow" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px;">
+                  Yellow
+                </button>
+              </div>
+              <div style="width: 1px; height: 16px; background: var(--border-subtle);"></div>
+              <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                <button onclick="setRoomFilter('ALL')" id="filter-room-all" class="btn-glass mono" style="font-size: 10px; padding: 4px 8px; background: rgba(198, 244, 50, 0.12); border-color: var(--accent-acid); color: var(--accent-acid);">
+                  Barcha Xonalar
+                </button>
+                <button onclick="setRoomFilter('GEPATOLOG')" id="filter-room-gepatolog" class="btn-glass mono" style="font-size: 10px; padding: 4px 8px;">
+                  101/14-xona (Gepatolog)
+                </button>
+                <button onclick="setRoomFilter('ENDOKRINOLOG')" id="filter-room-endokrinolog" class="btn-glass mono" style="font-size: 10px; padding: 4px 8px;">
+                  104-xona (Endokrinolog)
+                </button>
+                <button onclick="setRoomFilter('TERAPEVT')" id="filter-room-terapevt" class="btn-glass mono" style="font-size: 10px; padding: 4px 8px;">
+                  108-xona (Terapevt)
+                </button>
+              </div>
             </div>
           </div>
 
@@ -515,6 +532,7 @@
 
   <script>
     let filterMode = 'ALL';
+    let roomFilterMode = 'ALL';
     let patients = [
       {
         id: 1,
@@ -569,11 +587,36 @@
       renderQueue();
     }
 
+    function setRoomFilter(mode) {
+      roomFilterMode = mode;
+      const rooms = [
+        { id: 'all', key: 'ALL' },
+        { id: 'gepatolog', key: 'GEPATOLOG' },
+        { id: 'endokrinolog', key: 'ENDOKRINOLOG' },
+        { id: 'terapevt', key: 'TERAPEVT' }
+      ];
+      rooms.forEach(r => {
+        const btn = document.getElementById('filter-room-' + r.id);
+        if (!btn) return;
+        if (r.key === mode) {
+          btn.style.background = 'rgba(198, 244, 50, 0.14)';
+          btn.style.borderColor = 'var(--accent-acid)';
+          btn.style.color = 'var(--accent-acid)';
+        } else {
+          btn.style.background = 'rgba(255,255,255,0.04)';
+          btn.style.borderColor = 'var(--border-subtle)';
+          btn.style.color = 'var(--text-secondary)';
+        }
+      });
+      renderQueue();
+    }
+
     function renderQueue() {
       const container = document.getElementById('patientList');
       const filtered = patients.filter(p => {
-        if (filterMode === 'ALL') return true;
-        return p.urgency === filterMode;
+        const urgencyMatch = (filterMode === 'ALL' || p.urgency === filterMode);
+        const roomMatch = (roomFilterMode === 'ALL' || (p.specialty && p.specialty.toUpperCase() === roomFilterMode));
+        return urgencyMatch && roomMatch;
       });
 
       if (filtered.length === 0) {
