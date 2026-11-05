@@ -539,6 +539,44 @@
   <script>
     let currentFilter = 'all';
 
+    let audioCtx = null;
+    function playClinicalChime(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'alert') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(580, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.18);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'confirm') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(1320, now + 0.25);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+      } catch(e) {}
+    }
+
     let entries = [
       {
         id: 1,
@@ -672,6 +710,7 @@
 
     function setFilter(flt) {
       currentFilter = flt;
+      playClinicalChime('click');
       ['all', 'pass', 'disq'].forEach(f => {
         const btn = document.getElementById('btn-flt-' + f);
         if (btn) {
@@ -736,6 +775,7 @@
     function openEvidenceDrawer(id) {
       const item = entries.find(e => e.id === id);
       if (!item) return;
+      playClinicalChime('click');
 
       document.getElementById('drawerClinicName').innerText = item.clinic;
       document.getElementById('drawerClinicLoc').innerText = item.location || 'Samarqand shahri';
@@ -759,6 +799,7 @@
     }
 
     function closeEvidenceDrawer() {
+      playClinicalChime('click');
       document.getElementById('clinicEvidenceDrawer').classList.remove('active');
     }
 
@@ -810,6 +851,7 @@
     }
 
     function previewDocument(url, title) {
+      playClinicalChime('confirm');
       const modal = document.getElementById('docPreviewModal');
       const iframe = document.getElementById('docViewerIframe');
       const titleEl = document.getElementById('docPreviewTitle');
@@ -826,6 +868,7 @@
     }
 
     function closeDocPreview() {
+      playClinicalChime('click');
       const modal = document.getElementById('docPreviewModal');
       const iframe = document.getElementById('docViewerIframe');
       if (iframe) iframe.src = '';

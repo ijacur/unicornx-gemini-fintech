@@ -515,6 +515,44 @@
     let selectedClinicKey = 'doktord';
     let selectedBiomarker = 'alt';
 
+    let audioCtx = null;
+    function playClinicalChime(type) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'alert') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(580, now);
+          osc.frequency.exponentialRampToValueAtTime(880, now + 0.18);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+          osc.start(now);
+          osc.stop(now + 0.35);
+        } else if (type === 'confirm') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(1320, now + 0.25);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+          osc.start(now);
+          osc.stop(now + 0.45);
+        } else {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1200, now);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        }
+      } catch(e) {}
+    }
+
     const clinics = {
       osiyo: { name: 'Osiyo Medical Clinic', loc: 'Samarqand, Dagbitskaya 33', doc: 'Dr. Shirinov (Gepatolog)' },
       afrosiyob: { name: 'Afrosiyob Diagnostics', loc: 'Samarqand, Dahbed 12', doc: 'Dr. Karimova (Endokrinolog)' },
@@ -530,10 +568,12 @@
     ];
 
     function openSopModal() {
+      playClinicalChime('confirm');
       document.getElementById('sopModal').classList.add('active');
     }
 
     function closeSopModal() {
+      playClinicalChime('click');
       document.getElementById('sopModal').classList.remove('active');
     }
 
@@ -564,6 +604,7 @@
 
     function activateStep(n) {
       currentStep = n;
+      playClinicalChime('click');
 
       for (let i = 1; i <= 4; i++) {
         const card = document.getElementById('step-card-' + i);

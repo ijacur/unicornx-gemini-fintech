@@ -273,3 +273,17 @@
   5. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va 46 ta E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash, Vite build va Vercel production deploy (`turnir-launch-lab.vercel.app`) qilish hamda Git remote (`unicornx-gemini-fintech`) ga yuborish.
 - **Kim uchun:** Poliklinika bosh vrachlari, qabulxona registratorlari, navbatchi mutaxassislar va hakamlar.
 - **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #19 / 500: Universal Web Audio Chimes Synthesis across All Sub-Pages & Tactile Feedback Ecosystem
+- **Kim siz:** Lead Audio-Visual Experience Engineer & Tactile Systems Architect.
+- **Nima kerak:**
+  1. `public/clinic-roi.html`, `public/workflow.html`, va `public/tracker.html` ga tashqi og'ir audio fayllariga mutlaqo bog'liq bo'lmagan, toza brauzer Web Audio API osillyatorlari (Sine va Triangle to'lqinlari) orqali monoxrom Apple-style chimes (`click`, `confirm`, `alert`) tovush sintezatorini integratsiya qilish.
+  2. Barcha interaktiv boshqaruv tugmalarida taktil auditiv aks-sado berish:
+     - `public/clinic-roi.html`: 4 ta real klinika shabloni tanlanganda (`loadClinicPreset`), tijoriy taklif darchasi ochilganda/yopilganda (`openCommercialProposal` / `closeCommercialProposal`), va CSV hisobot yuklab olinganda (`exportCSVReport`) kristaldek toza tovushlar.
+     - `public/workflow.html`: 4 ta klinik jarayon bosqichlari kommutatsiyasida (`activateStep`), SOP reglamenti modali boshqaruvida (`openSopModal` / `closeSopModal`) audio teskari aloqa.
+     - `public/tracker.html`: 8 ta klinika filtrlari almashganda (`setFilter`), Apple Pro dalillar darchasi ochilganda/yopilganda (`openEvidenceDrawer` / `closeEvidenceDrawer`), hamda 14-kunlik rasmiy pilot LOI shartnomasi ko'rilganda (`previewDocument` / `closeDocPreview`) to'liq taktil audio integratsiya.
+  3. Barcha 46 ta Playwright E2E brauzer testlari va 6/6 tizim yaxlitligi tekshiruvlarini 100% GREEN tasdiqlash.
+  4. Vite build orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga yuborish.
+- **Kim uchun:** Poliklinika rahbarlari, shifokorlar, registratorlar, xalqaro hakamlar va investorlar.
+- **Format:** `public/clinic-roi.html`, `public/workflow.html`, `public/tracker.html`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
