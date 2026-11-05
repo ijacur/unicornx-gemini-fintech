@@ -351,7 +351,46 @@ def test_e2e():
         roster_text4 = page.inner_text("#doctorRosterContainer")
         assert "Dr. Shirinov X. I." in roster_text4 and "14-xona" in roster_text4, f"Osiyo roster mismatch: {roster_text4}"
         print(f"  [OK] Reception clinic switcher: Restored Osiyo Med ({roster_text4[:40]}...)")
-        total_checks += 5
+
+        # Test Simulated Patient Ingestion
+        initial_queue_count = page.evaluate("patients.length")
+        page.click("#btnSimulatePatient")
+        page.wait_for_timeout(250)
+        new_queue_count = page.evaluate("patients.length")
+        assert new_queue_count == initial_queue_count + 1, f"Expected {initial_queue_count + 1} patients, got {new_queue_count}"
+        print(f"  [OK] Reception patient simulation: Ingested new patient ({new_queue_count} in queue)")
+
+        # Test Patient Confirmation Flywheel
+        initial_confirmed = int(page.inner_text("#countConfirmed").strip())
+        top_patient_id = page.evaluate("patients[0].id")
+        page.evaluate(f"confirmPatient({top_patient_id})")
+        page.wait_for_timeout(200)
+        new_confirmed = int(page.inner_text("#countConfirmed").strip())
+        assert new_confirmed == initial_confirmed + 1, f"Expected {initial_confirmed + 1} confirmed, got {new_confirmed}"
+        print(f"  [OK] Reception confirmation flywheel: Confirmed patient {top_patient_id} (Total: {new_confirmed})")
+
+        # Test Patient Detail Drawer & Escape dismiss
+        page.evaluate(f"openPatientDrawer({top_patient_id})")
+        page.wait_for_timeout(200)
+        is_drawer_open = page.evaluate("document.getElementById('patientDrawer').style.right === '0px'")
+        assert is_drawer_open, "Patient drawer did not open"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        is_drawer_closed = page.evaluate("document.getElementById('patientDrawer').style.right !== '0px'")
+        assert is_drawer_closed, "Patient drawer did not close on Escape key"
+        print("  [OK] Reception patient drawer: Opened and dismissed cleanly via ESC key")
+
+        # Test Referral Sheet Modal & Escape dismiss
+        page.evaluate(f"printReferralSheet({top_patient_id})")
+        page.wait_for_timeout(200)
+        is_referral_open = page.evaluate("document.getElementById('referralModal').style.display === 'block'")
+        assert is_referral_open, "Referral sheet modal did not open"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        is_referral_closed = page.evaluate("document.getElementById('referralModal').style.display === 'none'")
+        assert is_referral_closed, "Referral sheet modal did not close on Escape key"
+        print("  [OK] Reception referral sheet modal: Opened and dismissed cleanly via ESC key")
+        total_checks += 9
 
         browser.close()
 

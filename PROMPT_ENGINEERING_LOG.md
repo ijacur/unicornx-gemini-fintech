@@ -401,3 +401,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Foydalanuvchi, O'zbekiston tibbiyot va ta'lim sohasi mutaxassislari, School 21 texnik hakamlar hay'ati va xalqaro investorlar.
 - **Format:** `scripts/test_live_ecosystem.py`, `scripts/test_system_integrity.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #30 / 500: Receptionist Flywheel, Ingestion Simulator, Patient Drawer & Referral Sheet E2E Suite (57 Assertions) & Production Deploy
+- **Kim siz:** Principal Hospital Operations Architect & Full-Stack Automation Engineer.
+- **Nima kerak:**
+  1. `public/reception.html` da `Escape` klaviatura hodisasi tinglovchisini takomillashtirish: bemor tahrirlash drayveri (`closePatientDrawer`) bilan bir qatorda rasmiy qabul yo'llanmasi modalini (`closeReferralModal`) ham toza yopish mexanizmini joriy qilish.
+  2. `scripts/test_playwright_e2e.py` da Phase 7 ga yangi tahlil kelishini avtomatlashtirilgan simulyatsiya qilish (`#btnSimulatePatient`), bemor qabulini tasdiqlash flywheeli (`confirmPatient`), bemor tafsilotlari drayveri va chop etish yo'llanmasi modalini `Escape` tugmasi orqali yopish testlarini kiritish (jami Playwright assertatsiyalari 53 tadan 57 taga yetkazildi va 100% GREEN tasdiqlandi).
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 57 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN tasdiqlandi.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Registratorlar, bosh shifokorlar, qabul bo'limi xodimlari, bemorlar va School 21 hakamlar hay'ati.
+- **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
