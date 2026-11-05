@@ -409,7 +409,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 1.6rem;">🩸</span>
+            <span style="font-size: 1.6rem;">[QON] </span>
             <div>
                 <strong style="font-size: 1.15rem; color: #fff;">DoriQuti &bull; Diabetes CGM Shield</strong>
                 <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Doimiy Qand Sensori & Sovuq Zanjir Insulin Obunasi</span>
@@ -462,7 +462,7 @@
             <!-- Left: Live CGM Dial & 24h Graph -->
             <div class="cgm-monitor-box">
                 <div class="section-title">
-                    <span>📡 Jonli CGM Sensori Telemetriyasi</span>
+                    <span>[TELEMETRIYA]  Jonli CGM Sensori Telemetriyasi</span>
                     <span style="font-size: 0.75rem; color: #6ee7b7;">● SENSOR ONLINE (Freestyle NFC)</span>
                 </div>
 
@@ -473,7 +473,7 @@
                         <span class="trend-arrow" id="trendArrow">→</span>
                     </div>
                     <div class="glucose-unit">mmol/L</div>
-                    <div class="target-range-badge" id="targetBadge">✓ Me'yorda (3.9 - 10.0 mmol/L)</div>
+                    <div class="target-range-badge" id="targetBadge"> Me'yorda (3.9 - 10.0 mmol/L)</div>
                 </div>
 
                 <!-- 24h Graph Canvas -->
@@ -506,14 +506,14 @@
                 </div>
 
                 <button class="btn-hypo-test" onclick="simulateHypo()">
-                    🚨 Tungi Gipoglikemiya Signalini Sinash (3.2 mmol/L SOS Alert)
+                    [ALERT]  Tungi Gipoglikemiya Signalini Sinash (3.2 mmol/L SOS Alert)
                 </button>
             </div>
 
             <!-- Right: Subscription Tiers -->
             <div class="subscription-column">
                 <div class="section-title" style="margin-bottom: 4px;">
-                    <span>📦 Oylik Kompleks Obuna Rejalari</span>
+                    <span>[PAKET]  Oylik Kompleks Obuna Rejalari</span>
                 </div>
                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
                     CGM sensorlari + Sovuq zanjirli insulin + Bepul ignalar va ota-ona Telegram signali
@@ -522,7 +522,7 @@
                 <!-- Plan 1: Pediatric -->
                 <div class="plan-card active" id="plan-0" onclick="selectPlan(0)">
                     <div class="plan-header">
-                        <div class="plan-title">👶 Bolalar 1-Tur Diabet Qalqoni</div>
+                        <div class="plan-title">[PEDIATRIYA]  Bolalar 1-Tur Diabet Qalqoni</div>
                         <span class="plan-badge">51% Tejov</span>
                     </div>
                     <div class="plan-desc">
@@ -541,7 +541,7 @@
                 <!-- Plan 2: Adult Type 2 -->
                 <div class="plan-card" id="plan-1" onclick="selectPlan(1)">
                     <div class="plan-header">
-                        <div class="plan-title">🧑 Kattalar 2-Tur Glikemik Balans</div>
+                        <div class="plan-title">[MUTAXASSIS]  Kattalar 2-Tur Glikemik Balans</div>
                         <span class="plan-badge">55% Tejov</span>
                     </div>
                     <div class="plan-desc">
@@ -560,7 +560,7 @@
                 <!-- Plan 3: Gestational -->
                 <div class="plan-card" id="plan-2" onclick="selectPlan(2)">
                     <div class="plan-header">
-                        <div class="plan-title">🤰 Homiladorlik Gestatsion Diabet</div>
+                        <div class="plan-title">[HOMILADOR]  Homiladorlik Gestatsion Diabet</div>
                         <span class="plan-badge">54% Tejov</span>
                     </div>
                     <div class="plan-desc">
@@ -577,7 +577,7 @@
                 </div>
 
                 <button class="btn-subscribe" onclick="openOrderModal()">
-                    🚀 Tanlangan Obunani Faollashtirish (Sovuq Zanjir)
+                    [START]  Tanlangan Obunani Faollashtirish (Sovuq Zanjir)
                 </button>
             </div>
 
@@ -588,7 +588,7 @@
     <!-- Order Modal -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-box">
-            <div style="font-size: 3.5rem; margin-bottom: 10px;">📦</div>
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">[PAKET] </div>
             <h2 style="font-size: 1.4rem; color: #38bdf8; margin-bottom: 8px;">Diabet Obunasi Faollashtirildi!</h2>
             <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 18px;">
                 Freestyle Libre CGM sensori va +4°C sovuq zanjirli insulin paketi 
@@ -606,7 +606,7 @@
     <!-- Hypo Alert Modal -->
     <div class="modal-overlay" id="hypoModal">
         <div class="modal-box" style="border-color: var(--rose);">
-            <div style="font-size: 3.5rem; margin-bottom: 8px;">🚨</div>
+            <div style="font-size: 3.5rem; margin-bottom: 8px;">[ALERT] </div>
             <h2 style="font-size: 1.5rem; color: var(--rose); margin-bottom: 6px;">DIQQAT: GIPOGLIKEMIYA (3.2 mmol/L)!</h2>
             <p style="color: #fda4af; font-size: 0.9rem; line-height: 1.5; margin-bottom: 16px;">
                 Qondagi qand xavfli darajaga tushdi! Ota-onaning telefoniga va SamDTU navbatchi endokrinologiga signal yuborildi.
@@ -651,7 +651,7 @@
             document.getElementById("curNum").style.color = "#f43f5e";
             document.getElementById("trendArrow").innerText = "↓↓";
             document.getElementById("trendArrow").style.color = "#f43f5e";
-            document.getElementById("targetBadge").innerText = "🚨 XAVF: GIPOGLIKEMIYA (< 3.9)";
+            document.getElementById("targetBadge").innerText = "[ALERT]  XAVF: GIPOGLIKEMIYA (< 3.9)";
             document.getElementById("targetBadge").style.borderColor = "#f43f5e";
             document.getElementById("targetBadge").style.color = "#f43f5e";
             document.getElementById("hypoModal").style.display = "flex";
@@ -663,7 +663,7 @@
             document.getElementById("curNum").style.color = "#6ee7b7";
             document.getElementById("trendArrow").innerText = "→";
             document.getElementById("trendArrow").style.color = "#38bdf8";
-            document.getElementById("targetBadge").innerText = "✓ Me'yorda (3.9 - 10.0 mmol/L)";
+            document.getElementById("targetBadge").innerText = " Me'yorda (3.9 - 10.0 mmol/L)";
             document.getElementById("targetBadge").style.borderColor = "#10b981";
             document.getElementById("targetBadge").style.color = "#6ee7b7";
         }

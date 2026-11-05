@@ -284,7 +284,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">🧬</span>
+            <span style="font-size: 26px;">[GENETIKA] </span>
             <div>
                 <div style="font-size: 19px; font-weight: 800; color: #ffffff;">Real-World Evidence (RWE) Klinik Reyestr</div>
                 <div style="font-size: 12px; color: var(--text-muted);">SamDTU Ilmiy Markazi & Farmatsevtika Sanoati Hamkorlik Portali</div>
@@ -292,8 +292,8 @@
             <span class="badge-rwe">ICH GCP & O'RQ-547 Standarti</span>
         </div>
         <div style="display: flex; gap: 12px;">
-            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">🏠 Bosh Menyu</a>
-            <button class="btn" onclick="exportClinicalData()">📥 Ilmiy Hisobotni Eksport Qilish</button>
+            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">[MARKAZ]  Bosh Menyu</a>
+            <button class="btn" onclick="exportClinicalData()"> Ilmiy Hisobotni Eksport Qilish</button>
         </div>
     </header>
 
@@ -301,7 +301,7 @@
         <!-- Compliance Banner -->
         <div class="compliance-banner">
             <div>
-                <strong style="color: #6ee7b7;">🔒 O'zbekiston Respublikasi O'RQ-547 Qonuniga 100% Muvofiq:</strong>
+                <strong style="color: #6ee7b7;">[XAVFSIZ]  O'zbekiston Respublikasi O'RQ-547 Qonuniga 100% Muvofiq:</strong>
                 <p style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
                     Ushbu reyestrdagi barcha 1,155 ta surunkali bemor ma'lumotlari to'liq de-identifikatsiya qilingan (anonymized hash). Shaxsiy ism-shariflar o'rniga dinamik ilmiy kohorta kodlari va biometrik telemetriya uzatiladi.
                 </p>
@@ -342,7 +342,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
-                            <span>📊</span> Faol Ilmiy Kohortalar & Post-Marketing Surveillance
+                            <span>[STATISTIKA] </span> Faol Ilmiy Kohortalar & Post-Marketing Surveillance
                         </div>
                         <span style="font-size: 13px; color: var(--text-muted);">Longitudinal Real-World Telemetriya</span>
                     </div>
@@ -436,7 +436,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
-                            <span>🔬</span> Tanlangan Kohorta Tahlili
+                            <span>[LAB] </span> Tanlangan Kohorta Tahlili
                         </div>
                     </div>
 
@@ -470,7 +470,7 @@
                         </div>
 
                         <button class="btn" style="width: 100%; justify-content: center;" onclick="downloadCohortReport()">
-                            📄 Kohorta Xulosasini Yuklab Olish (PDF)
+                            [HUJJAT]  Kohorta Xulosasini Yuklab Olish (PDF)
                         </button>
                     </div>
                 </div>
@@ -478,7 +478,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
-                            <span>🤝</span> Hamkorlik Qiling
+                            <span>[HAMKORLIK] </span> Hamkorlik Qiling
                         </div>
                     </div>
                     <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
@@ -553,12 +553,12 @@
         }
 
         function exportClinicalData() {
-            alert("📥 RWE Ilmiy Hisoboti generatsiya qilindi!\n\nICH E6 R2 va O'zbekiston Respublikasi O'RQ-547 talablariga mos de-identifikatsiya qilingan CSV/PDF to'plami tayyorlandi.");
+            alert(" RWE Ilmiy Hisoboti generatsiya qilindi!\n\nICH E6 R2 va O'zbekiston Respublikasi O'RQ-547 talablariga mos de-identifikatsiya qilingan CSV/PDF to'plami tayyorlandi.");
         }
 
         function downloadCohortReport() {
             const item = cohortsData[selectedIndex];
-            alert(`📄 ${item.id} kohortasi bo'yicha 12 oylik Real-World Evidence klinik tahlil hisoboti yuklanmoqda...`);
+            alert(`[HUJJAT]  ${item.id} kohortasi bo'yicha 12 oylik Real-World Evidence klinik tahlil hisoboti yuklanmoqda...`);
         }
     </script>
 </body>

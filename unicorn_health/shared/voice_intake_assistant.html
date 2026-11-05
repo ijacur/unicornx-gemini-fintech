@@ -19,12 +19,12 @@
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2">
-          <span class="text-2xl">🦄</span>
+          <span class="text-2xl">[UNICORN] </span>
           <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
         </a>
         <span class="text-xs text-slate-500">/</span>
         <span class="text-xs bg-rose-500/20 text-rose-400 font-bold px-2.5 py-0.5 rounded-full border border-rose-500/30 flex items-center gap-1">
-          <span>🎙️</span>
+          <span>[OVOZ] ️</span>
           <span>Ovozli Yordamchi</span>
         </span>
       </div>
@@ -39,7 +39,7 @@
 
       <div class="flex items-center space-x-2">
         <a href="https://t.me" target="_blank" class="bg-sky-500 hover:bg-sky-400 text-slate-950 px-3.5 py-2 rounded-xl font-black text-xs transition shadow-lg shadow-sky-500/20 flex items-center gap-1.5">
-          <span>✈️</span>
+          <span>️</span>
           <span>Telegram Botda Sinash</span>
         </a>
       </div>
@@ -49,7 +49,7 @@
   <!-- HERO -->
   <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
     <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-4">
-      <span>👵</span>
+      <span>[BEMOR] </span>
       <span>Keksa Ota-Onaxonlar va Yozishga Qiynaluvchi Bemorlar Uchun</span>
     </div>
     <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
@@ -75,7 +75,7 @@
         <!-- BIG RECORD BUTTON -->
         <div class="relative inline-block">
           <button onclick="toggleRecord()" id="btnRecord" class="w-24 h-24 rounded-full bg-gradient-to-tr from-rose-600 to-amber-500 text-white text-3xl flex items-center justify-center mx-auto shadow-2xl transition transform hover:scale-105 active:scale-95">
-            🎙️
+            [OVOZ] ️
           </button>
           <span id="recordingRipple" class="hidden absolute inset-0 rounded-full bg-rose-500 animate-ping opacity-40 pointer-events-none"></span>
         </div>
@@ -104,7 +104,7 @@
 
         <button onclick="loadVoice(0)" class="w-full p-3.5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-emerald-500/40 text-left transition flex items-center justify-between group">
           <div class="flex items-center space-x-3">
-            <span class="text-xl">👵</span>
+            <span class="text-xl">[BEMOR] </span>
             <div>
               <span class="font-bold text-white text-xs block group-hover:text-emerald-400">Hamida xola (Samarqand)</span>
               <span class="text-[10px] text-slate-400">Lozap + Kardiomagnil buyurtmasi • 18 soniya</span>
@@ -115,7 +115,7 @@
 
         <button onclick="loadVoice(1)" class="w-full p-3.5 rounded-2xl bg-slate-950 border border-slate-800 hover:border-blue-500/40 text-left transition flex items-center justify-between group">
           <div class="flex items-center space-x-3">
-            <span class="text-xl">👴</span>
+            <span class="text-xl">[BEMOR] </span>
             <div>
               <span class="font-bold text-white text-xs block group-hover:text-blue-400">Bahodir aka</span>
               <span class="text-[10px] text-slate-400">Glukofaj + Atoris arzon analogi • 14 soniya</span>
@@ -126,7 +126,7 @@
 
         <button onclick="loadVoice(2)" class="w-full p-3.5 rounded-2xl bg-rose-950/20 border border-rose-800/40 hover:border-rose-500 text-left transition flex items-center justify-between group">
           <div class="flex items-center space-x-3">
-            <span class="text-xl">🚨</span>
+            <span class="text-xl">[ALERT] </span>
             <div>
               <span class="font-bold text-rose-300 text-xs block">Favqulodda Triage Namoyishi</span>
               <span class="text-[10px] text-rose-400">Yurak sanchishi va hushdan ketish • 8 soniya</span>
@@ -166,7 +166,7 @@
       <div id="orderCard" class="bg-slate-900 border-2 border-emerald-500/40 p-6 rounded-3xl shadow-xl space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-            <span>💊</span>
+            <span>[PREPARAT] </span>
             <span>Ovozdan Aniqlangan Dori Retsepti:</span>
           </h3>
           <span id="medsCountBadge" class="text-xs font-bold text-white bg-slate-800 px-2.5 py-0.5 rounded-full">
@@ -188,7 +188,7 @@
             DoriQutini Tasdiqlash & Yetkazish →
           </button>
           <button onclick="callPatientBack()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-3 rounded-xl text-xs transition border border-slate-700 flex items-center justify-center gap-1.5">
-            <span>📞</span>
+            <span>[ALOQA] </span>
             <span>Bemorga qo‘ng‘iroq qilish</span>
           </button>
         </div>
@@ -258,16 +258,16 @@
 
       if (v.isEmergency) {
         orderCard.className = 'bg-rose-950/30 border-2 border-rose-500 p-6 rounded-3xl shadow-xl space-y-4';
-        document.getElementById('transStatusBadge').innerText = '🚨 FAVQULODDA VAZIYAT';
+        document.getElementById('transStatusBadge').innerText = '[ALERT]  FAVQULODDA VAZIYAT';
         document.getElementById('transStatusBadge').className = 'text-[10px] font-black bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded border border-rose-500/30';
         document.getElementById('medsCountBadge').innerText = '0 ta dori';
         medsList.innerHTML = `
           <div class="p-3.5 rounded-2xl bg-rose-950/60 border border-rose-500/50 text-rose-200 font-bold">
-            ⚠️ O‘tkir kardiologik simptomlar aniqlandi! Bemor shoshilinch tez yordamga muhtoj.
+            [DIQQAT]  O‘tkir kardiologik simptomlar aniqlandi! Bemor shoshilinch tez yordamga muhtoj.
           </div>
         `;
         actionBox.innerHTML = `<span>Harakat: <strong>103 Tez Yordam va SamDTU Navbatchi reanimatologiga zudlik bilan yo‘naltirildi!</strong></span>`;
-        confirmBtn.innerText = '🚨 103 Tez Yordamni Chaqirish';
+        confirmBtn.innerText = '[ALERT]  103 Tez Yordamni Chaqirish';
         confirmBtn.className = 'flex-1 bg-rose-600 hover:bg-rose-500 text-white font-black py-3 rounded-xl text-xs transition shadow-lg shadow-rose-600/30';
       } else {
         orderCard.className = 'bg-slate-900 border-2 border-emerald-500/40 p-6 rounded-3xl shadow-xl space-y-4';
@@ -319,11 +319,11 @@
     }
 
     function confirmVoiceOrder() {
-      alert("✅ Ovozli buyurtma muvaffaqiyatli rasmiylashtirildi! Samarqand provizoriga uzatildi va bemorga SMS tasdiq kodi yuborildi.");
+      alert("[OK]  Ovozli buyurtma muvaffaqiyatli rasmiylashtirildi! Samarqand provizoriga uzatildi va bemorga SMS tasdiq kodi yuborildi.");
     }
 
     function callPatientBack() {
-      alert("📞 Bemor telefoniga avtomatik qo'ng'iroq yo'naltirildi (+998 93 331 44 55).");
+      alert("[ALOQA]  Bemor telefoniga avtomatik qo'ng'iroq yo'naltirildi (+998 93 331 44 55).");
     }
 
     // Init

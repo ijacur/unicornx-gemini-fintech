@@ -329,7 +329,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 2rem;">🏥</span>
+            <span style="font-size: 2rem;">[KLINIKA] </span>
             <div>
                 <h1 style="font-size: 1.25rem; font-weight: 800;">SamDTU Statsionardan Chiqarish Koordinatori</h1>
                 <p style="font-size: 0.85rem; color: #cbd5e1;">Inpatient Discharge-to-Outpatient Transition Pad | DoriQuti.uz</p>
@@ -349,7 +349,7 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">📋 Bemor va Statsionar Epikrizi Ma'lumotlari</div>
+                        <div class="card-title">[BAYONNOMA]  Bemor va Statsionar Epikrizi Ma'lumotlari</div>
                         <span style="font-size: 0.85rem; color: var(--text-muted);">SamDTU Elektron Tarix #8410</span>
                     </div>
 
@@ -358,7 +358,7 @@
                         <div class="protocol-pill-group">
                             <div class="protocol-pill active" onclick="selectProtocol('POST_INFARCT_STEMI', this)">
                                 <div class="protocol-pill-title">
-                                    <span>🫀 O'tkir Miokard Infarkti (Post-STEMI)</span>
+                                    <span>[KARDIO]  O'tkir Miokard Infarkti (Post-STEMI)</span>
                                     <span style="color: var(--primary); font-size: 0.8rem;">PDC: 96%</span>
                                 </div>
                                 <div class="protocol-pill-desc">Kardiologiya va Reanimatsiya | Kardiomagnil, Bisoprolol, Atorvastatin, Ramipril</div>
@@ -366,7 +366,7 @@
 
                             <div class="protocol-pill" onclick="selectProtocol('DECOMPENSATED_T2D', this)">
                                 <div class="protocol-pill-title">
-                                    <span>🩸 Qandli Diabet 2-tur (Post-Dekompen.)</span>
+                                    <span>[QON]  Qandli Diabet 2-tur (Post-Dekompen.)</span>
                                     <span style="color: var(--primary); font-size: 0.8rem;">PDC: 94.5%</span>
                                 </div>
                                 <div class="protocol-pill-desc">Endokrinologiya bo'limi | Metformin 850mg 2x, Gliklazid MR 60mg</div>
@@ -374,7 +374,7 @@
 
                             <div class="protocol-pill" onclick="selectProtocol('ISCHEMIC_STROKE_POST', this)">
                                 <div class="protocol-pill-title">
-                                    <span>🧠 Bosh Miya Ishemik Insulti Erta Tiklanish</span>
+                                    <span>[NEYRO]  Bosh Miya Ishemik Insulti Erta Tiklanish</span>
                                     <span style="color: var(--primary); font-size: 0.8rem;">PDC: 95.2%</span>
                                 </div>
                                 <div class="protocol-pill-desc">Nevrologiya bo'limi | Klopidogrel 75mg, Atorvastatin 40mg, Amlodipin 5mg</div>
@@ -407,8 +407,8 @@
                     <div class="form-group">
                         <label class="form-label">Yetkazib Berish Usuli:</label>
                         <select id="deliveryMethod" class="form-select">
-                            <option value="BEDSIDE" selected>🛏️ Palataga Chiqarish Vaqtida Topshirish (Bedside Delivery - 30 daqiqa)</option>
-                            <option value="HOME">🏠 Bemor Uyiga Samarqand Kuryeri Bilan Bepul Yetkazish</option>
+                            <option value="BEDSIDE" selected>[PALATA] ️ Palataga Chiqarish Vaqtida Topshirish (Bedside Delivery - 30 daqiqa)</option>
+                            <option value="HOME">[MARKAZ]  Bemor Uyiga Samarqand Kuryeri Bilan Bepul Yetkazish</option>
                         </select>
                     </div>
 
@@ -418,7 +418,7 @@
                     </div>
 
                     <button class="btn btn-primary" style="width: 100%;" onclick="dispatchDischargeBox()">
-                        🚀 30-Kunlik DoriQuti Qutisini Tasdiqlash & Rasmiylashtirish
+                        [START]  30-Kunlik DoriQuti Qutisini Tasdiqlash & Rasmiylashtirish
                     </button>
                 </div>
             </div>
@@ -427,7 +427,7 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">📦 Chiqarish Paketi: 30-Kunlik Blister Rejimi</div>
+                        <div class="card-title">[PAKET]  Chiqarish Paketi: 30-Kunlik Blister Rejimi</div>
                         <span id="epicrisisBadge" style="font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--primary);">EPI-SAMDTU-98412</span>
                     </div>
 
@@ -437,17 +437,17 @@
                         </div>
                         
                         <div class="pouch-slot">
-                            <div class="pouch-time">☀️ ERTALAB • 08:00 (Nonushta bilan)</div>
+                            <div class="pouch-time">️ ERTALAB • 08:00 (Nonushta bilan)</div>
                             <div class="pouch-medicines" id="morningDrugs">Kardiomagnil 75mg • Bisoprolol 5mg</div>
                         </div>
 
                         <div class="pouch-slot">
-                            <div class="pouch-time">🌤️ TUSHLIK • 13:00 (Ovqatdan keyin)</div>
+                            <div class="pouch-time">[KUNDUZGI] ️ TUSHLIK • 13:00 (Ovqatdan keyin)</div>
                             <div class="pouch-medicines" id="noonDrugs">— (Bu vaqtda dori belgilanmagan)</div>
                         </div>
 
                         <div class="pouch-slot">
-                            <div class="pouch-time">🌙 KECHQURUN • 20:00 (Uyqudan 1 soat oldin)</div>
+                            <div class="pouch-time">[TUNGI]  KECHQURUN • 20:00 (Uyqudan 1 soat oldin)</div>
                             <div class="pouch-medicines" id="eveningDrugs">Atorvastatin 20mg • Ramipril 5mg</div>
                         </div>
                     </div>
@@ -455,7 +455,7 @@
                     <!-- Readmission Reduction Metric -->
                     <div class="risk-gauge-container">
                         <div style="font-weight: 700; font-size: 0.95rem; color: var(--dark);">
-                            📉 30-Kunlik Qayta Gospitalizatsiya Xavfi (Readmission Risk):
+                            [KAMAYISH]  30-Kunlik Qayta Gospitalizatsiya Xavfi (Readmission Risk):
                         </div>
                         <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">
                             SamDTU Kardiologiya statsionari bemorlari uchun klinik bashorat
@@ -467,7 +467,7 @@
                                 <div class="risk-number" id="baseRisk">28.4%</div>
                                 <div style="font-size: 0.75rem;">Qayta tushish xavfi</div>
                             </div>
-                            <div style="font-size: 1.5rem; color: var(--text-muted);">➔</div>
+                            <div style="font-size: 1.5rem; color: var(--text-muted);"></div>
                             <div class="risk-box good">
                                 <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">DoriQuti Rejimi</div>
                                 <div class="risk-number" id="doriqutiRisk">7.2%</div>
@@ -475,14 +475,14 @@
                             </div>
                         </div>
                         <div style="margin-top: 10px; font-size: 0.8rem; color: #059669; font-weight: 600; text-align: center;">
-                            💰 Iqtisodiy tejov: O'rtacha 1,450,000 so'm (reanimatsiya va koyka-kun sarfi)
+                            [UZS]  Iqtisodiy tejov: O'rtacha 1,450,000 so'm (reanimatsiya va koyka-kun sarfi)
                         </div>
                     </div>
 
                     <!-- 30-day Follow-up Milestones -->
                     <div style="margin-top: 20px;">
                         <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; color: var(--dark);">
-                            📅 Statsionardan Keyingi Avtomatik Kuzatuv (Remote Follow-Up):
+                            [SANA]  Statsionardan Keyingi Avtomatik Kuzatuv (Remote Follow-Up):
                         </div>
                         
                         <div class="timeline-step">
@@ -520,7 +520,7 @@
 
                     <div style="display: flex; gap: 12px; margin-top: 20px;" class="no-print">
                         <button class="btn btn-outline" style="flex: 1;" onclick="window.print()">
-                            🖨️ Chiqarish Epikrizini Chop Etish
+                            [CHOP] ️ Chiqarish Epikrizini Chop Etish
                         </button>
                     </div>
                 </div>
@@ -615,7 +615,7 @@
 
             const modeText = delivery === 'BEDSIDE' ? "Palataga 30 daqiqa ichida yetkaziladi" : "Bemor uyiga kuryer orqali yetkaziladi";
 
-            alert(`✅ SamDTU Chiqarish Paketi Muvaffaqiyatli Rasmiylashtirildi!\n\nBemor: ${name}\nBo'lim: ${ward}\nHolat: ${modeText}\nKuzatuv: 3, 7, 14 va 25-kunlik reja faollashtirildi.`);
+            alert(`[OK]  SamDTU Chiqarish Paketi Muvaffaqiyatli Rasmiylashtirildi!\n\nBemor: ${name}\nBo'lim: ${ward}\nHolat: ${modeText}\nKuzatuv: 3, 7, 14 va 25-kunlik reja faollashtirildi.`);
         }
     </script>
 </body>

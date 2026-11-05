@@ -15,7 +15,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
-          <span class="text-2xl">📱</span>
+          <span class="text-2xl"></span>
           <span class="text-xl font-bold tracking-tight">Oflayn PWA Vault</span>
         </a>
         <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-semibold">
@@ -48,7 +48,7 @@
         </p>
       </div>
       <button onclick="installPwaPrompt()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-5 py-3 rounded-2xl text-xs transition shadow-xl transform active:scale-95 flex items-center gap-2">
-        <span>📲</span> Telefon Bosh Ekraniga O'rnatish
+        <span>[MOBIL] </span> Telefon Bosh Ekraniga O'rnatish
       </button>
     </div>
 
@@ -61,7 +61,7 @@
         <!-- Dose Adherence Action Card -->
         <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
           <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <span>💊</span> 1. Oflayn Dori Ichishni Qayd Etish
+            <span>[PREPARAT] </span> 1. Oflayn Dori Ichishni Qayd Etish
           </h3>
           <p class="text-xs text-slate-400 mb-4">
             Hatto 0 internet bo'lganda ham ota-onangiz ushbu tugmani bosishi mumkin. Ma'lumot telefonda xavfsiz saqlanadi.
@@ -70,26 +70,26 @@
           <div class="space-y-2 mb-4">
             <button onclick="recordOfflineDose('Ertalabki dori (Amlodipin 5mg)')" class="w-full bg-slate-900 hover:bg-slate-700/80 border border-slate-700 p-3 rounded-xl text-left text-xs transition flex items-center justify-between">
               <div>
-                <strong class="text-white block">🌅 Ertalabki Dori Qutisi</strong>
+                <strong class="text-white block">[TONGGI]  Ertalabki Dori Qutisi</strong>
                 <span class="text-slate-400">Amlodipin + Atorvastatin</span>
               </div>
-              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi ✅</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi [OK] </span>
             </button>
 
             <button onclick="recordOfflineDose('Tushlik dori (Metformin 850mg)')" class="w-full bg-slate-900 hover:bg-slate-700/80 border border-slate-700 p-3 rounded-xl text-left text-xs transition flex items-center justify-between">
               <div>
-                <strong class="text-white block">☀️ Tushlik Dori Qutisi</strong>
+                <strong class="text-white block">️ Tushlik Dori Qutisi</strong>
                 <span class="text-slate-400">Metformin 850 mg</span>
               </div>
-              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi ✅</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi [OK] </span>
             </button>
 
             <button onclick="recordOfflineDose('Kechqurun dori (Kardiomagnil)')" class="w-full bg-slate-900 hover:bg-slate-700/80 border border-slate-700 p-3 rounded-xl text-left text-xs transition flex items-center justify-between">
               <div>
-                <strong class="text-white block">🌙 Kechki Dori Qutisi</strong>
+                <strong class="text-white block">[TUNGI]  Kechki Dori Qutisi</strong>
                 <span class="text-slate-400">Kardiomagnil 75 mg</span>
               </div>
-              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi ✅</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded font-bold">Ichildi [OK] </span>
             </button>
           </div>
         </div>
@@ -97,13 +97,13 @@
         <!-- Offline Refill Request Card -->
         <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
           <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
-            <span>📦</span> 2. Oflayn Qutini Qayta Buyurtma Qilish
+            <span>[PAKET] </span> 2. Oflayn Qutini Qayta Buyurtma Qilish
           </h3>
           <p class="text-xs text-slate-400 mb-3">
             Dori tugayotgan bo'lsa, oflayn navbatga buyurtma qoldiring.
           </p>
           <button onclick="recordOfflineRefill()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 rounded-xl text-xs transition shadow flex items-center justify-center gap-1.5">
-            <span>📬</span> Yangi Oylik Qutiga So'rov Yuborish
+            <span>[XAT QUTISI] </span> Yangi Oylik Qutiga So'rov Yuborish
           </button>
         </div>
 
@@ -115,12 +115,12 @@
           <div class="flex items-center justify-between mb-4">
             <div>
               <h3 class="text-base font-bold text-white flex items-center gap-2">
-                <span>🔄</span> Oflayn Saqlangan Harakatlar Navbati
+                <span>[SINXRON] </span> Oflayn Saqlangan Harakatlar Navbati
               </h3>
               <p class="text-xs text-slate-400" id="queue-desc">Navbatda 0 ta sinxronlanmagan ma'lumot bor</p>
             </div>
             <button onclick="syncNow()" id="btn-sync-now" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition shadow flex items-center gap-1">
-              <span>⚡</span> Hozir Sinxronlash
+              <span>[TEZKOR] </span> Hozir Sinxronlash
             </button>
           </div>
 
@@ -152,7 +152,7 @@
 
   <!-- Notification Toast -->
   <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
-    <span>✅</span> <span id="toast-text">Xabar muvaffaqiyatli saqlandi!</span>
+    <span>[OK] </span> <span id="toast-text">Xabar muvaffaqiyatli saqlandi!</span>
   </div>
 
   <script>
@@ -186,7 +186,7 @@
           <div>
             ${isPending 
               ? '<span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded font-mono font-bold text-[10px]">OFLAYN SAQLANDI</span>' 
-              : '<span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-bold text-[10px]">SERVERGA YUBORILDI ✅</span>'}
+              : '<span class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono font-bold text-[10px]">SERVERGA YUBORILDI [OK] </span>'}
           </div>
         `;
         container.appendChild(div);

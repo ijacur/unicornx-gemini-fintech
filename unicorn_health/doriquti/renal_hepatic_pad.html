@@ -198,7 +198,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 2rem;">🫘</span>
+            <span style="font-size: 2rem;">[NEFROLOGIYA] </span>
             <div>
                 <h1 style="font-size: 1.25rem; font-weight: 800;">SamDTU Nefrologiya & Gepatologiya Dori Xavfsizligi Padi</h1>
                 <p style="font-size: 0.8rem; color: var(--text-muted);">CKD-EPI (eGFR) va Child-Pugh Bo'yicha Dozani Avtomatik Qisqartirish va Laktatsidoz Profilaktikasi</p>
@@ -206,7 +206,7 @@
             <span class="badge-organ">Organ Clearance Audit</span>
         </div>
         <div style="display: flex; gap: 16px;">
-            <a href="/doriquti/doctor_portal.html" class="nav-link">🩺 Shifokor Portali</a>
+            <a href="/doriquti/doctor_portal.html" class="nav-link">[KLINIK]  Shifokor Portali</a>
             <a href="/index.html" class="nav-link">← Asosiy Hub</a>
         </div>
     </header>
@@ -219,7 +219,7 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">🧪 Bemor Biokimyoviy Tahlillari (ArzonLab)</div>
+                        <div class="card-title">[BIO/LAB]  Bemor Biokimyoviy Tahlillari (ArzonLab)</div>
                         <span style="font-size: 0.8rem; color: var(--primary);">Jonli Kalkulyator</span>
                     </div>
 
@@ -274,11 +274,11 @@
                     </div>
 
                     <div style="margin-top: 20px;">
-                        <button class="btn btn-primary" onclick="alert('✅ DoriQuti Blistri Buyrak Klirensiga Qarab Qayta Shakllantirildi!\n\nMetformin o\'rniga Linagliptin 5mg kiritildi.')">
-                            ⚡ DoriQuti Dozalarini Avtomatik Moslashtirish
+                        <button class="btn btn-primary" onclick="alert('[OK]  DoriQuti Blistri Buyrak Klirensiga Qarab Qayta Shakllantirildi!\n\nMetformin o\'rniga Linagliptin 5mg kiritildi.')">
+                            [TEZKOR]  DoriQuti Dozalarini Avtomatik Moslashtirish
                         </button>
                         <button class="btn btn-outline" onclick="window.print()">
-                            🖨️ Nefrologik/Gepatologik Xulosa Varaqasini Chop Etish
+                            [CHOP] ️ Nefrologik/Gepatologik Xulosa Varaqasini Chop Etish
                         </button>
                     </div>
                 </div>
@@ -288,7 +288,7 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">📉 Buyrak & Jigar Funksiyasi Holati</div>
+                        <div class="card-title">[KAMAYISH]  Buyrak & Jigar Funksiyasi Holati</div>
                         <span id="ckdStageBadge" style="font-size: 0.8rem; color: #f87171; font-weight: 700;">CKD 3b-bosqich</span>
                     </div>
 
@@ -310,7 +310,7 @@
                     <div id="alertsContainer">
                         <div class="alert-card">
                             <div style="font-size: 0.95rem; font-weight: 800; color: #fca5a5; margin-bottom: 4px;">
-                                ⚠️ METFORMIN XAVFI: eGFR 30-44 ml/min oralig'ida!
+                                [DIQQAT]  METFORMIN XAVFI: eGFR 30-44 ml/min oralig'ida!
                             </div>
                             <p style="font-size: 0.85rem; color: #fecaca; line-height: 1.5;">
                                 <strong>Klinik xavf:</strong> Bemor buyragi filtratsiyasi 34.2 ml/min ga tushgan. Standart Metformin 850mg 2 mahal qabul qilish laktatsidoz (o'lim xavfi 50%) xavfini oshiradi!<br>
@@ -320,7 +320,7 @@
                     </div>
 
                     <div style="margin-top: 14px; padding: 14px; background: #090e1c; border-radius: 12px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
-                        💡 <strong>SamDTU Nefrologiya Tavsiyasi:</strong> O'zbekistonda 2-tur qandli diabet bilan og'rigan keksalarning 42%ida yashirin diabetik nefropatiya (eGFR < 45) mavjud. Ushbu kalkulyator dori intoksikatsiyasi va shoshilinch gemodializ zaruratini 68% ga qisqartiradi.
+                        [INFO]  <strong>SamDTU Nefrologiya Tavsiyasi:</strong> O'zbekistonda 2-tur qandli diabet bilan og'rigan keksalarning 42%ida yashirin diabetik nefropatiya (eGFR < 45) mavjud. Ushbu kalkulyator dori intoksikatsiyasi va shoshilinch gemodializ zaruratini 68% ga qisqartiradi.
                     </div>
                 </div>
             </div>
@@ -365,7 +365,7 @@
             if (egfr < 30) {
                 container.innerHTML = `
                     <div class="alert-card" style="border-left-color: #ef4444; background: rgba(239, 68, 68, 0.25);">
-                        <strong style="color: white; font-size: 0.95rem;">🚨 METFORMIN MUTLAQO TAQIQLANADI! (eGFR < 30)</strong>
+                        <strong style="color: white; font-size: 0.95rem;">[ALERT]  METFORMIN MUTLAQO TAQIQLANADI! (eGFR < 30)</strong>
                         <p style="font-size: 0.85rem; color: #fecaca; margin-top: 4px;">
                             Bemor og'ir buyrak yetishmovchiligida. Metformin zudlik bilan bekor qilinishi shart! Linagliptin 5mg ga o'tkazilsin.
                         </p>
@@ -374,7 +374,7 @@
             } else if (egfr < 45) {
                 container.innerHTML = `
                     <div class="alert-card">
-                        <strong style="color: white; font-size: 0.95rem;">⚠️ Metformin Dozasini 50% Qisqartiring (eGFR: ${egfr})</strong>
+                        <strong style="color: white; font-size: 0.95rem;">[DIQQAT]  Metformin Dozasini 50% Qisqartiring (eGFR: ${egfr})</strong>
                         <p style="font-size: 0.85rem; color: #fecaca; margin-top: 4px;">
                             Sutkalik maksimal doza 1000mg dan oshmasligi shart (masalan 500mg 2 mahal).
                         </p>
@@ -383,7 +383,7 @@
             } else {
                 container.innerHTML = `
                     <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; padding: 14px; border-radius: 12px; color: #6ee7b7; font-size: 0.85rem;">
-                        ✅ Buyrak filtratsiyasi qoniqarli (eGFR: ${egfr} ml/min). Dozani maxsus qisqartirish talab etilmaydi.
+                        [OK]  Buyrak filtratsiyasi qoniqarli (eGFR: ${egfr} ml/min). Dozani maxsus qisqartirish talab etilmaydi.
                     </div>
                 `;
             }

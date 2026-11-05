@@ -53,10 +53,10 @@
           <label class="font-bold text-slate-300">Fokus Qutbi (Mentor talabi):</label>
           <div class="grid grid-cols-2 gap-2">
             <button id="btnFocusProduct" class="py-2.5 px-3 rounded-xl bg-cyan-500 text-slate-950 font-black text-[11px] transition">
-              📦 MAHSULOT (100%)
+              [PAKET]  MAHSULOT (100%)
             </button>
             <button id="btnFocusHuman" class="py-2.5 px-3 rounded-xl bg-slate-900 text-slate-400 border border-slate-800 font-bold text-[11px] hover:text-white transition">
-              👤 ODAM &bull; JAMOAS
+              [BEMOR]  ODAM &bull; JAMOAS
             </button>
           </div>
         </div>
@@ -74,7 +74,7 @@
 
       <!-- Action Button -->
       <button id="btnGenerate" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-sm shadow-lg shadow-cyan-500/25 transition flex items-center justify-center gap-2">
-        <span>⚡</span>
+        <span>[TEZKOR] </span>
         <span>Aniq Ssenariyli Reading Matnini Yaratish</span>
       </button>
     </section>
@@ -88,10 +88,10 @@
         </div>
         <div class="flex items-center gap-2">
           <button id="btnCopy" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-cyan-300 transition">
-            📋 Nusxa Olish
+            [BAYONNOMA]  Nusxa Olish
           </button>
           <button id="btnTeleprompter" class="px-3 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-xs font-bold text-cyan-300 transition">
-            👁️ Teleprompter Rejimi
+            [KO'RIK] ️ Teleprompter Rejimi
           </button>
         </div>
       </div>
@@ -231,15 +231,15 @@ Talabalar esa operatsiyani bir marta emas, **ming marta** xatosiz takrorlaydi.`
     document.getElementById('btnCopy').addEventListener('click', () => {
       const text = document.getElementById('scriptContent').innerText;
       navigator.clipboard.writeText(text);
-      document.getElementById('btnCopy').textContent = '✅ Nusxalandi!';
-      setTimeout(() => document.getElementById('btnCopy').textContent = '📋 Nusxa Olish', 2000);
+      document.getElementById('btnCopy').textContent = '[OK]  Nusxalandi!';
+      setTimeout(() => document.getElementById('btnCopy').textContent = '[BAYONNOMA]  Nusxa Olish', 2000);
     });
 
     // Copy Prompt
     document.getElementById('btnCopyPrompt').addEventListener('click', () => {
       const text = document.getElementById('rawPromptText').innerText;
       navigator.clipboard.writeText(text);
-      document.getElementById('btnCopyPrompt').textContent = '✅ Nusxalandi!';
+      document.getElementById('btnCopyPrompt').textContent = '[OK]  Nusxalandi!';
       setTimeout(() => document.getElementById('btnCopyPrompt').textContent = 'Promptdan Nusxa Olish', 2000);
     });
 

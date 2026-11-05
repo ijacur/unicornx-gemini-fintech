@@ -23,7 +23,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
-          <span class="text-2xl">📷</span>
+          <span class="text-2xl">[KAMERA] </span>
           <span class="text-xl font-bold tracking-tight">QR Retsept Skaneri</span>
         </a>
         <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-semibold">
@@ -32,7 +32,7 @@
       </div>
       <div class="flex items-center space-x-3">
         <button onclick="scanDemoPrescription()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
-          <span>⚡</span> Demo Retseptni Skanerlash
+          <span>[TEZKOR] </span> Demo Retseptni Skanerlash
         </button>
         <a href="../index.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
           ← Bosh Sahifa
@@ -62,7 +62,7 @@
         <div>
           <div class="flex items-center justify-between mb-4">
             <h2 class="text-sm font-bold text-white flex items-center gap-2">
-              <span>📹</span> Jonli Kamera Ko'rinishi
+              <span>[VIDEO] </span> Jonli Kamera Ko'rinishi
             </h2>
             <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
@@ -86,7 +86,7 @@
 
               <!-- QR Code Mock Graphic inside -->
               <div class="opacity-30 select-none text-center">
-                <div class="text-4xl">🏁</div>
+                <div class="text-4xl">[MARRA] </div>
                 <div class="text-[10px] text-slate-400 mt-1 font-mono">QR Retseptni Bu Yerga Qarating</div>
               </div>
             </div>
@@ -99,10 +99,10 @@
         <!-- Camera Controls -->
         <div class="mt-6 pt-4 border-t border-slate-700 grid grid-cols-2 gap-3">
           <button onclick="scanDemoPrescription()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-xs transition shadow-lg flex items-center justify-center gap-2">
-            <span>⚡</span> Retseptni Skanerlash
+            <span>[TEZKOR] </span> Retseptni Skanerlash
           </button>
           <button onclick="uploadImageMock()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold py-3 rounded-xl text-xs transition border border-slate-600 flex items-center justify-center gap-2">
-            <span>🖼️</span> Rasmni Yuklash
+            <span>[TASVIR] ️</span> Rasmni Yuklash
           </button>
         </div>
       </div>
@@ -116,7 +116,7 @@
               <h3 class="text-base font-bold text-white" id="res-patient">Karimov Baxtiyor (58 yosh)</h3>
             </div>
             <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-full font-mono font-bold">
-              TASDIQLANDI ✅
+              TASDIQLANDI [OK] 
             </span>
           </div>
 
@@ -175,7 +175,7 @@
 
         <!-- 1-Click Order Button -->
         <button onclick="confirmPrescriptionOrder()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3.5 rounded-2xl text-xs shadow-xl transition transform active:scale-95 flex items-center justify-center gap-2">
-          <span>📦</span> 30 Kunlik Lentali Qutini Buyurtma Qilish (93 500 so'm)
+          <span>[PAKET] </span> 30 Kunlik Lentali Qutini Buyurtma Qilish (93 500 so'm)
         </button>
       </div>
 
@@ -184,7 +184,7 @@
 
   <!-- Notification Toast -->
   <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
-    <span>✅</span> <span id="toast-text">Skanerlash muvaffaqiyatli yakunlandi!</span>
+    <span>[OK] </span> <span id="toast-text">Skanerlash muvaffaqiyatli yakunlandi!</span>
   </div>
 
   <script>

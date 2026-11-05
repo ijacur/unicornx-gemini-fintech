@@ -13,7 +13,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
-          <span class="text-2xl">🔬</span>
+          <span class="text-2xl">[LAB] </span>
           <span class="text-xl font-bold tracking-tight">Klinik Audit Sandbox</span>
         </a>
         <span class="text-xs bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-full font-semibold">
@@ -22,7 +22,7 @@
       </div>
       <div class="flex items-center space-x-3">
         <button onclick="runAudit()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
-          <span>⚡</span> Auditni Bajarish
+          <span>[TEZKOR] </span> Auditni Bajarish
         </button>
         <a href="../index.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
           ← Bosh Sahifa
@@ -54,7 +54,7 @@
         <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-sm font-bold text-white flex items-center gap-2">
-              <span>🩸</span> 1. Laboratoriya Biomarkerlari
+              <span>[QON] </span> 1. Laboratoriya Biomarkerlari
             </h3>
             <button onclick="loadDemoLabData()" class="text-[11px] text-purple-400 hover:text-purple-300 font-medium">
               Demo Ma'lumotlarni Yuklash
@@ -107,7 +107,7 @@
         <!-- Prescribed Meds Selector -->
         <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
           <h3 class="text-sm font-bold text-white mb-3 flex items-center gap-2">
-            <span>💊</span> 2. Qabul Qilinayotgan Dorilar
+            <span>[PREPARAT] </span> 2. Qabul Qilinayotgan Dorilar
           </h3>
 
           <div class="space-y-2 text-xs">
@@ -167,10 +167,10 @@
           <!-- Action Buttons -->
           <div class="mt-6 pt-5 border-t border-slate-700 flex flex-wrap gap-3">
             <button onclick="sendDoctorTelegramSummary()" class="flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl text-xs shadow-lg transition flex items-center justify-center gap-2">
-              <span>📲</span> Davolovchi Shifokorga Xabar Yuborish
+              <span>[MOBIL] </span> Davolovchi Shifokorga Xabar Yuborish
             </button>
             <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold px-4 py-3 rounded-xl text-xs transition border border-slate-600 flex items-center gap-1.5">
-              <span>🖨️</span> PDF Hisobot
+              <span>[CHOP] ️</span> PDF Hisobot
             </button>
           </div>
         </div>
@@ -178,7 +178,7 @@
         <!-- Clinical Guidelines Reference -->
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 text-xs text-slate-400 space-y-2">
           <h4 class="font-bold text-white flex items-center gap-1.5">
-            <span>📚</span> Klinik Standartlar Grounding:
+            <span>[MANBA] </span> Klinik Standartlar Grounding:
           </h4>
           <p>• <strong>KDIGO 2024:</strong> eGFR &lt; 45 ml/min bo'lganda Metformin dozasini 50% ga kamaytirish, eGFR &lt; 30 bo'lganda butunlay to'xtatish shart.</p>
           <p>• <strong>ESC/ESH Gipertoniya 2024:</strong> Zardob kaliyi &gt; 5.2 mmol/L da kaliy saqlovchi diuretiklar (Spironolakton) vaqtinchalik to'xtatiladi.</p>
@@ -191,7 +191,7 @@
 
   <!-- Notification Toast -->
   <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
-    <span>✅</span> <span id="toast-text">Audit muvaffaqiyatli bajarildi!</span>
+    <span>[OK] </span> <span id="toast-text">Audit muvaffaqiyatli bajarildi!</span>
   </div>
 
   <script>
@@ -278,7 +278,7 @@
       if (alerts.length === 0) {
         container.innerHTML = `
           <div class="bg-emerald-950/20 border border-emerald-500/30 p-4 rounded-xl text-emerald-300 text-xs flex items-center gap-3">
-            <span class="text-xl">✅</span>
+            <span class="text-xl">[OK] </span>
             <div>Barcha laboratoriya tahlillari qabul qilinayotgan dorilar dozasi bilan to'liq mutanosib! Xavflar aniqlanmadi.</div>
           </div>
         `;
@@ -292,7 +292,7 @@
           card.innerHTML = `
             <div class="flex items-center justify-between">
               <h4 class="font-bold ${isCrit ? 'text-red-400' : 'text-amber-400'} flex items-center gap-1.5">
-                <span>⚠️</span> ${a.title}
+                <span>[DIQQAT] </span> ${a.title}
               </h4>
               <span class="text-[10px] font-mono px-2 py-0.5 rounded font-bold ${isCrit ? 'bg-red-500/30 text-red-300' : 'bg-amber-500/30 text-amber-300'}">${a.severity}</span>
             </div>

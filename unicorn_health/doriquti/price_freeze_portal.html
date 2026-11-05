@@ -270,7 +270,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 28px;">❄️</span>
+            <span style="font-size: 28px;">️</span>
             <div>
                 <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">12 Oylik Narx Muzlatish & Inflyatsiya Qalqoni</h1>
                 <p style="font-size: 12px; color: var(--text-muted);">Dorixona inflyatsiyasidan qat'i nazar: 12 oy davomida dori narxi 1 so'm ham oshmaydi</p>
@@ -279,7 +279,7 @@
         </div>
         <div style="display: flex; gap: 12px; align-items: center;">
             <a href="../index.html" class="btn-action">← Asosiy Hub</a>
-            <button class="btn-action" onclick="window.print()">🖨️ Shartnomani Chop Etish</button>
+            <button class="btn-action" onclick="window.print()">[CHOP] ️ Shartnomani Chop Etish</button>
         </div>
     </header>
 
@@ -288,7 +288,7 @@
         <div class="hero-banner">
             <div>
                 <div class="hero-title">
-                    <span>🛡️ DoriQuti Narx Muzlatish Kafolati</span>
+                    <span>[HIMOYA] ️ DoriQuti Narx Muzlatish Kafolati</span>
                 </div>
                 <p class="hero-desc">
                     O'zbekistonda surunkali dorilar narxi yiliga o'rtacha <strong>18-22%</strong> ga oshadi. DoriQuti ulgurji ishlab chiqaruvchilar bilan to'g'ridan-to'g'ri forvard shartnoma tuzib, sizga 12 oyga qat'iy narxni kafolatlaydi!
@@ -297,7 +297,7 @@
             <div class="savings-box">
                 <div style="font-size: 12px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Yillik Sof Tejamkorlik:</div>
                 <div class="savings-amount" id="heroSavingsDisplay">626,465 UZS</div>
-                <div style="font-size: 11px; color: var(--cyan); font-weight: 600;">✓ 26.1% oilaviy byudjet tejovi</div>
+                <div style="font-size: 11px; color: var(--cyan); font-weight: 600;"> 26.1% oilaviy byudjet tejovi</div>
             </div>
         </div>
 
@@ -305,36 +305,36 @@
             <!-- Left: Packages -->
             <div class="panel">
                 <div class="panel-title">
-                    <span>📦</span> Surunkali Paketni Tanlang
+                    <span>[PAKET] </span> Surunkali Paketni Tanlang
                 </div>
 
                 <div class="pkg-card active" onclick="selectPackage('kardio', this)">
-                    <div class="pkg-title">❤️ Kardio Qalqon</div>
+                    <div class="pkg-title">️ Kardio Qalqon</div>
                     <div class="pkg-price">148,000 UZS / oy</div>
                     <div class="pkg-drugs">Atorvastatin 20mg, Amlodipin 5mg, Bisoprolol 5mg, Aspirin Kardio 100mg</div>
                 </div>
 
                 <div class="pkg-card" onclick="selectPackage('diabet', this)">
-                    <div class="pkg-title">🩸 Diabet Nazorati</div>
+                    <div class="pkg-title">[QON]  Diabet Nazorati</div>
                     <div class="pkg-price">172,000 UZS / oy</div>
                     <div class="pkg-drugs">Metformin 1000mg, Glimepirid 2mg, Glyukometr tasmachalari (50 dona)</div>
                 </div>
 
                 <div class="pkg-card" onclick="selectPackage('kombi', this)">
-                    <div class="pkg-title">👨‍👩‍👧 Ota-onam Kombi</div>
+                    <div class="pkg-title">[SHIFOKOR] ‍[BEMOR] ‍[PEDIATRIK]  Ota-onam Kombi</div>
                     <div class="pkg-price">265,000 UZS / oy</div>
                     <div class="pkg-drugs">Kardio + Diabet + Bo'g'im dori vositalari to'liq komplekti</div>
                 </div>
 
                 <button class="btn-freeze-contract" onclick="signPriceFreeze()">
-                    ✍️ 12 Oylik Shartnomani Faollashtirish
+                    ️ 12 Oylik Shartnomani Faollashtirish
                 </button>
             </div>
 
             <!-- Right: 12-Month Simulation Table -->
             <div class="panel">
                 <div class="panel-title">
-                    <span>📊</span> 12 Oylik Inflyatsiya vs Muzlatilgan Narx Solishtirmasi
+                    <span>[STATISTIKA] </span> 12 Oylik Inflyatsiya vs Muzlatilgan Narx Solishtirmasi
                 </div>
 
                 <table class="table">
@@ -419,7 +419,7 @@
         }
 
         function signPriceFreeze() {
-            alert(`✓ Tabriklaymiz! Sizning 12 oylik narx muzlatish shartnomangiz tasdiqlandi.\n\nTanlangan paket uchun narx keyingi 12 oy davomida o'zgarmasdan qolishi qonuniy kafolatlandi.`);
+            alert(` Tabriklaymiz! Sizning 12 oylik narx muzlatish shartnomangiz tasdiqlandi.\n\nTanlangan paket uchun narx keyingi 12 oy davomida o'zgarmasdan qolishi qonuniy kafolatlandi.`);
         }
 
         renderTable();

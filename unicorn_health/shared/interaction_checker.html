@@ -24,11 +24,11 @@
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2">
-          <span class="text-2xl">🦄</span>
+          <span class="text-2xl">[UNICORN] </span>
           <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
         </a>
         <span class="text-xs bg-rose-500/20 text-rose-400 font-bold px-2.5 py-0.5 rounded-full border border-rose-500/30 flex items-center gap-1">
-          <span>🛡️</span>
+          <span>[HIMOYA] ️</span>
           <span>Dori Xavfsizlik Tizimi</span>
         </span>
       </div>
@@ -43,7 +43,7 @@
 
       <div class="flex items-center space-x-2">
         <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl font-bold text-xs transition border border-slate-700 flex items-center gap-1.5">
-          <span>🖨️</span>
+          <span>[CHOP] ️</span>
           <span>Hisobotni Chop Etish</span>
         </button>
       </div>
@@ -53,7 +53,7 @@
   <!-- HERO -->
   <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center no-print">
     <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-4">
-      <span>💊</span>
+      <span>[PREPARAT] </span>
       <span>SamDTU Klinik Standartlari & Farmakologik Nazorat</span>
     </div>
     <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
@@ -77,16 +77,16 @@
         </span>
         <div class="grid grid-cols-2 gap-2 text-xs">
           <button onclick="applyPreset('cardio')" class="bg-slate-950 hover:bg-slate-800 text-slate-300 p-2 rounded-xl border border-slate-800 text-left font-semibold transition">
-            ❤️ Gipertoniya + Infarkt
+            ️ Gipertoniya + Infarkt
           </button>
           <button onclick="applyPreset('diabetes')" class="bg-slate-950 hover:bg-slate-800 text-slate-300 p-2 rounded-xl border border-slate-800 text-left font-semibold transition">
-            🩸 Qandli Diabet + Bosim
+            [QON]  Qandli Diabet + Bosim
           </button>
           <button onclick="applyPreset('polypharmacy')" class="bg-slate-950 hover:bg-slate-800 text-slate-300 p-2 rounded-xl border border-slate-800 text-left font-semibold transition">
-            👵 5 ta Murakkab Dori
+            [BEMOR]  5 ta Murakkab Dori
           </button>
           <button onclick="clearAllMeds()" class="bg-rose-950/30 hover:bg-rose-900/40 text-rose-300 p-2 rounded-xl border border-rose-800/40 text-center font-bold transition">
-            ✕ Tozalash
+             Tozalash
           </button>
         </div>
       </div>
@@ -156,7 +156,7 @@
       <!-- DETECTED INTERACTIONS LIST -->
       <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl print-card">
         <h3 class="text-xs font-black uppercase tracking-wider text-slate-300 mb-4 flex items-center gap-2">
-          <span>🔬</span>
+          <span>[LAB] </span>
           <span>Topilgan O‘zaro Ta’sirlar va Tavsiyalar:</span>
         </h3>
 
@@ -176,15 +176,15 @@
 
         <div class="grid grid-cols-3 gap-3 text-xs">
           <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-            <span class="text-emerald-400 font-bold block mb-1 text-[11px]">🌅 Ertalab (08:00)</span>
+            <span class="text-emerald-400 font-bold block mb-1 text-[11px]">[TONGGI]  Ertalab (08:00)</span>
             <div id="morningSlot" class="text-slate-300 text-[11px] space-y-1">--</div>
           </div>
           <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-            <span class="text-amber-400 font-bold block mb-1 text-[11px]">☀️ Tushlik (13:00)</span>
+            <span class="text-amber-400 font-bold block mb-1 text-[11px]">️ Tushlik (13:00)</span>
             <div id="lunchSlot" class="text-slate-300 text-[11px] space-y-1">--</div>
           </div>
           <div class="bg-slate-950 p-3 rounded-2xl border border-slate-800">
-            <span class="text-indigo-400 font-bold block mb-1 text-[11px]">🌙 Kechqurun (20:00)</span>
+            <span class="text-indigo-400 font-bold block mb-1 text-[11px]">[TUNGI]  Kechqurun (20:00)</span>
             <div id="eveningSlot" class="text-slate-300 text-[11px] space-y-1">--</div>
           </div>
         </div>
@@ -425,7 +425,7 @@
       if (found.length === 0) {
         container.innerHTML = `
           <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-3">
-            <span class="text-2xl">✅</span>
+            <span class="text-2xl">[OK] </span>
             <div>
               <strong class="block font-bold">Hech qanday xavfli o‘zaro ta’sir aniqlanmadi</strong>
               <span>Tanlangan dorilar birgalikda qabul qilish uchun farmakologik jihatdan mos keladi.</span>
@@ -440,7 +440,7 @@
                 ${item.med1} + ${item.med2}
               </span>
               <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded ${item.severity === 'HIGH' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
-                ${item.severity === 'HIGH' ? '🔴 Xavfli' : '🟡 O‘rtacha'}
+                ${item.severity === 'HIGH' ? '[KRITIK]  Xavfli' : '[OGOHLANTIRISH]  O‘rtacha'}
               </span>
             </div>
 

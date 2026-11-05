@@ -100,7 +100,7 @@
         }
 
         .hero-banner::after {
-            content: "🫀";
+            content: "[KARDIO] ";
             font-size: 190px;
             position: absolute;
             right: -20px;
@@ -456,7 +456,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">🫀</span>
+            <span style="font-size: 26px;">[KARDIO] </span>
             <div>
                 <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">DoriQuti Kardiologik Tele-Reabilitatsiya</h1>
                 <p style="font-size: 11px; color: var(--text-muted);">Post-MI 90 Kunlik Tiklanish & DAPT Stent Trombozi Qalqoni</p>
@@ -515,7 +515,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>💊</span>
+                        <span>[PREPARAT] </span>
                         <span>Kunlik Qadoqlangan Kardiologik Paketlar</span>
                     </div>
                     <span class="status-tag tag-green">Ertalab & Kechqurun</span>
@@ -524,8 +524,8 @@
                 <div class="form-group">
                     <label class="form-label">Klinik Protokol Tanlovi</label>
                     <select class="form-select" id="regimenSelect" onchange="updateRegimen()">
-                        <option value="post-mi-ticagrelor">🩸 O'tkir Koronar Sindrom & DES Stent (Tikagrelor 90mg + Aspirin + Statin 40mg)</option>
-                        <option value="post-mi-clopidogrel">🛡️ Standart Tiklanish (Klopidogrel 75mg + Aspirin + Metoprolol + Statin 20mg)</option>
+                        <option value="post-mi-ticagrelor">[QON]  O'tkir Koronar Sindrom & DES Stent (Tikagrelor 90mg + Aspirin + Statin 40mg)</option>
+                        <option value="post-mi-clopidogrel">[HIMOYA] ️ Standart Tiklanish (Klopidogrel 75mg + Aspirin + Metoprolol + Statin 20mg)</option>
                     </select>
                 </div>
 
@@ -533,7 +533,7 @@
                     <!-- Morning Pouch -->
                     <div class="pouch-card">
                         <div class="pouch-header">
-                            <span class="pouch-title"><span>☀️</span> Ertalabki Paket (08:00)</span>
+                            <span class="pouch-title"><span>️</span> Ertalabki Paket (08:00)</span>
                             <span class="status-tag tag-rose">Nonushtadan so'ng</span>
                         </div>
                         <div id="morningPouchList">
@@ -544,7 +544,7 @@
                     <!-- Evening Pouch -->
                     <div class="pouch-card">
                         <div class="pouch-header">
-                            <span class="pouch-title"><span>🌙</span> Kechki Paket (20:00)</span>
+                            <span class="pouch-title"><span>[TUNGI] </span> Kechki Paket (20:00)</span>
                             <span class="status-tag tag-amber">Kechki ovqatdan so'ng</span>
                         </div>
                         <div id="eveningPouchList">
@@ -562,7 +562,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>💰</span>
+                        <span>[UZS] </span>
                         <span>12 Oylik Bemor Iqtisodiyoti & Doimiy Narx Kafolati</span>
                     </div>
                     <span class="status-tag tag-rose">Zavod Narxlari</span>
@@ -602,7 +602,7 @@
                 </div>
 
                 <button class="btn-action" onclick="orderCardioSubscription()">
-                    <span>🫀</span>
+                    <span>[KARDIO] </span>
                     <span>12 Oylik Kardiologik Obunani Rasmiylashtirish</span>
                 </button>
             </div>
@@ -616,7 +616,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🩺</span>
+                        <span>[KLINIK] </span>
                         <span>Kunlik Qon Bosimi & Puls Telemetriyasi</span>
                     </div>
                     <span class="status-tag tag-rose">Puls Maqsadi: 55-65</span>
@@ -647,9 +647,9 @@
                 <div class="form-group">
                     <label class="form-label">O'tkazib yuborilgan dori dozalari (oxirgi 48 soatda)</label>
                     <select class="form-select" id="inputMissed" onchange="runEvaluation()">
-                        <option value="0">0 ta (Barcha dorilar vaqtida ichildi ✅)</option>
-                        <option value="1">1 ta doza o'tib ketdi ⚠️</option>
-                        <option value="2">2+ ta doza o'tib ketdi (XAVFLI 🚨)</option>
+                        <option value="0">0 ta (Barcha dorilar vaqtida ichildi [OK] )</option>
+                        <option value="1">1 ta doza o'tib ketdi [DIQQAT] </option>
+                        <option value="2">2+ ta doza o'tib ketdi (XAVFLI [ALERT] )</option>
                     </select>
                 </div>
 
@@ -662,7 +662,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🛡️</span>
+                        <span>[HIMOYA] ️</span>
                         <span>90 Kunlik Tiklanish Zanjiri & Favqulodda Protokol</span>
                     </div>
                     <span class="status-tag tag-green">Intizom: 100%</span>
@@ -681,7 +681,7 @@
 
                 <div style="margin-top: 24px; padding: 18px; background: #090a12; border: 1px solid var(--border); border-radius: 14px;">
                     <div style="font-size: 13px; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-                        <span>🚨</span>
+                        <span>[ALERT] </span>
                         <span>Ko'krak Qafasida Siqilish Bo'lsa Nima Qilish Kerak?</span>
                     </div>
                     <ul style="font-size: 12px; color: var(--text-muted); line-height: 1.6; padding-left: 20px;">
@@ -691,7 +691,7 @@
                     </ul>
 
                     <button class="btn-action btn-sos" onclick="triggerSosEmergency()" style="margin-top: 14px;">
-                        <span>📞</span>
+                        <span>[ALOQA] </span>
                         <span>SHOSHILINCH 103 VA SAMDTU KARDIOMARKAZ ALOQASI</span>
                     </button>
                 </div>
@@ -707,27 +707,27 @@
                 monthlyRetail: 680000,
                 monthlyDoriquti: 245000,
                 morning: [
-                    { icon: "🩸", name: "Tikagrelor", dose: "90 mg", role: "Kuchli DAPT (Trombotsit agregatsiyasini to'xtatish)" },
-                    { icon: "🛡️", name: "Aspirin (Kardio-magnil)", dose: "100 mg", role: "Antiagregant himoya" },
-                    { icon: "🫀", name: "Bisoprolol (Konkor)", dose: "5 mg", role: "Beta-blokator (Yurak ritmini 55-65 da saqlash)" },
-                    { icon: "🩺", name: "Ramipril (Amprilan)", dose: "5 mg", role: "APF-ingibitori (Yurak kengayishiga qarshi)" }
+                    { icon: "[QON] ", name: "Tikagrelor", dose: "90 mg", role: "Kuchli DAPT (Trombotsit agregatsiyasini to'xtatish)" },
+                    { icon: "[HIMOYA] ️", name: "Aspirin (Kardio-magnil)", dose: "100 mg", role: "Antiagregant himoya" },
+                    { icon: "[KARDIO] ", name: "Bisoprolol (Konkor)", dose: "5 mg", role: "Beta-blokator (Yurak ritmini 55-65 da saqlash)" },
+                    { icon: "[KLINIK] ", name: "Ramipril (Amprilan)", dose: "5 mg", role: "APF-ingibitori (Yurak kengayishiga qarshi)" }
                 ],
                 evening: [
-                    { icon: "🩸", name: "Tikagrelor", dose: "90 mg", role: "Kechki doza (Aynan 12 soatdan so'ng)" },
-                    { icon: "🧪", name: "Atorvastatin", dose: "40 mg", role: "Yuqori dozali statin (Blyashkani mustahkamlash)" }
+                    { icon: "[QON] ", name: "Tikagrelor", dose: "90 mg", role: "Kechki doza (Aynan 12 soatdan so'ng)" },
+                    { icon: "[BIO/LAB] ", name: "Atorvastatin", dose: "40 mg", role: "Yuqori dozali statin (Blyashkani mustahkamlash)" }
                 ]
             },
             "post-mi-clopidogrel": {
                 monthlyRetail: 390000,
                 monthlyDoriquti: 140000,
                 morning: [
-                    { icon: "🩸", name: "Klopidogrel (Plaviks)", dose: "75 mg", role: "DAPT antiagregant" },
-                    { icon: "🛡️", name: "Aspirin", dose: "100 mg", role: "Antiagregant himoya" },
-                    { icon: "🫀", name: "Metoprolol suksinat", dose: "50 mg", role: "Beta-blokator" },
-                    { icon: "🩺", name: "Perindopril", dose: "5 mg", role: "APF-ingibitori" }
+                    { icon: "[QON] ", name: "Klopidogrel (Plaviks)", dose: "75 mg", role: "DAPT antiagregant" },
+                    { icon: "[HIMOYA] ️", name: "Aspirin", dose: "100 mg", role: "Antiagregant himoya" },
+                    { icon: "[KARDIO] ", name: "Metoprolol suksinat", dose: "50 mg", role: "Beta-blokator" },
+                    { icon: "[KLINIK] ", name: "Perindopril", dose: "5 mg", role: "APF-ingibitori" }
                 ],
                 evening: [
-                    { icon: "🧪", name: "Atorvastatin", dose: "20 mg", role: "Statin lipid nazorati" }
+                    { icon: "[BIO/LAB] ", name: "Atorvastatin", dose: "20 mg", role: "Statin lipid nazorati" }
                 ]
             }
         };
@@ -792,34 +792,34 @@
 
             const resBox = document.getElementById('evalResultBox');
             let alertClass = 'emerald';
-            let title = "Holat Barqaror ✅";
+            let title = "Holat Barqaror [OK] ";
             let desc = "Puls (55-65 bpm) va arterial bosim (<130/80 mmHg) ko'rsatkichlari mukammal me'yorda. Rejali qabulni davom ettiring.";
 
             if (pain >= 5) {
                 alertClass = 'rose';
-                title = "FAVQULODDA: O'tkir Koronar Xuruj Xavfi! 🚨";
+                title = "FAVQULODDA: O'tkir Koronar Xuruj Xavfi! [ALERT] ";
                 desc = `Ko'krakda kuchli og'riq (${pain}/10 ball)! Zudlik bilan o'tiring, til ostiga nitroglitserin qo'ying va pastdagi qizil tugma orqali 103 ni chaqiring.`;
             } else if (missed >= 2) {
                 alertClass = 'rose';
-                title = "XAVFLI: 2 ta DAPT dozasi qolib ketgan! ⚠️";
+                title = "XAVFLI: 2 ta DAPT dozasi qolib ketgan! [DIQQAT] ";
                 desc = "Antiagregant to'xtaganda stent ichida qon ivishi va tromboz xavfi keskin oshadi. Darhol o'tkazib yuborilgan dozani qabul qiling!";
             } else if (hr > 75) {
                 alertClass = 'amber';
-                title = "Puls Yuqori: " + hr + " zarba/daq ⚠️";
+                title = "Puls Yuqori: " + hr + " zarba/daq [DIQQAT] ";
                 desc = "Infarktdan so'ng yurak zo'riqmasligi uchun puls 55-65 oralig'ida bo'lishi shart. Shifokor bilan Bisoprolol dozasini oshirishni maslahatlashing.";
             } else if (hr < 50) {
                 alertClass = 'amber';
-                title = "Bradikardiya: " + hr + " zarba/daq ⚠️";
+                title = "Bradikardiya: " + hr + " zarba/daq [DIQQAT] ";
                 desc = "Puls me'yordan past. Bosh aylanishi yoki holsizlik bo'lsa, dori dozasini kamaytirish talab etiladi.";
             } else if (sbp >= 140 || dbp >= 90) {
                 alertClass = 'amber';
-                title = "Bosim Yuqori: " + sbp + "/" + dbp + " mmHg ⚠️";
+                title = "Bosim Yuqori: " + sbp + "/" + dbp + " mmHg [DIQQAT] ";
                 desc = "Post-MI maqsadli qon bosimi 130/80 dan past bo'lishi kerak. Tuz iste'molini cheklang.";
             }
 
             resBox.innerHTML = `
                 <div class="alert-card ${alertClass}">
-                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '[ALERT] ' : alertClass === 'amber' ? '[DIQQAT] ' : '[OK] '}</span>
                     <div>
                         <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
                         <div>${desc}</div>
@@ -836,7 +836,7 @@
                 dot.className = 'streak-dot';
                 if (i < 14) {
                     dot.classList.add('done');
-                    dot.innerText = '✓';
+                    dot.innerText = '';
                 } else if (i === 14) {
                     dot.classList.add('today');
                     dot.innerText = '14';
@@ -848,11 +848,11 @@
         }
 
         function orderCardioSubscription() {
-            alert("✅ 12 oylik Kardiologik DoriQuti obunasi muvaffaqiyatli saqlandi!\n\nYetkazish: Bepul kuryer orqali har oy uyingizga.\nNarx muzlatish kafolati: 12 oy davomida qat'iy 245,000 UZS/oy.\nSamDTU Kardiologiya professori retsepti biriktirildi.");
+            alert("[OK]  12 oylik Kardiologik DoriQuti obunasi muvaffaqiyatli saqlandi!\n\nYetkazish: Bepul kuryer orqali har oy uyingizga.\nNarx muzlatish kafolati: 12 oy davomida qat'iy 245,000 UZS/oy.\nSamDTU Kardiologiya professori retsepti biriktirildi.");
         }
 
         function triggerSosEmergency() {
-            alert("🚨 DIQQAT: 103 Shoshilinch tez yordam dispetcheriga bemorning geografik koordinatasi va oxirgi telemetriya ma'lumotlari uzatildi!\n\nSamDTU Kardiologiya RMIATM navbatchi shifokoriga xabar yuborildi. Iltimos, xotirjam o'tiring va chuqur nafas oling.");
+            alert("[ALERT]  DIQQAT: 103 Shoshilinch tez yordam dispetcheriga bemorning geografik koordinatasi va oxirgi telemetriya ma'lumotlari uzatildi!\n\nSamDTU Kardiologiya RMIATM navbatchi shifokoriga xabar yuborildi. Iltimos, xotirjam o'tiring va chuqur nafas oling.");
         }
 
         // Init

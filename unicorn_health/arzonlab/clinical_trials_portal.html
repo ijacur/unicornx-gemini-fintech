@@ -268,7 +268,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 28px;">🔬</span>
+            <span style="font-size: 28px;">[LAB] </span>
             <div>
                 <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">SamDTU Klinik Tadqiqotlar & Bepul Terapiya Portali</h1>
                 <p style="font-size: 12px; color: var(--text-muted);">SamDTU Ilmiy Klinikalari & Respublika Markazlaridagi Phase III/IV Dasturlar</p>
@@ -277,7 +277,7 @@
         </div>
         <div style="display: flex; gap: 12px; align-items: center;">
             <a href="../index.html" class="btn-action">← Asosiy Hub</a>
-            <button class="btn-action" onclick="window.print()">🖨️ Chop Etish</button>
+            <button class="btn-action" onclick="window.print()">[CHOP] ️ Chop Etish</button>
         </div>
     </header>
 
@@ -286,7 +286,7 @@
             <!-- Left Panel: Patient Screening Form -->
             <div class="panel">
                 <div class="panel-title">
-                    <span>📋</span> Bemor Ko'rsatkichlari (Skrining)
+                    <span>[BAYONNOMA] </span> Bemor Ko'rsatkichlari (Skrining)
                 </div>
 
                 <div class="form-group">
@@ -391,39 +391,39 @@
 
                 if (t.diagnosis === diag) {
                     score += 40;
-                    reasons.push("✓ Tashxis to'liq mos keladi");
+                    reasons.push(" Tashxis to'liq mos keladi");
                 } else {
-                    reasons.push("✕ Tashxis boshqa profilga tegishli");
+                    reasons.push(" Tashxis boshqa profilga tegishli");
                 }
 
                 if (age >= t.minAge && age <= t.maxAge) {
                     score += 20;
-                    reasons.push(`✓ Yosh mos (${t.minAge}-${t.maxAge} yosh)`);
+                    reasons.push(` Yosh mos (${t.minAge}-${t.maxAge} yosh)`);
                 } else {
-                    reasons.push(`✕ Yosh chegarasiga mos emas`);
+                    reasons.push(` Yosh chegarasiga mos emas`);
                 }
 
                 if (t.minHba1c) {
                     if (hba1c >= t.minHba1c && hba1c <= t.maxHba1c) {
                         score += 30;
-                        reasons.push(`✓ HbA1c ${hba1c}% mos`);
+                        reasons.push(` HbA1c ${hba1c}% mos`);
                     } else {
-                        reasons.push(`✕ HbA1c talabga to'g'ri kelmadi`);
+                        reasons.push(` HbA1c talabga to'g'ri kelmadi`);
                     }
                 }
 
                 if (t.minLdl) {
                     if (ldl >= t.minLdl) {
                         score += 30;
-                        reasons.push(`✓ LDL ${ldl} mmol/L mos`);
+                        reasons.push(` LDL ${ldl} mmol/L mos`);
                     } else {
-                        reasons.push(`✕ LDL talabga to'g'ri kelmadi`);
+                        reasons.push(` LDL talabga to'g'ri kelmadi`);
                     }
                 }
 
                 if (egfr >= t.minEgfr) {
                     score += 10;
-                    reasons.push(`✓ Buyrak filtratsiyasi (eGFR ${egfr}) xavfsiz`);
+                    reasons.push(` Buyrak filtratsiyasi (eGFR ${egfr}) xavfsiz`);
                 }
 
                 const badgeClass = score >= 80 ? 'match-100' : 'match-borderline';
@@ -436,10 +436,10 @@
                             <span class="match-badge ${badgeClass}">${statusText}</span>
                         </div>
                         <h4 class="trial-title">${t.title}</h4>
-                        <div class="trial-center">🏛️ ${t.center}</div>
+                        <div class="trial-center">[STANDART] ️ ${t.center}</div>
 
                         <div class="benefits-box">
-                            <div class="benefits-title">🎁 Bemor Imtiyozlari:</div>
+                            <div class="benefits-title">[BONUS]  Bemor Imtiyozlari:</div>
                             <div class="benefits-text">${t.benefits}</div>
                         </div>
 
@@ -448,9 +448,9 @@
                         </div>
 
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span style="font-size: 12px; color: var(--emerald); font-weight: 700;">✓ Bemor uchun mutlaqo bepul</span>
+                            <span style="font-size: 12px; color: var(--emerald); font-weight: 700;"> Bemor uchun mutlaqo bepul</span>
                             <button class="btn-apply" onclick="applyTrial('${t.id}')">
-                                📝 Tadqiqotga Ariza Topshirish
+                                [QAYD]  Tadqiqotga Ariza Topshirish
                             </button>
                         </div>
                     </div>
@@ -460,7 +460,7 @@
         }
 
         function applyTrial(trialId) {
-            alert(`✓ Tabriklaymiz! Sizning arizangiz #${trialId} klinik protokoli bo'yicha qabul qilindi.\n\nSamDTU Ilmiy Koordinatori 24 soat ichida telefon orqali bepul dastlabki konsiliumga taklif qiladi.`);
+            alert(` Tabriklaymiz! Sizning arizangiz #${trialId} klinik protokoli bo'yicha qabul qilindi.\n\nSamDTU Ilmiy Koordinatori 24 soat ichida telefon orqali bepul dastlabki konsiliumga taklif qiladi.`);
         }
 
         // Initialize

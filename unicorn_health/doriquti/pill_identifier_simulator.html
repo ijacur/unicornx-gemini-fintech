@@ -292,7 +292,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 28px;">🔍</span>
+            <span style="font-size: 28px;">[QIDIRUV] </span>
             <div>
                 <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">Vizual Tabletka & Kapsula Aniqlagich</h1>
                 <p style="font-size: 12px; color: var(--text-muted);">Paketdan tushib qolgan yoki blisteri kesilgan dorilarni adashmasdan aniqlash</p>
@@ -301,7 +301,7 @@
         </div>
         <div style="display: flex; gap: 12px; align-items: center;">
             <a href="../index.html" class="btn-action">← Asosiy Hub</a>
-            <a href="index.html" class="btn-action btn-primary">💊 DoriQuti Blisteriga O'tish</a>
+            <a href="index.html" class="btn-action btn-primary">[PREPARAT]  DoriQuti Blisteriga O'tish</a>
         </div>
     </header>
 
@@ -310,7 +310,7 @@
             <!-- Left Panel: Filters -->
             <div class="panel">
                 <div class="panel-title">
-                    <span>🎛️</span> Vizual Belgilar Filtri
+                    <span>️</span> Vizual Belgilar Filtri
                 </div>
 
                 <!-- 1. Color -->
@@ -318,9 +318,9 @@
                     <span class="filter-label">Tabletka Rangi</span>
                     <div class="chip-grid" id="colorFilter">
                         <div class="chip active" onclick="setColor('all', this)">Barchasi</div>
-                        <div class="chip" onclick="setColor('oq', this)">⚪ Oq</div>
-                        <div class="chip" onclick="setColor('sariq', this)">🟡 Sariq</div>
-                        <div class="chip" onclick="setColor('olovrang', this)">🟠 Olovrang</div>
+                        <div class="chip" onclick="setColor('oq', this)"> Oq</div>
+                        <div class="chip" onclick="setColor('sariq', this)">[OGOHLANTIRISH]  Sariq</div>
+                        <div class="chip" onclick="setColor('olovrang', this)">[SARIQ]  Olovrang</div>
                     </div>
                 </div>
 
@@ -330,9 +330,9 @@
                     <div class="chip-grid" id="shapeFilter">
                         <div class="chip active" onclick="setShape('all', this)">Barchasi</div>
                         <div class="chip" onclick="setShape('dumaloq', this)">⭕ Dumaloq</div>
-                        <div class="chip" onclick="setShape('yuraksimon', this)">❤️ Yuraksimon</div>
+                        <div class="chip" onclick="setShape('yuraksimon', this)">️ Yuraksimon</div>
                         <div class="chip" onclick="setShape('oval', this)">⬭ Oval / Uzunchoq</div>
-                        <div class="chip" onclick="setShape('sakkizburchak', this)">🛑 Sakkizburchak</div>
+                        <div class="chip" onclick="setShape('sakkizburchak', this)">[STOP]  Sakkizburchak</div>
                     </div>
                 </div>
 
@@ -353,7 +353,7 @@
                 </div>
 
                 <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; padding: 12px; font-size: 11px; color: #fde68a; line-height: 1.4;">
-                    ⚠️ <strong>Ogohlantirish:</strong> Agar dorining nomi va muddati to'liq aniqlanmasa, uni iste'mol qilmang. Har doim DoriQuti provizoriga ko'rsating.
+                    [DIQQAT]  <strong>Ogohlantirish:</strong> Agar dorining nomi va muddati to'liq aniqlanmasa, uni iste'mol qilmang. Har doim DoriQuti provizoriga ko'rsating.
                 </div>
             </div>
 
@@ -537,7 +537,7 @@
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div style="grid-column: 1 / -1; background: #0b1324; border: 1px solid var(--border); padding: 32px; border-radius: 14px; text-align: center; color: var(--text-muted);">
-                        🔍 Ushbu mezonlarga mos keluvchi tabletka topilmadi.<br>
+                        [QIDIRUV]  Ushbu mezonlarga mos keluvchi tabletka topilmadi.<br>
                         Filtrlarni o'zgartiring yoki bevosita DoriQuti provizoriga suratini jo'nating.
                     </div>
                 `;
@@ -558,7 +558,7 @@
                             <strong>Chiziq:</strong> ${p.scoring ? "Mavjud (bo'linadi)" : "Yo'q (butun)"}
                         </div>
                         <div class="caution-box">
-                            ⚠️ <strong>Klinik qoida:</strong> ${p.caution}
+                            [DIQQAT]  <strong>Klinik qoida:</strong> ${p.caution}
                         </div>
                     </div>
                     <button class="btn-add-pouch" onclick="addToBlister('${p.name}')">
@@ -569,7 +569,7 @@
         }
 
         function addToBlister(drugName) {
-            alert(`✓ ${drugName} sizning oylik DoriQuti kalendar blisteringizga qo'shildi!`);
+            alert(` ${drugName} sizning oylik DoriQuti kalendar blisteringizga qo'shildi!`);
         }
 
         // Initialize

@@ -235,7 +235,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 2rem;">🧬</span>
+            <span style="font-size: 2rem;">[GENETIKA] </span>
             <div>
                 <h1 style="font-size: 1.25rem; font-weight: 800;">SamDTU Klinik Farmakogenomika & Shaxsiy Tibbiyot Qalqoni</h1>
                 <p style="font-size: 0.8rem; color: var(--text-muted);">Genetik Mutatsiyalar Asosida DoriQuti Dozalarini Moslashtirish va Nojo'ya Ta'sirlarni Bartaraf Etish</p>
@@ -243,7 +243,7 @@
             <span class="badge-dna">Precision Medicine</span>
         </div>
         <div style="display: flex; gap: 16px;">
-            <a href="/doriquti/doctor_portal.html" class="nav-link">🩺 Shifokor Portali</a>
+            <a href="/doriquti/doctor_portal.html" class="nav-link">[KLINIK]  Shifokor Portali</a>
             <a href="/index.html" class="nav-link">← Asosiy Hub</a>
         </div>
     </header>
@@ -255,7 +255,7 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">🔬 Bemor Genetik Profili (ArzonLab DNK)</div>
+                        <div class="card-title">[LAB]  Bemor Genetik Profili (ArzonLab DNK)</div>
                         <span style="font-size: 0.8rem; color: #38bdf8; font-family: 'JetBrains Mono';">DNA-UZ-4912</span>
                     </div>
 
@@ -268,16 +268,16 @@
                         <label class="form-label">Aniqlangan Genetik Polimorfizmlar:</label>
                         <div class="gene-tag-list">
                             <div class="gene-tag active" id="tagCYP2C19" onclick="toggleGene('CYP2C19')">
-                                🧬 CYP2C19 (*2/*3 Quyi Metabolizator)
+                                [GENETIKA]  CYP2C19 (*2/*3 Quyi Metabolizator)
                             </div>
                             <div class="gene-tag active" id="tagSLCO1B1" onclick="toggleGene('SLCO1B1')">
-                                🧬 SLCO1B1 (*5 Statin Miopatiyasi Xavfi)
+                                [GENETIKA]  SLCO1B1 (*5 Statin Miopatiyasi Xavfi)
                             </div>
                             <div class="gene-tag" id="tagVKORC1" onclick="toggleGene('VKORC1')">
-                                🧬 CYP2C9/VKORC1 (Varfaringa O'ta Sezuvchan)
+                                [GENETIKA]  CYP2C9/VKORC1 (Varfaringa O'ta Sezuvchan)
                             </div>
                             <div class="gene-tag" id="tagHLA" onclick="toggleGene('HLA')">
-                                🧬 HLA-B*58:01 (Allopurinol Toksikligi)
+                                [GENETIKA]  HLA-B*58:01 (Allopurinol Toksikligi)
                             </div>
                         </div>
                     </div>
@@ -293,10 +293,10 @@
 
                     <div style="margin-top: 20px;">
                         <button class="btn btn-primary" onclick="adaptGenomicRx()">
-                            🛡️ Genetik Xavfsiz DoriQuti Formulatsiyasiga O'tkazish
+                            [HIMOYA] ️ Genetik Xavfsiz DoriQuti Formulatsiyasiga O'tkazish
                         </button>
                         <button class="btn btn-outline" onclick="window.print()">
-                            🖨️ Shaxsiy Genetik Xulosa Varaqasini Chop Etish
+                            [CHOP] ️ Shaxsiy Genetik Xulosa Varaqasini Chop Etish
                         </button>
                     </div>
                 </div>
@@ -306,40 +306,40 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">⚠️ Genetik Moslik & Profilaktik Yechimlar</div>
+                        <div class="card-title">[DIQQAT]  Genetik Moslik & Profilaktik Yechimlar</div>
                         <span style="font-size: 0.8rem; color: var(--danger); font-weight: 700;">2 ta kritik mutatsiya topildi</span>
                     </div>
 
                     <!-- Risk 1: CYP2C19 & Clopidogrel -->
                     <div class="alert-card alert-critical" id="boxCYP2C19">
                         <div class="alert-title">
-                            <span>🚨 CYP2C19 *2/*3: Klopidogrel Samaradorligi Yo'q!</span>
+                            <span>[ALERT]  CYP2C19 *2/*3: Klopidogrel Samaradorligi Yo'q!</span>
                             <span style="font-size: 0.75rem; background: var(--danger); color: white; padding: 2px 8px; border-radius: 4px;">KRITIK XAVF</span>
                         </div>
                         <p style="font-size: 0.85rem; line-height: 1.5;">
                             <strong>Klinik oqibat:</strong> Bemor jigari fermenti mutatsiyaga uchraganligi sababli Klopidogrel faol moddaga aylanmaydi. Qon suyulmaydi, stent trombozi va qayta infarkt xavfi 3.5 barobar oshadi!
                         </p>
                         <div class="rec-pill">
-                            ✅ <strong>Tavsiya:</strong> Klopidogrelni zudlik bilan <strong>Tikagrelor 90mg (Brilinta) 2 mahal</strong>ga almashtiring.
+                            [OK]  <strong>Tavsiya:</strong> Klopidogrelni zudlik bilan <strong>Tikagrelor 90mg (Brilinta) 2 mahal</strong>ga almashtiring.
                         </div>
                     </div>
 
                     <!-- Risk 2: SLCO1B1 & Atorvastatin -->
                     <div class="alert-card alert-warning" id="boxSLCO1B1">
                         <div class="alert-title">
-                            <span>⚡ SLCO1B1 *5: Yuqori Statin Miopatiyasi Xavfi</span>
+                            <span>[TEZKOR]  SLCO1B1 *5: Yuqori Statin Miopatiyasi Xavfi</span>
                             <span style="font-size: 0.75rem; background: var(--amber); color: #0b1329; padding: 2px 8px; border-radius: 4px;">YUQORI XAVF</span>
                         </div>
                         <p style="font-size: 0.85rem; line-height: 1.5;">
                             <strong>Klinik oqibat:</strong> OATP1B1 transportatori oqsilining sustligi oqibatida 40mg Atorvastatin qonda xavfli to'planib, og'ir mushak og'riqlari va rabdomioliz keltirib chiqaradi.
                         </p>
                         <div class="rec-pill" style="background: rgba(245, 158, 11, 0.2); border-color: var(--amber); color: #fde68a;">
-                            ✅ <strong>Tavsiya:</strong> Atorvastatin 40mg ni <strong>Rozuvastatin 10mg</strong> ga almashtiring.
+                            [OK]  <strong>Tavsiya:</strong> Atorvastatin 40mg ni <strong>Rozuvastatin 10mg</strong> ga almashtiring.
                         </div>
                     </div>
 
                     <div style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; background: #070d1e; padding: 14px; border-radius: 12px;">
-                        💡 <strong>SamDTU Ilmiy Xulosasi:</strong> O‘zbekistonda stent qo‘yilgan bemorlarning 28% qismida CYP2C19 sekin metabolizmi uchraydi. DoriQuti genetika qalqoni qayta infarkt va o'lim holatlarini 82% ga qisqartiradi.
+                        [INFO]  <strong>SamDTU Ilmiy Xulosasi:</strong> O‘zbekistonda stent qo‘yilgan bemorlarning 28% qismida CYP2C19 sekin metabolizmi uchraydi. DoriQuti genetika qalqoni qayta infarkt va o'lim holatlarini 82% ga qisqartiradi.
                     </div>
                 </div>
             </div>
@@ -355,7 +355,7 @@
         }
 
         function adaptGenomicRx() {
-            alert("🛡️ DoriQuti Shaxsiy Genetik Retsepti Yangilandi!\n\n1. Klopidogrel ➔ Tikagrelor 90mg (Brilinta) ga almashtirildi.\n2. Atorvastatin 40mg ➔ Rozuvastatin 10mg ga almashtirildi.\n\nBemor oylik qutisi xavfsiz genetik moslashtirilgan tabletkalar bilan qadoqlashga yuborildi!");
+            alert("[HIMOYA] ️ DoriQuti Shaxsiy Genetik Retsepti Yangilandi!\n\n1. Klopidogrel  Tikagrelor 90mg (Brilinta) ga almashtirildi.\n2. Atorvastatin 40mg  Rozuvastatin 10mg ga almashtirildi.\n\nBemor oylik qutisi xavfsiz genetik moslashtirilgan tabletkalar bilan qadoqlashga yuborildi!");
         }
     </script>
 </body>

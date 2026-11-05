@@ -400,7 +400,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">🌐</span>
+            <span style="font-size: 26px;"></span>
             <div>
                 <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">HL7® FHIR® R4 Interoperability Hub</h1>
                 <p style="font-size: 12px; color: var(--text-muted);">O'zbekiston SSV DMED, MedData va Shifoxonalar EHR Integratsiya Markazi</p>
@@ -411,7 +411,7 @@
         <div style="display: flex; gap: 12px; align-items: center;">
             <a href="../index.html" class="btn-action" style="text-decoration: none;">← Boshqaruv Paneliga Qaytish</a>
             <button class="btn-action btn-primary" onclick="simulateDMEDSync()">
-                <span>⚡</span> SSV DMED Sinxronizatsiyasini Yuborish
+                <span>[TEZKOR] </span> SSV DMED Sinxronizatsiyasini Yuborish
             </button>
         </div>
     </header>
@@ -422,22 +422,22 @@
             <div class="metric-card">
                 <div class="metric-label">Sinxron Bemorlar (Patients)</div>
                 <div class="metric-value">1,420</div>
-                <div class="metric-sub">✓ JSHSHIR (PINFL) 100% verifikatsiya</div>
+                <div class="metric-sub"> JSHSHIR (PINFL) 100% verifikatsiya</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">Retseptlar (MedicationRequests)</div>
                 <div class="metric-value">4,890</div>
-                <div class="metric-sub">✓ MXIK & INN kodlari biriktirilgan</div>
+                <div class="metric-sub"> MXIK & INN kodlari biriktirilgan</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">Tarqatilgan Xaltalar (Dispenses)</div>
                 <div class="metric-value">142,500</div>
-                <div class="metric-sub">✓ 4K Optik nazoratdan o'tgan</div>
+                <div class="metric-sub"> 4K Optik nazoratdan o'tgan</div>
             </div>
             <div class="metric-card">
                 <div class="metric-label">MRT/KT & Tahlillar (DiagnosticReports)</div>
                 <div class="metric-value">840</div>
-                <div class="metric-sub">✓ LOINC & DICOM bog'langan</div>
+                <div class="metric-sub"> LOINC & DICOM bog'langan</div>
             </div>
         </div>
 
@@ -446,35 +446,35 @@
             <!-- Sidebar Navigation -->
             <div class="panel">
                 <div class="panel-header">
-                    <span class="panel-title"><span>📂</span> FHIR Resurslari</span>
+                    <span class="panel-title"><span></span> FHIR Resurslari</span>
                 </div>
                 <div class="nav-list">
                     <div class="nav-item active" onclick="switchResource('bundle')">
-                        <span>📦 To'liq Ekosistema Bundle</span>
+                        <span>[PAKET]  To'liq Ekosistema Bundle</span>
                         <span class="nav-item-badge">Bundle</span>
                     </div>
                     <div class="nav-item" onclick="switchResource('patient')">
-                        <span>👤 Bemor Profili</span>
+                        <span>[BEMOR]  Bemor Profili</span>
                         <span class="nav-item-badge">Patient</span>
                     </div>
                     <div class="nav-item" onclick="switchResource('medreq')">
-                        <span>💊 Shifokor Retsepti</span>
+                        <span>[PREPARAT]  Shifokor Retsepti</span>
                         <span class="nav-item-badge">MedRequest</span>
                     </div>
                     <div class="nav-item" onclick="switchResource('meddisp')">
-                        <span>📦 DoriQuti Blister Tarqatish</span>
+                        <span>[PAKET]  DoriQuti Blister Tarqatish</span>
                         <span class="nav-item-badge">MedDispense</span>
                     </div>
                     <div class="nav-item" onclick="switchResource('servicereq')">
-                        <span>🩺 ArzonLab MRT Yo'llanmasi</span>
+                        <span>[KLINIK]  ArzonLab MRT Yo'llanmasi</span>
                         <span class="nav-item-badge">ServiceReq</span>
                     </div>
                     <div class="nav-item" onclick="switchResource('diagrep')">
-                        <span>📋 MRT & Tahlil Xulosasi</span>
+                        <span>[BAYONNOMA]  MRT & Tahlil Xulosasi</span>
                         <span class="nav-item-badge">DiagReport</span>
                     </div>
                     <div class="nav-item" onclick="switchResource('observation')">
-                        <span>🩸 Laboratoriya Biomarkeri</span>
+                        <span>[QON]  Laboratoriya Biomarkeri</span>
                         <span class="nav-item-badge">Observation</span>
                     </div>
                 </div>
@@ -512,14 +512,14 @@
             <div class="panel">
                 <div class="panel-header">
                     <div style="display: flex; align-items: center; gap: 10px;">
-                        <span class="panel-title" id="resourceHeaderTitle"><span>📦</span> To'liq Ekosistema HL7 FHIR Bundle (JSON)</span>
+                        <span class="panel-title" id="resourceHeaderTitle"><span>[PAKET] </span> To'liq Ekosistema HL7 FHIR Bundle (JSON)</span>
                     </div>
                     <div style="display: flex; gap: 10px;">
                         <button class="btn-action" onclick="copyCurrentJSON()">
-                            <span>📋</span> Nusxa olish
+                            <span>[BAYONNOMA] </span> Nusxa olish
                         </button>
                         <button class="btn-action" onclick="downloadJSON()">
-                            <span>💾</span> .json yuklab olish
+                            <span>[SAQLANGAN] </span> .json yuklab olish
                         </button>
                     </div>
                 </div>
@@ -532,8 +532,8 @@
                 <!-- Live Validator Console -->
                 <div class="validator-box">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <span style="font-size: 13px; font-weight: 700; color: #cbd5e1;">🔍 Jonli HL7 FHIR R4 Sintaksis & Standart Validatori</span>
-                        <span id="validatorStatus" style="font-size: 12px; color: var(--emerald); font-weight: 700;">✓ R4 Sxema Talablariga 100% Mos</span>
+                        <span style="font-size: 13px; font-weight: 700; color: #cbd5e1;">[QIDIRUV]  Jonli HL7 FHIR R4 Sintaksis & Standart Validatori</span>
+                        <span id="validatorStatus" style="font-size: 12px; color: var(--emerald); font-weight: 700;"> R4 Sxema Talablariga 100% Mos</span>
                     </div>
                     <textarea class="validator-input" id="validatorInput" placeholder="Sinash uchun ixtiyoriy FHIR JSON kodini kiriting..." oninput="validateInputJSON()"></textarea>
                 </div>
@@ -542,7 +542,7 @@
 
         <!-- Audit Trail -->
         <div class="audit-trail">
-            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">🛡️ Oxirgi HL7 FHIR Tranzaksiyalari Auditi (AuditEvent Log)</h3>
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 4px;">[HIMOYA] ️ Oxirgi HL7 FHIR Tranzaksiyalari Auditi (AuditEvent Log)</h3>
             <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">O'zbekiston Respublikasi "Shaxsga doir ma'lumotlar to'g'risida"gi Qonuni (O'RQ-547) va SSV xavfsizlik protokoli bo'yicha shifrlangan loglar.</p>
             <table class="table">
                 <thead>
@@ -780,13 +780,13 @@
             event.currentTarget.classList.add('active');
 
             const titleMap = {
-                bundle: "<span>📦</span> To'liq Ekosistema HL7 FHIR Bundle (JSON)",
-                patient: "<span>👤</span> HL7 FHIR Patient Resursi (JSHSHIR / PINFL)",
-                medreq: "<span>💊</span> HL7 FHIR MedicationRequest (Elektron Retsept)",
-                meddisp: "<span>📦</span> HL7 FHIR MedicationDispense (DoriQuti Blister Qadoqlash)",
-                servicereq: "<span>🩺</span> HL7 FHIR ServiceRequest (ArzonLab Diagnostika)",
-                diagrep: "<span>📋</span> HL7 FHIR DiagnosticReport (MRT & Tahlil Xulosasi)",
-                observation: "<span>🩸</span> HL7 FHIR Observation (Laboratoriya Biomarkeri)"
+                bundle: "<span>[PAKET] </span> To'liq Ekosistema HL7 FHIR Bundle (JSON)",
+                patient: "<span>[BEMOR] </span> HL7 FHIR Patient Resursi (JSHSHIR / PINFL)",
+                medreq: "<span>[PREPARAT] </span> HL7 FHIR MedicationRequest (Elektron Retsept)",
+                meddisp: "<span>[PAKET] </span> HL7 FHIR MedicationDispense (DoriQuti Blister Qadoqlash)",
+                servicereq: "<span>[KLINIK] </span> HL7 FHIR ServiceRequest (ArzonLab Diagnostika)",
+                diagrep: "<span>[BAYONNOMA] </span> HL7 FHIR DiagnosticReport (MRT & Tahlil Xulosasi)",
+                observation: "<span>[QON] </span> HL7 FHIR Observation (Laboratoriya Biomarkeri)"
             };
 
             document.getElementById('resourceHeaderTitle').innerHTML = titleMap[key] || "FHIR Resursi";
@@ -852,12 +852,12 @@
                 }
                 const parsed = JSON.parse(valInput);
                 if (!parsed.resourceType) {
-                    statusEl.innerHTML = "<span style='color: var(--rose);'>✕ Xato: 'resourceType' maydoni yetishmaydi!</span>";
+                    statusEl.innerHTML = "<span style='color: var(--rose);'> Xato: 'resourceType' maydoni yetishmaydi!</span>";
                 } else {
-                    statusEl.innerHTML = `<span style='color: var(--emerald);'>✓ FHIR R4 Mos: [${parsed.resourceType}] Resursi tasdiqlandi</span>`;
+                    statusEl.innerHTML = `<span style='color: var(--emerald);'> FHIR R4 Mos: [${parsed.resourceType}] Resursi tasdiqlandi</span>`;
                 }
             } catch (e) {
-                statusEl.innerHTML = "<span style='color: var(--rose);'>✕ JSON Sintaksis xatosi</span>";
+                statusEl.innerHTML = "<span style='color: var(--rose);'> JSON Sintaksis xatosi</span>";
             }
         }
 

@@ -24,7 +24,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2 text-white hover:text-emerald-400 transition">
-          <span class="text-2xl">👵</span>
+          <span class="text-2xl">[BEMOR] </span>
           <span class="text-xl font-bold tracking-tight">Hamshira Oygul</span>
         </a>
         <span class="text-xs bg-pink-500/20 text-pink-300 border border-pink-500/30 px-2.5 py-1 rounded-full font-semibold">
@@ -33,7 +33,7 @@
       </div>
       <div class="flex items-center space-x-3">
         <button onclick="playGreetingSpeech()" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1.5">
-          <span>🔊</span> Ovozni Tinglash
+          <span>[AUDIO] </span> Ovozni Tinglash
         </button>
         <a href="../index.html" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded-lg transition border border-slate-600">
           ← Bosh Sahifa
@@ -52,7 +52,7 @@
       <div class="relative inline-block mb-4">
         <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-tr from-emerald-500 to-pink-500 p-1 mx-auto shadow-2xl shadow-emerald-500/20">
           <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-5xl md:text-6xl border-4 border-slate-800">
-            👩‍⚕️
+            [BEMOR] ‍️
           </div>
         </div>
         <span class="absolute bottom-1 right-2 bg-emerald-500 border-2 border-slate-900 w-5 h-5 rounded-full" title="Onlayn"></span>
@@ -84,7 +84,7 @@
       <!-- Repeat / Voice Button -->
       <div class="mt-6 flex justify-center gap-3">
         <button onclick="playGreetingSpeech()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-6 py-3 rounded-2xl text-xs md:text-sm shadow-xl transition transform active:scale-95 flex items-center gap-2">
-          <span>🔊</span> Oygul Xola Ovozini Qayta Tinglash
+          <span>[AUDIO] </span> Oygul Xola Ovozini Qayta Tinglash
         </button>
       </div>
     </div>
@@ -100,41 +100,41 @@
         <!-- Button 1: Took Medicine -->
         <button onclick="patientReply('DORILARNI_ICHDIM')" class="bg-emerald-600/20 hover:bg-emerald-600/30 border-2 border-emerald-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
           <div>
-            <div class="text-2xl mb-1">💊</div>
+            <div class="text-2xl mb-1">[PREPARAT] </div>
             <div class="text-lg font-black text-white group-hover:text-emerald-400">"Dorilarni ichdim, qizim"</div>
             <div class="text-xs text-emerald-300">Ertalabki quti qabul qilindi deb belgilanadi</div>
           </div>
-          <span class="text-2xl">✅</span>
+          <span class="text-2xl">[OK] </span>
         </button>
 
         <!-- Button 2: Normal Pressure -->
         <button onclick="patientReply('BOSIM_YAXSHI')" class="bg-blue-600/20 hover:bg-blue-600/30 border-2 border-blue-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
           <div>
-            <div class="text-2xl mb-1">🩺</div>
+            <div class="text-2xl mb-1">[KLINIK] </div>
             <div class="text-lg font-black text-white group-hover:text-blue-400">"Bosimim 125/80 (Yaxshi)"</div>
             <div class="text-xs text-blue-300">Normadagi qon bosimi qayd etiladi</div>
           </div>
-          <span class="text-2xl">👍</span>
+          <span class="text-2xl">[TASDIQ] </span>
         </button>
 
         <!-- Button 3: Pressure High / Unwell -->
         <button onclick="patientReply('BOSHIM_OGRIYAPTI')" class="bg-amber-600/20 hover:bg-amber-600/30 border-2 border-amber-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
           <div>
-            <div class="text-2xl mb-1">🤕</div>
+            <div class="text-2xl mb-1">[JAROHAT] </div>
             <div class="text-lg font-black text-white group-hover:text-amber-400">"Biroz boshim og'riyapti"</div>
             <div class="text-xs text-amber-300">Shifokorga SMS ogohlantirish yuboriladi</div>
           </div>
-          <span class="text-2xl">⚠️</span>
+          <span class="text-2xl">[DIQQAT] </span>
         </button>
 
         <!-- Button 4: Emergency 103 -->
         <button onclick="patientReply('TEZKOR_103')" class="bg-red-600/20 hover:bg-red-600/30 border-2 border-red-500 p-5 rounded-2xl text-left transition transform active:scale-95 flex items-center justify-between group">
           <div>
-            <div class="text-2xl mb-1">🚨</div>
+            <div class="text-2xl mb-1">[ALERT] </div>
             <div class="text-lg font-black text-white group-hover:text-red-400">"Tezkor Yordam (103)"</div>
             <div class="text-xs text-red-300">Farzandlar va shifokorga favqulodda signal</div>
           </div>
-          <span class="text-2xl">📞</span>
+          <span class="text-2xl">[ALOQA] </span>
         </button>
       </div>
     </div>
@@ -143,13 +143,13 @@
     <div class="bg-slate-850 bg-slate-800/80 border border-slate-700 rounded-3xl p-6 shadow-xl">
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-sm font-bold text-white flex items-center gap-2">
-          <span>📲</span> Farzandlarning Telegramiga Ketgan Xotirjamlik Hisoboti
+          <span>[MOBIL] </span> Farzandlarning Telegramiga Ketgan Xotirjamlik Hisoboti
         </h3>
         <span class="text-xs bg-blue-500/20 text-blue-300 px-2.5 py-0.5 rounded font-mono font-bold">@jasur_shukurov</span>
       </div>
 
       <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-xs space-y-2 font-mono text-slate-300" id="telegram-feed">
-        <div class="text-emerald-400 font-bold">📩 [08:32] DoriQuti Xabarnomasi:</div>
+        <div class="text-emerald-400 font-bold">[XAT]  [08:32] DoriQuti Xabarnomasi:</div>
         <div>"Otangiz Otabek ota ertalabki Kardio qutisini qabul qildilar. Qon bosimi: <strong>125/80 mmHg</strong> (Normada). Hamshira Oygul bilan ovozli suhbat yakunlandi."</div>
       </div>
     </div>
@@ -158,7 +158,7 @@
 
   <!-- Notification Toast -->
   <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden transition-all duration-300 z-50 flex items-center gap-2">
-    <span>✅</span> <span id="toast-text">Xabar jo'natildi!</span>
+    <span>[OK] </span> <span id="toast-text">Xabar jo'natildi!</span>
   </div>
 
   <script>
@@ -175,16 +175,16 @@
 
       if (type === 'DORILARNI_ICHDIM') {
         replySpeech = "Barakalla otaxon! Dorilarni ichganingizni daftarga belgilab qo'ydim. Salomat bo'ling, kuningiz xayrli o'tsin!";
-        feedText = "Otangiz ertalabki Kardio dorilarini to'liq qabul qildilar ✅ Adherence: 100%.";
+        feedText = "Otangiz ertalabki Kardio dorilarini to'liq qabul qildilar [OK]  Adherence: 100%.";
       } else if (type === 'BOSIM_YAXSHI') {
         replySpeech = "Mashalloh! Bosimingiz 125 ga 80 — a'lo darajada me'yorda. O'g'lingiz Jasurga xotirjamlik xabari yuborildi.";
         feedText = "Otangizning qon bosimi me'yorda: 125/80 mmHg. Xavotirga o'rin yo'q.";
       } else if (type === 'BOSHIM_OGRIYAPTI') {
         replySpeech = "Otaxon, xavotir olmang. Iltimos, divanga yotib dam oling. Men davolovchi shifokor Dr. Rustamovga xabar berdim, tezda siz bilan bog'lanadilar.";
-        feedText = "⚠️ DIQQAT: Otangiz bosh og'rig'idan shikoyat qildilar. SamDTU shifokoriga signal yuborildi.";
+        feedText = "[DIQQAT]  DIQQAT: Otangiz bosh og'rig'idan shikoyat qildilar. SamDTU shifokoriga signal yuborildi.";
       } else if (type === 'TEZKOR_103') {
         replySpeech = "Otaxon, xotirjam bo'ling! 103 Tez Yordam va farzandlaringizga favqulodda signal jo'natildi. Hozir yetib kelishadi!";
-        feedText = "🚨 SHOSHILINCH: Otangiz 103 Tez Yordam signalini berdilar! Manzil: Dahbed 35.";
+        feedText = "[ALERT]  SHOSHILINCH: Otangiz 103 Tez Yordam signalini berdilar! Manzil: Dahbed 35.";
       }
 
       document.getElementById('speech-bubble-text').innerText = `"${replySpeech}"`;
@@ -192,7 +192,7 @@
 
       const feed = document.getElementById('telegram-feed');
       feed.innerHTML = `
-        <div class="text-emerald-400 font-bold">📩 [${new Date().toLocaleTimeString()}] DoriQuti Xabarnomasi:</div>
+        <div class="text-emerald-400 font-bold">[XAT]  [${new Date().toLocaleTimeString()}] DoriQuti Xabarnomasi:</div>
         <div>"${feedText}"</div>
       `;
 

@@ -227,7 +227,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">📋</span>
+            <span style="font-size: 26px;">[BAYONNOMA] </span>
             <div>
                 <div style="font-size: 19px; font-weight: 800; color: #ffffff;">Tahlil & MRT ga Tayyorgarlik Yo'riqnomasi</div>
                 <div style="font-size: 12px; color: var(--text-muted);">ArzonLab Klinik Protokollari & Bemor Eslatmasi</div>
@@ -235,8 +235,8 @@
             <span class="badge-prep">Nolinchi Xato (100% Aniq Natija)</span>
         </div>
         <div style="display: flex; gap: 12px;">
-            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">🏠 Bosh Menyu</a>
-            <a href="/arzonlab/price_comparison_matrix.html" class="btn btn-outline" style="text-decoration: none;">📊 Narxlar Matritsasi</a>
+            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">[MARKAZ]  Bosh Menyu</a>
+            <a href="/arzonlab/price_comparison_matrix.html" class="btn btn-outline" style="text-decoration: none;">[STATISTIKA]  Narxlar Matritsasi</a>
         </div>
     </header>
 
@@ -244,7 +244,7 @@
         <!-- Banner -->
         <div class="banner">
             <div>
-                <strong style="color: #38bdf8; font-size: 15px;">⚠️ Noto'g'ri Tayyorgarlik Tahlil Natijasini 100% Buzadi:</strong>
+                <strong style="color: #38bdf8; font-size: 15px;">[DIQQAT]  Noto'g'ri Tayyorgarlik Tahlil Natijasini 100% Buzadi:</strong>
                 <p style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
                     O'zbekistonda tekshiruvlarning 22% ga yaqini noto'g'ri tayyorgarlik (och qoringa kelmaslik, kontrastdan oldin dori ichish, MRT da metall buyumlar) sababli bekor qilinadi yoki qayta topshirishga to'g'ri keladi. ArzonLab har bir tekshiruv uchun aniq klinik qoidalarni taqdim etadi.
                 </p>
@@ -285,7 +285,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
-                            <span>🔍</span> Tekshiruv Turini Tanlang
+                            <span>[QIDIRUV] </span> Tekshiruv Turini Tanlang
                         </div>
                     </div>
 
@@ -308,7 +308,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
-                            <span>📲</span> Shaxsiy Eslatmani Olish
+                            <span>[MOBIL] </span> Shaxsiy Eslatmani Olish
                         </div>
                     </div>
 
@@ -320,7 +320,7 @@
                     </div>
 
                     <button class="btn" style="width: 100%; justify-content: center;" onclick="sendSmsReminder()">
-                        📩 Eslatmani SMS / Telegram Orqali Yuborish
+                        [XAT]  Eslatmani SMS / Telegram Orqali Yuborish
                     </button>
                 </div>
             </div>
@@ -383,8 +383,8 @@
             let html = `
                 <div style="background: rgba(10, 18, 32, 0.7); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 20px;">
                     <div style="font-size: 16px; font-weight: 800; color: #38bdf8; margin-bottom: 6px;">${data.name}</div>
-                    <div style="font-size: 13px; color: #cbd5e1; margin-bottom: 4px;"><strong>🍽️ Ochlik talabi:</strong> ${data.fasting}</div>
-                    <div style="font-size: 13px; color: #cbd5e1;"><strong>💧 Suv ichish:</strong> ${data.water}</div>
+                    <div style="font-size: 13px; color: #cbd5e1; margin-bottom: 4px;"><strong>[OVQATLANISH] ️ Ochlik talabi:</strong> ${data.fasting}</div>
+                    <div style="font-size: 13px; color: #cbd5e1;"><strong>[STATUS]  Suv ichish:</strong> ${data.water}</div>
                 </div>
 
                 <div style="font-size: 14px; font-weight: 700; color: #ffffff; margin-bottom: 12px;">Qat'iy Amal Qilinishi Kerak Bo'lgan Qoidalar:</div>
@@ -401,7 +401,7 @@
 
             html += `
                 <div style="background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 12px; padding: 14px; font-size: 12px; color: #fda4af; margin-top: 16px;">
-                    <strong>⚠️ Muhim klinik ogohlantirish:</strong> ${data.alertText}
+                    <strong>[DIQQAT]  Muhim klinik ogohlantirish:</strong> ${data.alertText}
                 </div>
             `;
 
@@ -410,7 +410,7 @@
         }
 
         function sendSmsReminder() {
-            alert("📲 SMS Eslatma muvaffaqiyatli yuborildi!\n\nTelefoningizga tahlildan 12 soat oldin to'liq tayyorgarlik protokoli SMS tarzida uzatildi.");
+            alert("[MOBIL]  SMS Eslatma muvaffaqiyatli yuborildi!\n\nTelefoningizga tahlildan 12 soat oldin to'liq tayyorgarlik protokoli SMS tarzida uzatildi.");
         }
 
         renderPrepProtocol();

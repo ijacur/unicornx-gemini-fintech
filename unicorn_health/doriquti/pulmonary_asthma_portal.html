@@ -101,7 +101,7 @@
         }
 
         .hero-banner::after {
-            content: "🫁";
+            content: "[PULMONOLOGIYA] ";
             font-size: 190px;
             position: absolute;
             right: -20px;
@@ -364,7 +364,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">🫁</span>
+            <span style="font-size: 26px;">[PULMONOLOGIYA] </span>
             <div>
                 <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">DoriQuti Bronxial Astma & SO'OK Qalqoni</h1>
                 <p style="font-size: 11px; color: var(--text-muted);">SMART Inhalyator Obunasi, Pikfloumetriya & PM2.5 Chang Bo'roni Signali</p>
@@ -423,7 +423,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🌬️</span>
+                        <span>[HAVO] ️</span>
                         <span>Pikfloumetriya (PEF) & Nafas Quvvati Zonalari</span>
                     </div>
                     <span class="status-tag tag-cyan">ERS Standarti</span>
@@ -462,7 +462,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>💊</span>
+                        <span>[PREPARAT] </span>
                         <span>SMART Inhalyator Obunasi & Yillik Iqtisodiyot</span>
                     </div>
                     <span class="status-tag tag-green">Bepul Spayser Qo'shiladi</span>
@@ -471,8 +471,8 @@
                 <div class="form-group">
                     <label class="form-label">Nafas Terapiyasi Protokoli</label>
                     <select class="form-select" id="packageSelect" onchange="updateInhalerSavings()">
-                        <option value="asthma-smart-symbicort">🫁 Bronxial Astma SMART: Simbikort 160/4.5 (120 doza) + Salbutamol</option>
-                        <option value="copd-dual-spiriva">💨 SO'OK (COPD): Spiriva Respimat (Tiotropiy) + Formoterol</option>
+                        <option value="asthma-smart-symbicort">[PULMONOLOGIYA]  Bronxial Astma SMART: Simbikort 160/4.5 (120 doza) + Salbutamol</option>
+                        <option value="copd-dual-spiriva">[NAFAS]  SO'OK (COPD): Spiriva Respimat (Tiotropiy) + Formoterol</option>
                     </select>
                 </div>
 
@@ -506,7 +506,7 @@
                 </div>
 
                 <button class="btn-action" onclick="orderInhalerSubscription()">
-                    <span>💨</span>
+                    <span>[NAFAS] </span>
                     <span>Inhalyator Obunasini Ulanish</span>
                 </button>
             </div>
@@ -520,7 +520,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🌫️</span>
+                        <span>[TUMAN] ️</span>
                         <span>O'zbekiston Shaharlari PM2.5 & Chang Bo'roni Telemetriyasi</span>
                     </div>
                     <span class="status-tag tag-amber">Real-Vaqt Simulyatsiyasi</span>
@@ -550,14 +550,14 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🎯</span>
+                        <span>[MAQSAD] </span>
                         <span>Spayser Klapanli Kamera & Nafas Texnikasi</span>
                     </div>
                     <span class="status-tag tag-cyan">+68% O'pkaga Yetib Borish</span>
                 </div>
 
                 <div class="tech-card">
-                    <div class="tech-icon">❌</div>
+                    <div class="tech-icon">[XATO] </div>
                     <div>
                         <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Spaysersiz to'g'ridan-to'g'ri purkash</div>
                         <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Dori zarrachalarining 80% qismi tomoqqa urilib qoladi, kandidoz (ovoz xirillashi) chaqiradi va o'pkaga bormaydi.</div>
@@ -565,7 +565,7 @@
                 </div>
 
                 <div class="tech-card">
-                    <div class="tech-icon">✅</div>
+                    <div class="tech-icon">[OK] </div>
                     <div>
                         <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Antistatik Spayser (AeroChamber) orqali</div>
                         <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">Aerozol havo kamerasida sekinlashadi, xotirjam 4-5 chuqur nafas olinganda dorining 70% dan ortig'i mayda bronxiolalargacha yetib boradi.</div>
@@ -573,7 +573,7 @@
                 </div>
 
                 <div style="margin-top: 16px; font-size: 12px; color: var(--text-muted); line-height: 1.6; background: #070d18; padding: 14px; border-radius: 12px; border: 1px solid var(--border);">
-                    💡 <strong>Oltin qoida:</strong> Purkashdan oldin boshni bir oz orqaga qiling, to'liq nafas chiqaring, purkagach 10 soniya nafasni ushlab turing, so'ngra og'izni iliq suv bilan chayqab tashlang.
+                    [INFO]  <strong>Oltin qoida:</strong> Purkashdan oldin boshni bir oz orqaga qiling, to'liq nafas chiqaring, purkagach 10 soniya nafasni ushlab turing, so'ngra og'izni iliq suv bilan chayqab tashlang.
                 </div>
             </div>
 
@@ -604,22 +604,22 @@
             const pct = Math.round((curPef / expected) * 100);
 
             let alertClass = 'emerald';
-            let title = "Yashil Zona: Barqaror Nazorat ✅";
+            let title = "Yashil Zona: Barqaror Nazorat [OK] ";
             let desc = `Kutilgan me'yor: ${expected} L/min. Hozirgi ko'rsatkich: ${pct}%. Bronxlar ochiq, bazis terapiyani davom ettiring.`;
 
             if (pct < 50) {
                 alertClass = 'rose';
-                title = "Qizil Zona: XAVFLI Bronxospazm! 🚨";
+                title = "Qizil Zona: XAVFLI Bronxospazm! [ALERT] ";
                 desc = `Hozirgi quvvat me'yordan atigi ${pct}%! Zudlik bilan spayser orqali 4 purkash Salbutamol oling va 103 tez yordamga qo'ng'iroq qiling!`;
             } else if (pct < 80) {
                 alertClass = 'amber';
-                title = "Sariq Zona: Ehtiyot Bo'ling ⚠️";
+                title = "Sariq Zona: Ehtiyot Bo'ling [DIQQAT] ";
                 desc = `Quvvat pasaygan (${pct}%). Bronxlar toraymoqda. Qo'shimcha 1-2 purkash Simbikort/Salbutamol tavsiya etiladi.`;
             }
 
             document.getElementById('pefResultBox').innerHTML = `
                 <div class="alert-card ${alertClass}">
-                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '[ALERT] ' : alertClass === 'amber' ? '[DIQQAT] ' : '[OK] '}</span>
                     <div>
                         <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
                         <div>${desc}</div>
@@ -651,22 +651,22 @@
             document.getElementById('pm25Val').innerText = pm25;
 
             let alertClass = 'emerald';
-            let title = "Havo Toza (AQI Yaxshi) ✅";
+            let title = "Havo Toza (AQI Yaxshi) [OK] ";
             let desc = `${city} shahrida atmosfera havosi me'yorda. Ochiq havoda sayr qilish mumkin.`;
 
             if (pm25 > 150) {
                 alertClass = 'rose';
-                title = "FAVQULODDA: Kuchli Chang Bo'roni / Qizil Daraja! 🚨";
+                title = "FAVQULODDA: Kuchli Chang Bo'roni / Qizil Daraja! [ALERT] ";
                 desc = `${city} hududida PM2.5 miqdori ${pm25} µg/m³! Derazalarni ochmang, ko'chaga faqat N95 respirator bilan chiqing, Salbutamol purkagichini cho'ntagingizda saqlang!`;
             } else if (pm25 > 55) {
                 alertClass = 'amber';
-                title = "Ogohlantirish: Changli & Nosog'lom Havo ⚠️";
+                title = "Ogohlantirish: Changli & Nosog'lom Havo [DIQQAT] ";
                 desc = `${city}da PM2.5 darajasi ${pm25} µg/m³. Astma va allergiyasi bor shaxslar og'ir jismoniy harakat qilmasligi kerak.`;
             }
 
             document.getElementById('airResultBox').innerHTML = `
                 <div class="alert-card ${alertClass}">
-                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '[ALERT] ' : alertClass === 'amber' ? '[DIQQAT] ' : '[OK] '}</span>
                     <div>
                         <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
                         <div>${desc}</div>
@@ -676,7 +676,7 @@
         }
 
         function orderInhalerSubscription() {
-            alert("✅ Inhalyator obunasi qabul qilindi!\n\nTo'plamda:\n1. Asosiy ingalyator (Simbikort / Spiriva)\n2. Favqulodda yordam purkagichi (Salbutamol)\n3. Antistatik klapanli Spayser (0 UZS)\nHar oy bepul kuryer orqali yetkaziladi.");
+            alert("[OK]  Inhalyator obunasi qabul qilindi!\n\nTo'plamda:\n1. Asosiy ingalyator (Simbikort / Spiriva)\n2. Favqulodda yordam purkagichi (Salbutamol)\n3. Antistatik klapanli Spayser (0 UZS)\nHar oy bepul kuryer orqali yetkaziladi.");
         }
 
         // Init

@@ -23,7 +23,7 @@
   <header class="bg-slate-900 text-white border-b border-slate-800">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <span class="w-9 h-9 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-lg">💊</span>
+        <span class="w-9 h-9 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-black text-lg">[PREPARAT] </span>
         <div>
           <span class="font-extrabold text-base tracking-tight">DoriQuti <span class="text-emerald-400 font-mono text-xs px-2 py-0.5 rounded bg-emerald-500/20">PROVIZOR PANEL</span></span>
           <span class="text-[10px] block text-slate-400">Hamkor: Samarqand Markaziy Farm Ulgurji Bazasi #14</span>
@@ -86,11 +86,11 @@
 
       <div class="mt-6 space-y-2">
         <button onclick="window.print()" class="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition">
-          <span>🖨</span>
+          <span>[CHOP] </span>
           <span>Lentali etiketkani chop etish (30 kunlik)</span>
         </button>
         <button onclick="markAsReady()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20 transition">
-          <span>✓</span>
+          <span></span>
           <span>Qadoq tayyor — Kuryerga berish</span>
         </button>
       </div>
@@ -156,8 +156,8 @@
               <span class="font-extrabold text-sm text-slate-900">${o.patient}</span>
               <span class="text-[11px] font-mono font-bold text-slate-400">${o.id}</span>
             </div>
-            <p class="text-xs text-slate-500">📍 ${o.address}</p>
-            <p class="text-xs text-slate-400">📞 ${o.phone}</p>
+            <p class="text-xs text-slate-500">[MANZIL]  ${o.address}</p>
+            <p class="text-xs text-slate-400">[ALOQA]  ${o.phone}</p>
             <div class="flex flex-wrap gap-1 mt-2">
               ${o.meds.map(m => `<span class="bg-slate-100 text-slate-700 text-[10px] px-2 py-0.5 rounded font-semibold">${m.name}</span>`).join('')}
             </div>
@@ -216,7 +216,7 @@
     function markAsReady() {
       selectedOrder.status = "Kuryerga berildi";
       selectedOrder.statusColor = "emerald";
-      alert(`✓ ${selectedOrder.id} buyurtmasi muvaffaqiyatli qadoqlandi va Yandex Delivery kuryeriga topshirildi!`);
+      alert(` ${selectedOrder.id} buyurtmasi muvaffaqiyatli qadoqlandi va Yandex Delivery kuryeriga topshirildi!`);
       renderOrders();
     }
 

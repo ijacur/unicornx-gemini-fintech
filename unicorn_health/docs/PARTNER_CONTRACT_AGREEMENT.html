@@ -43,7 +43,7 @@
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2">
-          <span class="text-2xl">🦄</span>
+          <span class="text-2xl">[UNICORN] </span>
           <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
         </a>
         <span class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/30">
@@ -61,7 +61,7 @@
 
       <div class="flex items-center space-x-2">
         <button onclick="window.print()" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-4 py-2 rounded-xl font-black text-xs transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
-          <span>🖨️</span>
+          <span>[CHOP] ️</span>
           <span>Chop etish / PDF</span>
         </button>
       </div>
@@ -77,7 +77,7 @@
       <!-- CARD 1: TYPE & PRESETS -->
       <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl">
         <h2 class="text-xs font-black uppercase tracking-wider text-emerald-400 mb-3 flex items-center gap-1.5">
-          <span>⚙️</span>
+          <span>️</span>
           <span>Shartnoma Turi va Namunalar</span>
         </h2>
 
@@ -85,8 +85,8 @@
           <div>
             <label class="block text-xs font-bold text-slate-300 mb-1.5">Yo‘nalishni tanlang:</label>
             <select id="agreementType" onchange="applyAgreementType()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-semibold text-white focus:outline-none focus:border-emerald-500">
-              <option value="clinic">🔬 ArzonLab — Diagnostika / MRT Markazi (Marketing)</option>
-              <option value="pharmacy">💊 DoriQuti — Ulgurji Dorixona Tarmog‘i (Agentlik)</option>
+              <option value="clinic">[LAB]  ArzonLab — Diagnostika / MRT Markazi (Marketing)</option>
+              <option value="pharmacy">[PREPARAT]  DoriQuti — Ulgurji Dorixona Tarmog‘i (Agentlik)</option>
             </select>
           </div>
 
@@ -94,16 +94,16 @@
             <span class="block text-xs font-bold text-slate-300 mb-1.5">Tezkor namunalar (1-klik):</span>
             <div class="grid grid-cols-2 gap-2">
               <button onclick="loadPreset('samdtu')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
-                🏥 SamDTU Klinikasi
+                [KLINIKA]  SamDTU Klinikasi
               </button>
               <button onclick="loadPreset('intermed')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
-                🔬 Intermed Scan MChJ
+                [LAB]  Intermed Scan MChJ
               </button>
               <button onclick="loadPreset('olampharm')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
-                💊 Olam Pharm MChJ
+                [PREPARAT]  Olam Pharm MChJ
               </button>
               <button onclick="loadPreset('davam')" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 py-1.5 px-2 rounded-lg font-medium transition border border-slate-700 text-left">
-                🏪 Dori-Darmon AK
+                [DORIXONA]  Dori-Darmon AK
               </button>
             </div>
           </div>
@@ -113,7 +113,7 @@
       <!-- CARD 2: REKVIZITLAR FORMASI -->
       <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-4">
         <h2 class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
-          <span>🏢</span>
+          <span>[MARKAZ] </span>
           <span>Hamkor Korxona Ma’lumotlari</span>
         </h2>
 
@@ -165,7 +165,7 @@
       <!-- CARD 3: TIJORIY SHARTLAR -->
       <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl shadow-xl space-y-3 text-xs">
         <h2 class="text-xs font-black uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
-          <span>💰</span>
+          <span>[UZS] </span>
           <span>Moliyaviy & Tijoriy Shartlar</span>
         </h2>
 
@@ -193,7 +193,7 @@
         <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
           <span class="text-slate-400 font-medium">Elektron imzo (E-IMZO):</span>
           <span class="text-emerald-400 font-bold flex items-center gap-1">
-            <span>🛡️</span>
+            <span>[HIMOYA] ️</span>
             <span>ERI / QR Tayyor</span>
           </span>
         </div>
@@ -202,12 +202,12 @@
       <!-- CARD 4: ACTIONS -->
       <div class="bg-gradient-to-br from-emerald-950/40 to-slate-900 border border-emerald-500/30 p-5 rounded-2xl shadow-xl space-y-3">
         <button onclick="signContractModal()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl text-xs transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2">
-          <span>✍️</span>
+          <span>️</span>
           <span>Raqamli Tasdiqlash va Muhrlash</span>
         </button>
 
         <button onclick="copyContractText()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2 rounded-xl text-xs transition border border-slate-700 flex items-center justify-center gap-2">
-          <span>📋</span>
+          <span>[BAYONNOMA] </span>
           <span>Matnni nusxalash (Word uchun)</span>
         </button>
       </div>
@@ -363,7 +363,7 @@
         <!-- DIGITAL SEAL (VERIFIED STAMP) -->
         <div id="digitalSeal" class="hidden mt-8 p-3 border-2 border-dashed border-emerald-600 rounded-xl bg-emerald-50 text-emerald-950 flex items-center justify-between text-xs">
           <div class="flex items-center space-x-3">
-            <span class="text-3xl">🛡️</span>
+            <span class="text-3xl">[HIMOYA] ️</span>
             <div>
               <div class="font-black uppercase tracking-wider text-[11px] text-emerald-800">
                 O‘ZBEKISTON RESPUBLIKASI ELEKTRON RAQAMLI IMZO BILAN TASDIQLANGAN
@@ -389,10 +389,10 @@
     <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
       <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <h3 class="font-black text-white text-base flex items-center gap-2">
-          <span>✍️</span>
+          <span>️</span>
           <span>E-IMZO bilan Tasdiqlash</span>
         </h3>
-        <button onclick="closeSignModal()" class="text-slate-400 hover:text-white text-lg font-bold">✕</button>
+        <button onclick="closeSignModal()" class="text-slate-400 hover:text-white text-lg font-bold"></button>
       </div>
 
       <p class="text-xs text-slate-300 leading-relaxed">
@@ -554,13 +554,13 @@
     function confirmDigitalSignature() {
       document.getElementById('digitalSeal').classList.remove('hidden');
       closeSignModal();
-      alert("✅ Shartnoma O‘zbekiston Respublikasi E-IMZO tizimi orqali muvaffaqiyatli tasdiqlandi va raqamli muhr qo‘yildi!");
+      alert("[OK]  Shartnoma O‘zbekiston Respublikasi E-IMZO tizimi orqali muvaffaqiyatli tasdiqlandi va raqamli muhr qo‘yildi!");
     }
 
     function copyContractText() {
       const contractEl = document.getElementById('printableContract');
       navigator.clipboard.writeText(contractEl.innerText).then(() => {
-        alert("📋 Shartnoma matni to‘liq nusxalandi! Microsoft Word yoki Google Docs-ga joylashingiz (paste) mumkin.");
+        alert("[BAYONNOMA]  Shartnoma matni to‘liq nusxalandi! Microsoft Word yoki Google Docs-ga joylashingiz (paste) mumkin.");
       });
     }
 

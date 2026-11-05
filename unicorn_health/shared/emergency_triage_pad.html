@@ -230,7 +230,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 2rem;">🚨</span>
+            <span style="font-size: 2rem;">[ALERT] </span>
             <div>
                 <h1 style="font-size: 1.25rem; font-weight: 800;">103 Samarqand Shoshilinch Triage & DoriQuti Telemetriya</h1>
                 <p style="font-size: 0.8rem; color: #fca5a5;">Shoshilinch Tibbiy Yordam Birinchi Qadam Triage Padi | "Oltin Soat" Xavfsizligi</p>
@@ -256,16 +256,16 @@
             <div>
                 <label class="form-label">Gumon Qilinayotgan Shoshilinch Holat (103 Triage):</label>
                 <select id="emergencyType" class="form-select" onchange="updateTriage()">
-                    <option value="CHEST_PAIN_ACS">🫀 Ko'krak qafasidagi o'tkir og'riq (O'tkir Koronar Sindrom / Infarkt)</option>
-                    <option value="ISCHEMIC_STROKE_SUSPECTED">🧠 Insult alomatlari (FAST belgisi, falajlik, nutq buzilishi)</option>
-                    <option value="SYNCOPE_HYPOTENSION">⚠️ Hushdan ketish / Gipotonik kollaps / Gipoglikemiya</option>
+                    <option value="CHEST_PAIN_ACS">[KARDIO]  Ko'krak qafasidagi o'tkir og'riq (O'tkir Koronar Sindrom / Infarkt)</option>
+                    <option value="ISCHEMIC_STROKE_SUSPECTED">[NEYRO]  Insult alomatlari (FAST belgisi, falajlik, nutq buzilishi)</option>
+                    <option value="SYNCOPE_HYPOTENSION">[DIQQAT]  Hushdan ketish / Gipotonik kollaps / Gipoglikemiya</option>
                 </select>
             </div>
         </div>
 
         <!-- Critical Red Alert Banner -->
         <div id="contraindicationBanner" class="emergency-banner banner-danger">
-            <div style="font-size: 2rem;">⛔</div>
+            <div style="font-size: 2rem;"></div>
             <div>
                 <div style="font-size: 1.1rem; font-weight: 800; margin-bottom: 4px;">MUTLAQO TAQIQLANGAN HARAKATLAR (KONTRAINDIKATSIYA):</div>
                 <div id="contraindicationText" style="font-size: 0.95rem; line-height: 1.5;">
@@ -280,7 +280,7 @@
             <div>
                 <div class="card">
                     <div class="card-title">
-                        <span>💊 Hozir Qabul Qilayotgan Doimiy DoriQuti Blisteri</span>
+                        <span>[PREPARAT]  Hozir Qabul Qilayotgan Doimiy DoriQuti Blisteri</span>
                         <span style="font-size: 0.8rem; color: #10b981; margin-left: auto;">Adherence: 96%</span>
                     </div>
 
@@ -289,7 +289,7 @@
                     </div>
 
                     <div style="margin-top: 16px; padding: 14px; background: #0b1120; border-radius: 12px; border: 1px dashed #334155;">
-                        <span style="font-size: 0.85rem; font-weight: 700; color: #f59e0b;">⚠️ Allergologik Anamnez:</span>
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #f59e0b;">[DIQQAT]  Allergologik Anamnez:</span>
                         <div id="allergiesText" style="font-size: 0.9rem; color: #e2e8f0; margin-top: 4px;">
                             Penitsillin (Anafilaktik shok xavfi), Sulfanilamidlar
                         </div>
@@ -301,7 +301,7 @@
             <div>
                 <div class="card">
                     <div class="card-title">
-                        <span>👤 Bemor Pasporti & Shifokor</span>
+                        <span>[BEMOR]  Bemor Pasporti & Shifokor</span>
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem;">
@@ -335,11 +335,11 @@
                             Mas'ul Davolovchi Shifokor: <strong id="docClinicName" style="color: white;">SamDTU Kardiologiya</strong>
                         </div>
                         <a id="btnCallDoc" href="tel:+998906004545" class="btn btn-call-doc">
-                            📞 Shifokorga Qo'ng'iroq Qilish (Dotsent Xamidov)
+                            [ALOQA]  Shifokorga Qo'ng'iroq Qilish (Dotsent Xamidov)
                         </a>
 
                         <a id="btnCallFamily" href="tel:+998934501122" class="btn btn-call-family">
-                            📱 Yaqin Qarindoshiga Xabar Berish (O'g'li)
+                             Yaqin Qarindoshiga Xabar Berish (O'g'li)
                         </a>
                     </div>
                 </div>
@@ -408,9 +408,9 @@
             document.getElementById('diagnosesList').innerHTML = p.diagnoses;
             document.getElementById('allergiesText').innerText = p.allergies;
             document.getElementById('docClinicName').innerText = p.docName;
-            document.getElementById('btnCallDoc').innerText = `📞 Shifokorga Qo'ng'iroq Qilish (${p.docName.split(' ')[0]} ${p.docName.split(' ')[1]})`;
+            document.getElementById('btnCallDoc').innerText = `[ALOQA]  Shifokorga Qo'ng'iroq Qilish (${p.docName.split(' ')[0]} ${p.docName.split(' ')[1]})`;
             document.getElementById('btnCallDoc').href = `tel:${p.docPhone.replace(/\\s/g, '')}`;
-            document.getElementById('btnCallFamily').innerText = `📱 Yaqin Qarindoshiga Xabar Berish (${p.family})`;
+            document.getElementById('btnCallFamily').innerText = ` Yaqin Qarindoshiga Xabar Berish (${p.family})`;
             document.getElementById('btnCallFamily').href = `tel:${p.familyPhone.replace(/\\s/g, '')}`;
 
             // Contraindication

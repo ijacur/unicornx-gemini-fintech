@@ -261,7 +261,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 28px;">🩸</span>
+            <span style="font-size: 28px;">[QON] </span>
             <div>
                 <h1 style="font-size: 20px; font-weight: 800; letter-spacing: -0.5px;">Tezkor Qon Donorligi & Oltin Soat Transfuziya Markazi</h1>
                 <p style="font-size: 12px; color: var(--text-muted);">SamDTU Shoshilinch Jarrohlik & Respublika Qon Markazi Dispetcheri</p>
@@ -270,7 +270,7 @@
         </div>
         <div style="display: flex; gap: 12px; align-items: center;">
             <a href="../index.html" class="btn-action">← Asosiy Hub</a>
-            <button class="btn-action" onclick="registerAsDonor()">❤️ Ko'ngilli Donor Bo'lish</button>
+            <button class="btn-action" onclick="registerAsDonor()">️ Ko'ngilli Donor Bo'lish</button>
         </div>
     </header>
 
@@ -279,14 +279,14 @@
         <div class="broadcast-banner">
             <div>
                 <div style="font-size: 16px; font-weight: 800; color: #fda4af; margin-bottom: 4px;">
-                    🚨 Shoshilinch Qon Quyish Dispetcheri Faol
+                    [ALERT]  Shoshilinch Qon Quyish Dispetcheri Faol
                 </div>
                 <div style="font-size: 13px; color: #cbd5e1;">
                     Samarqand shahri va atrofidagi ko'ngilli donorlar bazasi bilan zudlik bilan aloqa o'rnatish.
                 </div>
             </div>
             <button class="btn-action btn-danger" onclick="broadcastEmergencyAlert()">
-                📢 Tezkor Favqulodda Signal Tarqatish
+                [E'LON]  Tezkor Favqulodda Signal Tarqatish
             </button>
         </div>
 
@@ -294,7 +294,7 @@
             <!-- Left: Filter -->
             <div class="panel">
                 <div class="panel-title">
-                    <span>💉</span> Bemor Qon Guruhini Tanlang
+                    <span>[IN'EKSIYA] </span> Bemor Qon Guruhini Tanlang
                 </div>
 
                 <div class="type-grid" id="bloodTypeGrid">
@@ -391,11 +391,11 @@
                             <div class="donor-type-badge">${d.blood}</div>
                             <div>
                                 <div class="donor-name">${d.name}</div>
-                                <div class="donor-meta">📍 ${d.city} (${d.dist} km) • Oxirgi donatsiya: 4 oy oldin (Faol)</div>
+                                <div class="donor-meta">[MANZIL]  ${d.city} (${d.dist} km) • Oxirgi donatsiya: 4 oy oldin (Faol)</div>
                             </div>
                         </div>
                         <a href="tel:${d.phone}" class="btn-call">
-                            📞 Bog'lanish (${d.phone})
+                            [ALOQA]  Bog'lanish (${d.phone})
                         </a>
                     </div>
                 `;
@@ -404,11 +404,11 @@
         }
 
         function broadcastEmergencyAlert() {
-            alert("📢 FAVQULODDA SIGNAL YUBORILDI!\n\nSamarqanddagi 4 nafar mos donorga SMS va Telegram orqali shoshilinch chaqiruv jo'natildi.\nSamDTU 1-Klinika Qon Quyish punkti tayyor holatga keltirildi.");
+            alert("[E'LON]  FAVQULODDA SIGNAL YUBORILDI!\n\nSamarqanddagi 4 nafar mos donorga SMS va Telegram orqali shoshilinch chaqiruv jo'natildi.\nSamDTU 1-Klinika Qon Quyish punkti tayyor holatga keltirildi.");
         }
 
         function registerAsDonor() {
-            alert("❤️ Rahmat! Siz O'zbekiston Qon Donorlari Milliy Reyestriga kiritildingiz.\nKamyob ehtiyoj paydo bo'lganda siz bilan bog'lanamiz.");
+            alert("️ Rahmat! Siz O'zbekiston Qon Donorlari Milliy Reyestriga kiritildingiz.\nKamyob ehtiyoj paydo bo'lganda siz bilan bog'lanamiz.");
         }
 
         renderDonors();

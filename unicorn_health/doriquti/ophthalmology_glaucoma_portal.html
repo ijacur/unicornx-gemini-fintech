@@ -100,7 +100,7 @@
         }
 
         .hero-banner::after {
-            content: "👁️";
+            content: "[KO'RIK] ️";
             font-size: 190px;
             position: absolute;
             right: -20px;
@@ -366,7 +366,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">👁️</span>
+            <span style="font-size: 26px;">[KO'RIK] ️</span>
             <div>
                 <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">DoriQuti Glaukoma & Ko'rish Qalqoni</h1>
                 <p style="font-size: 11px; color: var(--text-muted);">28-Kunlik Steril Tomchi Sikli, Ko'z Bosimi (IOP) & Ko'rlik Profilaktikasi</p>
@@ -425,7 +425,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🩺</span>
+                        <span>[KLINIK] </span>
                         <span>Ko'z Ichki Bosimi (Tonometriya) & Flakon Nazorati</span>
                     </div>
                     <span class="status-tag tag-sky">Maklakov / Goldmann</span>
@@ -456,7 +456,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>💰</span>
+                        <span>[UZS] </span>
                         <span>Antiglaukoma Tomchilari & Yillik Iqtisodiyot</span>
                     </div>
                     <span class="status-tag tag-green">To'g'ridan-To'g'ri Yetkazish</span>
@@ -465,9 +465,9 @@
                 <div class="form-group">
                     <label class="form-label">Tibbiy Protokol Tanlovi</label>
                     <select class="form-select" id="dropRegimenSelect" onchange="updateDropSavings()">
-                        <option value="glaucoma-combo-prostaglandin">💧 Oltin Standart: Latanoprost 0.005% + Timolol 0.5% (Kechqurun 20:00)</option>
-                        <option value="glaucoma-triple-advanced">🛡️ 3-Komponentli Qalqon: Latanoprost + Timolol + Dorzolamid</option>
-                        <option value="retina-macula-support">👁️ To'r Parda & Quruq Ko'z: Natriy Gialuronat 0.15% + Lutein Makula</option>
+                        <option value="glaucoma-combo-prostaglandin">[STATUS]  Oltin Standart: Latanoprost 0.005% + Timolol 0.5% (Kechqurun 20:00)</option>
+                        <option value="glaucoma-triple-advanced">[HIMOYA] ️ 3-Komponentli Qalqon: Latanoprost + Timolol + Dorzolamid</option>
+                        <option value="retina-macula-support">[KO'RIK] ️ To'r Parda & Quruq Ko'z: Natriy Gialuronat 0.15% + Lutein Makula</option>
                     </select>
                 </div>
 
@@ -501,7 +501,7 @@
                 </div>
 
                 <button class="btn-action" onclick="orderEyeDropSubscription()">
-                    <span>👁️</span>
+                    <span>[KO'RIK] ️</span>
                     <span>28-Kunlik Ko'z Qalqoni Obunasiga Ulanish</span>
                 </button>
             </div>
@@ -515,7 +515,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🔄</span>
+                        <span>[SINXRON] </span>
                         <span>28-Kunlik Steril Rotatsiya Zanjiri</span>
                     </div>
                     <span class="status-tag tag-sky">Nol Bakterial Xavf</span>
@@ -558,7 +558,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>🔬</span>
+                        <span>[LAB] </span>
                         <span>ArzonLab Oftalmologik Diagnostika Vaucherlari</span>
                     </div>
                     <span class="status-tag tag-green">SamDTU & Markazlar</span>
@@ -600,7 +600,7 @@
                 </div>
 
                 <div style="margin-top: 14px; font-size: 11px; color: var(--text-muted); line-height: 1.5;">
-                    💡 Vaucher xarid qilinganda SamDTU Oftalmologiya professori ko'rigi bepul taqdim etiladi.
+                    [INFO]  Vaucher xarid qilinganda SamDTU Oftalmologiya professori ko'rigi bepul taqdim etiladi.
                 </div>
             </div>
 
@@ -626,16 +626,16 @@
 
             const maxIop = Math.max(r, l);
             let alertClass = 'emerald';
-            let title = "Ko'z Bosimi Barqaror Me'yorda ✅";
+            let title = "Ko'z Bosimi Barqaror Me'yorda [OK] ";
             let desc = `Ko'z bosimi (${r} / ${l} mmHg) xavfsiz 10-21 oralig'ida. Optik nerv shikastlanishi xavfi minimal.`;
 
             if (maxIop >= 30) {
                 alertClass = 'rose';
-                title = "QIZIL XAVF: O'tkir Glaukoma Xuruji Xavfi! 🚨";
+                title = "QIZIL XAVF: O'tkir Glaukoma Xuruji Xavfi! [ALERT] ";
                 desc = `Ko'z bosimi kritik baland (${maxIop} mmHg)! Ko'ruv nervi tolalari nobud bo'lishi mumkin. Darhol SamDTU oftalmologiga boring!`;
             } else if (maxIop >= 22) {
                 alertClass = 'amber';
-                title = "Sariq Xavf: Ko'z Ichki Bosimi Yuqori ⚠️";
+                title = "Sariq Xavf: Ko'z Ichki Bosimi Yuqori [DIQQAT] ";
                 desc = `Bosim me'yordan oshgan (${maxIop} mmHg). Antiglaukoma tomchilari dozasini oshirish yoki kombinatsiyaga o'tish zarur.`;
             }
 
@@ -646,7 +646,7 @@
 
             document.getElementById('iopResultBox').innerHTML = `
                 <div class="alert-card ${alertClass}">
-                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '[ALERT] ' : alertClass === 'amber' ? '[DIQQAT] ' : '[OK] '}</span>
                     <div>
                         <div style="font-weight: 700; margin-bottom: 2px;">${title}</div>
                         <div>${desc}</div>
@@ -673,7 +673,7 @@
         }
 
         function orderEyeDropSubscription() {
-            alert("✅ 28-kunlik Glaukoma Ko'z Qalqoni Obunasi faollashtirildi!\n\n1. Har 28 kunda yangi steril flakon uyingizga yetkaziladi.\n2. Har kuni soat 20:00 da Telegram orqali tomizish eslatmasi keladi.\n3. Har 3 oyda bepul ArzonLab ko'z bosimi vaucheri taqdim etiladi.");
+            alert("[OK]  28-kunlik Glaukoma Ko'z Qalqoni Obunasi faollashtirildi!\n\n1. Har 28 kunda yangi steril flakon uyingizga yetkaziladi.\n2. Har kuni soat 20:00 da Telegram orqali tomizish eslatmasi keladi.\n3. Har 3 oyda bepul ArzonLab ko'z bosimi vaucheri taqdim etiladi.");
         }
 
         // Init

@@ -19,7 +19,7 @@
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-black text-xl shadow-md shadow-emerald-200">
-            🎁
+            [BONUS] 
           </div>
           <div>
             <span class="font-extrabold text-lg text-slate-900">Salomatlik<span class="text-emerald-600">Elchisi</span></span>
@@ -30,10 +30,10 @@
 
       <div class="flex items-center space-x-4 text-xs font-bold">
         <a href="../doriquti/index.html" class="text-slate-600 hover:text-emerald-600 transition">
-          💊 DoriQuti
+          [PREPARAT]  DoriQuti
         </a>
         <a href="../arzonlab/index.html" class="text-slate-600 hover:text-blue-600 transition">
-          🔬 ArzonLab
+          [LAB]  ArzonLab
         </a>
         <a href="../index.html" class="bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-1.5 rounded-xl transition">
           Asosiy Portal
@@ -95,12 +95,12 @@
           <span class="text-xs font-bold text-slate-700 block">1-Klikda Ijtimoiy Tarmoqlarda Ulashish:</span>
           
           <button onclick="shareTelegram()" class="w-full bg-[#229ED9] hover:bg-[#1f8ec4] text-white font-bold py-3.5 px-4 rounded-xl text-xs transition flex items-center justify-center space-x-2 shadow-md">
-            <span>✈️</span>
+            <span>️</span>
             <span>Telegram Orqali Yaqinlarga Yuborish</span>
           </button>
 
           <button onclick="copyRefLink()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 px-4 rounded-xl text-xs transition flex items-center justify-center space-x-2">
-            <span>📋</span>
+            <span>[BAYONNOMA] </span>
             <span id="copyBtnText">Havolani Nusxalash</span>
           </button>
         </div>
@@ -145,7 +145,7 @@
         <!-- CAMPUS AMBASSADOR SAMDTU NOTICE -->
         <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-2xl text-xs space-y-2">
           <div class="flex items-center space-x-2 text-indigo-900 font-extrabold">
-            <span>🏛</span>
+            <span>[STANDART] </span>
             <span>SamDTU Talabalari va Rezidentlari Uchun:</span>
           </div>
           <p class="text-indigo-800 text-[11px] leading-relaxed">
@@ -197,7 +197,7 @@
           </div>
 
           <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 rounded-xl text-xs shadow-lg shadow-emerald-600/30 transition">
-            💳 Kartaga o‘tkazish (Bir zumda)
+            [TO'LOV]  Kartaga o‘tkazish (Bir zumda)
           </button>
         </form>
       </div>
@@ -223,7 +223,7 @@
       const url = document.getElementById('displayRefUrl').innerText;
       navigator.clipboard.writeText(url);
       const btn = document.getElementById('copyBtnText');
-      btn.innerText = "Nusxalandi! ✅";
+      btn.innerText = "Nusxalandi! [OK] ";
       setTimeout(() => btn.innerText = "Havolani Nusxalash", 2500);
     }
 
@@ -244,7 +244,7 @@
       e.preventDefault();
       const card = document.getElementById('payoutCard').value;
       const amount = parseInt(document.getElementById('payoutAmount').value);
-      alert(`🎉 To‘lov amalga oshirildi!\n${amount.toLocaleString()} so‘m bir zumda ${card} kartangizga o‘tkazildi.\nTranzaksiya: #PAY-CLICK-9821`);
+      alert(`[OK]  To‘lov amalga oshirildi!\n${amount.toLocaleString()} so‘m bir zumda ${card} kartangizga o‘tkazildi.\nTranzaksiya: #PAY-CLICK-9821`);
       
       const current = 125000 - amount;
       document.getElementById('walletBalance').innerText = `${current.toLocaleString()} so‘m`;

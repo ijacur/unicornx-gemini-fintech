@@ -237,7 +237,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">📦</span>
+            <span style="font-size: 26px;">[PAKET] </span>
             <div>
                 <div style="font-size: 19px; font-weight: 800; color: #ffffff;">FEFO Aqlli Dori Qadoqlash & Yaroqlilik Nazorati Padi</div>
                 <div style="font-size: 12px; color: var(--text-muted);">DoriQuti Markaziy Ombori & Hamkor Dorixonalar Provizor Asbobi</div>
@@ -245,8 +245,8 @@
             <span class="badge-fefo">FEFO Standarti (First-Expired, First-Out)</span>
         </div>
         <div style="display: flex; gap: 12px;">
-            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">🏠 Bosh Menyu</a>
-            <a href="/doriquti/pharmacy_portal.html" class="btn btn-outline" style="text-decoration: none;">🏥 Provizor Portali</a>
+            <a href="/index.html" class="btn btn-outline" style="text-decoration: none;">[MARKAZ]  Bosh Menyu</a>
+            <a href="/doriquti/pharmacy_portal.html" class="btn btn-outline" style="text-decoration: none;">[KLINIKA]  Provizor Portali</a>
         </div>
     </header>
 
@@ -254,7 +254,7 @@
         <!-- Banner -->
         <div class="banner">
             <div>
-                <strong style="color: #6ee7b7; font-size: 15px;">🛡️ Yaroqlilik Muddati Zararlarini 95% Kamaytirish (Zero-Waste FEFO):</strong>
+                <strong style="color: #6ee7b7; font-size: 15px;">[HIMOYA] ️ Yaroqlilik Muddati Zararlarini 95% Kamaytirish (Zero-Waste FEFO):</strong>
                 <p style="font-size: 13px; color: #cbd5e1; margin-top: 4px;">
                     Oddiy dorixonalarda dori vositalarining 3.5% muddati o'tib ketishi sababli yaroqsizga chiqariladi. DoriQuti tizimi har bir blister qutini yig'ishda eng yaqin yaroqlilik muddatiga ega (lekin 90 kundan ortiq) partiyani avtomatik birinchi qatorga qo'yadi. Natijada yaroqsizlik zarari atigi 0.12% ga tushadi.
                 </p>
@@ -295,7 +295,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
-                            <span>📋</span> Ombordagi Faol Partiyalar & Yaroqlilik Grafigi
+                            <span>[BAYONNOMA] </span> Ombordagi Faol Partiyalar & Yaroqlilik Grafigi
                         </div>
                     </div>
 
@@ -360,7 +360,7 @@
                 <div class="panel">
                     <div class="panel-header">
                         <div class="panel-title">
-                            <span>⚙️</span> Blisterga FEFO Qadoqlash
+                            <span>️</span> Blisterga FEFO Qadoqlash
                         </div>
                     </div>
 
@@ -385,7 +385,7 @@
                     </div>
 
                     <button class="btn" style="width: 100%; justify-content: center;" onclick="executeDispense()">
-                        🚀 Partiyani Qadoqlash Konveyeriga Uzatish
+                        [START]  Partiyani Qadoqlash Konveyeriga Uzatish
                     </button>
                 </div>
             </div>
@@ -415,7 +415,7 @@
                 resLot.textContent = "DIQQAT: MAVJUD EMAS";
                 resLot.style.color = "#f43f5e";
                 resMfr.textContent = "Mavjud partiyada atigi 37 kun qolgan!";
-                resDays.textContent = "❌ XAVF: 90 kundan kam qolgan partiyalarni qadoqlash taqiqlanadi!";
+                resDays.textContent = "[XATO]  XAVF: 90 kundan kam qolgan partiyalarni qadoqlash taqiqlanadi!";
                 resDays.style.color = "#f43f5e";
             }
         }
@@ -423,9 +423,9 @@
         function executeDispense() {
             const val = document.getElementById('drugSelect').value;
             if (val === 'Metformin 850mg') {
-                alert("⛔ QADOQLASH BLOKLANDI!\n\nMetformin partiyasining muddati 90 kundan kam. Bemorga faqat yangi kafolatlangan partiya berilishi shart!");
+                alert(" QADOQLASH BLOKLANDI!\n\nMetformin partiyasining muddati 90 kundan kam. Bemorga faqat yangi kafolatlangan partiya berilishi shart!");
             } else {
-                alert("✅ FEFO Partiyasi konveyerga uzatildi!\nAudit kodi: FEFO-UZ-30974\nProvizor muhri bilan qadoqlashga ruxsat etildi.");
+                alert("[OK]  FEFO Partiyasi konveyerga uzatildi!\nAudit kodi: FEFO-UZ-30974\nProvizor muhri bilan qadoqlashga ruxsat etildi.");
             }
         }
     </script>

@@ -100,7 +100,7 @@
         }
 
         .hero-banner::after {
-            content: "🦴";
+            content: "[ORTO] ";
             font-size: 190px;
             position: absolute;
             right: -20px;
@@ -364,7 +364,7 @@
 
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 26px;">🦴</span>
+            <span style="font-size: 26px;">[ORTO] </span>
             <div>
                 <h1 style="font-size: 17px; font-weight: 800; color: #ffffff;">ArzonLab & DoriQuti Bo'g'imlar va Ortopediya</h1>
                 <p style="font-size: 11px; color: var(--text-muted);">Gialuron Inyeksiyalari, Xondroprotektorlar & WOMAC Funksional Indeksi</p>
@@ -423,7 +423,7 @@
             <div class="panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>📊</span>
+                        <span>[STATISTIKA] </span>
                         <span>WOMAC Tizza Bo'g'imi Funksional Indeksi</span>
                     </div>
                     <span class="status-tag tag-amber">Xalqaro Standart (0-96)</span>
@@ -458,7 +458,7 @@
             <div class="panel" id="matrix-sec">
                 <div class="panel-header">
                     <div class="panel-title">
-                        <span>💉</span>
+                        <span>[IN'EKSIYA] </span>
                         <span>Bo'g'im Ichiga Inyeksiyalar Narx Matritsasi</span>
                     </div>
                     <span class="status-tag tag-green">GMP Distribyutor Narxi</span>
@@ -488,7 +488,7 @@
                 </div>
 
                 <button class="btn-action" onclick="bookJointInjectionVoucher()">
-                    <span>🏥</span>
+                    <span>[KLINIKA] </span>
                     <span>SamDTU UZI Nazoratidagi Inyeksiyaga Vaucher Olish</span>
                 </button>
             </div>
@@ -499,7 +499,7 @@
         <section class="panel">
             <div class="panel-header">
                 <div class="panel-title">
-                    <span>💊</span>
+                    <span>[PREPARAT] </span>
                     <span>DoriQuti Oshqozon-Himoyalangan Xondro-Reabilitatsiya Blisteri</span>
                 </div>
                 <span class="status-tag tag-green">0% Oshqozon Yarasi Xavfi</span>
@@ -507,22 +507,22 @@
 
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
                 <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
-                    <div style="font-size: 26px; margin-bottom: 6px;">🦴</div>
+                    <div style="font-size: 26px; margin-bottom: 6px;">[ORTO] </div>
                     <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Glukozamin 1500mg</div>
                     <div style="font-size: 11px; color: var(--text-muted);">Tog'ay to'qimasi sintezi va yemirilishini sekinlashtirish</div>
                 </div>
                 <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
-                    <div style="font-size: 26px; margin-bottom: 6px;">💧</div>
+                    <div style="font-size: 26px; margin-bottom: 6px;">[STATUS] </div>
                     <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Xondroitin 1200mg</div>
                     <div style="font-size: 11px; color: var(--text-muted);">Sinovial bo'g'im suyuqligi namligini ushlab turish</div>
                 </div>
                 <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
-                    <div style="font-size: 26px; margin-bottom: 6px;">🧬</div>
+                    <div style="font-size: 26px; margin-bottom: 6px;">[GENETIKA] </div>
                     <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Kollagen II Tipi 500mg</div>
                     <div style="font-size: 11px; color: var(--text-muted);">Bo'g'im kapsulasi va boylamlarning elastikligi</div>
                 </div>
                 <div style="background: #090c14; border: 1px solid var(--border); border-radius: 14px; padding: 16px; text-align: center;">
-                    <div style="font-size: 26px; margin-bottom: 6px;">🛡️</div>
+                    <div style="font-size: 26px; margin-bottom: 6px;">[HIMOYA] ️</div>
                     <div style="font-size: 13px; font-weight: 700; color: #ffffff;">Seleksoksib 100mg</div>
                     <div style="font-size: 11px; color: var(--text-muted);">Selektiv COX-2 — an'anaviy diklofenakka qaraganda oshqozon qonash xavfi 4x kam</div>
                 </div>
@@ -550,7 +550,7 @@
                 div.onclick = () => { selectedInj = item; renderInjections(); calcWOMAC(); };
                 div.innerHTML = `
                     <div class="product-title">
-                        <span>💉 ${item.name}</span>
+                        <span>[IN'EKSIYA]  ${item.name}</span>
                         <span style="color: var(--emerald); font-family: 'JetBrains Mono', monospace; font-size: 14px;">${item.arzonlab.toLocaleString()} UZS</span>
                     </div>
                     <div style="font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between;">
@@ -577,26 +577,26 @@
             const total = Math.min(96, walk + stairs + stiffScore + diff);
 
             let alertClass = 'emerald';
-            let stage = "1-Bosqich: Boshlang'ich Artroz ✅";
+            let stage = "1-Bosqich: Boshlang'ich Artroz [OK] ";
             let rec = "Konservativ parhez, bo'g'im mashqlari va 3 oylik DoriQuti xondro-paketi yetarli. Jarrohlik xavfi nol.";
 
             if (total > 72) {
                 alertClass = 'rose';
-                stage = "4-Bosqich: Terminal Artroz (Ankiloz) 🚨";
+                stage = "4-Bosqich: Terminal Artroz (Ankiloz) [ALERT] ";
                 rec = "Bo'g'im tog'ayi to'liq yemirilgan. SamDTU Travmatologiya markazida shoshilinch tizza bo'g'imini endoprotezlash ko'rsatilgan.";
             } else if (total > 48) {
                 alertClass = 'rose';
-                stage = "3-Bosqich: Og'ir Gonartroz ⚠️";
+                stage = "3-Bosqich: Og'ir Gonartroz [DIQQAT] ";
                 rec = "Kross-linklangan Gialuron inyeksiyasi (3.0 ml) + UZI nazoratida bo'g'im punksiyasi va 6 oylik xondroprotektor shart.";
             } else if (total > 24) {
                 alertClass = 'amber';
-                stage = "2-Bosqich: O'rtacha Gonartroz ⚠️";
+                stage = "2-Bosqich: O'rtacha Gonartroz [DIQQAT] ";
                 rec = "Gialuron inyeksiyasi tavsiya etiladi. O'z vaqtida moylash operatsiyani 5-7 yilga kechiktiradi!";
             }
 
             document.getElementById('womacResultBox').innerHTML = `
                 <div class="alert-card ${alertClass}">
-                    <span style="font-size: 20px;">${alertClass === 'rose' ? '🚨' : alertClass === 'amber' ? '⚠️' : '✅'}</span>
+                    <span style="font-size: 20px;">${alertClass === 'rose' ? '[ALERT] ' : alertClass === 'amber' ? '[DIQQAT] ' : '[OK] '}</span>
                     <div>
                         <div style="font-weight: 700; margin-bottom: 2px;">WOMAC: ${total} / 96 ball • ${stage}</div>
                         <div>${rec}</div>
@@ -618,7 +618,7 @@
         }
 
         function bookJointInjectionVoucher() {
-            alert(`✅ ${selectedInj.name} uchun ArzonLab vaucheri rasmiylashtirildi!\n\nNarxi: ${selectedInj.arzonlab.toLocaleString()} UZS (Dorixonada: ${selectedInj.retail.toLocaleString()} UZS)\nManzil: SamDTU Travmatologiya va Ortopediya klinikasi\nInyeksiya: Mutaxassis shifokor tomonidan steril UZI nazorati ostida amalga oshiriladi.`);
+            alert(`[OK]  ${selectedInj.name} uchun ArzonLab vaucheri rasmiylashtirildi!\n\nNarxi: ${selectedInj.arzonlab.toLocaleString()} UZS (Dorixonada: ${selectedInj.retail.toLocaleString()} UZS)\nManzil: SamDTU Travmatologiya va Ortopediya klinikasi\nInyeksiya: Mutaxassis shifokor tomonidan steril UZI nazorati ostida amalga oshiriladi.`);
         }
 
         // Init

@@ -363,7 +363,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 1.6rem;">🌸</span>
+            <span style="font-size: 1.6rem;">[WELLNESS] </span>
             <div>
                 <strong style="font-size: 1.15rem; color: #fff;">Unicorn Health &bull; Onalik Qalqoni</strong>
                 <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Homiladorlik Trimestr Blisteri & Pre-Eklampsiya Skriningi</span>
@@ -416,7 +416,7 @@
             <!-- Left: Week Slider & Daily Pouch -->
             <div>
                 <div class="section-title">
-                    <span>📅</span>
+                    <span>[SANA] </span>
                     <span>Homiladorlik Haftasini Tanlang:</span>
                 </div>
 
@@ -452,19 +452,19 @@
                             <span style="font-size: 0.75rem; color: var(--rose); text-decoration: line-through;" id="oldPriceLabel">520,000 so'm</span>
                             <strong style="font-size: 1.15rem; color: #6ee7b7; font-family: monospace; display: block;" id="newPriceLabel">195,000 so'm/oy</strong>
                         </div>
-                        <span style="font-size: 0.78rem; color: #f472b6; font-weight: 700;">✓ 325,000 so'm tejash</span>
+                        <span style="font-size: 0.78rem; color: #f472b6; font-weight: 700;"> 325,000 so'm tejash</span>
                     </div>
                 </div>
 
                 <button class="btn-order-prenatal" onclick="openOrderModal()">
-                    🌸 Ushbu Oylik Prenatal To'plamga Obuna Bo'lish
+                    [WELLNESS]  Ushbu Oylik Prenatal To'plamga Obuna Bo'lish
                 </button>
             </div>
 
             <!-- Right: Screenings & Pre-eclampsia Tracker -->
             <div>
                 <div class="section-title">
-                    <span>🔬</span>
+                    <span>[LAB] </span>
                     <span>Ushbu Trimestrda Tavsiya Qilingan Tahlillar:</span>
                 </div>
 
@@ -475,7 +475,7 @@
                 <!-- Pre-eclampsia BP Checker -->
                 <div class="bp-check-card">
                     <div style="font-weight: 800; color: #fda4af; font-size: 0.95rem; margin-bottom: 2px;">
-                        🩸 Pre-Eklampsiya Qon Bosimi Nazorati
+                        [QON]  Pre-Eklampsiya Qon Bosimi Nazorati
                     </div>
                     <div style="font-size: 0.78rem; color: #cbd5e1;">
                         Bosim 140/90 dan yuqori bo'lsa, zudlik bilan shifokor nazorati talab etiladi.
@@ -494,7 +494,7 @@
 
                     <button class="btn-check-bp" onclick="checkBpRisk()">Xavfni Tekshirish</button>
                     <div id="bpStatusText" style="margin-top: 10px; font-size: 0.8rem; font-weight: 700; color: #6ee7b7; text-align: center;">
-                        ✓ Bosim me'yorda (115/75 mmHg)
+                         Bosim me'yorda (115/75 mmHg)
                     </div>
                 </div>
 
@@ -507,7 +507,7 @@
     <!-- Modal -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-box">
-            <div style="font-size: 3.5rem; margin-bottom: 10px;">👶</div>
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">[PEDIATRIYA] </div>
             <h2 style="font-size: 1.4rem; color: #ec4899; margin-bottom: 8px;">Prenatal Obuna Qabul Qilindi!</h2>
             <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 18px;">
                 Tanlangan trimestr uchun 30 kunlik alohida lentali steril blisterlar 
@@ -617,10 +617,10 @@
 
             if (sys >= 140 || dia >= 90) {
                 statusEl.style.color = "#f43f5e";
-                statusEl.innerHTML = `🚨 XAVF: Yuqori bosim (${sys}/${dia} mmHg)! Zudlik bilan shifokorga murojaat qiling!`;
+                statusEl.innerHTML = `[ALERT]  XAVF: Yuqori bosim (${sys}/${dia} mmHg)! Zudlik bilan shifokorga murojaat qiling!`;
             } else {
                 statusEl.style.color = "#6ee7b7";
-                statusEl.innerHTML = `✓ Bosim me'yorda (${sys}/${dia} mmHg). Pre-eklampsiya xavfi yo'q.`;
+                statusEl.innerHTML = ` Bosim me'yorda (${sys}/${dia} mmHg). Pre-eklampsiya xavfi yo'q.`;
             }
         }
 

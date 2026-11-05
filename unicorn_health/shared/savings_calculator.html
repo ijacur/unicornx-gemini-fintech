@@ -19,7 +19,7 @@
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <a href="../index.html" class="flex items-center space-x-2">
-          <span class="text-2xl">🦄</span>
+          <span class="text-2xl">[UNICORN] </span>
           <span class="font-extrabold text-lg text-white tracking-tight">Unicorn Health</span>
         </a>
         <span class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/30">
@@ -46,7 +46,7 @@
   <!-- HERO SECTION -->
   <section class="max-w-5xl mx-auto px-4 pt-10 pb-6 text-center">
     <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-300 mb-4">
-      <span>💰</span>
+      <span>[UZS] </span>
       <span>Oilaviy Byudjet va Salomatlik Simulyatori</span>
     </div>
     <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">
@@ -65,7 +65,7 @@
       <div class="bg-slate-900 border border-slate-800 p-6 rounded-3xl shadow-xl space-y-6">
         
         <h2 class="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-          <span>⚙️</span>
+          <span>️</span>
           <span>Oilangiz Ma’lumotlarini Belgilang</span>
         </h2>
 
@@ -174,11 +174,11 @@
         <!-- BREAKDOWN -->
         <div class="grid grid-cols-2 gap-3 text-xs mb-6">
           <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800">
-            <span class="text-slate-500 block mb-1 text-[11px]">💊 DoriQuti (15% diskont):</span>
+            <span class="text-slate-500 block mb-1 text-[11px]">[PREPARAT]  DoriQuti (15% diskont):</span>
             <span id="medsSavingsValue" class="text-base font-extrabold text-white">1 170 000 so‘m</span>
           </div>
           <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800">
-            <span class="text-slate-500 block mb-1 text-[11px]">🔬 ArzonLab (25% off-peak):</span>
+            <span class="text-slate-500 block mb-1 text-[11px]">[LAB]  ArzonLab (25% off-peak):</span>
             <span id="labSavingsValue" class="text-base font-extrabold text-blue-400">300 000 so‘m</span>
           </div>
         </div>
@@ -192,7 +192,7 @@
           <div class="space-y-2 text-xs">
             <div class="flex items-center justify-between">
               <span class="text-slate-300">Dori qabul qilish intizomi (Adherence):</span>
-              <span class="font-bold text-emerald-400">41% ➔ 94% (+53%)</span>
+              <span class="font-bold text-emerald-400">41%  94% (+53%)</span>
             </div>
             <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
               <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-2 rounded-full" style="width: 94%"></div>
@@ -216,7 +216,7 @@
             DoriQutiga buyurtma berish →
           </a>
           <button onclick="shareSavings()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-4 py-3 rounded-xl text-xs transition border border-slate-700 flex items-center justify-center gap-1.5">
-            <span>✈️</span>
+            <span>️</span>
             <span>Telegramda ulashish</span>
           </button>
         </div>
@@ -231,19 +231,19 @@
         <div class="divide-y divide-slate-800">
           <div class="py-2.5 flex justify-between items-center text-slate-400">
             <span>Dori sotib olish:</span>
-            <span class="text-slate-300 font-semibold">Har safar dorixonaga qatnash ➔ <strong class="text-emerald-400">Uyga 30 kunlik quti</strong></span>
+            <span class="text-slate-300 font-semibold">Har safar dorixonaga qatnash  <strong class="text-emerald-400">Uyga 30 kunlik quti</strong></span>
           </div>
           <div class="py-2.5 flex justify-between items-center text-slate-400">
             <span>Dori narxi:</span>
-            <span class="text-slate-300 font-semibold">Chakana ustama (20-30%) ➔ <strong class="text-emerald-400">15% Ulgurji diskont</strong></span>
+            <span class="text-slate-300 font-semibold">Chakana ustama (20-30%)  <strong class="text-emerald-400">15% Ulgurji diskont</strong></span>
           </div>
           <div class="py-2.5 flex justify-between items-center text-slate-400">
             <span>MRT va tahlillar:</span>
-            <span class="text-slate-300 font-semibold">Klinika qimmat navbati ➔ <strong class="text-blue-400">20-30% arzon off-peak vaucher</strong></span>
+            <span class="text-slate-300 font-semibold">Klinika qimmat navbati  <strong class="text-blue-400">20-30% arzon off-peak vaucher</strong></span>
           </div>
           <div class="py-2.5 flex justify-between items-center text-slate-400">
             <span>Nazorat:</span>
-            <span class="text-slate-300 font-semibold">Hech kim bilmaydi ➔ <strong class="text-indigo-400">Farzandlar uchun Telegram panel</strong></span>
+            <span class="text-slate-300 font-semibold">Hech kim bilmaydi  <strong class="text-indigo-400">Farzandlar uchun Telegram panel</strong></span>
           </div>
         </div>
       </div>
@@ -302,7 +302,7 @@
     function shareSavings() {
       const total = document.getElementById('totalSavingsValue').innerText;
       const text = encodeURIComponent(
-        `💡 Bizning oilamiz DoriQuti va ArzonLab orqali yiliga ${total} so‘m tejashi mumkin ekan! Surunkali dori va MRT xarajatlaringizni siz ham hisoblab ko‘ring: http://localhost:8080/shared/savings_calculator.html`
+        `[INFO]  Bizning oilamiz DoriQuti va ArzonLab orqali yiliga ${total} so‘m tejashi mumkin ekan! Surunkali dori va MRT xarajatlaringizni siz ham hisoblab ko‘ring: http://localhost:8080/shared/savings_calculator.html`
       );
       window.open(`https://t.me/share/url?url=https://unicornhealth.uz/kalkulyator&text=${text}`, '_blank');
     }

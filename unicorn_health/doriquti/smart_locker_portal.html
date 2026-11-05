@@ -494,7 +494,7 @@
     <!-- Header -->
     <header class="header">
         <div class="header-title">
-            <span style="font-size: 1.6rem;">📮</span>
+            <span style="font-size: 1.6rem;">[POCHTA] </span>
             <div>
                 <strong style="font-size: 1.15rem; color: #fff;">DoriQuti &bull; Smart Med-Locker</strong>
                 <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">24/7 Avtonom Termo-Postamatlar & SOS Dispenser</span>
@@ -547,7 +547,7 @@
             <!-- Left: Lockers List -->
             <div>
                 <div class="section-title">
-                    <span>📍</span>
+                    <span>[MANZIL] </span>
                     <span>Samarqand Faol Postamatlari (Jonli Telemetriya)</span>
                 </div>
 
@@ -558,7 +558,7 @@
                 <!-- SOS Emergency Strip -->
                 <div class="sos-banner">
                     <div>
-                        <div style="font-weight: 800; color: #fda4af; font-size: 0.95rem;">🚨 Tun Yarmi 24/7 SOS Dori Dispanseri</div>
+                        <div style="font-weight: 800; color: #fda4af; font-size: 0.95rem;">[ALERT]  Tun Yarmi 24/7 SOS Dori Dispanseri</div>
                         <div style="font-size: 0.78rem; color: #cbd5e1; margin-top: 2px;">Gipertonik kriz (Kaptopril), stenokardiya (Nitroglitserin) yoki astmada shoshilinch ochish</div>
                     </div>
                     <button class="btn-sos" onclick="openSosModal()">SOS Chaqirish</button>
@@ -568,7 +568,7 @@
             <!-- Right: Interactive Terminal Simulator -->
             <div class="terminal-container">
                 <div style="text-align: center; margin-bottom: 12px; font-weight: 700; color: #cbd5e1;">
-                    📱 Termo-Postamat Sensorli Ekrani
+                     Termo-Postamat Sensorli Ekrani
                 </div>
 
                 <div class="terminal-screen">
@@ -594,14 +594,14 @@
                     </div>
 
                     <button class="btn-unlock" onclick="unlockCell()">
-                        🔓 Katakchani Ochish
+                        [OCHIQ]  Katakchani Ochish
                     </button>
                 </div>
 
                 <!-- Visual Cell Matrix -->
                 <div class="cell-matrix-title">
                     <span>Katakchalar Holati (24 Katak)</span>
-                    <span style="font-size: 0.75rem; color: var(--cyan);">❄️ 1-8 Sovuq &bull; 9-22 Standart &bull; 23-24 SOS</span>
+                    <span style="font-size: 0.75rem; color: var(--cyan);">️ 1-8 Sovuq &bull; 9-22 Standart &bull; 23-24 SOS</span>
                 </div>
 
                 <div class="cell-grid" id="cellGrid">
@@ -609,7 +609,7 @@
                 </div>
 
                 <div style="margin-top: 14px; font-size: 0.75rem; color: var(--text-muted); text-align: center;">
-                    💡 Bemor uchun yetkazish <strong>0 so'm</strong>. Bir martalik ochilgandan so'ng eshik sensori orqali SMS bildirishnoma va 1% Soliq keshbek yuboriladi.
+                    [INFO]  Bemor uchun yetkazish <strong>0 so'm</strong>. Bir martalik ochilgandan so'ng eshik sensori orqali SMS bildirishnoma va 1% Soliq keshbek yuboriladi.
                 </div>
             </div>
 
@@ -620,7 +620,7 @@
     <!-- Success Modal -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box" style="border-color: var(--emerald);">
-            <div style="font-size: 3.5rem; margin-bottom: 10px;">🎉</div>
+            <div style="font-size: 3.5rem; margin-bottom: 10px;">[OK] </div>
             <h2 style="font-size: 1.4rem; color: #10b981; margin-bottom: 8px;" id="modalTitle">Katakcha Ochildi!</h2>
             <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 16px;" id="modalMessage">
                 №4-katakcha eshikchasi muvaffaqiyatli ochildi. Dori paketingizni oling va eshikchani yoping.
@@ -637,20 +637,20 @@
     <!-- SOS Modal -->
     <div class="modal-overlay" id="sosModal">
         <div class="modal-box" style="border-color: var(--rose);">
-            <div style="font-size: 3rem; margin-bottom: 8px;">🚨</div>
+            <div style="font-size: 3rem; margin-bottom: 8px;">[ALERT] </div>
             <h2 style="font-size: 1.4rem; color: var(--rose); margin-bottom: 6px;">24/7 Shoshilinch SOS Dispenser</h2>
             <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 16px;">
                 SamDTU Navbatchi Shoshilinch Provizori nazorati ostida favqulodda dori olish:
             </p>
             <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; text-align: left;">
                 <button class="key-btn" style="font-size: 0.85rem; text-align: left;" onclick="triggerSos('Kaptopril 25mg')">
-                    🩸 <strong>Kaptopril 25mg</strong> — Gipertonik kriz (Bosim 180+)
+                    [QON]  <strong>Kaptopril 25mg</strong> — Gipertonik kriz (Bosim 180+)
                 </button>
                 <button class="key-btn" style="font-size: 0.85rem; text-align: left;" onclick="triggerSos('Nitroglitserin 0.5mg')">
-                    ❤️ <strong>Nitroglitserin 0.5mg</strong> — Yurak qisuvchi og'riq
+                    ️ <strong>Nitroglitserin 0.5mg</strong> — Yurak qisuvchi og'riq
                 </button>
                 <button class="key-btn" style="font-size: 0.85rem; text-align: left;" onclick="triggerSos('Salbutamol Inhaler')">
-                    🫁 <strong>Salbutamol Ingalyator</strong> — Astma bo'g'ilishi
+                    [PULMONOLOGIYA]  <strong>Salbutamol Ingalyator</strong> — Astma bo'g'ilishi
                 </button>
             </div>
             <button class="key-btn key-action" style="width: 100%;" onclick="closeSosModal()">Bekor qilish</button>
@@ -759,10 +759,10 @@
                 let label = i;
                 if (i <= 8) {
                     cellClass = "cold";
-                    label = `❄️ ${i}`;
+                    label = `️ ${i}`;
                 } else if (i >= 23) {
                     cellClass = "sos";
-                    label = `🚨 ${i}`;
+                    label = `[ALERT]  ${i}`;
                 }
                 html += `<div class="cell-box ${cellClass}" id="cell-${i}">${label}</div>`;
             }
@@ -821,7 +821,7 @@
             const targetCell = document.getElementById(`cell-4`);
             if (targetCell) {
                 targetCell.classList.remove("open");
-                targetCell.innerText = "❄️ 4";
+                targetCell.innerText = "️ 4";
             }
             clearPin();
         }
@@ -842,7 +842,7 @@
                 targetCell.innerText = "OPEN";
             }
 
-            document.getElementById("modalTitle").innerText = `🚨 SOS Katak №23 Ochildi!`;
+            document.getElementById("modalTitle").innerText = `[ALERT]  SOS Katak №23 Ochildi!`;
             document.getElementById("modalMessage").innerHTML = `
                 Shoshilinch preparat: <strong>${drugName}</strong> chiqarildi.<br>
                 SamDTU Navbatchi Provizori bilan audio-aloqa o'rnatildi (#SOS-AKT-9912).
