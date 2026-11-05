@@ -267,11 +267,12 @@
 
     <div style="display: flex; align-items: center; gap: 10px;">
       <select id="clinicSelect" onchange="switchClinic()" class="mono" style="background: rgba(255,255,255,0.05); color: #FFF; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 4px 10px; font-size: 11px; outline: none;">
-        <option value="1" style="background: #111;">Osiyo Medical Clinic (Samarqand)</option>
-        <option value="2" style="background: #111;">Afrosiyob Med Line (Samarqand)</option>
-        <option value="3" style="background: #111;">Samarqand Shifo Diagnostic</option>
+        <option value="osiyo" style="background: #111;">Osiyo Medical Clinic (Samarqand)</option>
+        <option value="doktord" style="background: #111;">Doktor D Poliklinikasi (Toshkent)</option>
+        <option value="afrosiyob" style="background: #111;">Afrosiyob Med Servis (Samarqand)</option>
+        <option value="sammed" style="background: #111;">SamMed Triage Markazi (Samarqand)</option>
       </select>
-      <button onclick="addSimulatedPatient()" class="btn-white mono" style="padding: 5px 12px; font-size: 11px;">
+      <button onclick="addSimulatedPatient()" id="btnSimulatePatient" class="btn-white mono" style="padding: 5px 12px; font-size: 11px;">
         + Yangi Tahlil Kelishini Simulyatsiya Qilish
       </button>
     </div>
@@ -411,7 +412,7 @@
             </span>
           </div>
 
-          <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div id="doctorRosterContainer" style="display: flex; flex-direction: column; gap: 8px;">
             <!-- Doctor 1 -->
             <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
               <div>
@@ -871,7 +872,66 @@
       }, 500);
     }
 
+    const RECEPTION_CLINICS = {
+      osiyo: {
+        name: "Osiyo Medical Clinic (Samarqand)",
+        rooms: [
+          { name: "Dr. Shirinov X. I.", spec: "Gepatolog", room: "14-xona (2-qavat)", busy: "4 band / 2 bo'sh", next: "11:30" },
+          { name: "Dr. Rahimova D. A.", spec: "Endokrinolog", room: "8-xona (1-qavat)", busy: "3 band / 3 bo'sh", next: "12:00" },
+          { name: "Dr. Usmonov S. T.", spec: "Terapevt", room: "3-xona (1-qavat)", busy: "5 band / 1 bo'sh", next: "14:00" }
+        ]
+      },
+      doktord: {
+        name: "Doktor D Poliklinikasi (Toshkent)",
+        rooms: [
+          { name: "Dr. Alimov N. K.", spec: "Gepatolog", room: "101-xona (1-qavat)", busy: "6 band / 1 bo'sh", next: "11:00" },
+          { name: "Dr. Yo'ldosheva M. B.", spec: "Endokrinolog", room: "102-xona (1-qavat)", busy: "4 band / 2 bo'sh", next: "11:30" },
+          { name: "Dr. Sobirov A. R.", spec: "Terapevt", room: "103-xona (1-qavat)", busy: "5 band / 2 bo'sh", next: "13:30" }
+        ]
+      },
+      afrosiyob: {
+        name: "Afrosiyob Med Servis (Samarqand)",
+        rooms: [
+          { name: "Dr. Boboyev J. O.", spec: "Gepatolog", room: "21-xona (2-qavat)", busy: "3 band / 3 bo'sh", next: "12:30" },
+          { name: "Dr. Yusupova M. Sh.", spec: "Endokrinolog", room: "22-xona (2-qavat)", busy: "5 band / 1 bo'sh", next: "13:00" },
+          { name: "Dr. Mamatova Sh. E.", spec: "Terapevt", room: "23-xona (2-qavat)", busy: "4 band / 2 bo'sh", next: "14:30" }
+        ]
+      },
+      sammed: {
+        name: "SamMed Triage Markazi (Samarqand)",
+        rooms: [
+          { name: "Dr. To'rayev A. M.", spec: "Gepatolog", room: "301-xona (3-qavat)", busy: "2 band / 4 bo'sh", next: "10:30" },
+          { name: "Dr. Boboyev O. R.", spec: "Endokrinolog", room: "302-xona (3-qavat)", busy: "4 band / 2 bo'sh", next: "11:15" },
+          { name: "Dr. Fayziyev J. A.", spec: "Terapevt", room: "303-xona (3-qavat)", busy: "3 band / 3 bo'sh", next: "12:45" }
+        ]
+      }
+    };
+
+    function renderDoctorRoster(key) {
+      const container = document.getElementById('doctorRosterContainer');
+      if (!container) return;
+      const clinic = RECEPTION_CLINICS[key] || RECEPTION_CLINICS['osiyo'];
+      container.innerHTML = clinic.rooms.map(r => `
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 12px; font-weight: 600; color: #FFF;">${r.name}</div>
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">${r.spec} &bull; ${r.room}</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="mono" style="font-size: 11px; font-weight: 700; color: var(--accent-acid);">${r.busy}</div>
+            <div class="mono" style="font-size: 9px; color: var(--text-muted);">Keyingi slot: ${r.next}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function switchClinic() {
+      const select = document.getElementById('clinicSelect');
+      const key = select ? select.value : 'osiyo';
+      renderDoctorRoster(key);
+      const clinicInfo = RECEPTION_CLINICS[key] || { name: key };
+      pushDispatchEvent("CLINIC SWITCH", clinicInfo.name, "MIS Telemetry Roster synchronised");
+      playClinicalChime('click');
       renderQueue();
       updateCounts();
     }
@@ -1031,6 +1091,7 @@
       }
     });
 
+    renderDoctorRoster(document.getElementById('clinicSelect')?.value || 'osiyo');
     renderQueue();
     updateCounts();
     renderDispatchLogs();

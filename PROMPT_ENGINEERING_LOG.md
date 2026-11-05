@@ -261,3 +261,15 @@
   4. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash, Vite build va Vercel production deploy (`turnir-launch-lab.vercel.app`) qilish hamda Git remote (`unicornx-gemini-fintech`) ga yuborish.
 - **Kim uchun:** Poliklinika direktorlari, bosh vrachlar, xalqaro hakamlar va investorlar.
 - **Format:** `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #18 / 500: Reception 4-Clinic Doctor Room Telemetry, Live MIS Dispatch Stream & 46-Assertion Playwright Suite
+- **Kim siz:** Lead Clinical Operations Engineer & Real-Time Telemetry Architect.
+- **Nima kerak:**
+  1. `public/reception.html` (Registratura Navbati) dagi yuqori panelga 4 ta rasmiy klinika dropdown selektorini (`Osiyo Medical Clinic (Samarqand)`, `Doktor D Poliklinikasi (Toshkent)`, `Afrosiyob Med Servis (Samarqand)`, `SamMed Triage Markazi (Samarqand)`) to'liq o'rnatish.
+  2. Chap ustundagi "Kabinetlar Telemetriyasi: Shifokorlar va Xonalar Bandligi" (`#doctorRosterContainer`) bo'limini har bir klinika uchun dinamik xonalar, mutaxassis shifokorlar (Gepatolog, Endokrinolog, Terapevt), ularning xona raqamlari (qavatlari), bandlik ko'rsatkichlari va keyingi bo'sh vaqtlari bilan real-vaqtda re-render qilish (`RECEPTION_CLINICS` va `renderDoctorRoster`).
+  3. Klinika almashganda kristaldek toza Web Audio chime yangrashi, o'ng pastdagi "Jonli Integratsiya Dispetcheri" (`#dispatchLogList`) terminaliga `[CLINIC SWITCH]` yozuvi prependlashishi.
+  4. `scripts/test_playwright_e2e.py` ga Phase 7 sifatida Registratura klinika selektori, shifokorlar xonasi telemetriyasi va dispetcher loglari bo'yicha 5 ta yangi assertion qo'shib, testlar sonini **46 taga yetkazish** (100% GREEN).
+  5. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va 46 ta E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash, Vite build va Vercel production deploy (`turnir-launch-lab.vercel.app`) qilish hamda Git remote (`unicornx-gemini-fintech`) ga yuborish.
+- **Kim uchun:** Poliklinika bosh vrachlari, qabulxona registratorlari, navbatchi mutaxassislar va hakamlar.
+- **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

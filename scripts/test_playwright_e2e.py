@@ -288,6 +288,44 @@ def test_e2e():
         print(f"  [OK] Index ROI preset: Loaded Osiyo Med ({p_val2} pts/day)")
         total_checks += 6
 
+        # Phase 7: Test Reception Clinic Switcher & Doctor Room Telemetry
+        print("\n[RECEPTION CLINIC SWITCHER & DOCTOR ROOM TELEMETRY TEST]")
+        page.goto(f"http://localhost:{PORT}/reception.html", wait_until="domcontentloaded")
+
+        # Select Doktor D clinic
+        page.select_option("#clinicSelect", "doktord")
+        page.wait_for_timeout(200)
+        roster_text = page.inner_text("#doctorRosterContainer")
+        assert "Dr. Alimov N. K." in roster_text and "101-xona" in roster_text, f"Doktor D roster mismatch: {roster_text}"
+        print(f"  [OK] Reception clinic switcher: Switched to Doktor D ({roster_text[:40]}...)")
+
+        # Select SamMed clinic
+        page.select_option("#clinicSelect", "sammed")
+        page.wait_for_timeout(200)
+        roster_text2 = page.inner_text("#doctorRosterContainer")
+        assert "Dr. To'rayev A. M." in roster_text2 and "301-xona" in roster_text2, f"SamMed roster mismatch: {roster_text2}"
+        print(f"  [OK] Reception clinic switcher: Switched to SamMed ({roster_text2[:40]}...)")
+
+        # Verify live dispatch log has recorded the switch
+        dispatch_head = page.inner_text("#dispatchLogList > div:first-child")
+        assert "CLINIC SWITCH" in dispatch_head and "SamMed" in dispatch_head, f"Dispatch switch log missing: {dispatch_head}"
+        print(f"  [OK] Reception live telemetry: Dispatch logged clinic switch correctly")
+
+        # Select Afrosiyob clinic
+        page.select_option("#clinicSelect", "afrosiyob")
+        page.wait_for_timeout(200)
+        roster_text3 = page.inner_text("#doctorRosterContainer")
+        assert "Dr. Boboyev J. O." in roster_text3 and "21-xona" in roster_text3, f"Afrosiyob roster mismatch: {roster_text3}"
+        print(f"  [OK] Reception clinic switcher: Switched to Afrosiyob ({roster_text3[:40]}...)")
+
+        # Select Osiyo Medical clinic back
+        page.select_option("#clinicSelect", "osiyo")
+        page.wait_for_timeout(200)
+        roster_text4 = page.inner_text("#doctorRosterContainer")
+        assert "Dr. Shirinov X. I." in roster_text4 and "14-xona" in roster_text4, f"Osiyo roster mismatch: {roster_text4}"
+        print(f"  [OK] Reception clinic switcher: Restored Osiyo Med ({roster_text4[:40]}...)")
+        total_checks += 5
+
         browser.close()
 
     httpd.shutdown()
