@@ -412,7 +412,58 @@ def test_e2e():
         tg_outreach_href = page.get_attribute("#btnTelegramOutreach", "href")
         assert "https://t.me/jasurceo?text=" in tg_outreach_href, f"Unexpected outreach link: {tg_outreach_href}"
         print(f"  [OK] Clinic ROI live metrics: Scans ({kpi_scans}), Surplus ({kpi_net}), Telegram Outreach Link verified")
-        total_checks += 8
+
+        # Test Clinic ROI Deliverable Dock Agreement Card open & ESC close
+        page.click("#dockAgreementBtn")
+        page.wait_for_timeout(300)
+        roi_dock_agr_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert roi_dock_agr_display == "flex", f"Expected docPreviewModal to be flex from dock agreement, got: {roi_dock_agr_display}"
+        roi_dock_agr_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in roi_dock_agr_src, f"Expected MedLoop_Agreement.pdf in iframe, got: {roi_dock_agr_src}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        roi_dock_agr_after = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert roi_dock_agr_after == "none", f"Expected docPreviewModal to close on Escape, got: {roi_dock_agr_after}"
+        print("  [OK] Clinic ROI Deliverable Dock: Opened and closed Founders Agreement modal cleanly via ESC")
+
+        # Test Clinic ROI Deliverable Dock LOI Card open & ESC close
+        page.click("#dockLoiBtn")
+        page.wait_for_timeout(300)
+        roi_dock_loi_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert roi_dock_loi_display == "flex", f"Expected docPreviewModal to be flex from dock LOI, got: {roi_dock_loi_display}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        roi_dock_loi_after = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert roi_dock_loi_after == "none", f"Expected docPreviewModal to close on Escape, got: {roi_dock_loi_after}"
+        print("  [OK] Clinic ROI Deliverable Dock: Opened and closed 14-Day Pilot LOI modal cleanly via ESC")
+
+        # Test Clinic ROI Deliverable Dock internal route links
+        roi_dock_links = [
+            ("#roi-card-reception", "/reception.html"),
+            ("#roi-card-workflow", "/workflow.html"),
+            ("#roi-card-miniapp", "/mini_app.html"),
+            ("#roi-card-tracker", "/tracker.html"),
+            ("#roi-card-pitch", "/medloop.html"),
+            ("#roi-card-index", "/index.html")
+        ]
+        for sel, exp_href in roi_dock_links:
+            actual_href = page.get_attribute(sel, "href")
+            assert exp_href in actual_href, f"Expected {exp_href} in {sel}, got: {actual_href}"
+        print("  [OK] Clinic ROI Deliverable Dock: All 6 internal sub-page links validated (/reception.html, /workflow.html, /mini_app.html, /tracker.html, /medloop.html, /index.html)")
+
+        # Test Clinic ROI Keyboard Navigation (Keys '4', '1', '2', '3')
+        page.keyboard.press("4")
+        page.wait_for_timeout(200)
+        kb_doktor = page.inner_text("#dossierName")
+        assert "Doktor D" in kb_doktor, f"Expected Doktor D on key '4', got: {kb_doktor}"
+        print(f"  [OK] Clinic ROI keyboard shortcut: Key '4' loaded {kb_doktor}")
+
+        page.keyboard.press("1")
+        page.wait_for_timeout(200)
+        kb_osiyo = page.inner_text("#dossierName")
+        assert "Osiyo Medical" in kb_osiyo, f"Expected Osiyo Medical on key '1', got: {kb_osiyo}"
+        print(f"  [OK] Clinic ROI keyboard shortcut: Key '1' loaded {kb_osiyo}")
+        total_checks += 16
 
         # Phase 4: Test Bilingual Toggle & Clinic Switcher on Mini App
         print("\n[MINI APP BILINGUAL & CLINIC SWITCHER TEST]")

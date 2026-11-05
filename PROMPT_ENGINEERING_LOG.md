@@ -816,3 +816,23 @@
 - **Format:** `public/tracker.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
 
 
+### Prompt #60 / 500: Clinic ROI 8-Card Deliverable Dock Parity, 4D Keypad Navigation & 211-Assertion Milestone E2E Suite
+- **Kim siz:** Principal Financial Telemetry & Deliverable Dock Parity Architect.
+- **Nima kerak:**
+  1. `public/clinic-roi.html` (MedLoop B2B Bleed & ROI Simulator) ga butun ekotizim bilan 100% simmetriya beruvchi 8-kartochkali 1-Click Deliverable Dock tizimi va 4D apparat klaviaturasi tezkor boshqaruvini joriy qilish:
+     - Asosiy ROI hisob-kitoblar va unit economics ostiga rasmiy hujjatlar va yo'nalishlar paneli kiritish: `#dockAgreementBtn` (`/MedLoop_Agreement.pdf`) va `#dockLoiBtn` (`/loi.pdf`) orqali rasmiy hujjatlarni Apple Pro modalida ko'rish.
+     - 6 ta asosiy yo'nalish kartochkasi: `#roi-card-reception` (`/reception.html`), `#roi-card-workflow` (`/workflow.html`), `#roi-card-miniapp` (`/mini_app.html`), `#roi-card-tracker` (`/tracker.html`), `#roi-card-pitch` (`/medloop.html`), `#roi-card-index` (`/index.html`).
+     - 4D apparat klaviaturasi raqamli buyruqlari ('1' Osiyo Medical, '2' SamMed, '3' Afrosiyob, '4' Doktor D) orqali klinika parametrlarini lahzada yuklash imkoniyatini ta'minlash.
+  2. `scripts/test_playwright_e2e.py` da Phase 3 (Klinika ROI Simulator) sinovlarini kengaytirish:
+     - `#dockAgreementBtn` bosilishi, tegishli PDF ochilishi va ESC tugmasi orqali toza yopilishini tekshirish.
+     - `#dockLoiBtn` bosilishi, tegishli PDF ochilishi va ESC tugmasi orqali toza yopilishini tekshirish.
+     - 1-Click Deliverable Dock dagi barcha 6 ta ichki sub-sahifa havolalarini (`/reception.html`, `/workflow.html`, `/mini_app.html`, `/tracker.html`, `/medloop.html`, `/index.html`) to'liq tekshirish.
+     - 4D klaviatura buyruqlari ('4' Doktor D va '1' Osiyo Medical) orqali oldindan sozlangan klinikalar yuklanishini tekshirish.
+     - Phase 3 assertatsiyalar sonini 13 tadan 21 taga oshirib, umumiy Playwright E2E assertatsiyalarini 203 tadan **211 taga (211 Green Assertions Historic Milestone)** yetkazish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 211 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (113ms) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika moliya direktorlari, investorlar, School 21 texnik hakamlar hay'ati va integratsiya bo'yicha muhandislar.
+- **Format:** `public/clinic-roi.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
+
+
+
