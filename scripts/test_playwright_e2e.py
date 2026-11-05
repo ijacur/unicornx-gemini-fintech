@@ -233,6 +233,32 @@ def test_e2e():
         assert "SamMed" in c_name2, f"Expected SamMed, got: {c_name2}"
         print(f"  [OK] Mini App clinic switcher: Switched to {c_name2}")
 
+        # Test Sample switching: Liver, Glucose, Anemia
+        page.click("#btn-liver")
+        page.wait_for_timeout(200)
+        p_name_l = page.inner_text("#cardPatientName")
+        assert "Xoliqov Bobur" in p_name_l, f"Expected Xoliqov Bobur on liver, got: {p_name_l}"
+        print(f"  [OK] Mini App sample switcher: Liver panel loaded ({p_name_l})")
+
+        page.click("#btn-glucose")
+        page.wait_for_timeout(200)
+        p_name_g = page.inner_text("#cardPatientName")
+        assert "Karimova Ziyoda" in p_name_g, f"Expected Karimova Ziyoda on glucose, got: {p_name_g}"
+        print(f"  [OK] Mini App sample switcher: Glucose panel loaded ({p_name_g})")
+
+        page.click("#btn-anemia")
+        page.wait_for_timeout(200)
+        p_name_a = page.inner_text("#cardPatientName")
+        assert "Usmonova Nilufar" in p_name_a, f"Expected Usmonova Nilufar on anemia, got: {p_name_a}"
+        print(f"  [OK] Mini App sample switcher: Anemia panel loaded ({p_name_a})")
+
+        # Test Slot Selection
+        page.click(".slot-pill:nth-child(2)")
+        page.wait_for_timeout(200)
+        slot_text = page.inner_text(".slot-pill.active")
+        assert len(slot_text) > 0, "No active slot selected"
+        print(f"  [OK] Mini App slot selector: Active appointment slot chosen ({slot_text})")
+
         # Confirm appointment booking
         page.click("#mainBookingBtn")
         page.wait_for_timeout(300)
@@ -253,7 +279,7 @@ def test_e2e():
         ref_closed = not page.is_visible("#referralModal")
         assert ref_closed, "Referral modal did not close on Escape key"
         print("  [OK] Mini App referral modal: Closed cleanly via ESC key")
-        total_checks += 7
+        total_checks += 11
 
         # Phase 5: Test Tracker Evidence Drawer & Filter Pills
         print("\n[TRACKER EVIDENCE DRAWER & FILTER TEST]")

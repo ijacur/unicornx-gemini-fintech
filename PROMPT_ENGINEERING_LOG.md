@@ -434,3 +434,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Bosh shifokorlar, tibbiyot markazlari menejerlari, poliklinika rahbarlari, hakamlar hay'ati va investorlar.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #33 / 500: Telegram Mini App Multi-Biomarker Engine, Slot Dispatching & Medical Referral Sheet E2E Suite (68 Assertions) & Production Deploy
+- **Kim siz:** Principal Telegram Mini App & Patient Experience Architect.
+- **Nima kerak:**
+  1. `public/mini_app.html` dagi 3 ta haqiqiy biomarker tahlil namunalarini (`liver` / Jigar ALT 94.0 U/L, `glucose` / Diabet HbA1c 7.8%, `anemia` / Kamqonlik Ferritin 6.2 ng/mL), qabul vaqti slotlarini tanlash flywheeli (`.slot-pill`) va chop etiladigan tibbiy yo'llanma varaqasi modalini (`openReferralModal`) avtomatlashtirilgan Playwright E2E sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 4 ga har uchala biomarker namunalarini almashtirish, bemor ismlari va tahlil qiymatlarini tekshirish, faol qabul slotini belgilash va yo'llanma modalining `Escape` tugmasi bilan yopilishini sinash (jami Playwright assertatsiyalari 64 tadan 68 taga yetkazildi va 100% GREEN tasdiqlandi).
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 68 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN tasdiqlandi.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Bemorlar, poliklinika mijozlari, gepatolog va endokrinolog shifokorlar, School 21 texnik hakamlari va investorlar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
