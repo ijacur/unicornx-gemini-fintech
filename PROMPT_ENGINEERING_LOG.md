@@ -467,3 +467,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Investorlar, School 21 hakamlar hay'ati, poliklinika rahbarlari, marketing va CustDev bo'yicha tadqiqotchilar.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #36 / 500: Core Index Platform Dynamic ROI Sliders, LOI Pilot Modal & Full Keypad Suite (82 Assertions) & Production Deploy
+- **Kim siz:** Principal Core Platform & Interactive ROI Engine Architect.
+- **Nima kerak:**
+  1. `public/index.html` (MedLoop asosiy sahifasi) dagi B2B ROI kalkulyatori slayderlarini (`#sliderPatients` 110 bemor/kunga surish, `#sliderCheck` 250,000 UZS ga surish), 14 kunlik pilot LOI shartnomasi hujjatini oldindan ko'rish modali (`previewDocument('/loi.pdf')`), `Escape` klaviatura buyrug'i orqali yopish va 4D apparat klaviaturasidagi '2' tugmasi (Diabet / Glyukoza paneliga o'tish) ni to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 6 ga ushbu barcha tekshiruvlarni kiritish orqali Playwright assertatsiyalari sonini 78 tadan 82 taga yetkazish va 100% GREEN holatida tasdiqlash.
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 82 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Klinika direktorlari, moliya rahbarlari, investorlar, School 21 texnik hakamlar hay'ati va integratsiya bo'yicha muhandislar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

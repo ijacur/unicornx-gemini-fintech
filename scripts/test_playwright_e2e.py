@@ -409,7 +409,15 @@ def test_e2e():
         assert p_val2 == "75", f"ROI Preset Osiyo mismatch: {p_val2}"
         print(f"  [OK] Index ROI preset: Loaded Osiyo Med ({p_val2} pts/day)")
 
-        # Test Deliverable Dock Preview Modal & ESC key dismiss
+        # Test Index ROI Sliders live input (Patients & Check)
+        page.evaluate("() => { const sp = document.getElementById('sliderPatients'); sp.value = 110; sp.dispatchEvent(new Event('input')); const sc = document.getElementById('sliderCheck'); sc.value = 250000; sc.dispatchEvent(new Event('input')); }")
+        page.wait_for_timeout(200)
+        slider_p_val = page.inner_text("#dailyPatientsVal")
+        slider_c_val = page.inner_text("#consultationCheckVal")
+        assert slider_p_val == "110" and "250,000" in slider_c_val, f"Expected 110 and 250,000 UZS, got: {slider_p_val}, {slider_c_val}"
+        print(f"  [OK] Index ROI sliders live interaction: Adjusted to {slider_p_val} pts/day and {slider_c_val}")
+
+        # Test Deliverable Dock Preview Modal (MedLoop Agreement) & ESC key dismiss
         page.evaluate("previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\\'sischilar Ulushi Bitimi')")
         page.wait_for_timeout(200)
         is_modal_visible = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
@@ -421,6 +429,17 @@ def test_e2e():
         is_modal_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
         assert is_modal_closed, "Document preview modal did not close on Escape key"
         print("  [OK] Index deliverable dock: Closed cleanly via ESC key")
+
+        # Test Deliverable Dock Preview Modal (LOI Agreement) & ESC key dismiss
+        page.evaluate("previewDocument('/loi.pdf', 'MedLoop 14 Kunlik Pilot LOI Shartnomasi')")
+        page.wait_for_timeout(200)
+        is_loi_visible = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert is_loi_visible, "LOI preview modal did not open"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        is_loi_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert is_loi_closed, "LOI preview modal did not close on Escape key"
+        print("  [OK] Index deliverable dock: Opened and dismissed 14-day LOI preview cleanly via ESC key")
         
         # Test 4D Hardware Keyboard Shortcut Navigation (Keys '1', '2', '3')
         page.keyboard.press("1")
@@ -429,12 +448,18 @@ def test_e2e():
         assert "Xoliqov Bobur" in p_name1, f"Expected Xoliqov Bobur on key '1', got: {p_name1}"
         print(f"  [OK] Index keyboard navigation: Key '1' activated liver panel ({p_name1})")
 
+        page.keyboard.press("2")
+        page.wait_for_timeout(200)
+        p_name2 = page.inner_text("#labPatientName")
+        assert "Karimova Ziyoda" in p_name2, f"Expected Karimova Ziyoda on key '2', got: {p_name2}"
+        print(f"  [OK] Index keyboard navigation: Key '2' activated glucose panel ({p_name2})")
+
         page.keyboard.press("3")
         page.wait_for_timeout(200)
         p_name3 = page.inner_text("#labPatientName")
         assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
         print(f"  [OK] Index keyboard navigation: Key '3' activated anemia panel ({p_name3})")
-        total_checks += 10
+        total_checks += 14
 
         # Phase 7: Test Reception Clinic Switcher & Doctor Room Telemetry
         print("\n[RECEPTION CLINIC SWITCHER & DOCTOR ROOM TELEMETRY TEST]")
@@ -507,7 +532,7 @@ def test_e2e():
         is_referral_open = page.evaluate("document.getElementById('referralModal').style.display === 'block'")
         assert is_referral_open, "Referral sheet modal did not open"
         page.keyboard.press("Escape")
-        page.wait_for_timeout(200)
+        page.wait_for_timeout(350)
         is_referral_closed = page.evaluate("document.getElementById('referralModal').style.display === 'none'")
         assert is_referral_closed, "Referral sheet modal did not close on Escape key"
         print("  [OK] Reception referral sheet modal: Opened and dismissed cleanly via ESC key")
