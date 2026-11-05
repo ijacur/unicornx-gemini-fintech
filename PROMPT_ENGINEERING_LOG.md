@@ -688,3 +688,20 @@
   4. Vite orqali qayta qurish (93ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 21s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Poliklinika direktorlari, bosh registratorlar, School 21 texnik hakamlar hay'ati, investorlar va shifokorlar.
 - **Format:** `public/workflow.html`, `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #53 / 500: Complete Deliverable Dock Ecosystem, Dual Live Modal Clicks, 165-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal Deliverable Dock Ecosystem Architecture & Hardware Split-Stage Integration Architect.
+- **Nima kerak:**
+  1. `index.html` (Bosh sahifa) dagi "1-Click Deliverable Dock" qismini to'liq simmetrik va barcha 6 ta asosiy marshrut + 2 ta rasmiy PDF yuridik hujjatlarni qamrab oladigan darajada to'liq shakllantirish:
+     - `#card-deliverable-roi` (`/clinic-roi.html`) kartochkasini qo'shish ("MOLIYAVIY SIMULYATOR" - Klinika yo'qotishlarini hisoblash va ROI tahlili).
+     - `#card-deliverable-pitch` (`/medloop.html`) kartochkasini qo'shish ("B2B TIJORIY TAQDIMOT" - Klinika rahbarlari va investorlar uchun to'liq interaktiv taqdimot).
+     - 1-Click Deliverable Dock endi to'liq 8 ta kartochkadan iborat mukammal 2-ustunli simmetriyaga keltirildi (`#dockAgreementBtn`, `#dockLoiBtn`, `#card-deliverable-reception`, `#card-deliverable-tracker`, `#card-deliverable-miniapp`, `#card-deliverable-workflow`, `#card-deliverable-roi`, `#card-deliverable-pitch`).
+  2. `scripts/test_playwright_e2e.py` da Phase 6 (Asosiy sahifa va Hardware Split-Stage) sinovlarini yangilash va kengaytirish:
+     - `page.evaluate("previewDocument(...)")` o'rniga haqiqiy DOM bosishlari orqali `#dockAgreementBtn` va `#dockLoiBtn` tugmalarini bosish (`page.click(...)`), modal ichidagi iframe manzilida tegishli ravishda `MedLoop_Agreement.pdf` va `loi.pdf` fayllari ochilganini va `Escape` tugmasi orqali toza yopilishini to'liq tekshirish.
+     - 1-Click Deliverable Dock dagi barcha 6 ta ichki marshrut manzillarini (`/reception.html`, `/tracker.html`, `/mini_app.html`, `/workflow.html`, `/clinic-roi.html`, `/medloop.html`) to'liq tekshirish.
+     - Umumiy Playwright E2E assertatsiyalar sonini 160 tadan **165 taga (165 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 165 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (90ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 18s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika rahbarlari, investorlar, School 21 hakamlar hay'ati, B2B hamkorlar va shifokorlar.
+- **Format:** `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

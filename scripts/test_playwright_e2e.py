@@ -700,12 +700,14 @@ def test_e2e():
         assert slider_p_val == "110" and "250,000" in slider_c_val, f"Expected 110 and 250,000 UZS, got: {slider_p_val}, {slider_c_val}"
         print(f"  [OK] Index ROI sliders live interaction: Adjusted to {slider_p_val} pts/day and {slider_c_val}")
 
-        # Test Deliverable Dock Preview Modal (MedLoop Agreement) & ESC key dismiss
-        page.evaluate("previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\\'sischilar Ulushi Bitimi')")
-        page.wait_for_timeout(200)
+        # Test Deliverable Dock Preview Modal (MedLoop Agreement) via direct click & ESC key dismiss
+        page.click("#dockAgreementBtn")
+        page.wait_for_timeout(250)
         is_modal_visible = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
-        assert is_modal_visible, "Document preview modal did not open"
-        print("  [OK] Index deliverable dock: Opened MedLoop Agreement preview modal")
+        assert is_modal_visible, "Document preview modal did not open on dockAgreementBtn click"
+        iframe_agree_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in iframe_agree_src, f"Expected MedLoop_Agreement.pdf in iframe, got: {iframe_agree_src}"
+        print("  [OK] Index deliverable dock: Opened MedLoop Agreement preview modal via #dockAgreementBtn click")
         
         page.keyboard.press("Escape")
         page.wait_for_timeout(200)
@@ -713,16 +715,18 @@ def test_e2e():
         assert is_modal_closed, "Document preview modal did not close on Escape key"
         print("  [OK] Index deliverable dock: Closed cleanly via ESC key")
 
-        # Test Deliverable Dock Preview Modal (LOI Agreement) & ESC key dismiss
-        page.evaluate("previewDocument('/loi.pdf', 'MedLoop 14 Kunlik Pilot LOI Shartnomasi')")
-        page.wait_for_timeout(200)
+        # Test Deliverable Dock Preview Modal (LOI Agreement) via direct click & ESC key dismiss
+        page.click("#dockLoiBtn")
+        page.wait_for_timeout(250)
         is_loi_visible = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
-        assert is_loi_visible, "LOI preview modal did not open"
+        assert is_loi_visible, "LOI preview modal did not open on dockLoiBtn click"
+        iframe_loi_src = page.get_attribute("#docViewerIframe", "src")
+        assert "loi.pdf" in iframe_loi_src, f"Expected loi.pdf in iframe, got: {iframe_loi_src}"
         page.keyboard.press("Escape")
         page.wait_for_timeout(200)
         is_loi_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
         assert is_loi_closed, "LOI preview modal did not close on Escape key"
-        print("  [OK] Index deliverable dock: Opened and dismissed 14-day LOI preview cleanly via ESC key")
+        print("  [OK] Index deliverable dock: Opened and dismissed 14-day LOI preview cleanly via #dockLoiBtn click")
 
         # Test Top Nav Agreement Button Click & ESC dismiss
         page.click("#navAgreementBtn")
@@ -746,7 +750,7 @@ def test_e2e():
         assert nav_loi_closed, "Top nav LOI modal did not close on Escape key"
         print("  [OK] Index top nav: Opened and closed 14-Day Pilot LOI modal cleanly via ESC key")
 
-        # Test Deliverable Dock Sub-Page Routing Links
+        # Test Deliverable Dock Sub-Page Routing Links (All 6 core routes)
         rec_href = page.get_attribute("#card-deliverable-reception", "href")
         assert rec_href == "/reception.html", f"Unexpected reception href: {rec_href}"
         trk_href = page.get_attribute("#card-deliverable-tracker", "href")
@@ -755,7 +759,11 @@ def test_e2e():
         assert mini_href == "/mini_app.html", f"Unexpected mini_app href: {mini_href}"
         wf_href = page.get_attribute("#card-deliverable-workflow", "href")
         assert wf_href == "/workflow.html", f"Unexpected workflow href: {wf_href}"
-        print(f"  [OK] Index deliverable dock: All 4 sub-page links validated ({rec_href}, {trk_href}, {mini_href}, {wf_href})")
+        roi_href = page.get_attribute("#card-deliverable-roi", "href")
+        assert roi_href == "/clinic-roi.html", f"Unexpected clinic-roi href: {roi_href}"
+        pitch_href = page.get_attribute("#card-deliverable-pitch", "href")
+        assert pitch_href == "/medloop.html", f"Unexpected medloop pitch href: {pitch_href}"
+        print(f"  [OK] Index deliverable dock: All 6 sub-page links validated ({rec_href}, {trk_href}, {mini_href}, {wf_href}, {roi_href}, {pitch_href})")
         
         # Test 4D Hardware Keyboard Shortcut Navigation (Keys '1', '2', '3')
         page.keyboard.press("1")
@@ -775,7 +783,7 @@ def test_e2e():
         p_name3 = page.inner_text("#labPatientName")
         assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
         print(f"  [OK] Index keyboard navigation: Key '3' activated anemia panel ({p_name3})")
-        total_checks += 21
+        total_checks += 26
 
         # Phase 7: Test Reception Clinic Switcher & Doctor Room Telemetry
         print("\n[RECEPTION CLINIC SWITCHER & DOCTOR ROOM TELEMETRY TEST]")
