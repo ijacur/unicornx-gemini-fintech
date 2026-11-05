@@ -511,3 +511,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Bosh shifokorlar, klinika egalari, moliya direktorlari, investorlar va School 21 hakamlari.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #40 / 500: Clinical Workflow Pipeline, Step Indicators & 100-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal Clinical Workflow & 100-Tier End-to-End Test Engine Architect.
+- **Nima kerak:**
+  1. `public/workflow.html` (Klinik triaj va 4 bosqichli konversiya quvuri) dagi interaktiv qadam kartochkalari to'g'ridan-to'g'ri tanlovi (`#step-card-1`, `#step-card-4`), apparat klaviatura o'ng o'qi (`ArrowRight` orqali 2-bosqichga o'tish) va qadamlar sarlavhalari dinamik yangilanishini to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 2 ga ushbu barcha tekshiruvlarni kiritish orqali Playwright assertatsiyalari sonini 97 tadan **100 taga (100 Green Assertions)** yetkazish va 100% GREEN holatida tasdiqlash.
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 100 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Butun ekotizim foydalanuvchilari, School 21 hakamlar hay'ati, xususiy klinika rahbarlari va investorlar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

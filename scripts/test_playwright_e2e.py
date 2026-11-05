@@ -135,7 +135,28 @@ def test_e2e():
         step_text_back = page.inner_text("#currentStepIndicator")
         assert "BOSQICH 3" in step_text_back, f"Expected back to Step 3 on ArrowLeft, got: {step_text_back}"
         print(f"  [OK] Keyboard Arrow navigation: ArrowLeft returned to Step 3 ({step_text_back})")
-        total_checks += 3
+
+        # Test direct card click to Step 1
+        page.click("#step-card-1")
+        page.wait_for_timeout(200)
+        step_text1 = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 1" in step_text1, f"Step card click failed for Step 1, got: {step_text1}"
+        print(f"  [OK] Step card click: Activated Step 1 successfully ({step_text1})")
+
+        # Test keyboard ArrowRight navigation to Step 2
+        page.keyboard.press("ArrowRight")
+        page.wait_for_timeout(200)
+        step_text_arrow = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 2" in step_text_arrow, f"ArrowRight did not advance to Step 2, got: {step_text_arrow}"
+        print(f"  [OK] Keyboard Arrow navigation: ArrowRight advanced to Step 2 ({step_text_arrow})")
+
+        # Test direct card click to Step 4
+        page.click("#step-card-4")
+        page.wait_for_timeout(200)
+        step_text_card4 = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 4" in step_text_card4, f"Step card click failed for Step 4, got: {step_text_card4}"
+        print(f"  [OK] Step card click: Activated Step 4 successfully ({step_text_card4})")
+        total_checks += 6
 
         # Test SOP modal open & ESC close
         page.click("button:has-text('Klinika SOP (Nizom)')")
