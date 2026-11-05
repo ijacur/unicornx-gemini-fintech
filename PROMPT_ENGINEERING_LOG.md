@@ -299,3 +299,14 @@
   5. Vite build orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha commitlarni yuborish.
 - **Kim uchun:** Unicorn Health bemorlari, shifokorlari, dorixona tarmoqlari, SamMU klinik bazalari rahbarlari va xalqaro hakamlar.
 - **Format:** `unicorn_health/**`, `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #21 / 500: Multi-Site Zero-Emoji Eradication across `sammu-exam-prep`, `clinic-ai-bot-demo`, and `sammu-iqtisodiy-tahlil` with Acid Palettes & Production Deploy
+- **Kim siz:** Lead Cross-Portfolio Systems Engineer & Multi-Site Verification Architect.
+- **Nima kerak:**
+  1. `sammu-exam-prep` (`/Users/jasur/sammu-akademik-prep/public`): 7 ta asosiy fayldagi (bosh sahifa, 4 ta marshrut sahifasi, `app.js` va `styles.css`) barcha **127 ta arzon emoji spamlarini** to'liq tozalab, Diego 60-30-10 Acid Hyper-Volt Orange (`#FF5500`) monoxrom teglari (`[OK]`, `[FORMULA]`, `[MAQSAD]`, `[FLASHCARD]`, `[BLITZ]`, `[A+ TAYYOR]`) ga almashtirish. Vercel production (`sammu-exam-prep.vercel.app`) ga muvaffaqiyatli yuklash (Ready in 6s).
+  2. `clinic-ai-bot-demo` (`/Users/jasur/Projects/clinic-ai-bot-demo`): `public/index.html` dagi 35 ta eski stomatologiya emojilarini zamonaviy ildizdagi 60-30-10 Acid Emerald (`#00FF87`) versiyasi bilan sinxronlash, 0 emoji tozaligini ta'minlash va Vercel production (`clinic-ai-bot-demo.vercel.app`) ga deploy qilish (Ready in 2s).
+  3. `sammu-iqtisodiy-tahlil` (`/Users/jasur/Antigravity_Master_Workspace/Projects/sammu-iqtisodiy-tahlil`): `index.html` dagi 5 ta qoldiq emojini (tarozi, qaychi, bo'lish, elektr) monoxrom `[TAROZI]`, `[QAYCHI]`, `[BO'LISH]`, `[TEZKOR]` teglari bilan almashtirish, 60-30-10 Voltage Solar Yellow (`#FFE600`) tozaligini tasdiqlash va Vercel production (`sammu-iqtisodiy-tahlil.vercel.app`) ga chiqarish (Ready in 7s).
+  4. Turnir tizimida barcha 46 ta Playwright E2E brauzer sinovlarini 100% GREEN tasdiqlash, `PROMPT_ENGINEERING_LOG.md` ni yangilash, Vite build va GitHub omboriga push qilish.
+- **Kim uchun:** SamMU talabalari, poliklinika rahbarlari, stomatologiya klinikalari, mentorlar va xalqaro auditorlar.
+- **Format:** `sammu-akademik-prep/public/**`, `clinic-ai-bot-demo/**`, `sammu-iqtisodiy-tahlil/**`, `Turnir/PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
