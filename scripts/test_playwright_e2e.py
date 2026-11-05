@@ -169,7 +169,60 @@ def test_e2e():
         is_closed = not page.evaluate("document.getElementById('sopModal').classList.contains('active')")
         assert is_closed, "SOP modal did not close on Escape key"
         print("  [OK] SOP Modal: Opened and closed cleanly via ESC key")
-        total_checks += 3
+
+        # Test Step 1 clinic switching (Osiyo Medical Clinic)
+        page.click("#step-card-1")
+        page.wait_for_timeout(200)
+        page.click("#btn-wf-clinic-osiyo")
+        page.wait_for_timeout(200)
+        qr_caption = page.inner_text("#wfQrCaption")
+        loc_text = page.inner_text("#wfClinicLoc")
+        assert "OSIYO" in qr_caption, f"Expected OSIYO in QR caption, got: {qr_caption}"
+        assert "Dagbitskaya" in loc_text, f"Expected Dagbitskaya in location, got: {loc_text}"
+        print(f"  [OK] Workflow clinic switch: Activated Osiyo Medical Clinic ({qr_caption}, {loc_text})")
+
+        # Test Step 2 dynamic biomarker panels (HbA1c & Ferritin)
+        page.click("#step-card-2")
+        page.wait_for_timeout(200)
+        page.click("#btn-wf-bio-hba1c")
+        page.wait_for_timeout(200)
+        report_hba1c = page.inner_text("#wfBioReportTitle")
+        badge_hba1c = page.inner_text("#wfBioBadge")
+        assert "Karimova Ziyoda" in report_hba1c, f"Expected Karimova Ziyoda in HbA1c panel, got: {report_hba1c}"
+        assert "GLIKIK OG'ISH" in badge_hba1c, f"Expected GLIKIK OG'ISH badge, got: {badge_hba1c}"
+        print(f"  [OK] Workflow biomarker switch: Activated HbA1c panel ({report_hba1c})")
+
+        page.click("#btn-wf-bio-ferritin")
+        page.wait_for_timeout(200)
+        report_ferr = page.inner_text("#wfBioReportTitle")
+        badge_ferr = page.inner_text("#wfBioBadge")
+        assert "Usmonova Nilufar" in report_ferr, f"Expected Usmonova Nilufar in Ferritin panel, got: {report_ferr}"
+        assert "TEMIR TANQISLIGI" in badge_ferr, f"Expected TEMIR TANQISLIGI badge, got: {badge_ferr}"
+        print(f"  [OK] Workflow biomarker switch: Activated Ferritin panel ({report_ferr})")
+
+        # Test Step 3 dynamic clinical triage note with active Ferritin
+        page.click("#step-card-3")
+        page.wait_for_timeout(200)
+        step3_doctor = page.inner_text("#wfStep3Doctor")
+        step3_rebook_href = page.get_attribute("#btn-wf-step3-rebook", "href")
+        assert "Usmonov" in step3_doctor, f"Expected Dr. Usmonov for Ferritin, got: {step3_doctor}"
+        assert "/reception.html" in step3_rebook_href, f"Expected /reception.html link, got: {step3_rebook_href}"
+        print(f"  [OK] Workflow clinical triage note: Rendered Dr. Usmonov rebooking link ({step3_doctor} -> {step3_rebook_href})")
+
+        # Test Top Nav Agreement Modal open & ESC close
+        page.click("#navWorkflowAgreementBtn")
+        page.wait_for_timeout(300)
+        doc_modal_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert doc_modal_display == "flex", f"Expected docPreviewModal to be flex, got: {doc_modal_display}"
+        iframe_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in iframe_src, f"Expected MedLoop_Agreement.pdf in iframe, got: {iframe_src}"
+        
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        doc_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert doc_modal_after_esc == "none", f"Expected docPreviewModal to be closed after ESC, got: {doc_modal_after_esc}"
+        print("  [OK] Workflow Top Nav: Opened Founders Agreement modal and dismissed via ESC")
+        total_checks += 8
 
         # Phase 3: Test Clinic ROI Commercial Proposal Modal & Presets
         print("\n[CLINIC ROI INTERACTION TEST]")

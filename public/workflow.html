@@ -261,7 +261,10 @@
     </div>
 
     <div style="display: flex; align-items: center; gap: 10px;">
-      <button onclick="openSopModal()" class="btn-acid mono" style="padding: 5px 14px; font-size: 11px;">
+      <button id="navWorkflowAgreementBtn" onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Shartnomasi')" class="btn-glass mono" style="padding: 5px 14px; font-size: 11px;">
+        Ta'sis Bitimi &uarr;
+      </button>
+      <button id="btnNavSopModal" onclick="openSopModal()" class="btn-acid mono" style="padding: 5px 14px; font-size: 11px;">
         Klinika SOP (Nizom) &rarr;
       </button>
       <button onclick="window.print()" class="btn-glass mono" style="padding: 5px 14px; font-size: 11px;">
@@ -560,6 +563,45 @@
       sammed: { name: 'SamMed Markazi', loc: 'Samarqand, Gagarin 42', doc: 'Dr. Usmonov (Kardiolog)' }
     };
 
+    const biomarkers = {
+      alt: {
+        title: "Intermed Lab Hisoboti: Bobur Xoliqov (38 yosh)",
+        badge: "KRITIK OG'ISH ANIQLANDI",
+        doctor: "Dr. Alimov (Gepatolog)",
+        docRoom: "Ertaga, 10:00 (1-xona)",
+        summary: "Hurmatli Bobur aka, tahlilingizda jigar fermentlari (ALT 94 U/L) normadan 2.3 barobar yuqori chiqqan. Bu jigar to'qimasida o'tkir yuklama borligini ko'rsatadi. Ushbu ko'rsatkichni e'tiborsiz qoldirish xavfli. <strong>Doktor D klinikasining yetakchi gepatologi Dr. Alimov</strong> zudlik bilan qo'shimcha tekshiruv va davolash rejasini tayinlaydi.",
+        cards: [
+          { name: "ALT (Alaninaminotransferaza)", val: "94.0 U/L \u2191", norm: "Norma: 0.0 - 41.0 U/L (2.3x)", alert: true },
+          { name: "AST (Aspartataminotransferaza)", val: "58.0 U/L \u2191", norm: "Norma: 0.0 - 40.0 U/L (1.45x)", alert: true },
+          { name: "Umumiy Bilirubin", val: "19.2 \u00b5mol/L", norm: "Norma: 3.4 - 20.5 \u00b5mol/L [OK]", alert: false }
+        ]
+      },
+      hba1c: {
+        title: "Abbott Architect: Karimova Ziyoda (51 yosh)",
+        badge: "GLIKIK OG'ISH ANIQLANDI",
+        doctor: "Dr. Karimova (Endokrinolog)",
+        docRoom: "Ertaga, 11:30 (4-xona)",
+        summary: "Hurmatli Ziyoda opa, glikatsiyalangan gemoglobin (HbA1c 7.8%) normadan yuqori chiqqan. Bu oxirgi 3 oyda qondagi qand miqdori baland bo'lganini ko'rsatadi. <strong>Afrosiyob klinikasining yetakchi endokrinologi Dr. Karimova</strong> zudlik bilan terapiya rejasini tuzadi.",
+        cards: [
+          { name: "HbA1c (Glikatsiyalangan)", val: "7.8% \u2191", norm: "Norma: 4.0 - 5.6% (Dekompensatsiya)", alert: true },
+          { name: "Och qoringa glyukoza", val: "9.4 mmol/L \u2191", norm: "Norma: 4.1 - 5.9 mmol/L (1.6x)", alert: true },
+          { name: "C-peptid", val: "1.1 ng/mL", norm: "Norma: 1.1 - 4.4 ng/mL [Chegaraviy]", alert: false }
+        ]
+      },
+      ferritin: {
+        title: "Vitros 5600: Usmonova Nilufar (32 yosh)",
+        badge: "TEMIR TANQISLIGI ANIQLANDI",
+        doctor: "Dr. Usmonov (Terapevt / Gematolog)",
+        docRoom: "Ertaga, 14:00 (12-xona)",
+        summary: "Hurmatli Nilufar singlimiz, ferritin zaxirangiz (6.2 ng/mL) keskin tushib ketgan. Bu to'qima darajasidagi surunkali temir tanqisligi anemiyasini bildiradi. <strong>SamMed markazining yetakchi mutaxassisi Dr. Usmonov</strong> zudlik bilan temir preparatlarini tayinlaydi.",
+        cards: [
+          { name: "Ferritin (Zaxira temir)", val: "6.2 ng/mL \u2193", norm: "Norma: 15.0 - 150.0 ng/mL (Kritik past)", alert: true },
+          { name: "Gemoglobin (Hb)", val: "92 g/L \u2193", norm: "Norma: 120 - 150 g/L (O'rtacha anemiya)", alert: true },
+          { name: "Zardob temiri", val: "7.1 \u00b5mol/L", norm: "Norma: 9.0 - 30.4 \u00b5mol/L [Subnormal]", alert: false }
+        ]
+      }
+    };
+
     const stepTitles = [
       '[BOSQICH 1 / 4] Yengil Ulanish (QR & Telegram Mini App)',
       '[BOSQICH 2 / 4] 8s Deterministik Multimodal OCR Skan',
@@ -575,6 +617,28 @@
     function closeSopModal() {
       playClinicalChime('click');
       document.getElementById('sopModal').classList.remove('active');
+    }
+
+    function previewDocument(url, title) {
+      playClinicalChime('confirm');
+      const m = document.getElementById('docPreviewModal');
+      const iframe = document.getElementById('docViewerIframe');
+      const titleEl = document.getElementById('docPreviewTitle');
+      const dlBtn = document.getElementById('docDownloadBtn');
+      if (m && iframe && titleEl && dlBtn) {
+        titleEl.innerText = title;
+        iframe.src = url;
+        dlBtn.href = url;
+        m.style.display = 'flex';
+      }
+    }
+
+    function closeDocPreview() {
+      playClinicalChime('click');
+      const m = document.getElementById('docPreviewModal');
+      const iframe = document.getElementById('docViewerIframe');
+      if (m) m.style.display = 'none';
+      if (iframe) iframe.src = '';
     }
 
     function prevStep() {
@@ -596,7 +660,10 @@
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeSopModal();
+      if (e.key === 'Escape') {
+        closeSopModal();
+        closeDocPreview();
+      }
       if (e.key === 'ArrowLeft') prevStep();
       if (e.key === 'ArrowRight') nextStep();
       if (['1', '2', '3', '4'].includes(e.key)) activateStep(parseInt(e.key, 10));
@@ -638,7 +705,7 @@
           <!-- Clinic Selector Pills -->
           <div style="display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap;">
             ${Object.keys(clinics).map(k => `
-              <button onclick="setClinic('${k}')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${k === selectedClinicKey ? 'border-color: var(--accent-acid); color: var(--accent-acid); background: rgba(198,244,50,0.08);' : ''}">
+              <button id="btn-wf-clinic-${k}" onclick="setClinic('${k}')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${k === selectedClinicKey ? 'border-color: var(--accent-acid); color: var(--accent-acid); background: rgba(198,244,50,0.08);' : ''}">
                 ${clinics[k].name}
               </button>
             `).join('')}
@@ -662,13 +729,13 @@
                 <rect x="20" y="40" width="10" height="20" fill="#000"/>
                 <rect x="50" y="70" width="20" height="20" fill="#000"/>
               </svg>
-              <span class="mono" style="font-size: 8px; color: #000; font-weight: 700;">SCAN FOR ${selectedClinicKey.toUpperCase()}</span>
+              <span id="wfQrCaption" class="mono" style="font-size: 8px; color: #000; font-weight: 700;">SCAN FOR ${selectedClinicKey.toUpperCase()}</span>
             </div>
             <div>
-              <div style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 2px;">
+              <div id="wfClinicName" style="font-size: 13px; font-weight: 600; color: #FFFFFF; margin-bottom: 2px;">
                 ${cur.name} — Bemorlar Uchun QR Kirish
               </div>
-              <div class="mono" style="font-size: 10px; color: var(--accent-acid); margin-bottom: 6px;">
+              <div id="wfClinicLoc" class="mono" style="font-size: 10px; color: var(--accent-acid); margin-bottom: 6px;">
                 Manzil: ${cur.loc} &bull; Navbatchi: ${cur.doc}
               </div>
               <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">
@@ -681,66 +748,60 @@
           </div>
         `;
       } else if (n === 2) {
+        const b = biomarkers[selectedBiomarker];
         stage.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <span class="mono" style="font-size: 11px; color: var(--accent-acid);">[STEP 02: 8s DETERMINISTIK MULTIMODAL OCR SKAN]</span>
-            <span class="mono" style="font-size: 10px; color: var(--accent-acid);">● LATENCY: 3.4ms (SLA &lt; 8,000ms)</span>
+            <span class="mono" style="font-size: 10px; color: var(--accent-acid);">&bull; LATENCY: 3.4ms (SLA &lt; 8,000ms)</span>
           </div>
 
           <!-- Biomarker Filter Tabs -->
           <div style="display: flex; gap: 6px; margin-bottom: 14px;">
-            <button onclick="setBiomarker('alt')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${selectedBiomarker === 'alt' ? 'border-color: var(--accent-acid); color: var(--accent-acid);' : ''}">
+            <button id="btn-wf-bio-alt" onclick="setBiomarker('alt')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${selectedBiomarker === 'alt' ? 'border-color: var(--accent-acid); color: var(--accent-acid); background: rgba(198,244,50,0.08);' : ''}">
               ALT (Jigar: 94 U/L)
             </button>
-            <button onclick="setBiomarker('hba1c')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${selectedBiomarker === 'hba1c' ? 'border-color: var(--accent-acid); color: var(--accent-acid);' : ''}">
+            <button id="btn-wf-bio-hba1c" onclick="setBiomarker('hba1c')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${selectedBiomarker === 'hba1c' ? 'border-color: var(--accent-acid); color: var(--accent-acid); background: rgba(198,244,50,0.08);' : ''}">
               HbA1c (Diabet: 7.8%)
             </button>
-            <button onclick="setBiomarker('ferritin')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${selectedBiomarker === 'ferritin' ? 'border-color: var(--accent-acid); color: var(--accent-acid);' : ''}">
+            <button id="btn-wf-bio-ferritin" onclick="setBiomarker('ferritin')" class="btn-glass mono" style="font-size: 10px; padding: 4px 10px; ${selectedBiomarker === 'ferritin' ? 'border-color: var(--accent-acid); color: var(--accent-acid); background: rgba(198,244,50,0.08);' : ''}">
               Ferritin (Anemiya: 6 ng/ml)
             </button>
           </div>
 
           <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <span class="mono" style="font-size: 11px; color: #FFF; font-weight: 600;">Intermed Lab Hisoboti: Bobur Xoliqov (38 yosh)</span>
-              <span class="mono" style="font-size: 10px; color: #FF5555; background: rgba(255,85,85,0.1); border: 1px solid rgba(255,85,85,0.3); padding: 2px 6px; border-radius: 4px;">KRITIK OG'ISH ANIQLANDI</span>
+              <span id="wfBioReportTitle" class="mono" style="font-size: 11px; color: #FFF; font-weight: 600;">${b.title}</span>
+              <span id="wfBioBadge" class="mono" style="font-size: 10px; color: #FF5555; background: rgba(255,85,85,0.1); border: 1px solid rgba(255,85,85,0.3); padding: 2px 6px; border-radius: 4px;">${b.badge}</span>
             </div>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-              <div style="background: #111; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,85,85,0.3);">
-                <div class="mono" style="font-size: 10px; color: #888;">ALT (Alaninaminotransferaza)</div>
-                <div class="mono" style="font-size: 18px; font-weight: 700; color: #FF5555; margin-top: 2px;">94.0 U/L &uarr;</div>
-                <div class="mono" style="font-size: 9px; color: #888;">Norma: 0.0 - 41.0 U/L (2.3x)</div>
-              </div>
-              <div style="background: #111; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,85,85,0.3);">
-                <div class="mono" style="font-size: 10px; color: #888;">AST (Aspartataminotransferaza)</div>
-                <div class="mono" style="font-size: 18px; font-weight: 700; color: #FF5555; margin-top: 2px;">58.0 U/L &uarr;</div>
-                <div class="mono" style="font-size: 9px; color: #888;">Norma: 0.0 - 40.0 U/L (1.45x)</div>
-              </div>
-              <div style="background: #111; padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-                <div class="mono" style="font-size: 10px; color: #888;">Umumiy Bilirubin</div>
-                <div class="mono" style="font-size: 18px; font-weight: 700; color: #FFF; margin-top: 2px;">19.2 &micro;mol/L</div>
-                <div class="mono" style="font-size: 9px; color: #888;">Norma: 3.4 - 20.5 &micro;mol/L [OK]</div>
-              </div>
+              ${b.cards.map(c => `
+                <div style="background: #111; padding: 10px; border-radius: 8px; border: 1px solid ${c.alert ? 'rgba(255,85,85,0.3)' : 'rgba(255,255,255,0.08)'};">
+                  <div class="mono" style="font-size: 10px; color: #888;">${c.name}</div>
+                  <div class="mono" style="font-size: 18px; font-weight: 700; color: ${c.alert ? '#FF5555' : '#FFF'}; margin-top: 2px;">${c.val}</div>
+                  <div class="mono" style="font-size: 9px; color: #888;">${c.norm}</div>
+                </div>
+              `).join('')}
             </div>
           </div>
         `;
       } else if (n === 3) {
+        const b = biomarkers[selectedBiomarker];
         stage.innerHTML = `
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
             <span class="mono" style="font-size: 11px; color: var(--accent-acid);">[STEP 03: ILIQ O'ZBEKCHA KLINIK XULOSA VA 1-CLICK REBOOKING]</span>
-            <span class="mono" style="font-size: 10px; color: #FFF;">● CONVERSION TRIGGER</span>
+            <span class="mono" style="font-size: 10px; color: #FFF;">&bull; CONVERSION TRIGGER</span>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 280px; gap: 16px; align-items: center;">
             <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 12px;">
-              <div style="font-size: 12px; color: #FAFAFA; line-height: 1.6;">
-                Hurmatli Bobur aka, tahlilingizda jigar fermentlari (ALT 94 U/L) normadan 2.3 barobar yuqori chiqqan. Bu jigar to'qimasida o'tkir yuklama borligini ko'rsatadi. Ushbu ko'rsatkichni e'tiborsiz qoldirish xavfli. <strong>Doktor D klinikasining yetakchi gepatologi Dr. Alimov</strong> zudlik bilan qo'shimcha tekshiruv va davolash rejasini tayinlaydi.
+              <div id="wfStep3Summary" style="font-size: 12px; color: #FAFAFA; line-height: 1.6;">
+                ${b.summary}
               </div>
             </div>
             <div style="background: #121212; border: 1px solid var(--accent-acid); padding: 16px; border-radius: 12px; text-align: center;">
               <div class="mono" style="font-size: 10px; color: var(--accent-acid); margin-bottom: 4px;">BO'SH QABUL VAQTI</div>
-              <div style="font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 2px;">Dr. Alimov (Gepatolog)</div>
-              <div class="mono" style="font-size: 11px; color: #888; margin-bottom: 12px;">Ertaga, 10:00 (1-xona)</div>
-              <a href="/reception.html" class="btn-acid mono" style="font-size: 11px; width: 100%; justify-content: center;">
+              <div id="wfStep3Doctor" style="font-size: 13px; font-weight: 700; color: #FFF; margin-bottom: 2px;">${b.doctor}</div>
+              <div id="wfStep3DocRoom" class="mono" style="font-size: 11px; color: #888; margin-bottom: 12px;">${b.docRoom}</div>
+              <a id="btn-wf-step3-rebook" href="/reception.html" class="btn-acid mono" style="font-size: 11px; width: 100%; justify-content: center; text-decoration: none;">
                 Qabulga Yozilish (150,000 UZS) &rarr;
               </a>
             </div>
@@ -776,5 +837,28 @@
 
     activateStep(1);
   </script>
+
+  <!-- Apple Pro Document Preview Modal -->
+  <div id="docPreviewModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 3000; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: #0A0A0A; border: 1px solid var(--border-subtle); border-radius: 20px; width: 920px; max-width: 95vw; height: 86vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.95);">
+      <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; background: #0E0E0E;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[VERIFIED &bull; TRACK B]</span>
+          <h3 id="docPreviewTitle" style="font-size: 15px; font-weight: 600; color: #FFF; margin: 0;">Hujjat Ko'rinishi</h3>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="docDownloadBtn" href="/MedLoop_Agreement.pdf" download class="btn-acid mono" style="padding: 6px 14px; font-size: 11px; text-decoration: none;">
+            PDF Yuklab Olish &darr;
+          </a>
+          <button onclick="closeDocPreview()" class="btn-glass mono" style="padding: 6px 12px; font-size: 11px;">
+            ESC &times;
+          </button>
+        </div>
+      </div>
+      <div style="flex: 1; background: #050505; position: relative;">
+        <iframe id="docViewerIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
