@@ -724,3 +724,21 @@
   4. Vite orqali qayta qurish (96ms) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish. (Eslatma: Vercel hisobi kunlik 100 ta bepul API-deploy limitiga yetganligi sababli mavjud `https://turnir-launch-lab.vercel.app` faol holatda xizmat ko'rsatmoqda).
 - **Kim uchun:** Registratorlar, poliklinika direktorlari, School 21 texnik hakamlar hay'ati, investorlar va shifokorlar.
 - **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
+
+
+### Prompt #55 / 500: MedLoop B2B Pitch Full Deliverables Dock, ROI Presets & 179-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal B2B Commercial Presentation & ROI Telemetry Systems Architect.
+- **Nima kerak:**
+  1. `public/medloop.html` (MedLoop B2B tijoriy taqdimot portali) ni `index.html` bilan to'liq tenglikka (100% parity) yetkazish:
+     - Hamkor poliklinikalar ROI shablonlari qatorini kiritish (`#roi-preset-doktord`, `#roi-preset-osiyo`, `#roi-preset-afrosiyob`, `#roi-preset-sammed`) va `setROIPreset(clinicKey, patients, check)` funksiyasini integratsiya qilish.
+     - Web Audio API orqali `playClinicalChime` taktli ovoz mexanizmini kiritish (namunalar va presetlar bosilganda 560Hz-780Hz chastotali silliq tibbiy chime).
+     - 1-Click Deliverable Dock dagi kartochkalar sonini 5 tadan to'liq 8 taga oshirish (2-ustunli mukammal simmetriya): `#medloop-card-workflow` (`/workflow.html`), `#medloop-card-roi` (`/clinic-roi.html`), `#medloop-card-index` (`/index.html`).
+  2. `scripts/test_playwright_e2e.py` da Phase 8 (MedLoop B2B Pitch) sinovlarini kengaytirish:
+     - Jigar namunasi tugmasini (`#pill-liver`) to'liq sinash (+1 tekshiruv).
+     - ROI shablonlari (`#roi-preset-doktord` va `#roi-preset-osiyo`) bosilishini va tegishli bemorlar soni/o'rtacha chek yangilanishini tekshirish (+2 tekshiruv).
+     - 1-Click Deliverable Dock dagi barcha 6 ta asosiy yo'nalish havolalarini (`/reception.html`, `/tracker.html`, `/mini_app.html`, `/workflow.html`, `/clinic-roi.html`, `/index.html`) to'liq tekshirish (+3 tekshiruv).
+     - Phase 8 assertatsiyalar sonini 23 tadan 29 taga oshirib, umumiy Playwright E2E assertatsiyalarini 173 tadan **179 taga (179 Green Assertions Milestone)** yetkazish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 179 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (95ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika direktorlari, xususiy klinika investorlari, School 21 texnik hakamlar hay'ati va tibbiy rahbarlar.
+- **Format:** `public/medloop.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

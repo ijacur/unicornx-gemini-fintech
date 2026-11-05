@@ -981,6 +981,13 @@ def test_e2e():
         print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")
         page.goto(f"http://localhost:{PORT}/medloop.html", wait_until="domcontentloaded")
 
+        # Test Sample selector (Liver)
+        page.click("#pill-liver")
+        page.wait_for_timeout(200)
+        p_name_l = page.inner_text("#labPatientName")
+        assert "Xoliqov Bobur" in p_name_l, f"Expected Xoliqov Bobur, got: {p_name_l}"
+        print(f"  [OK] MedLoop pitch: Liver sample loaded ({p_name_l})")
+
         # Test Sample selector (Glucose)
         page.click("#pill-glucose")
         page.wait_for_timeout(200)
@@ -1003,6 +1010,20 @@ def test_e2e():
         assert int(new_revenue) > int(initial_revenue), f"Expected revenue increase from {initial_revenue}, got: {new_revenue}"
         print(f"  [OK] MedLoop pitch booking flywheel: Revenue increased to {new_revenue} UZS")
 
+        # Test MedLoop ROI Presets Strip
+        page.click("#roi-preset-doktord")
+        page.wait_for_timeout(200)
+        p_val_d = page.inner_text("#dailyPatientsVal")
+        c_val_d = page.inner_text("#consultationCheckVal")
+        assert p_val_d == "90" and "180,000" in c_val_d, f"MedLoop ROI Preset Doktor D mismatch: {p_val_d}, {c_val_d}"
+        print(f"  [OK] MedLoop pitch ROI preset: Loaded Doktor D ({p_val_d} pts/day, {c_val_d})")
+
+        page.click("#roi-preset-osiyo")
+        page.wait_for_timeout(200)
+        p_val_o = page.inner_text("#dailyPatientsVal")
+        assert p_val_o == "75", f"MedLoop ROI Preset Osiyo mismatch: {p_val_o}"
+        print(f"  [OK] MedLoop pitch ROI preset: Loaded Osiyo Med ({p_val_o} pts/day)")
+
         # Test ROI Slider Live Adjustment
         page.evaluate("() => { const s = document.getElementById('sliderPatients'); s.value = 120; s.dispatchEvent(new Event('input')); const sc = document.getElementById('sliderCheck'); sc.value = 250000; sc.dispatchEvent(new Event('input')); }")
         page.wait_for_timeout(200)
@@ -1021,14 +1042,20 @@ def test_e2e():
         assert "sample_" in pdf_href and ".pdf" in pdf_href, f"Expected sample PDF link, got: {pdf_href}"
         print(f"  [OK] MedLoop pitch sample link: Validated medical PDF attachment ({pdf_href})")
 
-        # Test MedLoop Deliverable Sub-Page Routing Links
+        # Test MedLoop Deliverable Sub-Page Routing Links (All 6 core routes)
         card_rec = page.get_attribute("#medloop-card-reception", "href")
         assert card_rec == "/reception.html", f"Unexpected reception href: {card_rec}"
         card_trk = page.get_attribute("#medloop-card-tracker", "href")
         assert card_trk == "/tracker.html", f"Unexpected tracker href: {card_trk}"
         card_mini = page.get_attribute("#medloop-card-miniapp", "href")
         assert card_mini == "/mini_app.html", f"Unexpected mini_app href: {card_mini}"
-        print(f"  [OK] MedLoop pitch deliverable dock: Sub-page links validated ({card_rec}, {card_trk}, {card_mini})")
+        card_wf = page.get_attribute("#medloop-card-workflow", "href")
+        assert card_wf == "/workflow.html", f"Unexpected workflow href: {card_wf}"
+        card_roi = page.get_attribute("#medloop-card-roi", "href")
+        assert card_roi == "/clinic-roi.html", f"Unexpected roi href: {card_roi}"
+        card_idx = page.get_attribute("#medloop-card-index", "href")
+        assert card_idx == "/index.html", f"Unexpected index href: {card_idx}"
+        print(f"  [OK] MedLoop pitch deliverable dock: All 6 sub-page links validated ({card_rec}, {card_trk}, {card_mini}, {card_wf}, {card_roi}, {card_idx})")
 
         # Test MedLoop Top Nav Agreement Modal open & ESC close
         page.click("#navMedloopAgreementBtn")
@@ -1098,7 +1125,7 @@ def test_e2e():
         p_name3 = page.inner_text("#labPatientName")
         assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
         print(f"  [OK] MedLoop pitch keyboard shortcut: Key '3' loaded anemia panel ({p_name3})")
-        total_checks += 23
+        total_checks += 29
 
         browser.close()
 

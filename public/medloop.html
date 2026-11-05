@@ -792,6 +792,27 @@
           </div>
         </div>
 
+        <!-- Partner Clinic Templates -->
+        <div style="margin-bottom: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span class="mono" style="font-size: 11px; color: var(--text-secondary);">
+            Haqiqiy Hamkor Klinika Shablonlari:
+          </span>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button onclick="setROIPreset('doktord', 90, 180000)" id="roi-preset-doktord" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              Doktor D (90 • 180k)
+            </button>
+            <button onclick="setROIPreset('osiyo', 75, 150000)" id="roi-preset-osiyo" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              Osiyo Med (75 • 150k)
+            </button>
+            <button onclick="setROIPreset('afrosiyob', 60, 140000)" id="roi-preset-afrosiyob" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              Afrosiyob (60 • 140k)
+            </button>
+            <button onclick="setROIPreset('sammed', 45, 120000)" id="roi-preset-sammed" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              SamMed (45 • 120k)
+            </button>
+          </div>
+        </div>
+
         <!-- Sliders -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px;">
           <div>
@@ -1001,6 +1022,33 @@
               Bemorlar uchun mobil klinik saralash va shifokor tanlash
             </div>
             <div class="mono" style="font-size: 11px; color: var(--accent-acid); margin-top: 8px;">Ilovani Sinash &rarr;</div>
+          </a>
+
+          <a id="medloop-card-workflow" href="/workflow.html" class="bento-card" style="padding: 16px; text-decoration: none; display: block;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">APPARAT MEKANIZMI</div>
+            <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">workflow.html</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              QR skandan boshlab klinika telemetriyasigacha 4 bosqich
+            </div>
+            <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 8px;">Jarayonni Ko'rish &rarr;</div>
+          </a>
+
+          <a id="medloop-card-roi" href="/clinic-roi.html" class="bento-card" style="padding: 16px; text-decoration: none; display: block;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">MOLIYAVIY SIMULYATOR</div>
+            <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">clinic-roi.html</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Klinika yo'qotishlarini hisoblash va ROI tahlili
+            </div>
+            <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 8px;">Kalkulyatorni Ochish &rarr;</div>
+          </a>
+
+          <a id="medloop-card-index" href="/index.html" class="bento-card" style="padding: 16px; text-decoration: none; display: block;">
+            <div class="mono" style="font-size: 10px; color: var(--text-secondary);">BOSHQARUV MARKAZI</div>
+            <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">index.html</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Interaktiv apparat split-stage va shifoxona tanlovi
+            </div>
+            <div class="mono" style="font-size: 11px; color: #FFFFFF; margin-top: 8px;">Asosiy Tizimni Ochish &rarr;</div>
           </a>
         </div>
       </div>
@@ -1233,6 +1281,62 @@
         document.getElementById('bookingBtnText').innerText = originalText;
         btn.style.background = "var(--accent-acid)";
       }, 1400);
+    }
+
+    function playClinicalChime(type = 'click') {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(560, now);
+          osc.frequency.exponentialRampToValueAtTime(780, now + 0.05);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'confirm') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(1040, now + 0.12);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        }
+      } catch (err) {}
+    }
+
+    function setROIPreset(clinicKey, patients, check) {
+      playClinicalChime('click');
+      const sliderP = document.getElementById('sliderPatients');
+      const sliderC = document.getElementById('sliderCheck');
+      if (sliderP) sliderP.value = patients;
+      if (sliderC) sliderC.value = check;
+
+      ['doktord', 'osiyo', 'afrosiyob', 'sammed'].forEach(k => {
+        const btn = document.getElementById('roi-preset-' + k);
+        if (btn) {
+          if (k === clinicKey) {
+            btn.style.borderColor = 'var(--accent-acid)';
+            btn.style.color = 'var(--accent-acid)';
+            btn.style.background = 'rgba(198, 244, 50, 0.12)';
+          } else {
+            btn.style.borderColor = 'var(--border-subtle)';
+            btn.style.color = 'var(--text-secondary)';
+            btn.style.background = 'rgba(255, 255, 255, 0.04)';
+          }
+        }
+      });
+
+      calculateROI();
     }
 
     // B2B ROI Calculator with Dynamic Slider Track Fill
