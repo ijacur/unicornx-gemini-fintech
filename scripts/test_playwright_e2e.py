@@ -139,7 +139,33 @@ def test_e2e():
         val_patients = page.inner_text("#valDailyPatients")
         assert "90" in val_patients, f"Expected 90 patients for Doktor D, got: {val_patients}"
         print(f"  [OK] Preset switch: Loaded Doktor D ({val_patients})")
-        total_checks += 1
+
+        # Click preset Afrosiyob
+        page.click("#preset-afrosiyob")
+        page.wait_for_timeout(200)
+        dossier_afro = page.inner_text("#dossierName")
+        assert "Afrosiyob" in dossier_afro, f"Expected Afrosiyob in dossier, got: {dossier_afro}"
+        print(f"  [OK] Preset switch: Loaded Afrosiyob ({dossier_afro})")
+
+        # Click preset SamMed
+        page.click("#preset-sammed")
+        page.wait_for_timeout(200)
+        dossier_sam = page.inner_text("#dossierName")
+        assert "SamMed" in dossier_sam, f"Expected SamMed in dossier, got: {dossier_sam}"
+        print(f"  [OK] Preset switch: Loaded SamMed ({dossier_sam})")
+
+        # Verify dynamic SVG Bar Chart has 3 rendered rect bars
+        rect_count = page.evaluate("document.querySelectorAll('#chartBars rect').length")
+        assert rect_count == 3, f"Expected 3 SVG chart bars, got: {rect_count}"
+        print("  [OK] Dynamic SVG Bar Chart: 3 financial telemetry bars rendered cleanly")
+
+        # Test Slider live adjustment
+        page.evaluate("() => { const s = document.getElementById('sliderDaily'); s.value = 140; s.dispatchEvent(new Event('input')); }")
+        page.wait_for_timeout(200)
+        updated_daily = page.inner_text("#valDailyPatients")
+        assert "140" in updated_daily, f"Expected 140 in valDailyPatients, got: {updated_daily}"
+        print(f"  [OK] Slider live adjustment: Updated daily lab patients to {updated_daily}")
+        total_checks += 5
 
         # Open Proposal modal
         page.click("button:has-text('Tijoriy Taklifni Shakllantirish')")

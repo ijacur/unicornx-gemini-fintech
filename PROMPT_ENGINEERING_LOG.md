@@ -412,3 +412,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Registratorlar, bosh shifokorlar, qabul bo'limi xodimlari, bemorlar va School 21 hakamlar hay'ati.
 - **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #31 / 500: Clinic ROI Simulator Telemetry, Dynamic SVG Bar Chart & Preset Navigation E2E Suite (61 Assertions) & Production Deploy
+- **Kim siz:** Principal Financial Systems & Interactive Graphics Architect.
+- **Nima kerak:**
+  1. `public/clinic-roi.html` dagi moliyaviy simulyatorning barcha poliklinika presetlarini (`doktord`, `afrosiyob`, `sammed`), dinamik SVG bar grafikalarini (`#chartBars rect`), va interaktiv intervallar slaydlarini (`#sliderDaily`) real vaqt rejimida avtomatlashtirilgan Playwright sinovlari bilan to'liq qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 3 ga Afrosiyob va SamMed presetlari almashinuvi, 3 ta moliyaviy SVG ustunlar (oylik yo'qotish, tiklangan daromad va sof foyda) mavjudligi va slayd orqali bemorlar sonini 140 ga o'zgartirish testlarini kiritish (jami Playwright assertatsiyalari 57 tadan 61 taga yetkazildi va 100% GREEN tasdiqlandi).
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 61 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN tasdiqlandi.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Klinika direktorlari, bosh buxgalterlar, moliya tahlilchilari, tibbiy investorlar va School 21 hakamlari.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
