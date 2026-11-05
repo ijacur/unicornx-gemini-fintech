@@ -573,3 +573,14 @@
   5. Vite orqali qayta qurish (100ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** B2B shifoxona egalari, ta'sischilar, investitsiya fondlari, School 21 ekspertlari va klinika direktorlari.
 - **Format:** `public/medloop.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #45 / 500: CustDev Telemetry Evidence Drawer, Dynamic Rate Verification & 120-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal CustDev Telemetry & Evidence Pipeline Quality Architect.
+- **Nima kerak:**
+  1. `public/tracker.html` (8 ta klinika bilan CustDev tahlili va dalillar matritsasi) dagi slide-over evidence drayveri interaktiv boshqaruvlarini: drayver ichidagi moliyaviy yo'qotish ko'rsatkichi (`#drawerBleed`), drayver ichidan to'g'ridan-to'g'ri 14 kunlik pilot LOI shartnomasi hujjatini oldindan ko'rish modali (`#drawerLoiBtn` orqali `previewDocument('/loi.pdf')`), `Escape` tugmasi bilan yopish hamda barcha 4 ta asosiy telemetriya ko'rsatkichlari (`#statLOI` 5 / 8, `#statRate` 62.5% dinamik hisobi, `#statPain` 4.6 / 5.0 og'riq darajasi, `#statTotal` 8 ta poliklinika) ni to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 5 ni kengaytirib, umumiy Playwright E2E assertatsiyalar sonini 115 tadan **120 taga (120 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 120 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI 5/5 va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (96ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 21s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Bosh shifokorlar, xususiy klinika rahbarlari, marketing va CustDev tahlilchilari, School 21 texnik hakamlar hay'ati va investorlar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

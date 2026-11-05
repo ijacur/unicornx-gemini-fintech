@@ -375,7 +375,22 @@ def test_e2e():
         assert drawer_active, "Evidence drawer did not open on row click"
         drawer_clinic = page.inner_text("#drawerClinicName")
         assert "Doktor D" in drawer_clinic, f"Expected Doktor D in drawer, got: {drawer_clinic}"
-        print(f"  [OK] Evidence drawer: Opened for {drawer_clinic}")
+        drawer_bleed = page.inner_text("#drawerBleed")
+        assert len(drawer_bleed) > 0, "Drawer bleed metric missing"
+        loi_btn_vis = page.is_visible("#drawerLoiBtn")
+        assert loi_btn_vis, "Drawer LOI button missing for PASS clinic"
+        print(f"  [OK] Evidence drawer: Opened for {drawer_clinic} (Bleed: {drawer_bleed})")
+
+        # Click drawer LOI button to open document preview modal from drawer
+        page.click("#drawerLoiBtn")
+        page.wait_for_timeout(250)
+        doc_from_drawer = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert doc_from_drawer, "Document modal did not open from drawer LOI button"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(250)
+        doc_closed_dr = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert doc_closed_dr, "Document modal did not close on ESC key"
+        print("  [OK] Evidence drawer: Opened and dismissed 14-day LOI preview cleanly via drawer button")
 
         # Close with Escape
         page.keyboard.press("Escape")
@@ -441,11 +456,17 @@ def test_e2e():
         assert doc_closed, "Expected docPreviewModal to be closed on Escape key"
         print("  [OK] Document preview modal: Opened and dismissed cleanly via ESC key")
 
-        # Test Telemetry LOI Stat Metric
+        # Test Telemetry Stats Metrics
         stat_loi = page.inner_text("#statLOI")
         assert "5 / 8" in stat_loi, f"Expected 5 / 8 LOI signed, got: {stat_loi}"
-        print(f"  [OK] CustDev tracker telemetry stats: Validated LOI conversion metric ({stat_loi})")
-        total_checks += 9
+        stat_rate = page.inner_text("#statRate")
+        assert "62.5%" in stat_rate or "87.5%" in stat_rate, f"Expected validation rate (62.5% or 87.5%), got: {stat_rate}"
+        stat_pain = page.inner_text("#statPain")
+        assert "4.6" in stat_pain, f"Expected 4.6 pain score, got: {stat_pain}"
+        stat_total = page.inner_text("#statTotal")
+        assert "8 ta" in stat_total, f"Expected 8 ta total clinics, got: {stat_total}"
+        print(f"  [OK] CustDev tracker telemetry stats: Validated all 4 metrics ({stat_loi}, {stat_rate}, {stat_pain}, {stat_total})")
+        total_checks += 14
 
         # Phase 6: Test Index Hardware Split-Stage & Clinic Selector
         print("\n[INDEX HARDWARE SPLIT-STAGE & CLINIC SELECTOR TEST]")
