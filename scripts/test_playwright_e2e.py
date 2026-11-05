@@ -595,19 +595,42 @@ def test_e2e():
         print(f"  [OK] MedLoop pitch booking flywheel: Revenue increased to {new_revenue} UZS")
 
         # Test ROI Slider Live Adjustment
-        page.evaluate("() => { const s = document.getElementById('sliderPatients'); s.value = 120; s.dispatchEvent(new Event('input')); }")
+        page.evaluate("() => { const s = document.getElementById('sliderPatients'); s.value = 120; s.dispatchEvent(new Event('input')); const sc = document.getElementById('sliderCheck'); sc.value = 250000; sc.dispatchEvent(new Event('input')); }")
         page.wait_for_timeout(200)
         p_val = page.inner_text("#dailyPatientsVal")
-        assert "120" in p_val, f"Expected 120 in dailyPatientsVal, got: {p_val}"
-        print(f"  [OK] MedLoop pitch ROI slider: Adjusted daily patients to {p_val}")
+        c_val = page.inner_text("#consultationCheckVal")
+        assert "120" in p_val and "250,000" in c_val, f"Expected 120 and 250,000 in pitch ROI, got: {p_val}, {c_val}"
+        print(f"  [OK] MedLoop pitch ROI sliders: Adjusted daily patients to {p_val} and check to {c_val}")
 
-        # Test 4D Hardware Keyboard Navigation on MedLoop Pitch (Key '1')
+        # Test ROI Net Profit Metric
+        profit_text = page.inner_text("#netProfitUzs")
+        assert "M UZS" in profit_text, f"Expected M UZS in net profit, got: {profit_text}"
+        print(f"  [OK] MedLoop pitch ROI calculation: Net monthly profit evaluated ({profit_text})")
+
+        # Test Sample PDF Link
+        pdf_href = page.get_attribute("#samplePdfLink", "href")
+        assert "sample_" in pdf_href and ".pdf" in pdf_href, f"Expected sample PDF link, got: {pdf_href}"
+        print(f"  [OK] MedLoop pitch sample link: Validated medical PDF attachment ({pdf_href})")
+
+        # Test 4D Hardware Keyboard Navigation on MedLoop Pitch (Keys '1', '2', '3')
         page.keyboard.press("1")
         page.wait_for_timeout(200)
         p_name1 = page.inner_text("#labPatientName")
         assert "Xoliqov Bobur" in p_name1, f"Expected Xoliqov Bobur on key '1', got: {p_name1}"
         print(f"  [OK] MedLoop pitch keyboard shortcut: Key '1' loaded liver panel ({p_name1})")
-        total_checks += 5
+
+        page.keyboard.press("2")
+        page.wait_for_timeout(200)
+        p_name2 = page.inner_text("#labPatientName")
+        assert "Karimova Ziyoda" in p_name2, f"Expected Karimova Ziyoda on key '2', got: {p_name2}"
+        print(f"  [OK] MedLoop pitch keyboard shortcut: Key '2' loaded glucose panel ({p_name2})")
+
+        page.keyboard.press("3")
+        page.wait_for_timeout(200)
+        p_name3 = page.inner_text("#labPatientName")
+        assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
+        print(f"  [OK] MedLoop pitch keyboard shortcut: Key '3' loaded anemia panel ({p_name3})")
+        total_checks += 10
 
         browser.close()
 

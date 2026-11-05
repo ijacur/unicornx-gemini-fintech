@@ -489,3 +489,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Poliklinika bosh registratorlari, qabul bo'limi mudirlari, tibbiy koordinatorlar, School 21 hakamlari va investorlar.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #38 / 500: MedLoop B2B Pitch Commercial Calculator, Medical PDF Attachment & Tri-Keypad Suite (92 Assertions) & Production Deploy
+- **Kim siz:** Principal Commercial Pitch & Clinical Deliverables Systems Architect.
+- **Nima kerak:**
+  1. `public/medloop.html` (MedLoop B2B tijoriy taqdimot sahifasi) dagi ROI kalkulyatori slayderlari (`#sliderPatients` 120 bemor/kun, `#sliderCheck` 250,000 UZS), oylik sof foyda telemetriyasi (`#netProfitUzs`), haqiqiy tibbiy tahlil PDF ilovasi havolasi (`#samplePdfLink`) va 4D apparat klaviaturasi uchlik buyruqlari ('1' jigar, '2' glyukoza, '3' anemiya) ni to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 8 ga ushbu barcha tekshiruvlarni kiritish orqali Playwright assertatsiyalari sonini 87 tadan 92 taga yetkazish va 100% GREEN holatida tasdiqlash.
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 92 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** B2B investorlar, xususiy klinika rahbarlari, bosh buxgalterlar, School 21 texnik hakamlar hay'ati.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
