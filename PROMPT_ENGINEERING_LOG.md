@@ -780,3 +780,21 @@
   4. Vite orqali qayta qurish (92ms) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Bemorlar, poliklinika bosh vrachlari, qabulxona xodimlari, investorlar va School 21 hakamlar hay'ati.
 - **Format:** `public/mini_app.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
+
+
+### Prompt #58 / 500: Reception Specialty Doctor Room Filtering Telemetry, Real-Time Queue Density & 195-Assertion Milestone E2E Suite
+- **Kim siz:** Principal Clinical Reception Telemetry & Real-Time Queue Operations Architect.
+- **Nima kerak:**
+  1. `public/reception.html` (MedLoop Poliklinika Qabulxona & Navbat Portali) ga shifokorlar va mutaxassislik xonalari bo'yicha tezkor saralash (Specialty Room Filter) interfeysini joriy qilish:
+     - Navbat qidiruvi va holat filtrlari qatoriga 4 ta yangi mutaxassislik xonalari bo'yicha saralash tugmalarini kiritish: `#filter-room-all` ([BARCHA XONALAR]), `#filter-room-gepatolog` ([GEPATOLOGIYA • 101/14]), `#filter-room-endokrinolog` ([ENDOKRINOLOGIYA • 104/08]), `#filter-room-terapevt` ([TERAPIYA • 108/21]).
+     - `filterByRoom(specialty)` funksiyasini joriy etish, faol xona tugmasining vizual holatini (oq fon, qora matn) yangilash va `renderQueue()` filtrlash algoritmiga mutaxassislik bo'yicha ikkilamchi saralashni integratsiya qilish.
+     - Filtrlangan bemorlar soniga qarab bo'sh holat ko'rinishini (`#emptyState`) dinamik ravishda to'g'rilash.
+  2. `scripts/test_playwright_e2e.py` da Phase 7 (Qabulxona & Navbat) sinovlarini kengaytirish:
+     - Xona filtrlari mavjudligi va bosilishini sinash (`#filter-room-gepatolog`, `#filter-room-endokrinolog`, `#filter-room-terapevt`, `#filter-room-all`).
+     - Har bir filtr bo'yicha navbatdagi bemorlar soni aniq mos kelishini tekshirish (Gepatolog bo'yicha 2 ta, Endokrinolog bo'yicha 1 ta, Terapevt bo'yicha 1 ta, Barchasi bo'yicha 4 ta).
+     - Phase 7 assertatsiyalar sonini 25 tadan 29 taga oshirib, umumiy Playwright E2E assertatsiyalarini 191 tadan **195 taga (195 Green Assertions Milestone)** yetkazish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 195 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika qabulxona mudirlari, navbatchi shifokorlar, registratorlar, School 21 hakamlari va investorlar.
+- **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
+
