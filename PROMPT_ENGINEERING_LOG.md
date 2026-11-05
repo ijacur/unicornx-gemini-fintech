@@ -390,3 +390,14 @@
   5. Turnir asosiy omboridagi 6/6 tizim yaxlitligi va barcha 53 ta Playwright E2E brauzer testlarini 100% GREEN saqlash, Vite qayta qurish va Vercel production (`turnir-launch-lab.vercel.app`) ga yuklash.
 - **Kim uchun:** O'zbekiston Sog'liqni Saqlash Vazirligi, hamkor poliklinikalar, xususiy laboratoriyalar, investorlar va School 21 hakamlari.
 - **Format:** `unicorn_health/tests/system_healthcheck.py`, `unicorn_health/shared/*.json`, `unicorn_health/tests/HEALTHCHECK_REPORT.json`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #29 / 500: Unified Live Ecosystem Smoke-Test Suite (11 Sites), 7/7 System Integrity Integration & Production Deploy
+- **Kim siz:** Principal Full-Stack Verification & Cloud Reliability Architect.
+- **Nima kerak:**
+  1. 11 ta jonli Vercel platformasini (`turnir-launch-lab`, `unicorn-health-uzbekistan`, `jasur-universe-portfolio`, `jasur-shukurov-portfolio`, `sammuleader`, `test-platform-web`, `sammu-iqtisodiy-tahlil`, `marvarid-export`, `clinic-ai-bot-demo`, `tahlilai-mvp`, `sammu-exam-prep`) real vaqt rejimida avtomatlashtirilgan tekshirish skriptini (`scripts/test_live_ecosystem.py`) yaratish.
+  2. Barcha 11 ta platformada: HTTP 200 muvaffaqiyat kodi, jonli DOM da 0 emoji tozaligi, Diego 60-30-10 kislotali rang palitralari tokenlari mavjudligi, samimiy insoniy o'zbek tilidagi klinik/akademik kontekst va tezkor yuklanish (< 1.5s) avtomatlashtirilgan holda 11/11 100% GREEN tasdiqlandi.
+  3. `scripts/test_system_integrity.py` tizimiga 7-tekshiruv bosqichi sifatida to'liq integratsiya qilindi: 50 ta faylda 0 emoji, Diego rang tokenlari, 300 ta telemetriya yugurishlari, yuridik shartnomalar, Vite dist artefaktlari, 53 ta Playwright E2E brauzer assertatsiyalari va 11 ta jonli Vercel platformasi tekshiruvi.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Foydalanuvchi, O'zbekiston tibbiyot va ta'lim sohasi mutaxassislari, School 21 texnik hakamlar hay'ati va xalqaro investorlar.
+- **Format:** `scripts/test_live_ecosystem.py`, `scripts/test_system_integrity.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

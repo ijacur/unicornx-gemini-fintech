@@ -77,7 +77,7 @@ def check_benchmark_telemetry():
     print(f"  [OK] Telemetry validated: {data['total_runs']} runs, {data['avg_latency_ms']}ms latency, {data['accuracy_pct']}% accuracy")
 
 def check_contracts():
-    print("[4/6] Checking legal contracts & deliverables...")
+    print("[4/7] Checking legal contracts & deliverables...")
     contracts = ["MedLoop_Agreement.pdf", "loi.pdf"]
     for c in contracts:
         path = os.path.join(TURNIR_DIR, "public", c)
@@ -86,16 +86,22 @@ def check_contracts():
         print(f"  [OK] {c} verified ({os.path.getsize(path):,} bytes)")
 
 def check_build():
-    print("[5/6] Checking dist build artifacts...")
+    print("[5/7] Checking dist build artifacts...")
     dist_index = os.path.join(TURNIR_DIR, "dist", "index.html")
     assert os.path.exists(dist_index), "dist/index.html missing"
     print(f"  [OK] dist/index.html verified ({os.path.getsize(dist_index):,} bytes)")
 
 def check_playwright_e2e():
-    print("[6/6] Running Playwright Headless E2E Browser Suite...")
+    print("[6/7] Running Playwright Headless E2E Browser Suite...")
     from test_playwright_e2e import test_e2e
     test_e2e()
     print("  [OK] Playwright E2E browser interactions verified")
+
+def check_live_ecosystem():
+    print("[7/7] Verifying 11 Live Vercel Production Deployments...")
+    import test_live_ecosystem
+    test_live_ecosystem.main()
+    print("  [OK] 11 Live Vercel platforms verified 100% GREEN")
 
 if __name__ == "__main__":
     try:
@@ -105,7 +111,8 @@ if __name__ == "__main__":
         check_contracts()
         check_build()
         check_playwright_e2e()
-        print("\nALL 6 SYSTEM INTEGRITY & E2E CHECKS PASSED (100% GREEN)")
+        check_live_ecosystem()
+        print("\nALL 7 SYSTEM INTEGRITY, PLAYWRIGHT & LIVE ECOSYSTEM CHECKS PASSED (100% GREEN)")
         sys.exit(0)
     except AssertionError as e:
         print(f"\n[INTEGRITY FAILURE]: {e}")
