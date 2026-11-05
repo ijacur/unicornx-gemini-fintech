@@ -833,6 +833,27 @@
           </div>
         </div>
 
+        <!-- Clinic Presets Strip -->
+        <div style="margin-bottom: 20px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span class="mono" style="font-size: 11px; color: var(--text-secondary);">
+            Haqiqiy Hamkor Klinika Shablonlari:
+          </span>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button onclick="setROIPreset('doktord', 90, 180000)" id="roi-preset-doktord" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              Doktor D (90 • 180k)
+            </button>
+            <button onclick="setROIPreset('osiyo', 75, 150000)" id="roi-preset-osiyo" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              Osiyo Med (75 • 150k)
+            </button>
+            <button onclick="setROIPreset('afrosiyob', 60, 140000)" id="roi-preset-afrosiyob" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              Afrosiyob (60 • 140k)
+            </button>
+            <button onclick="setROIPreset('sammed', 45, 120000)" id="roi-preset-sammed" class="btn-glass mono" style="font-size: 10px; padding: 5px 9px;">
+              SamMed (45 • 120k)
+            </button>
+          </div>
+        </div>
+
         <!-- Sliders -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px;">
           <div>
@@ -1419,6 +1440,31 @@
         document.getElementById('bookingBtnText').innerText = originalText;
         btn.style.background = "var(--accent-acid)";
       }, 1400);
+    }
+
+    function setROIPreset(clinicKey, patients, check) {
+      playClinicalChime('click');
+      const sliderP = document.getElementById('sliderPatients');
+      const sliderC = document.getElementById('sliderCheck');
+      if (sliderP) sliderP.value = patients;
+      if (sliderC) sliderC.value = check;
+
+      ['doktord', 'osiyo', 'afrosiyob', 'sammed'].forEach(k => {
+        const btn = document.getElementById('roi-preset-' + k);
+        if (btn) {
+          if (k === clinicKey) {
+            btn.style.borderColor = 'var(--accent-acid)';
+            btn.style.color = 'var(--accent-acid)';
+            btn.style.background = 'rgba(198, 244, 50, 0.12)';
+          } else {
+            btn.style.borderColor = 'var(--border-subtle)';
+            btn.style.color = 'var(--text-secondary)';
+            btn.style.background = 'rgba(255, 255, 255, 0.04)';
+          }
+        }
+      });
+
+      calculateROI();
     }
 
     // B2B ROI Calculator with Dynamic Slider Track Fill

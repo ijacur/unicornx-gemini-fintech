@@ -272,7 +272,21 @@ def test_e2e():
         first_queue_item = page.inner_text("#queueList > div:first-child")
         assert "Karimova Ziyoda" in first_queue_item and "Osiyo" in first_queue_item, f"Queue item missing patient/clinic: {first_queue_item}"
         print(f"  [OK] Index booking flywheel: Revenue increased to {rev_text} UZS, prepended to queue")
-        total_checks += 4
+
+        # Test ROI Presets Strip
+        page.click("#roi-preset-doktord")
+        page.wait_for_timeout(200)
+        p_val = page.inner_text("#dailyPatientsVal")
+        c_val = page.inner_text("#consultationCheckVal")
+        assert p_val == "90" and "180,000" in c_val, f"ROI Preset Doktor D mismatch: {p_val}, {c_val}"
+        print(f"  [OK] Index ROI preset: Loaded Doktor D ({p_val} pts/day, {c_val})")
+
+        page.click("#roi-preset-osiyo")
+        page.wait_for_timeout(200)
+        p_val2 = page.inner_text("#dailyPatientsVal")
+        assert p_val2 == "75", f"ROI Preset Osiyo mismatch: {p_val2}"
+        print(f"  [OK] Index ROI preset: Loaded Osiyo Med ({p_val2} pts/day)")
+        total_checks += 6
 
         browser.close()
 

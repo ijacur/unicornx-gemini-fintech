@@ -248,3 +248,16 @@
   4. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash, Vercel'ga deploy qilish va GitHub remote (`unicornx-gemini-fintech`) ga yuborish.
 - **Kim uchun:** Bemorlar, poliklinika direktorlari, xalqaro investorlar va dizayn auditorlari.
 - **Format:** `public/mini_app.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #17 / 500: Real Partner ROI Preset Matrix, Cross-Ecosystem Integrity & 41-Assertion Playwright Suite
+- **Kim siz:** Lead Commercial Economics Architect & Telemetry Systems Engineer.
+- **Nima kerak:**
+  1. `index.html` (Asosiy Sahifa) dagi B2B Bleed & ROI Kalkulyatori ustiga 4 ta asosiy hamkor klinika uchun tezkor shablon tugmalarini (`[Haqiqiy Hamkor Klinika Shablonlari]`: `Doktor D (90 • 180k)`, `Osiyo Med (75 • 150k)`, `Afrosiyob (60 • 140k)`, `SamMed (45 • 120k)`) joylashtirish:
+     - Har qanday shablon bosilganda kunlik bemorlar soni va o'rtacha konsultatsiya cheki slayderlari avtomatik surilishi, dinamik gradient chiziqlari yangilanishi va klinika uchun kutilayotgan oylik sof samara hamda ROI koeffitsiyenti (52px JetBrains Mono) hisoblab chiqilishi.
+     - Web Audio API orqali `click` clinical chime ovozi yangrashi.
+  2. Barcha 10 ta Vercel saytlari bo'ylab Diego 60-30-10 kislotali palitralari, 0 ta emoji va 0 ta suzuvchi nuqtalar tozaligini to'liq tasdiqlash (`tahlilai-mvp` dagi qoldiq 7 ta emojini monoxrom teglarga almashtirish, `sammu-exam-prep` ni yangilash).
+  3. `scripts/test_playwright_e2e.py` ga Asosiy Sahifadagi ROI shablonlari kommutatsiyasini tekshiruvchi yangi assertionlar qo'shib, testlar sonini **41 taga yetkazish** (100% GREEN).
+  4. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash, Vite build va Vercel production deploy (`turnir-launch-lab.vercel.app`) qilish hamda Git remote (`unicornx-gemini-fintech`) ga yuborish.
+- **Kim uchun:** Poliklinika direktorlari, bosh vrachlar, xalqaro hakamlar va investorlar.
+- **Format:** `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
