@@ -742,3 +742,21 @@
   4. Vite orqali qayta qurish (95ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Poliklinika direktorlari, xususiy klinika investorlari, School 21 texnik hakamlar hay'ati va tibbiy rahbarlar.
 - **Format:** `public/medloop.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #56 / 500: Clinical Workflow Room Dispatch Telemetry, 8-Card Deliverables Dock & 185-Assertion Milestone E2E Suite
+- **Kim siz:** Principal Clinical Workflow Telemetry & Cross-Platform Parity Systems Architect.
+- **Nima kerak:**
+  1. `public/workflow.html` (Klinik Ish Jarayoni & Qayta Konversiya Arxitekturasi) ni butun ekotizim bilan 100% simmetriya va interaktivlik darajasiga yetkazish:
+     - 4-bosqich (Step 4: Registratura Telemetriyasi va Daromad Tiklanishi) ichiga real mutaxassis xonalari dispetcherligi va telemetriya interfeysini kiritish: `#wf-room-101` (Dr. Alimov • Gepatolog [BAND / 10:00]), `#wf-room-104` (Dr. Karimova • Endokrinolog [BO'SH / 11:30]), `#wf-room-108` (Dr. Usmonov • Kardiolog [BAND / 14:00]) tugmalari, holat xabardorligi (`#wfRoomDispatchStatus`) va `selectWorkflowRoom(roomKey)` funksiyasi.
+     - 1-Click Deliverable Dock tizimini 8 ta simmetrik kartochkadan iborat holda joriy qilish: `#dockAgreementBtn` (`/MedLoop_Agreement.pdf`), `#dockLoiBtn` (`/loi.pdf`), `#workflow-card-reception` (`/reception.html`), `#workflow-card-tracker` (`/tracker.html`), `#workflow-card-miniapp` (`/mini_app.html`), `#workflow-card-roi` (`/clinic-roi.html`), `#workflow-card-pitch` (`/medloop.html`), `#workflow-card-index` (`/index.html`).
+  2. `scripts/test_playwright_e2e.py` da Phase 2 (Klinik Jarayon) sinovlarini kengaytirish:
+     - Step 4 xona tanlash (`#wf-room-104`) va telemetriya dispetcherligi holati yangilanishini (`#wfRoomDispatchStatus`) tekshirish.
+     - 1-Click Deliverable Dock dagi `#dockAgreementBtn` va `#dockLoiBtn` bosilishi, tegishli PDF ochilishi va Escape tugmasi orqali toza yopilishini tekshirish.
+     - Deliverable Dock dagi barcha 6 ta ichki sub-sahifa havolalarini to'liq tekshirish.
+     - Klaviaturaning `1` va `4` raqamlari orqali bosqichlar to'g'ri faollashishini sinash.
+     - Umumiy Playwright E2E assertatsiyalar sonini 179 tadan **185 taga (185 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 185 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (91ms) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika bosh vrachlari, xususiy klinika rahbarlari, investorlar, School 21 ekspertlari va klinika registratorlari.
+- **Format:** `public/workflow.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.

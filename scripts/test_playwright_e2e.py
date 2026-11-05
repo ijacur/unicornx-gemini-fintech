@@ -246,7 +246,66 @@ def test_e2e():
         wf_bot_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
         assert wf_bot_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {wf_bot_after_esc}"
         print("  [OK] Workflow Bottom Banner: Opened and dismissed 14-Day Pilot LOI modal cleanly via ESC")
-        total_checks += 11
+
+        # Test Step 4 Room Telemetry & Doctor Dispatch
+        page.click("#step-card-4")
+        page.wait_for_timeout(200)
+        page.click("#wf-room-104")
+        page.wait_for_timeout(200)
+        room_disp_status = page.inner_text("#wfRoomDispatchStatus")
+        assert "104-xona tanlandi" in room_disp_status, f"Expected 104-xona in status, got: {room_disp_status}"
+        print(f"  [OK] Workflow room dispatch: Switched to 104-xona ({room_disp_status})")
+
+        # Test Workflow Deliverable Dock Agreement Card open & ESC close
+        page.click("#dockAgreementBtn")
+        page.wait_for_timeout(300)
+        wf_dock_agr_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_dock_agr_display == "flex", f"Expected docPreviewModal to be flex from dock agreement, got: {wf_dock_agr_display}"
+        wf_dock_agr_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in wf_dock_agr_src, f"Expected MedLoop_Agreement.pdf in iframe, got: {wf_dock_agr_src}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        wf_dock_agr_after = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_dock_agr_after == "none", f"Expected docPreviewModal to close on Escape, got: {wf_dock_agr_after}"
+        print("  [OK] Workflow Deliverable Dock: Opened and closed Founders Agreement modal cleanly via ESC")
+
+        # Test Workflow Deliverable Dock LOI Card open & ESC close
+        page.click("#dockLoiBtn")
+        page.wait_for_timeout(300)
+        wf_dock_loi_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_dock_loi_display == "flex", f"Expected docPreviewModal to be flex from dock LOI, got: {wf_dock_loi_display}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        wf_dock_loi_after = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_dock_loi_after == "none", f"Expected docPreviewModal to close on Escape, got: {wf_dock_loi_after}"
+        print("  [OK] Workflow Deliverable Dock: Opened and closed 14-Day Pilot LOI modal cleanly via ESC")
+
+        # Test Workflow Deliverable Dock internal route links
+        wf_dock_links = [
+            ("#workflow-card-reception", "/reception.html"),
+            ("#workflow-card-tracker", "/tracker.html"),
+            ("#workflow-card-miniapp", "/mini_app.html"),
+            ("#workflow-card-roi", "/clinic-roi.html"),
+            ("#workflow-card-pitch", "/medloop.html"),
+            ("#workflow-card-index", "/index.html")
+        ]
+        for sel, exp_href in wf_dock_links:
+            actual_href = page.get_attribute(sel, "href")
+            assert exp_href in actual_href, f"Expected {exp_href} in {sel}, got: {actual_href}"
+        print("  [OK] Workflow Deliverable Dock: All 6 internal sub-page links validated (/reception.html, /tracker.html, /mini_app.html, /clinic-roi.html, /medloop.html, /index.html)")
+
+        # Test Workflow Keyboard Navigation (Keys '1' and '4')
+        page.keyboard.press("1")
+        page.wait_for_timeout(200)
+        kb_step1 = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 1" in kb_step1, f"Expected BOSQICH 1 on key '1', got: {kb_step1}"
+
+        page.keyboard.press("4")
+        page.wait_for_timeout(200)
+        kb_step4 = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 4" in kb_step4, f"Expected BOSQICH 4 on key '4', got: {kb_step4}"
+        print(f"  [OK] Workflow keyboard navigation: Keys '1' and '4' loaded respective steps ({kb_step1} -> {kb_step4})")
+        total_checks += 17
 
         # Phase 3: Test Clinic ROI Commercial Proposal Modal & Presets
         print("\n[CLINIC ROI INTERACTION TEST]")
