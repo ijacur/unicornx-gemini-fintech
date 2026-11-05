@@ -445,3 +445,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Bemorlar, poliklinika mijozlari, gepatolog va endokrinolog shifokorlar, School 21 texnik hakamlari va investorlar.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #34 / 500: MedLoop B2B Pitch Interactive Stage, Revenue Flywheel & 4D Hardware Shortcuts E2E Suite (73 Assertions) & Production Deploy
+- **Kim siz:** Principal Pitch Deck & Commercial Conversion Systems Architect.
+- **Nima kerak:**
+  1. `public/medloop.html` (MedLoop B2B tijoriy taqdimot sahifasi) ning interaktiv split-stage apparat simulyatorini, biomarker namunalarini (`liver`, `glucose`, `anemia`), qabulga yozilish flywheeli va tushum hisoblagichini (`#revenueCounter` +150,000 UZS), ROI slayderini (`#sliderPatients`) va 4D apparat klaviatura buyruqlarini ('1', '2', '3') to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 8 ga `medloop.html` dagi barcha interaktiv oqimlarni kiritish: glyukoza va anemiya namunalarini yuklash, tushum oshishini tekshirish, slayder orqali bemorlar sonini 120 ga oshirish va klaviaturadagi '1' tugmasi orqali jigar panelini yuklash (jami Playwright assertatsiyalari 68 tadan 73 taga yetkazildi va 100% GREEN tasdiqlandi).
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 73 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN tasdiqlandi.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** B2B klinika direktorlari, investorlar, School 21 hakamlar hay'ati, gepatolog va terapevt shifokorlar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

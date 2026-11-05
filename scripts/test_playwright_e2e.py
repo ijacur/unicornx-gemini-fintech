@@ -465,6 +465,47 @@ def test_e2e():
         print("  [OK] Reception referral sheet modal: Opened and dismissed cleanly via ESC key")
         total_checks += 9
 
+        # Phase 8: Test MedLoop B2B Pitch & Interactive Stage
+        print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")
+        page.goto(f"http://localhost:{PORT}/medloop.html", wait_until="domcontentloaded")
+
+        # Test Sample selector (Glucose)
+        page.click("#pill-glucose")
+        page.wait_for_timeout(200)
+        p_name_g = page.inner_text("#labPatientName")
+        assert "Karimova Ziyoda" in p_name_g, f"Expected Karimova Ziyoda, got: {p_name_g}"
+        print(f"  [OK] MedLoop pitch: Glucose sample loaded ({p_name_g})")
+
+        # Test Sample selector (Anemia)
+        page.click("#pill-anemia")
+        page.wait_for_timeout(200)
+        p_name_a = page.inner_text("#labPatientName")
+        assert "Usmonova Nilufar" in p_name_a, f"Expected Usmonova Nilufar, got: {p_name_a}"
+        print(f"  [OK] MedLoop pitch: Anemia sample loaded ({p_name_a})")
+
+        # Test Booking Flywheel
+        initial_revenue = page.inner_text("#revenueCounter").replace(",", "").strip()
+        page.click("#bookingBtn")
+        page.wait_for_timeout(400)
+        new_revenue = page.inner_text("#revenueCounter").replace(",", "").strip()
+        assert int(new_revenue) > int(initial_revenue), f"Expected revenue increase from {initial_revenue}, got: {new_revenue}"
+        print(f"  [OK] MedLoop pitch booking flywheel: Revenue increased to {new_revenue} UZS")
+
+        # Test ROI Slider Live Adjustment
+        page.evaluate("() => { const s = document.getElementById('sliderPatients'); s.value = 120; s.dispatchEvent(new Event('input')); }")
+        page.wait_for_timeout(200)
+        p_val = page.inner_text("#dailyPatientsVal")
+        assert "120" in p_val, f"Expected 120 in dailyPatientsVal, got: {p_val}"
+        print(f"  [OK] MedLoop pitch ROI slider: Adjusted daily patients to {p_val}")
+
+        # Test 4D Hardware Keyboard Navigation on MedLoop Pitch (Key '1')
+        page.keyboard.press("1")
+        page.wait_for_timeout(200)
+        p_name1 = page.inner_text("#labPatientName")
+        assert "Xoliqov Bobur" in p_name1, f"Expected Xoliqov Bobur on key '1', got: {p_name1}"
+        print(f"  [OK] MedLoop pitch keyboard shortcut: Key '1' loaded liver panel ({p_name1})")
+        total_checks += 5
+
         browser.close()
 
     httpd.shutdown()
