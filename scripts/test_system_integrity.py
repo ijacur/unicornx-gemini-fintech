@@ -26,6 +26,7 @@ def check_emojis():
         os.path.join(TURNIR_DIR, "public", "workflow.html"),
         os.path.join(TURNIR_DIR, "public", "tracker.html"),
         os.path.join(TURNIR_DIR, "public", "mini_app.html"),
+        os.path.join(TURNIR_DIR, "public", "medloop.html"),
         os.path.join(MEDLOOP_DIR, "bot", "handlers.py"),
         os.path.join(MEDLOOP_DIR, "bot", "keyboards.py"),
         os.path.join(MEDLOOP_DIR, "engine", "summarizer.py")

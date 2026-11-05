@@ -81,7 +81,8 @@ def test_e2e():
             ("/clinic-roi.html", "Klinika ROI Simulator (clinic-roi.html)"),
             ("/workflow.html", "Klinik Jarayon (workflow.html)"),
             ("/tracker.html", "8 Klinika Haqiqati (tracker.html)"),
-            ("/mini_app.html", "Telegram Mini App (mini_app.html)")
+            ("/mini_app.html", "Telegram Mini App (mini_app.html)"),
+            ("/medloop.html", "MedLoop B2B Pitch (medloop.html)")
         ]
 
         total_checks = 0
