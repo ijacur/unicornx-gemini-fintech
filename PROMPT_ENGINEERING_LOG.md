@@ -535,3 +535,16 @@
   6. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Jasur Shukurov, Telegramdagi barcha suhbatdoshlar, School 21 hakamlari, investorlar va shifokorlar.
 - **Format:** `Turnir/scripts/test_system_integrity.py`, `Turnir/scripts/test_live_ecosystem.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #42 / 500: Telegram Mini App Camera OCR Simulation, Personal AI Unit Suite & 105 E2E Assertions & Production Deploy
+- **Kim siz:** Principal Telegram Mini App & AI Integration Test Automation Architect.
+- **Nima kerak:**
+  1. `public/mini_app.html` (Telegram Mini App) dagi barcha kengaytirilgan imkoniyatlarni: Afrosiyob Med Line (`#btn-clinic-afrosiyob`) va Osiyo Medical Clinic (`#btn-clinic-osiyo`) ga klinikani almashtirish, shifokorlar xonasi va ixtisosligi rekvizitlari, kameradan lab scan yuklash simulatsiyasi (`#labCameraInput`), maxsus OCR statusi bannari (`#uploadPreviewBanner`, `#uploadedFileTitle`), namunaviy holatga qaytish (`#btnResetUpload`) hamda qabul tasdiqlanishi bildirishnomasi rekvizitlari (`#successNoticeTitle`, `#successDetail`) ni to'liq avtomatlashtirilgan Playwright brauzer testlari bilan qoplash.
+  2. `/Users/jasur/personal_telegram_ai/` loyihasi uchun `test_personal_ai.py` avtomatlashtirilgan test paketini yaratish: 5/5 birlik va integratsion testlar (Jasur Shukurov va SamMU persona shartnomasi, insoniy zaxira javobi, zero-API Pollinations inferensi, spamdan himoya rate limiteri, sessiya va xavfsizlik arxitekturasi) ni virtual muhitda to'liq tekshirish.
+  3. `Turnir/scripts/test_system_integrity.py` ga `test_personal_ai.py` faylini Zero-Emoji auditiga qo'shish (jami 55 ta ishlab chiqarish fayli, 0 ta emoji) va 8-bosqich tekshiruvi doirasida ushbu 5/5 test paketini avtomatik ishga tushirish.
+  4. `scripts/test_playwright_e2e.py` da Phase 4 ni kengaytirib, umumiy Playwright E2E assertatsiyalar sonini 100 tadan **105 taga (105 Green Assertions)** oshirish va 100% GREEN natijasini kafolatlash.
+  5. Barcha 8/8 tizim yaxlitligi (55 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 105 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi va Personal Telegram AI 5/5 testlari) 100% GREEN ekanligini tasdiqlash.
+  6. Vite orqali qayta qurish (88ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 27s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Bemorlar, klinika bosh shifokorlari, Telegram suhbatdoshlari, School 21 hakamlar hay'ati va investorlar.
+- **Format:** `public/mini_app.html`, `/Users/jasur/personal_telegram_ai/test_personal_ai.py`, `Turnir/scripts/test_system_integrity.py`, `Turnir/scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

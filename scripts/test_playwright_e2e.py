@@ -273,6 +273,24 @@ def test_e2e():
         assert "SamMed" in c_name2, f"Expected SamMed, got: {c_name2}"
         print(f"  [OK] Mini App clinic switcher: Switched to {c_name2}")
 
+        # Switch to Afrosiyob clinic
+        page.click("#btn-clinic-afrosiyob")
+        page.wait_for_timeout(200)
+        c_name_af = page.inner_text("#clinicName")
+        assert "Afrosiyob" in c_name_af, f"Expected Afrosiyob, got: {c_name_af}"
+        doc_af = page.inner_text("#doctorFullName")
+        assert "Boboyev" in doc_af, f"Expected Dr. Boboyev, got: {doc_af}"
+        print(f"  [OK] Mini App clinic switcher: Switched to {c_name_af} ({doc_af})")
+
+        # Switch to Osiyo Medical clinic
+        page.click("#btn-clinic-osiyo")
+        page.wait_for_timeout(200)
+        c_name_os = page.inner_text("#clinicName")
+        assert "Osiyo Medical" in c_name_os, f"Expected Osiyo Medical, got: {c_name_os}"
+        doc_os = page.inner_text("#doctorFullName")
+        assert "Shirinov" in doc_os, f"Expected Dr. Shirinov, got: {doc_os}"
+        print(f"  [OK] Mini App clinic switcher: Switched to {c_name_os} ({doc_os})")
+
         # Test Sample switching: Liver, Glucose, Anemia
         page.click("#btn-liver")
         page.wait_for_timeout(200)
@@ -292,6 +310,27 @@ def test_e2e():
         assert "Usmonova Nilufar" in p_name_a, f"Expected Usmonova Nilufar on anemia, got: {p_name_a}"
         print(f"  [OK] Mini App sample switcher: Anemia panel loaded ({p_name_a})")
 
+        # Test simulated OCR camera upload
+        sample_file = os.path.join(BASE_DIR, "public", "samples", "sample_1_liver_intermed.pdf")
+        page.set_input_files("#labCameraInput", sample_file)
+        page.wait_for_timeout(300)
+        upload_banner = page.is_visible("#uploadPreviewBanner")
+        assert upload_banner, "Upload preview banner not visible after camera upload"
+        banner_title = page.inner_text("#uploadedFileTitle")
+        assert "sample_1_liver_intermed.pdf" in banner_title, f"Unexpected upload title: {banner_title}"
+        ocr_patient = page.inner_text("#cardPatientName")
+        assert "Bemor (Kameradan Yuklangan)" in ocr_patient, f"Unexpected OCR patient name: {ocr_patient}"
+        print(f"  [OK] Mini App OCR camera scan: Processed {banner_title} -> {ocr_patient}")
+
+        # Reset back to standard sample preset
+        page.click("#btnResetUpload")
+        page.wait_for_timeout(250)
+        upload_hidden = not page.is_visible("#uploadPreviewBanner")
+        assert upload_hidden, "Upload preview banner still visible after reset"
+        restored_patient = page.inner_text("#cardPatientName")
+        assert "Xoliqov Bobur" in restored_patient, f"Expected Xoliqov Bobur, got: {restored_patient}"
+        print(f"  [OK] Mini App reset: Returned to preset state ({restored_patient})")
+
         # Test Slot Selection
         page.click(".slot-pill:nth-child(2)")
         page.wait_for_timeout(200)
@@ -304,7 +343,11 @@ def test_e2e():
         page.wait_for_timeout(300)
         notice_visible = page.is_visible("#successNotice")
         assert notice_visible, "Success notice did not show on appointment confirmation"
-        print("  [OK] Mini App booking: Success notice displayed cleanly")
+        succ_title = page.inner_text("#successNoticeTitle")
+        assert "TASDIQLANDI" in succ_title, f"Expected TASDIQLANDI in title, got: {succ_title}"
+        succ_detail = page.inner_text("#successDetail")
+        assert "Registratura" in succ_detail, f"Expected Registratura in detail, got: {succ_detail}"
+        print(f"  [OK] Mini App booking: Success notice displayed cleanly ({succ_title})")
 
         # Open referral sheet modal
         page.click("#btnOpenReferralModal")
@@ -315,11 +358,11 @@ def test_e2e():
 
         # Close with Escape
         page.keyboard.press("Escape")
-        page.wait_for_timeout(200)
+        page.wait_for_timeout(350)
         ref_closed = not page.is_visible("#referralModal")
         assert ref_closed, "Referral modal did not close on Escape key"
         print("  [OK] Mini App referral modal: Closed cleanly via ESC key")
-        total_checks += 11
+        total_checks += 16
 
         # Phase 5: Test Tracker Evidence Drawer & Filter Pills
         print("\n[TRACKER EVIDENCE DRAWER & FILTER TEST]")

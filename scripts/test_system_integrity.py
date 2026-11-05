@@ -12,13 +12,14 @@ import os
 import re
 import json
 import sys
+import subprocess
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TURNIR_DIR = BASE_DIR
 MEDLOOP_DIR = "/Users/jasur/Desktop/MedLoop/medloop_platform"
 
 def check_emojis():
-    print("[1/6] Checking Zero-Emoji Rule...")
+    print("[1/8] Checking Zero-Emoji Rule...")
     files_to_check = [
         os.path.join(TURNIR_DIR, "index.html"),
         os.path.join(TURNIR_DIR, "public", "reception.html"),
@@ -33,7 +34,8 @@ def check_emojis():
         "/Users/jasur/personal_telegram_ai/persona.py",
         "/Users/jasur/personal_telegram_ai/ai_brain.py",
         "/Users/jasur/personal_telegram_ai/userbot.py",
-        "/Users/jasur/personal_telegram_ai/login.py"
+        "/Users/jasur/personal_telegram_ai/login.py",
+        "/Users/jasur/personal_telegram_ai/test_personal_ai.py"
     ]
     # Include all React & TypeScript sources in src/
     src_dir = os.path.join(TURNIR_DIR, "src")
@@ -134,6 +136,15 @@ def check_personal_telegram_ai():
     emoji_pattern = re.compile(r"[\U00010000-\U0010ffff]")
     assert len(emoji_pattern.findall(reply)) == 0, f"AI reply contains emojis: {reply}"
     print(f"  [OK] AI Brain zero-API inference verified (Length: {len(reply)} chars, 0 emojis)")
+
+    # Execute full unit & integration test suite in virtualenv
+    test_suite = os.path.join(ai_dir, "test_personal_ai.py")
+    assert os.path.exists(test_suite), "test_personal_ai.py missing"
+    venv_py = os.path.join(ai_dir, ".venv", "bin", "python")
+    py_exec = venv_py if os.path.exists(venv_py) else sys.executable
+    proc = subprocess.run([py_exec, test_suite], capture_output=True, text=True)
+    assert proc.returncode == 0, f"test_personal_ai.py suite failed:\n{proc.stderr}\n{proc.stdout}"
+    print("  [OK] Personal Telegram AI Unit & Integration Suite passed (5/5 tests green)")
 
 if __name__ == "__main__":
     try:
