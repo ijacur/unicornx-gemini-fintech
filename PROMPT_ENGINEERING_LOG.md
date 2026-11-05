@@ -671,3 +671,20 @@
   4. Vite orqali qayta qurish (90ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 20s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Investorlar, School 21 texnik hakamlar hay'ati, xususiy poliklinika rahbarlari, CustDev tadqiqotchilari va klinika shifokorlari.
 - **Format:** `public/tracker.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #52 / 500: Ecosystem Dual Legal Modals Parity, Workflow LOI Integration, 160-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal Ecosystem Dual Legal Modals & Clinical Workflow Completeness Architect.
+- **Nima kerak:**
+  1. `public/workflow.html` va `public/reception.html` sahifalarida yuridik hujjatlar tizimini 100% to'liq paritetga yetkazish:
+     - `public/workflow.html`: Yuqori navigatsiyaga `#navWorkflowLoiBtn` (14-Kun Pilot LOI) tugmasini qo'shish va sahifa pastidagi pilot taklifi banneriga `#btnWorkflowBottomLoi` tugmasini kiritish (`onclick="previewDocument('/loi.pdf', '14-Kunlik Bepul Sinov LOI Bitimi')"`).
+     - `public/reception.html`: Yuqori navigatsiyaga `#navReceptionLoiBtn` (14-Kun Pilot LOI) tugmasini qo'shish (`onclick="previewDocument('/loi.pdf', '14-Kunlik Bepul Sinov LOI Bitimi')"`).
+     - Natijada barcha 7 ta sahifada (`index.html`, `reception.html`, `clinic-roi.html`, `workflow.html`, `tracker.html`, `mini_app.html`, `medloop.html`) ikkala yuridik hujjat (Ta'sis Bitimi va 14-Kun Pilot LOI) 100% paritet bilan mavjud bo'lishi ta'minlandi.
+  2. `scripts/test_playwright_e2e.py` sinovlar to'plamini kengaytirish:
+     - Phase 2 (Klinik Jarayon): `#navWorkflowLoiBtn` orqali LOI modalining ochilishi, `/loi.pdf` manzili yuklangani va ESC tugmasi bilan yopilishi, hamda `#btnWorkflowBottomLoi` pastki banner tugmasining LOI modalini toza ochishi va ESC bilan yopilishini to'liq tekshirish (+3 ta assertatsiya, Phase 2 jami 11 taga yetdi).
+     - Phase 7 (Registratura Navbati): `#navReceptionLoiBtn` orqali LOI modalining ochilishi, `/loi.pdf` manzili yuklangani va ESC tugmasi bilan yopilishini to'liq tekshirish (+2 ta assertatsiya, Phase 7 jami 21 taga yetdi).
+     - Umumiy Playwright E2E assertatsiyalar sonini 155 tadan **160 taga (160 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 160 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (93ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 21s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika direktorlari, bosh registratorlar, School 21 texnik hakamlar hay'ati, investorlar va shifokorlar.
+- **Format:** `public/workflow.html`, `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

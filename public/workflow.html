@@ -264,6 +264,9 @@
       <button id="navWorkflowAgreementBtn" onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Shartnomasi')" class="btn-glass mono" style="padding: 5px 14px; font-size: 11px;">
         Ta'sis Bitimi &uarr;
       </button>
+      <button id="navWorkflowLoiBtn" onclick="previewDocument('/loi.pdf', '14-Kunlik Kafolatlangan Pilot Shartnomasi (LOI)')" class="btn-glass mono" style="padding: 5px 14px; font-size: 11px;">
+        14-Kun LOI &uarr;
+      </button>
       <button id="btnNavSopModal" onclick="openSopModal()" class="btn-acid mono" style="padding: 5px 14px; font-size: 11px;">
         Klinika SOP (Nizom) &rarr;
       </button>
@@ -413,8 +416,11 @@
         </div>
       </div>
       <div style="display: flex; gap: 10px;">
-        <button onclick="openSopModal()" class="btn-glass mono" style="font-size: 12px;">
+        <button id="btnBottomSopModal" onclick="openSopModal()" class="btn-glass mono" style="font-size: 12px;">
           SOP Nizomini Ko'rish &uarr;
+        </button>
+        <button id="btnWorkflowBottomLoi" onclick="previewDocument('/loi.pdf', '14-Kunlik Kafolatlangan Pilot Shartnomasi (LOI)')" class="btn-glass mono" style="font-size: 12px;">
+          14-Kun LOI &uarr;
         </button>
         <a href="https://t.me/jasurceo" target="_blank" class="btn-acid mono" style="font-size: 12px;">
           Pilotni Ulash (@jasurceo) &rarr;

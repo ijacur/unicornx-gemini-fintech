@@ -222,7 +222,31 @@ def test_e2e():
         doc_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
         assert doc_modal_after_esc == "none", f"Expected docPreviewModal to be closed after ESC, got: {doc_modal_after_esc}"
         print("  [OK] Workflow Top Nav: Opened Founders Agreement modal and dismissed via ESC")
-        total_checks += 8
+
+        # Test Workflow Top Nav LOI Modal open & ESC close
+        page.click("#navWorkflowLoiBtn")
+        page.wait_for_timeout(300)
+        wf_loi_modal_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_loi_modal_display == "flex", f"Expected docPreviewModal to be flex for LOI, got: {wf_loi_modal_display}"
+        wf_loi_iframe_src = page.get_attribute("#docViewerIframe", "src")
+        assert "loi.pdf" in wf_loi_iframe_src, f"Expected loi.pdf in iframe, got: {wf_loi_iframe_src}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        wf_loi_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_loi_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {wf_loi_after_esc}"
+        print("  [OK] Workflow Top Nav: Opened 14-Day Pilot LOI modal and dismissed via ESC")
+
+        # Test Workflow Bottom Banner LOI Button
+        page.click("#btnWorkflowBottomLoi")
+        page.wait_for_timeout(300)
+        wf_bot_loi_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_bot_loi_display == "flex", f"Expected docPreviewModal to be flex from bottom LOI, got: {wf_bot_loi_display}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        wf_bot_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert wf_bot_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {wf_bot_after_esc}"
+        print("  [OK] Workflow Bottom Banner: Opened and dismissed 14-Day Pilot LOI modal cleanly via ESC")
+        total_checks += 11
 
         # Phase 3: Test Clinic ROI Commercial Proposal Modal & Presets
         print("\n[CLINIC ROI INTERACTION TEST]")
@@ -893,7 +917,21 @@ def test_e2e():
         rec_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
         assert rec_modal_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {rec_modal_after_esc}"
         print("  [OK] Reception Top Nav: Opened Founders Agreement modal and dismissed via ESC")
-        total_checks += 19
+
+        # Test Top Nav LOI Modal open & ESC close
+        page.click("#navReceptionLoiBtn")
+        page.wait_for_timeout(300)
+        rec_loi_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_loi_display == "flex", f"Expected docPreviewModal to be flex for LOI in reception, got: {rec_loi_display}"
+        rec_loi_iframe_src = page.get_attribute("#docViewerIframe", "src")
+        assert "loi.pdf" in rec_loi_iframe_src, f"Expected loi.pdf in reception modal iframe, got: {rec_loi_iframe_src}"
+
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        rec_loi_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_loi_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {rec_loi_after_esc}"
+        print("  [OK] Reception Top Nav: Opened 14-Day Pilot LOI modal and dismissed via ESC")
+        total_checks += 21
 
         # Phase 8: Test MedLoop B2B Pitch & Interactive Stage
         print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")
