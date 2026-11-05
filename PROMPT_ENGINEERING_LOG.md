@@ -500,3 +500,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** B2B investorlar, xususiy klinika rahbarlari, bosh buxgalterlar, School 21 texnik hakamlar hay'ati.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #39 / 500: Health Economics Simulator, Multi-Slider Dynamics & Proposal Audit Suite (97 Assertions) & Production Deploy
+- **Kim siz:** Principal Health Economics & Clinical Financial Simulation Architect.
+- **Nima kerak:**
+  1. `public/clinic-roi.html` (Klinik moliya va bemor yo'qotish simulyatori) dagi barcha interaktiv oqimlarni: `#sliderDropOff` (55% yo'qotish darajasi), `#sliderCheck` (220,000 UZS o'rtacha konsultatsiya cheki), `#preset-osiyo` klinikasi dosyesini yuklash, moliyaviy KPI telemetriyasi (`#headerRoi` ko'rsatkichi) va rasmiy tijoriy taklif hujjati rekvizitlari (`#propRef` ML-TAK seriya raqami) ni to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 3 ga ushbu barcha tekshiruvlarni kiritish orqali Playwright assertatsiyalari sonini 92 tadan 97 taga yetkazish va 100% GREEN holatida tasdiqlash.
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 97 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Bosh shifokorlar, klinika egalari, moliya direktorlari, investorlar va School 21 hakamlari.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

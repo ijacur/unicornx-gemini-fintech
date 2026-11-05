@@ -175,31 +175,50 @@ def test_e2e():
         assert "SamMed" in dossier_sam, f"Expected SamMed in dossier, got: {dossier_sam}"
         print(f"  [OK] Preset switch: Loaded SamMed ({dossier_sam})")
 
+        # Click preset Osiyo Medical
+        page.click("#preset-osiyo")
+        page.wait_for_timeout(200)
+        dossier_osiyo = page.inner_text("#dossierName")
+        assert "Osiyo Medical" in dossier_osiyo, f"Expected Osiyo Medical in dossier, got: {dossier_osiyo}"
+        print(f"  [OK] Preset switch: Loaded Osiyo Medical ({dossier_osiyo})")
+
         # Verify dynamic SVG Bar Chart has 3 rendered rect bars
         rect_count = page.evaluate("document.querySelectorAll('#chartBars rect').length")
         assert rect_count == 3, f"Expected 3 SVG chart bars, got: {rect_count}"
         print("  [OK] Dynamic SVG Bar Chart: 3 financial telemetry bars rendered cleanly")
 
-        # Test Slider live adjustment
-        page.evaluate("() => { const s = document.getElementById('sliderDaily'); s.value = 140; s.dispatchEvent(new Event('input')); }")
+        # Test Sliders live adjustment (Daily, Drop-off, Check)
+        page.evaluate("() => { const s = document.getElementById('sliderDaily'); s.value = 140; s.dispatchEvent(new Event('input')); const sd = document.getElementById('sliderDropOff'); sd.value = 55; sd.dispatchEvent(new Event('input')); const sc = document.getElementById('sliderCheck'); sc.value = 220000; sc.dispatchEvent(new Event('input')); }")
         page.wait_for_timeout(200)
         updated_daily = page.inner_text("#valDailyPatients")
+        updated_drop = page.inner_text("#valDropOff")
+        updated_check = page.inner_text("#valCheck")
         assert "140" in updated_daily, f"Expected 140 in valDailyPatients, got: {updated_daily}"
-        print(f"  [OK] Slider live adjustment: Updated daily lab patients to {updated_daily}")
-        total_checks += 5
+        assert "55" in updated_drop, f"Expected 55 in valDropOff, got: {updated_drop}"
+        assert "220,000" in updated_check, f"Expected 220,000 in valCheck, got: {updated_check}"
+        print(f"  [OK] Sliders live interaction: Updated daily to {updated_daily}, drop-off to {updated_drop}, check to {updated_check}")
 
-        # Open Proposal modal
+        # Test Header KPI Telemetry
+        header_roi = page.inner_text("#headerRoi")
+        assert "x" in header_roi, f"Expected 'x' in headerRoi, got: {header_roi}"
+        print(f"  [OK] Financial KPI telemetry: Header ROI multiple validated ({header_roi})")
+        total_checks += 9
+
+        # Open Proposal modal & verify reference metadata
         page.click("button:has-text('Tijoriy Taklifni Shakllantirish')")
         page.wait_for_timeout(200)
         prop_active = page.evaluate("document.getElementById('commercialProposalModal').classList.contains('active')")
         assert prop_active, "Commercial proposal modal did not open"
+        prop_ref = page.inner_text("#propRef")
+        assert "ML-TAK-" in prop_ref, f"Expected ML-TAK- in propRef, got: {prop_ref}"
+        print(f"  [OK] Commercial Proposal Modal: Opened with reference {prop_ref}")
         
         page.keyboard.press("Escape")
         page.wait_for_timeout(200)
         prop_closed = not page.evaluate("document.getElementById('commercialProposalModal').classList.contains('active')")
         assert prop_closed, "Commercial proposal modal did not close on Escape"
-        print("  [OK] Commercial Proposal Modal: Opened and closed cleanly via ESC key")
-        total_checks += 2
+        print("  [OK] Commercial Proposal Modal: Dismissed cleanly via ESC key")
+        total_checks += 3
 
         # Phase 4: Test Bilingual Toggle & Clinic Switcher on Mini App
         print("\n[MINI APP BILINGUAL & CLINIC SWITCHER TEST]")
