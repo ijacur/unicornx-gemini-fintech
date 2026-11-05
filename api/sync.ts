@@ -13,23 +13,25 @@ export default function handler(req: any, res: any) {
     return;
   }
 
+  const g = globalThis as any;
+
   // Global in-memory state for Vercel warm instance
-  if (!global.turnirGames) {
-    global.turnirGames = {};
+  if (!g.turnirGames) {
+    g.turnirGames = {};
   }
-  if (!global.turnirLeaderboard) {
-    global.turnirLeaderboard = [];
+  if (!g.turnirLeaderboard) {
+    g.turnirLeaderboard = [];
   }
 
   if (req.method === 'GET') {
     const { roomId, type } = req.query;
     
     if (type === 'leaderboard') {
-      return res.status(200).json(global.turnirLeaderboard);
+      return res.status(200).json(g.turnirLeaderboard);
     }
     
     if (roomId) {
-      return res.status(200).json(global.turnirGames[roomId] || null);
+      return res.status(200).json(g.turnirGames[roomId] || null);
     }
     
     return res.status(400).json({ error: 'Missing parameters' });
@@ -39,17 +41,17 @@ export default function handler(req: any, res: any) {
     const { roomId, state, type, entry } = req.body || {};
 
     if (type === 'leaderboard' && entry) {
-      const exists = global.turnirLeaderboard.find((e: any) => e.name === entry.name);
+      const exists = g.turnirLeaderboard.find((e: any) => e.name === entry.name);
       if (!exists) {
-        global.turnirLeaderboard.push(entry);
-        global.turnirLeaderboard.sort((a: any, b: any) => b.score - a.score);
+        g.turnirLeaderboard.push(entry);
+        g.turnirLeaderboard.sort((a: any, b: any) => b.score - a.score);
       }
-      return res.status(200).json(global.turnirLeaderboard);
+      return res.status(200).json(g.turnirLeaderboard);
     }
 
     if (roomId && state) {
-      global.turnirGames[roomId] = state;
-      return res.status(200).json(global.turnirGames[roomId]);
+      g.turnirGames[roomId] = state;
+      return res.status(200).json(g.turnirGames[roomId]);
     }
     
     return res.status(400).json({ error: 'Missing parameters' });
