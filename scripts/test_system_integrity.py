@@ -29,7 +29,11 @@ def check_emojis():
         os.path.join(TURNIR_DIR, "public", "medloop.html"),
         os.path.join(MEDLOOP_DIR, "bot", "handlers.py"),
         os.path.join(MEDLOOP_DIR, "bot", "keyboards.py"),
-        os.path.join(MEDLOOP_DIR, "engine", "summarizer.py")
+        os.path.join(MEDLOOP_DIR, "engine", "summarizer.py"),
+        "/Users/jasur/personal_telegram_ai/persona.py",
+        "/Users/jasur/personal_telegram_ai/ai_brain.py",
+        "/Users/jasur/personal_telegram_ai/userbot.py",
+        "/Users/jasur/personal_telegram_ai/login.py"
     ]
     # Include all React & TypeScript sources in src/
     src_dir = os.path.join(TURNIR_DIR, "src")
@@ -98,10 +102,38 @@ def check_playwright_e2e():
     print("  [OK] Playwright E2E browser interactions verified")
 
 def check_live_ecosystem():
-    print("[7/7] Verifying 11 Live Vercel Production Deployments...")
+    print("[7/8] Verifying 11 Live Vercel Production Deployments...")
     import test_live_ecosystem
-    test_live_ecosystem.main()
+    ok = test_live_ecosystem.main()
+    assert ok, "Live ecosystem verification failed"
     print("  [OK] 11 Live Vercel platforms verified 100% GREEN")
+
+def check_personal_telegram_ai():
+    print("[8/8] Verifying Personal Telegram AI & Authentic Uzbek Persona Engine...")
+    ai_dir = "/Users/jasur/personal_telegram_ai"
+    assert os.path.exists(ai_dir), "personal_telegram_ai directory missing"
+    
+    # Check persona file
+    persona_path = os.path.join(ai_dir, "persona.py")
+    assert os.path.exists(persona_path), "persona.py missing"
+    with open(persona_path, "r", encoding="utf-8") as f:
+        persona_text = f.read()
+    assert "Jasur Shukurov" in persona_text, "persona.py missing Jasur Shukurov"
+    assert "SamMU" in persona_text or "Samarqand Davlat Tibbiyot" in persona_text, "persona.py missing SamMU context"
+    assert "MedLoop" in persona_text, "persona.py missing MedLoop mission context"
+    print("  [OK] Persona contract verified (Jasur Shukurov, SamMU medical training & MedLoop context)")
+
+    # Check ai_brain engine inference
+    sys.path.insert(0, ai_dir)
+    import ai_brain
+    sys_prompt = "Sen Jasur Shukurovning samimiy shaxsiy vakilisan."
+    user_msg = "Assalomu alaykum Jasur aka! Loyiha bo'yicha gaplashsak bo'ladimi?"
+    reply = ai_brain.get_ai_reply(sys_prompt, user_msg)
+    assert reply and len(reply) > 10, f"Expected non-empty AI reply, got: {reply}"
+    
+    emoji_pattern = re.compile(r"[\U00010000-\U0010ffff]")
+    assert len(emoji_pattern.findall(reply)) == 0, f"AI reply contains emojis: {reply}"
+    print(f"  [OK] AI Brain zero-API inference verified (Length: {len(reply)} chars, 0 emojis)")
 
 if __name__ == "__main__":
     try:
@@ -112,7 +144,8 @@ if __name__ == "__main__":
         check_build()
         check_playwright_e2e()
         check_live_ecosystem()
-        print("\nALL 7 SYSTEM INTEGRITY, PLAYWRIGHT & LIVE ECOSYSTEM CHECKS PASSED (100% GREEN)")
+        check_personal_telegram_ai()
+        print("\nALL 8 SYSTEM INTEGRITY, PLAYWRIGHT, LIVE ECOSYSTEM & AI PERSONAL ASSISTANT CHECKS PASSED (100% GREEN)")
         sys.exit(0)
     except AssertionError as e:
         print(f"\n[INTEGRITY FAILURE]: {e}")

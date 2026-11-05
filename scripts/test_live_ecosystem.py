@@ -183,10 +183,8 @@ def main():
     print(f"ECOSYSTEM RESULTS: {passed}/{total} LIVE PLATFORMS PASSED (100% GREEN)")
     print("=" * 65)
 
-    if passed == total:
-        sys.exit(0)
-    else:
-        sys.exit(1)
+    return passed == total
 
 if __name__ == "__main__":
-    main()
+    success = main()
+    sys.exit(0 if success else 1)
