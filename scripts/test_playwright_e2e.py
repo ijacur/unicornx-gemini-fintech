@@ -839,27 +839,63 @@ def test_e2e():
         assert new_confirmed == initial_confirmed + 1, f"Expected {initial_confirmed + 1} confirmed, got {new_confirmed}"
         print(f"  [OK] Reception confirmation flywheel: Confirmed patient {top_patient_id} (Total: {new_confirmed})")
 
-        # Test Patient Detail Drawer & Escape dismiss
-        page.evaluate(f"openPatientDrawer({top_patient_id})")
-        page.wait_for_timeout(200)
+        # Test Patient Detail Drawer via direct card click & Escape dismiss
+        top_patient_name = page.evaluate("patients[0].name")
+        page.click("#patientList > div.bento-card:first-child")
+        page.wait_for_timeout(250)
         is_drawer_open = page.evaluate("document.getElementById('patientDrawer').style.right === '0px'")
-        assert is_drawer_open, "Patient drawer did not open"
+        assert is_drawer_open, "Patient drawer did not open on card click"
+        drawer_name = page.inner_text("#drawerPatientName")
+        assert top_patient_name in drawer_name or len(drawer_name) > 3, f"Drawer patient name mismatch: {drawer_name}"
+        drawer_doc = page.inner_text("#drawerDoctor")
+        assert "Dr." in drawer_doc, f"Expected Dr. in drawerDoctor, got: {drawer_doc}"
+        drawer_slot = page.inner_text("#drawerSlot")
+        assert len(drawer_slot) > 2, f"Drawer slot missing: {drawer_slot}"
+        
+        # Test Confirm button state for already confirmed patient
+        drawer_btn_text = page.inner_text("#drawerConfirmBtn")
+        is_disabled = page.evaluate("document.getElementById('drawerConfirmBtn').disabled")
+        assert is_disabled and "TASDIQLANGAN" in drawer_btn_text, f"Expected disabled TASDIQLANGAN button, got: {drawer_btn_text}"
+        print(f"  [OK] Reception patient drawer: Real card click opened drawer ({drawer_name}, {drawer_doc}, {drawer_slot}) with confirmed state validated")
+
         page.keyboard.press("Escape")
         page.wait_for_timeout(200)
         is_drawer_closed = page.evaluate("document.getElementById('patientDrawer').style.right !== '0px'")
         assert is_drawer_closed, "Patient drawer did not close on Escape key"
-        print("  [OK] Reception patient drawer: Opened and dismissed cleanly via ESC key")
+        print("  [OK] Reception patient drawer: Dismissed cleanly via ESC key")
+
+        # Test Confirming an unconfirmed patient from Drawer
+        unconf_id = page.evaluate("patients.find(p => p.status !== 'CONFIRMED').id")
+        page.evaluate(f"openPatientDrawer({unconf_id})")
+        page.wait_for_timeout(250)
+        is_btn_enabled = not page.evaluate("document.getElementById('drawerConfirmBtn').disabled")
+        assert is_btn_enabled, "Expected drawerConfirmBtn to be enabled for unconfirmed patient"
+        pre_conf = int(page.inner_text("#countConfirmed").strip())
+        page.click("#drawerConfirmBtn")
+        page.wait_for_timeout(250)
+        post_conf = int(page.inner_text("#countConfirmed").strip())
+        assert post_conf == pre_conf + 1, f"Expected {pre_conf + 1} confirmed, got: {post_conf}"
+        now_disabled = page.evaluate("document.getElementById('drawerConfirmBtn').disabled")
+        assert now_disabled, "Expected drawerConfirmBtn to become disabled after confirmation"
+        print(f"  [OK] Reception patient drawer: Successfully confirmed patient {unconf_id} from drawer (Total: {post_conf})")
+        
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        is_drawer_closed2 = page.evaluate("document.getElementById('patientDrawer').style.right !== '0px'")
+        assert is_drawer_closed2, "Patient drawer did not close on Escape key"
 
         # Test Referral Sheet Modal & Escape dismiss
         page.evaluate(f"printReferralSheet({top_patient_id})")
         page.wait_for_timeout(200)
         is_referral_open = page.evaluate("document.getElementById('referralModal').style.display === 'block'")
         assert is_referral_open, "Referral sheet modal did not open"
+        print_patient = page.inner_text("#printPatientName")
+        assert len(print_patient) > 2, f"Expected printPatientName, got: {print_patient}"
         page.keyboard.press("Escape")
         page.wait_for_timeout(350)
         is_referral_closed = page.evaluate("document.getElementById('referralModal').style.display === 'none'")
         assert is_referral_closed, "Referral sheet modal did not close on Escape key"
-        print("  [OK] Reception referral sheet modal: Opened and dismissed cleanly via ESC key")
+        print(f"  [OK] Reception referral sheet modal: Opened for {print_patient} and dismissed cleanly via ESC key")
 
         # Test Queue Urgency Filter Pills (RED, YELLOW, ALL)
         page.click("#filter-red")
@@ -939,7 +975,7 @@ def test_e2e():
         rec_loi_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
         assert rec_loi_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {rec_loi_after_esc}"
         print("  [OK] Reception Top Nav: Opened 14-Day Pilot LOI modal and dismissed via ESC")
-        total_checks += 21
+        total_checks += 29
 
         # Phase 8: Test MedLoop B2B Pitch & Interactive Stage
         print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")

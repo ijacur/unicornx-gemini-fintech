@@ -943,8 +943,13 @@
     }
 
     let activePatientId = null;
+    let drawerCloseTimeout = null;
 
     function openPatientDrawer(id) {
+      if (drawerCloseTimeout) {
+        clearTimeout(drawerCloseTimeout);
+        drawerCloseTimeout = null;
+      }
       const p = patients.find(item => item.id === id);
       if (!p) return;
       activePatientId = id;
@@ -1006,11 +1011,13 @@
     function closePatientDrawer() {
       const overlay = document.getElementById('drawerOverlay');
       const drawer = document.getElementById('patientDrawer');
-      overlay.style.opacity = '0';
-      drawer.style.right = '-520px';
-      setTimeout(() => {
-        overlay.style.display = 'none';
+      if (overlay) overlay.style.opacity = '0';
+      if (drawer) drawer.style.right = '-520px';
+      if (drawerCloseTimeout) clearTimeout(drawerCloseTimeout);
+      drawerCloseTimeout = setTimeout(() => {
+        if (overlay) overlay.style.display = 'none';
         activePatientId = null;
+        drawerCloseTimeout = null;
       }, 250);
     }
 

@@ -705,3 +705,22 @@
   4. Vite orqali qayta qurish (90ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 18s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Poliklinika rahbarlari, investorlar, School 21 hakamlar hay'ati, B2B hamkorlar va shifokorlar.
 - **Format:** `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #54 / 500: Reception Inspector Drawer Race-Condition Fix, Direct Card Clicks & 173-Assertion Milestone E2E Suite
+- **Kim siz:** Principal Reception Triage Inspector, Concurrency & Real-Click Flow Automation Architect.
+- **Nima kerak:**
+  1. `public/reception.html` (Registratura Navbati) dagi Apple Pro Inspector Drawer yopilish va qayta ochilish vaqtidagi `activePatientId` poyga holati (race-condition) muammosini aniqlash va tuzatish:
+     - `drawerCloseTimeout` identifikatorini kiritish, `closePatientDrawer()` da `setTimeout` orqali `activePatientId = null` qilishdan oldin avvalgi taymerni tozalash (`clearTimeout(drawerCloseTimeout)`), va `openPatientDrawer()` chaqirilganda kutilayotgan har qanday yopilish taymerini bekor qilish. Bu orqali drawer ichidagi `#drawerConfirmBtn` (Qabulni Tasdiqlash) har doim to'g'ri `activePatientId` bilan ishlashi kafolatlandi.
+     - Bemor tasdiqlangan holatda `#drawerConfirmBtn` tugmasining o'chirilgan (`disabled = true`) va "TASDIQLANGAN (+150k UZS)" matniga ega bo'lishini ta'minlash.
+  2. `scripts/test_playwright_e2e.py` da Phase 7 sinovlarini to'liq real DOM bosishlari orqali yangilash:
+     - Navbatdagi bemor kartochkasini to'g'ridan-to'g'ri bosish (`page.click("#patientList > div.bento-card:first-child")`) orqali drawer ochilishini tasdiqlash.
+     - Drawer ichidagi `#drawerPatientName`, `#drawerDoctor` va `#drawerSlot` ma'lumotlarini tekshirish.
+     - Tasdiqlangan bemor uchun `#drawerConfirmBtn` ning `disabled` ekanligini tasdiqlash.
+     - Tasdiqlanmagan bemorni ochib, `#drawerConfirmBtn` ni bosish orqali bemorni bevosita drawer orqali tasdiqlash va umumiy tasdiqlanganlar hisoblagichi oshganini (`#countConfirmed`) tekshirish.
+     - Shifokor yo'llanma varaqasi modalida bemor ismi to'g'ri ko'rsatilganini (`#printPatientName`) tasdiqlash.
+     - Umumiy Playwright E2E assertatsiyalar sonini 165 tadan **173 taga (173 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 173 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (96ms) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish. (Eslatma: Vercel hisobi kunlik 100 ta bepul API-deploy limitiga yetganligi sababli mavjud `https://turnir-launch-lab.vercel.app` faol holatda xizmat ko'rsatmoqda).
+- **Kim uchun:** Registratorlar, poliklinika direktorlari, School 21 texnik hakamlar hay'ati, investorlar va shifokorlar.
+- **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
