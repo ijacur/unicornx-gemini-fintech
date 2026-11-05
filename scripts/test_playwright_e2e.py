@@ -153,8 +153,8 @@ def test_e2e():
         print("  [OK] Commercial Proposal Modal: Opened and closed cleanly via ESC key")
         total_checks += 2
 
-        # Phase 4: Test Bilingual Toggle on Mini App (UZ / RU)
-        print("\n[MINI APP BILINGUAL TEST]")
+        # Phase 4: Test Bilingual Toggle & Clinic Switcher on Mini App
+        print("\n[MINI APP BILINGUAL & CLINIC SWITCHER TEST]")
         page.goto(f"http://localhost:{PORT}/mini_app.html", wait_until="domcontentloaded")
         
         # Switch to RU
@@ -170,7 +170,42 @@ def test_e2e():
         sub_uz = page.inner_text("#headerSubtitle")
         assert "Tibbiy" in sub_uz or "Triage" in sub_uz, f"UZ language text mismatch: {sub_uz}"
         print(f"  [OK] Bilingual toggle: UZ active ({sub_uz})")
-        total_checks += 2
+
+        # Switch to Doktor D clinic
+        page.click("#btn-clinic-doktord")
+        page.wait_for_timeout(200)
+        c_name = page.inner_text("#clinicName")
+        assert "Doktor D" in c_name, f"Expected Doktor D, got: {c_name}"
+        print(f"  [OK] Mini App clinic switcher: Switched to {c_name}")
+
+        # Switch to SamMed clinic
+        page.click("#btn-clinic-sammed")
+        page.wait_for_timeout(200)
+        c_name2 = page.inner_text("#clinicName")
+        assert "SamMed" in c_name2, f"Expected SamMed, got: {c_name2}"
+        print(f"  [OK] Mini App clinic switcher: Switched to {c_name2}")
+
+        # Confirm appointment booking
+        page.click("#mainBookingBtn")
+        page.wait_for_timeout(300)
+        notice_visible = page.is_visible("#successNotice")
+        assert notice_visible, "Success notice did not show on appointment confirmation"
+        print("  [OK] Mini App booking: Success notice displayed cleanly")
+
+        # Open referral sheet modal
+        page.click("#btnOpenReferralModal")
+        page.wait_for_timeout(300)
+        ref_visible = page.is_visible("#referralModal")
+        assert ref_visible, "Referral modal did not open on button click"
+        print("  [OK] Mini App referral modal: Opened successfully")
+
+        # Close with Escape
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        ref_closed = not page.is_visible("#referralModal")
+        assert ref_closed, "Referral modal did not close on Escape key"
+        print("  [OK] Mini App referral modal: Closed cleanly via ESC key")
+        total_checks += 7
 
         # Phase 5: Test Tracker Evidence Drawer & Filter Pills
         print("\n[TRACKER EVIDENCE DRAWER & FILTER TEST]")

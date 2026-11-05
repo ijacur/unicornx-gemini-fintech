@@ -232,3 +232,19 @@
   3. `scripts/test_system_integrity.py` orqali butun tizim yaxlitligini tasdiqlash, Vercel'ga yangilash va Git remote (`unicornx-gemini-fintech`) ga yuborish.
 - **Kim uchun:** Bosh vrachlar, poliklinika direktorlari, xalqaro hakamlar va investorlar.
 - **Format:** `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #16 / 500: Mini App 4-Clinic Router, Telegram Dispatch Flywheel & Cross-Site 60-30-10 Acid Purge
+- **Kim siz:** Lead Full-Stack Platform Engineer & Cross-Ecosystem Design System Auditor.
+- **Nima kerak:**
+  1. `public/mini_app.html` (Telegram Mini App) da foydalanuvchilar va bemorlar uchun tezkor 4 ta hamkor klinika selektori stripini (`[TIBBIY MARKAZNI TANLANG]`: `Doktor D (Toshkent)`, `Osiyo Med (Samarqand)`, `Afrosiyob Med`, `SamMed`) qurish:
+     - Har qanday klinika tanlanganda klinika nomi, ID raqami, unga biriktirilgan shifokorlar va qabul vaqtlari hamda A4 formatdagi rasmiy tibbiy yo'llanma varaqasi (`Forma #ML-2026/T`) avtomatik tarzda moslashishi.
+     - Qabul tasdiqlangach, bemor 1-bosishda o'z yo'llanmasini oilasi yoki shifokoriga jo'nata oladigan rasmiy `[Telegramda Ulashish]` (`https://t.me/share/url`) integratsiyasini qo'shish.
+  2. `jasur-universe-portfolio` (`jasur-universe-portfolio.vercel.app`) da foydalanuvchi talab qilganidek barcha 174 ta emoji spamlarini to'liq tozalab, 2017-yilgi suzuvchi nuqta (particle dots) animatsiyasini butunlay o'chirish:
+     - 2.5% SVG `<feTurbulence>` tactile film grain noise qatlami va yuqori radial yorug'lik spotlight o'rnatish.
+     - Diego 60-30-10 palitrasiga binoan o'ziga xos esda qolarli kislotali urg'u: **Plasma Acid Violet (`#A855F7`)** joriy etish (60% Cosmic Obsidian `#05050A`, 30% Sof Oq `#FFFFFF`, 10% Acid Violet `#A855F7`).
+     - Barcha 174 ta emojini monoxrom Lucide SVG piktogrammalari va `JetBrains Mono` teglari bilan almashtirish va Vercel'ga yangilash.
+  3. `scripts/test_playwright_e2e.py` ga Mini App klinika selektori va bron qilish jarayoni bo'yicha 7 ta yangi assertion qo'shib, testlar sonini **39 taga yetkazish** (100% GREEN).
+  4. `scripts/test_system_integrity.py` orqali butun tizimning 6 ta sahifasi, 0 emoji qoidasi, kislotali palitra va E2E brauzer testlarini avtomatlashtirilgan tarzda tasdiqlash, Vercel'ga deploy qilish va GitHub remote (`unicornx-gemini-fintech`) ga yuborish.
+- **Kim uchun:** Bemorlar, poliklinika direktorlari, xalqaro investorlar va dizayn auditorlari.
+- **Format:** `public/mini_app.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

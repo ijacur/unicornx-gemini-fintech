@@ -267,6 +267,32 @@
       </button>
     </div>
 
+    <!-- Clinic Quick Switcher Strip -->
+    <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 10px 12px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <span id="clinicSelectorTitle" class="mono" style="font-size: 10px; color: var(--accent-acid); font-weight: 600;">
+          [TIBBIY MARKAZNI TANLANG]
+        </span>
+        <span class="mono" id="activeClinicBadge" style="font-size: 10px; color: var(--text-secondary);">
+          Osiyo Med
+        </span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px;">
+        <button onclick="switchMiniAppClinic('doktord')" id="btn-clinic-doktord" class="btn-glass mono" style="font-size: 10px; padding: 6px 4px; text-align: center;">
+          Doktor D
+        </button>
+        <button onclick="switchMiniAppClinic('osiyo')" id="btn-clinic-osiyo" class="btn-glass mono" style="font-size: 10px; padding: 6px 4px; text-align: center; border-color: var(--accent-acid); color: var(--accent-acid); background: rgba(198,244,50,0.12);">
+          Osiyo
+        </button>
+        <button onclick="switchMiniAppClinic('afrosiyob')" id="btn-clinic-afrosiyob" class="btn-glass mono" style="font-size: 10px; padding: 6px 4px; text-align: center;">
+          Afrosiyob
+        </button>
+        <button onclick="switchMiniAppClinic('sammed')" id="btn-clinic-sammed" class="btn-glass mono" style="font-size: 10px; padding: 6px 4px; text-align: center;">
+          SamMed
+        </button>
+      </div>
+    </div>
+
     <!-- Preset Test Chips -->
     <div>
       <div id="presetSectionTitle" class="mono" style="font-size: 10px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
@@ -340,9 +366,14 @@
     <div id="successNotice" class="bento-card" style="display: none; padding: 16px; background: rgba(198, 244, 50, 0.08); border-color: rgba(198, 244, 50, 0.35); text-align: center;">
       <div id="successNoticeTitle" class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[QABUL TASDIQLANDI]</div>
       <div id="successDetail" style="font-size: 12px; color: #FFF; margin-top: 4px;">Registratura sizni kutmoqda.</div>
-      <button onclick="openReferralModal()" class="btn-acid mono" style="margin-top: 12px; width: 100%; padding: 10px; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
-        <span id="referralButtonText">[Klinik Yo'llanma Varaqasi (Chop Etish / PDF)] &rarr;</span>
-      </button>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;">
+        <button onclick="openReferralModal()" id="btnOpenReferralModal" class="btn-acid mono" style="padding: 10px; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; gap: 4px;">
+          <span id="referralButtonText">[Varaqani Ochish] &rarr;</span>
+        </button>
+        <button onclick="shareReferralViaTelegram()" id="btnShareTelegram" class="btn-glass mono" style="padding: 10px; font-size: 11px; display: inline-flex; align-items: center; justify-content: center; gap: 4px; border-color: rgba(255,255,255,0.2);">
+          [Telegramda Ulashish] &rarr;
+        </button>
+      </div>
     </div>
 
   </main>
@@ -563,10 +594,87 @@
           endocrinology: { name: "Dr. Karimova Dildora Baxtiyorovna", specialty: "Endokrinolog", slots: ["Bugun 16:30", "Ertaga 11:30", "Ertaga 15:00"] },
           therapy: { name: "Dr. Sobirov Akmal Rustamovich", specialty: "Terapevt", slots: ["Bugun 13:00", "Ertaga 09:00", "Ertaga 14:30"] }
         }
+      },
+      sammed: {
+        id: "4",
+        name: "SamMed Triage Markazi (Samarqand)",
+        doctors: {
+          hepatology: { name: "Dr. To'rayev Alisher Maxmudovich", specialty: "Gepatolog", slots: ["Bugun 11:00", "Ertaga 09:30", "Ertaga 15:00"] },
+          endocrinology: { name: "Dr. Boboyev Otabek Rustamovich", specialty: "Endokrinolog", slots: ["Bugun 14:00", "Ertaga 11:15", "Ertaga 16:30"] },
+          therapy: { name: "Dr. Fayziyev Jamshid Anvarovich", specialty: "Terapevt", slots: ["Bugun 10:30", "Ertaga 09:00", "Ertaga 13:30"] }
+        }
       }
     };
 
+    let currentClinicKey = 'osiyo';
+    let currentClinic = CLINIC_ROSTER.osiyo;
+    let currentSampleKey = 'liver';
+    let currentSample = null;
+    let selectedSlot = null;
     let currentLang = 'uz';
+
+    function switchMiniAppClinic(clinicKey) {
+      if (!CLINIC_ROSTER[clinicKey]) return;
+      currentClinicKey = clinicKey;
+      currentClinic = CLINIC_ROSTER[clinicKey];
+      playChime('click');
+      triggerHaptic('medium');
+
+      const badge = document.getElementById('activeClinicBadge');
+      if (badge) badge.innerText = currentClinic.name.split(' (')[0];
+
+      ['doktord', 'osiyo', 'afrosiyob', 'sammed'].forEach(k => {
+        const btn = document.getElementById('btn-clinic-' + k);
+        if (btn) {
+          if (k === clinicKey) {
+            btn.style.borderColor = 'var(--accent-acid)';
+            btn.style.color = 'var(--accent-acid)';
+            btn.style.background = 'rgba(198, 244, 50, 0.12)';
+          } else {
+            btn.style.borderColor = 'var(--border-subtle)';
+            btn.style.color = 'var(--text-secondary)';
+            btn.style.background = 'rgba(255, 255, 255, 0.04)';
+          }
+        }
+      });
+
+      document.getElementById('clinicName').innerText = currentClinic.name;
+      document.getElementById('clinicBadge').innerText = `[ID: ${currentClinic.id}]`;
+
+      const printClinic = document.getElementById('printClinicName');
+      if (printClinic) printClinic.innerText = currentClinic.name.toUpperCase();
+
+      renderData();
+    }
+
+    // Detect Clinic from Query Param ?clinic=
+    function initClinicFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const cKey = params.get('clinic') || params.get('start');
+      if (cKey && CLINIC_ROSTER[cKey.toLowerCase()]) {
+        currentClinicKey = cKey.toLowerCase();
+        currentClinic = CLINIC_ROSTER[currentClinicKey];
+      }
+      document.getElementById('clinicName').innerText = currentClinic.name;
+      document.getElementById('clinicBadge').innerText = `[ID: ${currentClinic.id}]`;
+      const badge = document.getElementById('activeClinicBadge');
+      if (badge) badge.innerText = currentClinic.name.split(' (')[0];
+
+      ['doktord', 'osiyo', 'afrosiyob', 'sammed'].forEach(k => {
+        const btn = document.getElementById('btn-clinic-' + k);
+        if (btn) {
+          if (k === currentClinicKey) {
+            btn.style.borderColor = 'var(--accent-acid)';
+            btn.style.color = 'var(--accent-acid)';
+            btn.style.background = 'rgba(198, 244, 50, 0.12)';
+          } else {
+            btn.style.borderColor = 'var(--border-subtle)';
+            btn.style.color = 'var(--text-secondary)';
+            btn.style.background = 'rgba(255, 255, 255, 0.04)';
+          }
+        }
+      });
+    }
 
     const I18N = {
       uz: {
@@ -649,22 +757,8 @@
       }
     };
 
-    let currentClinic = CLINIC_ROSTER.osiyo;
-    let currentSample = SAMPLES.liver;
-    let selectedSlot = null;
-
-    // Detect Clinic from Query Param ?clinic=
-    function initClinicFromUrl() {
-      const params = new URLSearchParams(window.location.search);
-      const cKey = params.get('clinic') || params.get('start');
-      if (cKey && CLINIC_ROSTER[cKey.toLowerCase()]) {
-        currentClinic = CLINIC_ROSTER[cKey.toLowerCase()];
-      }
-      document.getElementById('clinicName').innerText = currentClinic.name;
-      document.getElementById('clinicBadge').innerText = `[ID: ${currentClinic.id}]`;
-    }
-
     function selectSample(key) {
+      currentSampleKey = key;
       currentSample = SAMPLES[key];
       playChime('click');
       triggerHaptic('click');
@@ -819,6 +913,15 @@
         document.getElementById('mainBookingBtn').innerText = `Qabulga Yozilishni Tasdiqlash (${selectedSlot}) →`;
         document.getElementById('mainBookingBtn').style.opacity = '1';
       }, 3000);
+    }
+
+    function shareReferralViaTelegram() {
+      playChime('click');
+      const docName = document.getElementById('doctorFullName').innerText;
+      const clinicName = currentClinic.name;
+      const text = `MedLoop Tibbiy Yo'llanma (${clinicName}): ${currentSample.patient} uchun ${docName} qabuliga (${selectedSlot}) navbat olindi.`;
+      const url = `https://t.me/share/url?url=${encodeURIComponent(window.location.origin + '/mini_app.html?clinic=' + currentClinicKey)}&text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
     }
 
     function handleLabCameraUpload(event) {
