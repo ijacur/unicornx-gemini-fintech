@@ -583,7 +583,45 @@ def test_e2e():
         stat_total = page.inner_text("#statTotal")
         assert "8 ta" in stat_total, f"Expected 8 ta total clinics, got: {stat_total}"
         print(f"  [OK] CustDev tracker telemetry stats: Validated all 4 metrics ({stat_loi}, {stat_rate}, {stat_pain}, {stat_total})")
-        total_checks += 14
+
+        # Test Tracker Top Nav Agreement Modal open & ESC close
+        page.click("#navTrackerAgreementBtn")
+        page.wait_for_timeout(300)
+        tr_agr_open = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert tr_agr_open, "Tracker top nav agreement modal did not open"
+        tr_agr_iframe = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in tr_agr_iframe, f"Expected MedLoop_Agreement.pdf, got: {tr_agr_iframe}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        tr_agr_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert tr_agr_closed, "Tracker top nav agreement modal did not close on Escape"
+        print("  [OK] Tracker top nav: Opened and closed Founders Agreement modal cleanly via ESC key")
+
+        # Test Tracker Top Nav LOI Modal open & ESC close
+        page.click("#navTrackerLoiBtn")
+        page.wait_for_timeout(300)
+        tr_loi_open = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert tr_loi_open, "Tracker top nav LOI modal did not open"
+        tr_loi_iframe = page.get_attribute("#docViewerIframe", "src")
+        assert "loi.pdf" in tr_loi_iframe, f"Expected loi.pdf, got: {tr_loi_iframe}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        tr_loi_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert tr_loi_closed, "Tracker top nav LOI modal did not close on Escape"
+        print("  [OK] Tracker top nav: Opened and closed 14-Day Pilot LOI modal cleanly via ESC key")
+
+        # Test Dynamic CustDev Ingestion via #btnNewInterview & #btnSaveCustDev
+        page.click("#btnNewInterview")
+        page.wait_for_timeout(250)
+        page.fill("#mClinic", "Shifo Nur Med Samarqand")
+        page.fill("#mContact", "Bosh Vrach Dr. Sobirov")
+        page.click("#btnSaveCustDev")
+        page.wait_for_timeout(250)
+        post_ingest_rows = page.evaluate("document.querySelectorAll('#tableBody tr').length")
+        new_row_text = page.inner_text("#tableBody")
+        assert post_ingest_rows == 9 and "Shifo Nur Med" in new_row_text, f"Expected 9 rows and Shifo Nur Med, got {post_ingest_rows}"
+        print("  [OK] Tracker dynamic ingestion: Ingested Shifo Nur Med Samarqand (9 rows total)")
+        total_checks += 19
 
         # Phase 6: Test Index Hardware Split-Stage & Clinic Selector
         print("\n[INDEX HARDWARE SPLIT-STAGE & CLINIC SELECTOR TEST]")

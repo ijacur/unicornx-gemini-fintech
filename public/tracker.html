@@ -344,13 +344,15 @@
     </div>
 
     <div style="display: flex; align-items: center; gap: 10px;">
-      <button onclick="exportToCSV()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
+      <button id="navTrackerAgreementBtn" onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Ulushi Bitimi (4 Asoschi)')" class="nav-link mono" style="background: none; border: none; cursor: pointer; font-size: 12px; color: var(--text-secondary);">Ta'sischilar Bitimi (PDF)</button>
+      <button id="navTrackerLoiBtn" onclick="previewDocument('/loi.pdf', '14-Kunlik Kafolatlangan Pilot Shartnomasi (LOI)')" class="nav-link mono" style="background: none; border: none; cursor: pointer; font-size: 12px; color: var(--text-secondary);">14-Kun LOI (PDF)</button>
+      <button id="btnExportCsv" onclick="exportToCSV()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
         CSV Eksport &darr;
       </button>
-      <button onclick="window.print()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
+      <button id="btnTrackerPrint" onclick="window.print()" class="btn-glass mono" style="font-size: 11px; padding: 5px 12px;">
         Chop Etish / PDF
       </button>
-      <button onclick="openModal()" class="btn-acid mono" style="font-size: 11px; padding: 5px 14px;">
+      <button id="btnNewInterview" onclick="openModal()" class="btn-acid mono" style="font-size: 11px; padding: 5px 14px;">
         + Yangi Intervyu
       </button>
     </div>
@@ -475,7 +477,7 @@
     <div class="modal-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
         <h3 style="font-size: 16px; font-weight: 600; color: #FFFFFF;">Yangi CustDev Intervyusi Qo'shish</h3>
-        <button onclick="closeModal()" class="mono" style="background: none; border: none; color: #888; font-size: 16px; cursor: pointer;">✕</button>
+        <button id="btnCloseEntryModal" onclick="closeModal()" class="mono" style="background: none; border: none; color: #888; font-size: 16px; cursor: pointer;">&times;</button>
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -530,8 +532,8 @@
       </div>
 
       <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border-subtle); padding-top: 16px;">
-        <button onclick="closeModal()" class="btn-glass mono" style="font-size: 11px;">Bekor qilish</button>
-        <button onclick="addEntry()" class="btn-white mono" style="font-size: 11px;">Saqlash</button>
+        <button id="btnCancelCustDev" onclick="closeModal()" class="btn-glass mono" style="font-size: 11px;">Bekor qilish</button>
+        <button id="btnSaveCustDev" onclick="addEntry()" class="btn-white mono" style="font-size: 11px;">Saqlash</button>
       </div>
     </div>
   </div>

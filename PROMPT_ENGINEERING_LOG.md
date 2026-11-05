@@ -654,3 +654,20 @@
   5. Vite orqali qayta qurish (89ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 26s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** B2B shifoxona rahbarlari, investorlar, School 21 texnik hakamlar hay'ati, xususiy klinika ta'sischilari va shifokorlar.
 - **Format:** `public/medloop.html`, `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #51 / 500: CustDev Intelligence Dynamic Ingestion, Dual Top Nav Modals & 155-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal CustDev Intelligence & Dynamic Ingestion Systems Architect.
+- **Nima kerak:**
+  1. `public/tracker.html` (CustDev tahlili va dalillar matritsasi) dagi navigatsiya va boshqaruvlarni to'liq standartlashtirish:
+     - Yuqori menyuga ikkita rasmiy yuridik hujjat tugmasi: `#navTrackerAgreementBtn` (Ta'sis Bitimi) va `#navTrackerLoiBtn` (14-Kun LOI Shartnomasi).
+     - Boshqaruv tugmalariga aniq identifikatorlar biriktirish: `#btnExportCsv`, `#btnTrackerPrint`, `#btnNewInterview`.
+     - `entryModal` dagi saqlash va bekor qilish tugmalariga `#btnSaveCustDev` va `#btnCancelCustDev` identifikatorlarini kiritish hamda `addEntry()` jarayonini to'liq tekshiriluvchan qilish.
+  2. `scripts/test_playwright_e2e.py` da Phase 5 ni kengaytirish:
+     - `#navTrackerAgreementBtn` va `#navTrackerLoiBtn` modallarining ochilishi, tegishli PDF manzilini yuklashi va `Escape` tugmasi bilan yopilishini tekshirish (4 ta tekshiruv).
+     - `#btnNewInterview` orqali yangi klinika intervyusini qo'shish (`#mClinic`: "Shifo Nur Med Samarqand"), `#btnSaveCustDev` ni bosish va jadval qatorlari soni 8 tadan 9 taga oshganini va "Shifo Nur Med" nomi jadvalda paydo bo'lganini tasdiqlash (1 ta yangi tekshiruv).
+     - Umumiy Playwright E2E assertatsiyalar sonini 150 tadan **155 taga (155 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 155 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (90ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 20s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Investorlar, School 21 texnik hakamlar hay'ati, xususiy poliklinika rahbarlari, CustDev tadqiqotchilari va klinika shifokorlari.
+- **Format:** `public/tracker.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
