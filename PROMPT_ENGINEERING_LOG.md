@@ -344,3 +344,15 @@
   4. Vite build orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Jasur Shukurovning xalqaro portfolio platformasi tashrif buyuruvchilari, tibbiy hamkorlar, poliklinikalar, xalqaro texnik hakamlar va investorlar.
 - **Format:** `jasur-universe-portfolio/**`, `tahlilai-mvp/**`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #25 / 500: Ecosystem-Wide Human Medical Narrative Refinement, Uzbek Default Language Enforcement on `jasur-shukurov-portfolio` & Full Production Verification
+- **Kim siz:** Principal Human-Centered Design Architect & Healthcare Systems Ethicist.
+- **Nima kerak:**
+  1. `jasur-shukurov-portfolio` (`/Users/jasur/jasur_portfolio`): Foydalanuvchi talabiga asosan saytning boshlang'ich tilini avtomatik ravishda to'liq o'zbek tiliga (`currentLang = 'uz'`) sozlash, UZ tugmasini birlamchi faol qilish, `<html lang="uz">` va sahifa sarlavhasini "Jasur Shukurov — Shifokor-Muhandis va MedTech Tizimlar Arxitektori" deb yangilash.
+  2. Barcha bio va loyiha matnlarini soxta parodiyalardan tozalab, chuqur insoniy, mas'uliyatli va samimiy o'zbek tilidagi klinik haqiqatga o'tkazish: Jasur Shukurovning Samarqand Davlat Tibbiyot Universiteti talabasi sifatida poliklinikalarda tahlil qog'ozlarini tushunmay sarson bo'lgan bemorlarni ko'rgani, MedLoop AI va EpiVision XR orqali insonlar hayotini saqlab qolish oliy burch ekanligi ta'kidlandi. Vercel production (`jasur-shukurov-portfolio.vercel.app`) ga muvaffaqiyatli yuklandi (Ready in 6s).
+  3. Barcha 11 ta platforma (`test-platform-web`, `marvarid-export`, `sammu-iqtisodiy-tahlil`, `turnir-launch-lab`) yangilanib, 100% 0 emoji va Diego 60-30-10 kislotali palitrasi tasdiqlandi.
+  4. Turnir omboridagi 6/6 tizim yaxlitligi va 49 ta Playwright E2E brauzer testlari 100% GREEN saqlandi.
+  5. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** O'zbekiston poliklinikalari, bemorlar, tibbiyot talabalari, investorlar, School 21 hamjamiyati va xalqaro hakamlar.
+- **Format:** `jasur_portfolio/**`, `Turnir/PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
