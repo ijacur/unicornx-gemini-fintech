@@ -71,6 +71,8 @@ def test_e2e():
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(viewport={"width": 1280, "height": 800})
         page = context.new_page()
+        # Abort external third-party network requests (CDNs, Google Fonts) so suite is 100% offline & deterministically fast
+        page.route(lambda url: "localhost" not in url and "127.0.0.1" not in url, lambda r: r.abort())
 
         js_errors = []
         page.on("pageerror", lambda err: js_errors.append(str(err)))
@@ -82,7 +84,8 @@ def test_e2e():
             ("/workflow.html", "Klinik Jarayon (workflow.html)"),
             ("/tracker.html", "8 Klinika Haqiqati (tracker.html)"),
             ("/mini_app.html", "Telegram Mini App (mini_app.html)"),
-            ("/medloop.html", "MedLoop B2B Pitch (medloop.html)")
+            ("/medloop.html", "MedLoop B2B Pitch (medloop.html)"),
+            ("/internship.html", "School 21 Amaliyot Portali (internship.html)")
         ]
 
         total_checks = 0
@@ -1176,7 +1179,58 @@ def test_e2e():
         rec_loi_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
         assert rec_loi_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {rec_loi_after_esc}"
         print("  [OK] Reception Top Nav: Opened 14-Day Pilot LOI modal and dismissed via ESC")
-        total_checks += 33
+
+        # Test Reception Deliverable Dock Agreement Card open & ESC close
+        page.click("#dockAgreementBtn")
+        page.wait_for_timeout(300)
+        rec_dock_agr_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_dock_agr_display == "flex", f"Expected docPreviewModal to be flex from dock agreement, got: {rec_dock_agr_display}"
+        rec_dock_agr_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in rec_dock_agr_src, f"Expected MedLoop_Agreement.pdf in iframe, got: {rec_dock_agr_src}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        rec_dock_agr_after = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_dock_agr_after == "none", f"Expected docPreviewModal to close on Escape, got: {rec_dock_agr_after}"
+        print("  [OK] Reception Deliverable Dock: Opened and closed Founders Agreement modal cleanly via ESC")
+
+        # Test Reception Deliverable Dock LOI Card open & ESC close
+        page.click("#dockLoiBtn")
+        page.wait_for_timeout(300)
+        rec_dock_loi_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_dock_loi_display == "flex", f"Expected docPreviewModal to be flex from dock LOI, got: {rec_dock_loi_display}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        rec_dock_loi_after = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_dock_loi_after == "none", f"Expected docPreviewModal to close on Escape, got: {rec_dock_loi_after}"
+        print("  [OK] Reception Deliverable Dock: Opened and closed 14-Day Pilot LOI modal cleanly via ESC")
+
+        # Test Reception Deliverable Dock internal route links
+        rec_dock_links = [
+            ("#reception-card-workflow", "/workflow.html"),
+            ("#reception-card-miniapp", "/mini_app.html"),
+            ("#reception-card-roi", "/clinic-roi.html"),
+            ("#reception-card-tracker", "/tracker.html"),
+            ("#reception-card-pitch", "/medloop.html"),
+            ("#reception-card-index", "/index.html")
+        ]
+        for sel, exp_href in rec_dock_links:
+            actual_href = page.get_attribute(sel, "href")
+            assert exp_href in actual_href, f"Expected {exp_href} in {sel}, got: {actual_href}"
+        print("  [OK] Reception Deliverable Dock: All 6 internal sub-page links validated (/workflow.html, /mini_app.html, /clinic-roi.html, /tracker.html, /medloop.html, /index.html)")
+
+        # Test Reception 4D Keyboard Navigation (Keys '4' and '1')
+        page.keyboard.press("4")
+        page.wait_for_timeout(200)
+        sel_val_4 = page.evaluate("document.getElementById('clinicSelect').value")
+        assert sel_val_4 == "doktord", f"Expected doktord on key '4', got: {sel_val_4}"
+        print(f"  [OK] Reception keyboard shortcut: Key '4' loaded {sel_val_4}")
+
+        page.keyboard.press("1")
+        page.wait_for_timeout(200)
+        sel_val_1 = page.evaluate("document.getElementById('clinicSelect').value")
+        assert sel_val_1 == "osiyo", f"Expected osiyo on key '1', got: {sel_val_1}"
+        print(f"  [OK] Reception keyboard shortcut: Key '1' loaded {sel_val_1}")
+        total_checks += 41
 
         # Phase 8: Test MedLoop B2B Pitch & Interactive Stage
         print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")
@@ -1327,6 +1381,167 @@ def test_e2e():
         assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
         print(f"  [OK] MedLoop pitch keyboard shortcut: Key '3' loaded anemia panel ({p_name3})")
         total_checks += 29
+
+        # Phase 9: Test School 21 Internship Platform, Application Wizard & Lifecycle Timeline
+        print("\n[SCHOOL 21 INTERNSHIP HUB INTERACTION TEST]")
+        page.goto(f"http://localhost:{PORT}/internship.html", wait_until="domcontentloaded")
+        page.wait_for_timeout(300)
+
+        # 1. School 21 Student & Campus Badges
+        profile_login = page.inner_text("#profileBadge")
+        assert "uoiltery" in profile_login, f"Expected student uoiltery, got: {profile_login}"
+        print(f"  [OK] School 21 Header: Validated student profile ({profile_login}) & Tashkent campus")
+
+        # 2. Bilingual Toggle (UZ -> RU -> UZ)
+        page.click("#langToggleBtn")
+        page.wait_for_timeout(200)
+        lang_ru = page.inner_text("#langLabel")
+        assert "RU" in lang_ru, f"Expected RU, got: {lang_ru}"
+        ru_header = page.inner_text("#timelineHeaderTitle")
+        assert "Процесс Подтверждения" in ru_header, f"Expected Russian header, got: {ru_header}"
+        print("  [OK] School 21 Bilingual: Toggled to Russian mode cleanly")
+
+        page.click("#langToggleBtn")
+        page.wait_for_timeout(200)
+        lang_uz = page.inner_text("#langLabel")
+        assert "UZ" in lang_uz, f"Expected UZ, got: {lang_uz}"
+        uz_header = page.inner_text("#timelineHeaderTitle")
+        assert "Amaliyot Tasdiqlash" in uz_header, f"Expected Uzbek header, got: {uz_header}"
+        print("  [OK] School 21 Bilingual: Toggled back to Uzbek mode cleanly")
+
+        # 3. Subscription Button State
+        page.click("#subscribeActionBtn")
+        page.wait_for_timeout(200)
+        sub_text1 = page.inner_text("#subscribeBtnText")
+        assert "Subscribe" in sub_text1, f"Expected Subscribe text, got: {sub_text1}"
+        page.click("#subscribeActionBtn")
+        page.wait_for_timeout(200)
+        sub_text2 = page.inner_text("#subscribeBtnText")
+        assert "Subscribed" in sub_text2, f"Expected Subscribed text, got: {sub_text2}"
+        print("  [OK] School 21 Subscription: Toggled project subscription state")
+
+        # 4. 6-Step Master Timeline Nodes
+        page.click("#stepNode2")
+        page.wait_for_timeout(200)
+        badge2 = page.inner_text("#stepDetailBadge")
+        assert "2-BOSQICH" in badge2, f"Expected 2-BOSQICH, got: {badge2}"
+        desc2 = page.inner_text("#stepDetailDesc")
+        assert "Applicant" in desc2, f"Expected Applicant portal reference, got: {desc2}"
+        print("  [OK] School 21 Timeline: Selected Step 2 (Applicant portal pre-validation)")
+
+        page.click("#stepNode4")
+        page.wait_for_timeout(200)
+        badge4 = page.inner_text("#stepDetailBadge")
+        assert "4-BOSQICH" in badge4, f"Expected 4-BOSQICH, got: {badge4}"
+        print("  [OK] School 21 Timeline: Selected Step 4 (1.5-month Mid-term checkpoint)")
+
+        page.click("#stepNode6")
+        page.wait_for_timeout(200)
+        badge6 = page.inner_text("#stepDetailBadge")
+        assert "6-BOSQICH" in badge6, f"Expected 6-BOSQICH, got: {badge6}"
+        desc6 = page.inner_text("#stepDetailDesc")
+        assert "+3000 XP" in desc6, f"Expected +3000 XP in step 6 desc, got: {desc6}"
+        print("  [OK] School 21 Timeline: Selected Step 6 (P2P presentation & +3000 XP)")
+
+        # 5. Interactive 2-Step Application Wizard
+        page.click("#openWizardBtn")
+        page.wait_for_timeout(300)
+        wizard_visible = page.evaluate("document.getElementById('applicationModal').style.display === 'flex'")
+        assert wizard_visible, "Application wizard modal did not open"
+        comp_val = page.get_attribute("#inputCompany", "value")
+        assert "MedLoop" in comp_val, f"Expected MedLoop in company input, got: {comp_val}"
+        print(f"  [OK] School 21 Wizard: Step 1 opened with company '{comp_val}'")
+
+        # Step 1 -> Step 2
+        page.click("#wizardNextBtn")
+        page.wait_for_timeout(200)
+        step2_visible = page.evaluate("document.getElementById('wizardStep2Container').style.display === 'block'")
+        assert step2_visible, "Wizard Step 2 container not visible"
+        addr_val = page.get_attribute("#inputAddress", "value")
+        assert "Muminov" in addr_val, f"Expected Muminov in address, got: {addr_val}"
+        print(f"  [OK] School 21 Wizard: Step 2 active with address '{addr_val}'")
+
+        # Submit Application -> Success Modal
+        page.click("#wizardSubmitBtn")
+        page.wait_for_timeout(300)
+        success_visible = page.evaluate("document.getElementById('successModal').style.display === 'flex'")
+        assert success_visible, "Success confirmation modal did not open"
+        success_desc = page.inner_text("#successModalDesc")
+        assert "48 soat" in success_desc, f"Expected 48-hour SLA in success desc, got: {success_desc}"
+        print("  [OK] School 21 Wizard: Submitted application and received 48-hour SLA confirmation")
+
+        # Close Success Modal with ESC
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        success_closed = page.evaluate("document.getElementById('successModal').style.display === 'none'")
+        assert success_closed, "Success modal did not close on Escape"
+        print("  [OK] School 21 Wizard: Closed success modal cleanly via ESC key")
+
+        # 6. Deliverable Dock Agreement & LOI Modal
+        page.click("#dockAgreementBtn")
+        page.wait_for_timeout(300)
+        doc_agr_open = page.evaluate("document.getElementById('documentModal').style.display === 'flex'")
+        assert doc_agr_open, "Document modal did not open for agreement"
+        agr_src = page.get_attribute("#docFrame", "src")
+        assert "MedLoop_Agreement.pdf" in agr_src, f"Expected MedLoop_Agreement.pdf, got: {agr_src}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        doc_agr_closed = page.evaluate("document.getElementById('documentModal').style.display === 'none'")
+        assert doc_agr_closed, "Document modal did not close on Escape"
+        print("  [OK] School 21 Dock: Opened and closed Founders Agreement modal cleanly via ESC key")
+
+        page.click("#dockLoiBtn")
+        page.wait_for_timeout(300)
+        doc_loi_open = page.evaluate("document.getElementById('documentModal').style.display === 'flex'")
+        assert doc_loi_open, "Document modal did not open for LOI"
+        loi_src = page.get_attribute("#docFrame", "src")
+        assert "loi.pdf" in loi_src, f"Expected loi.pdf, got: {loi_src}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        doc_loi_closed = page.evaluate("document.getElementById('documentModal').style.display === 'none'")
+        assert doc_loi_closed, "Document modal did not close on Escape"
+        print("  [OK] School 21 Dock: Opened and closed 14-Day Pilot LOI modal cleanly via ESC key")
+
+        # 7. Sub-page navigation links in Deliverable Dock
+        intern_dock_links = [
+            ("#intern-card-index", "/index.html"),
+            ("#intern-card-reception", "/reception.html"),
+            ("#intern-card-workflow", "/workflow.html"),
+            ("#intern-card-miniapp", "/mini_app.html"),
+            ("#intern-card-roi", "/clinic-roi.html"),
+            ("#intern-card-tracker", "/tracker.html")
+        ]
+        for sel, exp_href in intern_dock_links:
+            actual_href = page.get_attribute(sel, "href")
+            assert exp_href in actual_href, f"Expected {exp_href} in {sel}, got: {actual_href}"
+        print("  [OK] School 21 Deliverable Dock: All 6 internal sub-page links validated (/index.html, /reception.html, /workflow.html, /mini_app.html, /clinic-roi.html, /tracker.html)")
+
+        # 8. 4D Hardware Keyboard Controls ('1', '2', '3', 'R', 'U')
+        page.keyboard.press("1")
+        page.wait_for_timeout(200)
+        wiz_k1 = page.evaluate("document.getElementById('applicationModal').style.display === 'flex'")
+        assert wiz_k1, "Key '1' did not open application wizard"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+
+        page.keyboard.press("3")
+        page.wait_for_timeout(200)
+        step3_active = page.evaluate("document.getElementById('stepNode3').classList.contains('active')")
+        assert step3_active, "Key '3' did not activate Step 3 in timeline"
+        print("  [OK] School 21 Keyboard: Shortcut '3' activated Step 3 in lifecycle timeline")
+
+        page.keyboard.press("r")
+        page.wait_for_timeout(200)
+        lang_k_ru = page.inner_text("#langLabel")
+        assert "RU" in lang_k_ru, f"Expected RU after key 'r', got: {lang_k_ru}"
+
+        page.keyboard.press("u")
+        page.wait_for_timeout(200)
+        lang_k_uz = page.inner_text("#langLabel")
+        assert "UZ" in lang_k_uz, f"Expected UZ after key 'u', got: {lang_k_uz}"
+        print("  [OK] School 21 Keyboard: Shortcuts 'r' and 'u' seamlessly toggled languages")
+
+        total_checks += 26
 
         browser.close()
 

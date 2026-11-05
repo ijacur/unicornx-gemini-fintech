@@ -836,3 +836,53 @@
 
 
 
+
+### Prompt #61 / 500: Reception 8-Card Deliverable Dock Parity, 4D Keypad Navigation & 219-Assertion Milestone E2E Suite
+- **Kim siz:** Principal Clinical Reception Telemetry & Deliverable Dock Parity Architect.
+- **Nima kerak:**
+  1. `public/reception.html` (MedLoop Poliklinika Qabulxona & Navbat Portali) ga butun ekotizim bilan 100% simmetriya beruvchi 8-kartochkali 1-Click Deliverable Dock tizimi va 4D apparat klaviaturasi tezkor boshqaruvini joriy qilish:
+     - Asosiy qabulxona navbati ostiga rasmiy hujjatlar va yo'nalishlar paneli kiritish: `#dockAgreementBtn` (`/MedLoop_Agreement.pdf`) va `#dockLoiBtn` (`/loi.pdf`) orqali rasmiy hujjatlarni Apple Pro modalida ko'rish.
+     - 6 ta asosiy yo'nalish kartochkasi: `#reception-card-workflow` (`/workflow.html`), `#reception-card-miniapp` (`/mini_app.html`), `#reception-card-roi` (`/clinic-roi.html`), `#reception-card-tracker` (`/tracker.html`), `#reception-card-pitch` (`/medloop.html`), `#reception-card-index` (`/index.html`).
+     - 4D apparat klaviaturasi raqamli buyruqlari ('1' Osiyo Medical, '2' SamMed, '3' Afrosiyob, '4' Doktor D) orqali klinika navbat parametrlarini lahzada yuklash imkoniyatini ta'minlash.
+  2. `scripts/test_playwright_e2e.py` da Phase 7 (Qabulxona & Navbat) sinovlarini kengaytirish:
+     - `#dockAgreementBtn` bosilishi, tegishli PDF ochilishi va ESC tugmasi orqali toza yopilishini tekshirish.
+     - `#dockLoiBtn` bosilishi, tegishli PDF ochilishi va ESC tugmasi orqali toza yopilishini tekshirish.
+     - 1-Click Deliverable Dock dagi barcha 6 ta ichki sub-sahifa havolalarini (`/workflow.html`, `/mini_app.html`, `/clinic-roi.html`, `/tracker.html`, `/medloop.html`, `/index.html`) to'liq tekshirish.
+     - 4D klaviatura buyruqlari ('4' Doktor D va '1' Osiyo Medical) orqali oldindan sozlangan klinikalar navbati yuklanishini tekshirish.
+     - Phase 7 assertatsiyalar sonini 29 tadan 41 taga oshirib, umumiy Playwright E2E assertatsiyalarini 211 tadan **219 taga (219 Green Assertions Historic Milestone)** yetkazish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 219 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika bosh vrachlari, qabulxona xodimlari, School 21 texnik hakamlar hay'ati va investorlar.
+- **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
+
+
+### Prompt #62 / 500: School 21 Official Internship Confirmation Platform, 6-Step Timeline, 2-Step Application Wizard & 248-Assertion Milestone Suite
+- **Kim siz:** Principal School 21 Academic Accreditation, Career Lifecycle & TDD Engineering Architect.
+- **Nima kerak:**
+  1. `public/internship.html` (School 21 Amaliyot Tasdiqlash Portali & Karyera Boshqaruvi Hub) ni yaratish va ekotizimga to'liq integratsiya qilish:
+     - School 21 Sber rasmiy brendi, navigatsiya paneli va Toshkent kampusi (`Offline / Toshkent sh., Ziyolilar ko'chasi, 13`) talaba profili (`uoiltery`) bilan integratsiya.
+     - Slide 31 talablari: `Internship` loyihasi ma'lumoti (+3000 XP Karyera tajribasi, 90 kun, 458 faol talaba, 1,659 bitiruvchi, 99.88% muvaffaqiyat, 5 ta Peer Review talablari: 3 ta ishtirokchi, 2 ta mentor, 1 PRP xarajati, 30 daqiqa).
+     - Slide 32 talablari: `Applicant` tizimi havolasi (`https://applicant.21-school.ru/career/internships`), havola nusxalash va ariza oynasini ochish.
+     - Slide 34 & 35 talablari: Interaktiv 2-bosqichli Ariza Vizardi (Wizard):
+       * 1-bosqich: Tashkilot nomi (`MedLoop HealthTech / Osiyo Medical Clinic`), Sber IT hamkorlik belgisi, Mentor ma'lumotlari (Jasur Rahimov, `mentor@medloop.uz`, `+998 90 123 45 67`, CTO).
+       * 2-bosqich: Manzil (`Muminov street, 4`), Davlat va shahar (`Uzbekistan / Tashkent`), Ishlatiladigan texnologiyalar (`DevOps, TypeScript, HealthTech FHIR APIs, Python, React 19`), Ish vaqti (`40 soat/hafta`), Maosh (`0 USD`), Shartnoma turi (`Amaliyot / Internship`), Muddat (`24/07/2025 — 22/10/2025`), Rasmiy biriktirilgan hujjat (`58-son buyruq 08.07.2025-yildagi amaliyot yo'llanmasi.pdf`).
+     - Slide 37 talablari: 48-soatlik rasmiy SLA kafolati bilan Muvaffaqiyat modali ("Arizangiz muvaffaqiyatli qabul qilindi! Ariza ish kunlarida 48 soat ichida ko'rib chiqiladi").
+     - Slide 38 & 39 talablari: 6-Bosqichli interaktiv Amaliyot Tasdiqlash Yo'l Xaritasi (1-Qadam: Ro'yxatdan o'tish, 2-Qadam: Applicant va hujjat yuklash, 3-Qadam: Tasdiqlashdan so'ng boshlash, 4-Qadam: 1.5 oylik Mid-term baho, 5-Qadam: 3 oylik Final hisobot, 6-Qadam: P2P taqdimot va +3000 XP).
+     - Slide 33 talablari: O'quv dasturi dedlaynlari va asosiy bosqichlar matriksasi (Core 1: 31.07.2025, Core 2: 29.08.2025, Core 3: 15.11.2025, Final Track: MedLoop Amaliyot).
+     - 1-Click Deliverable Dock (8 ta simmetrik kartochka): `#dockAgreementBtn` (`/MedLoop_Agreement.pdf`), `#dockLoiBtn` (`/loi.pdf`), va 6 ta sub-sahifa havolalari (`/index.html`, `/reception.html`, `/workflow.html`, `/mini_app.html`, `/clinic-roi.html`, `/tracker.html`).
+     - 4D apparat klaviaturasi boshqaruvi: '1' (1-qadam), '2' (2-qadam), '3' (3-bosqich), 'U' (O'zbekcha), 'R' (Ruscha), 'Escape' (Modallarni yopish).
+     - Qat'iy qoidalar: Zero Emojis (0 emoji), Diego 60-30-10 dizayn palitrasi (`#050505`, `#0A0A0A`, `#111111`, `#21A038`, `#C6F432`, `#00E5FF`).
+  2. `scripts/test_playwright_e2e.py` da Phase 9 (School 21 Internship Platform) to'liq sinovini joriy qilish:
+     - Phase 1 ga yangi `/internship.html` sahifasini qo'shish (HTTP 200, 0 JS xatolari, 0 emoji).
+     - Talaba profili va Toshkent kampusi belgilarini tekshirish.
+     - Ikki tilli (UZ/RU) rejim almashinuvini tekshirish.
+     - Obuna holati (Subscribe / Subscribed) almashinuvini tekshirish.
+     - 6-bosqichli yo'l xaritasida 2, 4 va 6-bosqichlar faollashuvini tekshirish.
+     - 2-bosqichli ariza vizardi (Step 1 -> Step 2 -> Submit -> 48h SLA tasdig'i -> ESC yopilishi) to'liq zanjirini tekshirish.
+     - Deliverable Dock dagi ikkala PDF modal (`MedLoop_Agreement.pdf`, `loi.pdf`) va 6 ta ichki yo'nalish havolalarini tekshirish.
+     - 4D apparat klaviatura buyruqlari ('1', '3', 'r', 'u', 'Escape') ni to'liq tekshirish.
+     - Umumiy Playwright assertatsiyalar sonini 219 tadan **248 taga (248 Green Assertions Milestone)** oshirib, 100% GREEN kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (79 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 248 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** School 21 talabalari, Karyera markazi mentorlari, xalqaro hakamlar va investorlar.
+- **Format:** `public/internship.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
