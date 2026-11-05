@@ -314,7 +314,55 @@ def test_e2e():
         restored_count = page.evaluate("document.querySelectorAll('#tableBody tr').length")
         assert restored_count == 8, f"Expected 8 total clinics, got: {restored_count}"
         print(f"  [OK] Filter pills: Restored to {restored_count} total clinics")
-        total_checks += 4
+
+        # Filter PASS / Validated clinics
+        page.click("#btn-flt-pass")
+        page.wait_for_timeout(200)
+        pass_count = page.evaluate("document.querySelectorAll('#tableBody tr').length")
+        assert pass_count == 5, f"Expected 5 validated clinics, got: {pass_count}"
+        print(f"  [OK] Filter pills: Filtered to {pass_count} validated clinics (PASS)")
+
+        # Live search test
+        page.fill("#clinicSearch", "Zarmed")
+        page.wait_for_timeout(200)
+        search_count = page.evaluate("document.querySelectorAll('#tableBody tr').length")
+        assert search_count == 1, f"Expected 1 clinic for 'Zarmed', got: {search_count}"
+        matched_text = page.inner_text("#tableBody tr:first-child")
+        assert "Zarmed" in matched_text, f"Expected Zarmed in search result row, got: {matched_text}"
+        print("  [OK] Clinic search input: Filtered table correctly to Zarmed Pratiksha")
+
+        # Clear search and reset filter
+        page.fill("#clinicSearch", "")
+        page.click("#btn-flt-all")
+        page.wait_for_timeout(200)
+
+        # Test CustDev Entry Modal open and Escape dismiss
+        page.evaluate("openModal()")
+        page.wait_for_timeout(200)
+        modal_open = page.evaluate("document.getElementById('entryModal').style.display === 'flex'")
+        assert modal_open, "Expected entryModal to be open"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        modal_closed = page.evaluate("document.getElementById('entryModal').style.display === 'none'")
+        assert modal_closed, "Expected entryModal to be closed on Escape key"
+        print("  [OK] CustDev entry modal: Opened and dismissed cleanly via ESC key")
+
+        # Test Document Preview Modal open and Escape dismiss
+        page.evaluate("previewDocument('MedLoop_Agreement.pdf', 'Taasis Shartnomasi')")
+        page.wait_for_timeout(200)
+        doc_open = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert doc_open, "Expected docPreviewModal to be open"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        doc_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert doc_closed, "Expected docPreviewModal to be closed on Escape key"
+        print("  [OK] Document preview modal: Opened and dismissed cleanly via ESC key")
+
+        # Test Telemetry LOI Stat Metric
+        stat_loi = page.inner_text("#statLOI")
+        assert "5 / 8" in stat_loi, f"Expected 5 / 8 LOI signed, got: {stat_loi}"
+        print(f"  [OK] CustDev tracker telemetry stats: Validated LOI conversion metric ({stat_loi})")
+        total_checks += 9
 
         # Phase 6: Test Index Hardware Split-Stage & Clinic Selector
         print("\n[INDEX HARDWARE SPLIT-STAGE & CLINIC SELECTOR TEST]")

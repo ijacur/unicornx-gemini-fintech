@@ -456,3 +456,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** B2B klinika direktorlari, investorlar, School 21 hakamlar hay'ati, gepatolog va terapevt shifokorlar.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #35 / 500: CustDev Evidence Matrix, PASS Filter, Live Search & Contract Preview E2E Suite (78 Assertions) & Production Deploy
+- **Kim siz:** Principal CustDev Intelligence & Clinical Evidence Systems Architect.
+- **Nima kerak:**
+  1. `public/tracker.html` (8 ta klinika bilan o'tkazilgan CustDev tahlili va dalillar matritsasi) dagi barcha interaktiv oqimlarni: PASS/LOI filtri (`#btn-flt-pass` orqali 5 ta tasdiqlangan poliklinika), klinika va vrach bo'yicha jonli qidiruv (`#clinicSearch` orqali Zarmed Pratiksha), yangi CustDev intervyusi kiritish modali (`#entryModal`), ta'sis shartnomasi hujjatini oldindan ko'rish modali (`#docPreviewModal`), `Escape` tugmasi bilan yopish va LOI konversiya statistikasi telemetriyasini (`#statLOI` 5 / 8) to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 5 ga ushbu barcha tekshiruvlarni kiritish orqali Playwright assertatsiyalari sonini 73 tadan 78 taga yetkazish va 100% GREEN holatida tasdiqlash.
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 78 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Investorlar, School 21 hakamlar hay'ati, poliklinika rahbarlari, marketing va CustDev bo'yicha tadqiqotchilar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
