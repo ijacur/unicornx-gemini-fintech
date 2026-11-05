@@ -292,7 +292,44 @@ def test_e2e():
         prop_closed = not page.evaluate("document.getElementById('commercialProposalModal').classList.contains('active')")
         assert prop_closed, "Commercial proposal modal did not close on Escape"
         print("  [OK] Commercial Proposal Modal: Dismissed cleanly via ESC key")
-        total_checks += 3
+
+        # Test Top Nav Founders Agreement Modal open & ESC close
+        page.click("#navClinicRoiAgreementBtn")
+        page.wait_for_timeout(300)
+        roi_modal_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert roi_modal_display == "flex", f"Expected docPreviewModal to be flex in clinic-roi, got: {roi_modal_display}"
+        iframe_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in iframe_src, f"Expected MedLoop_Agreement.pdf in iframe, got: {iframe_src}"
+
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        roi_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert roi_modal_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {roi_modal_after_esc}"
+        print("  [OK] Clinic ROI Top Nav: Opened Founders Agreement modal and dismissed via ESC")
+
+        # Test Top Nav 14-Day Pilot LOI Modal open & ESC close
+        page.click("#navClinicRoiLoiBtn")
+        page.wait_for_timeout(300)
+        loi_modal_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert loi_modal_display == "flex", f"Expected docPreviewModal to be flex for LOI, got: {loi_modal_display}"
+        iframe_loi_src = page.get_attribute("#docViewerIframe", "src")
+        assert "loi.pdf" in iframe_loi_src, f"Expected loi.pdf in iframe, got: {iframe_loi_src}"
+
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        loi_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert loi_modal_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {loi_modal_after_esc}"
+        print("  [OK] Clinic ROI Top Nav: Opened 14-Day Pilot LOI modal and dismissed via ESC")
+
+        # Test Live KPI Cards & Telegram Outreach Link
+        kpi_scans = page.inner_text("#kpiScans")
+        kpi_net = page.inner_text("#kpiNetProfit")
+        assert "4,200" in kpi_scans, f"Expected 4,200 scans for 140 pts/day, got: {kpi_scans}"
+        assert "+" in kpi_net, f"Expected positive surplus in kpiNetProfit, got: {kpi_net}"
+        tg_outreach_href = page.get_attribute("#btnTelegramOutreach", "href")
+        assert "https://t.me/jasurceo?text=" in tg_outreach_href, f"Unexpected outreach link: {tg_outreach_href}"
+        print(f"  [OK] Clinic ROI live metrics: Scans ({kpi_scans}), Surplus ({kpi_net}), Telegram Outreach Link verified")
+        total_checks += 8
 
         # Phase 4: Test Bilingual Toggle & Clinic Switcher on Mini App
         print("\n[MINI APP BILINGUAL & CLINIC SWITCHER TEST]")
