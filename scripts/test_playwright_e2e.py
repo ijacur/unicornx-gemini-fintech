@@ -1543,6 +1543,41 @@ def test_e2e():
 
         total_checks += 26
 
+        # =========================================================================
+        # PHASE 10: Symmetrical Navigation & Ecosystem Interlinking Verification
+        # =========================================================================
+        print("\n--- PHASE 10: Symmetrical Navigation & Internship Ecosystem Interlinking ---")
+        
+        pages_to_check = [
+            ("reception.html", "/internship.html"),
+            ("clinic-roi.html", "/internship.html"),
+            ("workflow.html", "/internship.html"),
+            ("tracker.html", "/internship.html"),
+            ("medloop.html", "/internship.html"),
+            ("mini_app.html", "/internship.html")
+        ]
+        for page_name, exp_link in pages_to_check:
+            page.goto(f"http://localhost:{PORT}/{page_name}", wait_until="domcontentloaded")
+            page.wait_for_timeout(200)
+            has_internship_link = page.evaluate(f"""() => {{
+                const links = Array.from(document.querySelectorAll('a'));
+                return links.some(a => a.getAttribute('href') === '{exp_link}' || a.href.includes('{exp_link}'));
+            }}""")
+            assert has_internship_link, f"Page {page_name} missing symmetrical link to {exp_link}"
+            print(f"  [OK] Ecosystem Navigation: {page_name} -> {exp_link} verified")
+            total_checks += 1
+
+        # Check back-link on internship.html to /
+        page.goto(f"http://localhost:{PORT}/internship.html", wait_until="domcontentloaded")
+        page.wait_for_timeout(200)
+        has_root_link = page.evaluate("""() => {
+            const link = document.querySelector('.brand-group a');
+            return link && (link.getAttribute('href') === '/' || link.href.endsWith('/'));
+        }""")
+        assert has_root_link, "internship.html brand group missing return link to /"
+        print("  [OK] Ecosystem Navigation: internship.html brand group -> / verified")
+        total_checks += 1
+
         browser.close()
 
     httpd.shutdown()
