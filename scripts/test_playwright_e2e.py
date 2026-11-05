@@ -264,7 +264,7 @@ def test_e2e():
 
         # Trigger 1-Click Booking
         page.click("#bookingBtn")
-        page.wait_for_timeout(500)
+        page.wait_for_timeout(700)
         rev_text = page.inner_text("#revenueCounter")
         assert "4,800,000" in rev_text, f"Expected 4,800,000 UZS recovered, got: {rev_text}"
         

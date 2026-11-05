@@ -287,3 +287,15 @@
   4. Vite build orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga yuborish.
 - **Kim uchun:** Poliklinika rahbarlari, shifokorlar, registratorlar, xalqaro hakamlar va investorlar.
 - **Format:** `public/clinic-roi.html`, `public/workflow.html`, `public/tracker.html`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #20 / 500: Unicorn Health Deep Cleanse (1,481 Emojis Eradicated across 111 Portals), Electric Cyan Re-Skin, Odometr Ticker Stabilization & Production Deploy
+- **Kim siz:** Lead Ecosystem Quality Architect & Cross-Platform Integrity Engineer.
+- **Nima kerak:**
+  1. `unicorn-health-uzbekistan` (`/Users/jasur/Desktop/Turnir/unicorn_health`) da foydalanuvchi talabiga asosan barcha 111 ta portal va sub-fayllardagi jami **1,481 ta arzon emoji spamlarini** (shoshilinch sirenalar, preparatlar, shpritslar, robotlar va h.k.) to'liq tozalash va ularni monoxrom `JetBrains Mono` status teglari (`[ALERT]`, `[PREPARAT]`, `[KLINIK]`, `[QIDIRUV]`, `[UZS]`, `[HIMOYA]`) ga almashtirish.
+  2. Barcha sub-portallar (`doriquti`, `arzonlab`, `admin`, `docs`, `epivision`, `xr`, `medloop`, `simulyator`) da Diego 60-30-10 Electric Cyan (`#00F5D4`) palitrasi va 2% SVG film grain ambient qatlamini tekshirish va tasdiqlash.
+  3. `unicorn-health-uzbekistan` ni Vercel production (`unicorn-health-uzbekistan.vercel.app`) ga to'liq qayta yuklash (Ready in 8s).
+  4. Turnir asosiy sahifasidagi (`index.html`) tiklangan daromad hisoblagichi odometri (`animateNumber`) tezligini optimallashtirish (200ms) va Playwright brauzer kutish vaqtini moslashtirish orqali 46 ta E2E testlarning 100% deterministik yashil o'tishini ta'minlash.
+  5. Vite build orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha commitlarni yuborish.
+- **Kim uchun:** Unicorn Health bemorlari, shifokorlari, dorixona tarmoqlari, SamMU klinik bazalari rahbarlari va xalqaro hakamlar.
+- **Format:** `unicorn_health/**`, `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
