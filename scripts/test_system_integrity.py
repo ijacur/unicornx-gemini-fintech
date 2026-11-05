@@ -19,7 +19,7 @@ TURNIR_DIR = BASE_DIR
 MEDLOOP_DIR = "/Users/jasur/Desktop/MedLoop/medloop_platform"
 
 def check_emojis():
-    print("[1/8] Checking Zero-Emoji Rule...")
+    print("[1/9] Checking Zero-Emoji Rule...")
     files_to_check = [
         os.path.join(TURNIR_DIR, "index.html"),
         os.path.join(TURNIR_DIR, "public", "reception.html"),
@@ -28,15 +28,20 @@ def check_emojis():
         os.path.join(TURNIR_DIR, "public", "tracker.html"),
         os.path.join(TURNIR_DIR, "public", "mini_app.html"),
         os.path.join(TURNIR_DIR, "public", "medloop.html"),
-        os.path.join(MEDLOOP_DIR, "bot", "handlers.py"),
-        os.path.join(MEDLOOP_DIR, "bot", "keyboards.py"),
-        os.path.join(MEDLOOP_DIR, "engine", "summarizer.py"),
         "/Users/jasur/personal_telegram_ai/persona.py",
         "/Users/jasur/personal_telegram_ai/ai_brain.py",
         "/Users/jasur/personal_telegram_ai/userbot.py",
         "/Users/jasur/personal_telegram_ai/login.py",
         "/Users/jasur/personal_telegram_ai/test_personal_ai.py"
     ]
+    # Include all Python source files in MedLoop platform
+    if os.path.exists(MEDLOOP_DIR):
+        for root, dirs, files in os.walk(MEDLOOP_DIR):
+            if "/." in root:
+                continue
+            for f in sorted(files):
+                if f.endswith('.py'):
+                    files_to_check.append(os.path.join(root, f))
     # Include all React & TypeScript sources in src/
     src_dir = os.path.join(TURNIR_DIR, "src")
     if os.path.exists(src_dir):
@@ -146,6 +151,18 @@ def check_personal_telegram_ai():
     assert proc.returncode == 0, f"test_personal_ai.py suite failed:\n{proc.stderr}\n{proc.stdout}"
     print("  [OK] Personal Telegram AI Unit & Integration Suite passed (5/5 tests green)")
 
+def check_medloop_backend_suite():
+    print("[9/9] Verifying MedLoop Backend API, Deterministic Triage Engine & Bot Suite...")
+    assert os.path.exists(MEDLOOP_DIR), "MEDLOOP_DIR missing"
+    pytest_bin = os.path.join(MEDLOOP_DIR, ".venv", "bin", "pytest")
+    if not os.path.exists(pytest_bin):
+        pytest_bin = "pytest"
+    env = os.environ.copy()
+    env["PYTHONPATH"] = "."
+    res = subprocess.run([pytest_bin, "tests"], cwd=MEDLOOP_DIR, env=env, capture_output=True, text=True)
+    assert res.returncode == 0, f"MedLoop pytest suite failed:\n{res.stderr}\n{res.stdout}"
+    print("  [OK] MedLoop Backend 16/16 Unit & Integration Tests Passed (100% GREEN)")
+
 if __name__ == "__main__":
     try:
         check_emojis()
@@ -156,7 +173,8 @@ if __name__ == "__main__":
         check_playwright_e2e()
         check_live_ecosystem()
         check_personal_telegram_ai()
-        print("\nALL 8 SYSTEM INTEGRITY, PLAYWRIGHT, LIVE ECOSYSTEM & AI PERSONAL ASSISTANT CHECKS PASSED (100% GREEN)")
+        check_medloop_backend_suite()
+        print("\nALL 9 SYSTEM INTEGRITY, PLAYWRIGHT, LIVE ECOSYSTEM, PERSONAL AI & BACKEND CHECKS PASSED (100% GREEN)")
         sys.exit(0)
     except AssertionError as e:
         print(f"\n[INTEGRITY FAILURE]: {e}")

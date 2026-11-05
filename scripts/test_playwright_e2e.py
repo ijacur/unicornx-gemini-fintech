@@ -523,6 +523,28 @@ def test_e2e():
         is_loi_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
         assert is_loi_closed, "LOI preview modal did not close on Escape key"
         print("  [OK] Index deliverable dock: Opened and dismissed 14-day LOI preview cleanly via ESC key")
+
+        # Test Top Nav Agreement Button Click & ESC dismiss
+        page.click("#navAgreementBtn")
+        page.wait_for_timeout(200)
+        nav_modal_visible = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert nav_modal_visible, "Top nav agreement modal did not open on click"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(250)
+        nav_modal_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert nav_modal_closed, "Top nav agreement modal did not close on Escape key"
+        print("  [OK] Index top nav: Opened and closed Founders Agreement modal cleanly via ESC key")
+
+        # Test Deliverable Dock Sub-Page Routing Links
+        rec_href = page.get_attribute("#card-deliverable-reception", "href")
+        assert rec_href == "/reception.html", f"Unexpected reception href: {rec_href}"
+        trk_href = page.get_attribute("#card-deliverable-tracker", "href")
+        assert trk_href == "/tracker.html", f"Unexpected tracker href: {trk_href}"
+        mini_href = page.get_attribute("#card-deliverable-miniapp", "href")
+        assert mini_href == "/mini_app.html", f"Unexpected mini_app href: {mini_href}"
+        wf_href = page.get_attribute("#card-deliverable-workflow", "href")
+        assert wf_href == "/workflow.html", f"Unexpected workflow href: {wf_href}"
+        print(f"  [OK] Index deliverable dock: All 4 sub-page links validated ({rec_href}, {trk_href}, {mini_href}, {wf_href})")
         
         # Test 4D Hardware Keyboard Shortcut Navigation (Keys '1', '2', '3')
         page.keyboard.press("1")
@@ -542,7 +564,7 @@ def test_e2e():
         p_name3 = page.inner_text("#labPatientName")
         assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
         print(f"  [OK] Index keyboard navigation: Key '3' activated anemia panel ({p_name3})")
-        total_checks += 14
+        total_checks += 19
 
         # Phase 7: Test Reception Clinic Switcher & Doctor Room Telemetry
         print("\n[RECEPTION CLINIC SWITCHER & DOCTOR ROOM TELEMETRY TEST]")
