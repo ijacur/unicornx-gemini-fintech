@@ -378,3 +378,15 @@
   4. Vite orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app` - Ready in 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Turnir hakamlari, poliklinika rahbarlari, investorlar va klaviatura orqali tezkor boshqaruvchi foydalanuvchilar.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #28 / 500: Unicorn Health Deep System Healthcheck Suite (260 Checks), Zero-Emoji & Diego 60-30-10 Audit & Production Deploy
+- **Kim siz:** Principal Health Systems Architect & Clinical Software Safety Auditor.
+- **Nima kerak:**
+  1. `unicorn_health/tests/system_healthcheck.py` ga Zero-Emoji qoidasi (barcha 89 ta portal va sub-sahifalarda 0 emoji) va Diego 60-30-10 Electric Cyan (`#00F5D4`) / Midnight Void (`#06080D`) rang tokenlari auditini integratsiya qilish.
+  2. Barcha 11 ta JSON namunaviy ma'lumotlaridagi qoldiq emoji va belgilarni toza `[1-O'RIN]`, `[2-O'RIN]`, `[3-O'RIN]` monoxrom `JetBrains Mono` teglari bilan almashtirish.
+  3. `unicorn_health` tizimining 260/260 avtomatlashtirilgan yaxlitlik tekshiruvlarini (barcha 89 ta HTML portallar, 60 ta Python tibbiy tahlil dvigatellari, JSON schemalar, FHIR R4 va Vercel config) 100% GREEN tasdiqlash.
+  4. Vercel production deploy: `unicorn-health-uzbekistan.vercel.app` (Ready in 6s).
+  5. Turnir asosiy omboridagi 6/6 tizim yaxlitligi va barcha 53 ta Playwright E2E brauzer testlarini 100% GREEN saqlash, Vite qayta qurish va Vercel production (`turnir-launch-lab.vercel.app`) ga yuklash.
+- **Kim uchun:** O'zbekiston Sog'liqni Saqlash Vazirligi, hamkor poliklinikalar, xususiy laboratoriyalar, investorlar va School 21 hakamlari.
+- **Format:** `unicorn_health/tests/system_healthcheck.py`, `unicorn_health/shared/*.json`, `unicorn_health/tests/HEALTHCHECK_REPORT.json`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
