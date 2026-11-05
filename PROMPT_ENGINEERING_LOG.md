@@ -760,3 +760,23 @@
   4. Vite orqali qayta qurish (91ms) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Poliklinika bosh vrachlari, xususiy klinika rahbarlari, investorlar, School 21 ekspertlari va klinika registratorlari.
 - **Format:** `public/workflow.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.
+
+
+### Prompt #57 / 500: Mini App Digital Appointment Ticket Modal, Route Parity & 191-Assertion Milestone E2E Suite
+- **Kim siz:** Principal Patient Journey Experience & Multi-Clinic Booking Flywheel Architect.
+- **Nima kerak:**
+  1. `public/mini_app.html` (Telegram Mini App klinik saralash va navbat portali) ga bemor qabulni tasdiqlaganda raqamli chipta (Digital Appointment Pass / MedLoop Pass) interfeysini kiritish:
+     - `#successNotice` ichiga to'g'ridan-to'g'ri `#btnOpenTicketModal` ("Raqamli Chiptani Ko'rish (MedLoop Pass) &rarr;") tugmasini integratsiya qilish.
+     - `#ticketModalOverlay` va `#ticketModal` (Apple Pro hardware voucher uslubida) modalini joriy qilish: biriktirilgan klinika (`#ticketClinicName`), bemor ismi (`#ticketPatientName`), shifokor va mutaxassisligi (`#ticketDoctorName`, `#ticketDoctorSpec`), belgilangan vaqt (`#ticketSlot`), xavfsizlik tokeni (`#ticketPassRef`), nozik chiziqli SVG shtrix-kod telemetriyasi va "Klinika registratori monitoriga avtomatik sinxronlangan (+150,000 UZS)" kafolat yozuvi.
+     - `openTicketModal()` va `closeTicketModal()` funksiyalarini yaratish, Web Audio API orqali taktli tasdiq ovozi (`playChime('confirm')`) va Escape tugmasi orqali toza yopilishini ta'minlash.
+     - Footer quyi navigatsiya paneliga 100% marshrut simmetriyasi uchun `#mini-app-link-pitch` (`/medloop.html`) havolasini kiritish.
+  2. `scripts/test_playwright_e2e.py` da Phase 4 (Telegram Mini App) sinovlarini kengaytirish:
+     - Qabul tasdiqlangandan so'ng `#btnOpenTicketModal` bosilishini tekshirish.
+     - `#ticketModal` ochilganini va uning ichidagi `#ticketPatientName`, `#ticketDoctorName` hamda `#ticketSlot` qiymatlarini validatsiya qilish.
+     - `Escape` tugmasi orqali `#ticketModal` toza yopilganini tasdiqlash.
+     - Footer havolasi `#mini-app-link-pitch` `/medloop.html` ga olib borishini tekshirish.
+     - Phase 4 assertatsiyalar sonini 21 tadan 27 taga oshirib, umumiy Playwright E2E assertatsiyalarini 185 tadan **191 taga (191 Green Assertions Milestone)** yetkazish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 191 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (92ms) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Bemorlar, poliklinika bosh vrachlari, qabulxona xodimlari, investorlar va School 21 hakamlar hay'ati.
+- **Format:** `public/mini_app.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Git commit.

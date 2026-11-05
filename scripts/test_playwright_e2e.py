@@ -562,7 +562,32 @@ def test_e2e():
         ma_loi_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
         assert ma_loi_modal_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {ma_loi_modal_after_esc}"
         print("  [OK] Mini App Dock: Opened 14-Day Pilot LOI modal and dismissed via ESC")
-        total_checks += 21
+
+        # Open and test Digital Appointment Ticket (MedLoop Pass) Modal
+        page.click("#btnOpenTicketModal")
+        page.wait_for_timeout(300)
+        ticket_visible = page.is_visible("#ticketModal")
+        assert ticket_visible, "Ticket modal did not open on button click"
+        ticket_patient = page.inner_text("#ticketPatientName")
+        ticket_doctor = page.inner_text("#ticketDoctorName")
+        ticket_slot = page.inner_text("#ticketSlot")
+        assert "Xoliqov Bobur" in ticket_patient, f"Expected Xoliqov Bobur in ticket, got: {ticket_patient}"
+        assert "Shirinov" in ticket_doctor, f"Expected Dr. Shirinov in ticket, got: {ticket_doctor}"
+        assert len(ticket_slot) > 0, "Expected non-empty ticket slot"
+        print(f"  [OK] Mini App digital pass: Ticket modal opened with {ticket_patient} • {ticket_doctor} ({ticket_slot})")
+
+        # Close ticket modal with Escape
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(250)
+        ticket_closed = not page.is_visible("#ticketModal")
+        assert ticket_closed, "Ticket modal did not close on Escape key"
+        print("  [OK] Mini App digital pass: Closed cleanly via ESC key")
+
+        # Test footer pitch route link
+        footer_pitch_href = page.get_attribute("#mini-app-link-pitch", "href")
+        assert "/medloop.html" in footer_pitch_href, f"Expected /medloop.html in footer pitch link, got: {footer_pitch_href}"
+        print(f"  [OK] Mini App footer link: Verified pitch link ({footer_pitch_href})")
+        total_checks += 27
 
         # Phase 5: Test Tracker Evidence Drawer & Filter Pills
         print("\n[TRACKER EVIDENCE DRAWER & FILTER TEST]")
