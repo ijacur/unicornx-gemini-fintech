@@ -729,7 +729,48 @@ def test_e2e():
         new_row_text = page.inner_text("#tableBody")
         assert post_ingest_rows == 9 and "Shifo Nur Med" in new_row_text, f"Expected 9 rows and Shifo Nur Med, got {post_ingest_rows}"
         print("  [OK] Tracker dynamic ingestion: Ingested Shifo Nur Med Samarqand (9 rows total)")
-        total_checks += 19
+
+        # Test Tracker Deliverable Dock Agreement Preview Modal
+        page.click("#dockAgreementBtn")
+        page.wait_for_timeout(300)
+        dock_agr_open = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert dock_agr_open, "Tracker deliverable dock agreement modal did not open"
+        dock_agr_iframe = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in dock_agr_iframe, f"Expected MedLoop_Agreement.pdf, got: {dock_agr_iframe}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        dock_agr_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert dock_agr_closed, "Tracker deliverable dock agreement modal did not close on Escape"
+        print("  [OK] Tracker deliverable dock: Opened and closed Founders Agreement modal cleanly via ESC key")
+
+        # Test Tracker Deliverable Dock LOI Preview Modal
+        page.click("#dockLoiBtn")
+        page.wait_for_timeout(300)
+        dock_loi_open = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert dock_loi_open, "Tracker deliverable dock LOI modal did not open"
+        dock_loi_iframe = page.get_attribute("#docViewerIframe", "src")
+        assert "loi.pdf" in dock_loi_iframe, f"Expected loi.pdf, got: {dock_loi_iframe}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        dock_loi_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert dock_loi_closed, "Tracker deliverable dock LOI modal did not close on Escape"
+        print("  [OK] Tracker deliverable dock: Opened and closed 14-Day Pilot LOI modal cleanly via ESC key")
+
+        # Test Tracker Deliverable Dock 6 Sub-page Links
+        track_reception_href = page.get_attribute("#tracker-card-reception", "href")
+        assert "/reception.html" in track_reception_href, f"Expected /reception.html, got: {track_reception_href}"
+        track_wf_href = page.get_attribute("#tracker-card-workflow", "href")
+        assert "/workflow.html" in track_wf_href, f"Expected /workflow.html, got: {track_wf_href}"
+        track_mini_href = page.get_attribute("#tracker-card-miniapp", "href")
+        assert "/mini_app.html" in track_mini_href, f"Expected /mini_app.html, got: {track_mini_href}"
+        track_roi_href = page.get_attribute("#tracker-card-roi", "href")
+        assert "/clinic-roi.html" in track_roi_href, f"Expected /clinic-roi.html, got: {track_roi_href}"
+        track_pitch_href = page.get_attribute("#tracker-card-pitch", "href")
+        assert "/medloop.html" in track_pitch_href, f"Expected /medloop.html, got: {track_pitch_href}"
+        track_idx_href = page.get_attribute("#tracker-card-index", "href")
+        assert "/index.html" in track_idx_href, f"Expected /index.html, got: {track_idx_href}"
+        print("  [OK] Tracker deliverable dock: All 6 sub-page links validated (/reception.html, /workflow.html, /mini_app.html, /clinic-roi.html, /medloop.html, /index.html)")
+        total_checks += 27
 
         # Phase 6: Test Index Hardware Split-Stage & Clinic Selector
         print("\n[INDEX HARDWARE SPLIT-STAGE & CLINIC SELECTOR TEST]")
