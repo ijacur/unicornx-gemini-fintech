@@ -561,3 +561,15 @@
   6. Vite orqali qayta qurish (121ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 18s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Poliklinika rahbarlari, investorlar, School 21 hakamlar hay'ati, ishlab chiquvchilar va bemorlar.
 - **Format:** `index.html`, `medloop_platform`, `Turnir/scripts/test_system_integrity.py`, `Turnir/scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #44 / 500: MedLoop B2B Pitch Routing Matrix, Deliverable Dock Telemetry & 115 E2E Assertions & Production Deploy
+- **Kim siz:** Principal B2B Pitch & Commercial Presentation Automation Architect.
+- **Nima kerak:**
+  1. `public/medloop.html` (B2B tijoriy taqdimot va apparat split-ekrani) dagi navigatsiyani to'ldirib, yuqori menyuga `[06] Telegram Mini App` yo'nalishini kiritish hamda Ta'sischilar bitimi tugmasiga `#navMedloopAgreementBtn` identifikatorini biriktirish.
+  2. `public/medloop.html` dagi 1-Click Deliverable Dock tizimiga 5-kartochka sifatida Telegram Mini App ilovasini (`#medloop-card-miniapp`) qo'shish va mavjud barcha hujjat kartochkalarini (`#medloop-card-agreement`, `#medloop-card-loi`, `#medloop-card-reception`, `#medloop-card-tracker`) to'liq marshrut sinovlari bilan qoplash.
+  3. `scripts/test_playwright_e2e.py` da Phase 8 ga ushbu 5 ta yangi tekshiruvni kiritish orqali Playwright assertatsiyalari sonini 110 tadan **115 taga (115 Green Assertions)** oshirish va 100% GREEN holatida tasdiqlash.
+  4. Barcha 9/9 tizim yaxlitligi (78 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 115 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI 5/5 va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  5. Vite orqali qayta qurish (100ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** B2B shifoxona egalari, ta'sischilar, investitsiya fondlari, School 21 ekspertlari va klinika direktorlari.
+- **Format:** `public/medloop.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

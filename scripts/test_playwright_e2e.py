@@ -717,6 +717,21 @@ def test_e2e():
         assert "sample_" in pdf_href and ".pdf" in pdf_href, f"Expected sample PDF link, got: {pdf_href}"
         print(f"  [OK] MedLoop pitch sample link: Validated medical PDF attachment ({pdf_href})")
 
+        # Test MedLoop Deliverable Cards & Routing Links
+        card_agr = page.get_attribute("#medloop-card-agreement", "href")
+        assert card_agr == "/MedLoop_Agreement.pdf", f"Unexpected agreement href: {card_agr}"
+        card_loi = page.get_attribute("#medloop-card-loi", "href")
+        assert card_loi == "/loi.pdf", f"Unexpected LOI href: {card_loi}"
+        card_rec = page.get_attribute("#medloop-card-reception", "href")
+        assert card_rec == "/reception.html", f"Unexpected reception href: {card_rec}"
+        card_trk = page.get_attribute("#medloop-card-tracker", "href")
+        assert card_trk == "/tracker.html", f"Unexpected tracker href: {card_trk}"
+        card_mini = page.get_attribute("#medloop-card-miniapp", "href")
+        assert card_mini == "/mini_app.html", f"Unexpected mini_app href: {card_mini}"
+        nav_agr = page.get_attribute("#navMedloopAgreementBtn", "href")
+        assert nav_agr == "/MedLoop_Agreement.pdf", f"Unexpected nav agreement href: {nav_agr}"
+        print(f"  [OK] MedLoop pitch deliverable dock: All 5 links & top nav validated ({card_agr}, {card_loi}, {card_rec}, {card_trk}, {card_mini})")
+
         # Test 4D Hardware Keyboard Navigation on MedLoop Pitch (Keys '1', '2', '3')
         page.keyboard.press("1")
         page.wait_for_timeout(200)
@@ -735,7 +750,7 @@ def test_e2e():
         p_name3 = page.inner_text("#labPatientName")
         assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
         print(f"  [OK] MedLoop pitch keyboard shortcut: Key '3' loaded anemia panel ({p_name3})")
-        total_checks += 10
+        total_checks += 15
 
         browser.close()
 
