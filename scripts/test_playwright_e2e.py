@@ -536,7 +536,37 @@ def test_e2e():
         is_referral_closed = page.evaluate("document.getElementById('referralModal').style.display === 'none'")
         assert is_referral_closed, "Referral sheet modal did not close on Escape key"
         print("  [OK] Reception referral sheet modal: Opened and dismissed cleanly via ESC key")
-        total_checks += 9
+
+        # Test Queue Urgency Filter Pills (RED, YELLOW, ALL)
+        page.click("#filter-red")
+        page.wait_for_timeout(200)
+        red_items = page.evaluate("document.querySelectorAll('#patientList .badge-urgent').length")
+        assert red_items > 0, "Expected at least one URGENT RED patient in filtered queue"
+        print(f"  [OK] Reception urgency filter: Filtered to {red_items} RED urgency patients")
+
+        page.click("#filter-yellow")
+        page.wait_for_timeout(200)
+        yellow_items = page.evaluate("document.querySelectorAll('#patientList .badge-monochrome').length")
+        assert yellow_items > 0, "Expected at least one YELLOW urgency patient in filtered queue"
+        print(f"  [OK] Reception urgency filter: Filtered to {yellow_items} YELLOW urgency patients")
+
+        page.click("#filter-all")
+        page.wait_for_timeout(200)
+        all_queue_count = page.evaluate("document.querySelectorAll('#patientList > div.bento-card').length")
+        assert all_queue_count == page.evaluate("patients.length"), f"Expected {page.evaluate('patients.length')} total patients, got {all_queue_count}"
+        print(f"  [OK] Reception urgency filter: Restored full queue ({all_queue_count} patients)")
+
+        # Test Manual OCR Blank Intake Form
+        page.fill("#manualName", "Hamidov Bobur")
+        page.fill("#manualPhone", "+998 93 111 22 33")
+        page.click("#sendBtn")
+        page.wait_for_timeout(750)
+        feedback_visible = page.evaluate("document.getElementById('manualFeedback').style.display === 'block'")
+        assert feedback_visible, "Expected manualFeedback to be visible after OCR intake"
+        first_patient_name = page.evaluate("patients[0].name")
+        assert "Hamidov Bobur" in first_patient_name, f"Expected Hamidov Bobur as first patient, got: {first_patient_name}"
+        print(f"  [OK] Reception manual OCR intake: Ingested {first_patient_name} to queue")
+        total_checks += 14
 
         # Phase 8: Test MedLoop B2B Pitch & Interactive Stage
         print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")

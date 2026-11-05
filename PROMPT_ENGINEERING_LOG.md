@@ -478,3 +478,14 @@
   4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Klinika direktorlari, moliya rahbarlari, investorlar, School 21 texnik hakamlar hay'ati va integratsiya bo'yicha muhandislar.
 - **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #37 / 500: Reception Queue Urgency Filters, Manual OCR Intake & Triage Suite (87 Assertions) & Production Deploy
+- **Kim siz:** Principal Front-Desk Automation & Clinical Reception Systems Architect.
+- **Nima kerak:**
+  1. `public/reception.html` (Registratura dispetcherlik portali) dagi navbatni xavflilik toifalari bo'yicha saralash filtrlarini (`#filter-red` URGENT RED, `#filter-yellow` SARIQ TOIFA, `#filter-all` to'liq navbat) va yangi bemor qog'oz blankasini qo'lda OCR skan orqali navbatga kiritish formasini (`#manualName`, `#manualPhone`, `#sendBtn`, `#manualFeedback` ko'rsatilishi) to'liq avtomatlashtirilgan Playwright brauzer sinovlari bilan qoplash.
+  2. `scripts/test_playwright_e2e.py` da Phase 7 ga ushbu barcha tekshiruvlarni kiritish orqali Playwright assertatsiyalari sonini 82 tadan 87 taga yetkazish va 100% GREEN holatida tasdiqlash.
+  3. Barcha 7/7 tizim yaxlitligi (50 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 87 ta Playwright E2E assertatsiyalari va 11 ta jonli Vercel platformasi) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish, Vercel production deploy (`turnir-launch-lab.vercel.app`) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika bosh registratorlari, qabul bo'limi mudirlari, tibbiy koordinatorlar, School 21 hakamlari va investorlar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
