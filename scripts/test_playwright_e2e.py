@@ -108,13 +108,34 @@ def test_e2e():
         print("\n[WORKFLOW INTERACTION TEST]")
         page.goto(f"http://localhost:{PORT}/workflow.html", wait_until="domcontentloaded")
         
-        # Test step advance
+        # Test step advance to Step 2
         page.click("button:has-text('Keyingi Bosqich')")
         page.wait_for_timeout(200)
-        step_text = page.inner_text("#currentStepIndicator")
-        assert "BOSQICH 2" in step_text, f"Step did not advance, got: {step_text}"
-        print(f"  [OK] Step navigation: Advanced to Step 2 successfully ({step_text})")
-        total_checks += 1
+        step_text2 = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 2" in step_text2, f"Step did not advance to 2, got: {step_text2}"
+        print(f"  [OK] Step navigation: Advanced to Step 2 successfully ({step_text2})")
+
+        # Test step advance to Step 3
+        page.click("button:has-text('Keyingi Bosqich')")
+        page.wait_for_timeout(200)
+        step_text3 = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 3" in step_text3, f"Step did not advance to 3, got: {step_text3}"
+        print(f"  [OK] Step navigation: Advanced to Step 3 successfully ({step_text3})")
+
+        # Test step advance to Step 4
+        page.click("button:has-text('Keyingi Bosqich')")
+        page.wait_for_timeout(200)
+        step_text4 = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 4" in step_text4, f"Step did not advance to 4, got: {step_text4}"
+        print(f"  [OK] Step navigation: Advanced to Step 4 successfully ({step_text4})")
+
+        # Test keyboard arrow navigation (ArrowLeft back to Step 3)
+        page.keyboard.press("ArrowLeft")
+        page.wait_for_timeout(200)
+        step_text_back = page.inner_text("#currentStepIndicator")
+        assert "BOSQICH 3" in step_text_back, f"Expected back to Step 3 on ArrowLeft, got: {step_text_back}"
+        print(f"  [OK] Keyboard Arrow navigation: ArrowLeft returned to Step 3 ({step_text_back})")
+        total_checks += 3
 
         # Test SOP modal open & ESC close
         page.click("button:has-text('Klinika SOP (Nizom)')")
@@ -127,7 +148,7 @@ def test_e2e():
         is_closed = not page.evaluate("document.getElementById('sopModal').classList.contains('active')")
         assert is_closed, "SOP modal did not close on Escape key"
         print("  [OK] SOP Modal: Opened and closed cleanly via ESC key")
-        total_checks += 2
+        total_checks += 3
 
         # Phase 3: Test Clinic ROI Commercial Proposal Modal & Presets
         print("\n[CLINIC ROI INTERACTION TEST]")
