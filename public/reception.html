@@ -266,6 +266,9 @@
     </div>
 
     <div style="display: flex; align-items: center; gap: 10px;">
+      <button id="navReceptionAgreementBtn" onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Shartnomasi')" class="btn-glass mono" style="padding: 5px 12px; font-size: 11px;">
+        Ta'sis Bitimi &uarr;
+      </button>
       <select id="clinicSelect" onchange="switchClinic()" class="mono" style="background: rgba(255,255,255,0.05); color: #FFF; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 4px 10px; font-size: 11px; outline: none;">
         <option value="osiyo" style="background: #111;">Osiyo Medical Clinic (Samarqand)</option>
         <option value="doktord" style="background: #111;">Doktor D Poliklinikasi (Toshkent)</option>
@@ -357,13 +360,13 @@
                 Yoki tayyor laboratoriya namunalarini sinab ko'ring:
               </div>
               <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4px;">
-                <button type="button" onclick="loadSampleToQueue('liver')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                <button type="button" id="btnSampleLiver" onclick="loadSampleToQueue('liver')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
                   Intermed: Jigar
                 </button>
-                <button type="button" onclick="loadSampleToQueue('glucose')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                <button type="button" id="btnSampleGlucose" onclick="loadSampleToQueue('glucose')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
                   De Facto: Qand
                 </button>
-                <button type="button" onclick="loadSampleToQueue('anemia')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
+                <button type="button" id="btnSampleAnemia" onclick="loadSampleToQueue('anemia')" class="btn-glass mono" style="font-size: 9px; padding: 4px 6px; justify-content: center;">
                   Vitros: Temir
                 </button>
               </div>
@@ -1085,10 +1088,33 @@
       }, 200);
     }
 
+    function previewDocument(url, title) {
+      playClinicalChime('confirm');
+      const m = document.getElementById('docPreviewModal');
+      const iframe = document.getElementById('docViewerIframe');
+      const titleEl = document.getElementById('docPreviewTitle');
+      const dlBtn = document.getElementById('docDownloadBtn');
+      if (m && iframe && titleEl && dlBtn) {
+        titleEl.innerText = title;
+        iframe.src = url;
+        dlBtn.href = url;
+        m.style.display = 'flex';
+      }
+    }
+
+    function closeDocPreview() {
+      playClinicalChime('click');
+      const m = document.getElementById('docPreviewModal');
+      const iframe = document.getElementById('docViewerIframe');
+      if (m) m.style.display = 'none';
+      if (iframe) iframe.src = '';
+    }
+
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closePatientDrawer();
         closeReferralModal();
+        closeDocPreview();
       }
     });
 
@@ -1302,6 +1328,28 @@
           </div>
           <div style="font-family: 'JetBrains Mono', monospace; font-size: 8px; margin-top: 2px;">QR VERIFIED</div>
         </div>
+      </div>
+    </div>
+  </div>
+  <!-- Apple Pro Document Preview Modal -->
+  <div id="docPreviewModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); z-index: 3000; align-items: center; justify-content: center; padding: 20px;">
+    <div style="background: #0A0A0A; border: 1px solid var(--border-subtle); border-radius: 20px; width: 920px; max-width: 95vw; height: 86vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,0.95);">
+      <div style="padding: 16px 24px; border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; background: #0E0E0E;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">[VERIFIED &bull; TRACK B]</span>
+          <h3 id="docPreviewTitle" style="font-size: 15px; font-weight: 600; color: #FFF; margin: 0;">Hujjat Ko'rinishi</h3>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <a id="docDownloadBtn" href="/MedLoop_Agreement.pdf" download class="btn-acid mono" style="padding: 6px 14px; font-size: 11px; text-decoration: none;">
+            PDF Yuklab Olish &darr;
+          </a>
+          <button onclick="closeDocPreview()" class="btn-glass mono" style="padding: 6px 12px; font-size: 11px;">
+            ESC &times;
+          </button>
+        </div>
+      </div>
+      <div style="flex: 1; background: #050505; position: relative;">
+        <iframe id="docViewerIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
       </div>
     </div>
   </div>

@@ -599,3 +599,16 @@
   4. Vite orqali qayta qurish (94ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Bosh shifokorlar, xususiy klinika rahbarlari, laboratoriya mudirlari, registratorlar, School 21 texnik hakamlari va investorlar.
 - **Format:** `public/workflow.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #47 / 500: Reception 1-Click Fast Ingestion Engine, Top Nav Agreement Modal & 130-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal Clinical Reception & Fast Ingestion Automation Architect.
+- **Nima kerak:**
+  1. `public/reception.html` (Registratura dispetcherlik portali) dagi interaktiv imkoniyatlarni kengaytirish:
+     - Yuqori menyuga `#navReceptionAgreementBtn` tugmasini kiritish va `docPreviewModal` (Apple Pro glass modal) orqali Ta'sischilar bitimini (`/MedLoop_Agreement.pdf`) ochish, yuklab olish va `Escape` orqali toza yopish mexanizmini to'liq integratsiya qilish.
+     - 1-bosishda tezkor haqiqiy laboratoriya namunalarini qabul navbatiga kiritish tugmalariga rasmiy identifikatorlar biriktirish (`#btnSampleLiver` Intermed Jigar ALT 94 U/L, `#btnSampleGlucose` De Facto Qand HbA1c 7.8%, `#btnSampleAnemia` Vitros Temir Ferritin 6.2 ng/mL) hamda ularni navbatga dinamik ingest qilish va telemetriyani yangilash.
+  2. `scripts/test_playwright_e2e.py` da Phase 7 ni kengaytirib, umumiy Playwright E2E assertatsiyalar sonini 125 tadan **130 taga (130 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  3. Barcha 9/9 tizim yaxlitligi (78 ta faylda 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 130 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI 5/5 va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  4. Vite orqali qayta qurish (86ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 18s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Poliklinika bosh registratorlari, qabul bo'limi mudirlari, tibbiy koordinatorlar, School 21 texnik hakamlar hay'ati va investorlar.
+- **Format:** `public/reception.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

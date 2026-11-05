@@ -745,7 +745,42 @@ def test_e2e():
         first_patient_name = page.evaluate("patients[0].name")
         assert "Hamidov Bobur" in first_patient_name, f"Expected Hamidov Bobur as first patient, got: {first_patient_name}"
         print(f"  [OK] Reception manual OCR intake: Ingested {first_patient_name} to queue")
-        total_checks += 14
+
+        # Test 1-Click Fast Real Sample Ingestion Pills (#btnSampleLiver, #btnSampleGlucose, #btnSampleAnemia)
+        pre_sample_len = page.evaluate("patients.length")
+        page.click("#btnSampleLiver")
+        page.wait_for_timeout(200)
+        assert page.evaluate("patients.length") == pre_sample_len + 1, "Expected queue to grow after liver sample"
+        top_name_liver = page.evaluate("patients[0].name")
+        assert "Bobur Xoliqov" in top_name_liver, f"Expected Bobur Xoliqov from liver sample, got: {top_name_liver}"
+        print(f"  [OK] Reception sample ingestion: Ingested liver sample ({top_name_liver})")
+
+        page.click("#btnSampleGlucose")
+        page.wait_for_timeout(200)
+        top_name_glucose = page.evaluate("patients[0].name")
+        assert "Karimova Ziyoda" in top_name_glucose, f"Expected Karimova Ziyoda from glucose sample, got: {top_name_glucose}"
+        print(f"  [OK] Reception sample ingestion: Ingested glucose sample ({top_name_glucose})")
+
+        page.click("#btnSampleAnemia")
+        page.wait_for_timeout(200)
+        top_name_anemia = page.evaluate("patients[0].name")
+        assert "Nilufar Usmonova" in top_name_anemia, f"Expected Nilufar Usmonova from anemia sample, got: {top_name_anemia}"
+        print(f"  [OK] Reception sample ingestion: Ingested anemia sample ({top_name_anemia})")
+
+        # Test Top Nav Founders Agreement Modal open & ESC close
+        page.click("#navReceptionAgreementBtn")
+        page.wait_for_timeout(300)
+        rec_modal_display = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_modal_display == "flex", f"Expected docPreviewModal to be flex in reception, got: {rec_modal_display}"
+        iframe_src = page.get_attribute("#docViewerIframe", "src")
+        assert "MedLoop_Agreement.pdf" in iframe_src, f"Expected MedLoop_Agreement.pdf in reception modal iframe, got: {iframe_src}"
+
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        rec_modal_after_esc = page.evaluate("document.getElementById('docPreviewModal').style.display")
+        assert rec_modal_after_esc == "none", f"Expected docPreviewModal to close on Escape, got: {rec_modal_after_esc}"
+        print("  [OK] Reception Top Nav: Opened Founders Agreement modal and dismissed via ESC")
+        total_checks += 19
 
         # Phase 8: Test MedLoop B2B Pitch & Interactive Stage
         print("\n[MEDLOOP B2B PITCH INTERACTION TEST]")
