@@ -638,3 +638,19 @@
   4. Vite orqali qayta qurish (87ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 31s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** Bemorlar, poliklinika rahbarlari, investorlar, School 21 hakamlar hay'ati va tibbiy koordinatorlar.
 - **Format:** `public/mini_app.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #50 / 500: Ecosystem Modal Parity, Universal Document Viewer & 150-Assertion Milestone E2E Suite & Production Deploy
+- **Kim siz:** Principal Ecosystem Modal Parity & Universal Document Viewer Systems Architect.
+- **Nima kerak:**
+  1. `public/medloop.html` (MedLoop B2B tijoriy taqdimot portali) ga barcha boshqa sahifalar kabi bir xil Apple Pro glass `docPreviewModal` integratsiyasini olib kelish:
+     - Yuqori navigatsiyaga ikkita rasmiy hujjat tugmasi: `#navMedloopAgreementBtn` (Ta'sis Bitimi) va `#navMedloopLoiBtn` (14-Kun LOI Shartnomasi).
+     - 1-Click Deliverable Dock dagi `#medloop-card-agreement` va `#medloop-card-loi` kartochkalariga `onclick="previewDocument(...)"` biriktirish.
+     - `previewDocument(url, title)` va `closeDocPreview()` funksiyalari, `Escape` klaviatura buyrug'i bilan modalni yopish.
+     - Apple Pro `docPreviewModal` (backdrop blur, verified badge, download button, iframe).
+  2. `index.html` yuqori navigatsiyasiga `#navLoiBtn` tugmasini kiritish va dockdagi kartochkalarga `#dockAgreementBtn`, `#dockLoiBtn` identifikatorlarini biriktirish.
+  3. `scripts/test_playwright_e2e.py` da Phase 6 va Phase 8 ni kengaytirib, `#navLoiBtn`, `#navMedloopAgreementBtn`, `#navMedloopLoiBtn`, `#medloop-card-agreement` va `#medloop-card-loi` modallarining ochilishi, tegishli PDF manzilini yuklashi va `Escape` tugmasi bilan yopilishini to'liq avtomatlashtirilgan sinovlar bilan qoplash. Umumiy Playwright E2E assertatsiyalar sonini 140 tadan **150 taga (150 Green Assertions Milestone)** oshirish va 100% GREEN natijasini kafolatlash.
+  4. Barcha 9/9 tizim yaxlitligi (78 ta ishlab chiqarish faylida 0 emoji, Diego 60-30-10 rang tokenlari, 300 ta telemetriya yugurishlari, PDF shartnomalar, Vite dist, 150 ta Playwright E2E assertatsiyalari, 11 ta jonli Vercel platformasi, Personal Telegram AI 5/5 va MedLoop Backend 16/16 testlari) 100% GREEN ekanligini tasdiqlash.
+  5. Vite orqali qayta qurish (89ms), Vercel production deploy (`turnir-launch-lab.vercel.app`, 26s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** B2B shifoxona rahbarlari, investorlar, School 21 texnik hakamlar hay'ati, xususiy klinika ta'sischilari va shifokorlar.
+- **Format:** `public/medloop.html`, `index.html`, `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

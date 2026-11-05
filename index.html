@@ -493,6 +493,7 @@
 
     <div style="display: flex; align-items: center; gap: 10px;">
       <button id="navAgreementBtn" onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Ulushi Bitimi (4 Asoschi)')" class="nav-link mono" style="background: none; border: none; cursor: pointer; font-size: 12px; color: var(--text-secondary);">Ta'sischilar Bitimi (PDF)</button>
+      <button id="navLoiBtn" onclick="previewDocument('/loi.pdf', '14-Kunlik Kafolatlangan Pilot Shartnomasi (LOI)')" class="nav-link mono" style="background: none; border: none; cursor: pointer; font-size: 12px; color: var(--text-secondary);">14-Kun LOI (PDF)</button>
       <a href="https://t.me/jasurceo" target="_blank" class="btn-acid" style="padding: 6px 14px; font-size: 12px;">
         Hamkorlik &rarr;
       </a>
@@ -1035,7 +1036,7 @@
         </h3>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-          <div onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Ulushi Bitimi (4 Asoschi)')" class="bento-card" style="padding: 16px; cursor: pointer;">
+          <div id="dockAgreementBtn" onclick="previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\'sischilar Ulushi Bitimi (4 Asoschi)')" class="bento-card" style="padding: 16px; cursor: pointer;">
             <div class="mono" style="font-size: 10px; color: var(--text-secondary);">TA'SISCHILAR ULUSHI [4 ASOSCHI]</div>
             <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">MedLoop_Agreement.pdf</div>
             <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
@@ -1044,7 +1045,7 @@
             <div class="mono" style="font-size: 11px; color: var(--accent-acid); margin-top: 8px;">Hujjatni Ochish &rarr;</div>
           </div>
 
-          <div onclick="previewDocument('/loi.pdf', '14-Kunlik Kafolatlangan Pilot LOI Kelishuvi')" class="bento-card" style="padding: 16px; cursor: pointer;">
+          <div id="dockLoiBtn" onclick="previewDocument('/loi.pdf', '14-Kunlik Kafolatlangan Pilot LOI Kelishuvi')" class="bento-card" style="padding: 16px; cursor: pointer;">
             <div class="mono" style="font-size: 10px; color: var(--text-secondary);">RASMIY PILOT SHARTNOMASI</div>
             <div style="font-size: 14px; font-weight: 600; color: #FFFFFF; margin-top: 4px;">loi.pdf (14-Day LOI)</div>
             <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
