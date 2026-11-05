@@ -367,3 +367,14 @@
   4. Vite build orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app` - Ready in 19s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
 - **Kim uchun:** School 21 hakamlar hay'ati, Turnir ishtirokchilari, xalqaro auditorlar va investorlar.
 - **Format:** `src/**`, `scripts/clean_turnir_src_emojis.py`, `scripts/test_system_integrity.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.
+
+
+### Prompt #27 / 500: Deliverable Dock Preview Verification, Hardware Keyboard Shortcuts E2E Suite (53 Assertions) & Production Deploy
+- **Kim siz:** Lead QA Architect & Hardware Interaction Engineer.
+- **Nima kerak:**
+  1. `index.html` dagi Apple Pro Deliverable Dock orqali hujjatlar modalini (`previewDocument`) ochish va klaviaturadagi `Escape` tugmasi orqali toza yopish mexanizmini sinash.
+  2. 4D apparat klaviatura buyruqlari ('1' - jigar paneli, '2' - diabet paneli, '3' - anemiya paneli) orqali namunalar almashinuvi to'g'ri ishlashini tekshirish.
+  3. `scripts/test_playwright_e2e.py` da Phase 6 ga hujjatlar modali va apparat klaviatura navigatsiyasi sinovlarini kiritish: umumiy Playwright E2E assertatsiyalar soni **49 tadan 53 taga** yetkazildi va barchasi **100% GREEN** tasdiqlandi.
+  4. Vite orqali `dist/` ni yangilash, Vercel production deploy (`turnir-launch-lab.vercel.app` - Ready in 25s) va Git remote (`unicornx-gemini-fintech`) ga barcha o'zgarishlarni yuborish.
+- **Kim uchun:** Turnir hakamlari, poliklinika rahbarlari, investorlar va klaviatura orqali tezkor boshqaruvchi foydalanuvchilar.
+- **Format:** `scripts/test_playwright_e2e.py`, `PROMPT_ENGINEERING_LOG.md`, Vite build, Vercel deploy, Git commit.

@@ -287,7 +287,33 @@ def test_e2e():
         p_val2 = page.inner_text("#dailyPatientsVal")
         assert p_val2 == "75", f"ROI Preset Osiyo mismatch: {p_val2}"
         print(f"  [OK] Index ROI preset: Loaded Osiyo Med ({p_val2} pts/day)")
-        total_checks += 6
+
+        # Test Deliverable Dock Preview Modal & ESC key dismiss
+        page.evaluate("previewDocument('/MedLoop_Agreement.pdf', 'MedLoop Ta\\'sischilar Ulushi Bitimi')")
+        page.wait_for_timeout(200)
+        is_modal_visible = page.evaluate("document.getElementById('docPreviewModal').style.display === 'flex'")
+        assert is_modal_visible, "Document preview modal did not open"
+        print("  [OK] Index deliverable dock: Opened MedLoop Agreement preview modal")
+        
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        is_modal_closed = page.evaluate("document.getElementById('docPreviewModal').style.display === 'none'")
+        assert is_modal_closed, "Document preview modal did not close on Escape key"
+        print("  [OK] Index deliverable dock: Closed cleanly via ESC key")
+        
+        # Test 4D Hardware Keyboard Shortcut Navigation (Keys '1', '2', '3')
+        page.keyboard.press("1")
+        page.wait_for_timeout(200)
+        p_name1 = page.inner_text("#labPatientName")
+        assert "Xoliqov Bobur" in p_name1, f"Expected Xoliqov Bobur on key '1', got: {p_name1}"
+        print(f"  [OK] Index keyboard navigation: Key '1' activated liver panel ({p_name1})")
+
+        page.keyboard.press("3")
+        page.wait_for_timeout(200)
+        p_name3 = page.inner_text("#labPatientName")
+        assert "Usmonova Nilufar" in p_name3, f"Expected Usmonova Nilufar on key '3', got: {p_name3}"
+        print(f"  [OK] Index keyboard navigation: Key '3' activated anemia panel ({p_name3})")
+        total_checks += 10
 
         # Phase 7: Test Reception Clinic Switcher & Doctor Room Telemetry
         print("\n[RECEPTION CLINIC SWITCHER & DOCTOR ROOM TELEMETRY TEST]")
