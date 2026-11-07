@@ -265,9 +265,130 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* Progress Bar */
+    .deck-progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--accent-acid);
+      box-shadow: 0 0 10px var(--accent-acid-glow);
+      z-index: 10001;
+      width: 10%;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Modal / Overlay common */
+    .deck-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 5, 0.94);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .deck-modal.open {
+      display: flex;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Grid Overlay */
+    .grid-container {
+      max-width: 1200px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+    .grid-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      aspect-ratio: 16 / 10;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background 0.2s ease;
+    }
+    .grid-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-acid);
+      background: var(--bg-elevated);
+    }
+    .grid-card.active-grid {
+      border-color: var(--accent-acid);
+      box-shadow: 0 0 0 2px var(--accent-acid-glow);
+    }
+
+    /* Speaker Notes Drawer */
+    .notes-drawer {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      width: min(900px, 92vw);
+      background: rgba(14, 14, 14, 0.96);
+      border: 1px solid var(--border-hover);
+      border-radius: 14px;
+      padding: 16px 24px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .notes-drawer.open {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Navigation Pills in Footer */
+    .nav-pill {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+    .nav-pill:hover {
+      color: #FFFFFF;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Shortcuts Table */
+    .shortcut-table {
+      width: 100%;
+      max-width: 540px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .shortcut-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .shortcut-table tr:last-child td {
+      border-bottom: none;
+    }
+
   </style>
 </head>
 <body>
+  <div id="deckProgressBar" class="deck-progress-bar" style="width: 10%;"></div>
 
   <!-- Top Navigation Header -->
   <header class="deck-header">
@@ -279,11 +400,15 @@
       <span style="font-size: 12px; color: var(--text-secondary);">Osiyo Medical Clinic Pilot Data</span>
     </div>
 
-    <div class="deck-controls">
+        <div class="deck-controls">
       <span class="slide-counter" id="slideCounter">01 / 10</span>
       <button class="btn-nav" onclick="prevSlide()" title="Oldingi slayd (Chapga)"><span class="key-hint">&larr;</span> Prev</button>
       <button class="btn-nav" onclick="nextSlide()" title="Keyingi slayd (O'ngga)">Next <span class="key-hint">&rarr;</span></button>
-      <a href="/medloop.html" class="btn-nav" style="text-decoration: none; background: var(--accent-acid); color: #000; border: none;">B2B Portal</a>
+      <button id="btnGrid" class="btn-nav" onclick="toggleGrid()" title="Slaydlar tarmog'i (G)"><span class="key-hint">G</span> Grid</button>
+      <button id="btnNotes" class="btn-nav" onclick="toggleNotes()" title="Asoschi nutqi (N)"><span class="key-hint">N</span> Notes</button>
+      <button id="btnFullscreen" class="btn-nav" onclick="toggleFullscreen()" title="To'liq ekran (F)"><span class="key-hint">F</span> [F]</button>
+      <button id="btnShortcuts" class="btn-nav" onclick="toggleShortcuts()" title="Klaviatura tugmalari (?)"><span class="key-hint">?</span></button>
+      <a href="/medloop.html" class="btn-nav" style="text-decoration: none; background: var(--accent-acid); color: #000; border: none; font-weight: 700;">B2B Portal &rarr;</a>
     </div>
   </header>
 
@@ -343,10 +468,15 @@
               </div>
             </div>
           </div>
-          <div class="bento-box" style="justify-content: center; align-items: center; text-align: center;">
-            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">O'zbekiston Xususiy Sektori Oylik Qon Ketishi</div>
-            <div class="stat-huge mono" style="color: var(--accent-crimson); font-size: 56px;">$18,400</div>
-            <div class="stat-label">Har bir 100 bemor/kunlik poliklinika yo'qotadigan oylik sof daromad</div>
+                    <div class="bento-box" style="justify-content: space-between; align-items: stretch;">
+            <div style="text-align: center;">
+              <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase;">O'zbekiston Xususiy Sektori Oylik Qon Ketishi</div>
+              <div class="stat-huge mono" style="color: var(--accent-crimson); font-size: 38px; margin: 4px 0;">$18,400</div>
+              <div class="stat-label" style="font-size: 11px;">Har bir 100 bemor/kunlik poliklinika yo'qotadigan oylik sof daromad</div>
+            </div>
+            <div style="height: 140px; position: relative; margin-top: 10px;">
+              <canvas id="problemChart"></canvas>
+            </div>
           </div>
         </div>
         <div class="slide-footer">
@@ -429,9 +559,14 @@
             <div class="stat-huge mono">70x</div>
             <div class="stat-label">LTV / CAC nisbati (B2B klinikalarni jalb qilish xarajati 3 haftada to'liq qoplanadi)</div>
           </div>
-          <div class="bento-box">
-            <div class="stat-huge mono">88%</div>
-            <div class="stat-label">Sof foyda marjasi (Gross Margin) server va API xarajatlari chegirilgandan so'ng</div>
+          <div class="bento-box" style="justify-content: space-between;">
+            <div>
+              <div class="stat-huge mono">88%</div>
+              <div class="stat-label">Sof foyda marjasi (Gross Margin) server va API xarajatlari chegirilgandan so'ng</div>
+            </div>
+            <div style="height: 110px; position: relative; margin-top: 8px;">
+              <canvas id="economicsChart"></canvas>
+            </div>
           </div>
         </div>
         <div class="slide-footer">
@@ -621,10 +756,149 @@
 
     </div>
   </main>
+  <!-- Deliverable Sub-Page Dock Bar -->
+  <div class="deck-deliverable-bar mono" style="display: flex; gap: 8px; justify-content: center; align-items: center; padding: 10px 0; border-top: 1px solid var(--border-subtle); font-size: 11px; background: rgba(5,5,5,0.7); flex-shrink: 0;">
+    <span style="color: var(--text-muted); font-size: 10px;">EKOTIZIM DOK:</span>
+    <a href="/index.html" class="nav-pill">[01] Asosiy Hub</a>
+    <a href="/reception.html" class="nav-pill">[02] Registratura</a>
+    <a href="/clinic-roi.html" class="nav-pill">[03] Bemor Saqlash</a>
+    <a href="/workflow.html" class="nav-pill">[04] Jarayon</a>
+    <a href="/tracker.html" class="nav-pill">[05] 8 Klinika</a>
+    <a href="/mini_app.html" class="nav-pill">[06] Mini App</a>
+    <a href="/internship.html" class="nav-pill">[07] School 21</a>
+    <a href="/medloop.html" class="nav-pill" style="color: var(--accent-acid); font-weight: 700;">[08] B2B Pitch &rarr;</a>
+  </div>
+
+  <!-- SLIDE GRID OVERVIEW MODAL -->
+  <div id="slideGridOverlay" class="deck-modal" onclick="if(event.target===this) toggleGrid()">
+    <div style="width: 100%; max-width: 1200px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div>
+          <div class="mono" style="font-size: 11px; color: var(--accent-acid); text-transform: uppercase;">Slaydlar Matritsasi [10 Slayd]</div>
+          <h2 style="font-size: 20px; font-weight: 700; color: #FFFFFF;">Tezkor Slayd Tanlash</h2>
+        </div>
+        <button onclick="toggleGrid()" class="btn-nav"><span class="key-hint">ESC</span> Yopish</button>
+      </div>
+      <div class="grid-container" id="gridCardsContainer">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SPEAKER NOTES DRAWER -->
+  <div id="speakerNotesDrawer" class="notes-drawer">
+    <div style="flex-shrink: 0; padding-top: 2px;">
+      <span class="brand-pill">[NOTES]</span>
+    </div>
+    <div style="flex: 1;">
+      <div id="notesSlideTag" class="mono" style="font-size: 11px; color: var(--accent-acid); text-transform: uppercase; margin-bottom: 4px;">Slayd 01 • Konfidentsial Nutq</div>
+      <p id="notesContent" style="font-size: 13px; color: #FFFFFF; line-height: 1.5;"></p>
+    </div>
+    <button onclick="toggleNotes()" class="btn-nav" style="padding: 4px 10px; font-size: 11px;"><span class="key-hint">ESC</span></button>
+  </div>
+
+  <!-- SHORTCUTS MODAL -->
+  <div id="shortcutsModal" class="deck-modal" onclick="if(event.target===this) toggleShortcuts()">
+    <div class="bento-box" style="width: 100%; max-width: 520px; background: rgba(14,14,14,0.98);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+          <span class="mono" style="font-size: 11px; color: var(--accent-acid);">KLAVIATURA TELEMETRIYASI</span>
+          <h3 style="font-size: 18px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">Boshqaruv Tugmalari</h3>
+        </div>
+        <button onclick="toggleShortcuts()" class="btn-nav"><span class="key-hint">ESC</span></button>
+      </div>
+      <table class="shortcut-table mono">
+        <tr>
+          <td style="color: var(--accent-acid); font-weight: 700;">&rarr; / Space / Enter</td>
+          <td style="color: #FFFFFF;">Keyingi slaydga o'tish</td>
+        </tr>
+        <tr>
+          <td style="color: var(--accent-acid); font-weight: 700;">&larr;</td>
+          <td style="color: #FFFFFF;">Oldingi slaydga qaytish</td>
+        </tr>
+        <tr>
+          <td style="color: var(--accent-acid); font-weight: 700;">1 &ndash; 9, 0</td>
+          <td style="color: #FFFFFF;">1-dan 10-gacha slaydga to'g'ridan-to'g'ri sakrash</td>
+        </tr>
+        <tr>
+          <td style="color: var(--accent-acid); font-weight: 700;">G</td>
+          <td style="color: #FFFFFF;">Slaydlar tarmog'i (Grid Overview)</td>
+        </tr>
+        <tr>
+          <td style="color: var(--accent-acid); font-weight: 700;">N</td>
+          <td style="color: #FFFFFF;">Asoschi nutqi / Speaker Notes panelini yoqish</td>
+        </tr>
+        <tr>
+          <td style="color: var(--accent-acid); font-weight: 700;">F</td>
+          <td style="color: #FFFFFF;">To'liq ekran (Fullscreen) rejimini yoqish/o'chirish</td>
+        </tr>
+        <tr>
+          <td style="color: var(--accent-acid); font-weight: 700;">? / H</td>
+          <td style="color: #FFFFFF;">Ushbu yordam oynasini ochish</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+
 
   <script>
     let currentSlide = 1;
     const totalSlides = 10;
+    let gridOpen = false;
+    let notesOpen = false;
+    let shortcutsOpen = false;
+
+    const SPEAKER_NOTES = {
+      1: "Samarqand & Toshkent klinikalari bo'yicha tahlillar. MedLoop — qon tahlilidan so'ng bemorlarni qaytaruvchi telemetriya dvigateli.",
+      2: "89.1M UZS — har bir o'rtacha klinikaning oylik yo'qotishi. 700+ bemor laboratoriya blankasidagi murakkab atamalarni tushunmay yo'qoladi.",
+      3: "Zero Hallucination — biz bemorga o'zboshimchalik bilan tashxis qo'ymaymiz. Faqat laboratoriya normalarini o'lchaymiz va klinikaga yo'naltiramiz.",
+      4: "Osiyo Medical klinikasida 14 kunlik jonli pilot: 62.5% qayta yozilish konversiyasi, 4.2 daqiqalik konsultatsiya tayyorgarligi.",
+      5: "$0.0018 bitta skan tannarxi (COGS), klinika to'lovi esa oyiga $200-$450. LTV/CAC 70x, sof foyda marjasi 88% dan yuqori.",
+      6: "8 ta klinika bilan o'tkazilgan CustDev: 5 ta imzolangan LOI (Osiyo Med, Doktor D, SamMed, Afrosiyob, Zarmed Pratiksha).",
+      7: "Raqobat ustunligi: 8 soniyalik deterministik OCR va registratura telemetriyasi. 1C yoki umumiy AI botlar bunga qodir emas.",
+      8: "Kelajak arxitekturasi: O'zbekistonda boshlab, butun Markaziy Osiyo bo'ylab yagona tibbiy pasport va tahlillar tarixi tizimiga aylanish.",
+      9: "Ta'sischilar ulushi: Jasur Shukurov 70%, Bekzod 10%, Farrux 10%, Diyor 10%. 4 yillik vesting va 1 yillik cliff sharti bilan rasmiylashtirilgan.",
+      10: "Pre-Seed taklif: 14 kunlik kafolatlangan bepul pilot yoki $150K investitsiya (SAFE, $2M Cap). Maqsad: 50 ta klinika onbordingi."
+    };
+
+    const SLIDE_INFO = [
+      { id: 1, tag: "SEED INVITE", title: "MedLoop AI" },
+      { id: 2, tag: "MUAMMO", title: "89.1M UZS Yo'qotish" },
+      { id: 3, tag: "YECHIM", title: "8s Deterministik OCR" },
+      { id: 4, tag: "AMALDA", title: "Osiyo Medical Natijasi" },
+      { id: 5, tag: "BIZNES", title: "Unit Economics & Margin" },
+      { id: 6, tag: "TRACTION", title: "8 Klinika & 5 LOI" },
+      { id: 7, tag: "MOAT", title: "Raqobat & Himoya" },
+      { id: 8, tag: "MOONSHOTS", title: "4 Strategik Kelajak" },
+      { id: 9, tag: "JAMOAT", title: "Asoschilar Ulushi (70/10/10/10)" },
+      { id: 10, tag: "THE ASK", title: "Pilot & $150K Pre-Seed" }
+    ];
+
+    function renderGridCards() {
+      const container = document.getElementById('gridCardsContainer');
+      if (!container) return;
+      container.innerHTML = SLIDE_INFO.map(s => `
+        <div class="grid-card mono ${s.id === currentSlide ? 'active-grid' : ''}" onclick="showSlide(${s.id}); toggleGrid();">
+          <div>
+            <div style="font-size: 10px; color: var(--accent-acid); font-weight: 700;">${String(s.id).padStart(2, '0')} // ${s.tag}</div>
+            <div style="font-size: 13px; font-weight: 700; color: #FFF; margin-top: 6px;">${s.title}</div>
+          </div>
+          <div style="font-size: 10px; color: var(--text-muted); margin-top: 8px;">[Klaviatura: ${s.id === 10 ? '0' : s.id}] &rarr;</div>
+        </div>
+      `).join('');
+    }
+
+    function updateSpeakerNotes() {
+      const notesEl = document.getElementById('notesContent');
+      const tagEl = document.getElementById('notesSlideTag');
+      if (notesEl && SPEAKER_NOTES[currentSlide]) {
+        notesEl.textContent = SPEAKER_NOTES[currentSlide];
+      }
+      if (tagEl) {
+        tagEl.textContent = `Slayd ${String(currentSlide).padStart(2, '0')} // Konfidentsial Nutq`;
+      }
+    }
 
     function showSlide(index) {
       if (index < 1 || index > totalSlides) return;
@@ -640,6 +914,16 @@
 
       const pad = (num) => String(num).padStart(2, '0');
       document.getElementById('slideCounter').textContent = `${pad(currentSlide)} / ${pad(totalSlides)}`;
+
+      // Update progress bar
+      const bar = document.getElementById('deckProgressBar');
+      if (bar) {
+        bar.style.width = `${(currentSlide / totalSlides) * 100}%`;
+      }
+
+      updateSpeakerNotes();
+      renderGridCards();
+      triggerCharts();
     }
 
     function nextSlide() {
@@ -654,8 +938,103 @@
       }
     }
 
+    function toggleGrid() {
+      gridOpen = !gridOpen;
+      const el = document.getElementById('slideGridOverlay');
+      if (el) el.classList.toggle('open', gridOpen);
+      if (gridOpen) renderGridCards();
+    }
+
+    function toggleNotes() {
+      notesOpen = !notesOpen;
+      const el = document.getElementById('speakerNotesDrawer');
+      if (el) el.classList.toggle('open', notesOpen);
+      if (notesOpen) updateSpeakerNotes();
+    }
+
+    function toggleShortcuts() {
+      shortcutsOpen = !shortcutsOpen;
+      const el = document.getElementById('shortcutsModal');
+      if (el) el.classList.toggle('open', shortcutsOpen);
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Chart.js Initializers
+    let probChartInstance = null;
+    let econChartInstance = null;
+
+    function triggerCharts() {
+      if (typeof Chart === 'undefined') return;
+
+      if (currentSlide === 2) {
+        const ctx = document.getElementById('problemChart');
+        if (ctx && !probChartInstance) {
+          probChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: ["Qog'oz Blanka (Hozirgi)", "MedLoop AI Bilan"],
+              datasets: [{
+                label: 'Oylik Daromad Qaytarilishi (M UZS)',
+                data: [-89.1, 55.7],
+                backgroundColor: ['#FF3B30', '#C6F432'],
+                borderRadius: 6
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: {
+                x: { ticks: { color: '#888', font: { family: 'JetBrains Mono', size: 10 } }, grid: { display: false } },
+                y: { ticks: { color: '#888', font: { family: 'JetBrains Mono', size: 10 } }, grid: { color: 'rgba(255,255,255,0.06)' } }
+              }
+            }
+          });
+        }
+      }
+
+      if (currentSlide === 5) {
+        const ctx2 = document.getElementById('economicsChart');
+        if (ctx2 && !econChartInstance) {
+          econChartInstance = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+              labels: ['Sof Marja (Gross Margin)', 'Gemini OCR API Tannarxi', 'Server & Telegram'],
+              datasets: [{
+                data: [88, 10, 2],
+                backgroundColor: ['#C6F432', '#00E5FF', '#444444'],
+                borderWidth: 0
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              cutout: '70%'
+            }
+          });
+        }
+      }
+    }
+
     // Keyboard Navigation
     window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (gridOpen) toggleGrid();
+        if (notesOpen) toggleNotes();
+        if (shortcutsOpen) toggleShortcuts();
+        return;
+      }
+
+      if (gridOpen || shortcutsOpen) return;
+
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
         nextSlide();
       } else if (e.key === 'ArrowLeft') {
@@ -664,6 +1043,14 @@
         showSlide(parseInt(e.key, 10));
       } else if (e.key === '0') {
         showSlide(10);
+      } else if (e.key === 'g' || e.key === 'G') {
+        toggleGrid();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleNotes();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === '?' || e.key === 'h' || e.key === 'H') {
+        toggleShortcuts();
       }
     });
 
@@ -679,6 +1066,14 @@
       if (diff > 50) nextSlide();
       else if (diff < -50) prevSlide();
     }, { passive: true });
+
+    // Initialize state on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderGridCards();
+      updateSpeakerNotes();
+      triggerCharts();
+    });
   </script>
+
 </body>
 </html>

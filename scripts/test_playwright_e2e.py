@@ -1579,35 +1579,81 @@ def test_e2e():
         print("  [OK] Ecosystem Navigation: internship.html brand group -> / verified")
         total_checks += 1
 
-        print("\n--- PHASE 11: Seed-Stage Pitch Deck Keyboard & Slide Test ---")
+        print("\n--- PHASE 11: Seed-Stage Pitch Deck Keyboard, Grid, Notes & Telemetry Test ---")
         page.goto(f"http://localhost:{PORT}/pitch.html", wait_until="domcontentloaded")
         page.wait_for_timeout(300)
 
-        # Initial Slide Check
+        # Initial Slide Check & Progress Bar
         slide1_active = page.evaluate("() => document.getElementById('slide-1').classList.contains('active')")
         assert slide1_active, "Pitch Deck: Slide 1 not active on initial load"
         counter_txt = page.locator("#slideCounter").inner_text()
         assert "01 / 10" in counter_txt, f"Pitch Deck counter mismatch: {counter_txt}"
-        print(f"  [OK] Pitch Deck Init: Slide 1 active ({counter_txt})")
-        total_checks += 2
+        bar_width = page.evaluate("() => document.getElementById('deckProgressBar').style.width")
+        assert "10%" in bar_width, f"Expected 10% progress bar, got: {bar_width}"
+        print(f"  [OK] Pitch Deck Init: Slide 1 active ({counter_txt}), progress bar {bar_width}")
+        total_checks += 3
 
-        # Advance via ArrowRight
+        # Advance via ArrowRight & Verify Chart on Slide 2
         page.keyboard.press("ArrowRight")
-        page.wait_for_timeout(200)
+        page.wait_for_timeout(300)
         slide2_active = page.evaluate("() => document.getElementById('slide-2').classList.contains('active')")
         assert slide2_active, "Pitch Deck: Slide 2 did not activate after ArrowRight"
+        has_chart2 = page.evaluate("() => Boolean(document.getElementById('problemChart'))")
+        assert has_chart2, "Pitch Deck: problemChart canvas not found on Slide 2"
         counter_txt2 = page.locator("#slideCounter").inner_text()
         assert "02 / 10" in counter_txt2, f"Pitch Deck counter mismatch: {counter_txt2}"
-        print(f"  [OK] Pitch Deck Keyboard: Advanced to Slide 2 ({counter_txt2})")
-        total_checks += 2
+        print(f"  [OK] Pitch Deck Keyboard: Advanced to Slide 2 ({counter_txt2}) with interactive Chart.js canvas")
+        total_checks += 3
 
-        # Direct Jump via Key '5'
+        # Direct Jump via Key '5' & Verify Economics Chart on Slide 5
         page.keyboard.press("5")
-        page.wait_for_timeout(200)
+        page.wait_for_timeout(300)
         slide5_active = page.evaluate("() => document.getElementById('slide-5').classList.contains('active')")
         assert slide5_active, "Pitch Deck: Slide 5 did not activate after pressing '5'"
-        print("  [OK] Pitch Deck Keyboard: Key '5' loaded Slide 5 (Unit Economics)")
-        total_checks += 1
+        has_chart5 = page.evaluate("() => Boolean(document.getElementById('economicsChart'))")
+        assert has_chart5, "Pitch Deck: economicsChart canvas not found on Slide 5"
+        print("  [OK] Pitch Deck Keyboard: Key '5' loaded Slide 5 with Gross Margin Chart.js")
+        total_checks += 2
+
+        # Test Interactive Grid Overview Modal via Key 'G' & Dismiss via ESC
+        page.keyboard.press("g")
+        page.wait_for_timeout(250)
+        grid_open = page.evaluate("() => document.getElementById('slideGridOverlay').classList.contains('open')")
+        assert grid_open, "Pitch Deck: Grid overview modal did not open on 'G' key"
+        grid_cards_count = page.evaluate("() => document.querySelectorAll('#gridCardsContainer .grid-card').length")
+        assert grid_cards_count == 10, f"Expected 10 grid cards, got: {grid_cards_count}"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        grid_closed = page.evaluate("() => !document.getElementById('slideGridOverlay').classList.contains('open')")
+        assert grid_closed, "Pitch Deck: Grid overview did not close on ESC"
+        print("  [OK] Pitch Deck Grid Mode: Toggled 10-slide matrix via 'G' and dismissed via ESC")
+        total_checks += 3
+
+        # Test Speaker Notes Drawer via Key 'N' & Dismiss via ESC
+        page.keyboard.press("n")
+        page.wait_for_timeout(250)
+        notes_open = page.evaluate("() => document.getElementById('speakerNotesDrawer').classList.contains('open')")
+        assert notes_open, "Pitch Deck: Speaker notes drawer did not open on 'N' key"
+        notes_text = page.locator("#notesContent").inner_text()
+        assert len(notes_text) > 10, "Pitch Deck: Speaker notes content is empty"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        notes_closed = page.evaluate("() => !document.getElementById('speakerNotesDrawer').classList.contains('open')")
+        assert notes_closed, "Pitch Deck: Speaker notes did not close on ESC"
+        print(f"  [OK] Pitch Deck Speaker Notes: Toggled CEO talking points via 'N' and dismissed via ESC")
+        total_checks += 3
+
+        # Test Shortcuts HUD via '?' key & Dismiss via ESC
+        page.keyboard.press("?")
+        page.wait_for_timeout(250)
+        shortcuts_open = page.evaluate("() => document.getElementById('shortcutsModal').classList.contains('open')")
+        assert shortcuts_open, "Pitch Deck: Shortcuts modal did not open on '?' key"
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(200)
+        shortcuts_closed = page.evaluate("() => !document.getElementById('shortcutsModal').classList.contains('open')")
+        assert shortcuts_closed, "Pitch Deck: Shortcuts modal did not close on ESC"
+        print("  [OK] Pitch Deck Shortcuts HUD: Toggled via '?' and dismissed via ESC")
+        total_checks += 2
 
         # Direct Jump to Final Slide via Key '0'
         page.keyboard.press("0")
@@ -1624,6 +1670,21 @@ def test_e2e():
         assert slide9_active, "Pitch Deck: Slide 9 did not activate after pressing ArrowLeft"
         print("  [OK] Pitch Deck Keyboard: ArrowLeft retreated to Slide 9 (Team & Equity)")
         total_checks += 1
+
+        print("\n--- PHASE 12: Ecosystem Symmetrical Pitch Deck Interlinking ---")
+        pages_to_check = [
+            ("/reception.html", "Reception"),
+            ("/clinic-roi.html", "Clinic ROI"),
+            ("/workflow.html", "Workflow"),
+            ("/tracker.html", "Tracker"),
+            ("/index.html", "Index")
+        ]
+        for pg_route, pg_name in pages_to_check:
+            page.goto(f"http://localhost:{PORT}{pg_route}", wait_until="domcontentloaded")
+            pitch_link = page.evaluate("() => Boolean(document.querySelector('a[href=\"/pitch.html\"]'))")
+            assert pitch_link, f"Missing /pitch.html link in {pg_name}"
+            print(f"  [OK] Symmetrical Navigation: {pg_name} -> /pitch.html verified")
+            total_checks += 1
 
         browser.close()
 
