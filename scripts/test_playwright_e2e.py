@@ -85,7 +85,8 @@ def test_e2e():
             ("/tracker.html", "8 Klinika Haqiqati (tracker.html)"),
             ("/mini_app.html", "Telegram Mini App (mini_app.html)"),
             ("/medloop.html", "MedLoop B2B Pitch (medloop.html)"),
-            ("/internship.html", "School 21 Amaliyot Portali (internship.html)")
+            ("/internship.html", "School 21 Amaliyot Portali (internship.html)"),
+            ("/pitch.html", "Seed-Stage Pitch Deck (pitch.html)")
         ]
 
         total_checks = 0
@@ -1576,6 +1577,52 @@ def test_e2e():
         }""")
         assert has_root_link, "internship.html brand group missing return link to /"
         print("  [OK] Ecosystem Navigation: internship.html brand group -> / verified")
+        total_checks += 1
+
+        print("\n--- PHASE 11: Seed-Stage Pitch Deck Keyboard & Slide Test ---")
+        page.goto(f"http://localhost:{PORT}/pitch.html", wait_until="domcontentloaded")
+        page.wait_for_timeout(300)
+
+        # Initial Slide Check
+        slide1_active = page.evaluate("() => document.getElementById('slide-1').classList.contains('active')")
+        assert slide1_active, "Pitch Deck: Slide 1 not active on initial load"
+        counter_txt = page.locator("#slideCounter").inner_text()
+        assert "01 / 10" in counter_txt, f"Pitch Deck counter mismatch: {counter_txt}"
+        print(f"  [OK] Pitch Deck Init: Slide 1 active ({counter_txt})")
+        total_checks += 2
+
+        # Advance via ArrowRight
+        page.keyboard.press("ArrowRight")
+        page.wait_for_timeout(200)
+        slide2_active = page.evaluate("() => document.getElementById('slide-2').classList.contains('active')")
+        assert slide2_active, "Pitch Deck: Slide 2 did not activate after ArrowRight"
+        counter_txt2 = page.locator("#slideCounter").inner_text()
+        assert "02 / 10" in counter_txt2, f"Pitch Deck counter mismatch: {counter_txt2}"
+        print(f"  [OK] Pitch Deck Keyboard: Advanced to Slide 2 ({counter_txt2})")
+        total_checks += 2
+
+        # Direct Jump via Key '5'
+        page.keyboard.press("5")
+        page.wait_for_timeout(200)
+        slide5_active = page.evaluate("() => document.getElementById('slide-5').classList.contains('active')")
+        assert slide5_active, "Pitch Deck: Slide 5 did not activate after pressing '5'"
+        print("  [OK] Pitch Deck Keyboard: Key '5' loaded Slide 5 (Unit Economics)")
+        total_checks += 1
+
+        # Direct Jump to Final Slide via Key '0'
+        page.keyboard.press("0")
+        page.wait_for_timeout(200)
+        slide10_active = page.evaluate("() => document.getElementById('slide-10').classList.contains('active')")
+        assert slide10_active, "Pitch Deck: Slide 10 did not activate after pressing '0'"
+        print("  [OK] Pitch Deck Keyboard: Key '0' loaded Slide 10 (The Ask)")
+        total_checks += 1
+
+        # Navigate Back via ArrowLeft
+        page.keyboard.press("ArrowLeft")
+        page.wait_for_timeout(200)
+        slide9_active = page.evaluate("() => document.getElementById('slide-9').classList.contains('active')")
+        assert slide9_active, "Pitch Deck: Slide 9 did not activate after pressing ArrowLeft"
+        print("  [OK] Pitch Deck Keyboard: ArrowLeft retreated to Slide 9 (Team & Equity)")
         total_checks += 1
 
         browser.close()

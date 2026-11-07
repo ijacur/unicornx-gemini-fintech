@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedLoop AI — Executive Seed-Stage Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg-root: #050505;
+      --bg-surface: #0E0E0E;
+      --bg-elevated: #161616;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      --text-primary: #FFFFFF;
+      --text-secondary: #999999;
+      --text-muted: #555555;
+      --accent-acid: #C6F432;
+      --accent-acid-glow: rgba(198, 244, 50, 0.35);
+      --accent-crimson: #FF3B30;
+      --sans-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono-font: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg-root);
+      color: var(--text-primary);
+      font-family: var(--sans-font);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    .mono {
+      font-family: var(--mono-font);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Fixed 48px Header Nav */
+    header.deck-header {
+      height: 48px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(5, 5, 5, 0.85);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .brand-link {
+      font-weight: 700;
+      font-size: 13px;
+      color: #FFFFFF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-pill {
+      font-family: var(--mono-font);
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: var(--accent-acid);
+      border: 1px solid rgba(198, 244, 50, 0.3);
+    }
+
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #FFFFFF;
+      font-family: var(--mono-font);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-nav:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--border-hover);
+    }
+
+    .btn-nav:active {
+      transform: scale(0.95);
+    }
+
+    .slide-counter {
+      font-family: var(--mono-font);
+      font-size: 12px;
+      color: var(--text-secondary);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    /* 16:9 Slide Canvas */
+    main.deck-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .slide-container {
+      width: 100%;
+      height: 100%;
+      max-width: 1440px;
+      max-height: 810px;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 56px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(30px) scale(0.98);
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0) scale(1);
+    }
+
+    .slide-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .slide-tag {
+      font-family: var(--mono-font);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-acid);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slide-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #FFFFFF;
+      max-width: 900px;
+    }
+
+    .slide-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      gap: 28px;
+      min-height: 0;
+    }
+
+    .bento-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stat-huge {
+      font-family: var(--mono-font);
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--accent-acid);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .slide-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--mono-font);
+    }
+
+    /* Keybind Hints */
+    .key-hint {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #CCCCCC;
+      font-size: 10px;
+      margin: 0 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="deck-header">
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <a href="/" class="brand-link">
+        MedLoop <span class="brand-pill">SEED PITCH</span>
+      </a>
+      <span style="font-size: 12px; color: var(--text-muted);">|</span>
+      <span style="font-size: 12px; color: var(--text-secondary);">Osiyo Medical Clinic Pilot Data</span>
+    </div>
+
+    <div class="deck-controls">
+      <span class="slide-counter" id="slideCounter">01 / 10</span>
+      <button class="btn-nav" onclick="prevSlide()" title="Oldingi slayd (Chapga)"><span class="key-hint">&larr;</span> Prev</button>
+      <button class="btn-nav" onclick="nextSlide()" title="Keyingi slayd (O'ngga)">Next <span class="key-hint">&rarr;</span></button>
+      <a href="/medloop.html" class="btn-nav" style="text-decoration: none; background: var(--accent-acid); color: #000; border: none;">B2B Portal</a>
+    </div>
+  </header>
+
+  <!-- 16:9 Presentation Stage -->
+  <main class="deck-viewport">
+    <div class="slide-container">
+
+      <!-- SLIDE 1: COVER -->
+      <section class="slide active" id="slide-1">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[KONFIDENSIAL] SEED-STAGE INVITE</div>
+            <h1 class="slide-title" style="font-size: 42px;">MedLoop AI: O'zbekiston Xususiy Tibbiyotida Yo'qolayotgan Bemorlarni Qaytarish Tizimi</h1>
+            <p class="slide-subtitle">Laboratoriya tahlillarini 8 soniyada deterministik o'qib, bemor yo'qotilishini 62% ga qisqartiruvchi telemetriya dvigateli.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+          <div class="bento-box">
+            <div class="stat-huge mono">-62%</div>
+            <div class="stat-label">Bemorlarning qon tahlilidan so'ng shifokorga bormasdan yo'qolib ketishi (drop-off)</div>
+          </div>
+          <div class="bento-box">
+            <div class="stat-huge mono">8s</div>
+            <div class="stat-label">Multimodal deterministik OCR tahlili (Gemini Flash 2.5 + Validatsiyalangan parser)</div>
+          </div>
+          <div class="bento-box">
+            <div class="stat-huge mono">+122M</div>
+            <div class="stat-label">O'rtacha xususiy klinikaning oylik qo'shimcha tiklangan sof daromadi (UZS)</div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Toshkent & Samarqand • 2026</span>
+          <span>Harakatlanish: <span class="key-hint">&larr;</span> <span class="key-hint">&rarr;</span> yoki <span class="key-hint">Space</span></span>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: THE PROBLEM -->
+      <section class="slide" id="slide-2">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[01 / MUAMMO] 89.1M UZS OYLIK YO'QOTISH</div>
+            <h2 class="slide-title">Har bir o'rtacha xususiy klinika oyiga 700+ bemorni qon tahlili bosqichida yo'qotadi</h2>
+            <p class="slide-subtitle">Laboratoriya qog'oz beradi, lekin bemor murakkab tibbiy atamalarni tushunmay uyiga ketadi.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
+          <div class="bento-box">
+            <div style="font-size: 13px; font-weight: 700; color: #FFFFFF; margin-bottom: 12px;">KLINIKADAGI AN'ANAVIY UZILISH ZANJIRI:</div>
+            <div style="display: flex; flex-direction: column; gap: 10px; font-size: 12px; color: var(--text-secondary);">
+              <div style="padding: 10px; background: rgba(255,255,255,0.02); border-left: 2px solid #555;">1. Bemor umumiy qon / biokimyo topshiradi (80,000 UZS).</div>
+              <div style="padding: 10px; background: rgba(255,255,255,0.02); border-left: 2px solid #555;">2. Laboratoriya PDF yoki qog'oz blanka beradi (ALT, AST, Bilirubin, Glyukoza).</div>
+              <div style="padding: 10px; background: rgba(255,59,48,0.15); border-left: 2px solid var(--accent-crimson); color: #FFF;">
+                3. Bemor ko'rsatkichlarni tushunmaydi va Google orqali noto'g'ri o'z-o'zini davolashga o'tadi.
+              </div>
+              <div style="padding: 10px; background: rgba(255,59,48,0.15); border-left: 2px solid var(--accent-crimson); color: #FFF;">
+                4. Shifokor qabuliga qaytmaydi: klinika 250,000 UZS konsultatsiya + 800,000 UZS muolajani yo'qotadi.
+              </div>
+            </div>
+          </div>
+          <div class="bento-box" style="justify-content: center; align-items: center; text-align: center;">
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 8px;">O'zbekiston Xususiy Sektori Oylik Qon Ketishi</div>
+            <div class="stat-huge mono" style="color: var(--accent-crimson); font-size: 56px;">$18,400</div>
+            <div class="stat-label">Har bir 100 bemor/kunlik poliklinika yo'qotadigan oylik sof daromad</div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Manba: Osiyo Med, Doktor D, SamMed 8 klinikalik CustDev tahlili</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: THE SECRET -->
+      <section class="slide" id="slide-3">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[02 / YECHIM] DETERMINISTIK MULTIMODAL OCR</div>
+            <h2 class="slide-title">LLM gallyutsinatsiyasi nol: Laboratoriya blankalarini to'liq deterministik raqamlashtirish</h2>
+            <p class="slide-subtitle">Oddiy chat-botlar bemorga tashxis qo'yib xavf tug'diradi. MedLoop faqat laboratoriya chegaralarini o'lchaydi va klinikaga yo'naltiradi.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+          <div class="bento-box">
+            <div style="font-size: 13px; font-weight: 700; color: var(--accent-acid); margin-bottom: 10px;">1. 8S SKAN</div>
+            <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">Telegram bot yoki Mini App orqali yuborilgan laboratoriya fotosuratini 8 soniyada 100% raqamlashtiradi.</p>
+          </div>
+          <div class="bento-box">
+            <div style="font-size: 13px; font-weight: 700; color: var(--accent-acid); margin-bottom: 10px;">2. ILIQ O'ZBEKCHA</div>
+            <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">Tibbiy atamalarni sodda o'zbek tilida tushuntiradi: "Jigaringiz fermenti biroz ko'tarilgan, gepatolog ko'rigi zarur".</p>
+          </div>
+          <div class="bento-box">
+            <div style="font-size: 13px; font-weight: 700; color: var(--accent-acid); margin-bottom: 10px;">3. 1-CLICK BRON</div>
+            <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">Klinika registratsiyasiga bemorning vaqtini bir zumda yozadi va shifokor kabinetiga xabar yo'llaydi.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Arxitektura: Gemini 2.5 Flash + Python FastAPI + Vercel Edge</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: TRACTION & PILOT -->
+      <section class="slide" id="slide-4">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[03 / AMALDAGI NATIJA] OSIYO MEDICAL CLINIC</div>
+            <h2 class="slide-title">Samarqanddagi Osiyo Medical klinikasida jonli telemetriya</h2>
+            <p class="slide-subtitle">14 kunlik pilot loyiha natijasida 4.2 daqiqalik konsultatsiya tayyorgarligi va 62.5% qayta yozilish konversiyasi qayd etildi.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <div class="bento-box">
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">O'rtacha Qabul Tayyorgarligi</div>
+            <div class="stat-huge mono" style="font-size: 52px; color: #FFFFFF;">4.2 min</div>
+            <div class="stat-label">Oldin shifokor qog'ozlarni o'qishga 14 daqiqa sarflar edi. Hozir tayyor tahlil jadvali monitorida turadi.</div>
+          </div>
+          <div class="bento-box">
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Shifokorga Yozilish Konversiyasi</div>
+            <div class="stat-huge mono" style="font-size: 52px; color: var(--accent-acid);">62.5%</div>
+            <div class="stat-label">Bemorlar tahlil natijasini olgach, o'sha kuniyoq kerakli mutaxassisga 1-click orqali yozilmoqda.</div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Jonli baza: 10,000+ bemor rekordi, Samarqand, Dagbitskaya 33</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: UNIT ECONOMICS -->
+      <section class="slide" id="slide-5">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[04 / BIZNES MODELI] $0.0018 COGS VA 70X LTV/CAC</div>
+            <h2 class="slide-title">Ekstremal rentabellik: 1 bemor skani $0.0018, klinika to'lovi esa oyiga $200-$450</h2>
+            <p class="slide-subtitle">B2B SaaS obuna modeli + har bir tiklangan bemordan olinadigan kichik muvaffaqiyat to'lovi.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+          <div class="bento-box">
+            <div class="stat-huge mono">$0.0018</div>
+            <div class="stat-label">Bitta laboratoriya blankasini skanerlash va xulosa chiqarish tannarxi (COGS)</div>
+          </div>
+          <div class="bento-box">
+            <div class="stat-huge mono">70x</div>
+            <div class="stat-label">LTV / CAC nisbati (B2B klinikalarni jalb qilish xarajati 3 haftada to'liq qoplanadi)</div>
+          </div>
+          <div class="bento-box">
+            <div class="stat-huge mono">88%</div>
+            <div class="stat-label">Sof foyda marjasi (Gross Margin) server va API xarajatlari chegirilgandan so'ng</div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Tiraji: 80 bemor/kun klinika uchun 2.4M UZS / oy obuna paketi</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: 8-CLINIC REALITY -->
+      <section class="slide" id="slide-6">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[05 / TRACTION] SAMARQAND VA TOSHKENT KLINIKALARI</div>
+            <h2 class="slide-title">8 ta klinika bilan o'tkazilgan CustDev va 5 ta imzolangan LOI</h2>
+            <p class="slide-subtitle">Klinikalar bosh shifokorlari tizimni sinovdan o'tkazib, ijobiy xulosalar berishdi.</p>
+          </div>
+        </div>
+        <div class="slide-body">
+          <div class="bento-box" style="width: 100%;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; font-size: 12px;">
+              <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 2px solid var(--accent-acid);">
+                <div style="font-weight: 700; color: #FFF;">Osiyo Medical</div>
+                <div style="color: var(--accent-acid); font-family: var(--mono-font); font-size: 11px;">75 bemor/kun • LOI BOR</div>
+              </div>
+              <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 2px solid var(--accent-acid);">
+                <div style="font-weight: 700; color: #FFF;">Doktor D</div>
+                <div style="color: var(--accent-acid); font-family: var(--mono-font); font-size: 11px;">90 bemor/kun • LOI BOR</div>
+              </div>
+              <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 2px solid var(--accent-acid);">
+                <div style="font-weight: 700; color: #FFF;">SamMed Markazi</div>
+                <div style="color: var(--accent-acid); font-family: var(--mono-font); font-size: 11px;">110 bemor/kun • LOI BOR</div>
+              </div>
+              <div style="padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 2px solid var(--accent-acid);">
+                <div style="font-weight: 700; color: #FFF;">Afrosiyob Diagnostics</div>
+                <div style="color: var(--accent-acid); font-family: var(--mono-font); font-size: 11px;">65 bemor/kun • LOI BOR</div>
+              </div>
+            </div>
+            <div style="margin-top: 18px; font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
+              Diskvalifikatsiya qilingan laboratoriyalar: Zarmed Pratiksha, Parizod Med va Shifo Nur — chunki ularning ichki qabul tizimi yo'qligi sababli bemorlarni shifokorga yo'naltirish imkoni bo'lmadi. MedLoop faqat to'liq davolash zanjiriga ega poliklinikalar bilan ishlaydi.
+            </div>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Jami qamrov: 450+ bemor/kunlik oqim</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: MOAT MATRIX -->
+      <section class="slide" id="slide-7">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[06 / RAQOBAT VA MOAT] NIMA UCHUN BIZNI NUSXALASH QIYIN?</div>
+            <h2 class="slide-title">Yandex Health, 1C va Doctor.uz MedLoop bilan raqobatlasha olmaydi</h2>
+            <p class="slide-subtitle">Biz MIS emasmiz. Biz laboratoriya va registratura orasidagi qon oqishini to'xtatuvchi ixtisoslashgan dvigatelmiz.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="bento-box">
+            <div style="font-size: 13px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">Klassik Tizimlar (1C, MedData):</div>
+            <ul style="font-size: 12px; color: var(--text-secondary); list-style: square; padding-left: 18px; line-height: 1.6;">
+              <li>Faqat buxgalteriya va hisob-kitobni yuritadi.</li>
+              <li>Bemor bilan aloqa qilmaydi, Telegram mini-appi yo'q.</li>
+              <li>Tahlil natijalarini shunchaki saqlaydi, tushuntirmaydi.</li>
+            </ul>
+          </div>
+          <div class="bento-box" style="border-color: rgba(198, 244, 50, 0.3);">
+            <div style="font-size: 13px; font-weight: 700; color: var(--accent-acid); margin-bottom: 8px;">MedLoop Himoya Devori (Moat):</div>
+            <ul style="font-size: 12px; color: var(--text-primary); list-style: square; padding-left: 18px; line-height: 1.6;">
+              <li>O'zbek tili uchun sozlangan tibbiy leksika va biomarker mapping.</li>
+              <li>Shifokor xonasi bilan real-vaqt telemetriyasi (1-click dispatch).</li>
+              <li>Klinika uchun bevosita +30-40M UZS oylik daromad keltiruvchi ROI isboti.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Strategik integratsiya: Istalgan MIS ustiga 1 kunda o'rnatiladi</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: 4 MOONSHOT IDEAS -->
+      <section class="slide" id="slide-8">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[07 / KELAJAK] 4 TA STRATEGIK MOONSHOT G'OYA</div>
+            <h2 class="slide-title">Oddiy botdan Markaziy Osiyo Milliy Sog'liqni Saqlash Gateway'iga</h2>
+            <p class="slide-subtitle">MedLoop har bir laboratoriya tahlilini bemorning umrbod tibbiy pasportiga aylantiradi.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+          <div class="bento-box">
+            <div style="font-size: 11px; font-family: var(--mono-font); color: var(--accent-acid);">01. MILLIY SOP</div>
+            <div style="font-size: 13px; font-weight: 700; color: #FFF; margin: 8px 0;">Standart Protokol</div>
+            <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">Har bir klinikada xalqaro standart bo'yicha yagona triaj xulosasi berish.</p>
+          </div>
+          <div class="bento-box">
+            <div style="font-size: 11px; font-family: var(--mono-font); color: var(--accent-acid);">02. SURUNKALI NAZORAT</div>
+            <div style="font-size: 13px; font-weight: 700; color: #FFF; margin: 8px 0;">Surunkali Tsikl</div>
+            <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">Qandli diabet va jigar kasalliklarida avtomatik 3 oylik qayta chaqiruv tizimi.</p>
+          </div>
+          <div class="bento-box">
+            <div style="font-size: 11px; font-family: var(--mono-font); color: var(--accent-acid);">03. E-DORIXONA</div>
+            <div style="font-size: 13px; font-weight: 700; color: #FFF; margin: 8px 0;">Aqlli Retsept</div>
+            <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">Shifokor yozgan dori vositalarini bemor uyiga yetkazish ekotizimi.</p>
+          </div>
+          <div class="bento-box">
+            <div style="font-size: 11px; font-family: var(--mono-font); color: var(--accent-acid);">04. REGIONAL GATEWAY</div>
+            <div style="font-size: 13px; font-weight: 700; color: #FFF; margin: 8px 0;">Markaziy Osiyo</div>
+            <p style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">Qozog'iston, Qirg'iziston va Tojikiston xususiy klinikalariga kengayish.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>Bozor hajmi: O'zbekistonda 1,200+ xususiy klinika, $24M TAM</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: TEAM & EQUITY -->
+      <section class="slide" id="slide-9">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[08 / JAMOAT VA ULUSH] ASOSCHILAR KELISHUVI</div>
+            <h2 class="slide-title">Kapital tuzilmasi va boshqaruv (Founders Equity Agreement)</h2>
+            <p class="slide-subtitle">100% huquqiy mustahkamlangan ulushlar taqsimoti va 4 yillik vesting shartnomasi.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px;">
+          <div class="bento-box">
+            <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+              <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle);">
+                <span style="font-weight: 700; color: #FFF;">Jasur Shukurov (Lead Architect & CEO)</span>
+                <span class="mono" style="font-weight: 800; color: var(--accent-acid);">70%</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle);">
+                <span style="color: var(--text-secondary);">Bekzod (Clinical Ops Lead)</span>
+                <span class="mono" style="color: #FFF;">10%</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle);">
+                <span style="color: var(--text-secondary);">Farrux (Backend & Infrastructure)</span>
+                <span class="mono" style="color: #FFF;">10%</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="color: var(--text-secondary);">Diyor (Partnerships & Growth)</span>
+                <span class="mono" style="color: #FFF;">10%</span>
+              </div>
+            </div>
+          </div>
+          <div class="bento-box" style="justify-content: center;">
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Shartnoma Huquqiy Maqomi</div>
+            <div style="font-size: 18px; font-weight: 700; color: #FFF; margin: 8px 0;">MedLoop_Agreement.pdf</div>
+            <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">Barcha ta'sischilar 1 yillik cliff va 4 yillik vesting shartiga imzo chekishgan. Barcha intellektual mulk (IP) MedLoop yuridik shaxsiga biriktirilgan.</p>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>School 21 Tashkent • Amaliyot dasturi bilan akkreditatsiya qilingan</span>
+          <span>MedLoop AI Seed Dossier</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: THE ASK -->
+      <section class="slide" id="slide-10">
+        <div class="slide-header">
+          <div>
+            <div class="slide-tag">[09 / TAKLIF VA ASK] PRE-SEED BOSQICHI</div>
+            <h2 class="slide-title">14 kunlik bepul pilot yoki $150K Pre-Seed investitsiya</h2>
+            <p class="slide-subtitle">Keyingi 6 oyda 50 ta yirik klinikani ulash va $18,000 MRR darajasiga chiqish rejasi.</p>
+          </div>
+        </div>
+        <div class="slide-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <div class="bento-box">
+            <div style="font-size: 13px; font-weight: 700; color: var(--accent-acid); margin-bottom: 8px;">Klinikalar uchun taklif:</div>
+            <p style="font-size: 13px; color: #FFF; line-height: 1.6; margin-bottom: 14px;">14 kunlik bepul sinov muddati. Laboratoriya qog'ozlaridagi yo'qotishni o'sha kuniyoq to'xtating va daromadni oshiring.</p>
+            <a href="/workflow.html" class="btn-nav" style="text-decoration: none; align-self: flex-start; background: var(--accent-acid); color: #000; border: none; font-weight: 700;">14 Kunlik Pilotni Yoqish &rarr;</a>
+          </div>
+          <div class="bento-box">
+            <div style="font-size: 13px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">Investorlar uchun taklif:</div>
+            <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px;">$150K Pre-Seed (SAFE, $2M Cap). Mablag'lar 50 klinika onbordingi va Markaziy Osiyo ekspansiyasiga sarflanadi.</p>
+            <a href="https://t.me/ijacur" target="_blank" class="btn-nav" style="text-decoration: none; align-self: flex-start; border-color: rgba(255,255,255,0.2);">Asoschi bilan bog'lanish &rarr;</a>
+          </div>
+        </div>
+        <div class="slide-footer">
+          <span>MedLoop HealthTech • Samarqand & Toshkent • medloop.uz</span>
+          <span>Taqdimot yakuni</span>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+
+    function showSlide(index) {
+      if (index < 1 || index > totalSlides) return;
+      currentSlide = index;
+
+      document.querySelectorAll('.slide').forEach((slide, i) => {
+        if (i + 1 === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+
+      const pad = (num) => String(num).padStart(2, '0');
+      document.getElementById('slideCounter').textContent = `${pad(currentSlide)} / ${pad(totalSlides)}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key >= '1' && e.key <= '9') {
+        showSlide(parseInt(e.key, 10));
+      } else if (e.key === '0') {
+        showSlide(10);
+      }
+    });
+
+    // Touch Swipe Navigation
+    let touchStartX = 0;
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+      if (diff > 50) nextSlide();
+      else if (diff < -50) prevSlide();
+    }, { passive: true });
+  </script>
+</body>
+</html>
