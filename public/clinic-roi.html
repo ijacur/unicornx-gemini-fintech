@@ -145,11 +145,16 @@
       gap: 6px;
       border: 1px solid rgba(255, 255, 255, 0.9);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: background-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+      will-change: transform;
+      user-select: none;
     }
     .btn-white:hover {
       background: #E5E5E5;
       transform: translateY(-1px);
+    }
+    .btn-white:active, .btn-glass:active, .btn-acid:active {
+      transform: translateY(2px) scale(0.96) !important;
     }
 
     .btn-glass {
@@ -165,7 +170,9 @@
       gap: 6px;
       border: 1px solid var(--border-subtle);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      user-select: none;
     }
     .btn-glass:hover {
       background: rgba(255, 255, 255, 0.08);
@@ -185,7 +192,9 @@
       gap: 6px;
       border: 1px solid var(--accent-acid);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      user-select: none;
     }
     .btn-acid:hover {
       background: #D9FF48;
@@ -237,6 +246,15 @@
       .mono { color: #000000 !important; }
       .modal-overlay { position: static !important; background: transparent !important; display: block !important; padding: 0 !important; }
       .modal-box { border: none !important; background: transparent !important; box-shadow: none !important; width: 100% !important; max-width: 100% !important; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>

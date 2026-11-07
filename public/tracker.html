@@ -146,12 +146,17 @@
       border: none;
       cursor: pointer;
       box-shadow: 0 0 20px var(--accent-acid-glow);
-      transition: all 0.15s ease;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      user-select: none;
     }
     .btn-acid:hover {
       background: #D8FF54;
       transform: translateY(-1px);
       box-shadow: 0 0 30px rgba(198, 244, 50, 0.5);
+    }
+    .btn-acid:active, .btn-white:active, .btn-glass:active {
+      transform: translateY(2px) scale(0.96) !important;
     }
 
     .btn-white {
@@ -167,7 +172,9 @@
       gap: 6px;
       border: 1px solid rgba(255, 255, 255, 0.9);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: background-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+      will-change: transform;
+      user-select: none;
     }
     .btn-white:hover {
       background: #E5E5E5;
@@ -187,7 +194,9 @@
       gap: 6px;
       border: 1px solid var(--border-subtle);
       cursor: pointer;
-      transition: all 0.15s ease;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      user-select: none;
     }
     .btn-glass:hover {
       background: rgba(255, 255, 255, 0.08);
@@ -307,6 +316,15 @@
       max-width: 520px;
       width: 100%;
       box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>

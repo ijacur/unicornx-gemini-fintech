@@ -206,12 +206,17 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s ease;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      user-select: none;
     }
 
     .btn-sber:hover {
       background: #28b841;
       box-shadow: 0 4px 16px var(--accent-sber-glow);
+    }
+    .btn-sber:active, .btn-outline:active {
+      transform: translateY(2px) scale(0.97) !important;
     }
 
     .btn-outline {
@@ -225,7 +230,9 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s ease;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform;
+      user-select: none;
     }
 
     .btn-outline:hover {
@@ -248,7 +255,7 @@
       border-radius: 10px;
       padding: 16px 14px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
     }
 
@@ -334,6 +341,15 @@
       }
       .split-stage {
         grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
