@@ -385,6 +385,193 @@
       border-bottom: none;
     }
 
+    /* Mobile Responsive Presentation Experience */
+    @media (max-width: 900px) {
+      html, body {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        position: relative !important;
+      }
+
+      header.deck-header {
+        height: auto !important;
+        min-height: 48px;
+        padding: 8px 12px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        position: sticky !important;
+        top: 0 !important;
+        background: rgba(5, 5, 5, 0.95) !important;
+      }
+
+      header.deck-header > div:first-child {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+      }
+
+      .deck-controls {
+        display: flex !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        gap: 6px !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+      }
+      .deck-controls::-webkit-scrollbar {
+        display: none;
+      }
+
+      .deck-controls .btn-nav {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+        flex-shrink: 0 !important;
+      }
+
+      .deck-controls .key-hint {
+        display: none !important;
+      }
+
+      main.deck-viewport {
+        height: auto !important;
+        min-height: calc(100vh - 120px) !important;
+        padding: 12px 10px 80px 10px !important;
+        display: block !important;
+        overflow: visible !important;
+      }
+
+      .slide-container {
+        aspect-ratio: unset !important;
+        height: auto !important;
+        min-height: 520px !important;
+        max-height: none !important;
+        border-radius: 14px !important;
+        overflow: visible !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+      }
+
+      .slide {
+        position: relative !important;
+        inset: unset !important;
+        padding: 20px 16px !important;
+        display: none !important;
+        height: auto !important;
+        min-height: 520px !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+
+      .slide.active {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+      }
+
+      .slide-header {
+        margin-bottom: 14px !important;
+      }
+
+      .slide-title {
+        font-size: 22px !important;
+        line-height: 1.25 !important;
+      }
+
+      .slide-subtitle {
+        font-size: 13px !important;
+        margin-top: 6px !important;
+      }
+
+      .slide-body,
+      .slide-body[style*="grid-template-columns"],
+      .slide-body[style*="display: grid"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        grid-template-columns: 1fr !important;
+      }
+
+      .bento-box {
+        padding: 16px !important;
+        border-radius: 12px !important;
+      }
+
+      .stat-huge {
+        font-size: 32px !important;
+      }
+
+      .slide-footer {
+        padding-top: 14px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        font-size: 10px !important;
+      }
+
+      .deck-deliverable-bar {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        justify-content: flex-start !important;
+        padding: 10px 14px !important;
+      }
+      .deck-deliverable-bar::-webkit-scrollbar {
+        display: none;
+      }
+      .deck-deliverable-bar .nav-pill {
+        flex-shrink: 0 !important;
+      }
+
+      .grid-container {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        max-height: 80vh !important;
+      }
+      .grid-card {
+        padding: 10px !important;
+        aspect-ratio: auto !important;
+        min-height: 80px !important;
+      }
+
+      .notes-drawer {
+        width: 94vw !important;
+        padding: 12px 14px !important;
+        bottom: 12px !important;
+      }
+
+      .mobile-bottom-nav {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 52px;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-subtle);
+        padding: 0 14px;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 999;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .mobile-bottom-nav {
+        display: none !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -769,6 +956,15 @@
     <a href="/medloop.html" class="nav-pill" style="color: var(--accent-acid); font-weight: 700;">[08] B2B Pitch &rarr;</a>
   </div>
 
+  <!-- Floating Mobile Thumb Navigation Bar -->
+  <div class="mobile-bottom-nav">
+    <button class="btn-nav" onclick="prevSlide()" title="Oldingi slayd">&larr; Prev</button>
+    <span class="slide-counter mono" id="mobileSlideCounter">01 / 10</span>
+    <button class="btn-nav" onclick="nextSlide()" title="Keyingi slayd">Next &rarr;</button>
+    <button class="btn-nav" onclick="toggleGrid()" title="Matritsa">Grid</button>
+    <button class="btn-nav" onclick="toggleNotes()" title="Notes">Notes</button>
+  </div>
+
   <!-- SLIDE GRID OVERVIEW MODAL -->
   <div id="slideGridOverlay" class="deck-modal" onclick="if(event.target===this) toggleGrid()">
     <div style="width: 100%; max-width: 1200px;">
@@ -914,6 +1110,10 @@
 
       const pad = (num) => String(num).padStart(2, '0');
       document.getElementById('slideCounter').textContent = `${pad(currentSlide)} / ${pad(totalSlides)}`;
+      const mobileCounter = document.getElementById('mobileSlideCounter');
+      if (mobileCounter) {
+        mobileCounter.textContent = `${pad(currentSlide)} / ${pad(totalSlides)}`;
+      }
 
       // Update progress bar
       const bar = document.getElementById('deckProgressBar');

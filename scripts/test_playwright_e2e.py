@@ -1686,6 +1686,37 @@ def test_e2e():
             print(f"  [OK] Symmetrical Navigation: {pg_name} -> /pitch.html verified")
             total_checks += 1
 
+        print("\n--- PHASE 13: Mobile Viewport & Zero Horizontal Overflow Suite ---")
+        mobile_context = browser.new_context(
+            viewport={"width": 390, "height": 844},
+            user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15"
+        )
+        mobile_page = mobile_context.new_page()
+        mobile_page.route(lambda url: "localhost" not in url and "127.0.0.1" not in url, lambda r: r.abort())
+
+        for r, name in routes:
+            mobile_page.goto(f"http://localhost:{PORT}{r}", wait_until="domcontentloaded")
+            mobile_page.wait_for_timeout(150)
+            sw = mobile_page.evaluate("document.documentElement.scrollWidth")
+            cw = mobile_page.evaluate("document.documentElement.clientWidth")
+            bsw = mobile_page.evaluate("document.body.scrollWidth")
+            assert sw <= cw, f"Mobile horizontal overflow on {r}: doc scrollWidth={sw} > clientWidth={cw}"
+            assert bsw <= cw, f"Mobile horizontal overflow on {r}: body scrollWidth={bsw} > clientWidth={cw}"
+            print(f"  [OK] Mobile Viewport: {name} ({r}) zero overflow (doc={sw}px, body={bsw}px, client={cw}px)")
+            total_checks += 2
+
+        # Mobile pitch deck slide swipe / next test
+        mobile_page.goto(f"http://localhost:{PORT}/pitch.html", wait_until="domcontentloaded")
+        mobile_page.evaluate("nextSlide()")
+        mobile_page.wait_for_timeout(150)
+        s2_active = mobile_page.evaluate("() => document.getElementById('slide-2').classList.contains('active')")
+        assert s2_active, "Mobile pitch deck did not advance to slide 2"
+        s2_sw = mobile_page.evaluate("document.documentElement.scrollWidth")
+        assert s2_sw <= 390, f"Slide 2 mobile overflow: {s2_sw}"
+        print("  [OK] Mobile Pitch Deck: Touch navigation & slide 2 zero overflow verified")
+        total_checks += 2
+        mobile_context.close()
+
         browser.close()
 
     httpd.shutdown()
