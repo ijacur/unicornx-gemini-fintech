@@ -1719,6 +1719,59 @@ def test_e2e():
         total_checks += 2
         mobile_context.close()
 
+        print("\n--- PHASE 14: Autonomous Engine & Instant Payment Verification Suite ---")
+        # 1. Test startup.html Instant B2C Payment Flow
+        page.goto(f"http://localhost:{PORT}/startup.html", wait_until="domcontentloaded")
+        page.click("#btnInstantPay")
+        page.wait_for_timeout(100)
+        pay_modal_open = page.evaluate("() => document.getElementById('instantPayModal').classList.contains('open')")
+        assert pay_modal_open, "Startup: Instant Payment Modal failed to open"
+
+        # Test Click/Payme toggle
+        page.click("#payMethodClick")
+        page.click("#payMethodPayme")
+
+        # Execute simulated payment
+        page.click("#btnSubmitPayment")
+        page.wait_for_timeout(700)
+        report_visible = page.evaluate("() => document.getElementById('payStageReport').style.display !== 'none'")
+        assert report_visible, "Startup: Clinical Report stage failed to reveal after payment"
+
+        # Verify transaction in localStorage
+        tx_saved = page.evaluate("() => Boolean(localStorage.getItem('medloop_transactions'))")
+        assert tx_saved, "Startup: medloop_transactions was not saved in localStorage"
+
+        # Dismiss via ESC
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(100)
+        pay_modal_closed = page.evaluate("() => !document.getElementById('instantPayModal').classList.contains('open')")
+        assert pay_modal_closed, "Startup: Instant Payment Modal did not dismiss on Escape"
+        print("  [OK] Startup B2C Monetization: 15,000 UZS Checkout, Report & ESC verified")
+        total_checks += 5
+
+        # 2. Test tracker.html Autonomous Outreach Dispatch Campaign
+        page.goto(f"http://localhost:{PORT}/tracker.html", wait_until="domcontentloaded")
+        page.click("#btnAutoDispatchCampaign")
+        page.wait_for_timeout(100)
+        dispatch_modal_open = page.evaluate("() => document.getElementById('autoDispatchModal').style.display === 'flex'")
+        assert dispatch_modal_open, "Tracker: Auto Dispatch Modal failed to open"
+
+        page.click("#btnStartAutoDispatch")
+        # Wait for all 8 targets to dispatch (8 * 180ms ~ 1.5s)
+        page.wait_for_timeout(2000)
+        log_content = page.evaluate("() => document.getElementById('terminalWindow').textContent")
+        assert "SUCCESS" in log_content, "Tracker: Auto Dispatch terminal did not reach SUCCESS state"
+
+        outreach_logged = page.evaluate("() => localStorage.getItem('medloop_outreach_dispatched') === 'true'")
+        assert outreach_logged, "Tracker: medloop_outreach_dispatched was not logged in localStorage"
+
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(100)
+        dispatch_modal_closed = page.evaluate("() => document.getElementById('autoDispatchModal').style.display === 'none'")
+        assert dispatch_modal_closed, "Tracker: Auto Dispatch Modal did not dismiss on Escape"
+        print("  [OK] Tracker Autonomous Dispatch: 8-Clinic Batch Execution & Telemetry verified")
+        total_checks += 4
+
         browser.close()
 
     httpd.shutdown()

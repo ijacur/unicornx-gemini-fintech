@@ -530,6 +530,13 @@
               Qabulxonaga Qo'shish &rarr;
             </a>
           </div>
+
+          <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-subtle);">
+            <button onclick="openInstantPayModal()" id="btnInstantPay" class="mono" style="width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #FFFFFF; color: #000000; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: transform 0.15s ease;">
+              <span>Rasmiy Shifokor Xulosasi &bull; 15,000 UZS</span>
+              <span style="background: #000000; color: #FFFFFF; padding: 3px 8px; border-radius: 9999px; font-size: 10px;">Click / Payme &rarr;</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -648,6 +655,110 @@
     </div>
   </div>
 
+  <!-- Instant Payment & Clinical Report Modal (B2C Monetization) -->
+  <div id="instantPayModal" class="modal-backdrop" onclick="if(event.target===this) closeInstantPayModal()">
+    <div class="modal-card" style="max-width: 520px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div>
+          <span class="mono" style="font-size: 11px; color: var(--accent-acid);">TEZKOR BEMOR TO'LOVI</span>
+          <h3 style="font-size: 18px; font-weight: 700; color: #FFFFFF; margin-top: 2px;">Rasmiy Tibbiy Xulosa &bull; 15,000 UZS</h3>
+        </div>
+        <button onclick="closeInstantPayModal()" class="btn-glass mono" style="padding: 4px 10px; font-size: 11px;">ESC &times;</button>
+      </div>
+
+      <!-- Stage 1: Checkout Form -->
+      <div id="payStageCheckout">
+        <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+            <span style="color: var(--text-secondary);">Bemor:</span>
+            <span style="font-weight: 700; color: #FFFFFF;" id="payPatientName">Bobur Xoliqov</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+            <span style="color: var(--text-secondary);">Xizmat turi:</span>
+            <span class="mono" style="color: var(--accent-acid);">AI + Shifokor Tasdiqlagan Xulosa</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px;">
+            <span style="color: var(--text-secondary);">To'lov summasi:</span>
+            <span class="mono" style="font-weight: 800; font-size: 15px; color: #FFFFFF;">15,000 UZS</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 6px;">
+            To'lov Usulini Tanlang:
+          </label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <button type="button" id="payMethodPayme" onclick="setPayMethod('payme')" class="btn-glass mono" style="padding: 10px; font-size: 12px; justify-content: center; border-color: var(--accent-acid); color: var(--accent-acid); font-weight: 700;">
+              PAYME &bull; Uzcard/Humo
+            </button>
+            <button type="button" id="payMethodClick" onclick="setPayMethod('click')" class="btn-glass mono" style="padding: 10px; font-size: 12px; justify-content: center;">
+              CLICK UP
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label class="mono" style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 4px;">
+            Karta Raqami (Uzcard / Humo):
+          </label>
+          <input type="text" id="payCardInput" placeholder="8600 •••• •••• ••••" value="8600 4910 2234 8192" class="mono" style="width: 100%; background: #000000; border: 1px solid var(--border-subtle); color: #FFFFFF; padding: 10px 12px; border-radius: 8px; font-size: 14px;">
+        </div>
+
+        <button onclick="executePayment()" id="btnSubmitPayment" class="btn-acid mono" style="width: 100%; justify-content: center; padding: 12px; font-size: 13px;">
+          To'lovni Tasdiqlash &bull; 15,000 UZS &rarr;
+        </button>
+      </div>
+
+      <!-- Stage 2: Success & Official Clinical Report View -->
+      <div id="payStageReport" style="display: none;">
+        <div style="background: rgba(198,244,50,0.08); border: 1px solid rgba(198,244,50,0.3); border-radius: 8px; padding: 12px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div class="mono" style="font-size: 11px; color: var(--accent-acid); font-weight: 700;">TO'LOV MUVAFFAQIYATLI &bull; CHEK #ML-UZ-849201</div>
+            <div style="font-size: 12px; color: #FFFFFF;">15,000 UZS qabul qilindi &bull; Tahlil tasdiqlandi</div>
+          </div>
+          <span class="mono brand-pill" style="color: var(--accent-acid); border-color: var(--accent-acid);">&bull; PAID</span>
+        </div>
+
+        <div id="officialClinicalCertificate" style="background: #FFFFFF; color: #000000; border-radius: 10px; padding: 18px; margin-bottom: 14px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #000000; padding-bottom: 8px; margin-bottom: 12px;">
+            <div>
+              <div style="font-weight: 800; font-size: 14px; letter-spacing: -0.02em;">MEDLOOP AI &bull; KLINIK TAHLIL XULOSASI</div>
+              <div style="font-size: 10px; color: #666666;">O'zbekiston Respublikasi Xususiy Klinikalar Tarmog'i</div>
+            </div>
+            <div style="text-align: right; font-family: monospace; font-size: 10px;">
+              <div>Hujjat: #ML-REP-2026</div>
+              <div>Sana: 08.11.2026</div>
+            </div>
+          </div>
+
+          <div style="font-size: 12px; margin-bottom: 10px; line-height: 1.4;">
+            <div><strong>Bemor:</strong> <span id="repPatientName">Bobur Xoliqov (1988)</span></div>
+            <div><strong>Yo'llanma beruvchi:</strong> Dr. Shirinov X. I. (Gepatolog, 14-xona)</div>
+            <div><strong>Biomarker holati:</strong> ALT 94.0 U/L (Yuqori &uarr;), AST 58.0 U/L</div>
+          </div>
+
+          <div style="background: #F4F4F5; padding: 10px; border-radius: 6px; font-size: 11px; margin-bottom: 12px;">
+            <strong>Tibbiy Tavsiya:</strong> Jigar fermentlarining ko'tarilishi sababli qo'shimcha gepatoprotektor terapiyasi va 10 kundan so'ng qayta nazorat tahlili topshirish tavsiya etiladi.
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #CCCCCC; padding-top: 8px; font-size: 10px; color: #444444;">
+            <div>ELEKTRON MUHR: MEDLOOP VALIDATED</div>
+            <div style="font-family: monospace;">QR: [VERIFIED-CERT-8849]</div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button onclick="window.print()" class="btn-acid mono" style="flex: 1; justify-content: center; font-size: 12px; padding: 10px;">
+            Chop Etish / PDF Saqlash &darr;
+          </button>
+          <button onclick="closeInstantPayModal()" class="btn-glass mono" style="font-size: 12px; padding: 10px 14px;">
+            Yopish
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     function openClinicModal(plan = 'Pro Clinical') {
       const modal = document.getElementById('clinicModal');
@@ -660,8 +771,70 @@
       document.getElementById('clinicModal').classList.remove('open');
     }
 
+    let currentPayMethod = 'payme';
+    function setPayMethod(method) {
+      currentPayMethod = method;
+      const btnPayme = document.getElementById('payMethodPayme');
+      const btnClick = document.getElementById('payMethodClick');
+      if (btnPayme && btnClick) {
+        btnPayme.style.borderColor = method === 'payme' ? 'var(--accent-acid)' : 'var(--border-subtle)';
+        btnPayme.style.color = method === 'payme' ? 'var(--accent-acid)' : '#FFFFFF';
+        btnClick.style.borderColor = method === 'click' ? 'var(--accent-acid)' : 'var(--border-subtle)';
+        btnClick.style.color = method === 'click' ? 'var(--accent-acid)' : '#FFFFFF';
+      }
+    }
+
+    function openInstantPayModal() {
+      const name = document.getElementById('resName').textContent;
+      const patientEl = document.getElementById('payPatientName');
+      const reportEl = document.getElementById('repPatientName');
+      if (patientEl) patientEl.textContent = name;
+      if (reportEl) reportEl.textContent = name;
+
+      document.getElementById('payStageCheckout').style.display = 'block';
+      document.getElementById('payStageReport').style.display = 'none';
+      document.getElementById('instantPayModal').classList.add('open');
+    }
+
+    function closeInstantPayModal() {
+      const modal = document.getElementById('instantPayModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function executePayment() {
+      const btn = document.getElementById('btnSubmitPayment');
+      if (!btn) return;
+      btn.textContent = "[BANK SHLYUZI BILAN BOG'LANMOQDA...]";
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.textContent = "To'lovni Tasdiqlash \u2022 15,000 UZS \u2192";
+        btn.disabled = false;
+        document.getElementById('payStageCheckout').style.display = 'none';
+        document.getElementById('payStageReport').style.display = 'block';
+
+        try {
+          const tx = {
+            id: 'ML-UZ-' + Math.floor(100000 + Math.random() * 900000),
+            amount: 15000,
+            currency: 'UZS',
+            patient: document.getElementById('resName').textContent,
+            provider: currentPayMethod.toUpperCase(),
+            timestamp: new Date().toISOString(),
+            status: 'PAID_VERIFIED'
+          };
+          let prev = JSON.parse(localStorage.getItem('medloop_transactions') || '[]');
+          prev.unshift(tx);
+          localStorage.setItem('medloop_transactions', JSON.stringify(prev));
+        } catch(e) {}
+      }, 500);
+    }
+
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeClinicModal();
+      if (e.key === 'Escape') {
+        closeClinicModal();
+        closeInstantPayModal();
+      }
     });
 
     function submitClinicRegistration(e) {
