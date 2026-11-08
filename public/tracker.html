@@ -778,9 +778,22 @@
       </div>
 
       <!-- Live Terminal Log Window -->
-      <div id="terminalWindow" style="background: #050505; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; height: 180px; overflow-y: auto; font-family: monospace; font-size: 11px; color: #CCCCCC; display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;">
+      <div id="terminalWindow" style="background: #050505; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; height: 160px; overflow-y: auto; font-family: monospace; font-size: 11px; color: #CCCCCC; display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px;">
         <div style="color: #666666;">[SYSTEM] MedLoop Autonomous Dispatch Engine ishga tushirildi.</div>
         <div style="color: #666666;">[AUTH] Samarqand &amp; Toshkent reestri tekshirilmoqda...</div>
+      </div>
+
+      <!-- 1-Click Native Email Launchers -->
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 12px; margin-bottom: 16px;">
+        <div class="mono" style="font-size: 10px; color: var(--accent-acid); margin-bottom: 8px; text-transform: uppercase;">
+          [1-BOSISHDA POCHTANGIZDAN YUBORISH (GMAIL / APPLE MAIL)]
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <a id="btnMailtoZarmed" href="mailto:info@zarmedpratiksha.uz?subject=14-kunlik%20xatarsiz%20pilot%20taklifi%20%E2%80%A2%20Zarmed%20Pratiksha%20%26%20MedLoop%20AI&body=Hurmatli%20Zarmed%20Pratiksha%20ma%27muriyati!%0A%0ABiz%20O%27zbekiston%20xususiy%20klinikalarida%20qon%20tahlili%20topshirib%2C%20shifokorga%20kirmasdan%20ketib%20qolayotgan%20bemorlarni%20qaytarishga%20ixtisoslashgan%20MedLoop%20AI%20platformasi%20jamoasimiz.%0A%0AZarmed%20Pratiksha%20bo%27yicha%20hisob-kitoblarimiz%3A%0A-%20Kunlik%20bemorlar%3A%20~140%20nafar%0A-%20Yo%27qotilayotgan%20oylik%20tushum%3A%20~95%2C700%2C000%20UZS%0A-%20MedLoop%20orqali%20tiklanishi%20kutilayotgan%20tushum%3A%20%2B57%2C400%2C000%20UZS%0A%0A14%20KUNLIK%20XATARSIZ%20PILOT%20SHARTLARI%3A%0A-%2014%20kun%20davomida%20tizim%20klinikangiz%20uchun%20to%27liq%20bepul%20ishlaydi.%0A-%20Agar%20MedLoop%20ushbu%2014%20kun%20ichida%20kamida%203%2C000%2C000%20so%27m%20qo%27shimcha%20daromad%20keltirmasa%2C%20hech%20qanday%20to%27lov%20talab%20qilinmaydi.%0A%0AJonli%20platforma%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Fstartup.html%0ALOI%20shartnomasi%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Floi.pdf%0A%0AHurmat%20bilan%2C%0AJasur%20%2F%20MedLoop%20AI%20asoschisi%0ATel%3A%20%2B998%2090%20455-35-53" class="btn-glass mono" style="font-size: 11px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">&bull; Zarmed Pratiksha &nearr;</a>
+          <a id="btnMailtoDoctorD" href="mailto:info@doctord.uz?subject=14-kunlik%20xatarsiz%20pilot%20taklifi%20%E2%80%A2%20Doctor%20D%20%26%20MedLoop%20AI&body=Hurmatli%20Doctor%20D%20ma%27muriyati!%0A%0ABiz%20O%27zbekiston%20xususiy%20klinikalarida%20qon%20tahlili%20topshirib%2C%20shifokorga%20kirmasdan%20ketib%20qolayotgan%20bemorlarni%20qaytarishga%20ixtisoslashgan%20MedLoop%20AI%20platformasi%20jamoasimiz.%0A%0ADoctor%20D%20bo%27yicha%20hisob-kitoblarimiz%3A%0A-%20Kunlik%20bemorlar%3A%20~90%20nafar%0A-%20Yo%27qotilayotgan%20oylik%20tushum%3A%20~89%2C100%2C000%20UZS%0A-%20MedLoop%20orqali%20tiklanishi%20kutilayotgan%20tushum%3A%20%2B53%2C400%2C000%20UZS%0A%0A14%20KUNLIK%20XATARSIZ%20PILOT%20SHARTLARI%3A%0A-%2014%20kun%20davomida%20tizim%20klinikangiz%20uchun%20to%27liq%20bepul%20ishlaydi.%0A-%20Agar%20MedLoop%20ushbu%2014%20kun%20ichida%20kamida%203%2C000%2C000%20so%27m%20qo%27shimcha%20daromad%20keltirmasa%2C%20hech%20qanday%20to%27lov%20talab%20qilinmaydi.%0A%0AJonli%20platforma%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Fstartup.html%0ALOI%20shartnomasi%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Floi.pdf%0A%0AHurmat%20bilan%2C%0AJasur%20%2F%20MedLoop%20AI%20asoschisi%0ATel%3A%20%2B998%2090%20455-35-53" class="btn-glass mono" style="font-size: 11px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">&bull; Doctor D &amp; U &nearr;</a>
+          <a id="btnMailtoAfrosiyob" href="mailto:info@afrosiyobmedical.com?subject=14-kunlik%20xatarsiz%20pilot%20taklifi%20%E2%80%A2%20Afrosiyob%20Medical%20%26%20MedLoop%20AI&body=Hurmatli%20Afrosiyob%20Medical%20ma%27muriyati!%0A%0ABiz%20O%27zbekiston%20xususiy%20klinikalarida%20qon%20tahlili%20topshirib%2C%20shifokorga%20kirmasdan%20ketib%20qolayotgan%20bemorlarni%20qaytarishga%20ixtisoslashgan%20MedLoop%20AI%20platformasi%20jamoasimiz.%0A%0AAfrosiyob%20Medical%20bo%27yicha%20hisob-kitoblarimiz%3A%0A-%20Kunlik%20bemorlar%3A%20~85%20nafar%0A-%20Yo%27qotilayotgan%20oylik%20tushum%3A%20~72%2C000%2C000%20UZS%0A-%20MedLoop%20orqali%20tiklanishi%20kutilayotgan%20tushum%3A%20%2B43%2C200%2C000%20UZS%0A%0A14%20KUNLIK%20XATARSIZ%20PILOT%20SHARTLARI%3A%0A-%2014%20kun%20davomida%20tizim%20klinikangiz%20uchun%20to%27liq%20bepul%20ishlaydi.%0A-%20Agar%20MedLoop%20ushbu%2014%20kun%20ichida%20kamida%203%2C000%2C000%20so%27m%20qo%27shimcha%20daromad%20keltirmasa%2C%20hech%20qanday%20to%27lov%20talab%20qilinmaydi.%0A%0AJonli%20platforma%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Fstartup.html%0ALOI%20shartnomasi%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Floi.pdf%0A%0AHurmat%20bilan%2C%0AJasur%20%2F%20MedLoop%20AI%20asoschisi%0ATel%3A%20%2B998%2090%20455-35-53" class="btn-glass mono" style="font-size: 11px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">&bull; Afrosiyob Medical &nearr;</a>
+          <a id="btnMailtoOsiyo" href="mailto:info@osiyomed.uz?subject=14-kunlik%20xatarsiz%20pilot%20taklifi%20%E2%80%A2%20Osiyo%20Medical%20%26%20MedLoop%20AI&body=Hurmatli%20Osiyo%20Medical%20ma%27muriyati!%0A%0ABiz%20O%27zbekiston%20xususiy%20klinikalarida%20qon%20tahlili%20topshirib%2C%20shifokorga%20kirmasdan%20ketib%20qolayotgan%20bemorlarni%20qaytarishga%20ixtisoslashgan%20MedLoop%20AI%20platformasi%20jamoasimiz.%0A%0AOsiyo%20Medical%20bo%27yicha%20hisob-kitoblarimiz%3A%0A-%20Kunlik%20bemorlar%3A%20~75%20nafar%0A-%20Yo%27qotilayotgan%20oylik%20tushum%3A%20~42%2C900%2C000%20UZS%0A-%20MedLoop%20orqali%20tiklanishi%20kutilayotgan%20tushum%3A%20%2B25%2C700%2C000%20UZS%0A%0A14%20KUNLIK%20XATARSIZ%20PILOT%20SHARTLARI%3A%0A-%2014%20kun%20davomida%20tizim%20klinikangiz%20uchun%20to%27liq%20bepul%20ishlaydi.%0A-%20Agar%20MedLoop%20ushbu%2014%20kun%20ichida%20kamida%203%2C000%2C000%20so%27m%20qo%27shimcha%20daromad%20keltirmasa%2C%20hech%20qanday%20to%27lov%20talab%20qilinmaydi.%0A%0AJonli%20platforma%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Fstartup.html%0ALOI%20shartnomasi%3A%20https%3A%2F%2Fturnir-launch-lab.vercel.app%2Floi.pdf%0A%0AHurmat%20bilan%2C%0AJasur%20%2F%20MedLoop%20AI%20asoschisi%0ATel%3A%20%2B998%2090%20455-35-53" class="btn-glass mono" style="font-size: 11px; padding: 6px 12px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">&bull; Osiyo Medical &nearr;</a>
+        </div>
       </div>
 
       <div style="display: flex; gap: 10px; justify-content: flex-end;">
@@ -841,6 +854,7 @@
         clinic: "Doktor D Poliklinikasi",
         location: "Toshkent, Chilonzor (va Samarqand)",
         contact: "Bosh vrach / Dr. Alisher (45 vrach)",
+        email: "info@doctord.uz",
         stack: "1C Meditsina + Qog'oz",
         patients: 110,
         drop: 45,
@@ -857,6 +871,7 @@
         clinic: "Med Star Diagnostika",
         location: "Samarqand, Dahbed 12",
         contact: "Menejer / Dr. Nodir (12 specs)",
+        email: "info@medstar.uz",
         stack: "Qog'oz + Telegram",
         patients: 65,
         drop: 40,
@@ -873,6 +888,7 @@
         clinic: "Samarkand Medical Center",
         location: "Samarqand, Gagarin 42",
         contact: "Bosh shifokor / Dr. Jamshid (28 docs)",
+        email: "info@sammed.uz",
         stack: "Klinika MIS tizimi",
         patients: 95,
         drop: 42,
@@ -889,6 +905,7 @@
         clinic: "Zarmed Pratiksha",
         location: "Samarqand, Mirzo Ulug'bek",
         contact: "Klinika Ma'muriyati (50+ specs)",
+        email: "info@zarmedpratiksha.uz",
         stack: "Korporativ MIS",
         patients: 140,
         drop: 38,
@@ -905,6 +922,7 @@
         clinic: "Sog'lom Tabassum Clinic",
         location: "Samarqand, Registon 8",
         contact: "Bosh shifokor / Dr. Sardor (8 docs)",
+        email: "info@soglomtabassum.uz",
         stack: "Excel + Daftar",
         patients: 45,
         drop: 50,
@@ -1061,6 +1079,18 @@
         loiBtn.onclick = () => previewDocument('/loi.pdf', `14-Kunlik Pilot LOI Kelishuvi — ${item.clinic}`);
       } else {
         loiBtn.style.display = 'none';
+      }
+
+      const emailBtn = document.getElementById('drawerEmailBtn');
+      if (emailBtn) {
+        if (item.email) {
+          const subj = encodeURIComponent(`14-kunlik xatarsiz pilot taklifi • ${item.clinic} & MedLoop AI`);
+          const body = encodeURIComponent(`Hurmatli ${item.clinic} ma'muriyati!\n\nBiz O'zbekiston xususiy klinikalarida qon tahlili topshirib, shifokorga kirmasdan ketib qolayotgan bemorlarni qaytarishga ixtisoslashgan MedLoop AI platformasi jamoasimiz.\n\n${item.clinic} bo'yicha hisob-kitoblarimiz:\n- Yo'qotilayotgan oylik tushum: ~${item.bleed}\n- MedLoop orqali tiklanishi kutilayotgan tushum: +${item.recovered}\n\n14 KUNLIK XATARSIZ PILOT SHARTLARI:\n- 14 kun davomida tizim klinikangiz uchun to'liq bepul ishlaydi.\n- Agar MedLoop ushbu 14 kun ichida kamida 3,000,000 so'm qo'shimcha daromad keltirmasa, hech qanday to'lov talab qilinmaydi.\n\nJonli platforma: https://turnir-launch-lab.vercel.app/startup.html\nLOI shartnomasi: https://turnir-launch-lab.vercel.app/loi.pdf\n\nHurmat bilan,\nJasur / MedLoop AI asoschisi\nTel: +998 90 455-35-53`);
+          emailBtn.href = `mailto:${item.email}?subject=${subj}&body=${body}`;
+          emailBtn.style.display = 'flex';
+        } else {
+          emailBtn.style.display = 'none';
+        }
       }
 
       document.getElementById('clinicEvidenceDrawer').classList.add('active');
@@ -1287,10 +1317,13 @@
 
       <!-- Actions -->
       <div style="margin-top: auto; border-top: 1px solid var(--border-subtle); padding-top: 16px; display: flex; flex-direction: column; gap: 10px;">
-        <button id="drawerLoiBtn" class="btn-acid mono" style="justify-content: center; width: 100%; padding: 10px; font-size: 11px;">
+        <a id="drawerEmailBtn" href="#" class="btn-acid mono" style="justify-content: center; width: 100%; padding: 10px; font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 6px;">
+          &bull; Bosh Vrachga 1-Bosishda Email Yuborish &nearr;
+        </a>
+        <button id="drawerLoiBtn" class="btn-white mono" style="justify-content: center; width: 100%; padding: 10px; font-size: 11px;">
           14-Kunlik Pilot LOI Shartnomasini Ko'rish (PDF) &rarr;
         </button>
-        <a id="drawerTelegramBtn" href="https://t.me/jasurceo" target="_blank" class="btn-white mono" style="justify-content: center; width: 100%; padding: 8px; font-size: 11px;">
+        <a id="drawerTelegramBtn" href="https://t.me/jasurceo" target="_blank" class="btn-glass mono" style="justify-content: center; width: 100%; padding: 8px; font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 6px;">
           Ushbu Klinika Bo'yicha Aloqa: @jasurceo &nearr;
         </a>
       </div>
