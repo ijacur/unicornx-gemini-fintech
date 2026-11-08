@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MedLoop AI &bull; O'zbekiston Klinikalarida Bemorlarni Qaytarish Platformasi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-root: #050505;
+      --bg-surface: #0E0E10;
+      --bg-elevated: #151518;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.22);
+      --text-primary: #FFFFFF;
+      --text-secondary: #9999A0;
+      --text-muted: #555560;
+      --accent-acid: #C6F432;
+      --accent-acid-glow: rgba(198, 244, 50, 0.35);
+      --accent-cyan: #00F0FF;
+      --accent-crimson: #FF3B30;
+      --sans-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono-font: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    html, body {
+      background: var(--bg-root);
+      color: var(--text-primary);
+      font-family: var(--sans-font);
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100vw;
+      line-height: 1.5;
+    }
+
+    .mono {
+      font-family: var(--mono-font);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Ambient Spotlight Background */
+    .spotlight-bg {
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      max-width: 1200px;
+      height: 70vh;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(198, 244, 50, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grid-backdrop {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at 50% 25%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 25%, black 20%, transparent 75%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Fixed Glass Navigation */
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      background: rgba(5, 5, 5, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1000;
+    }
+
+    .brand-logo {
+      font-weight: 800;
+      font-size: 14px;
+      color: #FFFFFF;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-pill {
+      font-family: var(--mono-font);
+      font-size: 10px;
+      background: rgba(198, 244, 50, 0.12);
+      color: var(--accent-acid);
+      border: 1px solid rgba(198, 244, 50, 0.3);
+      padding: 2px 7px;
+      border-radius: 9999px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-link {
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      font-weight: 500;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-subtle);
+    }
+
+    /* Buttons */
+    .btn-acid {
+      background: var(--accent-acid);
+      color: #000000;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      border: 1px solid var(--accent-acid);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background-color 0.15s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+      user-select: none;
+    }
+    .btn-acid:hover {
+      background: #D9FF48;
+      box-shadow: 0 0 20px var(--accent-acid-glow);
+      transform: translateY(-1px);
+    }
+    .btn-acid:active, .btn-glass:active {
+      transform: scale(0.96) !important;
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.05);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-hover);
+    }
+
+    /* Bento Cards & Containers */
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 24px 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-tag {
+      font-family: var(--mono-font);
+      font-size: 11px;
+      color: var(--accent-acid);
+      background: rgba(198, 244, 50, 0.08);
+      border: 1px solid rgba(198, 244, 50, 0.25);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: #FFFFFF;
+      max-width: 980px;
+      margin-bottom: 20px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(180deg, #FFFFFF 0%, #888888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
+      max-width: 720px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .bento-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.01) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .bento-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    /* Laser Scanner Beam */
+    .scanner-box {
+      border: 1.5px dashed rgba(198, 244, 50, 0.35);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(198, 244, 50, 0.015);
+    }
+
+    .laser-beam {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, #C6F432 50%, transparent 100%);
+      box-shadow: 0 0 14px #C6F432;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .laser-scanning {
+      animation: laserScan 1.8s ease-in-out infinite alternate;
+      opacity: 1;
+    }
+    @keyframes laserScan {
+      0% { top: 4%; }
+      100% { top: 96%; }
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      max-width: 620px;
+      width: 100%;
+      padding: 32px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    /* Form Fields */
+    input, select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #FFFFFF;
+      font-family: var(--sans-font);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s ease;
+      margin-top: 6px;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent-acid);
+    }
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: block;
+      margin-top: 14px;
+    }
+
+    /* Mobile Responsive Rules */
+    @media (max-width: 900px) {
+      nav.top-nav {
+        position: sticky !important;
+        top: 0 !important;
+        height: auto !important;
+        min-height: 48px !important;
+        padding: 8px 14px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+        background: rgba(5, 5, 5, 0.95) !important;
+      }
+      .nav-links {
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        scrollbar-width: none !important;
+        padding-bottom: 2px !important;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+
+      .hero-container {
+        padding: 24px 14px 60px !important;
+      }
+      .split-grid {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+      .modal-card {
+        padding: 20px 16px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="spotlight-bg"></div>
+  <div class="grid-backdrop"></div>
+
+  <!-- Header Nav -->
+  <nav class="top-nav">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <a href="/startup.html" class="brand-logo">
+        MedLoop <span class="brand-pill">STARTUP V1.0</span>
+      </a>
+      <button onclick="openClinicModal()" class="btn-acid mono" style="font-size: 11px; padding: 6px 14px;">
+        14-Kun Bepul Pilot &uarr;
+      </button>
+    </div>
+
+    <div class="nav-links">
+      <a href="/startup.html" class="nav-link active">Mahsulot</a>
+      <a href="/reception.html" class="nav-link">Registratura</a>
+      <a href="/clinic-roi.html" class="nav-link">Klinika Moliya</a>
+      <a href="/pitch.html" class="nav-link">Slaydlar (10)</a>
+      <a href="/tracker.html" class="nav-link">8 Klinika</a>
+      <a href="/workflow.html" class="nav-link">Workflow</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="hero-container">
+    <div>
+      <div class="hero-tag mono">
+        &bull; O'ZBEKISTON XUSUSIY TIBBIYOTI UCHUN TELOMETRIYA SAAS
+      </div>
+      <h1 class="hero-title">
+        Laboratoriya tahlilidan so'ng <span>yo'qolayotgan bemorlarni 8 soniyada</span> qaytaring
+      </h1>
+      <p class="hero-desc">
+        Bemorlar murakkab tahlil blankalarini tushunmay, shifokor qabuliga bormasdan ketadi. MedLoop ularga 8 soniyada iliq o'zbekcha xulosa beradi va klinika qabuliga 1-click orqali qayta biriktiradi.
+      </p>
+
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px;">
+        <button onclick="openClinicModal()" class="btn-acid mono">
+          Klinikani 14 Kunga Ulash (0 UZS) &rarr;
+        </button>
+        <a href="#live-scanner" class="btn-glass mono">
+          Jonli Skanerda Sinash &darr;
+        </a>
+      </div>
+    </div>
+
+    <!-- 4 Core Metrics -->
+    <div class="stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px;">
+      <div class="bento-card" style="padding: 20px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">YO'QOTISH QISQARISHI</div>
+        <div class="mono" style="font-size: 36px; font-weight: 800; color: var(--accent-acid); margin-top: 4px;">-62%</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Tahlildan keyingi drop-off</div>
+      </div>
+      <div class="bento-card" style="padding: 20px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">OCR SPEED</div>
+        <div class="mono" style="font-size: 36px; font-weight: 800; color: #FFFFFF; margin-top: 4px;">8s</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Multimodal deterministik o'qish</div>
+      </div>
+      <div class="bento-card" style="padding: 20px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">TIKLANGAN SOF DAROMAD</div>
+        <div class="mono" style="font-size: 32px; font-weight: 800; color: var(--accent-acid); margin-top: 4px;">+122M</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">O'rtacha poliklinika oylik tushumi</div>
+      </div>
+      <div class="bento-card" style="padding: 20px;">
+        <div class="mono" style="font-size: 11px; color: var(--text-secondary);">IMZOLANGAN LOI</div>
+        <div class="mono" style="font-size: 36px; font-weight: 800; color: #FFFFFF; margin-top: 4px;">5 / 8</div>
+        <div class="mono" style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Samarqand va Toshkent klinikalari</div>
+      </div>
+    </div>
+
+    <!-- Live Interactive Demo Section -->
+    <div id="live-scanner" class="bento-card" style="margin-bottom: 40px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <span class="mono" style="font-size: 11px; color: var(--accent-acid);">JONLI MULTIMODAL DEMO</span>
+          <h2 style="font-size: 20px; font-weight: 700; color: #FFFFFF; margin-top: 4px;">Haqiqiy Qon Tahlilini Skanerlash Sinovi</h2>
+        </div>
+        <span class="mono brand-pill">&bull; LIVE ENGINE READY</span>
+      </div>
+
+      <div class="split-grid" style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: start;">
+        <!-- Left: Upload & Presets -->
+        <div class="scanner-box" id="scannerDropZone">
+          <div id="laserBeam" class="laser-beam"></div>
+          <input type="file" id="realLabFileInput" accept=".pdf,image/*" onchange="processCustomFile(event)" style="display: none;">
+
+          <div style="text-align: center; padding: 20px 10px;">
+            <div class="mono" style="font-size: 12px; color: var(--accent-acid); font-weight: 700;">[8 SONIYALIK MULTIMODAL TAHLIL]</div>
+            <div id="scannerTextPrompt" style="font-size: 14px; color: #FFFFFF; font-weight: 600; margin: 8px 0 16px;">
+              Qon tahlili rasmi yoki PDF blankasini tanlang
+            </div>
+            <button onclick="document.getElementById('realLabFileInput').click()" class="btn-acid mono" style="font-size: 12px;">
+              Faylni Yuklash &rarr;
+            </button>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: 10px;">
+            <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">
+              Yoki tayyor haqiqiy laboratoriya namunasini bosing:
+            </div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button onclick="simulateScan('liver')" class="btn-glass mono" style="font-size: 11px; padding: 6px 12px;">
+                1. Intermed: Jigar (ALT/AST)
+              </button>
+              <button onclick="simulateScan('glucose')" class="btn-glass mono" style="font-size: 11px; padding: 6px 12px;">
+                2. De Facto: Diabet (HbA1c)
+              </button>
+              <button onclick="simulateScan('anemia')" class="btn-glass mono" style="font-size: 11px; padding: 6px 12px;">
+                3. Vitros: Anemiya (Ferritin)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Real-Time Results -->
+        <div class="bento-card" style="background: rgba(0,0,0,0.6); padding: 20px;" id="resultsCard">
+          <div class="mono" style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">
+            EKSTRAKTSIYA VA TRIAGE NATIJASI
+          </div>
+          
+          <div id="patientHeader" style="margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle);">
+            <div style="font-size: 15px; font-weight: 700; color: #FFFFFF;" id="resName">Bobur Xoliqov (1988)</div>
+            <div class="mono" style="font-size: 11px; color: var(--text-secondary);" id="resPhone">+998 91 552 14 33 &bull; Osiyo Medical Filiali</div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;" id="resBiomarkers">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 8px; background: rgba(255,59,48,0.12); border-radius: 6px; border: 1px solid rgba(255,59,48,0.3);">
+              <span style="font-weight: 600;">ALT (Alaninaminotransferaza)</span>
+              <span class="mono" style="font-weight: 700; color: var(--accent-crimson);">94.0 U/L [0 - 41] &uarr;</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 8px; background: rgba(255,255,255,0.03); border-radius: 6px;">
+              <span>AST (Aspartataminotransferaza)</span>
+              <span class="mono">58.0 U/L [0 - 37]</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 8px; background: rgba(255,255,255,0.03); border-radius: 6px;">
+              <span>Umumiy Bilirubin</span>
+              <span class="mono">19.2 &mu;mol/L [3.4 - 20.5]</span>
+            </div>
+          </div>
+
+          <div style="padding: 12px; background: rgba(198,244,50,0.08); border-radius: 8px; border: 1px solid rgba(198,244,50,0.25); margin-bottom: 14px;">
+            <div class="mono" style="font-size: 10px; color: var(--accent-acid); font-weight: 700; margin-bottom: 2px;">
+              ILIK O'ZBEKCHA XULOSA (GEN-AI 2.5):
+            </div>
+            <p id="resSummary" style="font-size: 12px; color: #FFFFFF; line-height: 1.5;">
+              Jigar fermentlari (ALT) me'yordan oshganligi aniqlandi. Xavotirga o'rin yo'q, ammo jigar faoliyatini tiklash uchun gepatolog shifokor ko'rigi zarur.
+            </p>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button onclick="sendPatientTelegram()" id="btnActionTg" class="btn-acid mono" style="font-size: 11px; flex: 1;">
+              Telegram Xabarnoma Yuborish &rarr;
+            </button>
+            <a href="/reception.html" class="btn-glass mono" style="font-size: 11px;">
+              Qabulxonaga Qo'shish &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing / Pilot Tiers -->
+    <div style="margin-bottom: 40px;">
+      <div style="text-align: center; margin-bottom: 24px;">
+        <span class="mono brand-pill">B2B NARXLAR &bull; OYLIK OBUNA</span>
+        <h2 style="font-size: 24px; font-weight: 800; color: #FFFFFF; margin-top: 6px;">
+          Klinikalar Uchun Shafoff Tariflar
+        </h2>
+      </div>
+
+      <div class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        <!-- Tier 1 -->
+        <div class="bento-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="mono" style="font-size: 12px; color: var(--text-secondary);">PILOT / BOSHLANG'ICH</div>
+            <div class="mono" style="font-size: 28px; font-weight: 800; color: #FFFFFF; margin: 8px 0;">2,400,000 <span style="font-size: 12px; color: var(--text-muted);">UZS / oy</span></div>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">Kichik laboratoriyalar va xususiy markazlar uchun (oyiga 1,200 tahlilgacha).</p>
+            <div style="font-size: 12px; color: #FFFFFF; display: flex; flex-direction: column; gap: 8px;">
+              <div>&bull; 8s Multimodal OCR Tahlil</div>
+              <div>&bull; Bemorlar navbati monitoringi</div>
+              <div>&bull; Telegram Mini App yo'llanma</div>
+            </div>
+          </div>
+          <button onclick="openClinicModal('Starter')" class="btn-glass mono" style="margin-top: 20px; width: 100%; justify-content: center;">
+            Ulash &rarr;
+          </button>
+        </div>
+
+        <!-- Tier 2 (Highlighted) -->
+        <div class="bento-card" style="border-color: var(--accent-acid); box-shadow: 0 0 30px rgba(198,244,50,0.15); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="mono brand-pill" style="margin-bottom: 6px;">ENG KO'P TANLANGAN</div>
+            <div class="mono" style="font-size: 12px; color: var(--text-secondary);">PRO CLINICAL</div>
+            <div class="mono" style="font-size: 28px; font-weight: 800; color: var(--accent-acid); margin: 8px 0;">4,500,000 <span style="font-size: 12px; color: var(--text-muted);">UZS / oy</span></div>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">Ko'p tarmoqli poliklinikalar uchun (oyiga 4,000 tahlil + SMS shlyuz).</p>
+            <div style="font-size: 12px; color: #FFFFFF; display: flex; flex-direction: column; gap: 8px;">
+              <div>&bull; Barcha Starter imkoniyatlari</div>
+              <div>&bull; Avtomatlashtirilgan SMS Gateway</div>
+              <div>&bull; Shifokor kabinetlari telemetriyasi</div>
+              <div>&bull; 14 kunlik bepul kafolatlangan pilot</div>
+            </div>
+          </div>
+          <button onclick="openClinicModal('Pro Clinical')" class="btn-acid mono" style="margin-top: 20px; width: 100%; justify-content: center;">
+            14-Kun Sinovni Boshlash &rarr;
+          </button>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="bento-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div class="mono" style="font-size: 12px; color: var(--text-secondary);">ENTERPRISE TARMOQ</div>
+            <div class="mono" style="font-size: 28px; font-weight: 800; color: #FFFFFF; margin: 8px 0;">7,800,000 <span style="font-size: 12px; color: var(--text-muted);">UZS / oy</span></div>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">Filiallar tarmog'i va yirik shifoxonalar uchun (cheksiz skan + 1C integratsiya).</p>
+            <div style="font-size: 12px; color: #FFFFFF; display: flex; flex-direction: column; gap: 8px;">
+              <div>&bull; Cheksiz tahlillar va filiallar</div>
+              <div>&bull; 1C:Meditsina va MIS API integratsiya</div>
+              <div>&bull; 24/7 Maxsus texnik muhandis</div>
+            </div>
+          </div>
+          <button onclick="openClinicModal('Enterprise')" class="btn-glass mono" style="margin-top: 20px; width: 100%; justify-content: center;">
+            Shartnoma Tuzish &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- CLINIC REGISTRATION & 14-DAY PILOT MODAL -->
+  <div id="clinicModal" class="modal-backdrop" onclick="if(event.target===this) closeClinicModal()">
+    <div class="modal-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+        <div>
+          <span class="mono brand-pill">[14-KUNLIK KAFOLATLANGAN PILOT]</span>
+          <h3 style="font-size: 18px; font-weight: 700; color: #FFFFFF; margin-top: 6px;">Klinikani MedLoop Tizimiga Ulash</h3>
+        </div>
+        <button onclick="closeClinicModal()" class="btn-glass mono" style="padding: 4px 10px; font-size: 12px;">ESC &times;</button>
+      </div>
+
+      <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">
+        Oldindan to'lov talab etilmaydi. 14 kunlik sinov davrida MedLoop klinikangizga kamida 3,000,000 UZS qo'shimcha daromad tiklab bersagina obuna davom etadi.
+      </p>
+
+      <form onsubmit="submitClinicRegistration(event)">
+        <label>Klinika Nomi va Filiali</label>
+        <input type="text" id="regClinicName" placeholder="Masalan: Osiyo Medical Clinic (Samarqand)" required>
+
+        <label>Bosh Shifokor yoki Rahbar F.I.Sh.</label>
+        <input type="text" id="regDirectorName" placeholder="Dr. Shirinov Xuseyn" required>
+
+        <label>Telefon / Telegram Raqam</label>
+        <input type="text" id="regPhone" placeholder="+998 90 123 45 67" required>
+
+        <label>Kunlik O'rtacha Bemorlar Soni</label>
+        <select id="regVolume">
+          <option value="50">50 bemor/kun (Kichik poliklinika)</option>
+          <option value="100" selected>100 bemor/kun (O'rtacha klinika)</option>
+          <option value="250">250+ bemor/kun (Yirik markaz)</option>
+        </select>
+
+        <label>Tanlangan Tarif</label>
+        <select id="regPlan">
+          <option value="Pro Clinical">Pro Clinical (4,500,000 UZS/oy - 14 Kun Bepul)</option>
+          <option value="Starter">Starter (2,400,000 UZS/oy)</option>
+          <option value="Enterprise">Enterprise (7,800,000 UZS/oy)</option>
+        </select>
+
+        <div style="display: flex; gap: 10px; margin-top: 24px;">
+          <button type="submit" class="btn-acid mono" style="flex: 1; padding: 12px; justify-content: center;">
+            14-Kun Bepul Pilotni Tasdiqlash &rarr;
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openClinicModal(plan = 'Pro Clinical') {
+      const modal = document.getElementById('clinicModal');
+      const planSelect = document.getElementById('regPlan');
+      if (planSelect) planSelect.value = plan;
+      modal.classList.add('open');
+    }
+
+    function closeClinicModal() {
+      document.getElementById('clinicModal').classList.remove('open');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeClinicModal();
+    });
+
+    function submitClinicRegistration(e) {
+      e.preventDefault();
+      const clinicName = document.getElementById('regClinicName').value;
+      const director = document.getElementById('regDirectorName').value;
+      const phone = document.getElementById('regPhone').value;
+      const plan = document.getElementById('regPlan').value;
+
+      const clinicData = {
+        name: clinicName,
+        director: director,
+        phone: phone,
+        plan: plan,
+        date: new Date().toISOString()
+      };
+
+      try {
+        let list = JSON.parse(localStorage.getItem('medloop_registered_clinics') || '[]');
+        list.push(clinicData);
+        localStorage.setItem('medloop_registered_clinics', JSON.stringify(list));
+      } catch(err) {}
+
+      alert(`[TASDIQLANDI] ${clinicName} uchun 14-kunlik kafolatlangan bepul pilot rasmiylashtirildi! LOI shartnomasi qabulxonaga yo'naltirildi.`);
+      closeClinicModal();
+      window.location.href = '/reception.html';
+    }
+
+    // Interactive OCR Demo Switcher
+    const SAMPLES = {
+      liver: {
+        name: "Bobur Xoliqov (1988)",
+        phone: "+998 91 552 14 33 • Osiyo Medical",
+        biomarkers: [
+          { name: "ALT (Alaninaminotransferaza)", value: "94.0 U/L [0 - 41]", high: true },
+          { name: "AST (Aspartataminotransferaza)", value: "58.0 U/L [0 - 37]", high: true },
+          { name: "Umumiy Bilirubin", value: "19.2 μmol/L [3.4 - 20.5]", high: false }
+        ],
+        summary: "Jigar fermentlari (ALT) me'yordan oshgan. Xavotirga o'rin yo'q, ammo jigar faoliyatini tiklash uchun Dr. Shirinov (Gepatolog) ko'rigi zarur."
+      },
+      glucose: {
+        name: "Karimova Ziyoda (1975)",
+        phone: "+998 90 712 34 56 • Doktor D",
+        biomarkers: [
+          { name: "HbA1c (Glikolizlangan gemoglobin)", value: "7.8% [4.0 - 5.6]", high: true },
+          { name: "Qondagi glyukoza (och qoringa)", value: "8.4 mmol/L [3.9 - 6.1]", high: true }
+        ],
+        summary: "Qand ko'rsatkichi (HbA1c 7.8%) prediabet chegarasidan yuqori. Ratsionni to'g'irlash va tahlillarni tushuntirish uchun Dr. Karimova (Endokrinolog) qabuliga yozilish tavsiya etiladi."
+      },
+      anemia: {
+        name: "Nilufar Usmonova (1994)",
+        phone: "+998 93 415 67 80 • SamMed",
+        biomarkers: [
+          { name: "Ferritin (Depo temir)", value: "6.2 ng/mL [20 - 250]", high: true },
+          { name: "Gemoglobin (Hb)", value: "98 g/L [120 - 150]", high: true }
+        ],
+        summary: "Temir tanqisligi anemiyasi (Ferritin 6.2 ng/mL). Charchoq va bosh og'rig'ini yo'qotish uchun Dr. Usmonov (Terapevt / Gematolog) ko'rigi zarur."
+      }
+    };
+
+    function simulateScan(key) {
+      const beam = document.getElementById('laserBeam');
+      const prompt = document.getElementById('scannerTextPrompt');
+      beam.classList.add('laser-scanning');
+      prompt.textContent = "[8s DETERMINISTIK MULTIMODAL SKAN...]";
+
+      setTimeout(() => {
+        beam.classList.remove('laser-scanning');
+        prompt.textContent = "Tahlil muvaffaqiyatli o'qildi!";
+        const s = SAMPLES[key];
+        document.getElementById('resName').textContent = s.name;
+        document.getElementById('resPhone').textContent = s.phone;
+        document.getElementById('resSummary').textContent = s.summary;
+
+        document.getElementById('resBiomarkers').innerHTML = s.biomarkers.map(b => `
+          <div style="display: flex; justify-content: space-between; font-size: 12px; padding: 6px 8px; background: ${b.high ? 'rgba(255,59,48,0.12)' : 'rgba(255,255,255,0.03)'}; border-radius: 6px; ${b.high ? 'border: 1px solid rgba(255,59,48,0.3);' : ''}">
+            <span style="${b.high ? 'font-weight: 600;' : ''}">${b.name}</span>
+            <span class="mono" style="${b.high ? 'font-weight: 700; color: var(--accent-crimson);' : ''}">${b.value} ${b.high ? '&uarr;' : ''}</span>
+          </div>
+        `).join('');
+      }, 700);
+    }
+
+    function processCustomFile(e) {
+      const file = e.target.files[0];
+      if (file) {
+        simulateScan('liver');
+        document.getElementById('scannerTextPrompt').textContent = `[YUKLANDI] ${file.name}`;
+      }
+    }
+
+    function sendPatientTelegram() {
+      const name = document.getElementById('resName').textContent;
+      const text = `Assalomu alaykum, ${name}! MedLoop klinika monitoringi: tahlil hisobotingiz bo'yicha shifokor ko'rigi tavsiya etildi. Savollaringiz bormi?`;
+      window.open(`https://t.me/share/url?text=${encodeURIComponent(text)}`, '_blank');
+    }
+  </script>
+</body>
+</html>

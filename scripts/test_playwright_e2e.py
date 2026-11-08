@@ -86,7 +86,8 @@ def test_e2e():
             ("/mini_app.html", "Telegram Mini App (mini_app.html)"),
             ("/medloop.html", "MedLoop B2B Pitch (medloop.html)"),
             ("/internship.html", "School 21 Amaliyot Portali (internship.html)"),
-            ("/pitch.html", "Seed-Stage Pitch Deck (pitch.html)")
+            ("/pitch.html", "Seed-Stage Pitch Deck (pitch.html)"),
+            ("/startup.html", "MedLoop Startup Platform (startup.html)")
         ]
 
         total_checks = 0
@@ -1677,7 +1678,8 @@ def test_e2e():
             ("/clinic-roi.html", "Clinic ROI"),
             ("/workflow.html", "Workflow"),
             ("/tracker.html", "Tracker"),
-            ("/index.html", "Index")
+            ("/index.html", "Index"),
+            ("/startup.html", "Startup V1")
         ]
         for pg_route, pg_name in pages_to_check:
             page.goto(f"http://localhost:{PORT}{pg_route}", wait_until="domcontentloaded")
