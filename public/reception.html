@@ -867,6 +867,16 @@
       renderQueue();
     }
 
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function renderQueue() {
       const container = document.getElementById('patientList');
       const filtered = patients.filter(p => {
@@ -888,22 +898,22 @@
                 <span class="${p.urgency === 'RED' ? 'badge-urgent' : 'badge-monochrome'}">
                   ${p.urgency === 'RED' ? '[URGENT RED]' : '[DIQQAT TALAB (SARIQ TOIFA)]'}
                 </span>
-                <span style="font-size: 14px; font-weight: 600; color: #FFFFFF;">${p.name}</span>
-                <span class="mono" style="font-size: 11px; color: var(--text-secondary);">${p.phone}</span>
+                <span style="font-size: 14px; font-weight: 600; color: #FFFFFF;">${escapeHtml(p.name)}</span>
+                <span class="mono" style="font-size: 11px; color: var(--text-secondary);">${escapeHtml(p.phone)}</span>
                 <span class="mono" style="font-size: 10px; color: var(--accent-acid); opacity: 0.85;">[Batafsil &rarr;]</span>
               </div>
               <div class="mono" style="font-size: 11px; color: #CCCCCC; margin-top: 4px;">
-                ${p.markers}
+                ${escapeHtml(p.markers)}
               </div>
             </div>
             <div class="mono" style="font-size: 10px; color: var(--text-muted);">
-              ${p.time}
+              ${escapeHtml(p.time)}
             </div>
           </div>
 
           <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-subtle); padding-top: 8px;">
             <div class="mono" style="font-size: 11px; color: var(--text-secondary);">
-              Specialist: <strong style="color: #FFF;">${p.doctor}</strong> (${p.specialty}) • Slot: <span style="color: #FFF;">${p.slot}</span>
+              Specialist: <strong style="color: #FFF;">${escapeHtml(p.doctor)}</strong> (${escapeHtml(p.specialty)}) &bull; Slot: <span style="color: #FFF;">${escapeHtml(p.slot)}</span>
             </div>
 
             <div style="display: flex; gap: 8px; align-items: center;">
