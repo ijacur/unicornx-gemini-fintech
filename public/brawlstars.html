@@ -1,0 +1,2043 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BRAWL CLASH 3D: Supercell x Roblox x Yandex Games Arena</title>
+  <meta name="description" content="Supercell Brawl Stars uslubidagi 3D Gem Grab janglari, Roblox Obby sakrash maydonchalari va Yandex Games Mega Box sovg'a tizimi. Bepul, brauzerda 60 FPS!">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js 3D Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;600;800;900&family=JetBrains+Mono:wght@700&display=swap');
+    
+    :root {
+      --font-brawl: 'Lilita One', cursive, sans-serif;
+      --font-ui: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+      overflow: hidden;
+      background: #090b14;
+      color: #ffffff;
+    }
+
+    .brawl-font {
+      font-family: var(--font-brawl);
+      letter-spacing: 0.05em;
+      text-shadow: 2px 3px 0px #000000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    }
+
+    .brawl-btn {
+      font-family: var(--font-brawl);
+      text-shadow: 1px 2px 0px rgba(0,0,0,0.8);
+      box-shadow: 0 6px 0px rgba(0,0,0,0.6), 0 10px 20px rgba(0,0,0,0.4);
+      transition: all 0.08s ease-out;
+    }
+    .brawl-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0px rgba(0,0,0,0.6), 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .ammo-pip {
+      transition: width 0.1s linear, background-color 0.2s;
+    }
+
+    /* Joystick touch surface styling */
+    .touch-joystick-base {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.4) 70%);
+      border: 3px solid rgba(255,255,255,0.25);
+      position: absolute;
+      touch-action: none;
+    }
+    .touch-joystick-knob {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #60a5fa 0%, #2563eb 80%, #1e3a8a 100%);
+      box-shadow: 0 4px 12px rgba(37,99,235,0.6), inset 0 2px 4px rgba(255,255,255,0.5);
+      border: 2px solid #93c5fd;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    /* Super Button Pulsing */
+    @keyframes superGlow {
+      0%, 100% { box-shadow: 0 0 15px #facc15, 0 0 30px #eab308, inset 0 0 10px #fef08a; transform: scale(1); }
+      50% { box-shadow: 0 0 30px #facc15, 0 0 50px #ca8a04, inset 0 0 16px #fef08a; transform: scale(1.06); }
+    }
+    .super-ready-anim {
+      animation: superGlow 1.2s infinite ease-in-out;
+    }
+
+    /* Floating combat text */
+    .combat-text {
+      position: absolute;
+      font-family: var(--font-brawl);
+      font-size: 20px;
+      font-weight: 900;
+      pointer-events: none;
+      animation: floatUpFade 0.85s forwards ease-out;
+      text-shadow: 2px 2px 0 #000, -1px -1px 0 #000;
+      z-index: 100;
+    }
+    @keyframes floatUpFade {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(0.7); }
+      20% { opacity: 1; transform: translate(-50%, -80%) scale(1.3); }
+      100% { opacity: 0; transform: translate(-50%, -150%) scale(1); }
+    }
+
+    /* Shaking Mega Box */
+    @keyframes boxRumble {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-5deg) scale(1.05); }
+      50% { transform: rotate(5deg) scale(1.08); }
+      75% { transform: rotate(-3deg) scale(1.05); }
+    }
+    .shake-box {
+      animation: boxRumble 0.3s infinite ease-in-out;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
+    ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.5); border-radius: 9999px; }
+  </style>
+</head>
+<body class="relative w-screen h-screen select-none overflow-hidden bg-slate-950">
+
+  <!-- 3D Three.js WebGL Canvas Container -->
+  <div id="canvas-container" class="absolute inset-0 w-full h-full z-0 cursor-crosshair"></div>
+
+  <!-- FLOATING COMBAT TEXT CONTAINER -->
+  <div id="combat-text-layer" class="absolute inset-0 pointer-events-none z-30"></div>
+
+  <!-- TOP HUD: GEM STATUS, COUNTDOWN & PAUSE -->
+  <header id="top-hud" class="absolute top-0 left-0 right-0 p-3 sm:p-5 flex items-center justify-between pointer-events-none z-20">
+    <!-- Blue Team Score (Player Team) -->
+    <div class="flex items-center space-x-2 bg-gradient-to-r from-blue-900/90 to-blue-950/80 border-2 border-blue-500/80 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md pointer-events-auto">
+      <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-inner border border-blue-400">
+        <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+      </div>
+      <div>
+        <div class="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Bizning Jamoa</div>
+        <div class="flex items-center space-x-1.5">
+          <i data-lucide="gem" class="w-5 h-5 text-emerald-400 fill-emerald-400 animate-pulse"></i>
+          <span id="blue-gem-count" class="brawl-font text-2xl text-white">0</span>
+          <span class="text-xs text-blue-200 font-bold">/10</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Gem Grab Countdown Banner (Hidden by default) -->
+    <div id="countdown-banner" class="hidden flex-col items-center bg-red-600/95 border-4 border-yellow-400 px-6 py-2 rounded-3xl shadow-2xl animate-bounce pointer-events-auto">
+      <span id="countdown-title" class="brawl-font text-sm uppercase text-yellow-200">G'ALABA HISOBI!</span>
+      <div class="flex items-center space-x-2">
+        <i data-lucide="timer" class="w-6 h-6 text-yellow-300"></i>
+        <span id="countdown-timer" class="brawl-font text-3xl text-white">15.0</span>
+      </div>
+    </div>
+
+    <!-- Red Team Score (Enemy Team) -->
+    <div class="flex items-center space-x-2 bg-gradient-to-l from-red-900/90 to-red-950/80 border-2 border-red-500/80 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md pointer-events-auto">
+      <div class="text-right">
+        <div class="text-[10px] uppercase font-bold text-red-300 tracking-wider">Dushmanlar</div>
+        <div class="flex items-center justify-end space-x-1.5">
+          <span id="red-gem-count" class="brawl-font text-2xl text-white">0</span>
+          <span class="text-xs text-red-200 font-bold">/10</span>
+          <i data-lucide="gem" class="w-5 h-5 text-emerald-400 fill-emerald-400"></i>
+        </div>
+      </div>
+      <div class="w-8 h-8 rounded-xl bg-red-600 flex items-center justify-center shadow-inner border border-red-400">
+        <i data-lucide="swords" class="w-5 h-5 text-white"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- TOP RIGHT CONTROLS: AUDIO, FULLSCREEN, MENU -->
+  <div class="absolute top-20 right-4 flex flex-col space-y-2 pointer-events-auto z-20">
+    <button id="btn-audio-toggle" onclick="toggleAudio()" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 text-yellow-400 flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-md backdrop-blur-sm">
+      <i id="audio-icon" data-lucide="volume-2" class="w-5 h-5"></i>
+    </button>
+    <button onclick="toggleLobby()" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 text-indigo-300 flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-md backdrop-blur-sm" title="Bosh Menyu">
+      <i data-lucide="home" class="w-5 h-5"></i>
+    </button>
+  </div>
+
+  <!-- PLAYER COMBAT STATUS HUD (BOTTOM CENTER) -->
+  <div id="player-hud" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-20 space-y-1.5">
+    <!-- Health Bar -->
+    <div class="w-56 sm:w-64 bg-slate-900/90 border-2 border-slate-700/80 rounded-xl p-1 shadow-2xl backdrop-blur-md">
+      <div class="flex justify-between items-center px-1 text-[11px] font-bold text-slate-300">
+        <span id="hud-brawler-name" class="uppercase text-amber-300 tracking-wider">COLT</span>
+        <span id="hud-hp-text">3600 / 3600</span>
+      </div>
+      <div class="w-full h-3.5 bg-slate-950 rounded-lg overflow-hidden mt-0.5 border border-slate-800">
+        <div id="hud-hp-bar" class="h-full bg-gradient-to-r from-emerald-500 to-green-400 transition-all duration-150 rounded" style="width: 100%;"></div>
+      </div>
+      <!-- Ammo Bars (3 pips) -->
+      <div class="flex space-x-1 mt-1">
+        <div class="h-1.5 flex-1 bg-slate-800 rounded-full overflow-hidden">
+          <div id="ammo-pip-0" class="h-full bg-amber-400 ammo-pip" style="width: 100%;"></div>
+        </div>
+        <div class="h-1.5 flex-1 bg-slate-800 rounded-full overflow-hidden">
+          <div id="ammo-pip-1" class="h-full bg-amber-400 ammo-pip" style="width: 100%;"></div>
+        </div>
+        <div class="h-1.5 flex-1 bg-slate-800 rounded-full overflow-hidden">
+          <div id="ammo-pip-2" class="h-full bg-amber-400 ammo-pip" style="width: 100%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Power Cubes & Gem Held Badge -->
+    <div class="flex items-center space-x-3 text-xs font-bold text-slate-200">
+      <div class="flex items-center space-x-1 bg-emerald-950/80 border border-emerald-500/50 px-2.5 py-1 rounded-lg">
+        <i data-lucide="gem" class="w-4 h-4 text-emerald-400 fill-emerald-400"></i>
+        <span>Sizda: <strong id="player-held-gems" class="text-white text-sm">0</strong></span>
+      </div>
+      <div class="flex items-center space-x-1 bg-amber-950/80 border border-amber-500/50 px-2.5 py-1 rounded-lg">
+        <i data-lucide="box" class="w-4 h-4 text-amber-400"></i>
+        <span>Kublar: <strong id="player-power-cubes" class="text-white text-sm">0</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUPER ABILITY BUTTON (BOTTOM RIGHT) -->
+  <div class="absolute bottom-6 right-6 pointer-events-auto z-20 flex flex-col items-center">
+    <button id="super-btn" onclick="triggerSuperAbility()" class="relative w-20 h-20 rounded-full bg-slate-800 border-4 border-slate-600 flex flex-col items-center justify-center transition-all disabled:opacity-40 select-none cursor-pointer">
+      <div id="super-fill-bg" class="absolute inset-0 rounded-full bg-gradient-to-t from-yellow-500 to-amber-300 opacity-20 transition-all duration-200"></div>
+      <i data-lucide="zap" class="w-9 h-9 text-yellow-300 z-10 drop-shadow"></i>
+      <span id="super-btn-text" class="brawl-font text-[11px] text-yellow-200 z-10 uppercase">0%</span>
+    </button>
+    <span class="text-[10px] text-slate-400 font-mono mt-1 hidden sm:block">[SPACE / E]</span>
+  </div>
+
+  <!-- MOBILE VIRTUAL JOYSTICKS (Visible on Touch devices) -->
+  <div id="joystick-left-zone" class="absolute bottom-6 left-6 touch-joystick-base pointer-events-auto z-20 hidden">
+    <div id="joystick-left-knob" class="touch-joystick-knob"></div>
+  </div>
+
+  <!-- DESKTOP HINT BAR (TOP LEFT) -->
+  <div class="hidden sm:flex absolute bottom-4 left-4 bg-slate-900/80 border border-slate-800 text-[11px] font-mono text-slate-400 px-3 py-1.5 rounded-xl space-x-3 pointer-events-none z-10">
+    <span><strong class="text-white">[W A S D]</strong> Harakat</span>
+    <span><strong class="text-white">[SICHQONCHA]</strong> Otish</span>
+    <span><strong class="text-white">[BO'SHLIQ]</strong> Super Zarba</span>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL / MENU OVERLAYS: LOBBY, MEGA BOX, UPGRADES, LEADERBOARD -->
+  <!-- ============================================================== -->
+
+  <!-- MAIN LOBBY SCREEN -->
+  <div id="lobby-screen" class="absolute inset-0 bg-slate-950/95 backdrop-blur-xl z-40 flex flex-col justify-between p-4 sm:p-8 overflow-y-auto">
+    <!-- Lobby Header -->
+    <div class="flex items-center justify-between border-b border-slate-800 pb-4 max-w-6xl mx-auto w-full">
+      <div class="flex items-center space-x-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 flex items-center justify-center shadow-lg shadow-orange-500/30 border-2 border-yellow-200">
+          <i data-lucide="flame" class="w-7 h-7 text-white fill-white"></i>
+        </div>
+        <div>
+          <h1 class="brawl-font text-2xl sm:text-3xl bg-gradient-to-r from-yellow-300 via-amber-200 to-orange-400 bg-clip-text text-transparent">
+            BRAWL CLASH 3D
+          </h1>
+          <p class="text-xs text-slate-400 font-semibold">Supercell x Roblox Obby x Yandex Games Edition</p>
+        </div>
+      </div>
+
+      <!-- Currency Badges -->
+      <div class="flex items-center space-x-2 sm:space-x-4">
+        <!-- Trophies -->
+        <div class="flex items-center space-x-1.5 bg-amber-500/20 border border-amber-500/40 px-3 py-1.5 rounded-xl">
+          <i data-lucide="trophy" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
+          <span id="player-trophies" class="brawl-font text-amber-300 text-lg">120</span>
+        </div>
+        <!-- Gold Coins -->
+        <div class="flex items-center space-x-1.5 bg-yellow-500/20 border border-yellow-500/40 px-3 py-1.5 rounded-xl">
+          <i data-lucide="coins" class="w-4 h-4 text-yellow-400"></i>
+          <span id="player-coins" class="brawl-font text-yellow-300 text-lg">1,450</span>
+        </div>
+        <!-- Gems -->
+        <div class="flex items-center space-x-1.5 bg-emerald-500/20 border border-emerald-500/40 px-3 py-1.5 rounded-xl">
+          <i data-lucide="gem" class="w-4 h-4 text-emerald-400 fill-emerald-400"></i>
+          <span id="player-gems" class="brawl-font text-emerald-300 text-lg">45</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Content: Hero Showcase + Navigation Tabs -->
+    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 my-auto py-6">
+      <!-- Left: Brawler Selection & Upgrades (7 cols) -->
+      <div class="lg:col-span-7 bg-slate-900/60 border border-slate-800 rounded-3xl p-5 sm:p-6 backdrop-blur-md flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="brawl-font text-xl text-yellow-400 flex items-center space-x-2">
+              <i data-lucide="users" class="w-5 h-5 text-yellow-400"></i>
+              <span>JANGCHI TANLASH (BRAWLERS)</span>
+            </h2>
+            <span class="text-xs font-mono text-slate-400">4 Qahramon</span>
+          </div>
+
+          <!-- Brawler Cards Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="brawler-select-grid">
+            <!-- Injected dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Selected Brawler Detail Card -->
+        <div id="selected-brawler-card" class="mt-5 p-4 rounded-2xl bg-slate-950/70 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center space-x-4">
+            <div id="sel-brawler-avatar" class="w-16 h-16 rounded-2xl bg-indigo-600/30 border-2 border-indigo-400 flex items-center justify-center text-3xl shadow-lg">
+              🎯
+            </div>
+            <div>
+              <div class="flex items-center space-x-2">
+                <span id="sel-brawler-name" class="brawl-font text-xl text-white">COLT</span>
+                <span id="sel-brawler-lvl" class="px-2 py-0.5 text-[10px] font-black bg-yellow-500 text-slate-950 rounded-full">DARAXA 1</span>
+              </div>
+              <div id="sel-brawler-desc" class="text-xs text-slate-400 line-clamp-1">Ikkita lazer qurolidan o't ochuvchi tezkor snayper</div>
+              <div class="flex space-x-4 text-xs font-bold mt-1">
+                <span class="text-emerald-400">HP: <strong id="sel-brawler-hp">3,600</strong></span>
+                <span class="text-red-400">Zarba: <strong id="sel-brawler-dmg">380x6</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upgrade Button -->
+          <button id="btn-upgrade-brawler" onclick="upgradeCurrentBrawler()" class="brawl-btn w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-sm flex items-center justify-center space-x-2 hover:brightness-110 active:scale-95">
+            <i data-lucide="arrow-up-circle" class="w-5 h-5 text-yellow-300"></i>
+            <span>KUCHAYTIRISH (<span id="upgrade-cost-coins">150</span> 🪙)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Mega Box Chest & Daily Quests (5 cols) -->
+      <div class="lg:col-span-5 flex flex-col space-y-4">
+        <!-- Mega Box Chest Card (Yandex Games Feature) -->
+        <div class="bg-gradient-to-br from-indigo-950/80 via-purple-950/60 to-slate-900/80 border-2 border-purple-500/50 rounded-3xl p-5 shadow-xl relative overflow-hidden group">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl group-hover:scale-125 transition-all"></div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-purple-500/30 text-purple-300 border border-purple-400/40 uppercase tracking-widest">
+              YANDEX MEGA BOX
+            </span>
+            <span class="text-xs text-yellow-400 font-bold flex items-center space-x-1">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span>3x KATTA SOVGA</span>
+            </span>
+          </div>
+          <h3 class="brawl-font text-2xl text-white">MEGA SANDIQ OCHISH</h3>
+          <p class="text-xs text-slate-300 mb-4">Tanga, Yashil Zumradlar va Jangchi Kuch Ochkolari yutib oling!</p>
+          <div class="flex space-x-3">
+            <button onclick="openMegaBox('coins')" class="brawl-btn flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-sm flex items-center justify-center space-x-1.5 hover:brightness-110">
+              <i data-lucide="coins" class="w-4 h-4"></i>
+              <span>300 TANGA</span>
+            </button>
+            <button onclick="openMegaBox('gems')" class="brawl-btn flex-1 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-sm flex items-center justify-center space-x-1.5 hover:brightness-110">
+              <i data-lucide="gem" class="w-4 h-4 fill-white"></i>
+              <span>30 ZUMRAD</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Roblox Obby & Tycoon Modifiers Card -->
+        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between">
+          <div class="flex items-center justify-between mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest">
+              ROBLOX OBBY & ARENA
+            </span>
+            <i data-lucide="gamepad-2" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="space-y-2 text-xs text-slate-300">
+            <div class="flex items-center space-x-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span><strong>Yashil Tramplin:</strong> Sakrab devorlardan oshib o'ting</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+              <span><strong>Lazer To'siqlari:</strong> 400 shikastlanishdan qoching</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+              <span><strong>Kuch Qutilari:</strong> Qutilarni sindirib HP va zarbani oshiring</span>
+            </div>
+          </div>
+          <!-- Leaderboard preview button -->
+          <button onclick="openLeaderboardModal()" class="mt-3 py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-indigo-300 flex items-center justify-between transition border border-slate-700">
+            <span class="flex items-center space-x-1.5">
+              <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
+              <span>Turnir Reytingini Ko'rish (Top-10)</span>
+            </span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lobby Footer: BIG BRAWL START BUTTON -->
+    <div class="max-w-6xl mx-auto w-full pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center space-x-4 text-xs text-slate-400">
+        <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>Gem Grab 3v3</span></span>
+        <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>60 FPS WebGL</span></span>
+        <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>Auto-Save</span></span>
+      </div>
+
+      <button onclick="startMatch()" class="brawl-btn w-full sm:w-80 py-4 rounded-3xl bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 text-slate-950 brawl-font text-2xl tracking-wider uppercase shadow-2xl hover:brightness-110 active:scale-95 flex items-center justify-center space-x-3">
+        <i data-lucide="play" class="w-7 h-7 fill-slate-950"></i>
+        <span>JANGGA KIRISH!</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MEGA BOX UNBOXING MODAL (YANDEX GAMES STYLE)                   -->
+  <!-- ============================================================== -->
+  <div id="megabox-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-2xl z-50 flex flex-col items-center justify-center p-6">
+    <div class="max-w-md w-full flex flex-col items-center text-center space-y-6">
+      <div class="text-center">
+        <span class="px-3 py-1 rounded-full text-xs font-black bg-purple-500/20 text-purple-300 border border-purple-500/40 uppercase tracking-widest">
+          MEGA BOX SOVGA
+        </span>
+        <h2 class="brawl-font text-3xl sm:text-4xl text-yellow-300 mt-2">SANDIQNI TILLO QILING!</h2>
+        <p class="text-xs text-slate-400" id="box-tap-prompt">Ochish uchun sandiq ustiga bosing!</p>
+      </div>
+
+      <!-- 3D-styled interactive Box -->
+      <div id="interactive-box" onclick="tapOpenMegaBox()" class="w-44 h-44 rounded-3xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 border-4 border-yellow-400 shadow-2xl shadow-purple-500/50 flex flex-col items-center justify-center cursor-pointer select-none relative group hover:scale-105 transition-all">
+        <div class="absolute -top-3 w-16 h-6 bg-yellow-400 rounded-full border border-yellow-200"></div>
+        <i data-lucide="gift" class="w-20 h-20 text-yellow-300 group-hover:scale-110 transition-transform"></i>
+        <span id="box-remaining-taps" class="brawl-font text-xl text-white mt-2">3 TA QOLDI</span>
+      </div>
+
+      <!-- Revealed Rewards Container -->
+      <div id="box-rewards-grid" class="w-full grid grid-cols-3 gap-3 min-h-[90px]">
+        <!-- Injected dynamically on tap -->
+      </div>
+
+      <!-- Claim & Close Button -->
+      <button id="btn-claim-box" onclick="closeMegaBoxModal()" class="hidden brawl-btn w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white brawl-font text-lg hover:brightness-110">
+        HAMMASINI OLISH!
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MATCH END RESULT MODAL (VICTORY / DEFEAT)                      -->
+  <!-- ============================================================== -->
+  <div id="result-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center p-6">
+    <div class="max-w-lg w-full bg-slate-900/90 border-2 border-slate-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl space-y-6">
+      <div id="result-badge" class="w-24 h-24 rounded-full mx-auto flex items-center justify-center shadow-2xl border-4">
+        <!-- Icon injected via JS -->
+      </div>
+
+      <div>
+        <h2 id="result-title" class="brawl-font text-4xl sm:text-5xl text-yellow-400">G'ALABA!</h2>
+        <p id="result-subtitle" class="text-sm text-slate-300 font-semibold mt-1">Sizning jamoangiz 10 ta zumradni muvaffaqiyatli ushlab qoldi!</p>
+      </div>
+
+      <!-- Rewards Earned Grid -->
+      <div class="grid grid-cols-3 gap-3 p-4 bg-slate-950/70 rounded-2xl border border-slate-800">
+        <div class="flex flex-col items-center">
+          <i data-lucide="trophy" class="w-5 h-5 text-amber-400"></i>
+          <span id="res-trophies" class="brawl-font text-lg text-amber-300">+8</span>
+          <span class="text-[10px] text-slate-400 font-bold uppercase">Kubok</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <i data-lucide="coins" class="w-5 h-5 text-yellow-400"></i>
+          <span id="res-coins" class="brawl-font text-lg text-yellow-300">+50</span>
+          <span class="text-[10px] text-slate-400 font-bold uppercase">Tanga</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <i data-lucide="star" class="w-5 h-5 text-purple-400"></i>
+          <span id="res-xp" class="brawl-font text-lg text-purple-300">+120</span>
+          <span class="text-[10px] text-slate-400 font-bold uppercase">Tajriba (XP)</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex space-x-3">
+        <button onclick="returnToLobby()" class="brawl-btn flex-1 py-3.5 rounded-2xl bg-slate-800 text-slate-200 brawl-font text-sm hover:bg-slate-700">
+          LOBBIGA QAYTISH
+        </button>
+        <button onclick="startMatch()" class="brawl-btn flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-950 brawl-font text-sm hover:brightness-110">
+          QAYTA O'YNASH
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- LEADERBOARD MODAL                                              -->
+  <!-- ============================================================== -->
+  <div id="leaderboard-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center p-4">
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="trophy" class="w-6 h-6 text-yellow-400"></i>
+          <h3 class="brawl-font text-xl text-white">TURNIR JADVALI (TOP-10)</h3>
+        </div>
+        <button onclick="closeLeaderboardModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="overflow-y-auto my-4 space-y-2 flex-1 pr-1" id="leaderboard-list">
+        <!-- Rendered via JS -->
+      </div>
+
+      <button onclick="closeLeaderboardModal()" class="brawl-btn w-full py-3 rounded-2xl bg-indigo-600 text-white brawl-font text-sm hover:bg-indigo-500">
+        YOPISH
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- JAVASCRIPT GAME ENGINE                                         -->
+  <!-- ============================================================== -->
+  <script>
+    /* Global Game Configuration & Data */
+    const BRAWLER_PRESETS = {
+      colt: {
+        id: 'colt',
+        name: 'Colt Blaster',
+        avatar: '🎯',
+        role: 'Sharpshooter',
+        hp: 3600,
+        damage: 380,
+        bulletsPerShot: 6,
+        bulletSpread: 0.08,
+        bulletSpeed: 28,
+        range: 16,
+        speed: 5.6,
+        reloadTime: 1.35,
+        color: 0x3b82f6,
+        superDesc: '12-Round Destructive Laser Barrage'
+      },
+      shelly: {
+        id: 'shelly',
+        name: 'Shelly Shotgun',
+        avatar: '💥',
+        role: 'Damage Dealer',
+        hp: 4400,
+        damage: 420,
+        bulletsPerShot: 5,
+        bulletSpread: 0.28,
+        bulletSpeed: 24,
+        range: 11,
+        speed: 5.3,
+        reloadTime: 1.45,
+        color: 0xa855f7,
+        superDesc: 'Massive Knockback Wall-Breaker Blast'
+      },
+      el_primo: {
+        id: 'el_primo',
+        name: 'El Primo Titan',
+        avatar: '🥊',
+        role: 'Heavyweight Tank',
+        hp: 6200,
+        damage: 460,
+        bulletsPerShot: 4,
+        bulletSpread: 0.12,
+        bulletSpeed: 20,
+        range: 6.5,
+        speed: 5.8,
+        reloadTime: 1.1,
+        color: 0xef4444,
+        superDesc: 'Flying Meteor Slam with Shockwave'
+      },
+      leon: {
+        id: 'leon',
+        name: 'Leon Shinobi',
+        avatar: '🥷',
+        role: 'Stealth Assassin',
+        hp: 3800,
+        damage: 520,
+        bulletsPerShot: 4,
+        bulletSpread: 0.15,
+        bulletSpeed: 27,
+        range: 13,
+        speed: 6.2,
+        reloadTime: 1.5,
+        color: 0x10b981,
+        superDesc: 'Smoke Bomb (6s Invisibility & Speed Boost)'
+      }
+    };
+
+    // User Saved State in LocalStorage
+    let userState = {
+      selectedBrawler: 'colt',
+      trophies: 120,
+      coins: 1450,
+      gems: 45,
+      brawlerLevels: {
+        colt: 1,
+        shelly: 1,
+        el_primo: 1,
+        leon: 1
+      },
+      soundEnabled: true
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem('brawl_clash_save_v1');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          userState = { ...userState, ...parsed };
+        }
+      } catch (e) {
+        console.warn('Storage read error:', e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem('brawl_clash_save_v1', JSON.stringify(userState));
+      } catch (e) {
+        console.warn('Storage save error:', e);
+      }
+    }
+
+    /* ------------------------------------------------------------- */
+    /* PROCEDURAL WEB AUDIO SYNTHESIZER ENGINE                       */
+    /* ------------------------------------------------------------- */
+    let audioCtx = null;
+    let bgmOscillators = [];
+    let bgmInterval = null;
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.25) {
+      if (!userState.soundEnabled || !audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function playShootSound(type = 'laser') {
+      if (!userState.soundEnabled || !audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type === 'shotgun' ? 'sawtooth' : 'triangle';
+        osc.frequency.setValueAtTime(type === 'shotgun' ? 350 : 880, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.12);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(now + 0.12);
+      } catch (e) {}
+    }
+
+    function playHitSound() {
+      playTone(180, 'square', 0.08, 0.2);
+    }
+
+    function playGemChime() {
+      if (!userState.soundEnabled || !audioCtx) return;
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C E G C
+      const randomNote = notes[Math.floor(Math.random() * notes.length)];
+      playTone(randomNote, 'sine', 0.25, 0.3);
+    }
+
+    function playBounceSound() {
+      if (!userState.soundEnabled || !audioCtx) return;
+      try {
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(200, now);
+        osc.frequency.exponentialRampToValueAtTime(850, now + 0.22);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(now + 0.22);
+      } catch (e) {}
+    }
+
+    function playSuperSound() {
+      if (!userState.soundEnabled || !audioCtx) return;
+      playTone(440, 'sawtooth', 0.1, 0.4);
+      setTimeout(() => playTone(660, 'sawtooth', 0.1, 0.4), 80);
+      setTimeout(() => playTone(880, 'sawtooth', 0.35, 0.5), 160);
+    }
+
+    function playFanfare(victory = true) {
+      if (!userState.soundEnabled || !audioCtx) return;
+      const chords = victory 
+        ? [523.25, 659.25, 783.99, 1046.5] 
+        : [440, 415.3, 392, 349.2];
+      chords.forEach((freq, idx) => {
+        setTimeout(() => playTone(freq, 'triangle', 0.4, 0.35), idx * 160);
+      });
+    }
+
+    function toggleAudio() {
+      userState.soundEnabled = !userState.soundEnabled;
+      const icon = document.getElementById('audio-icon');
+      if (userState.soundEnabled) {
+        initAudio();
+        icon.setAttribute('data-lucide', 'volume-2');
+      } else {
+        icon.setAttribute('data-lucide', 'volume-x');
+      }
+      lucide.createIcons();
+      saveState();
+    }
+
+    /* ------------------------------------------------------------- */
+    /* 3D SCENE & ENGINE SETUP (THREE.JS)                            */
+    /* ------------------------------------------------------------- */
+    let scene, camera, renderer;
+    let clock = new THREE.Clock();
+    let isGameRunning = false;
+
+    // Arena dimensions
+    const ARENA_WIDTH = 34;
+    const ARENA_DEPTH = 44;
+
+    // Entities
+    let player = null;
+    let bots = [];
+    let bullets = [];
+    let gems = [];
+    let crates = [];
+    let jumpPads = [];
+    let laserBarriers = [];
+    let gemMineObject = null;
+    let gemSpawnTimer = 0;
+
+    // Match gem scores
+    let blueGems = 0;
+    let redGems = 0;
+    let countdownActive = false;
+    let countdownTimer = 15.0;
+    let countdownLeader = null;
+
+    // Controls input state
+    const keys = {};
+    const mousePos = { x: 0, y: 0 };
+    const raycaster = new THREE.Raycaster();
+    const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+
+    function initThreeScene() {
+      const container = document.getElementById('canvas-container');
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x090b14);
+      scene.fog = new THREE.FogExp2(0x090b14, 0.022);
+
+      // Camera: Isometric top-down 45-degree angle
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.set(0, 32, 28);
+      camera.lookAt(0, 0, 0);
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      container.appendChild(renderer.domElement);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+      scene.add(ambientLight);
+
+      const dirLight = new THREE.DirectionalLight(0xfff5ea, 1.1);
+      dirLight.position.set(20, 40, 20);
+      dirLight.castShadow = true;
+      dirLight.shadow.mapSize.width = 1024;
+      dirLight.shadow.mapSize.height = 1024;
+      dirLight.shadow.camera.near = 0.5;
+      dirLight.shadow.camera.far = 100;
+      dirLight.shadow.camera.left = -30;
+      dirLight.shadow.camera.right = 30;
+      dirLight.shadow.camera.top = 30;
+      dirLight.shadow.camera.bottom = -30;
+      scene.add(dirLight);
+
+      // Neon Accent Lights
+      const blueAccent = new THREE.PointLight(0x3b82f6, 1.5, 25);
+      blueAccent.position.set(0, 4, 18);
+      scene.add(blueAccent);
+
+      const redAccent = new THREE.PointLight(0xef4444, 1.5, 25);
+      redAccent.position.set(0, 4, -18);
+      scene.add(redAccent);
+
+      buildArenaEnvironment();
+      setupEventListeners();
+    }
+
+    /* Build 3D Arena: Floor Grid, Gem Mine, Jump Pads, Crates */
+    function buildArenaEnvironment() {
+      // Floor
+      const floorGeo = new THREE.PlaneGeometry(ARENA_WIDTH, ARENA_DEPTH);
+      const floorMat = new THREE.MeshStandardMaterial({
+        color: 0x131929,
+        roughness: 0.7,
+        metalness: 0.2
+      });
+      const floor = new THREE.Mesh(floorGeo, floorMat);
+      floor.rotation.x = -Math.PI / 2;
+      floor.receiveShadow = true;
+      scene.add(floor);
+
+      // Grid tiles line overlay
+      const grid = new THREE.GridHelper(ARENA_DEPTH, 22, 0x3b82f6, 0x1e293b);
+      grid.position.y = 0.02;
+      scene.add(grid);
+
+      // Arena Boundary Walls
+      const wallMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
+      const borderDefs = [
+        { w: ARENA_WIDTH, h: 2, d: 1, x: 0, z: -ARENA_DEPTH / 2 },
+        { w: ARENA_WIDTH, h: 2, d: 1, x: 0, z: ARENA_DEPTH / 2 },
+        { w: 1, h: 2, d: ARENA_DEPTH, x: -ARENA_WIDTH / 2, z: 0 },
+        { w: 1, h: 2, d: ARENA_DEPTH, x: ARENA_WIDTH / 2, z: 0 }
+      ];
+      borderDefs.forEach(b => {
+        const wall = new THREE.Mesh(new THREE.BoxGeometry(b.w, b.h, b.d), wallMat);
+        wall.position.set(b.x, 1, b.z);
+        wall.castShadow = true;
+        wall.receiveShadow = true;
+        scene.add(wall);
+      });
+
+      // Central Gem Mine Well
+      buildGemMineWell();
+
+      // Roblox Spring Jump Pads
+      createJumpPad(-9, 4, 0, -14); // Left side jumps north
+      createJumpPad(9, -4, 0, 14);  // Right side jumps south
+
+      // Moving Laser Barriers
+      createLaserBarrier(0, -9, 12);
+      createLaserBarrier(0, 9, 12);
+
+      // Destructible Crates (Power Cube containers)
+      const crateCoords = [
+        [-8, -12], [8, -12], [-8, 12], [8, 12],
+        [-11, 0], [11, 0], [-5, -6], [5, 6]
+      ];
+      crateCoords.forEach(pos => createCrate(pos[0], pos[1]));
+    }
+
+    function buildGemMineWell() {
+      const wellGroup = new THREE.Group();
+      
+      // Well Rim
+      const rimGeo = new THREE.CylinderGeometry(2.4, 2.7, 0.8, 16);
+      const rimMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6 });
+      const rim = new THREE.Mesh(rimGeo, rimMat);
+      rim.position.y = 0.4;
+      rim.castShadow = true;
+      wellGroup.add(rim);
+
+      // Rotating Emerald Crystal hovering in center
+      const crystalGeo = new THREE.OctahedronGeometry(1.2, 0);
+      const crystalMat = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        emissive: 0x059669,
+        emissiveIntensity: 0.6,
+        roughness: 0.1,
+        metalness: 0.8
+      });
+      gemMineObject = new THREE.Mesh(crystalGeo, crystalMat);
+      gemMineObject.position.y = 2.4;
+      gemMineObject.castShadow = true;
+      wellGroup.add(gemMineObject);
+
+      // Crystal Glow Light
+      const gemLight = new THREE.PointLight(0x10b981, 2, 8);
+      gemLight.position.set(0, 2.5, 0);
+      wellGroup.add(gemLight);
+
+      scene.add(wellGroup);
+    }
+
+    function createJumpPad(x, z, targetX, targetZ) {
+      const padGeo = new THREE.CylinderGeometry(1.4, 1.6, 0.25, 12);
+      const padMat = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        emissive: 0x047857,
+        emissiveIntensity: 0.5,
+        roughness: 0.3
+      });
+      const pad = new THREE.Mesh(padGeo, padMat);
+      pad.position.set(x, 0.12, z);
+      pad.castShadow = true;
+      scene.add(pad);
+
+      jumpPads.push({
+        mesh: pad,
+        x, z,
+        radius: 1.5,
+        targetX, targetZ
+      });
+    }
+
+    function createLaserBarrier(x, z, width) {
+      const laserGeo = new THREE.CylinderGeometry(0.12, 0.12, width, 8);
+      const laserMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+      const laser = new THREE.Mesh(laserGeo, laserMat);
+      laser.rotation.z = Math.PI / 2;
+      laser.position.set(x, 0.8, z);
+      scene.add(laser);
+
+      laserBarriers.push({
+        mesh: laser,
+        startX: x,
+        z: z,
+        width: width,
+        direction: 1,
+        speed: 3.5,
+        damage: 400
+      });
+    }
+
+    function createCrate(x, z) {
+      const crateGeo = new THREE.BoxGeometry(1.8, 1.8, 1.8);
+      const crateMat = new THREE.MeshStandardMaterial({
+        color: 0x92400e,
+        roughness: 0.8,
+        metalness: 0.1
+      });
+      const crateMesh = new THREE.Mesh(crateGeo, crateMat);
+      crateMesh.position.set(x, 0.9, z);
+      crateMesh.castShadow = true;
+      crateMesh.receiveShadow = true;
+      scene.add(crateMesh);
+
+      crates.push({
+        mesh: crateMesh,
+        x, z,
+        hp: 2000,
+        maxHp: 2000,
+        radius: 1.2
+      });
+    }
+
+    /* Spawn shiny Emerald Gem at coordinate */
+    function spawnGem(x, z) {
+      const gemGeo = new THREE.OctahedronGeometry(0.45, 0);
+      const gemMat = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        emissive: 0x34d399,
+        emissiveIntensity: 0.8,
+        roughness: 0.2
+      });
+      const mesh = new THREE.Mesh(gemGeo, gemMat);
+      mesh.position.set(x, 0.8, z);
+      mesh.castShadow = true;
+      scene.add(mesh);
+
+      gems.push({
+        mesh,
+        x, z,
+        rotSpeed: 3 + Math.random() * 2
+      });
+    }
+
+    /* ------------------------------------------------------------- */
+    /* BRAWLER CHARACTER CREATION (3D PROCEDURAL MODELS)             */
+    /* ------------------------------------------------------------- */
+    function createBrawlerMesh(preset, isPlayer = false, team = 'blue') {
+      const group = new THREE.Group();
+
+      // Team Ring Indicator
+      const ringGeo = new THREE.RingGeometry(0.9, 1.2, 24);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color: team === 'blue' ? 0x3b82f6 : 0xef4444,
+        side: THREE.DoubleSide
+      });
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.y = 0.05;
+      group.add(ring);
+
+      // Body (Roblox blocky stylized torso)
+      const bodyGeo = new THREE.BoxGeometry(1.2, 1.4, 0.8);
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: preset.color,
+        roughness: 0.4
+      });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      body.position.y = 1.3;
+      body.castShadow = true;
+      group.add(body);
+
+      // Head
+      const headGeo = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+      const headMat = new THREE.MeshStandardMaterial({
+        color: 0xfde047, // Classic yellow head
+        roughness: 0.3
+      });
+      const head = new THREE.Mesh(headGeo, headMat);
+      head.position.y = 2.4;
+      head.castShadow = true;
+      group.add(head);
+
+      // Weapon / Blaster
+      const gunGeo = new THREE.BoxGeometry(0.3, 0.3, 0.9);
+      const gunMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.8 });
+      const gun = new THREE.Mesh(gunGeo, gunMat);
+      gun.position.set(0.6, 1.4, 0.5);
+      gun.castShadow = true;
+      group.add(gun);
+
+      scene.add(group);
+      return group;
+    }
+
+    /* ------------------------------------------------------------- */
+    /* GAME LOOP & TICK UPDATE                                       */
+    /* ------------------------------------------------------------- */
+    function animate() {
+      requestAnimationFrame(animate);
+
+      const delta = Math.min(clock.getDelta(), 0.1);
+
+      if (isGameRunning) {
+        updateGame(delta);
+      }
+
+      // Rotate gem mine
+      if (gemMineObject) {
+        gemMineObject.rotation.y += delta * 1.5;
+        gemMineObject.position.y = 2.4 + Math.sin(clock.getElapsedTime() * 3) * 0.2;
+      }
+
+      // Rotate gems
+      gems.forEach(g => {
+        g.mesh.rotation.y += delta * g.rotSpeed;
+        g.mesh.position.y = 0.8 + Math.sin(clock.getElapsedTime() * 4) * 0.15;
+      });
+
+      // Update Moving Lasers
+      laserBarriers.forEach(laser => {
+        laser.mesh.position.x += laser.direction * laser.speed * delta;
+        if (Math.abs(laser.mesh.position.x - laser.startX) > 7) {
+          laser.direction *= -1;
+        }
+
+        // Damage check against player
+        if (player && player.alive && !player.jumping) {
+          const distZ = Math.abs(player.pos.z - laser.z);
+          const distX = Math.abs(player.pos.x - laser.mesh.position.x);
+          if (distZ < 0.8 && distX < laser.width / 2) {
+            damageBrawler(player, laser.damage * delta);
+          }
+        }
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    function updateGame(delta) {
+      // 1. Gem Mine Spawning
+      gemSpawnTimer += delta;
+      if (gemSpawnTimer >= 5.5 && gems.length < 24) {
+        gemSpawnTimer = 0;
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 1.5 + Math.random() * 2.5;
+        spawnGem(Math.cos(angle) * dist, Math.sin(angle) * dist);
+      }
+
+      // 2. Player Input & Movement
+      updatePlayer(delta);
+
+      // 3. AI Bots
+      bots.forEach(bot => updateBot(bot, delta));
+
+      // 4. Bullets & Projectiles
+      updateBullets(delta);
+
+      // 5. Gem Collection Check
+      checkGemCollections();
+
+      // 6. Match Win Countdown logic
+      updateMatchCountdown(delta);
+
+      // 7. Update HUD
+      updateHud();
+    }
+
+    function updatePlayer(delta) {
+      if (!player || !player.alive) return;
+
+      // Reload Ammo
+      if (player.ammo < 3) {
+        player.ammo = Math.min(3, player.ammo + delta / player.preset.reloadTime);
+      }
+
+      // Health Regeneration (if not attacked for 3s)
+      player.timeSinceDamage += delta;
+      if (player.timeSinceDamage > 3.0 && player.hp < player.maxHp) {
+        player.hp = Math.min(player.maxHp, player.hp + player.maxHp * 0.15 * delta);
+      }
+
+      // Parabolic Jump Pad Flight
+      if (player.jumping) {
+        player.jumpProgress += delta * 1.8;
+        player.pos.x = THREE.MathUtils.lerp(player.jumpStart.x, player.jumpTarget.x, player.jumpProgress);
+        player.pos.z = THREE.MathUtils.lerp(player.jumpStart.z, player.jumpTarget.z, player.jumpProgress);
+        player.pos.y = Math.sin(player.jumpProgress * Math.PI) * 6.5;
+
+        player.mesh.position.copy(player.pos);
+
+        if (player.jumpProgress >= 1) {
+          player.jumping = false;
+          player.pos.y = 0;
+          player.mesh.position.y = 0;
+        }
+        return;
+      }
+
+      // Keyboard movement vector
+      let moveX = 0;
+      let moveZ = 0;
+      if (keys['KeyW'] || keys['ArrowUp']) moveZ -= 1;
+      if (keys['KeyS'] || keys['ArrowDown']) moveZ += 1;
+      if (keys['KeyA'] || keys['ArrowLeft']) moveX -= 1;
+      if (keys['KeyD'] || keys['ArrowRight']) moveX += 1;
+
+      // Virtual Joystick Override (Mobile)
+      if (joystickInput.active) {
+        moveX = joystickInput.x;
+        moveZ = joystickInput.y;
+      }
+
+      const len = Math.hypot(moveX, moveZ);
+      if (len > 0.05) {
+        const speed = player.preset.speed * (player.speedBoost ? 1.3 : 1.0);
+        player.pos.x += (moveX / len) * speed * delta;
+        player.pos.z += (moveZ / len) * speed * delta;
+
+        // Boundary Clamp
+        player.pos.x = Math.max(-ARENA_WIDTH / 2 + 1.2, Math.min(ARENA_WIDTH / 2 - 1.2, player.pos.x));
+        player.pos.z = Math.max(-ARENA_DEPTH / 2 + 1.2, Math.min(ARENA_DEPTH / 2 - 1.2, player.pos.z));
+      }
+
+      // Mouse Aim Direction
+      raycaster.setFromCamera(mousePos, camera);
+      const hitPoint = new THREE.Vector3();
+      raycaster.ray.intersectPlane(groundPlane, hitPoint);
+      if (hitPoint) {
+        const angle = Math.atan2(hitPoint.x - player.pos.x, hitPoint.z - player.pos.z);
+        player.mesh.rotation.y = angle;
+      }
+
+      player.mesh.position.copy(player.pos);
+
+      // Follow Camera smoothly
+      camera.position.x = THREE.MathUtils.lerp(camera.position.x, player.pos.x * 0.45, 0.08);
+      camera.position.z = THREE.MathUtils.lerp(camera.position.z, player.pos.z * 0.45 + 24, 0.08);
+
+      // Check Jump Pad trigger
+      jumpPads.forEach(pad => {
+        const dist = Math.hypot(player.pos.x - pad.x, player.pos.z - pad.z);
+        if (dist < pad.radius && !player.jumping) {
+          triggerJumpPad(player, pad);
+        }
+      });
+    }
+
+    function triggerJumpPad(entity, pad) {
+      entity.jumping = true;
+      entity.jumpProgress = 0;
+      entity.jumpStart = { x: entity.pos.x, z: entity.pos.z };
+      entity.jumpTarget = { x: pad.targetX, z: pad.targetZ };
+      playBounceSound();
+      showCombatText('BOING!', entity.pos.x, entity.pos.z, '#34d399');
+    }
+
+    function updateBot(bot, delta) {
+      if (!bot.alive) {
+        bot.respawnTimer -= delta;
+        if (bot.respawnTimer <= 0) {
+          respawnBot(bot);
+        }
+        return;
+      }
+
+      // Reload Ammo
+      if (bot.ammo < 3) {
+        bot.ammo = Math.min(3, bot.ammo + delta / bot.preset.reloadTime);
+      }
+
+      // Bot Behavior: Seek Nearest Gem or Attack Nearest Opponent
+      const targetEnemy = findNearestEnemy(bot);
+      const nearestGem = findNearestGem(bot.pos);
+
+      let targetX = 0;
+      let targetZ = 0;
+
+      if (nearestGem && Math.random() > 0.4) {
+        targetX = nearestGem.x;
+        targetZ = nearestGem.z;
+      } else if (targetEnemy) {
+        targetX = targetEnemy.pos.x;
+        targetZ = targetEnemy.pos.z;
+      }
+
+      const dx = targetX - bot.pos.x;
+      const dz = targetZ - bot.pos.z;
+      const dist = Math.hypot(dx, dz);
+
+      if (dist > 1.0) {
+        const moveDist = Math.min(dist, bot.preset.speed * delta);
+        bot.pos.x += (dx / dist) * moveDist;
+        bot.pos.z += (dz / dist) * moveDist;
+        bot.mesh.rotation.y = Math.atan2(dx, dz);
+      }
+
+      bot.mesh.position.copy(bot.pos);
+
+      // Bot Shoot at Enemy
+      if (targetEnemy && dist < bot.preset.range && bot.ammo >= 1.0) {
+        bot.shootCooldown = (bot.shootCooldown || 0) - delta;
+        if (bot.shootCooldown <= 0) {
+          fireWeapon(bot, targetEnemy.pos);
+          bot.shootCooldown = 1.0 + Math.random() * 0.8;
+        }
+      }
+    }
+
+    function findNearestEnemy(sourceEntity) {
+      let closest = null;
+      let minDist = 999;
+
+      const candidates = sourceEntity.team === 'blue' 
+        ? bots.filter(b => b.team === 'red' && b.alive)
+        : [player, ...bots.filter(b => b.team === 'blue' && b.alive)].filter(e => e && e.alive);
+
+      candidates.forEach(c => {
+        const dist = Math.hypot(c.pos.x - sourceEntity.pos.x, c.pos.z - sourceEntity.pos.z);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = c;
+        }
+      });
+      return closest;
+    }
+
+    function findNearestGem(pos) {
+      let closest = null;
+      let minDist = 999;
+      gems.forEach(g => {
+        const dist = Math.hypot(g.x - pos.x, g.z - pos.z);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = g;
+        }
+      });
+      return closest;
+    }
+
+    /* ------------------------------------------------------------- */
+    /* COMBAT & WEAPON FIRING                                        */
+    /* ------------------------------------------------------------- */
+    function fireWeapon(source, targetPos, isSuper = false) {
+      if (!isSuper && source.ammo < 1.0) return;
+      if (!isSuper) source.ammo -= 1.0;
+
+      const baseAngle = Math.atan2(targetPos.x - source.pos.x, targetPos.z - source.pos.z);
+      const count = isSuper ? 12 : source.preset.bulletsPerShot;
+      const spread = isSuper ? 0.45 : source.preset.bulletSpread;
+
+      playShootSound(source.preset.id === 'shelly' ? 'shotgun' : 'laser');
+
+      for (let i = 0; i < count; i++) {
+        const angleOffset = (Math.random() - 0.5) * spread;
+        const finalAngle = baseAngle + angleOffset;
+        
+        const bulletGeo = new THREE.SphereGeometry(isSuper ? 0.35 : 0.22, 8, 8);
+        const bulletMat = new THREE.MeshBasicMaterial({
+          color: isSuper ? 0xfacc15 : (source.team === 'blue' ? 0x60a5fa : 0xf87171)
+        });
+        const bulletMesh = new THREE.Mesh(bulletGeo, bulletMat);
+        bulletMesh.position.set(source.pos.x, 1.4, source.pos.z);
+        scene.add(bulletMesh);
+
+        bullets.push({
+          mesh: bulletMesh,
+          source: source,
+          team: source.team,
+          vx: Math.sin(finalAngle) * source.preset.bulletSpeed,
+          vz: Math.cos(finalAngle) * source.preset.bulletSpeed,
+          damage: Math.round(source.preset.damage * (1 + (source.powerCubes || 0) * 0.1)),
+          life: source.preset.range / source.preset.bulletSpeed,
+          isSuper: isSuper
+        });
+      }
+    }
+
+    function updateBullets(delta) {
+      for (let i = bullets.length - 1; i >= 0; i--) {
+        const b = bullets[i];
+        b.mesh.position.x += b.vx * delta;
+        b.mesh.position.z += b.vz * delta;
+        b.life -= delta;
+
+        // Check Crate Collisions
+        let hit = false;
+        for (let c = crates.length - 1; c >= 0; c--) {
+          const crate = crates[c];
+          const dist = Math.hypot(b.mesh.position.x - crate.x, b.mesh.position.z - crate.z);
+          if (dist < crate.radius) {
+            crate.hp -= b.damage;
+            hit = true;
+            showCombatText(`-${b.damage}`, crate.x, crate.z, '#fbbf24');
+            if (crate.hp <= 0) {
+              scene.remove(crate.mesh);
+              crates.splice(c, 1);
+              spawnGem(crate.x, crate.z); // Drops gem / power cube
+              showCombatText('POWER CUBE!', crate.x, crate.z, '#34d399');
+            }
+            break;
+          }
+        }
+
+        // Check Entity Collisions
+        if (!hit) {
+          const targetPool = b.team === 'blue' 
+            ? bots.filter(bot => bot.team === 'red' && bot.alive)
+            : [player, ...bots.filter(bot => bot.team === 'blue' && bot.alive)].filter(e => e && e.alive);
+
+          for (let target of targetPool) {
+            const dist = Math.hypot(b.mesh.position.x - target.pos.x, b.mesh.position.z - target.pos.z);
+            if (dist < 1.2 && !target.jumping) {
+              hit = true;
+              damageBrawler(target, b.damage, b.source);
+              break;
+            }
+          }
+        }
+
+        if (hit || b.life <= 0) {
+          scene.remove(b.mesh);
+          bullets.splice(i, 1);
+        }
+      }
+    }
+
+    function damageBrawler(target, damage, attacker = null) {
+      target.hp -= damage;
+      target.timeSinceDamage = 0;
+      playHitSound();
+
+      showCombatText(`-${Math.round(damage)}`, target.pos.x, target.pos.z, target.team === 'blue' ? '#ef4444' : '#60a5fa');
+
+      // Charge Attacker's Super Meter
+      if (attacker && attacker === player) {
+        player.superCharge = Math.min(100, player.superCharge + (damage / 3800) * 100);
+      }
+
+      if (target.hp <= 0 && target.alive) {
+        killBrawler(target);
+      }
+    }
+
+    function killBrawler(entity) {
+      entity.alive = false;
+      entity.hp = 0;
+
+      // Drop all carried gems
+      for (let i = 0; i < entity.heldGems; i++) {
+        spawnGem(entity.pos.x + (Math.random() - 0.5) * 3, entity.pos.z + (Math.random() - 0.5) * 3);
+      }
+      entity.heldGems = 0;
+
+      showCombatText('ELIMINATED!', entity.pos.x, entity.pos.z, '#dc2626');
+
+      if (entity === player) {
+        entity.mesh.visible = false;
+        setTimeout(() => respawnPlayer(), 4000);
+      } else {
+        entity.mesh.visible = false;
+        entity.respawnTimer = 4.0;
+      }
+    }
+
+    function respawnPlayer() {
+      player.alive = true;
+      player.hp = player.maxHp;
+      player.pos.set(0, 0, 18);
+      player.mesh.position.copy(player.pos);
+      player.mesh.visible = true;
+      showCombatText('RESPAWNED!', player.pos.x, player.pos.z, '#60a5fa');
+    }
+
+    function respawnBot(bot) {
+      bot.alive = true;
+      bot.hp = bot.maxHp;
+      const startZ = bot.team === 'blue' ? 18 : -18;
+      bot.pos.set((Math.random() - 0.5) * 10, 0, startZ);
+      bot.mesh.position.copy(bot.pos);
+      bot.mesh.visible = true;
+    }
+
+    /* ------------------------------------------------------------- */
+    /* SUPER ABILITY TRIGGER                                         */
+    /* ------------------------------------------------------------- */
+    function triggerSuperAbility() {
+      if (!player || !player.alive || player.superCharge < 100) return;
+      player.superCharge = 0;
+      playSuperSound();
+
+      raycaster.setFromCamera(mousePos, camera);
+      const hitPoint = new THREE.Vector3();
+      raycaster.ray.intersectPlane(groundPlane, hitPoint);
+      const targetPos = hitPoint || { x: player.pos.x, z: player.pos.z - 10 };
+
+      if (player.preset.id === 'el_primo') {
+        // Flying Meteor Slam
+        triggerJumpPad(player, { targetX: targetPos.x, targetZ: targetPos.z });
+        setTimeout(() => {
+          showCombatText('METEOR SLAM!', player.pos.x, player.pos.z, '#f59e0b');
+          // AoE damage
+          bots.filter(b => b.team === 'red' && b.alive).forEach(enemy => {
+            const dist = Math.hypot(enemy.pos.x - player.pos.x, enemy.pos.z - player.pos.z);
+            if (dist < 5.0) damageBrawler(enemy, 1600, player);
+          });
+        }, 600);
+      } else {
+        // Bullet Storm / Super Shot
+        fireWeapon(player, targetPos, true);
+        showCombatText('SUPER!', player.pos.x, player.pos.z, '#facc15');
+      }
+    }
+
+    /* ------------------------------------------------------------- */
+    /* GEM LOGIC & MATCH COUNTDOWN                                   */
+    /* ------------------------------------------------------------- */
+    function checkGemCollections() {
+      const allEntities = [player, ...bots].filter(e => e && e.alive && !e.jumping);
+
+      for (let i = gems.length - 1; i >= 0; i--) {
+        const gem = gems[i];
+        for (let entity of allEntities) {
+          const dist = Math.hypot(gem.x - entity.pos.x, gem.z - entity.pos.z);
+          if (dist < 1.4) {
+            entity.heldGems = (entity.heldGems || 0) + 1;
+            scene.remove(gem.mesh);
+            gems.splice(i, 1);
+            if (entity === player) playGemChime();
+            showCombatText('+1 GEM', entity.pos.x, entity.pos.z, '#10b981');
+            break;
+          }
+        }
+      }
+
+      // Tally Gems
+      blueGems = (player.heldGems || 0) + bots.filter(b => b.team === 'blue').reduce((acc, b) => acc + (b.heldGems || 0), 0);
+      redGems = bots.filter(b => b.team === 'red').reduce((acc, b) => acc + (b.heldGems || 0), 0);
+    }
+
+    function updateMatchCountdown(delta) {
+      const banner = document.getElementById('countdown-banner');
+      const timerLabel = document.getElementById('countdown-timer');
+
+      if (blueGems >= 10 && blueGems > redGems) {
+        countdownLeader = 'blue';
+        countdownActive = true;
+      } else if (redGems >= 10 && redGems > blueGems) {
+        countdownLeader = 'red';
+        countdownActive = true;
+      } else {
+        countdownActive = false;
+        countdownLeader = null;
+        countdownTimer = 15.0;
+        banner.classList.add('hidden');
+        return;
+      }
+
+      banner.classList.remove('hidden');
+      countdownTimer -= delta;
+      timerLabel.textContent = Math.max(0, countdownTimer).toFixed(1);
+
+      if (countdownTimer <= 0) {
+        endMatch(countdownLeader === 'blue');
+      }
+    }
+
+    function endMatch(playerWon) {
+      isGameRunning = false;
+      playFanfare(playerWon);
+
+      if (playerWon) {
+        confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+        userState.trophies += 8;
+        userState.coins += 50;
+      } else {
+        userState.trophies = Math.max(0, userState.trophies - 4);
+        userState.coins += 15;
+      }
+      saveState();
+
+      // Show Result Modal
+      const modal = document.getElementById('result-modal');
+      const badge = document.getElementById('result-badge');
+      const title = document.getElementById('result-title');
+      const sub = document.getElementById('result-subtitle');
+
+      badge.className = `w-24 h-24 rounded-full mx-auto flex items-center justify-center shadow-2xl border-4 ${
+        playerWon ? 'bg-amber-500/20 border-amber-400 text-amber-300' : 'bg-red-500/20 border-red-500 text-red-400'
+      }`;
+      badge.innerHTML = `<i data-lucide="${playerWon ? 'trophy' : 'skull'}" class="w-12 h-12"></i>`;
+
+      title.textContent = playerWon ? "G'ALABA!" : "MAG'LUBIYAT";
+      title.className = `brawl-font text-4xl sm:text-5xl ${playerWon ? 'text-yellow-400' : 'text-red-400'}`;
+      sub.textContent = playerWon 
+        ? "Tabriklaymiz! Sizning jamoangiz 10 ta zumradni himoya qildi!"
+        : "Afsus, dushman jamoa g'olib bo'ldi. Keyingi jangda kuchliroq bo'ling!";
+
+      document.getElementById('res-trophies').textContent = playerWon ? '+8' : '-4';
+      document.getElementById('res-coins').textContent = playerWon ? '+50' : '+15';
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    /* ------------------------------------------------------------- */
+    /* HUD & UI UPDATES                                              */
+    /* ------------------------------------------------------------- */
+    function updateHud() {
+      document.getElementById('blue-gem-count').textContent = blueGems;
+      document.getElementById('red-gem-count').textContent = redGems;
+
+      if (player) {
+        document.getElementById('hud-brawler-name').textContent = player.preset.name;
+        document.getElementById('hud-hp-text').textContent = `${Math.max(0, Math.round(player.hp))} / ${player.maxHp}`;
+        const pct = Math.max(0, Math.min(100, (player.hp / player.maxHp) * 100));
+        document.getElementById('hud-hp-bar').style.width = `${pct}%`;
+
+        // Ammo Pips
+        for (let i = 0; i < 3; i++) {
+          const pip = document.getElementById(`ammo-pip-${i}`);
+          const fill = Math.max(0, Math.min(1, player.ammo - i));
+          pip.style.width = `${fill * 100}%`;
+        }
+
+        document.getElementById('player-held-gems').textContent = player.heldGems || 0;
+        document.getElementById('player-power-cubes').textContent = player.powerCubes || 0;
+
+        // Super button fill & pulse
+        const superBtn = document.getElementById('super-btn');
+        const superFill = document.getElementById('super-fill-bg');
+        const superText = document.getElementById('super-btn-text');
+
+        superText.textContent = `${Math.round(player.superCharge)}%`;
+        superFill.style.height = `${player.superCharge}%`;
+
+        if (player.superCharge >= 100) {
+          superBtn.classList.add('super-ready-anim');
+          superBtn.style.borderColor = '#facc15';
+        } else {
+          superBtn.classList.remove('super-ready-anim');
+          superBtn.style.borderColor = '#475569';
+        }
+      }
+    }
+
+    function showCombatText(text, x, z, color = '#ffffff') {
+      const container = document.getElementById('combat-text-layer');
+      const div = document.createElement('div');
+      div.className = 'combat-text';
+      div.textContent = text;
+      div.style.color = color;
+
+      // Project 3D coordinate to 2D Screen
+      const vec = new THREE.Vector3(x, 2.5, z);
+      vec.project(camera);
+      const screenX = (vec.x * 0.5 + 0.5) * window.innerWidth;
+      const screenY = (-(vec.y * 0.5) + 0.5) * window.innerHeight;
+
+      div.style.left = `${screenX}px`;
+      div.style.top = `${screenY}px`;
+      container.appendChild(div);
+
+      setTimeout(() => div.remove(), 850);
+    }
+
+    /* ------------------------------------------------------------- */
+    /* MATCH START & LOBBY MANAGEMENT                                */
+    /* ------------------------------------------------------------- */
+    function startMatch() {
+      initAudio();
+      document.getElementById('lobby-screen').classList.add('hidden');
+      document.getElementById('result-modal').classList.add('hidden');
+
+      // Clear existing entities
+      if (player && player.mesh) scene.remove(player.mesh);
+      bots.forEach(b => scene.remove(b.mesh));
+      bullets.forEach(b => scene.remove(b.mesh));
+      gems.forEach(g => scene.remove(g.mesh));
+
+      bots = [];
+      bullets = [];
+      gems = [];
+      blueGems = 0;
+      redGems = 0;
+      countdownActive = false;
+      countdownTimer = 15.0;
+
+      // Create Player
+      const currentPreset = BRAWLER_PRESETS[userState.selectedBrawler] || BRAWLER_PRESETS.colt;
+      const lvl = userState.brawlerLevels[currentPreset.id] || 1;
+      const multiplier = 1 + 0.08 * (lvl - 1);
+
+      player = {
+        preset: currentPreset,
+        team: 'blue',
+        maxHp: Math.round(currentPreset.hp * multiplier),
+        hp: Math.round(currentPreset.hp * multiplier),
+        ammo: 3,
+        superCharge: 0,
+        heldGems: 0,
+        powerCubes: 0,
+        alive: true,
+        pos: new THREE.Vector3(0, 0, 18),
+        mesh: createBrawlerMesh(currentPreset, true, 'blue'),
+        timeSinceDamage: 0
+      };
+      player.mesh.position.copy(player.pos);
+
+      // Create 2 Blue Bots (Teammates)
+      const blueBotPresets = ['shelly', 'el_primo'];
+      blueBotPresets.forEach((pId, idx) => {
+        const preset = BRAWLER_PRESETS[pId];
+        const botMesh = createBrawlerMesh(preset, false, 'blue');
+        const pos = new THREE.Vector3(idx === 0 ? -6 : 6, 0, 18);
+        botMesh.position.copy(pos);
+        bots.push({
+          preset,
+          team: 'blue',
+          maxHp: preset.hp,
+          hp: preset.hp,
+          ammo: 3,
+          heldGems: 0,
+          alive: true,
+          pos,
+          mesh: botMesh,
+          timeSinceDamage: 0
+        });
+      });
+
+      // Create 3 Red Bots (Enemies)
+      const redBotPresets = ['colt', 'shelly', 'leon'];
+      redBotPresets.forEach((pId, idx) => {
+        const preset = BRAWLER_PRESETS[pId];
+        const botMesh = createBrawlerMesh(preset, false, 'red');
+        const pos = new THREE.Vector3((idx - 1) * 8, 0, -18);
+        botMesh.position.copy(pos);
+        bots.push({
+          preset,
+          team: 'red',
+          maxHp: preset.hp,
+          hp: preset.hp,
+          ammo: 3,
+          heldGems: 0,
+          alive: true,
+          pos,
+          mesh: botMesh,
+          timeSinceDamage: 0
+        });
+      });
+
+      // Seed initial 3 gems around the well
+      for (let i = 0; i < 3; i++) {
+        spawnGem((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
+      }
+
+      isGameRunning = true;
+    }
+
+    function toggleLobby() {
+      const lobby = document.getElementById('lobby-screen');
+      if (lobby.classList.contains('hidden')) {
+        isGameRunning = false;
+        lobby.classList.remove('hidden');
+        renderLobbyUI();
+      } else {
+        lobby.classList.add('hidden');
+        isGameRunning = true;
+      }
+    }
+
+    function returnToLobby() {
+      document.getElementById('result-modal').classList.add('hidden');
+      document.getElementById('lobby-screen').classList.remove('hidden');
+      renderLobbyUI();
+    }
+
+    /* ------------------------------------------------------------- */
+    /* LOBBY UI, BRAWLER SELECTION & UPGRADE                          */
+    /* ------------------------------------------------------------- */
+    function renderLobbyUI() {
+      document.getElementById('player-trophies').textContent = userState.trophies;
+      document.getElementById('player-coins').textContent = userState.coins.toLocaleString();
+      document.getElementById('player-gems').textContent = userState.gems;
+
+      const grid = document.getElementById('brawler-select-grid');
+      grid.innerHTML = '';
+
+      Object.values(BRAWLER_PRESETS).forEach(b => {
+        const isSelected = userState.selectedBrawler === b.id;
+        const lvl = userState.brawlerLevels[b.id] || 1;
+
+        const card = document.createElement('div');
+        card.onclick = () => selectBrawler(b.id);
+        card.className = `p-3 rounded-2xl border-2 flex flex-col items-center cursor-pointer transition-all ${
+          isSelected 
+            ? 'bg-amber-500/20 border-yellow-400 shadow-lg shadow-amber-500/20 scale-105' 
+            : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
+        }`;
+        card.innerHTML = `
+          <div class="text-3xl mb-1">${b.avatar}</div>
+          <span class="brawl-font text-sm text-white">${b.name.split(' ')[0]}</span>
+          <span class="text-[10px] text-amber-300 font-bold">LVL ${lvl}</span>
+        `;
+        grid.appendChild(card);
+      });
+
+      updateSelectedBrawlerCard();
+      lucide.createIcons();
+    }
+
+    function selectBrawler(id) {
+      userState.selectedBrawler = id;
+      saveState();
+      renderLobbyUI();
+    }
+
+    function updateSelectedBrawlerCard() {
+      const b = BRAWLER_PRESETS[userState.selectedBrawler];
+      const lvl = userState.brawlerLevels[b.id] || 1;
+      const multiplier = 1 + 0.08 * (lvl - 1);
+
+      document.getElementById('sel-brawler-avatar').textContent = b.avatar;
+      document.getElementById('sel-brawler-name').textContent = b.name;
+      document.getElementById('sel-brawler-lvl').textContent = `DARAJA ${lvl}`;
+      document.getElementById('sel-brawler-desc').textContent = b.superDesc;
+      document.getElementById('sel-brawler-hp').textContent = Math.round(b.hp * multiplier).toLocaleString();
+      document.getElementById('sel-brawler-dmg').textContent = `${Math.round(b.damage * multiplier)}x${b.bulletsPerShot}`;
+
+      const upgradeCost = lvl * 150;
+      document.getElementById('upgrade-cost-coins').textContent = upgradeCost;
+
+      const upgradeBtn = document.getElementById('btn-upgrade-brawler');
+      if (userState.coins < upgradeCost) {
+        upgradeBtn.classList.add('opacity-50', 'pointer-events-none');
+      } else {
+        upgradeBtn.classList.remove('opacity-50', 'pointer-events-none');
+      }
+    }
+
+    function upgradeCurrentBrawler() {
+      const bId = userState.selectedBrawler;
+      const currentLvl = userState.brawlerLevels[bId] || 1;
+      const cost = currentLvl * 150;
+
+      if (userState.coins >= cost && currentLvl < 10) {
+        userState.coins -= cost;
+        userState.brawlerLevels[bId] = currentLvl + 1;
+        saveState();
+        playSuperSound();
+        confetti({ particleCount: 70, spread: 60 });
+        renderLobbyUI();
+      }
+    }
+
+    /* ------------------------------------------------------------- */
+    /* YANDEX GAMES MEGA BOX CHEST OPENER                            */
+    /* ------------------------------------------------------------- */
+    let boxTapsRemaining = 3;
+    let pendingLoot = [];
+
+    function openMegaBox(currencyType) {
+      const cost = currencyType === 'coins' ? 300 : 30;
+      const curr = currencyType === 'coins' ? userState.coins : userState.gems;
+
+      if (curr < cost) {
+        alert("Yetarli mablag' mavjud emas!");
+        return;
+      }
+
+      if (currencyType === 'coins') userState.coins -= cost;
+      else userState.gems -= cost;
+      saveState();
+
+      // Setup Box Modal
+      boxTapsRemaining = 3;
+      pendingLoot = [
+        { name: "Gold Coins", amount: 150 + Math.floor(Math.random() * 200), icon: 'coins', color: 'text-yellow-400' },
+        { name: "Power Points", amount: 45 + Math.floor(Math.random() * 50), icon: 'zap', color: 'text-amber-400' },
+        { name: "Emerald Gems", amount: 5 + Math.floor(Math.random() * 10), icon: 'gem', color: 'text-emerald-400' }
+      ];
+
+      document.getElementById('box-rewards-grid').innerHTML = '';
+      document.getElementById('btn-claim-box').classList.add('hidden');
+      document.getElementById('box-remaining-taps').textContent = `${boxTapsRemaining} TA QOLDI`;
+      document.getElementById('interactive-box').classList.remove('shake-box');
+
+      document.getElementById('megabox-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function tapOpenMegaBox() {
+      if (boxTapsRemaining <= 0) return;
+
+      const box = document.getElementById('interactive-box');
+      box.classList.add('shake-box');
+      setTimeout(() => box.classList.remove('shake-box'), 280);
+
+      playGemChime();
+      boxTapsRemaining -= 1;
+      document.getElementById('box-remaining-taps').textContent = boxTapsRemaining > 0 
+        ? `${boxTapsRemaining} TA QOLDI` 
+        : 'HAMMASI OCHILDI!';
+
+      const item = pendingLoot[2 - boxTapsRemaining];
+      if (item) {
+        // Add to user State
+        if (item.icon === 'coins') userState.coins += item.amount;
+        if (item.icon === 'gem') userState.gems += item.amount;
+
+        const grid = document.getElementById('box-rewards-grid');
+        const card = document.createElement('div');
+        card.className = 'p-3 bg-slate-900 border border-slate-700 rounded-xl flex flex-col items-center animate-bounce';
+        card.innerHTML = `
+          <i data-lucide="${item.icon}" class="w-6 h-6 ${item.color} mb-1"></i>
+          <span class="brawl-font text-lg text-white">+${item.amount}</span>
+          <span class="text-[9px] text-slate-400 font-bold uppercase">${item.name}</span>
+        `;
+        grid.appendChild(card);
+        lucide.createIcons();
+      }
+
+      if (boxTapsRemaining === 0) {
+        confetti({ particleCount: 100, spread: 70 });
+        playFanfare(true);
+        document.getElementById('btn-claim-box').classList.remove('hidden');
+        saveState();
+      }
+    }
+
+    function closeMegaBoxModal() {
+      document.getElementById('megabox-modal').classList.add('hidden');
+      renderLobbyUI();
+    }
+
+    /* ------------------------------------------------------------- */
+    /* LEADERBOARD SYSTEM                                            */
+    /* ------------------------------------------------------------- */
+    const TOP_PLAYERS = [
+      { name: "Jasur_CEO (Siz)", trophies: 120, winRate: "89%", rank: 1 },
+      { name: "RobloxKing_UZ", trophies: 1850, winRate: "76%", rank: 2 },
+      { name: "SuperBrawler99", trophies: 1640, winRate: "72%", rank: 3 },
+      { name: "TashkentTitan", trophies: 1420, winRate: "68%", rank: 4 },
+      { name: "SamarkandSniper", trophies: 1250, winRate: "65%", rank: 5 },
+      { name: "BrawlStarMaster", trophies: 980, winRate: "61%", rank: 6 },
+      { name: "Apex_GemGrabber", trophies: 820, winRate: "59%", rank: 7 },
+      { name: "CyberNinja_2050", trophies: 740, winRate: "55%", rank: 8 }
+    ];
+
+    function openLeaderboardModal() {
+      TOP_PLAYERS[0].trophies = userState.trophies;
+      TOP_PLAYERS.sort((a, b) => b.trophies - a.trophies);
+
+      const list = document.getElementById('leaderboard-list');
+      list.innerHTML = '';
+
+      TOP_PLAYERS.forEach((p, idx) => {
+        const isMe = p.name.includes('(Siz)');
+        const row = document.createElement('div');
+        row.className = `p-3 rounded-xl flex items-center justify-between border ${
+          isMe 
+            ? 'bg-amber-500/20 border-amber-400/60 font-bold text-amber-200' 
+            : 'bg-slate-950/70 border-slate-800 text-slate-300'
+        }`;
+        row.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <span class="w-6 text-center font-black ${idx === 0 ? 'text-yellow-400 text-lg' : 'text-slate-400'}">#${idx + 1}</span>
+            <span>${p.name}</span>
+          </div>
+          <div class="flex items-center space-x-3 font-mono text-xs">
+            <span class="text-slate-400">${p.winRate}</span>
+            <span class="brawl-font text-amber-300 text-sm flex items-center space-x-1">
+              <i data-lucide="trophy" class="w-3.5 h-3.5 fill-amber-300"></i>
+              <span>${p.trophies}</span>
+            </span>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      document.getElementById('leaderboard-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeLeaderboardModal() {
+      document.getElementById('leaderboard-modal').classList.add('hidden');
+    }
+
+    /* ------------------------------------------------------------- */
+    /* CONTROLS & EVENT LISTENERS                                    */
+    /* ------------------------------------------------------------- */
+    const joystickInput = { active: false, x: 0, y: 0 };
+
+    function setupEventListeners() {
+      // Keyboard input
+      window.addEventListener('keydown', (e) => {
+        keys[e.code] = true;
+        if (e.code === 'Space' || e.code === 'KeyE') {
+          triggerSuperAbility();
+        }
+      });
+      window.addEventListener('keyup', (e) => {
+        keys[e.code] = false;
+      });
+
+      // Mouse Aiming & Shooting
+      window.addEventListener('mousemove', (e) => {
+        mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
+        mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      });
+
+      window.addEventListener('mousedown', (e) => {
+        if (!isGameRunning || !player || !player.alive) return;
+        // Check if clicked on UI
+        if (e.target.closest('#top-hud, #player-hud, #super-btn, button, .brawl-btn')) return;
+
+        raycaster.setFromCamera(mousePos, camera);
+        const hitPoint = new THREE.Vector3();
+        raycaster.ray.intersectPlane(groundPlane, hitPoint);
+        if (hitPoint) {
+          fireWeapon(player, hitPoint);
+        }
+      });
+
+      // Mobile Touch Joystick
+      const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      if (isTouch) {
+        setupTouchControls();
+      }
+
+      // Responsive Resize
+      window.addEventListener('resize', onWindowResize);
+    }
+
+    function setupTouchControls() {
+      const base = document.getElementById('joystick-left-zone');
+      const knob = document.getElementById('joystick-left-knob');
+      base.classList.remove('hidden');
+
+      let touchId = null;
+      let startX = 0;
+      let startY = 0;
+
+      base.addEventListener('touchstart', (e) => {
+        const touch = e.changedTouches[0];
+        touchId = touch.identifier;
+        const rect = base.getBoundingClientRect();
+        startX = rect.left + rect.width / 2;
+        startY = rect.top + rect.height / 2;
+        joystickInput.active = true;
+      });
+
+      window.addEventListener('touchmove', (e) => {
+        if (!joystickInput.active) return;
+        for (let touch of e.changedTouches) {
+          if (touch.identifier === touchId) {
+            const dx = touch.clientX - startX;
+            const dy = touch.clientY - startY;
+            const dist = Math.hypot(dx, dy);
+            const maxRadius = 45;
+
+            const clampedDist = Math.min(dist, maxRadius);
+            const angle = Math.atan2(dy, dx);
+            const knobX = Math.cos(angle) * clampedDist;
+            const knobY = Math.sin(angle) * clampedDist;
+
+            knob.style.transform = `translate(calc(-50% + ${knobX}px), calc(-50% + ${knobY}px))`;
+
+            joystickInput.x = knobX / maxRadius;
+            joystickInput.y = knobY / maxRadius;
+          }
+        }
+      });
+
+      const endTouch = (e) => {
+        for (let touch of e.changedTouches) {
+          if (touch.identifier === touchId) {
+            joystickInput.active = false;
+            joystickInput.x = 0;
+            joystickInput.y = 0;
+            knob.style.transform = 'translate(-50%, -50%)';
+            touchId = null;
+          }
+        }
+      };
+
+      window.addEventListener('touchend', endTouch);
+      window.addEventListener('touchcancel', endTouch);
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    /* ------------------------------------------------------------- */
+    /* INITIALIZATION BOOTSTRAP                                      */
+    /* ------------------------------------------------------------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      lucide.createIcons();
+      initThreeScene();
+      renderLobbyUI();
+      animate();
+    });
+  </script>
+</body>
+</html>
