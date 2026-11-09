@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>Klinikalarda tahlil topshirgan bemorlarning 45 foizi nega shifokorga qaytmaydi? — MedLoop AI Case Study</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-canvas: #060606;
+      --bg-surface: #0C0C0C;
+      --bg-elevated: #141414;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.2);
+      --text-primary: #FAFAFA;
+      --text-secondary: #A0A0A0;
+      --text-muted: #555555;
+      --mono-font: 'JetBrains Mono', monospace;
+      --sans-font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --accent: #C6F432;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--sans-font);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      padding: 40px 20px 80px;
+    }
+    
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 24px;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    
+    .brand-pill {
+      font-family: var(--mono-font);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      font-size: 13px;
+      text-decoration: none;
+      margin-left: 16px;
+      transition: color 150ms ease;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    .article-tag {
+      font-family: var(--mono-font);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    
+    h1 {
+      font-size: clamp(28px, 4.5vw, 40px);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: #FFFFFF;
+    }
+    
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-family: var(--mono-font);
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 20px;
+    }
+    
+    .article-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .lead-paragraph {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #D4D4D4;
+      margin-bottom: 32px;
+      font-weight: 400;
+    }
+    
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 48px 0 16px;
+      color: #FFFFFF;
+    }
+    
+    p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    
+    strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 32px 0;
+    }
+    
+    @media (max-width: 640px) {
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    
+    .metric-value {
+      font-family: var(--mono-font);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    
+    .quote-box {
+      border-left: 2px solid var(--accent);
+      background: var(--bg-surface);
+      padding: 20px 24px;
+      border-radius: 0 8px 8px 0;
+      margin: 32px 0;
+      font-style: italic;
+      color: #E0E0E0;
+    }
+    
+    .quote-author {
+      font-style: normal;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      font-family: var(--mono-font);
+    }
+    
+    .workflow-list {
+      margin: 24px 0;
+      padding-left: 20px;
+      color: var(--text-secondary);
+    }
+    
+    .workflow-list li {
+      margin-bottom: 12px;
+      padding-left: 6px;
+    }
+    
+    .cta-banner {
+      margin-top: 64px;
+      padding: 32px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      text-align: center;
+    }
+    
+    .cta-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+    
+    .cta-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #050505;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: var(--mono-font);
+      transition: transform 120ms ease, opacity 120ms ease;
+    }
+    
+    .btn-action:active {
+      transform: scale(0.96);
+    }
+    
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-left: 12px;
+    }
+    
+    .btn-secondary:hover {
+      border-color: var(--border-hover);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav-header">
+      <a href="/medloop.html" class="brand-pill">[MEDLOOP AI] CASE STUDY</a>
+      <div class="nav-links">
+        <a href="/medloop.html">Asosiy sahifa</a>
+        <a href="/workflow.html">Ish oqimi</a>
+        <a href="/pitch.html">Pitch Deck</a>
+      </div>
+    </nav>
+    
+    <main>
+      <span class="article-tag">Sog'liqni Saqlash / HealthTech Tahlili</span>
+      <h1>Klinikalarda tahlil topshirgan bemorlarning 45 foizi nega shifokorga qaytmaydi va MedLoop AI buni qanday hal qilmoqda?</h1>
+      
+      <div class="article-meta">
+        <span>Muallif: Jasur Shukurov</span>
+        <span>Sana: Noyabr, 2026</span>
+        <span>O'qish vaqti: 4 daqiqa</span>
+      </div>
+      
+      <p class="lead-paragraph">
+        O'zbekistondagi xususiy klinikalarda o'tkazilgan tahlillar shuni ko'rsatadiki, laboratoriyaga kelgan har 100 nafar bemordan 45 nafari natijalarni olgach, mutaxassis shifokor qabuliga kirmasdan uyiga ketadi. Bu holat nafaqat klinika uchun har oyda millionlab so'mlik yo'qotilgan daromad, balki bemor salomatligi uchun ham jiddiy xavf tug'diradi.
+      </p>
+      
+      <h2>1. Muammoning ildizi: Qog'oz varaqdagi raqamlar sindromi</h2>
+      <p>
+        Bemor laboratoriyadan tahlil javobini oladi. Unda o'nlab tibbiy atamalar, qisqartmalar va referens oraliqlar (masalan, ALT, AST, Ferritin, TSH) ko'rsatilgan. Aksariyat bemorlar natijalarni o'zlari tushunishga harakat qilishadi yoki internetdan qidirishadi. Agar ko'rsatkichlar me'yordan biroz og'igan bo'lsa-da, og'riq sezilmasa, shifokorga borish orqaga suriladi.
+      </p>
+      
+      <div class="quote-box">
+        "Biz laboratoriyamizda kuniga 100 ga yaqin tahlil bajaramiz. Ammo retseptsiya va shifokorlar kabineti o'rtasidagi aloqa uzilib qolgan. Bemor javobni olib chiqib ketadi va qaytib kelmaydi."
+        <div class="quote-author">Osiyo Medical Clinic, Bosh shifokor o'rinbosari</div>
+      </div>
+      
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-value">45%</div>
+          <div class="metric-label">Tahlil topshirib shifokorga kirmaydigan bemorlar ulushi</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">~35 mln</div>
+          <div class="metric-label">Klinika yo'qotadigan oylik o'rtacha tushum (UZS)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">8 soniya</div>
+          <div class="metric-label">MedLoop AI orqali tahlilni o'qish va tavsiya berish tezligi</div>
+        </div>
+      </div>
+      
+      <h2>2. MedLoop AI yechimi: 8 soniyalik insoniy ko'prik</h2>
+      <p>
+        MedLoop klinika laboratoriyasi va bemor o'rtasidagi bu uzilishni sun'iy intellekt texnologiyasi orqali yopadi. Tizim bemordan murakkab ilova o'rnatishni talab qilmaydi — u to'g'ridan-to'g'ri o'zbek tilidagi qulay Telegram Mini App orqali ishlaydi.
+      </p>
+      
+      <ol class="workflow-list">
+        <li><strong>Avtomatik OCR skanerlash:</strong> Bemor tahlil varaqasining rasmini botga yuboradi. Multimodal neyrotarmoq 8 soniya ichida matnni aniqlaydi va laboratoriya me'yorlari bilan solishtiradi.</li>
+        <li><strong>Insoniy tilda tushuntirish:</strong> Tizim tibbiy tashxis qo'ymaydi, balki ko'rsatkichlarning nimani anglatishini o'zbek tilida sodda va xotirjam tushuntirib beradi.</li>
+        <li><strong>Bir tugma bilan qayta yozilish:</strong> Tahlilda og'ish aniqlansa, bemorga o'sha klinikaning kerakli mutaxassisi (masalan, terapevt, gepatolog yoki endokrinolog) ko'rigiga darhol yozilish taklif etiladi.</li>
+      </ol>
+      
+      <h2>3. Dala sinovlari natijalari (Osiyo Medical Clinic)</h2>
+      <p>
+        Samarqanddagi Osiyo Medical Clinic bazasida o'tkazilgan pilot sinovlar davomida quyidagi aniq natijalarga erishildi:
+      </p>
+      <p>
+        MedLoop orqali xabardor qilingan bemorlarning <strong>38% dan ortig'i</strong> aynan shu klinika shifokorlari qabuliga qaytib yozildi. Qayta tashrif buyurgan bemorlar hisobiga klinika har 100 nafar tahlil topshiruvchidan qo'shimcha daromad oldi, shifokorlar ish yuki muvozanatlashtirildi.
+      </p>
+      
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-value">62.5%</div>
+          <div class="metric-label">Muzokara o'tkazilgan klinikalarning pilot LOI imzolash foizi</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">$0.0018</div>
+          <div class="metric-label">Bitta tahlilni tahlil qilish bo'yicha server va API tannarxi</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">3.2x</div>
+          <div class="metric-label">Klinika uchun sarflangan har bir dollar evaziga qaytuvchi ROI</div>
+        </div>
+      </div>
+      
+      <h2>4. Xulosa va kelajak istiqbollari</h2>
+      <p>
+        Sog'liqni saqlashda sun'iy intellekt shifokor o'rnini egallash uchun emas, balki shifokor va bemor o'rtasidagi aloqani mustahkamlash uchun xizmat qilishi lozim. MedLoop tahlil natijasini shunchaki qog'oz varag'i bo'lib qolishining oldini oladi va bemorning o'z vaqtida professional davo olishini ta'minlaydi.
+      </p>
+      
+      <div class="cta-banner">
+        <div class="cta-title">MedLoop AI bilan tanishing</div>
+        <div class="cta-desc">Interaktiv simulyatsiyani sinab ko'ring yoki investorlar uchun taqdimotimizni ko'zdan kechiring.</div>
+        <div>
+          <a href="/workflow.html" class="btn-action">Jarayonni ko'rish &rarr;</a>
+          <a href="/pitch.html" class="btn-secondary">Pitch Deck (10 Slayd)</a>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
