@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>NanoSurgeon 2050: Arterial Rush</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #030308;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    #gameContainer {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 480px;
+      max-height: 854px;
+      aspect-ratio: 9 / 16;
+      background: radial-gradient(circle at 50% 30%, #150510 0%, #070106 70%, #020004 100%);
+      box-shadow: 0 0 50px rgba(255, 30, 80, 0.15);
+      overflow: hidden;
+      touch-action: none;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: none;
+    }
+    #startPrompt {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      text-align: center;
+      padding: 20px;
+    }
+    .badge {
+      font-size: 11px;
+      letter-spacing: 2px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #ff3366;
+      background: rgba(255, 51, 102, 0.15);
+      border: 1px solid rgba(255, 51, 102, 0.4);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
+    }
+    .subtext {
+      color: #ff99aa;
+      font-size: 13px;
+      margin-bottom: 24px;
+      max-width: 280px;
+      line-height: 1.4;
+    }
+    .tap-hint {
+      color: #00ffff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: pulse 1.2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.06); opacity: 1; text-shadow: 0 0 15px #00ffff; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="gameContainer">
+    <canvas id="gameCanvas" width="360" height="640"></canvas>
+    
+    <div id="startPrompt">
+      <span class="badge">NANO-MED SIMULATOR</span>
+      <h1>NANOSURGEON<br><span style="color:#00ffff; font-size:24px;">ARTERIAL RUSH</span></h1>
+      <p class="subtext">Navigate the bloodstream. Dodge viral pathogens & collect oxygen cells.</p>
+      <div class="tap-hint">TAP / DRAG TO LAUNCH</div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // PROCEDURAL AUDIO SYNTHESIZER (Zero external MP3s / 100% Web Audio API)
+    // =========================================================================
+    let audioCtx = null;
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function playTone(freq, type, duration, slideFreq = null) {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        if (slideFreq) {
+          osc.frequency.exponentialRampToValueAtTime(slideFreq, audioCtx.currentTime + duration);
+        }
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function sfxCollect() {
+      playTone(520, 'sine', 0.12, 1040);
+    }
+    function sfxCombo() {
+      playTone(880, 'triangle', 0.18, 1760);
+    }
+    function sfxCrash() {
+      playTone(180, 'sawtooth', 0.45, 30);
+    }
+    function sfxHeartbeat() {
+      playTone(70, 'sine', 0.08, 45);
+    }
+
+    // =========================================================================
+    // CORE ENGINE & STATE
+    // =========================================================================
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const startPrompt = document.getElementById('startPrompt');
+
+    const V_WIDTH = 360;
+    const V_HEIGHT = 640;
+
+    let gameState = 'START'; // 'START' | 'PLAYING' | 'GAMEOVER'
+    let score = 0;
+    let highScore = parseInt(localStorage.getItem('nanosurgeon_hi') || '0', 10);
+    let combo = 0;
+    let distance = 0;
+    let speed = 4.2;
+    let shake = 0;
+    let shakeX = 0;
+    let shakeY = 0;
+    let lastBeatTime = 0;
+
+    // Player Nanobot
+    const player = {
+      x: V_WIDTH / 2,
+      y: V_HEIGHT - 120,
+      targetX: V_WIDTH / 2,
+      targetY: V_HEIGHT - 120,
+      radius: 14,
+      thrusterGlow: 0,
+      tilt: 0
+    };
+
+    // Entity Collections
+    let obstacles = [];
+    let pickups = [];
+    let particles = [];
+    let floatTexts = [];
+    let bgCells = [];
+
+    // Background Bloodstream Cells
+    for (let i = 0; i < 28; i++) {
+      bgCells.push({
+        x: Math.random() * V_WIDTH,
+        y: Math.random() * V_HEIGHT,
+        radius: 12 + Math.random() * 26,
+        speed: 1.2 + Math.random() * 2.8,
+        rot: Math.random() * Math.PI,
+        rotSpeed: (Math.random() - 0.5) * 0.03,
+        alpha: 0.15 + Math.random() * 0.25
+      });
+    }
+
+    function resetGame() {
+      score = 0;
+      combo = 0;
+      distance = 0;
+      speed = 4.2;
+      obstacles = [];
+      pickups = [];
+      particles = [];
+      floatTexts = [];
+      player.x = V_WIDTH / 2;
+      player.y = V_HEIGHT - 120;
+      player.targetX = V_WIDTH / 2;
+      player.targetY = V_HEIGHT - 120;
+      player.tilt = 0;
+    }
+
+    // =========================================================================
+    // INPUT HANDLING (Pointer & Touch, No Scroll)
+    // =========================================================================
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const x = ((clientX - rect.left) / rect.width) * V_WIDTH;
+      const y = ((clientY - rect.top) / rect.height) * V_HEIGHT;
+      return { x: Math.max(16, Math.min(V_WIDTH - 16, x)), y: Math.max(40, Math.min(V_HEIGHT - 40, y)) };
+    }
+
+    function handleStartOrAction(e) {
+      e.preventDefault();
+      initAudio();
+
+      if (gameState === 'START') {
+        gameState = 'PLAYING';
+        startPrompt.style.opacity = '0';
+        resetGame();
+      } else if (gameState === 'GAMEOVER') {
+        gameState = 'PLAYING';
+        resetGame();
+      }
+    }
+
+    function handleMove(e) {
+      if (gameState !== 'PLAYING') return;
+      e.preventDefault();
+      const coords = getCanvasCoords(e);
+      player.targetX = coords.x;
+      player.targetY = coords.y;
+    }
+
+    window.addEventListener('pointerdown', (e) => {
+      handleStartOrAction(e);
+      if (gameState === 'PLAYING') handleMove(e);
+    }, { passive: false });
+
+    window.addEventListener('pointermove', handleMove, { passive: false });
+    window.addEventListener('touchstart', handleStartOrAction, { passive: false });
+    window.addEventListener('touchmove', handleMove, { passive: false });
+
+    // =========================================================================
+    // SPAWNING SYSTEM
+    // =========================================================================
+    let obstacleTimer = 0;
+    let pickupTimer = 0;
+
+    function spawnObstacle() {
+      const types = ['VIRUS', 'SPIKE_CLUSTER', 'PLAQUE'];
+      const type = types[Math.floor(Math.random() * types.length)];
+      const radius = type === 'PLAQUE' ? 24 : (type === 'VIRUS' ? 18 : 14);
+
+      obstacles.push({
+        type: type,
+        x: radius + Math.random() * (V_WIDTH - radius * 2),
+        y: -40,
+        radius: radius,
+        speed: speed * (type === 'PLAQUE' ? 0.85 : 1.1),
+        rotation: 0,
+        pulse: Math.random() * Math.PI
+      });
+    }
+
+    function spawnPickup() {
+      pickups.push({
+        type: Math.random() > 0.35 ? 'OXYGEN' : 'ANTIBODY',
+        x: 20 + Math.random() * (V_WIDTH - 40),
+        y: -25,
+        radius: 12,
+        speed: speed * 0.95,
+        pulse: 0
+      });
+    }
+
+    function spawnParticles(x, y, color, count = 12) {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const vel = 1.5 + Math.random() * 4.5;
+        particles.push({
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * vel,
+          vy: Math.sin(angle) * vel,
+          radius: 1.5 + Math.random() * 2.5,
+          color: color,
+          life: 1.0,
+          decay: 0.02 + Math.random() * 0.03
+        });
+      }
+    }
+
+    function addFloatText(x, y, text, color = '#00ffff') {
+      floatTexts.push({
+        x: x,
+        y: y,
+        text: text,
+        color: color,
+        life: 1.0,
+        vy: -1.8
+      });
+    }
+
+    // =========================================================================
+    // GAME LOOP (60 FPS Update & Render)
+    // =========================================================================
+    let lastTime = performance.now();
+
+    function update() {
+      const now = performance.now();
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      // Heartbeat pulse rhythm
+      if (now - lastBeatTime > 900) {
+        if (gameState === 'PLAYING') sfxHeartbeat();
+        lastBeatTime = now;
+      }
+
+      // Screen Shake
+      if (shake > 0) {
+        shakeX = (Math.random() - 0.5) * shake;
+        shakeY = (Math.random() - 0.5) * shake;
+        shake *= 0.88;
+        if (shake < 0.5) shake = 0;
+      } else {
+        shakeX = 0;
+        shakeY = 0;
+      }
+
+      // Background Erythrocytes
+      bgCells.forEach(cell => {
+        cell.y += cell.speed * (gameState === 'PLAYING' ? speed * 0.25 : 1.2);
+        cell.rot += cell.rotSpeed;
+        if (cell.y > V_HEIGHT + 40) {
+          cell.y = -40;
+          cell.x = Math.random() * V_WIDTH;
+        }
+      });
+
+      if (gameState === 'PLAYING') {
+        distance += speed * dt * 8;
+        speed = 4.2 + Math.min(distance * 0.003, 5.0);
+
+        // Smooth Player Movement (Lerp)
+        const dx = player.targetX - player.x;
+        const dy = player.targetY - player.y;
+        player.x += dx * 0.18;
+        player.y += dy * 0.18;
+        player.tilt = dx * 0.04;
+        player.thrusterGlow = Math.sin(now * 0.02) * 0.3 + 0.7;
+
+        // Spawning
+        obstacleTimer += dt;
+        if (obstacleTimer > Math.max(0.42, 1.15 - (speed * 0.07))) {
+          spawnObstacle();
+          obstacleTimer = 0;
+        }
+
+        pickupTimer += dt;
+        if (pickupTimer > 1.35) {
+          spawnPickup();
+          pickupTimer = 0;
+        }
+
+        // Update Obstacles & Collision
+        for (let i = obstacles.length - 1; i >= 0; i--) {
+          const o = obstacles[i];
+          o.y += o.speed;
+          o.rotation += 0.03;
+          o.pulse += 0.06;
+
+          // Check Player Collision
+          const dist = Math.hypot(player.x - o.x, player.y - o.y);
+          if (dist < player.radius + o.radius - 3) {
+            // CRASH / GAME OVER
+            sfxCrash();
+            shake = 16;
+            spawnParticles(player.x, player.y, '#ff3366', 36);
+            spawnParticles(player.x, player.y, '#ffcc00', 20);
+            gameState = 'GAMEOVER';
+            if (score > highScore) {
+              highScore = score;
+              localStorage.setItem('nanosurgeon_hi', highScore.toString());
+            }
+            break;
+          }
+
+          if (o.y > V_HEIGHT + 50) {
+            obstacles.splice(i, 1);
+            score += 5; // Survival points
+          }
+        }
+
+        // Update Pickups & Collection
+        for (let i = pickups.length - 1; i >= 0; i--) {
+          const p = pickups[i];
+          p.y += p.speed;
+          p.pulse += 0.08;
+
+          const dist = Math.hypot(player.x - p.x, player.y - p.y);
+          if (dist < player.radius + p.radius + 6) {
+            combo++;
+            const pts = p.type === 'OXYGEN' ? (15 * combo) : (30 * combo);
+            score += pts;
+
+            if (combo > 1) {
+              sfxCombo();
+              addFloatText(p.x, p.y, `+${pts} (${combo}X COMBO)`, '#ffea00');
+            } else {
+              sfxCollect();
+              addFloatText(p.x, p.y, `+${pts}`, p.type === 'OXYGEN' ? '#00ffff' : '#ff00aa');
+            }
+
+            spawnParticles(p.x, p.y, p.type === 'OXYGEN' ? '#00ffff' : '#ff33aa', 14);
+            pickups.splice(i, 1);
+            continue;
+          }
+
+          if (p.y > V_HEIGHT + 30) {
+            pickups.splice(i, 1);
+            combo = 0; // Missed pickup breaks combo
+          }
+        }
+      }
+
+      // Update Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= p.decay;
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+
+      // Update Floating Texts
+      for (let i = floatTexts.length - 1; i >= 0; i--) {
+        const ft = floatTexts[i];
+        ft.y += ft.vy;
+        ft.life -= 0.025;
+        if (ft.life <= 0) floatTexts.splice(i, 1);
+      }
+    }
+
+    // =========================================================================
+    // RENDERING PIPELINE
+    // =========================================================================
+    function draw() {
+      ctx.save();
+      ctx.translate(shakeX, shakeY);
+
+      // Deep Arterial Wall Vignette
+      ctx.fillStyle = '#060107';
+      ctx.fillRect(0, 0, V_WIDTH, V_HEIGHT);
+
+      // Pulsing Vessel Boundaries
+      const pulseWave = Math.sin(performance.now() * 0.003) * 6;
+      const gradL = ctx.createLinearGradient(0, 0, 40, 0);
+      gradL.addColorStop(0, 'rgba(180, 10, 50, 0.45)');
+      gradL.addColorStop(1, 'rgba(180, 10, 50, 0)');
+      ctx.fillStyle = gradL;
+      ctx.fillRect(0, 0, 36 + pulseWave, V_HEIGHT);
+
+      const gradR = ctx.createLinearGradient(V_WIDTH, 0, V_WIDTH - 40, 0);
+      gradR.addColorStop(0, 'rgba(180, 10, 50, 0.45)');
+      gradR.addColorStop(1, 'rgba(180, 10, 50, 0)');
+      ctx.fillStyle = gradR;
+      ctx.fillRect(V_WIDTH - 36 - pulseWave, 0, 36 + pulseWave, V_HEIGHT);
+
+      // Background Erythrocytes
+      bgCells.forEach(cell => {
+        ctx.save();
+        ctx.translate(cell.x, cell.y);
+        ctx.rotate(cell.rot);
+        ctx.scale(1, 0.65);
+        ctx.beginPath();
+        ctx.arc(0, 0, cell.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(160, 20, 50, ${cell.alpha})`;
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // Render Pickups
+      pickups.forEach(p => {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        const glow = Math.sin(p.pulse) * 4;
+        ctx.beginPath();
+        ctx.arc(0, 0, p.radius + glow, 0, Math.PI * 2);
+        ctx.fillStyle = p.type === 'OXYGEN' ? 'rgba(0, 255, 255, 0.25)' : 'rgba(255, 0, 170, 0.25)';
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(0, 0, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.type === 'OXYGEN' ? '#00ffff' : '#ff2299';
+        ctx.shadowColor = p.type === 'OXYGEN' ? '#00ffff' : '#ff2299';
+        ctx.shadowBlur = 12;
+        ctx.fill();
+
+        // Inner Core Symbol
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 9px monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(p.type === 'OXYGEN' ? 'O2' : '+', 0, 0);
+        ctx.restore();
+      });
+
+      // Render Obstacles (Viruses & Plaques)
+      obstacles.forEach(o => {
+        ctx.save();
+        ctx.translate(o.x, o.y);
+        ctx.rotate(o.rotation);
+
+        if (o.type === 'VIRUS') {
+          // Spiky Viral Capsid
+          const spikes = 8;
+          ctx.beginPath();
+          for (let s = 0; s < spikes * 2; s++) {
+            const rad = s % 2 === 0 ? o.radius + 5 : o.radius - 2;
+            const a = (s / (spikes * 2)) * Math.PI * 2;
+            const sx = Math.cos(a) * rad;
+            const sy = Math.sin(a) * rad;
+            if (s === 0) ctx.moveTo(sx, sy);
+            else ctx.lineTo(sx, sy);
+          }
+          ctx.closePath();
+          ctx.fillStyle = '#ff1144';
+          ctx.shadowColor = '#ff1144';
+          ctx.shadowBlur = 14;
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(0, 0, o.radius * 0.45, 0, Math.PI * 2);
+          ctx.fillStyle = '#660011';
+          ctx.fill();
+        } else if (o.type === 'PLAQUE') {
+          // Lipid Plaque
+          ctx.beginPath();
+          ctx.ellipse(0, 0, o.radius, o.radius * 0.7, 0, 0, Math.PI * 2);
+          ctx.fillStyle = '#d97706';
+          ctx.shadowColor = '#f59e0b';
+          ctx.shadowBlur = 10;
+          ctx.fill();
+        } else {
+          // Sharp Spikes
+          ctx.beginPath();
+          ctx.arc(0, 0, o.radius, 0, Math.PI * 2);
+          ctx.fillStyle = '#991b1b';
+          ctx.fill();
+        }
+        ctx.restore();
+      });
+
+      // Render Player (Nanobot)
+      if (gameState !== 'GAMEOVER') {
+        ctx.save();
+        ctx.translate(player.x, player.y);
+        ctx.rotate(player.tilt);
+
+        // Thruster Plasma Jet
+        ctx.beginPath();
+        ctx.moveTo(-6, 12);
+        ctx.lineTo(0, 24 + player.thrusterGlow * 8);
+        ctx.lineTo(6, 12);
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(0, 255, 255, 0.85)';
+        ctx.shadowColor = '#00ffff';
+        ctx.shadowBlur = 16;
+        ctx.fill();
+
+        // Hull Body
+        ctx.beginPath();
+        ctx.moveTo(0, -18);
+        ctx.lineTo(13, 10);
+        ctx.lineTo(0, 6);
+        ctx.lineTo(-13, 10);
+        ctx.closePath();
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+
+        // Cockpit Optical Core
+        ctx.beginPath();
+        ctx.arc(0, -2, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#00ffff';
+        ctx.shadowColor = '#00ffff';
+        ctx.shadowBlur = 10;
+        ctx.fill();
+
+        // Shield Wing Accents
+        ctx.strokeStyle = '#00ffff';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Render Particles
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fill();
+        ctx.globalAlpha = 1.0;
+      });
+
+      // Render Floating Text
+      floatTexts.forEach(ft => {
+        ctx.save();
+        ctx.font = '900 13px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = ft.color;
+        ctx.globalAlpha = Math.max(0, ft.life);
+        ctx.shadowColor = ft.color;
+        ctx.shadowBlur = 8;
+        ctx.fillText(ft.text, ft.x, ft.y);
+        ctx.restore();
+      });
+
+      // =======================================================================
+      // HUD (Heads-Up Display)
+      // =======================================================================
+      if (gameState === 'PLAYING') {
+        // Score Top Bar
+        ctx.fillStyle = 'rgba(10, 4, 12, 0.75)';
+        ctx.fillRect(16, 14, V_WIDTH - 32, 42);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(16, 14, V_WIDTH - 32, 42);
+
+        ctx.font = '900 18px monospace';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'left';
+        ctx.fillText(`${score} PTS`, 28, 41);
+
+        ctx.font = '800 11px monospace';
+        ctx.fillStyle = combo > 1 ? '#ffea00' : '#888888';
+        ctx.textAlign = 'right';
+        ctx.fillText(combo > 1 ? `${combo}X COMBO` : `HI: ${highScore}`, V_WIDTH - 28, 40);
+      }
+
+      // =======================================================================
+      // GAME OVER SCREEN
+      // =======================================================================
+      if (gameState === 'GAMEOVER') {
+        ctx.fillStyle = 'rgba(5, 0, 8, 0.82)';
+        ctx.fillRect(0, 0, V_WIDTH, V_HEIGHT);
+
+        ctx.textAlign = 'center';
+
+        ctx.fillStyle = '#ff3366';
+        ctx.font = '900 12px monospace';
+        ctx.letterSpacing = '2px';
+        ctx.fillText('CRITICAL ARTERIAL BREACH', V_WIDTH / 2, V_HEIGHT / 2 - 90);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 34px -apple-system, sans-serif';
+        ctx.fillText('GAME OVER', V_WIDTH / 2, V_HEIGHT / 2 - 50);
+
+        // Stats Box
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+        ctx.fillRect(V_WIDTH / 2 - 120, V_HEIGHT / 2 - 25, 240, 80);
+        ctx.strokeRect(V_WIDTH / 2 - 120, V_HEIGHT / 2 - 25, 240, 80);
+
+        ctx.font = '700 12px monospace';
+        ctx.fillStyle = '#888888';
+        ctx.fillText('FINAL SCORE', V_WIDTH / 2, V_HEIGHT / 2 - 6);
+
+        ctx.font = '900 24px monospace';
+        ctx.fillStyle = '#00ffff';
+        ctx.fillText(`${score}`, V_WIDTH / 2, V_HEIGHT / 2 + 22);
+
+        ctx.font = '700 10px monospace';
+        ctx.fillStyle = score >= highScore ? '#ffea00' : '#666666';
+        ctx.fillText(score >= highScore ? '★ NEW ALL-TIME RECORD! ★' : `BEST RECORD: ${highScore}`, V_WIDTH / 2, V_HEIGHT / 2 + 42);
+
+        // Play Again CTA Button
+        ctx.fillStyle = '#ff3366';
+        ctx.shadowColor = '#ff3366';
+        ctx.shadowBlur = 18;
+        ctx.beginPath();
+        ctx.roundRect(V_WIDTH / 2 - 100, V_HEIGHT / 2 + 80, 200, 44, 12);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 14px monospace';
+        ctx.fillText('PLAY AGAIN ↺', V_WIDTH / 2, V_HEIGHT / 2 + 107);
+      }
+
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // ANIMATION TICKER
+    // =========================================================================
+    function tick() {
+      update();
+      draw();
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>
