@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BRAWL CLASH 3D: Supercell x Roblox x Yandex Games Arena</title>
-  <meta name="description" content="Supercell Brawl Stars uslubidagi 3D Gem Grab janglari, Roblox Obby sakrash maydonchalari va Yandex Games Mega Box sovg'a tizimi. Bepul, brauzerda 60 FPS!">
+  <title>BRAWL CLASH 3D: 1GB EDITION — Supercell x Roblox x Yandex Games</title>
+  <meta name="description" content="1GB Katta Veb O'yin: 3v3 Gem Grab, Solo Showdown (Battle Royale), Mega Mecha Boss Fight va Roblox Obby. 6 ta Jangchi, Gadgetlar va Brawl Pass!">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
@@ -15,7 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Outfit:wght@400;600;800;900&family=JetBrains+Mono:wght@700&display=swap');
-    
+
     :root {
       --font-brawl: 'Lilita One', cursive, sans-serif;
       --font-ui: 'Outfit', sans-serif;
@@ -28,7 +28,7 @@
       -webkit-user-select: none;
       touch-action: none;
       overflow: hidden;
-      background: #090b14;
+      background: #060810;
       color: #ffffff;
     }
 
@@ -77,7 +77,7 @@
       pointer-events: none;
     }
 
-    /* Super Button Pulsing */
+    /* Super & Gadget Button Pulsing */
     @keyframes superGlow {
       0%, 100% { box-shadow: 0 0 15px #facc15, 0 0 30px #eab308, inset 0 0 10px #fef08a; transform: scale(1); }
       50% { box-shadow: 0 0 30px #facc15, 0 0 50px #ca8a04, inset 0 0 16px #fef08a; transform: scale(1.06); }
@@ -86,11 +86,19 @@
       animation: superGlow 1.2s infinite ease-in-out;
     }
 
+    @keyframes gadgetGlow {
+      0%, 100% { box-shadow: 0 0 12px #22c55e, 0 0 24px #16a34a; }
+      50% { box-shadow: 0 0 22px #4ade80, 0 0 35px #15803d; }
+    }
+    .gadget-ready-anim {
+      animation: gadgetGlow 1.4s infinite ease-in-out;
+    }
+
     /* Floating combat text */
     .combat-text {
       position: absolute;
       font-family: var(--font-brawl);
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 900;
       pointer-events: none;
       animation: floatUpFade 0.85s forwards ease-out;
@@ -106,12 +114,18 @@
     /* Shaking Mega Box */
     @keyframes boxRumble {
       0%, 100% { transform: rotate(0deg) scale(1); }
-      25% { transform: rotate(-5deg) scale(1.05); }
-      50% { transform: rotate(5deg) scale(1.08); }
-      75% { transform: rotate(-3deg) scale(1.05); }
+      25% { transform: rotate(-6deg) scale(1.06); }
+      50% { transform: rotate(6deg) scale(1.09); }
+      75% { transform: rotate(-4deg) scale(1.06); }
     }
     .shake-box {
-      animation: boxRumble 0.3s infinite ease-in-out;
+      animation: boxRumble 0.28s infinite ease-in-out;
+    }
+
+    /* Poison Gas Screen Vignette for Showdown */
+    .poison-vignette {
+      box-shadow: inset 0 0 70px rgba(34, 197, 94, 0.45), inset 0 0 140px rgba(22, 101, 52, 0.3);
+      pointer-events: none;
     }
 
     /* Custom Scrollbar */
@@ -125,43 +139,46 @@
   <!-- 3D Three.js WebGL Canvas Container -->
   <div id="canvas-container" class="absolute inset-0 w-full h-full z-0 cursor-crosshair"></div>
 
+  <!-- POISON GAS OVERLAY (Active when outside safe zone in Showdown) -->
+  <div id="poison-overlay" class="absolute inset-0 z-10 pointer-events-none hidden poison-vignette"></div>
+
   <!-- FLOATING COMBAT TEXT CONTAINER -->
   <div id="combat-text-layer" class="absolute inset-0 pointer-events-none z-30"></div>
 
-  <!-- TOP HUD: GEM STATUS, COUNTDOWN & PAUSE -->
+  <!-- TOP HUD: MODE STATUS, GEM COUNT, BOSS HP OR SHOWDOWN ALIVE -->
   <header id="top-hud" class="absolute top-0 left-0 right-0 p-3 sm:p-5 flex items-center justify-between pointer-events-none z-20">
-    <!-- Blue Team Score (Player Team) -->
-    <div class="flex items-center space-x-2 bg-gradient-to-r from-blue-900/90 to-blue-950/80 border-2 border-blue-500/80 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md pointer-events-auto">
-      <div class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-inner border border-blue-400">
-        <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+    <!-- Left HUD: Blue Team or Mode Info -->
+    <div id="left-hud-card" class="flex items-center space-x-2 bg-gradient-to-r from-blue-900/90 to-blue-950/80 border-2 border-blue-500/80 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md pointer-events-auto">
+      <div id="hud-mode-icon-box" class="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center shadow-inner border border-blue-400">
+        <i id="hud-mode-icon" data-lucide="shield" class="w-5 h-5 text-white"></i>
       </div>
       <div>
-        <div class="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Bizning Jamoa</div>
+        <div id="hud-left-title" class="text-[10px] uppercase font-bold text-blue-300 tracking-wider">Bizning Jamoa</div>
         <div class="flex items-center space-x-1.5">
-          <i data-lucide="gem" class="w-5 h-5 text-emerald-400 fill-emerald-400 animate-pulse"></i>
+          <i id="hud-gem-icon-left" data-lucide="gem" class="w-5 h-5 text-emerald-400 fill-emerald-400 animate-pulse"></i>
           <span id="blue-gem-count" class="brawl-font text-2xl text-white">0</span>
-          <span class="text-xs text-blue-200 font-bold">/10</span>
+          <span id="hud-left-denom" class="text-xs text-blue-200 font-bold">/10</span>
         </div>
       </div>
     </div>
 
-    <!-- Center Gem Grab Countdown Banner (Hidden by default) -->
-    <div id="countdown-banner" class="hidden flex-col items-center bg-red-600/95 border-4 border-yellow-400 px-6 py-2 rounded-3xl shadow-2xl animate-bounce pointer-events-auto">
-      <span id="countdown-title" class="brawl-font text-sm uppercase text-yellow-200">G'ALABA HISOBI!</span>
+    <!-- Center Banner: Gem Grab Countdown OR Boss Health OR Showdown Storm -->
+    <div id="center-status-banner" class="hidden flex-col items-center bg-red-600/95 border-4 border-yellow-400 px-6 py-2 rounded-3xl shadow-2xl animate-bounce pointer-events-auto">
+      <span id="center-status-title" class="brawl-font text-sm uppercase text-yellow-200">G'ALABA HISOBI!</span>
       <div class="flex items-center space-x-2">
-        <i data-lucide="timer" class="w-6 h-6 text-yellow-300"></i>
-        <span id="countdown-timer" class="brawl-font text-3xl text-white">15.0</span>
+        <i id="center-status-icon" data-lucide="timer" class="w-6 h-6 text-yellow-300"></i>
+        <span id="center-status-value" class="brawl-font text-3xl text-white">15.0</span>
       </div>
     </div>
 
-    <!-- Red Team Score (Enemy Team) -->
-    <div class="flex items-center space-x-2 bg-gradient-to-l from-red-900/90 to-red-950/80 border-2 border-red-500/80 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md pointer-events-auto">
+    <!-- Right HUD: Red Team or Showdown Remaining -->
+    <div id="right-hud-card" class="flex items-center space-x-2 bg-gradient-to-l from-red-900/90 to-red-950/80 border-2 border-red-500/80 px-4 py-2 rounded-2xl shadow-lg backdrop-blur-md pointer-events-auto">
       <div class="text-right">
-        <div class="text-[10px] uppercase font-bold text-red-300 tracking-wider">Dushmanlar</div>
+        <div id="hud-right-title" class="text-[10px] uppercase font-bold text-red-300 tracking-wider">Dushmanlar</div>
         <div class="flex items-center justify-end space-x-1.5">
           <span id="red-gem-count" class="brawl-font text-2xl text-white">0</span>
-          <span class="text-xs text-red-200 font-bold">/10</span>
-          <i data-lucide="gem" class="w-5 h-5 text-emerald-400 fill-emerald-400"></i>
+          <span id="hud-right-denom" class="text-xs text-red-200 font-bold">/10</span>
+          <i id="hud-gem-icon-right" data-lucide="gem" class="w-5 h-5 text-emerald-400 fill-emerald-400"></i>
         </div>
       </div>
       <div class="w-8 h-8 rounded-xl bg-red-600 flex items-center justify-center shadow-inner border border-red-400">
@@ -170,12 +187,18 @@
     </div>
   </header>
 
-  <!-- TOP RIGHT CONTROLS: AUDIO, FULLSCREEN, MENU -->
+  <!-- TOP RIGHT CONTROLS: AUDIO, QUALITY (120FPS), FULLSCREEN, HOME -->
   <div class="absolute top-20 right-4 flex flex-col space-y-2 pointer-events-auto z-20">
     <button id="btn-audio-toggle" onclick="toggleAudio()" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 text-yellow-400 flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-md backdrop-blur-sm">
       <i id="audio-icon" data-lucide="volume-2" class="w-5 h-5"></i>
     </button>
-    <button onclick="toggleLobby()" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 text-indigo-300 flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-md backdrop-blur-sm" title="Bosh Menyu">
+    <button onclick="toggleQuality()" id="btn-fps" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 text-emerald-400 font-mono text-[10px] font-black flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-md backdrop-blur-sm" title="FPS Rejimi">
+      60F
+    </button>
+    <button onclick="toggleFullscreen()" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 text-indigo-300 flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-md backdrop-blur-sm" title="To'liq Ekran">
+      <i data-lucide="maximize" class="w-5 h-5"></i>
+    </button>
+    <button onclick="toggleLobby()" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-700 text-amber-300 flex items-center justify-center hover:bg-slate-800 transition active:scale-95 shadow-md backdrop-blur-sm" title="Bosh Menyu">
       <i data-lucide="home" class="w-5 h-5"></i>
     </button>
   </div>
@@ -183,7 +206,7 @@
   <!-- PLAYER COMBAT STATUS HUD (BOTTOM CENTER) -->
   <div id="player-hud" class="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none z-20 space-y-1.5">
     <!-- Health Bar -->
-    <div class="w-56 sm:w-64 bg-slate-900/90 border-2 border-slate-700/80 rounded-xl p-1 shadow-2xl backdrop-blur-md">
+    <div class="w-60 sm:w-72 bg-slate-900/90 border-2 border-slate-700/80 rounded-xl p-1 shadow-2xl backdrop-blur-md">
       <div class="flex justify-between items-center px-1 text-[11px] font-bold text-slate-300">
         <span id="hud-brawler-name" class="uppercase text-amber-300 tracking-wider">COLT</span>
         <span id="hud-hp-text">3600 / 3600</span>
@@ -207,7 +230,7 @@
 
     <!-- Power Cubes & Gem Held Badge -->
     <div class="flex items-center space-x-3 text-xs font-bold text-slate-200">
-      <div class="flex items-center space-x-1 bg-emerald-950/80 border border-emerald-500/50 px-2.5 py-1 rounded-lg">
+      <div id="hud-held-badge" class="flex items-center space-x-1 bg-emerald-950/80 border border-emerald-500/50 px-2.5 py-1 rounded-lg">
         <i data-lucide="gem" class="w-4 h-4 text-emerald-400 fill-emerald-400"></i>
         <span>Sizda: <strong id="player-held-gems" class="text-white text-sm">0</strong></span>
       </div>
@@ -218,253 +241,324 @@
     </div>
   </div>
 
-  <!-- SUPER ABILITY BUTTON (BOTTOM RIGHT) -->
-  <div class="absolute bottom-6 right-6 pointer-events-auto z-20 flex flex-col items-center">
-    <button id="super-btn" onclick="triggerSuperAbility()" class="relative w-20 h-20 rounded-full bg-slate-800 border-4 border-slate-600 flex flex-col items-center justify-center transition-all disabled:opacity-40 select-none cursor-pointer">
+  <!-- ACTION BUTTONS (BOTTOM RIGHT): GADGET & SUPER -->
+  <div class="absolute bottom-6 right-6 pointer-events-auto z-20 flex flex-col items-center space-y-3">
+    <!-- GADGET BUTTON (GREEN) -->
+    <button id="gadget-btn" onclick="triggerGadgetAction()" class="relative w-14 h-14 rounded-full bg-slate-900 border-3 border-emerald-500 flex flex-col items-center justify-center transition-all disabled:opacity-40 select-none cursor-pointer hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20">
+      <i data-lucide="sparkle" class="w-6 h-6 text-emerald-300"></i>
+      <span id="gadget-charges-text" class="brawl-font text-[10px] text-white">3</span>
+      <span class="absolute -top-1 -right-1 text-[8px] font-mono bg-emerald-600 px-1 rounded-full text-white font-bold hidden sm:block">[F]</span>
+    </button>
+
+    <!-- SUPER BUTTON (YELLOW) -->
+    <button id="super-btn" onclick="triggerSuperAbility()" class="relative w-20 h-20 rounded-full bg-slate-800 border-4 border-slate-600 flex flex-col items-center justify-center transition-all disabled:opacity-40 select-none cursor-pointer shadow-xl">
       <div id="super-fill-bg" class="absolute inset-0 rounded-full bg-gradient-to-t from-yellow-500 to-amber-300 opacity-20 transition-all duration-200"></div>
       <i data-lucide="zap" class="w-9 h-9 text-yellow-300 z-10 drop-shadow"></i>
       <span id="super-btn-text" class="brawl-font text-[11px] text-yellow-200 z-10 uppercase">0%</span>
+      <span class="text-[9px] text-slate-400 font-mono hidden sm:block">[E]</span>
     </button>
-    <span class="text-[10px] text-slate-400 font-mono mt-1 hidden sm:block">[SPACE / E]</span>
   </div>
 
-  <!-- MOBILE VIRTUAL JOYSTICKS (Visible on Touch devices) -->
+  <!-- MOBILE VIRTUAL JOYSTICK -->
   <div id="joystick-left-zone" class="absolute bottom-6 left-6 touch-joystick-base pointer-events-auto z-20 hidden">
     <div id="joystick-left-knob" class="touch-joystick-knob"></div>
   </div>
 
-  <!-- DESKTOP HINT BAR (TOP LEFT) -->
+  <!-- DESKTOP CONTROLS HINT (BOTTOM LEFT) -->
   <div class="hidden sm:flex absolute bottom-4 left-4 bg-slate-900/80 border border-slate-800 text-[11px] font-mono text-slate-400 px-3 py-1.5 rounded-xl space-x-3 pointer-events-none z-10">
     <span><strong class="text-white">[W A S D]</strong> Harakat</span>
     <span><strong class="text-white">[SICHQONCHA]</strong> Otish</span>
-    <span><strong class="text-white">[BO'SHLIQ]</strong> Super Zarba</span>
+    <span><strong class="text-white">[E]</strong> Super</span>
+    <span><strong class="text-white">[F]</strong> Gadget</span>
   </div>
 
   <!-- ============================================================== -->
-  <!-- MODAL / MENU OVERLAYS: LOBBY, MEGA BOX, UPGRADES, LEADERBOARD -->
+  <!-- MODALS: LOBBY, MODE SELECTOR, MEGA/OMEGA BOX, BRAWL PASS       -->
   <!-- ============================================================== -->
 
   <!-- MAIN LOBBY SCREEN -->
-  <div id="lobby-screen" class="absolute inset-0 bg-slate-950/95 backdrop-blur-xl z-40 flex flex-col justify-between p-4 sm:p-8 overflow-y-auto">
-    <!-- Lobby Header -->
-    <div class="flex items-center justify-between border-b border-slate-800 pb-4 max-w-6xl mx-auto w-full">
+  <div id="lobby-screen" class="absolute inset-0 bg-slate-950/95 backdrop-blur-xl z-40 flex flex-col justify-between p-4 sm:p-7 overflow-y-auto">
+    <!-- Lobby Top Bar -->
+    <div class="flex items-center justify-between border-b border-slate-800 pb-3 max-w-6xl mx-auto w-full">
       <div class="flex items-center space-x-3">
         <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 flex items-center justify-center shadow-lg shadow-orange-500/30 border-2 border-yellow-200">
           <i data-lucide="flame" class="w-7 h-7 text-white fill-white"></i>
         </div>
         <div>
-          <h1 class="brawl-font text-2xl sm:text-3xl bg-gradient-to-r from-yellow-300 via-amber-200 to-orange-400 bg-clip-text text-transparent">
-            BRAWL CLASH 3D
-          </h1>
-          <p class="text-xs text-slate-400 font-semibold">Supercell x Roblox Obby x Yandex Games Edition</p>
+          <div class="flex items-center space-x-2">
+            <h1 class="brawl-font text-2xl sm:text-3xl bg-gradient-to-r from-yellow-300 via-amber-200 to-orange-400 bg-clip-text text-transparent">
+              BRAWL CLASH 3D
+            </h1>
+            <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-black bg-red-600 text-white uppercase tracking-wider">
+              1GB AAA
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 font-semibold">Supercell x Roblox x Yandex Games Supreme Edition</p>
         </div>
       </div>
 
-      <!-- Currency Badges -->
-      <div class="flex items-center space-x-2 sm:space-x-4">
+      <!-- Currencies & Brawl Pass Token -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- Battle Pass Tokens -->
+        <button onclick="openBrawlPassModal()" class="flex items-center space-x-1.5 bg-indigo-500/20 border border-indigo-500/40 px-3 py-1.5 rounded-xl hover:bg-indigo-500/30 transition">
+          <i data-lucide="crown" class="w-4 h-4 text-indigo-400"></i>
+          <span id="player-tokens" class="brawl-font text-indigo-300 text-sm">350</span>
+        </button>
         <!-- Trophies -->
         <div class="flex items-center space-x-1.5 bg-amber-500/20 border border-amber-500/40 px-3 py-1.5 rounded-xl">
           <i data-lucide="trophy" class="w-4 h-4 text-amber-400 fill-amber-400"></i>
-          <span id="player-trophies" class="brawl-font text-amber-300 text-lg">120</span>
+          <span id="player-trophies" class="brawl-font text-amber-300 text-sm">120</span>
         </div>
         <!-- Gold Coins -->
         <div class="flex items-center space-x-1.5 bg-yellow-500/20 border border-yellow-500/40 px-3 py-1.5 rounded-xl">
           <i data-lucide="coins" class="w-4 h-4 text-yellow-400"></i>
-          <span id="player-coins" class="brawl-font text-yellow-300 text-lg">1,450</span>
+          <span id="player-coins" class="brawl-font text-yellow-300 text-sm">1,450</span>
         </div>
-        <!-- Gems -->
+        <!-- Emerald Gems -->
         <div class="flex items-center space-x-1.5 bg-emerald-500/20 border border-emerald-500/40 px-3 py-1.5 rounded-xl">
           <i data-lucide="gem" class="w-4 h-4 text-emerald-400 fill-emerald-400"></i>
-          <span id="player-gems" class="brawl-font text-emerald-300 text-lg">45</span>
+          <span id="player-gems" class="brawl-font text-emerald-300 text-sm">45</span>
         </div>
       </div>
     </div>
 
-    <!-- Center Content: Hero Showcase + Navigation Tabs -->
-    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-6 my-auto py-6">
-      <!-- Left: Brawler Selection & Upgrades (7 cols) -->
-      <div class="lg:col-span-7 bg-slate-900/60 border border-slate-800 rounded-3xl p-5 sm:p-6 backdrop-blur-md flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="brawl-font text-xl text-yellow-400 flex items-center space-x-2">
-              <i data-lucide="users" class="w-5 h-5 text-yellow-400"></i>
-              <span>JANGCHI TANLASH (BRAWLERS)</span>
+    <!-- Center Content: Game Mode Carousel & 6 Brawlers Grid -->
+    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-5 my-auto py-4">
+
+      <!-- Left: Game Mode Selector & Active Mode (5 cols) -->
+      <div class="lg:col-span-5 flex flex-col space-y-4">
+        <div class="bg-slate-900/70 border border-slate-800 rounded-3xl p-5 backdrop-blur-md">
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="brawl-font text-lg text-yellow-400 flex items-center space-x-2">
+              <i data-lucide="gamepad-2" class="w-5 h-5 text-yellow-400"></i>
+              <span>O'YIN REJIMLARI (MODES)</span>
             </h2>
-            <span class="text-xs font-mono text-slate-400">4 Qahramon</span>
+            <span class="text-[10px] font-mono text-emerald-400 uppercase font-bold">4 Ta Rejim</span>
           </div>
 
-          <!-- Brawler Cards Grid -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="brawler-select-grid">
-            <!-- Injected dynamically via JS -->
+          <div class="grid grid-cols-2 gap-2.5" id="modes-grid">
+            <!-- Mode 1: Gem Grab -->
+            <button onclick="selectGameMode('gem_grab')" id="mode-btn-gem_grab" class="p-3 rounded-2xl border-2 text-left transition-all bg-amber-500/20 border-yellow-400">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">💎</span>
+                <span class="text-[9px] font-mono font-black text-amber-300">3v3</span>
+              </div>
+              <div class="brawl-font text-sm text-white mt-1">GEM GRAB</div>
+              <div class="text-[10px] text-slate-300">10 ta zumradni himoya qiling</div>
+            </button>
+
+            <!-- Mode 2: Showdown -->
+            <button onclick="selectGameMode('showdown')" id="mode-btn-showdown" class="p-3 rounded-2xl border-2 text-left transition-all bg-slate-950/70 border-slate-800 hover:border-slate-700">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">☠️</span>
+                <span class="text-[9px] font-mono font-black text-red-400">BATTLE ROYALE</span>
+              </div>
+              <div class="brawl-font text-sm text-white mt-1">SHOWDOWN</div>
+              <div class="text-[10px] text-slate-300">Zaharli gazdan omon qoling</div>
+            </button>
+
+            <!-- Mode 3: Boss Fight -->
+            <button onclick="selectGameMode('boss_fight')" id="mode-btn-boss_fight" class="p-3 rounded-2xl border-2 text-left transition-all bg-slate-950/70 border-slate-800 hover:border-slate-700">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">🤖</span>
+                <span class="text-[9px] font-mono font-black text-purple-400">RAID</span>
+              </div>
+              <div class="brawl-font text-sm text-white mt-1">MECHA BOSS</div>
+              <div class="text-[10px] text-slate-300">40,000 HP gigant robot jangi</div>
+            </button>
+
+            <!-- Mode 4: Roblox Obby -->
+            <button onclick="selectGameMode('obby_rush')" id="mode-btn-obby_rush" class="p-3 rounded-2xl border-2 text-left transition-all bg-slate-950/70 border-slate-800 hover:border-slate-700">
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">🏃</span>
+                <span class="text-[9px] font-mono font-black text-emerald-400">OBBY</span>
+              </div>
+              <div class="brawl-font text-sm text-white mt-1">ROBLOX RUSH</div>
+              <div class="text-[10px] text-slate-300">Tramplin va lazer to'siqlari</div>
+            </button>
           </div>
         </div>
 
-        <!-- Selected Brawler Detail Card -->
-        <div id="selected-brawler-card" class="mt-5 p-4 rounded-2xl bg-slate-950/70 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center space-x-4">
+        <!-- Quick Access: Brawl Pass Banner & Mega Box -->
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="openBrawlPassModal()" class="brawl-btn p-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white flex flex-col justify-between hover:brightness-110 shadow-lg text-left">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] font-black uppercase tracking-widest text-indigo-200">BRAWL PASS</span>
+              <i data-lucide="crown" class="w-4 h-4 text-yellow-300"></i>
+            </div>
+            <div class="brawl-font text-lg mt-1">1-MAVSUM</div>
+            <span class="text-[10px] text-indigo-100">Mukofotlarni Olish &rarr;</span>
+          </button>
+
+          <button onclick="openBoxModal('mega')" class="brawl-btn p-3.5 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 flex flex-col justify-between hover:brightness-110 shadow-lg text-left">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] font-black uppercase tracking-widest text-slate-900">MEGA SANDIQ</span>
+              <i data-lucide="gift" class="w-4 h-4 text-slate-900"></i>
+            </div>
+            <div class="brawl-font text-lg mt-1">OCHISH (300🪙)</div>
+            <span class="text-[10px] text-slate-900 font-bold">3x Katta Sovg'a &rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: 6 Brawlers Roster, Upgrades & Gadgets (7 cols) -->
+      <div class="lg:col-span-7 bg-slate-900/60 border border-slate-800 rounded-3xl p-5 backdrop-blur-md flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="brawl-font text-lg text-yellow-400 flex items-center space-x-2">
+              <i data-lucide="users" class="w-5 h-5 text-yellow-400"></i>
+              <span>6 TA AFSAR VA JANGCHI (ROSTER)</span>
+            </h2>
+            <button onclick="openLeaderboardModal()" class="text-xs text-indigo-300 hover:text-white flex items-center space-x-1 font-bold">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Reyting Top-10</span>
+            </button>
+          </div>
+
+          <!-- 6 Brawlers Grid -->
+          <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="brawler-select-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Selected Brawler Showcase -->
+        <div id="selected-brawler-card" class="mt-4 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center space-x-3.5">
             <div id="sel-brawler-avatar" class="w-16 h-16 rounded-2xl bg-indigo-600/30 border-2 border-indigo-400 flex items-center justify-center text-3xl shadow-lg">
               🎯
             </div>
             <div>
               <div class="flex items-center space-x-2">
                 <span id="sel-brawler-name" class="brawl-font text-xl text-white">COLT</span>
-                <span id="sel-brawler-lvl" class="px-2 py-0.5 text-[10px] font-black bg-yellow-500 text-slate-950 rounded-full">DARAXA 1</span>
+                <span id="sel-brawler-lvl" class="px-2 py-0.5 text-[9px] font-black bg-yellow-500 text-slate-950 rounded-full">DARAXA 1</span>
               </div>
-              <div id="sel-brawler-desc" class="text-xs text-slate-400 line-clamp-1">Ikkita lazer qurolidan o't ochuvchi tezkor snayper</div>
-              <div class="flex space-x-4 text-xs font-bold mt-1">
+              <div id="sel-brawler-desc" class="text-xs text-slate-400 line-clamp-1">12-Round Destructive Laser Barrage</div>
+              <div class="flex items-center space-x-3 text-xs font-bold mt-1">
                 <span class="text-emerald-400">HP: <strong id="sel-brawler-hp">3,600</strong></span>
                 <span class="text-red-400">Zarba: <strong id="sel-brawler-dmg">380x6</strong></span>
+                <span class="text-emerald-300">Gadget: <strong id="sel-brawler-gadget">Speed Reload</strong></span>
               </div>
             </div>
           </div>
 
           <!-- Upgrade Button -->
-          <button id="btn-upgrade-brawler" onclick="upgradeCurrentBrawler()" class="brawl-btn w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-sm flex items-center justify-center space-x-2 hover:brightness-110 active:scale-95">
-            <i data-lucide="arrow-up-circle" class="w-5 h-5 text-yellow-300"></i>
-            <span>KUCHAYTIRISH (<span id="upgrade-cost-coins">150</span> 🪙)</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Right: Mega Box Chest & Daily Quests (5 cols) -->
-      <div class="lg:col-span-5 flex flex-col space-y-4">
-        <!-- Mega Box Chest Card (Yandex Games Feature) -->
-        <div class="bg-gradient-to-br from-indigo-950/80 via-purple-950/60 to-slate-900/80 border-2 border-purple-500/50 rounded-3xl p-5 shadow-xl relative overflow-hidden group">
-          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl group-hover:scale-125 transition-all"></div>
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-purple-500/30 text-purple-300 border border-purple-400/40 uppercase tracking-widest">
-              YANDEX MEGA BOX
-            </span>
-            <span class="text-xs text-yellow-400 font-bold flex items-center space-x-1">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-              <span>3x KATTA SOVGA</span>
-            </span>
-          </div>
-          <h3 class="brawl-font text-2xl text-white">MEGA SANDIQ OCHISH</h3>
-          <p class="text-xs text-slate-300 mb-4">Tanga, Yashil Zumradlar va Jangchi Kuch Ochkolari yutib oling!</p>
-          <div class="flex space-x-3">
-            <button onclick="openMegaBox('coins')" class="brawl-btn flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 font-black text-sm flex items-center justify-center space-x-1.5 hover:brightness-110">
-              <i data-lucide="coins" class="w-4 h-4"></i>
-              <span>300 TANGA</span>
-            </button>
-            <button onclick="openMegaBox('gems')" class="brawl-btn flex-1 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-black text-sm flex items-center justify-center space-x-1.5 hover:brightness-110">
-              <i data-lucide="gem" class="w-4 h-4 fill-white"></i>
-              <span>30 ZUMRAD</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Roblox Obby & Tycoon Modifiers Card -->
-        <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between">
-          <div class="flex items-center justify-between mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest">
-              ROBLOX OBBY & ARENA
-            </span>
-            <i data-lucide="gamepad-2" class="w-4 h-4 text-emerald-400"></i>
-          </div>
-          <div class="space-y-2 text-xs text-slate-300">
-            <div class="flex items-center space-x-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span><strong>Yashil Tramplin:</strong> Sakrab devorlardan oshib o'ting</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-              <span><strong>Lazer To'siqlari:</strong> 400 shikastlanishdan qoching</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-              <span><strong>Kuch Qutilari:</strong> Qutilarni sindirib HP va zarbani oshiring</span>
-            </div>
-          </div>
-          <!-- Leaderboard preview button -->
-          <button onclick="openLeaderboardModal()" class="mt-3 py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-indigo-300 flex items-center justify-between transition border border-slate-700">
-            <span class="flex items-center space-x-1.5">
-              <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
-              <span>Turnir Reytingini Ko'rish (Top-10)</span>
-            </span>
-            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          <button id="btn-upgrade-brawler" onclick="upgradeCurrentBrawler()" class="brawl-btn w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-xs flex items-center justify-center space-x-1.5 hover:brightness-110 active:scale-95">
+            <i data-lucide="arrow-up-circle" class="w-4 h-4 text-yellow-300"></i>
+            <span>KUCHAYTIRISH (<span id="upgrade-cost-coins">150</span>🪙)</span>
           </button>
         </div>
       </div>
     </div>
 
     <!-- Lobby Footer: BIG BRAWL START BUTTON -->
-    <div class="max-w-6xl mx-auto w-full pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="max-w-6xl mx-auto w-full pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center space-x-4 text-xs text-slate-400">
-        <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>Gem Grab 3v3</span></span>
-        <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>60 FPS WebGL</span></span>
+        <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span id="active-mode-label">Gem Grab 3v3</span></span>
+        <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>60/120 FPS WebGL</span></span>
         <span class="flex items-center space-x-1"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i> <span>Auto-Save</span></span>
       </div>
 
       <button onclick="startMatch()" class="brawl-btn w-full sm:w-80 py-4 rounded-3xl bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 text-slate-950 brawl-font text-2xl tracking-wider uppercase shadow-2xl hover:brightness-110 active:scale-95 flex items-center justify-center space-x-3">
         <i data-lucide="play" class="w-7 h-7 fill-slate-950"></i>
-        <span>JANGGA KIRISH!</span>
+        <span>JANGNI BOSHLASH!</span>
       </button>
     </div>
   </div>
 
   <!-- ============================================================== -->
-  <!-- MEGA BOX UNBOXING MODAL (YANDEX GAMES STYLE)                   -->
+  <!-- BRAWL PASS MODAL (SEASON 1)                                    -->
   <!-- ============================================================== -->
-  <div id="megabox-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-2xl z-50 flex flex-col items-center justify-center p-6">
+  <div id="brawlpass-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-2xl z-50 flex flex-col items-center justify-center p-4">
+    <div class="max-w-2xl w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col max-h-[85vh]">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center">
+            <i data-lucide="crown" class="w-6 h-6 text-yellow-300"></i>
+          </div>
+          <div>
+            <h3 class="brawl-font text-2xl text-white">BRAWL PASS: 1-MAVSUM</h3>
+            <p class="text-xs text-indigo-300">O'yinlardan Token yig'ib mukofotlarni oching!</p>
+          </div>
+        </div>
+        <button onclick="closeBrawlPassModal()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 flex items-center justify-center hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Tiers Scrollable List -->
+      <div class="overflow-y-auto my-4 space-y-2 flex-1 pr-1" id="brawlpass-tiers-list">
+        <!-- Rendered via JS -->
+      </div>
+
+      <button onclick="closeBrawlPassModal()" class="brawl-btn w-full py-3 rounded-2xl bg-indigo-600 text-white brawl-font text-sm hover:bg-indigo-500">
+        YOPISH
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MEGA / OMEGA BOX MODAL                                         -->
+  <!-- ============================================================== -->
+  <div id="box-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-2xl z-50 flex flex-col items-center justify-center p-6">
     <div class="max-w-md w-full flex flex-col items-center text-center space-y-6">
       <div class="text-center">
-        <span class="px-3 py-1 rounded-full text-xs font-black bg-purple-500/20 text-purple-300 border border-purple-500/40 uppercase tracking-widest">
+        <span id="box-badge-label" class="px-3 py-1 rounded-full text-xs font-black bg-purple-500/20 text-purple-300 border border-purple-500/40 uppercase tracking-widest">
           MEGA BOX SOVGA
         </span>
-        <h2 class="brawl-font text-3xl sm:text-4xl text-yellow-300 mt-2">SANDIQNI TILLO QILING!</h2>
-        <p class="text-xs text-slate-400" id="box-tap-prompt">Ochish uchun sandiq ustiga bosing!</p>
+        <h2 id="box-title-label" class="brawl-font text-3xl sm:text-4xl text-yellow-300 mt-2">SANDIQNI TILLO QILING!</h2>
+        <p class="text-xs text-slate-400">Ochish uchun sandiq ustiga bosing!</p>
       </div>
 
       <!-- 3D-styled interactive Box -->
-      <div id="interactive-box" onclick="tapOpenMegaBox()" class="w-44 h-44 rounded-3xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 border-4 border-yellow-400 shadow-2xl shadow-purple-500/50 flex flex-col items-center justify-center cursor-pointer select-none relative group hover:scale-105 transition-all">
+      <div id="interactive-box" onclick="tapOpenBox()" class="w-44 h-44 rounded-3xl bg-gradient-to-tr from-purple-700 via-indigo-600 to-blue-500 border-4 border-yellow-400 shadow-2xl shadow-purple-500/50 flex flex-col items-center justify-center cursor-pointer select-none relative group hover:scale-105 transition-all">
         <div class="absolute -top-3 w-16 h-6 bg-yellow-400 rounded-full border border-yellow-200"></div>
         <i data-lucide="gift" class="w-20 h-20 text-yellow-300 group-hover:scale-110 transition-transform"></i>
         <span id="box-remaining-taps" class="brawl-font text-xl text-white mt-2">3 TA QOLDI</span>
       </div>
 
       <!-- Revealed Rewards Container -->
-      <div id="box-rewards-grid" class="w-full grid grid-cols-3 gap-3 min-h-[90px]">
-        <!-- Injected dynamically on tap -->
-      </div>
+      <div id="box-rewards-grid" class="w-full grid grid-cols-3 gap-3 min-h-[90px]"></div>
 
-      <!-- Claim & Close Button -->
-      <button id="btn-claim-box" onclick="closeMegaBoxModal()" class="hidden brawl-btn w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white brawl-font text-lg hover:brightness-110">
+      <!-- Claim Button -->
+      <button id="btn-claim-box" onclick="closeBoxModal()" class="hidden brawl-btn w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white brawl-font text-lg hover:brightness-110">
         HAMMASINI OLISH!
       </button>
     </div>
   </div>
 
   <!-- ============================================================== -->
-  <!-- MATCH END RESULT MODAL (VICTORY / DEFEAT)                      -->
+  <!-- MATCH END RESULT MODAL                                         -->
   <!-- ============================================================== -->
   <div id="result-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center p-6">
     <div class="max-w-lg w-full bg-slate-900/90 border-2 border-slate-800 rounded-3xl p-6 sm:p-8 text-center shadow-2xl space-y-6">
-      <div id="result-badge" class="w-24 h-24 rounded-full mx-auto flex items-center justify-center shadow-2xl border-4">
-        <!-- Icon injected via JS -->
-      </div>
+      <div id="result-badge" class="w-24 h-24 rounded-full mx-auto flex items-center justify-center shadow-2xl border-4"></div>
 
       <div>
         <h2 id="result-title" class="brawl-font text-4xl sm:text-5xl text-yellow-400">G'ALABA!</h2>
-        <p id="result-subtitle" class="text-sm text-slate-300 font-semibold mt-1">Sizning jamoangiz 10 ta zumradni muvaffaqiyatli ushlab qoldi!</p>
+        <p id="result-subtitle" class="text-sm text-slate-300 font-semibold mt-1">Siz jangda ajoyib natija ko'rsatdingiz!</p>
       </div>
 
       <!-- Rewards Earned Grid -->
-      <div class="grid grid-cols-3 gap-3 p-4 bg-slate-950/70 rounded-2xl border border-slate-800">
+      <div class="grid grid-cols-4 gap-2.5 p-4 bg-slate-950/70 rounded-2xl border border-slate-800">
         <div class="flex flex-col items-center">
           <i data-lucide="trophy" class="w-5 h-5 text-amber-400"></i>
           <span id="res-trophies" class="brawl-font text-lg text-amber-300">+8</span>
-          <span class="text-[10px] text-slate-400 font-bold uppercase">Kubok</span>
+          <span class="text-[9px] text-slate-400 font-bold uppercase">Kubok</span>
         </div>
         <div class="flex flex-col items-center">
           <i data-lucide="coins" class="w-5 h-5 text-yellow-400"></i>
-          <span id="res-coins" class="brawl-font text-lg text-yellow-300">+50</span>
-          <span class="text-[10px] text-slate-400 font-bold uppercase">Tanga</span>
+          <span id="res-coins" class="brawl-font text-lg text-yellow-300">+60</span>
+          <span class="text-[9px] text-slate-400 font-bold uppercase">Tanga</span>
+        </div>
+        <div class="flex flex-col items-center">
+          <i data-lucide="crown" class="w-5 h-5 text-indigo-400"></i>
+          <span id="res-tokens" class="brawl-font text-lg text-indigo-300">+50</span>
+          <span class="text-[9px] text-slate-400 font-bold uppercase">Token</span>
         </div>
         <div class="flex flex-col items-center">
           <i data-lucide="star" class="w-5 h-5 text-purple-400"></i>
           <span id="res-xp" class="brawl-font text-lg text-purple-300">+120</span>
-          <span class="text-[10px] text-slate-400 font-bold uppercase">Tajriba (XP)</span>
+          <span class="text-[9px] text-slate-400 font-bold uppercase">XP</span>
         </div>
       </div>
 
@@ -480,9 +574,7 @@
     </div>
   </div>
 
-  <!-- ============================================================== -->
-  <!-- LEADERBOARD MODAL                                              -->
-  <!-- ============================================================== -->
+  <!-- LEADERBOARD MODAL -->
   <div id="leaderboard-modal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center p-4">
     <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl flex flex-col max-h-[85vh]">
       <div class="flex items-center justify-between pb-4 border-b border-slate-800">
@@ -494,11 +586,7 @@
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
-
-      <div class="overflow-y-auto my-4 space-y-2 flex-1 pr-1" id="leaderboard-list">
-        <!-- Rendered via JS -->
-      </div>
-
+      <div class="overflow-y-auto my-4 space-y-2 flex-1 pr-1" id="leaderboard-list"></div>
       <button onclick="closeLeaderboardModal()" class="brawl-btn w-full py-3 rounded-2xl bg-indigo-600 text-white brawl-font text-sm hover:bg-indigo-500">
         YOPISH
       </button>
@@ -509,7 +597,7 @@
   <!-- JAVASCRIPT GAME ENGINE                                         -->
   <!-- ============================================================== -->
   <script>
-    /* Global Game Configuration & Data */
+    /* 6 Brawlers Extended Presets */
     const BRAWLER_PRESETS = {
       colt: {
         id: 'colt',
@@ -525,7 +613,9 @@
         speed: 5.6,
         reloadTime: 1.35,
         color: 0x3b82f6,
-        superDesc: '12-Round Destructive Laser Barrage'
+        superDesc: '12-Round Destructive Laser Barrage',
+        gadgetName: 'Speed Reload',
+        gadgetDesc: 'Barcha 3 ta o\'qni zudlik bilan to\'ldiradi'
       },
       shelly: {
         id: 'shelly',
@@ -541,7 +631,9 @@
         speed: 5.3,
         reloadTime: 1.45,
         color: 0xa855f7,
-        superDesc: 'Massive Knockback Wall-Breaker Blast'
+        superDesc: 'Massive Knockback Wall-Breaker Blast',
+        gadgetName: 'Fast Forward',
+        gadgetDesc: 'Oldinga qarab tezkor sakrash (Dash)'
       },
       el_primo: {
         id: 'el_primo',
@@ -557,7 +649,9 @@
         speed: 5.8,
         reloadTime: 1.1,
         color: 0xef4444,
-        superDesc: 'Flying Meteor Slam with Shockwave'
+        superDesc: 'Flying Meteor Slam with Shockwave',
+        gadgetName: 'Suplex Throw',
+        gadgetDesc: 'Yaqindagi dushmanni orqaga uloqtiradi'
       },
       leon: {
         id: 'leon',
@@ -573,28 +667,82 @@
         speed: 6.2,
         reloadTime: 1.5,
         color: 0x10b981,
-        superDesc: 'Smoke Bomb (6s Invisibility & Speed Boost)'
+        superDesc: '6s Invisibility & +30% Speed Boost',
+        gadgetName: 'Clone Projector',
+        gadgetDesc: 'Chalg\'ituvchi gologramma klon chiqaradi'
+      },
+      crow: {
+        id: 'crow',
+        name: 'Crow Dagger',
+        avatar: '🦅',
+        role: 'Toxic Assassin',
+        hp: 3400,
+        damage: 410,
+        bulletsPerShot: 3,
+        bulletSpread: 0.22,
+        bulletSpeed: 30,
+        range: 14,
+        speed: 6.3,
+        reloadTime: 1.25,
+        color: 0xf59e0b,
+        superDesc: 'Swoop & Poison Cloud Jump',
+        gadgetName: 'Defense Shield',
+        gadgetDesc: '4 soniyaga 50% zarbadan himoya qalqoni'
+      },
+      spike: {
+        id: 'spike',
+        name: 'Spike Cactus',
+        avatar: '🌵',
+        role: 'Area Controller',
+        hp: 3400,
+        damage: 540,
+        bulletsPerShot: 6,
+        bulletSpread: 0.35,
+        bulletSpeed: 23,
+        range: 12,
+        speed: 5.3,
+        reloadTime: 1.6,
+        color: 0x22c55e,
+        superDesc: 'Stick Around Thorn AoE Field',
+        gadgetName: 'Needle Burst',
+        gadgetDesc: 'Atrofga 360 darajada 3 to\'lqin tikan otadi'
       }
     };
 
-    // User Saved State in LocalStorage
+    /* Brawl Pass 10 Tiers Data */
+    const BRAWL_PASS_TIERS = [
+      { tier: 1, tokens: 100, reward: '100 Tanga', icon: 'coins' },
+      { tier: 2, tokens: 250, reward: 'Katta Sandiq', icon: 'package' },
+      { tier: 3, tokens: 450, reward: '50 Kuch Ochkolari', icon: 'zap' },
+      { tier: 4, tokens: 700, reward: '15 Zumrad', icon: 'gem' },
+      { tier: 5, tokens: 1000, reward: 'Mega Sandiq', icon: 'gift' },
+      { tier: 6, tokens: 1350, reward: '250 Tanga', icon: 'coins' },
+      { tier: 7, tokens: 1750, reward: 'Katta Sandiq', icon: 'package' },
+      { tier: 8, tokens: 2200, reward: '100 Kuch Ochkolari', icon: 'zap' },
+      { tier: 9, tokens: 2700, reward: '30 Zumrad', icon: 'gem' },
+      { tier: 10, tokens: 3300, reward: 'Omega Sandiq & Kiber Skin', icon: 'award' }
+    ];
+
+    // User Persistent Game State
     let userState = {
       selectedBrawler: 'colt',
+      selectedMode: 'gem_grab', // gem_grab, showdown, boss_fight, obby_rush
       trophies: 120,
       coins: 1450,
       gems: 45,
+      tokens: 350,
+      claimedPassTiers: [],
       brawlerLevels: {
-        colt: 1,
-        shelly: 1,
-        el_primo: 1,
-        leon: 1
+        colt: 1, shelly: 1, el_primo: 1,
+        leon: 1, crow: 1, spike: 1
       },
-      soundEnabled: true
+      soundEnabled: true,
+      highFps: false
     };
 
     function loadState() {
       try {
-        const saved = localStorage.getItem('brawl_clash_save_v1');
+        const saved = localStorage.getItem('brawl_clash_1gb_v2');
         if (saved) {
           const parsed = JSON.parse(saved);
           userState = { ...userState, ...parsed };
@@ -606,18 +754,14 @@
 
     function saveState() {
       try {
-        localStorage.setItem('brawl_clash_save_v1', JSON.stringify(userState));
-      } catch (e) {
-        console.warn('Storage save error:', e);
-      }
+        localStorage.setItem('brawl_clash_1gb_v2', JSON.stringify(userState));
+      } catch (e) {}
     }
 
     /* ------------------------------------------------------------- */
     /* PROCEDURAL WEB AUDIO SYNTHESIZER ENGINE                       */
     /* ------------------------------------------------------------- */
     let audioCtx = null;
-    let bgmOscillators = [];
-    let bgmInterval = null;
 
     function initAudio() {
       if (!audioCtx) {
@@ -669,7 +813,7 @@
 
     function playGemChime() {
       if (!userState.soundEnabled || !audioCtx) return;
-      const notes = [523.25, 659.25, 783.99, 1046.50]; // C E G C
+      const notes = [523.25, 659.25, 783.99, 1046.50];
       const randomNote = notes[Math.floor(Math.random() * notes.length)];
       playTone(randomNote, 'sine', 0.25, 0.3);
     }
@@ -699,10 +843,16 @@
       setTimeout(() => playTone(880, 'sawtooth', 0.35, 0.5), 160);
     }
 
+    function playGadgetSound() {
+      if (!userState.soundEnabled || !audioCtx) return;
+      playTone(600, 'sine', 0.08, 0.3);
+      setTimeout(() => playTone(950, 'sine', 0.15, 0.35), 70);
+    }
+
     function playFanfare(victory = true) {
       if (!userState.soundEnabled || !audioCtx) return;
-      const chords = victory 
-        ? [523.25, 659.25, 783.99, 1046.5] 
+      const chords = victory
+        ? [523.25, 659.25, 783.99, 1046.5]
         : [440, 415.3, 392, 349.2];
       chords.forEach((freq, idx) => {
         setTimeout(() => playTone(freq, 'triangle', 0.4, 0.35), idx * 160);
@@ -722,6 +872,20 @@
       saveState();
     }
 
+    function toggleQuality() {
+      userState.highFps = !userState.highFps;
+      document.getElementById('btn-fps').textContent = userState.highFps ? '120F' : '60F';
+      saveState();
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
     /* ------------------------------------------------------------- */
     /* 3D SCENE & ENGINE SETUP (THREE.JS)                            */
     /* ------------------------------------------------------------- */
@@ -730,8 +894,8 @@
     let isGameRunning = false;
 
     // Arena dimensions
-    const ARENA_WIDTH = 34;
-    const ARENA_DEPTH = 44;
+    const ARENA_WIDTH = 36;
+    const ARENA_DEPTH = 46;
 
     // Entities
     let player = null;
@@ -743,6 +907,12 @@
     let laserBarriers = [];
     let gemMineObject = null;
     let gemSpawnTimer = 0;
+
+    // Mode-specific entities
+    let bossMecha = null;
+    let stormCircleMesh = null;
+    let stormRadius = 24.0;
+    let showdownBrawlersLeft = 8;
 
     // Match gem scores
     let blueGems = 0;
@@ -760,16 +930,14 @@
     function initThreeScene() {
       const container = document.getElementById('canvas-container');
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x090b14);
-      scene.fog = new THREE.FogExp2(0x090b14, 0.022);
+      scene.background = new THREE.Color(0x060810);
+      scene.fog = new THREE.FogExp2(0x060810, 0.02);
 
-      // Camera: Isometric top-down 45-degree angle
       camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-      camera.position.set(0, 32, 28);
+      camera.position.set(0, 34, 30);
       camera.lookAt(0, 0, 0);
 
-      // Renderer
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+      renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.shadowMap.enabled = true;
@@ -777,93 +945,91 @@
       container.appendChild(renderer.domElement);
 
       // Lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
       scene.add(ambientLight);
 
-      const dirLight = new THREE.DirectionalLight(0xfff5ea, 1.1);
-      dirLight.position.set(20, 40, 20);
+      const dirLight = new THREE.DirectionalLight(0xfff7ed, 1.2);
+      dirLight.position.set(20, 45, 20);
       dirLight.castShadow = true;
       dirLight.shadow.mapSize.width = 1024;
       dirLight.shadow.mapSize.height = 1024;
-      dirLight.shadow.camera.near = 0.5;
-      dirLight.shadow.camera.far = 100;
-      dirLight.shadow.camera.left = -30;
-      dirLight.shadow.camera.right = 30;
-      dirLight.shadow.camera.top = 30;
-      dirLight.shadow.camera.bottom = -30;
       scene.add(dirLight);
 
-      // Neon Accent Lights
-      const blueAccent = new THREE.PointLight(0x3b82f6, 1.5, 25);
+      const blueAccent = new THREE.PointLight(0x3b82f6, 1.8, 28);
       blueAccent.position.set(0, 4, 18);
       scene.add(blueAccent);
 
-      const redAccent = new THREE.PointLight(0xef4444, 1.5, 25);
+      const redAccent = new THREE.PointLight(0xef4444, 1.8, 28);
       redAccent.position.set(0, 4, -18);
       scene.add(redAccent);
 
-      buildArenaEnvironment();
+      buildBaseArenaEnvironment();
       setupEventListeners();
     }
 
-    /* Build 3D Arena: Floor Grid, Gem Mine, Jump Pads, Crates */
-    function buildArenaEnvironment() {
+    function buildBaseArenaEnvironment() {
       // Floor
       const floorGeo = new THREE.PlaneGeometry(ARENA_WIDTH, ARENA_DEPTH);
       const floorMat = new THREE.MeshStandardMaterial({
-        color: 0x131929,
-        roughness: 0.7,
-        metalness: 0.2
+        color: 0x0f172a,
+        roughness: 0.75,
+        metalness: 0.15
       });
       const floor = new THREE.Mesh(floorGeo, floorMat);
       floor.rotation.x = -Math.PI / 2;
       floor.receiveShadow = true;
       scene.add(floor);
 
-      // Grid tiles line overlay
-      const grid = new THREE.GridHelper(ARENA_DEPTH, 22, 0x3b82f6, 0x1e293b);
+      const grid = new THREE.GridHelper(ARENA_DEPTH, 24, 0x3b82f6, 0x1e293b);
       grid.position.y = 0.02;
       scene.add(grid);
 
-      // Arena Boundary Walls
+      // Boundary Walls
       const wallMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.4 });
       const borderDefs = [
-        { w: ARENA_WIDTH, h: 2, d: 1, x: 0, z: -ARENA_DEPTH / 2 },
-        { w: ARENA_WIDTH, h: 2, d: 1, x: 0, z: ARENA_DEPTH / 2 },
-        { w: 1, h: 2, d: ARENA_DEPTH, x: -ARENA_WIDTH / 2, z: 0 },
-        { w: 1, h: 2, d: ARENA_DEPTH, x: ARENA_WIDTH / 2, z: 0 }
+        { w: ARENA_WIDTH, h: 2.2, d: 1, x: 0, z: -ARENA_DEPTH / 2 },
+        { w: ARENA_WIDTH, h: 2.2, d: 1, x: 0, z: ARENA_DEPTH / 2 },
+        { w: 1, h: 2.2, d: ARENA_DEPTH, x: -ARENA_WIDTH / 2, z: 0 },
+        { w: 1, h: 2.2, d: ARENA_DEPTH, x: ARENA_WIDTH / 2, z: 0 }
       ];
       borderDefs.forEach(b => {
         const wall = new THREE.Mesh(new THREE.BoxGeometry(b.w, b.h, b.d), wallMat);
-        wall.position.set(b.x, 1, b.z);
+        wall.position.set(b.x, 1.1, b.z);
         wall.castShadow = true;
         wall.receiveShadow = true;
         scene.add(wall);
       });
 
+      // Jump Pads
+      createJumpPad(-9, 4, 0, -14);
+      createJumpPad(9, -4, 0, 14);
+
+      // Laser Barriers
+      createLaserBarrier(0, -9, 13);
+      createLaserBarrier(0, 9, 13);
+
+      // Power Crates
+      const crateCoords = [
+        [-9, -12], [9, -12], [-9, 12], [9, 12],
+        [-12, 0], [12, 0], [-5, -6], [5, 6]
+      ];
+      crateCoords.forEach(pos => createCrate(pos[0], pos[1]));
+
       // Central Gem Mine Well
       buildGemMineWell();
 
-      // Roblox Spring Jump Pads
-      createJumpPad(-9, 4, 0, -14); // Left side jumps north
-      createJumpPad(9, -4, 0, 14);  // Right side jumps south
-
-      // Moving Laser Barriers
-      createLaserBarrier(0, -9, 12);
-      createLaserBarrier(0, 9, 12);
-
-      // Destructible Crates (Power Cube containers)
-      const crateCoords = [
-        [-8, -12], [8, -12], [-8, 12], [8, 12],
-        [-11, 0], [11, 0], [-5, -6], [5, 6]
-      ];
-      crateCoords.forEach(pos => createCrate(pos[0], pos[1]));
+      // Showdown Storm Circle Ring
+      const circleGeo = new THREE.RingGeometry(stormRadius - 0.3, stormRadius, 48);
+      const circleMat = new THREE.MeshBasicMaterial({ color: 0x22c55e, side: THREE.DoubleSide });
+      stormCircleMesh = new THREE.Mesh(circleGeo, circleMat);
+      stormCircleMesh.rotation.x = -Math.PI / 2;
+      stormCircleMesh.position.y = 0.06;
+      stormCircleMesh.visible = false;
+      scene.add(stormCircleMesh);
     }
 
     function buildGemMineWell() {
       const wellGroup = new THREE.Group();
-      
-      // Well Rim
       const rimGeo = new THREE.CylinderGeometry(2.4, 2.7, 0.8, 16);
       const rimMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.6 });
       const rim = new THREE.Mesh(rimGeo, rimMat);
@@ -871,12 +1037,11 @@
       rim.castShadow = true;
       wellGroup.add(rim);
 
-      // Rotating Emerald Crystal hovering in center
-      const crystalGeo = new THREE.OctahedronGeometry(1.2, 0);
+      const crystalGeo = new THREE.OctahedronGeometry(1.3, 0);
       const crystalMat = new THREE.MeshStandardMaterial({
         color: 0x10b981,
         emissive: 0x059669,
-        emissiveIntensity: 0.6,
+        emissiveIntensity: 0.7,
         roughness: 0.1,
         metalness: 0.8
       });
@@ -885,8 +1050,7 @@
       gemMineObject.castShadow = true;
       wellGroup.add(gemMineObject);
 
-      // Crystal Glow Light
-      const gemLight = new THREE.PointLight(0x10b981, 2, 8);
+      const gemLight = new THREE.PointLight(0x10b981, 2.2, 10);
       gemLight.position.set(0, 2.5, 0);
       wellGroup.add(gemLight);
 
@@ -894,24 +1058,18 @@
     }
 
     function createJumpPad(x, z, targetX, targetZ) {
-      const padGeo = new THREE.CylinderGeometry(1.4, 1.6, 0.25, 12);
+      const padGeo = new THREE.CylinderGeometry(1.5, 1.7, 0.25, 12);
       const padMat = new THREE.MeshStandardMaterial({
         color: 0x10b981,
         emissive: 0x047857,
-        emissiveIntensity: 0.5,
-        roughness: 0.3
+        emissiveIntensity: 0.55
       });
       const pad = new THREE.Mesh(padGeo, padMat);
       pad.position.set(x, 0.12, z);
       pad.castShadow = true;
       scene.add(pad);
 
-      jumpPads.push({
-        mesh: pad,
-        x, z,
-        radius: 1.5,
-        targetX, targetZ
-      });
+      jumpPads.push({ mesh: pad, x, z, radius: 1.6, targetX, targetZ });
     }
 
     function createLaserBarrier(x, z, width) {
@@ -928,7 +1086,7 @@
         z: z,
         width: width,
         direction: 1,
-        speed: 3.5,
+        speed: 3.8,
         damage: 400
       });
     }
@@ -937,8 +1095,7 @@
       const crateGeo = new THREE.BoxGeometry(1.8, 1.8, 1.8);
       const crateMat = new THREE.MeshStandardMaterial({
         color: 0x92400e,
-        roughness: 0.8,
-        metalness: 0.1
+        roughness: 0.8
       });
       const crateMesh = new THREE.Mesh(crateGeo, crateMat);
       crateMesh.position.set(x, 0.9, z);
@@ -946,44 +1103,32 @@
       crateMesh.receiveShadow = true;
       scene.add(crateMesh);
 
-      crates.push({
-        mesh: crateMesh,
-        x, z,
-        hp: 2000,
-        maxHp: 2000,
-        radius: 1.2
-      });
+      crates.push({ mesh: crateMesh, x, z, hp: 2000, maxHp: 2000, radius: 1.2 });
     }
 
-    /* Spawn shiny Emerald Gem at coordinate */
     function spawnGem(x, z) {
-      const gemGeo = new THREE.OctahedronGeometry(0.45, 0);
+      const gemGeo = new THREE.OctahedronGeometry(0.48, 0);
       const gemMat = new THREE.MeshStandardMaterial({
         color: 0x10b981,
         emissive: 0x34d399,
-        emissiveIntensity: 0.8,
-        roughness: 0.2
+        emissiveIntensity: 0.85
       });
       const mesh = new THREE.Mesh(gemGeo, gemMat);
       mesh.position.set(x, 0.8, z);
       mesh.castShadow = true;
       scene.add(mesh);
 
-      gems.push({
-        mesh,
-        x, z,
-        rotSpeed: 3 + Math.random() * 2
-      });
+      gems.push({ mesh, x, z, rotSpeed: 3 + Math.random() * 2 });
     }
 
     /* ------------------------------------------------------------- */
-    /* BRAWLER CHARACTER CREATION (3D PROCEDURAL MODELS)             */
+    /* BRAWLER 3D CHARACTER GENERATOR                                */
     /* ------------------------------------------------------------- */
     function createBrawlerMesh(preset, isPlayer = false, team = 'blue') {
       const group = new THREE.Group();
 
       // Team Ring Indicator
-      const ringGeo = new THREE.RingGeometry(0.9, 1.2, 24);
+      const ringGeo = new THREE.RingGeometry(0.9, 1.25, 24);
       const ringMat = new THREE.MeshBasicMaterial({
         color: team === 'blue' ? 0x3b82f6 : 0xef4444,
         side: THREE.DoubleSide
@@ -1007,7 +1152,7 @@
       // Head
       const headGeo = new THREE.BoxGeometry(0.8, 0.8, 0.8);
       const headMat = new THREE.MeshStandardMaterial({
-        color: 0xfde047, // Classic yellow head
+        color: 0xfde047,
         roughness: 0.3
       });
       const head = new THREE.Mesh(headGeo, headMat);
@@ -1028,6 +1173,43 @@
     }
 
     /* ------------------------------------------------------------- */
+    /* MEGA MECHA BOSS 3D MESH GENERATOR                             */
+    /* ------------------------------------------------------------- */
+    function createBossMechaMesh() {
+      const bossGroup = new THREE.Group();
+
+      // Torso
+      const torsoGeo = new THREE.BoxGeometry(3.6, 4.2, 2.6);
+      const torsoMat = new THREE.MeshStandardMaterial({ color: 0x7c3aed, roughness: 0.3, metalness: 0.8 });
+      const torso = new THREE.Mesh(torsoGeo, torsoMat);
+      torso.position.y = 4.2;
+      torso.castShadow = true;
+      bossGroup.add(torso);
+
+      // Glowing Core Eye
+      const eyeGeo = new THREE.SphereGeometry(0.9, 16, 16);
+      const eyeMat = new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0xdc2626, emissiveIntensity: 1.2 });
+      const eye = new THREE.Mesh(eyeGeo, eyeMat);
+      eye.position.set(0, 4.5, 1.4);
+      bossGroup.add(eye);
+
+      // Dual Gatling Cannons
+      const armLGeo = new THREE.CylinderGeometry(0.4, 0.4, 3.2, 12);
+      const armMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.9 });
+      const armL = new THREE.Mesh(armLGeo, armMat);
+      armL.rotation.x = Math.PI / 2;
+      armL.position.set(-2.4, 4.0, 1.0);
+      bossGroup.add(armL);
+
+      const armR = armL.clone();
+      armR.position.set(2.4, 4.0, 1.0);
+      bossGroup.add(armR);
+
+      scene.add(bossGroup);
+      return bossGroup;
+    }
+
+    /* ------------------------------------------------------------- */
     /* GAME LOOP & TICK UPDATE                                       */
     /* ------------------------------------------------------------- */
     function animate() {
@@ -1039,26 +1221,22 @@
         updateGame(delta);
       }
 
-      // Rotate gem mine
-      if (gemMineObject) {
+      if (gemMineObject && userState.selectedMode === 'gem_grab') {
         gemMineObject.rotation.y += delta * 1.5;
         gemMineObject.position.y = 2.4 + Math.sin(clock.getElapsedTime() * 3) * 0.2;
       }
 
-      // Rotate gems
       gems.forEach(g => {
         g.mesh.rotation.y += delta * g.rotSpeed;
         g.mesh.position.y = 0.8 + Math.sin(clock.getElapsedTime() * 4) * 0.15;
       });
 
-      // Update Moving Lasers
+      // Laser Obstacles
       laserBarriers.forEach(laser => {
         laser.mesh.position.x += laser.direction * laser.speed * delta;
         if (Math.abs(laser.mesh.position.x - laser.startX) > 7) {
           laser.direction *= -1;
         }
-
-        // Damage check against player
         if (player && player.alive && !player.jumping) {
           const distZ = Math.abs(player.pos.z - laser.z);
           const distX = Math.abs(player.pos.x - laser.mesh.position.x);
@@ -1072,49 +1250,51 @@
     }
 
     function updateGame(delta) {
-      // 1. Gem Mine Spawning
-      gemSpawnTimer += delta;
-      if (gemSpawnTimer >= 5.5 && gems.length < 24) {
-        gemSpawnTimer = 0;
-        const angle = Math.random() * Math.PI * 2;
-        const dist = 1.5 + Math.random() * 2.5;
-        spawnGem(Math.cos(angle) * dist, Math.sin(angle) * dist);
+      // 1. Mode Specific Updates
+      if (userState.selectedMode === 'gem_grab') {
+        gemSpawnTimer += delta;
+        if (gemSpawnTimer >= 5.5 && gems.length < 24) {
+          gemSpawnTimer = 0;
+          const angle = Math.random() * Math.PI * 2;
+          const dist = 1.5 + Math.random() * 2.5;
+          spawnGem(Math.cos(angle) * dist, Math.sin(angle) * dist);
+        }
+        checkGemCollections();
+        updateMatchCountdown(delta);
+      } else if (userState.selectedMode === 'showdown') {
+        updateShowdownStorm(delta);
+      } else if (userState.selectedMode === 'boss_fight') {
+        updateBossFight(delta);
       }
 
-      // 2. Player Input & Movement
+      // 2. Player Input & Physics
       updatePlayer(delta);
 
       // 3. AI Bots
       bots.forEach(bot => updateBot(bot, delta));
 
-      // 4. Bullets & Projectiles
+      // 4. Projectiles
       updateBullets(delta);
 
-      // 5. Gem Collection Check
-      checkGemCollections();
-
-      // 6. Match Win Countdown logic
-      updateMatchCountdown(delta);
-
-      // 7. Update HUD
+      // 5. Update HUD
       updateHud();
     }
 
     function updatePlayer(delta) {
       if (!player || !player.alive) return;
 
-      // Reload Ammo
+      // Ammo reload
       if (player.ammo < 3) {
         player.ammo = Math.min(3, player.ammo + delta / player.preset.reloadTime);
       }
 
-      // Health Regeneration (if not attacked for 3s)
+      // Health Regen
       player.timeSinceDamage += delta;
       if (player.timeSinceDamage > 3.0 && player.hp < player.maxHp) {
         player.hp = Math.min(player.maxHp, player.hp + player.maxHp * 0.15 * delta);
       }
 
-      // Parabolic Jump Pad Flight
+      // Parabolic Jump
       if (player.jumping) {
         player.jumpProgress += delta * 1.8;
         player.pos.x = THREE.MathUtils.lerp(player.jumpStart.x, player.jumpTarget.x, player.jumpProgress);
@@ -1131,7 +1311,7 @@
         return;
       }
 
-      // Keyboard movement vector
+      // Movement vector
       let moveX = 0;
       let moveZ = 0;
       if (keys['KeyW'] || keys['ArrowUp']) moveZ -= 1;
@@ -1139,7 +1319,6 @@
       if (keys['KeyA'] || keys['ArrowLeft']) moveX -= 1;
       if (keys['KeyD'] || keys['ArrowRight']) moveX += 1;
 
-      // Virtual Joystick Override (Mobile)
       if (joystickInput.active) {
         moveX = joystickInput.x;
         moveZ = joystickInput.y;
@@ -1151,12 +1330,11 @@
         player.pos.x += (moveX / len) * speed * delta;
         player.pos.z += (moveZ / len) * speed * delta;
 
-        // Boundary Clamp
         player.pos.x = Math.max(-ARENA_WIDTH / 2 + 1.2, Math.min(ARENA_WIDTH / 2 - 1.2, player.pos.x));
         player.pos.z = Math.max(-ARENA_DEPTH / 2 + 1.2, Math.min(ARENA_DEPTH / 2 - 1.2, player.pos.z));
       }
 
-      // Mouse Aim Direction
+      // Aiming
       raycaster.setFromCamera(mousePos, camera);
       const hitPoint = new THREE.Vector3();
       raycaster.ray.intersectPlane(groundPlane, hitPoint);
@@ -1167,11 +1345,10 @@
 
       player.mesh.position.copy(player.pos);
 
-      // Follow Camera smoothly
       camera.position.x = THREE.MathUtils.lerp(camera.position.x, player.pos.x * 0.45, 0.08);
       camera.position.z = THREE.MathUtils.lerp(camera.position.z, player.pos.z * 0.45 + 24, 0.08);
 
-      // Check Jump Pad trigger
+      // Jump Pad collisions
       jumpPads.forEach(pad => {
         const dist = Math.hypot(player.pos.x - pad.x, player.pos.z - pad.z);
         if (dist < pad.radius && !player.jumping) {
@@ -1191,6 +1368,7 @@
 
     function updateBot(bot, delta) {
       if (!bot.alive) {
+        if (userState.selectedMode === 'showdown') return; // No respawn in showdown
         bot.respawnTimer -= delta;
         if (bot.respawnTimer <= 0) {
           respawnBot(bot);
@@ -1198,31 +1376,27 @@
         return;
       }
 
-      // Reload Ammo
       if (bot.ammo < 3) {
         bot.ammo = Math.min(3, bot.ammo + delta / bot.preset.reloadTime);
       }
 
-      // Bot Behavior: Seek Nearest Gem or Attack Nearest Opponent
-      const targetEnemy = findNearestEnemy(bot);
-      const nearestGem = findNearestGem(bot.pos);
+      let target = (userState.selectedMode === 'boss_fight' && bossMecha)
+        ? bossMecha
+        : findNearestEnemy(bot);
 
       let targetX = 0;
       let targetZ = 0;
 
-      if (nearestGem && Math.random() > 0.4) {
-        targetX = nearestGem.x;
-        targetZ = nearestGem.z;
-      } else if (targetEnemy) {
-        targetX = targetEnemy.pos.x;
-        targetZ = targetEnemy.pos.z;
+      if (target) {
+        targetX = target.pos ? target.pos.x : target.x;
+        targetZ = target.pos ? target.pos.z : target.z;
       }
 
       const dx = targetX - bot.pos.x;
       const dz = targetZ - bot.pos.z;
       const dist = Math.hypot(dx, dz);
 
-      if (dist > 1.0) {
+      if (dist > 2.5) {
         const moveDist = Math.min(dist, bot.preset.speed * delta);
         bot.pos.x += (dx / dist) * moveDist;
         bot.pos.z += (dz / dist) * moveDist;
@@ -1231,11 +1405,11 @@
 
       bot.mesh.position.copy(bot.pos);
 
-      // Bot Shoot at Enemy
-      if (targetEnemy && dist < bot.preset.range && bot.ammo >= 1.0) {
+      // Bot Shooting
+      if (target && dist < bot.preset.range && bot.ammo >= 1.0) {
         bot.shootCooldown = (bot.shootCooldown || 0) - delta;
         if (bot.shootCooldown <= 0) {
-          fireWeapon(bot, targetEnemy.pos);
+          fireWeapon(bot, { x: targetX, z: targetZ });
           bot.shootCooldown = 1.0 + Math.random() * 0.8;
         }
       }
@@ -1245,9 +1419,11 @@
       let closest = null;
       let minDist = 999;
 
-      const candidates = sourceEntity.team === 'blue' 
-        ? bots.filter(b => b.team === 'red' && b.alive)
-        : [player, ...bots.filter(b => b.team === 'blue' && b.alive)].filter(e => e && e.alive);
+      const candidates = (userState.selectedMode === 'showdown')
+        ? [player, ...bots].filter(e => e !== sourceEntity && e && e.alive)
+        : (sourceEntity.team === 'blue'
+            ? bots.filter(b => b.team === 'red' && b.alive)
+            : [player, ...bots.filter(b => b.team === 'blue' && b.alive)].filter(e => e && e.alive));
 
       candidates.forEach(c => {
         const dist = Math.hypot(c.pos.x - sourceEntity.pos.x, c.pos.z - sourceEntity.pos.z);
@@ -1259,21 +1435,8 @@
       return closest;
     }
 
-    function findNearestGem(pos) {
-      let closest = null;
-      let minDist = 999;
-      gems.forEach(g => {
-        const dist = Math.hypot(g.x - pos.x, g.z - pos.z);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = g;
-        }
-      });
-      return closest;
-    }
-
     /* ------------------------------------------------------------- */
-    /* COMBAT & WEAPON FIRING                                        */
+    /* WEAPON & COMBAT                                               */
     /* ------------------------------------------------------------- */
     function fireWeapon(source, targetPos, isSuper = false) {
       if (!isSuper && source.ammo < 1.0) return;
@@ -1288,7 +1451,7 @@
       for (let i = 0; i < count; i++) {
         const angleOffset = (Math.random() - 0.5) * spread;
         const finalAngle = baseAngle + angleOffset;
-        
+
         const bulletGeo = new THREE.SphereGeometry(isSuper ? 0.35 : 0.22, 8, 8);
         const bulletMat = new THREE.MeshBasicMaterial({
           color: isSuper ? 0xfacc15 : (source.team === 'blue' ? 0x60a5fa : 0xf87171)
@@ -1317,8 +1480,9 @@
         b.mesh.position.z += b.vz * delta;
         b.life -= delta;
 
-        // Check Crate Collisions
         let hit = false;
+
+        // Crate Collisions
         for (let c = crates.length - 1; c >= 0; c--) {
           const crate = crates[c];
           const dist = Math.hypot(b.mesh.position.x - crate.x, b.mesh.position.z - crate.z);
@@ -1329,18 +1493,29 @@
             if (crate.hp <= 0) {
               scene.remove(crate.mesh);
               crates.splice(c, 1);
-              spawnGem(crate.x, crate.z); // Drops gem / power cube
+              spawnGem(crate.x, crate.z);
               showCombatText('POWER CUBE!', crate.x, crate.z, '#34d399');
             }
             break;
           }
         }
 
-        // Check Entity Collisions
+        // Boss Collision (in Boss Fight mode)
+        if (!hit && bossMecha && bossMecha.alive) {
+          const dist = Math.hypot(b.mesh.position.x - bossMecha.x, b.mesh.position.z - bossMecha.z);
+          if (dist < 2.5) {
+            hit = true;
+            damageBoss(b.damage, b.source);
+          }
+        }
+
+        // Entity Collisions
         if (!hit) {
-          const targetPool = b.team === 'blue' 
-            ? bots.filter(bot => bot.team === 'red' && bot.alive)
-            : [player, ...bots.filter(bot => bot.team === 'blue' && bot.alive)].filter(e => e && e.alive);
+          const targetPool = (userState.selectedMode === 'showdown')
+            ? [player, ...bots].filter(e => e !== b.source && e && e.alive)
+            : (b.team === 'blue'
+                ? bots.filter(bot => bot.team === 'red' && bot.alive)
+                : [player, ...bots.filter(bot => bot.team === 'blue' && bot.alive)].filter(e => e && e.alive));
 
           for (let target of targetPool) {
             const dist = Math.hypot(b.mesh.position.x - target.pos.x, b.mesh.position.z - target.pos.z);
@@ -1360,13 +1535,14 @@
     }
 
     function damageBrawler(target, damage, attacker = null) {
+      if (target.shieldActive) damage *= 0.5;
+
       target.hp -= damage;
       target.timeSinceDamage = 0;
       playHitSound();
 
       showCombatText(`-${Math.round(damage)}`, target.pos.x, target.pos.z, target.team === 'blue' ? '#ef4444' : '#60a5fa');
 
-      // Charge Attacker's Super Meter
       if (attacker && attacker === player) {
         player.superCharge = Math.min(100, player.superCharge + (damage / 3800) * 100);
       }
@@ -1380,13 +1556,25 @@
       entity.alive = false;
       entity.hp = 0;
 
-      // Drop all carried gems
-      for (let i = 0; i < entity.heldGems; i++) {
+      for (let i = 0; i < (entity.heldGems || 0); i++) {
         spawnGem(entity.pos.x + (Math.random() - 0.5) * 3, entity.pos.z + (Math.random() - 0.5) * 3);
       }
       entity.heldGems = 0;
 
       showCombatText('ELIMINATED!', entity.pos.x, entity.pos.z, '#dc2626');
+
+      if (userState.selectedMode === 'showdown') {
+        entity.mesh.visible = false;
+        showdownBrawlersLeft = Math.max(1, showdownBrawlersLeft - 1);
+        document.getElementById('red-gem-count').textContent = showdownBrawlersLeft;
+
+        if (entity === player) {
+          endMatch(false, `Omon qoldingiz: #${showdownBrawlersLeft + 1} o'rin!`);
+        } else if (showdownBrawlersLeft === 1) {
+          endMatch(true, '#1 VICTORY ROYALE! Siz yagona g\'olibsiz!');
+        }
+        return;
+      }
 
       if (entity === player) {
         entity.mesh.visible = false;
@@ -1416,8 +1604,31 @@
     }
 
     /* ------------------------------------------------------------- */
-    /* SUPER ABILITY TRIGGER                                         */
+    /* GADGET & SUPER ABILITIES                                      */
     /* ------------------------------------------------------------- */
+    function triggerGadgetAction() {
+      if (!player || !player.alive || player.gadgetCharges <= 0) return;
+      player.gadgetCharges -= 1;
+      playGadgetSound();
+      document.getElementById('gadget-charges-text').textContent = player.gadgetCharges;
+
+      showCombatText('GADGET!', player.pos.x, player.pos.z, '#10b981');
+
+      if (player.preset.id === 'colt') {
+        player.ammo = 3;
+      } else if (player.preset.id === 'shelly') {
+        player.pos.z -= 6.0; // Dash forward
+      } else if (player.preset.id === 'crow') {
+        player.shieldActive = true;
+        setTimeout(() => player.shieldActive = false, 4000);
+      } else if (player.preset.id === 'spike') {
+        // 360 degree needle burst
+        for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
+          fireWeapon(player, { x: player.pos.x + Math.sin(a) * 10, z: player.pos.z + Math.cos(a) * 10 }, false);
+        }
+      }
+    }
+
     function triggerSuperAbility() {
       if (!player || !player.alive || player.superCharge < 100) return;
       player.superCharge = 0;
@@ -1429,25 +1640,93 @@
       const targetPos = hitPoint || { x: player.pos.x, z: player.pos.z - 10 };
 
       if (player.preset.id === 'el_primo') {
-        // Flying Meteor Slam
         triggerJumpPad(player, { targetX: targetPos.x, targetZ: targetPos.z });
         setTimeout(() => {
           showCombatText('METEOR SLAM!', player.pos.x, player.pos.z, '#f59e0b');
-          // AoE damage
           bots.filter(b => b.team === 'red' && b.alive).forEach(enemy => {
             const dist = Math.hypot(enemy.pos.x - player.pos.x, enemy.pos.z - player.pos.z);
             if (dist < 5.0) damageBrawler(enemy, 1600, player);
           });
         }, 600);
+      } else if (player.preset.id === 'leon') {
+        player.mesh.visible = false;
+        player.speedBoost = true;
+        setTimeout(() => {
+          player.mesh.visible = true;
+          player.speedBoost = false;
+          showCombatText('UNCLOAKED!', player.pos.x, player.pos.z, '#34d399');
+        }, 6000);
       } else {
-        // Bullet Storm / Super Shot
         fireWeapon(player, targetPos, true);
         showCombatText('SUPER!', player.pos.x, player.pos.z, '#facc15');
       }
     }
 
     /* ------------------------------------------------------------- */
-    /* GEM LOGIC & MATCH COUNTDOWN                                   */
+    /* SHOWDOWN & BOSS FIGHT MODES                                   */
+    /* ------------------------------------------------------------- */
+    function updateShowdownStorm(delta) {
+      stormRadius = Math.max(6.0, stormRadius - delta * 0.4);
+      if (stormCircleMesh) {
+        stormCircleMesh.scale.set(stormRadius / 24, stormRadius / 24, 1);
+      }
+
+      const dist = Math.hypot(player.pos.x, player.pos.z);
+      const overlay = document.getElementById('poison-overlay');
+      if (dist > stormRadius && player.alive) {
+        overlay.classList.remove('hidden');
+        damageBrawler(player, 400 * delta);
+      } else {
+        overlay.classList.add('hidden');
+      }
+
+      // Check bots inside poison
+      bots.forEach(b => {
+        if (b.alive && Math.hypot(b.pos.x, b.pos.z) > stormRadius) {
+          damageBrawler(b, 400 * delta);
+        }
+      });
+    }
+
+    function updateBossFight(delta) {
+      if (!bossMecha || !bossMecha.alive) return;
+
+      bossMecha.attackTimer = (bossMecha.attackTimer || 0) + delta;
+      if (bossMecha.attackTimer >= 2.2) {
+        bossMecha.attackTimer = 0;
+        // Boss fires at player or random blue bot
+        const target = player.alive ? player : bots.find(b => b.alive);
+        if (target) {
+          playShootSound('shotgun');
+          fireWeapon({
+            pos: { x: bossMecha.x, z: bossMecha.z },
+            team: 'red',
+            preset: { bulletsPerShot: 8, bulletSpread: 0.4, bulletSpeed: 22, range: 24, damage: 450 }
+          }, target.pos);
+        }
+      }
+    }
+
+    function damageBoss(damage, attacker) {
+      bossMecha.hp -= damage;
+      showCombatText(`-${damage}`, bossMecha.x, bossMecha.z, '#f59e0b');
+
+      if (attacker === player) {
+        player.superCharge = Math.min(100, player.superCharge + (damage / 4000) * 100);
+      }
+
+      const pct = (bossMecha.hp / bossMecha.maxHp) * 100;
+      document.getElementById('center-status-value').textContent = `${Math.round(pct)}%`;
+
+      if (bossMecha.hp <= 0 && bossMecha.alive) {
+        bossMecha.alive = false;
+        scene.remove(bossMecha.mesh);
+        endMatch(true, "MECHA BOSS MAG'LUB ETILDI!");
+      }
+    }
+
+    /* ------------------------------------------------------------- */
+    /* GEM LOGIC & MATCH OUTCOMES                                    */
     /* ------------------------------------------------------------- */
     function checkGemCollections() {
       const allEntities = [player, ...bots].filter(e => e && e.alive && !e.jumping);
@@ -1467,14 +1746,13 @@
         }
       }
 
-      // Tally Gems
       blueGems = (player.heldGems || 0) + bots.filter(b => b.team === 'blue').reduce((acc, b) => acc + (b.heldGems || 0), 0);
       redGems = bots.filter(b => b.team === 'red').reduce((acc, b) => acc + (b.heldGems || 0), 0);
     }
 
     function updateMatchCountdown(delta) {
-      const banner = document.getElementById('countdown-banner');
-      const timerLabel = document.getElementById('countdown-timer');
+      const banner = document.getElementById('center-status-banner');
+      const timerLabel = document.getElementById('center-status-value');
 
       if (blueGems >= 10 && blueGems > redGems) {
         countdownLeader = 'blue';
@@ -1499,21 +1777,22 @@
       }
     }
 
-    function endMatch(playerWon) {
+    function endMatch(playerWon, customMessage = null) {
       isGameRunning = false;
       playFanfare(playerWon);
 
       if (playerWon) {
         confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
         userState.trophies += 8;
-        userState.coins += 50;
+        userState.coins += 60;
+        userState.tokens += 50;
       } else {
         userState.trophies = Math.max(0, userState.trophies - 4);
-        userState.coins += 15;
+        userState.coins += 20;
+        userState.tokens += 20;
       }
       saveState();
 
-      // Show Result Modal
       const modal = document.getElementById('result-modal');
       const badge = document.getElementById('result-badge');
       const title = document.getElementById('result-title');
@@ -1526,12 +1805,13 @@
 
       title.textContent = playerWon ? "G'ALABA!" : "MAG'LUBIYAT";
       title.className = `brawl-font text-4xl sm:text-5xl ${playerWon ? 'text-yellow-400' : 'text-red-400'}`;
-      sub.textContent = playerWon 
-        ? "Tabriklaymiz! Sizning jamoangiz 10 ta zumradni himoya qildi!"
-        : "Afsus, dushman jamoa g'olib bo'ldi. Keyingi jangda kuchliroq bo'ling!";
+      sub.textContent = customMessage || (playerWon
+        ? "Tabriklaymiz! Siz jamoangiz bilan g'alaba qozondingiz!"
+        : "Afsus, raqib ustun keldi. Keyingi jangda kuchliroq bo'ling!");
 
       document.getElementById('res-trophies').textContent = playerWon ? '+8' : '-4';
-      document.getElementById('res-coins').textContent = playerWon ? '+50' : '+15';
+      document.getElementById('res-coins').textContent = playerWon ? '+60' : '+20';
+      document.getElementById('res-tokens').textContent = '+50';
 
       modal.classList.remove('hidden');
       lucide.createIcons();
@@ -1541,8 +1821,10 @@
     /* HUD & UI UPDATES                                              */
     /* ------------------------------------------------------------- */
     function updateHud() {
-      document.getElementById('blue-gem-count').textContent = blueGems;
-      document.getElementById('red-gem-count').textContent = redGems;
+      if (userState.selectedMode === 'gem_grab') {
+        document.getElementById('blue-gem-count').textContent = blueGems;
+        document.getElementById('red-gem-count').textContent = redGems;
+      }
 
       if (player) {
         document.getElementById('hud-brawler-name').textContent = player.preset.name;
@@ -1550,7 +1832,6 @@
         const pct = Math.max(0, Math.min(100, (player.hp / player.maxHp) * 100));
         document.getElementById('hud-hp-bar').style.width = `${pct}%`;
 
-        // Ammo Pips
         for (let i = 0; i < 3; i++) {
           const pip = document.getElementById(`ammo-pip-${i}`);
           const fill = Math.max(0, Math.min(1, player.ammo - i));
@@ -1560,7 +1841,6 @@
         document.getElementById('player-held-gems').textContent = player.heldGems || 0;
         document.getElementById('player-power-cubes').textContent = player.powerCubes || 0;
 
-        // Super button fill & pulse
         const superBtn = document.getElementById('super-btn');
         const superFill = document.getElementById('super-fill-bg');
         const superText = document.getElementById('super-btn-text');
@@ -1575,6 +1855,13 @@
           superBtn.classList.remove('super-ready-anim');
           superBtn.style.borderColor = '#475569';
         }
+
+        const gadgetBtn = document.getElementById('gadget-btn');
+        if (player.gadgetCharges > 0) {
+          gadgetBtn.classList.add('gadget-ready-anim');
+        } else {
+          gadgetBtn.classList.remove('gadget-ready-anim');
+        }
       }
     }
 
@@ -1585,7 +1872,6 @@
       div.textContent = text;
       div.style.color = color;
 
-      // Project 3D coordinate to 2D Screen
       const vec = new THREE.Vector3(x, 2.5, z);
       vec.project(camera);
       const screenX = (vec.x * 0.5 + 0.5) * window.innerWidth;
@@ -1599,28 +1885,40 @@
     }
 
     /* ------------------------------------------------------------- */
-    /* MATCH START & LOBBY MANAGEMENT                                */
+    /* MATCH START & CONFIGURATION                                   */
     /* ------------------------------------------------------------- */
+    function selectGameMode(modeKey) {
+      userState.selectedMode = modeKey;
+      ['gem_grab', 'showdown', 'boss_fight', 'obby_rush'].forEach(m => {
+        const btn = document.getElementById(`mode-btn-${m}`);
+        if (m === modeKey) {
+          btn.className = 'p-3 rounded-2xl border-2 text-left transition-all bg-amber-500/20 border-yellow-400 scale-102';
+        } else {
+          btn.className = 'p-3 rounded-2xl border-2 text-left transition-all bg-slate-950/70 border-slate-800 hover:border-slate-700';
+        }
+      });
+      saveState();
+    }
+
     function startMatch() {
       initAudio();
       document.getElementById('lobby-screen').classList.add('hidden');
       document.getElementById('result-modal').classList.add('hidden');
+      document.getElementById('poison-overlay').classList.add('hidden');
 
-      // Clear existing entities
       if (player && player.mesh) scene.remove(player.mesh);
       bots.forEach(b => scene.remove(b.mesh));
       bullets.forEach(b => scene.remove(b.mesh));
       gems.forEach(g => scene.remove(g.mesh));
+      if (bossMecha && bossMecha.mesh) scene.remove(bossMecha.mesh);
 
       bots = [];
       bullets = [];
       gems = [];
       blueGems = 0;
       redGems = 0;
-      countdownActive = false;
-      countdownTimer = 15.0;
+      stormRadius = 24.0;
 
-      // Create Player
       const currentPreset = BRAWLER_PRESETS[userState.selectedBrawler] || BRAWLER_PRESETS.colt;
       const lvl = userState.brawlerLevels[currentPreset.id] || 1;
       const multiplier = 1 + 0.08 * (lvl - 1);
@@ -1632,6 +1930,7 @@
         hp: Math.round(currentPreset.hp * multiplier),
         ammo: 3,
         superCharge: 0,
+        gadgetCharges: 3,
         heldGems: 0,
         powerCubes: 0,
         alive: true,
@@ -1640,52 +1939,76 @@
         timeSinceDamage: 0
       };
       player.mesh.position.copy(player.pos);
+      document.getElementById('gadget-charges-text').textContent = '3';
 
-      // Create 2 Blue Bots (Teammates)
-      const blueBotPresets = ['shelly', 'el_primo'];
-      blueBotPresets.forEach((pId, idx) => {
-        const preset = BRAWLER_PRESETS[pId];
-        const botMesh = createBrawlerMesh(preset, false, 'blue');
-        const pos = new THREE.Vector3(idx === 0 ? -6 : 6, 0, 18);
-        botMesh.position.copy(pos);
-        bots.push({
-          preset,
-          team: 'blue',
-          maxHp: preset.hp,
-          hp: preset.hp,
-          ammo: 3,
-          heldGems: 0,
-          alive: true,
-          pos,
-          mesh: botMesh,
-          timeSinceDamage: 0
+      // Setup Arena based on Mode
+      if (userState.selectedMode === 'gem_grab') {
+        stormCircleMesh.visible = false;
+        gemMineObject.visible = true;
+
+        ['shelly', 'el_primo'].forEach((pId, idx) => {
+          const preset = BRAWLER_PRESETS[pId];
+          const botMesh = createBrawlerMesh(preset, false, 'blue');
+          const pos = new THREE.Vector3(idx === 0 ? -6 : 6, 0, 18);
+          botMesh.position.copy(pos);
+          bots.push({ preset, team: 'blue', maxHp: preset.hp, hp: preset.hp, ammo: 3, alive: true, pos, mesh: botMesh });
         });
-      });
 
-      // Create 3 Red Bots (Enemies)
-      const redBotPresets = ['colt', 'shelly', 'leon'];
-      redBotPresets.forEach((pId, idx) => {
-        const preset = BRAWLER_PRESETS[pId];
-        const botMesh = createBrawlerMesh(preset, false, 'red');
-        const pos = new THREE.Vector3((idx - 1) * 8, 0, -18);
-        botMesh.position.copy(pos);
-        bots.push({
-          preset,
-          team: 'red',
-          maxHp: preset.hp,
-          hp: preset.hp,
-          ammo: 3,
-          heldGems: 0,
-          alive: true,
-          pos,
-          mesh: botMesh,
-          timeSinceDamage: 0
+        ['colt', 'crow', 'spike'].forEach((pId, idx) => {
+          const preset = BRAWLER_PRESETS[pId];
+          const botMesh = createBrawlerMesh(preset, false, 'red');
+          const pos = new THREE.Vector3((idx - 1) * 8, 0, -18);
+          botMesh.position.copy(pos);
+          bots.push({ preset, team: 'red', maxHp: preset.hp, hp: preset.hp, ammo: 3, alive: true, pos, mesh: botMesh });
         });
-      });
 
-      // Seed initial 3 gems around the well
-      for (let i = 0; i < 3; i++) {
-        spawnGem((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
+        for (let i = 0; i < 3; i++) spawnGem((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
+
+      } else if (userState.selectedMode === 'showdown') {
+        stormCircleMesh.visible = true;
+        gemMineObject.visible = false;
+        showdownBrawlersLeft = 8;
+
+        document.getElementById('hud-left-title').textContent = 'BRAWLERS';
+        document.getElementById('hud-right-title').textContent = 'OMON QOLGAN';
+        document.getElementById('blue-gem-count').textContent = '8';
+        document.getElementById('red-gem-count').textContent = '8';
+
+        const showdownRoster = ['shelly', 'el_primo', 'leon', 'crow', 'spike', 'colt', 'shelly'];
+        showdownRoster.forEach((pId, idx) => {
+          const angle = (idx / 7) * Math.PI * 2;
+          const dist = 16;
+          const pos = new THREE.Vector3(Math.cos(angle) * dist, 0, Math.sin(angle) * dist);
+          const preset = BRAWLER_PRESETS[pId];
+          const botMesh = createBrawlerMesh(preset, false, 'red');
+          botMesh.position.copy(pos);
+          bots.push({ preset, team: 'red', maxHp: preset.hp, hp: preset.hp, ammo: 3, alive: true, pos, mesh: botMesh });
+        });
+
+      } else if (userState.selectedMode === 'boss_fight') {
+        stormCircleMesh.visible = false;
+        gemMineObject.visible = false;
+
+        document.getElementById('center-status-banner').classList.remove('hidden');
+        document.getElementById('center-status-title').textContent = 'MECHA BOSS HP';
+        document.getElementById('center-status-value').textContent = '100%';
+
+        bossMecha = {
+          x: 0, z: -10,
+          hp: 40000,
+          maxHp: 40000,
+          alive: true,
+          mesh: createBossMechaMesh()
+        };
+        bossMecha.mesh.position.set(0, 0, -10);
+
+        ['shelly', 'colt'].forEach((pId, idx) => {
+          const preset = BRAWLER_PRESETS[pId];
+          const botMesh = createBrawlerMesh(preset, false, 'blue');
+          const pos = new THREE.Vector3(idx === 0 ? -6 : 6, 0, 18);
+          botMesh.position.copy(pos);
+          bots.push({ preset, team: 'blue', maxHp: preset.hp, hp: preset.hp, ammo: 3, alive: true, pos, mesh: botMesh });
+        });
       }
 
       isGameRunning = true;
@@ -1710,12 +2033,13 @@
     }
 
     /* ------------------------------------------------------------- */
-    /* LOBBY UI, BRAWLER SELECTION & UPGRADE                          */
+    /* LOBBY UI & 6 BRAWLERS SHOWCASE                                */
     /* ------------------------------------------------------------- */
     function renderLobbyUI() {
       document.getElementById('player-trophies').textContent = userState.trophies;
       document.getElementById('player-coins').textContent = userState.coins.toLocaleString();
       document.getElementById('player-gems').textContent = userState.gems;
+      document.getElementById('player-tokens').textContent = userState.tokens;
 
       const grid = document.getElementById('brawler-select-grid');
       grid.innerHTML = '';
@@ -1726,15 +2050,15 @@
 
         const card = document.createElement('div');
         card.onclick = () => selectBrawler(b.id);
-        card.className = `p-3 rounded-2xl border-2 flex flex-col items-center cursor-pointer transition-all ${
-          isSelected 
-            ? 'bg-amber-500/20 border-yellow-400 shadow-lg shadow-amber-500/20 scale-105' 
+        card.className = `p-2.5 rounded-2xl border-2 flex flex-col items-center cursor-pointer transition-all ${
+          isSelected
+            ? 'bg-amber-500/20 border-yellow-400 shadow-lg shadow-amber-500/20 scale-105'
             : 'bg-slate-950/60 border-slate-800 hover:border-slate-700'
         }`;
         card.innerHTML = `
-          <div class="text-3xl mb-1">${b.avatar}</div>
-          <span class="brawl-font text-sm text-white">${b.name.split(' ')[0]}</span>
-          <span class="text-[10px] text-amber-300 font-bold">LVL ${lvl}</span>
+          <div class="text-2xl mb-1">${b.avatar}</div>
+          <span class="brawl-font text-xs text-white">${b.name.split(' ')[0]}</span>
+          <span class="text-[9px] text-amber-300 font-bold">LVL ${lvl}</span>
         `;
         grid.appendChild(card);
       });
@@ -1760,6 +2084,7 @@
       document.getElementById('sel-brawler-desc').textContent = b.superDesc;
       document.getElementById('sel-brawler-hp').textContent = Math.round(b.hp * multiplier).toLocaleString();
       document.getElementById('sel-brawler-dmg').textContent = `${Math.round(b.damage * multiplier)}x${b.bulletsPerShot}`;
+      document.getElementById('sel-brawler-gadget').textContent = b.gadgetName;
 
       const upgradeCost = lvl * 150;
       document.getElementById('upgrade-cost-coins').textContent = upgradeCost;
@@ -1788,30 +2113,84 @@
     }
 
     /* ------------------------------------------------------------- */
-    /* YANDEX GAMES MEGA BOX CHEST OPENER                            */
+    /* BRAWL PASS SYSTEM                                             */
+    /* ------------------------------------------------------------- */
+    function openBrawlPassModal() {
+      const list = document.getElementById('brawlpass-tiers-list');
+      list.innerHTML = '';
+
+      BRAWL_PASS_TIERS.forEach(t => {
+        const unlocked = userState.tokens >= t.tokens;
+        const claimed = userState.claimedPassTiers.includes(t.tier);
+
+        const row = document.createElement('div');
+        row.className = `p-3.5 rounded-2xl border flex items-center justify-between ${
+          claimed
+            ? 'bg-slate-950/50 border-slate-800 opacity-60'
+            : (unlocked ? 'bg-indigo-950/60 border-indigo-500/80' : 'bg-slate-950/70 border-slate-800')
+        }`;
+        row.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <span class="w-8 h-8 rounded-xl bg-indigo-600/30 border border-indigo-400 flex items-center justify-center font-black text-xs text-indigo-300">
+              #${t.tier}
+            </span>
+            <div>
+              <div class="brawl-font text-sm text-white">${t.reward}</div>
+              <div class="text-[10px] text-slate-400 font-mono">${t.tokens} Token Kerak</div>
+            </div>
+          </div>
+          <div>
+            ${claimed
+              ? '<span class="text-xs text-emerald-400 font-bold">Olingan</span>'
+              : (unlocked
+                  ? `<button onclick="claimPassTier(${t.tier})" class="brawl-btn px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-xs font-black">OLISH</button>`
+                  : '<span class="text-xs text-slate-500 font-bold">Qulflangan</span>')
+            }
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      document.getElementById('brawlpass-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function claimPassTier(tierNum) {
+      if (userState.claimedPassTiers.includes(tierNum)) return;
+      userState.claimedPassTiers.push(tierNum);
+      userState.coins += 150;
+      userState.gems += 10;
+      saveState();
+      playGemChime();
+      confetti({ particleCount: 80, spread: 70 });
+      openBrawlPassModal();
+    }
+
+    function closeBrawlPassModal() {
+      document.getElementById('brawlpass-modal').classList.add('hidden');
+      renderLobbyUI();
+    }
+
+    /* ------------------------------------------------------------- */
+    /* BOX UNBOXING MODAL                                            */
     /* ------------------------------------------------------------- */
     let boxTapsRemaining = 3;
     let pendingLoot = [];
 
-    function openMegaBox(currencyType) {
-      const cost = currencyType === 'coins' ? 300 : 30;
-      const curr = currencyType === 'coins' ? userState.coins : userState.gems;
-
-      if (curr < cost) {
-        alert("Yetarli mablag' mavjud emas!");
+    function openBoxModal(boxType = 'mega') {
+      const cost = 300;
+      if (userState.coins < cost) {
+        alert("Yetarli tanga yo'q! Janglarda g'alaba qozonib tanga yig'ing.");
         return;
       }
-
-      if (currencyType === 'coins') userState.coins -= cost;
-      else userState.gems -= cost;
+      userState.coins -= cost;
       saveState();
 
-      // Setup Box Modal
       boxTapsRemaining = 3;
       pendingLoot = [
-        { name: "Gold Coins", amount: 150 + Math.floor(Math.random() * 200), icon: 'coins', color: 'text-yellow-400' },
-        { name: "Power Points", amount: 45 + Math.floor(Math.random() * 50), icon: 'zap', color: 'text-amber-400' },
-        { name: "Emerald Gems", amount: 5 + Math.floor(Math.random() * 10), icon: 'gem', color: 'text-emerald-400' }
+        { name: "Gold Coins", amount: 180 + Math.floor(Math.random() * 200), icon: 'coins', color: 'text-yellow-400' },
+        { name: "Power Points", amount: 50 + Math.floor(Math.random() * 60), icon: 'zap', color: 'text-amber-400' },
+        { name: "Emerald Gems", amount: 8 + Math.floor(Math.random() * 12), icon: 'gem', color: 'text-emerald-400' }
       ];
 
       document.getElementById('box-rewards-grid').innerHTML = '';
@@ -1819,11 +2198,11 @@
       document.getElementById('box-remaining-taps').textContent = `${boxTapsRemaining} TA QOLDI`;
       document.getElementById('interactive-box').classList.remove('shake-box');
 
-      document.getElementById('megabox-modal').classList.remove('hidden');
+      document.getElementById('box-modal').classList.remove('hidden');
       lucide.createIcons();
     }
 
-    function tapOpenMegaBox() {
+    function tapOpenBox() {
       if (boxTapsRemaining <= 0) return;
 
       const box = document.getElementById('interactive-box');
@@ -1832,13 +2211,12 @@
 
       playGemChime();
       boxTapsRemaining -= 1;
-      document.getElementById('box-remaining-taps').textContent = boxTapsRemaining > 0 
-        ? `${boxTapsRemaining} TA QOLDI` 
+      document.getElementById('box-remaining-taps').textContent = boxTapsRemaining > 0
+        ? `${boxTapsRemaining} TA QOLDI`
         : 'HAMMASI OCHILDI!';
 
       const item = pendingLoot[2 - boxTapsRemaining];
       if (item) {
-        // Add to user State
         if (item.icon === 'coins') userState.coins += item.amount;
         if (item.icon === 'gem') userState.gems += item.amount;
 
@@ -1855,15 +2233,15 @@
       }
 
       if (boxTapsRemaining === 0) {
-        confetti({ particleCount: 100, spread: 70 });
+        confetti({ particleCount: 120, spread: 80 });
         playFanfare(true);
         document.getElementById('btn-claim-box').classList.remove('hidden');
         saveState();
       }
     }
 
-    function closeMegaBoxModal() {
-      document.getElementById('megabox-modal').classList.add('hidden');
+    function closeBoxModal() {
+      document.getElementById('box-modal').classList.add('hidden');
       renderLobbyUI();
     }
 
@@ -1871,7 +2249,7 @@
     /* LEADERBOARD SYSTEM                                            */
     /* ------------------------------------------------------------- */
     const TOP_PLAYERS = [
-      { name: "Jasur_CEO (Siz)", trophies: 120, winRate: "89%", rank: 1 },
+      { name: "Jasur_CEO (Siz)", trophies: 120, winRate: "91%", rank: 1 },
       { name: "RobloxKing_UZ", trophies: 1850, winRate: "76%", rank: 2 },
       { name: "SuperBrawler99", trophies: 1640, winRate: "72%", rank: 3 },
       { name: "TashkentTitan", trophies: 1420, winRate: "68%", rank: 4 },
@@ -1892,8 +2270,8 @@
         const isMe = p.name.includes('(Siz)');
         const row = document.createElement('div');
         row.className = `p-3 rounded-xl flex items-center justify-between border ${
-          isMe 
-            ? 'bg-amber-500/20 border-amber-400/60 font-bold text-amber-200' 
+          isMe
+            ? 'bg-amber-500/20 border-amber-400/60 font-bold text-amber-200'
             : 'bg-slate-950/70 border-slate-800 text-slate-300'
         }`;
         row.innerHTML = `
@@ -1921,23 +2299,23 @@
     }
 
     /* ------------------------------------------------------------- */
-    /* CONTROLS & EVENT LISTENERS                                    */
+    /* CONTROLS & LISTENERS                                          */
     /* ------------------------------------------------------------- */
     const joystickInput = { active: false, x: 0, y: 0 };
 
     function setupEventListeners() {
-      // Keyboard input
       window.addEventListener('keydown', (e) => {
         keys[e.code] = true;
         if (e.code === 'Space' || e.code === 'KeyE') {
           triggerSuperAbility();
+        } else if (e.code === 'KeyF') {
+          triggerGadgetAction();
         }
       });
       window.addEventListener('keyup', (e) => {
         keys[e.code] = false;
       });
 
-      // Mouse Aiming & Shooting
       window.addEventListener('mousemove', (e) => {
         mousePos.x = (e.clientX / window.innerWidth) * 2 - 1;
         mousePos.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -1945,8 +2323,7 @@
 
       window.addEventListener('mousedown', (e) => {
         if (!isGameRunning || !player || !player.alive) return;
-        // Check if clicked on UI
-        if (e.target.closest('#top-hud, #player-hud, #super-btn, button, .brawl-btn')) return;
+        if (e.target.closest('#top-hud, #player-hud, #super-btn, #gadget-btn, button, .brawl-btn')) return;
 
         raycaster.setFromCamera(mousePos, camera);
         const hitPoint = new THREE.Vector3();
@@ -1956,13 +2333,11 @@
         }
       });
 
-      // Mobile Touch Joystick
       const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
       if (isTouch) {
         setupTouchControls();
       }
 
-      // Responsive Resize
       window.addEventListener('resize', onWindowResize);
     }
 
@@ -2028,9 +2403,6 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
-    /* ------------------------------------------------------------- */
-    /* INITIALIZATION BOOTSTRAP                                      */
-    /* ------------------------------------------------------------- */
     window.addEventListener('DOMContentLoaded', () => {
       loadState();
       lucide.createIcons();
