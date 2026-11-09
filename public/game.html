@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Kiber-Magnat 3D: Samarqand 2050 — Unicorn Simulyatori</title>
+  <meta name="description" content="Kiber-Magnat 3D: Samarqand 2050 — 3D WebGL Arkada & Avtonom AI Bosh Direktor Simulyatori. Muallif: Jasur Shukurov (@jasurceo).">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .glow-border { box-shadow: 0 0 25px rgba(99, 102, 241, 0.35); }
+  </style>
+  <style> canvas { touch-action: none; } </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-[100dvh] p-3 sm:p-6 flex flex-col justify-between select-none pb-12">
+  
+  <div class="max-w-5xl mx-auto w-full space-y-6">
+    <!-- Header -->
+    <header class="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xl sm:text-2xl font-black bg-gradient-to-r from-indigo-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
+            KIBER-MAGNAT 3D: SAMARQAND 2050
+          </span>
+          <span class="px-2 py-0.5 text-[10px] font-mono bg-indigo-500/20 text-indigo-300 rounded-full border border-indigo-500/30">
+            3D ARKADA NASHRI
+          </span>
+        </div>
+        <p class="text-xs text-slate-400">5 dollarlik veb-saytlardan boshlab 1 milliard dollarlik Unicorn imperiyasini quring</p>
+      </div>
+      <div class="flex items-center space-x-3">
+        <button onclick="toggleAICEO()" id="aiCeoBtn" class="text-xs px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-indigo-600/30 transition active:scale-95">
+          <i data-lucide="bot" class="w-4 h-4"></i>
+          <span id="aiCeoText">AI Avtonom Bosh Direktor</span>
+        </button>
+        <a href="/" class="text-xs text-slate-400 hover:text-white flex items-center space-x-1">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Bosh sahifa</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- AI CEO Status Banner -->
+    <div id="aiCeoBar" class="p-2.5 rounded-xl bg-indigo-950/70 border border-indigo-800/80 text-xs font-mono text-indigo-200 flex items-center justify-between">
+      <div class="flex items-center space-x-2 truncate">
+        <span class="animate-pulse">[AI]</span>
+        <span id="aiCeoStatus">AI Bosh Direktor tayyor. Biznes imperiyasini kengaytirishni tomosha qilish uchun bosing yoki 3D sferani bosing!</span>
+      </div>
+      <span class="text-slate-400 text-[10px] hidden sm:inline">Tezlik: ~700ms/qaror · 3D WebGL Arkada</span>
+    </div>
+
+    <!-- Balance & Stats Display -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
+        <div class="text-xs text-slate-400 font-mono">Mablag' / Balans</div>
+        <div id="cashVal" class="text-2xl font-black text-emerald-400 font-mono mt-1">$0</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
+        <div class="text-xs text-slate-400 font-mono">Passiv Daromad</div>
+        <div id="rateVal" class="text-2xl font-black text-cyan-400 font-mono mt-1">$0 /sec</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
+        <div class="text-xs text-slate-400 font-mono">Faol AI Agentlar</div>
+        <div id="agentsVal" class="text-2xl font-black text-indigo-400 font-mono mt-1">0</div>
+      </div>
+      <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 shadow-md">
+        <div class="text-xs text-slate-400 font-mono">Baholash Darajasi</div>
+        <div id="rankVal" class="text-sm font-bold text-amber-400 font-mono mt-2">Garaj Frilanseri</div>
+      </div>
+    </div>
+
+    <!-- 3D Cyber-Arcade Universe Stage -->
+    <div class="relative rounded-3xl bg-slate-900 border border-slate-800 p-4 sm:p-6 shadow-2xl overflow-hidden">
+      
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4 border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <span class="w-3 h-3 rounded-full bg-indigo-500 animate-pulse"></span>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider font-mono">
+            3D WebGL Kiber-Arkada Ko'rgazmasi
+          </h3>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- 3D Model Switchers -->
+          <button id="btn3d-arcade" onclick="switch3DGame('arcade')" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-500/30 transition flex items-center space-x-1">
+            <span>[DJOYSHTIK]️ Retro Kabinet</span>
+          </button>
+          <button id="btn3d-sphere" onclick="switch3DGame('sphere')" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition flex items-center space-x-1">
+            <span>[BASHORAT] Kvant Sfera</span>
+          </button>
+          <button id="btn3d-cartridge" onclick="switch3DGame('cartridge')" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition flex items-center space-x-1">
+            <span>[XOTIRA] Kripto-Kartridj</span>
+          </button>
+          <button id="btn3d-unicorn" onclick="switch3DGame('unicorn')" class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition flex items-center space-x-1">
+            <span>[UNICORN] Neon Unicorn</span>
+          </button>
+
+          <!-- Camera Presets -->
+          <div class="flex items-center space-x-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+            <button id="gameCamIso" onclick="set3DGameCameraPreset('iso')" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-600/30 text-indigo-300 border border-indigo-500/50 transition">
+              [METRIKA] Izometriya
+            </button>
+            <button id="gameCamMacro" onclick="set3DGameCameraPreset('macro')" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-slate-400 hover:text-white transition">
+              [LABORATORIYA] Makro
+            </button>
+            <button id="gameCamOrbit" onclick="set3DGameCameraPreset('orbit')" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-slate-400 hover:text-white transition">
+              [EKOTIZIM] Orbita
+            </button>
+            <button id="gameCamReset" onclick="set3DGameCameraPreset('reset')" class="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-slate-400 hover:text-white transition">
+              [YANGILASH] Tiklash
+            </button>
+          </div>
+
+          <!-- Exploded View Toggle -->
+          <button id="gameExplodeBtn" onclick="toggle3DExplode()" class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 transition">
+            <i class="fa-solid fa-arrows-split-up-and-left mr-1"></i> <span id="gameExplodeText">Ajratilgan Ko'rinish</span>
+          </button>
+
+          <!-- Color Theme -->
+          <div class="flex items-center space-x-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+            <button onclick="set3DColor(0x8b5cf6)" title="Neon Fiolet" class="w-4 h-4 rounded-full bg-purple-500 border border-white/20 hover:scale-110 transition"></button>
+            <button onclick="set3DColor(0x06b6d4)" title="Kvant Sian" class="w-4 h-4 rounded-full bg-cyan-500 border border-white/20 hover:scale-110 transition"></button>
+            <button onclick="set3DColor(0x10b981)" title="Kiber Yashil" class="w-4 h-4 rounded-full bg-emerald-500 border border-white/20 hover:scale-110 transition"></button>
+            <button onclick="set3DColor(0xf59e0b)" title="Oltin Kassa" class="w-4 h-4 rounded-full bg-amber-500 border border-white/20 hover:scale-110 transition"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Canvas Box -->
+      <div id="game3DContainer" class="relative w-full h-[320px] sm:h-[380px] rounded-2xl bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 border border-slate-800/80 cursor-grab active:cursor-grabbing overflow-hidden">
+        
+        <!-- HUD Overlay -->
+        <div class="absolute top-3 left-3 pointer-events-none z-10 flex flex-col space-y-1">
+          <div class="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur border border-slate-700/60 text-[10px] font-mono text-indigo-400">
+            3D MODEL: <span id="hud3DGameName" class="font-bold text-white">Retro Kiber-Arkada Kabineti</span>
+          </div>
+          <div class="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur border border-slate-700/60 text-[10px] font-mono text-slate-400">
+            Bosish Quvvati: <span id="hudTapPower" class="text-emerald-400 font-bold">+$5 / bosish</span>
+          </div>
+        </div>
+
+        <div class="absolute top-3 right-3 z-10">
+          <button onclick="mineCash3D()" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-indigo-500 via-cyan-500 to-emerald-500 text-slate-950 font-black text-xs shadow-lg shadow-indigo-500/30 hover:scale-105 active:scale-95 transition flex items-center space-x-1.5">
+            <i class="fa-solid fa-hand-pointer"></i>
+            <span>3D Orqali Daromad Olish</span>
+          </button>
+        </div>
+
+        <div class="absolute bottom-3 left-3 pointer-events-none z-10 text-[10px] text-slate-500 font-mono">
+          <i class="fa-solid fa-arrows-up-down-left-right mr-1"></i> Aylantirish: Sichqoncha / Touch orqali boshqaring
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Main Tap Action Button -->
+    <div class="text-center py-4 space-y-3">
+      <button onclick="mineCash(event)" id="mineBtn" class="w-40 h-40 sm:w-44 sm:h-44 mx-auto rounded-full bg-gradient-to-tr from-indigo-600 via-cyan-600 to-emerald-500 hover:from-indigo-500 hover:to-emerald-400 p-1 shadow-2xl shadow-indigo-600/40 glow-border active:scale-95 transition transform flex items-center justify-center cursor-pointer">
+        <div class="w-full h-full bg-slate-950 rounded-full flex flex-col items-center justify-center space-y-1">
+          <i data-lucide="zap" class="w-10 h-10 text-cyan-400 animate-bounce"></i>
+          <span class="text-xs font-black tracking-wider text-white">5$ SAYT YASASH</span>
+          <span class="text-[10px] text-emerald-400 font-mono" id="tapPower">+ $5</span>
+        </div>
+      </button>
+      <p class="text-xs text-slate-400">Samarqand bizneslariga tezkor veb-saytlar sotish uchun sferani bosing!</p>
+    </div>
+
+    <!-- Empire Upgrades & Auto-Builders -->
+    <div class="space-y-4">
+      <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+        <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i>
+        <span>Avtonom Infratuzilma Kengaytirmalari</span>
+      </h3>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
+        <!-- Upgrade 1 -->
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-white text-xs">OpenStreetMap Avto-Skraper Boti</div>
+            <div class="text-[11px] text-slate-400">Passiv ravishda +$2 /sek keltiradi</div>
+            <div class="text-xs text-indigo-400 font-mono font-bold mt-1" id="cost1">Narxi: $50</div>
+          </div>
+          <button onclick="buyUpgrade(1)" id="btnUp1" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white font-bold text-xs rounded-xl transition">
+            Sotib Olish
+          </button>
+        </div>
+
+        <!-- Upgrade 2 -->
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-white text-xs">24/7 Klinika AI Telegram Qabulxonasi</div>
+            <div class="text-[11px] text-slate-400">Passiv ravishda +$15 /sek keltiradi</div>
+            <div class="text-xs text-cyan-400 font-mono font-bold mt-1" id="cost2">Narxi: $250</div>
+          </div>
+          <button onclick="buyUpgrade(2)" id="btnUp2" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 text-white font-bold text-xs rounded-xl transition">
+            Sotib Olish
+          </button>
+        </div>
+
+        <!-- Upgrade 3 -->
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-white text-xs">FastMCP Bozor Arbitraj Klasteri</div>
+            <div class="text-[11px] text-slate-400">Passiv ravishda +$80 /sek keltiradi</div>
+            <div class="text-xs text-emerald-400 font-mono font-bold mt-1" id="cost3">Narxi: $1,200</div>
+          </div>
+          <button onclick="buyUpgrade(3)" id="btnUp3" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white font-bold text-xs rounded-xl transition">
+            Sotib Olish
+          </button>
+        </div>
+
+        <!-- Upgrade 4 -->
+        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+          <div>
+            <div class="font-bold text-white text-xs">BioParallel Ko'p Tarmoqli Klinik Litsenziyasi</div>
+            <div class="text-[11px] text-slate-400">Passiv ravishda +$450 /sek keltiradi</div>
+            <div class="text-xs text-purple-400 font-mono font-bold mt-1" id="cost4">Narxi: $5,000</div>
+          </div>
+          <button onclick="buyUpgrade(4)" id="btnUp4" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 disabled:opacity-40 text-white font-bold text-xs rounded-xl transition">
+            Sotib Olish
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Non-blocking Toast Notification -->
+  <div id="gameToast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-2.5 px-4 py-3 rounded-2xl bg-slate-900/95 border border-indigo-500/40 text-white text-xs font-mono shadow-2xl backdrop-blur">
+    <i id="toastIcon" class="fa-solid fa-check-circle text-indigo-400 text-base"></i>
+    <span id="toastMsg">Xabar</span>
+  </div>
+
+  <div class="text-center text-xs text-slate-600 py-6 border-t border-slate-900 mt-8">
+    Jasur Shukurov Gaming Lab • School 21 Algoritmik Iqtisodiyot © 2026
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    let cash = 0;
+    let rate = 0;
+    let tapVal = 5;
+    let totalAgents = 0;
+
+    let up1Cost = 50;
+    let up2Cost = 250;
+    let up3Cost = 1200;
+    let up4Cost = 5000;
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function sfx(freq, dur = 0.05) {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+      } catch(e) {}
+    }
+
+    function showToast(msg, icon = 'fa-check-circle') {
+      const toast = document.getElementById('gameToast');
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+      
+      toastMsg.innerText = msg;
+      toastIcon.className = `fa-solid ${icon} text-indigo-400 text-base`;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+    function updateUI() {
+      document.getElementById('cashVal').innerText = '$' + Math.floor(cash).toLocaleString();
+      document.getElementById('rateVal').innerText = '$' + rate.toLocaleString() + ' /sec';
+      document.getElementById('agentsVal').innerText = totalAgents;
+      document.getElementById('hudTapPower').innerText = `+$${tapVal} / bosish`;
+
+      // Update Ranks
+      const rankEl = document.getElementById('rankVal');
+      if (cash > 100000) {
+        rankEl.innerText = "[UNICORN] YAKKASHOX (UNICORN) ASOSCHISI";
+        rankEl.className = "text-sm font-bold text-pink-400 font-mono mt-2 animate-pulse";
+      } else if (cash > 10000) {
+        rankEl.innerText = "[TASHKILOT]️ Texnologik Venchur Sarmoyadori";
+        rankEl.className = "text-sm font-bold text-emerald-400 font-mono mt-2";
+      } else if (cash > 1000) {
+        rankEl.innerText = "[START] Micro-SaaS Studio Rahbari";
+        rankEl.className = "text-sm font-bold text-cyan-400 font-mono mt-2";
+      } else {
+        rankEl.innerText = "Garaj Frilanseri";
+      }
+
+      document.getElementById('btnUp1').disabled = cash < up1Cost;
+      document.getElementById('btnUp2').disabled = cash < up2Cost;
+      document.getElementById('btnUp3').disabled = cash < up3Cost;
+      document.getElementById('btnUp4').disabled = cash < up4Cost;
+    }
+
+    function mineCash(e) {
+      cash += tapVal;
+      sfx(540 + Math.random() * 80);
+      updateUI();
+      pulse3DGame();
+      if (window.spawn3DCoins) {
+        window.spawn3DCoins(15);
+      }
+    }
+
+    function mineCash3D() {
+      mineCash(null);
+      confetti({ particleCount: 30, spread: 50, origin: { y: 0.6 } });
+      showToast(`3D Arkada orqali +$${tapVal} daromad olindi!`, 'fa-coins');
+    }
+
+    function buyUpgrade(id) {
+      if (id === 1 && cash >= up1Cost) {
+        cash -= up1Cost;
+        rate += 2;
+        tapVal += 1;
+        totalAgents += 1;
+        up1Cost = Math.floor(up1Cost * 1.3);
+        document.getElementById('cost1').innerText = `Narxi: $${up1Cost}`;
+        document.getElementById('tapPower').innerText = `+ $${tapVal}`;
+        sfx(660);
+        showToast("OSM Avto-Skraper Boti xarid qilindi!", 'fa-robot');
+      } else if (id === 2 && cash >= up2Cost) {
+        cash -= up2Cost;
+        rate += 15;
+        tapVal += 4;
+        totalAgents += 1;
+        up2Cost = Math.floor(up2Cost * 1.35);
+        document.getElementById('cost2').innerText = `Narxi: $${up2Cost}`;
+        document.getElementById('tapPower').innerText = `+ $${tapVal}`;
+        sfx(880);
+        showToast("24/7 Klinika AI Telegram Qabulxonasi o'rnatildi!", 'fa-hospital');
+      } else if (id === 3 && cash >= up3Cost) {
+        cash -= up3Cost;
+        rate += 80;
+        tapVal += 20;
+        totalAgents += 5;
+        up3Cost = Math.floor(up3Cost * 1.4);
+        document.getElementById('cost3').innerText = `Narxi: $${up3Cost}`;
+        document.getElementById('tapPower').innerText = `+ $${tapVal}`;
+        sfx(1100);
+        showToast("FastMCP Bozor Arbitraj Klasteri ishga tushdi!", 'fa-chart-line');
+      } else if (id === 4 && cash >= up4Cost) {
+        cash -= up4Cost;
+        rate += 450;
+        tapVal += 100;
+        totalAgents += 20;
+        up4Cost = Math.floor(up4Cost * 1.5);
+        document.getElementById('cost4').innerText = `Narxi: $${up4Cost}`;
+        document.getElementById('tapPower').innerText = `+ $${tapVal}`;
+        confetti({ particleCount: 50 });
+        sfx(1400);
+        showToast("BioParallel Ko'p Tarmoqli Klinik Litsenziyasi olindi!", 'fa-certificate');
+      }
+      updateUI();
+    }
+
+    // Passive income loop
+    setInterval(() => {
+      if (rate > 0) {
+        cash += rate / 10;
+        updateUI();
+      }
+    }, 100);
+
+    // ==========================================
+    // THREE.JS 3D CYBER-ARCADE UNIVERSE
+    // ==========================================
+    // =========================================================================
+    // ITERATION 128: PHASE 3 THREE.JS 3D CYBER-ARCADE & GOLD COIN PHYSICS ENGINE
+    // =========================================================================
+    let scene, camera, renderer;
+    let mainGroup;
+    let active3DGame = 'arcade';
+    let currentColor = 0x8b5cf6;
+    let isExploded = false;
+    let arcadeCabinet, energySphere, cryptoCartridge, unicornGroup;
+    let arcadeJoystick, crtCanvas, crtTexture, crtCtx;
+    let targetGameCamPos = new THREE.Vector3(0, 6, 26);
+    let gameCamLookTarget = new THREE.Vector3(0, 0, 0);
+
+    // 3D Flying Gold Coin Particle Physics Pool
+    const COIN_POOL_SIZE = 35;
+    let coinPool = [];
+    let joystickWiggle = 0;
+
+    function init3D() {
+      const container = document.getElementById('game3DContainer');
+      if (!container || !window.THREE) return;
+      const width = container.clientWidth || 800;
+      const height = container.clientHeight || 380;
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0x060913);
+      scene.fog = new THREE.FogExp2(0x060913, 0.02);
+
+      camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      camera.position.copy(targetGameCamPos);
+      camera.lookAt(gameCamLookTarget);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      container.appendChild(renderer.domElement);
+
+      const ambientLight = new THREE.AmbientLight(0x334155, 1.2);
+      scene.add(ambientLight);
+
+      const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.3);
+      dirLight1.position.set(15, 25, 20);
+      scene.add(dirLight1);
+
+      const dirLight2 = new THREE.DirectionalLight(currentColor, 1.8);
+      dirLight2.position.set(-15, -10, -10);
+      scene.add(dirLight2);
+
+      const pointGold = new THREE.PointLight(0xf59e0b, 2.0, 25);
+      pointGold.position.set(0, 8, 8);
+      scene.add(pointGold);
+
+      mainGroup = new THREE.Group();
+      scene.add(mainGroup);
+
+      // Cyber Holographic Pedestal
+      const basePlatform = new THREE.Mesh(
+        new THREE.CylinderGeometry(13, 14, 0.8, 36),
+        new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.25 })
+      );
+      basePlatform.position.y = -6.4;
+      scene.add(basePlatform);
+
+      const platformRing = new THREE.Mesh(
+        new THREE.RingGeometry(11, 11.4, 48),
+        new THREE.MeshBasicMaterial({ color: 0x06b6d4, side: THREE.DoubleSide, transparent: true, opacity: 0.6 })
+      );
+      platformRing.rotation.x = Math.PI / 2;
+      platformRing.position.y = -5.98;
+      scene.add(platformRing);
+
+      // Initialize CRT Canvas Texture
+      initCrtCanvasTexture();
+
+      // Initialize 3D Gold Coin Physics Pool
+      init3DCoinPool();
+
+      // Build initial 3D Model
+      build3DGameModel();
+
+      // Controls
+      setupGame3DControls(container);
+
+      window.addEventListener('resize', onWindowResize);
+      animate3D();
+    }
+
+    // Dynamic Animated CRT Screen Canvas Texture
+    function initCrtCanvasTexture() {
+      crtCanvas = document.createElement('canvas');
+      crtCanvas.width = 512;
+      crtCanvas.height = 384;
+      crtCtx = crtCanvas.getContext('2d');
+      crtTexture = new THREE.CanvasTexture(crtCanvas);
+    }
+
+    function updateCrtScreen() {
+      if (!crtCtx || !crtTexture) return;
+
+      // Dark retro CRT background
+      crtCtx.fillStyle = '#050b14';
+      crtCtx.fillRect(0, 0, 512, 384);
+
+      // Glowing border
+      crtCtx.strokeStyle = '#06b6d4';
+      crtCtx.lineWidth = 8;
+      crtCtx.strokeRect(12, 12, 488, 360);
+
+      // Scanlines
+      crtCtx.fillStyle = 'rgba(6, 182, 212, 0.08)';
+      for (let y = 16; y < 368; y += 6) {
+        crtCtx.fillRect(16, y, 480, 2);
+      }
+
+      // Game Title
+      crtCtx.fillStyle = '#38bdf8';
+      crtCtx.font = 'bold 28px monospace';
+      crtCtx.textAlign = 'center';
+      crtCtx.shadowColor = '#06b6d4';
+      crtCtx.shadowBlur = 10;
+      crtCtx.fillText('SAMARQAND 2050', 256, 65);
+
+      // Unicorn Logo / Icon
+      crtCtx.font = '40px monospace';
+      crtCtx.fillText('[UNICORN] KIBER-MAGNAT', 256, 125);
+
+      // Live Cash Display
+      crtCtx.fillStyle = '#10b981';
+      crtCtx.shadowColor = '#10b981';
+      crtCtx.shadowBlur = 12;
+      crtCtx.font = 'bold 36px monospace';
+      crtCtx.fillText('$' + Math.floor(cash).toLocaleString(), 256, 185);
+
+      // Live Rate
+      crtCtx.fillStyle = '#f59e0b';
+      crtCtx.shadowColor = '#f59e0b';
+      crtCtx.shadowBlur = 8;
+      crtCtx.font = 'bold 22px monospace';
+      crtCtx.fillText('DAROMAD: $' + rate + ' /sec', 256, 235);
+
+      // Tap Instructions
+      const blink = Math.sin(Date.now() * 0.006) > 0;
+      crtCtx.fillStyle = blink ? '#ec4899' : '#a855f7';
+      crtCtx.shadowColor = '#ec4899';
+      crtCtx.shadowBlur = 8;
+      crtCtx.font = 'bold 20px monospace';
+      crtCtx.fillText(`[ BOSING: +$${tapVal} HAR BIR TAPDA ]`, 256, 285);
+
+      // Floating 8-bit Pixel runner box
+      const heroX = 80 + (Date.now() * 0.08) % 350;
+      crtCtx.fillStyle = '#06b6d4';
+      crtCtx.fillRect(heroX, 320, 24, 24);
+      crtCtx.fillStyle = '#ffffff';
+      crtCtx.fillRect(heroX + 14, 324, 6, 6);
+
+      crtTexture.needsUpdate = true;
+    }
+
+    // 3D Flying Gold Coins Physics Pool
+    function init3DCoinPool() {
+      coinPool = [];
+      const coinGeo = new THREE.CylinderGeometry(0.55, 0.55, 0.12, 16);
+      coinGeo.rotateX(Math.PI / 2);
+      const coinMat = new THREE.MeshStandardMaterial({
+        color: 0xf59e0b,
+        metalness: 0.95,
+        roughness: 0.15,
+        emissive: 0xd97706,
+        emissiveIntensity: 0.3
+      });
+
+      for (let i = 0; i < COIN_POOL_SIZE; i++) {
+        const mesh = new THREE.Mesh(coinGeo, coinMat.clone());
+        mesh.visible = false;
+        scene.add(mesh);
+        coinPool.push({
+          mesh: mesh,
+          active: false,
+          vx: 0,
+          vy: 0,
+          vz: 0,
+          rx: 0,
+          ry: 0,
+          rz: 0,
+          life: 0
+        });
+      }
+    }
+
+    function spawn3DCoins(count = 18) {
+      let spawned = 0;
+      for (let i = 0; i < COIN_POOL_SIZE && spawned < count; i++) {
+        const coin = coinPool[i];
+        if (!coin.active) {
+          coin.active = true;
+          coin.life = 1.0;
+          coin.mesh.visible = true;
+          coin.mesh.position.set(
+            (Math.random() - 0.5) * 3,
+            2 + (Math.random() - 0.5) * 2,
+            (Math.random() - 0.5) * 3
+          );
+          coin.vx = (Math.random() - 0.5) * 0.35;
+          coin.vy = 0.32 + Math.random() * 0.28;
+          coin.vz = (Math.random() - 0.5) * 0.35;
+          coin.rx = (Math.random() - 0.5) * 0.3;
+          coin.ry = (Math.random() - 0.5) * 0.3;
+          coin.rz = (Math.random() - 0.5) * 0.3;
+          spawned++;
+        }
+      }
+    }
+    window.spawn3DCoins = spawn3DCoins;
+
+    function setupGame3DControls(container) {
+      let isDragging = false;
+      let prevMouse = { x: 0, y: 0 };
+
+      container.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        prevMouse = { x: e.clientX, y: e.clientY };
+      });
+
+      window.addEventListener('pointerup', () => { isDragging = false; });
+
+      container.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - prevMouse.x;
+        const dy = e.clientY - prevMouse.y;
+        mainGroup.rotation.y += dx * 0.007;
+        mainGroup.rotation.x = Math.max(-0.6, Math.min(0.6, mainGroup.rotation.x + dy * 0.005));
+        prevMouse = { x: e.clientX, y: e.clientY };
+      });
+
+      // Direct Click on 3D Container triggers mineCash3D
+      container.addEventListener('click', () => {
+        mineCash3D();
+      });
+
+      // Wheel Zoom
+      container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        targetGameCamPos.multiplyScalar(Math.max(0.7, Math.min(1.4, 1 + e.deltaY * 0.001)));
+        targetGameCamPos.clampLength(8.0, 32.0);
+      }, { passive: false });
+    }
+
+    function switch3DGame(mode) {
+      active3DGame = mode;
+      isExploded = false;
+      document.getElementById('gameExplodeText').innerText = "Ajratilgan Ko'rinish";
+
+      ['arcade', 'sphere', 'cartridge', 'unicorn'].forEach(m => {
+        const btn = document.getElementById(`btn3d-${m}`);
+        if (!btn) return;
+        if (m === mode) {
+          btn.className = "px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-500/30 transition flex items-center space-x-1";
+        } else {
+          btn.className = "px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700 transition flex items-center space-x-1";
+        }
+      });
+
+      const names = {
+        arcade: "Retro Kiber-Arkada Kabineti",
+        sphere: "Kvant AI Sferasi & Plazma",
+        cartridge: "Unicorn Kripto-Kartridj",
+        unicorn: "Neon Yakkashox (Unicorn)"
+      };
+      document.getElementById('hud3DGameName').innerText = names[mode];
+      build3DGameModel();
+      showToast(`${names[mode]} 3D modeli yuklandi!`, 'fa-cube');
+    }
+
+    function set3DGameCameraPreset(preset) {
+      if (preset === 'macro') {
+        targetGameCamPos.set(0, 2.5, 14);
+        mainGroup.rotation.y = 0;
+        mainGroup.rotation.x = 0;
+      } else if (preset === 'orbit') {
+        targetGameCamPos.set(0, 16, 22);
+        mainGroup.rotation.y = 0;
+        mainGroup.rotation.x = 0.35;
+      } else if (preset === 'reset') {
+        targetGameCamPos.set(10, 7, 22);
+        mainGroup.rotation.set(0, 0, 0);
+      } else { // iso
+        targetGameCamPos.set(10, 7, 22);
+        mainGroup.rotation.y = 0.3;
+        mainGroup.rotation.x = 0.08;
+      }
+
+      const pBtns = {
+        iso: document.getElementById('gameCamIso'),
+        macro: document.getElementById('gameCamMacro'),
+        orbit: document.getElementById('gameCamOrbit'),
+        reset: document.getElementById('gameCamReset')
+      };
+      Object.keys(pBtns).forEach(k => {
+        const btn = pBtns[k];
+        if (!btn) return;
+        if (k === preset) {
+          btn.className = "px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-indigo-600/30 text-indigo-300 border border-indigo-500/50 transition";
+        } else {
+          btn.className = "px-2 py-0.5 rounded text-[10px] font-mono font-bold text-slate-400 hover:text-white transition";
+        }
+      });
+      sfx(900, 0.08);
+    }
+
+    function build3DGameModel() {
+      while (mainGroup.children.length > 0) {
+        const obj = mainGroup.children[0];
+        mainGroup.remove(obj);
+      }
+
+      if (active3DGame === 'arcade') {
+        // Retro Arcade Cabinet with Animated CRT
+        arcadeCabinet = new THREE.Group();
+
+        // Cabinet Body
+        const cabGeo = new THREE.BoxGeometry(9, 15, 8);
+        const cabMat = new THREE.MeshStandardMaterial({ color: 0x1e1b4b, metalness: 0.6, roughness: 0.3 });
+        const cab = new THREE.Mesh(cabGeo, cabMat);
+        arcadeCabinet.add(cab);
+
+        // Illuminated Marquee Banner
+        const marGeo = new THREE.BoxGeometry(8.2, 2.2, 2.5);
+        const marMat = new THREE.MeshStandardMaterial({ color: currentColor, emissive: currentColor, emissiveIntensity: 0.7 });
+        const marquee = new THREE.Mesh(marGeo, marMat);
+        marquee.position.set(0, 7.5, 3.5);
+        arcadeCabinet.add(marquee);
+
+        // CRT Screen Bezel (Recessed Frame)
+        const bezelGeo = new THREE.BoxGeometry(7.4, 5.4, 0.6);
+        const bezelMat = new THREE.MeshStandardMaterial({ color: 0x020617, roughness: 0.2, metalness: 0.8 });
+        const bezel = new THREE.Mesh(bezelGeo, bezelMat);
+        bezel.position.set(0, 2.5, 4.2);
+        arcadeCabinet.add(bezel);
+
+        // Dynamic Animated CRT Screen Plane
+        const crtGeo = new THREE.PlaneGeometry(6.8, 4.8);
+        const crtMat = new THREE.MeshBasicMaterial({
+          map: crtTexture,
+          side: THREE.DoubleSide
+        });
+        const crt = new THREE.Mesh(crtGeo, crtMat);
+        crt.position.set(0, 2.5, 4.52);
+        arcadeCabinet.add(crt);
+
+        // Control Panel
+        const cpGeo = new THREE.BoxGeometry(8, 1.5, 4);
+        const cpMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.8, roughness: 0.3 });
+        const cp = new THREE.Mesh(cpGeo, cpMat);
+        cp.position.set(0, -1, 4.6);
+        arcadeCabinet.add(cp);
+
+        // Joystick
+        arcadeJoystick = new THREE.Group();
+        arcadeJoystick.position.set(-2, 0.8, 0);
+        const stickGeo = new THREE.CylinderGeometry(0.18, 0.18, 1.8, 12);
+        const stickMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9 });
+        const stick = new THREE.Mesh(stickGeo, stickMat);
+        arcadeJoystick.add(stick);
+
+        const ballGeo = new THREE.SphereGeometry(0.65, 16, 16);
+        const ballMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.2, emissive: 0xb91c1c, emissiveIntensity: 0.3 });
+        const ball = new THREE.Mesh(ballGeo, ballMat);
+        ball.position.set(0, 0.9, 0);
+        arcadeJoystick.add(ball);
+        cp.add(arcadeJoystick);
+
+        // Arcade Buttons
+        [0.8, 2.2].forEach((x, idx) => {
+          const btnGeo = new THREE.CylinderGeometry(0.4, 0.4, 0.35, 16);
+          const btnMat = new THREE.MeshStandardMaterial({
+            color: idx === 0 ? 0x10b981 : 0x06b6d4,
+            emissive: idx === 0 ? 0x059669 : 0x0891b2,
+            emissiveIntensity: 0.5
+          });
+          const b = new THREE.Mesh(btnGeo, btnMat);
+          b.position.set(x, 0.8, 0);
+          cp.add(b);
+        });
+
+        // Coin Slot Door
+        const coinDoor = new THREE.Mesh(
+          new THREE.BoxGeometry(3.5, 4.2, 0.2),
+          new THREE.MeshStandardMaterial({ color: 0x020617, metalness: 0.8, roughness: 0.2 })
+        );
+        coinDoor.position.set(0, -4.2, 4.1);
+        arcadeCabinet.add(coinDoor);
+
+        mainGroup.add(arcadeCabinet);
+      } else if (active3DGame === 'sphere') {
+        // Quantum AI Energy Sphere
+        energySphere = new THREE.Group();
+
+        const orbGeo = new THREE.SphereGeometry(5.5, 32, 32);
+        const orbMat = new THREE.MeshStandardMaterial({
+          color: currentColor,
+          roughness: 0.15,
+          metalness: 0.85,
+          emissive: currentColor,
+          emissiveIntensity: 0.6
+        });
+        const orb = new THREE.Mesh(orbGeo, orbMat);
+        energySphere.add(orb);
+
+        // Concentric Orbital Gyro Rings
+        for (let i = 0; i < 4; i++) {
+          const ringGeo = new THREE.TorusGeometry(7.5 + i * 1.8, 0.15, 16, 64);
+          const ringMat = new THREE.MeshStandardMaterial({
+            color: i % 2 === 0 ? 0x38bdf8 : 0x10b981,
+            metalness: 0.9,
+            roughness: 0.2
+          });
+          const ring = new THREE.Mesh(ringGeo, ringMat);
+          ring.rotation.x = Math.PI / (2 + i);
+          ring.rotation.y = (i * Math.PI) / 4;
+          energySphere.add(ring);
+        }
+
+        mainGroup.add(energySphere);
+      } else if (active3DGame === 'cartridge') {
+        // Unicorn Crypto Cartridge
+        cryptoCartridge = new THREE.Group();
+
+        const cBodyGeo = new THREE.BoxGeometry(10, 13, 2.4);
+        const cBodyMat = new THREE.MeshStandardMaterial({ color: 0x312e81, roughness: 0.25, metalness: 0.7 });
+        const cBody = new THREE.Mesh(cBodyGeo, cBodyMat);
+        cryptoCartridge.add(cBody);
+
+        // Gold PCB Pins
+        const pinGeo = new THREE.BoxGeometry(8.5, 1.2, 0.4);
+        const pinMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.95, roughness: 0.1 });
+        const pins = new THREE.Mesh(pinGeo, pinMat);
+        pins.position.set(0, -7.0, 0);
+        cryptoCartridge.add(pins);
+
+        // Holographic Game Label
+        const lblGeo = new THREE.PlaneGeometry(8, 8);
+        const lblMat = new THREE.MeshStandardMaterial({
+          map: crtTexture,
+          metalness: 0.8,
+          roughness: 0.2
+        });
+        const label = new THREE.Mesh(lblGeo, lblMat);
+        label.position.set(0, 1.2, 1.25);
+        cryptoCartridge.add(label);
+
+        mainGroup.add(cryptoCartridge);
+      } else if (active3DGame === 'unicorn') {
+        // Low-Poly Neon Origami Unicorn
+        unicornGroup = new THREE.Group();
+
+        const headGeo = new THREE.DodecahedronGeometry(5.8, 1);
+        const headMat = new THREE.MeshStandardMaterial({
+          color: 0x4c1d95,
+          metalness: 0.8,
+          roughness: 0.2,
+          wireframe: isExploded
+        });
+        const head = new THREE.Mesh(headGeo, headMat);
+        unicornGroup.add(head);
+
+        // Glowing Golden Horn
+        const hornGeo = new THREE.ConeGeometry(1.2, 8, 8);
+        const hornMat = new THREE.MeshStandardMaterial({
+          color: 0xf59e0b,
+          emissive: 0xf59e0b,
+          emissiveIntensity: 0.8,
+          metalness: 0.9
+        });
+        const horn = new THREE.Mesh(hornGeo, hornMat);
+        horn.position.set(0, 7.2, 2.5);
+        horn.rotation.x = Math.PI / 6;
+        unicornGroup.add(horn);
+
+        // Orbital Halo Ring
+        const haloGeo = new THREE.TorusGeometry(4.2, 0.12, 16, 48);
+        const haloMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+        const halo = new THREE.Mesh(haloGeo, haloMat);
+        halo.position.set(0, 6.5, 2.2);
+        halo.rotation.x = Math.PI / 3;
+        unicornGroup.add(halo);
+
+        mainGroup.add(unicornGroup);
+      }
+    }
+
+    function toggle3DExplode() {
+      isExploded = !isExploded;
+      document.getElementById('gameExplodeText').innerText = isExploded ? "Birlashtirish" : "Ajratilgan Ko'rinish";
+
+      if (mainGroup.children[0]) {
+        mainGroup.children[0].children.forEach((c, idx) => {
+          c.position.y += isExploded ? (idx * 2) : (-idx * 2);
+        });
+      }
+      showToast(isExploded ? "3D kiber-komponentlar ajratildi." : "Standart yig'ma ko'rinish.", 'fa-arrows-split-up-and-left');
+    }
+
+    function set3DColor(hex) {
+      currentColor = hex;
+      build3DGameModel();
+      showToast("Arkada 3D rangi yangilandi!", 'fa-palette');
+    }
+
+    function pulse3DGame() {
+      if (mainGroup) {
+        mainGroup.scale.set(1.12, 1.12, 1.12);
+        setTimeout(() => {
+          if (mainGroup) mainGroup.scale.set(1.0, 1.0, 1.0);
+        }, 120);
+      }
+      joystickWiggle = 0.35;
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('game3DContainer');
+      if (!container || !renderer || !camera) return;
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    }
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+
+      // Smooth camera lerp
+      camera.position.lerp(targetGameCamPos, 0.08);
+      camera.lookAt(gameCamLookTarget);
+
+      // Update Animated CRT Screen
+      updateCrtScreen();
+
+      // Main Model Rotation
+      if (mainGroup) {
+        if (!isExploded) {
+          mainGroup.rotation.y += 0.005;
+        }
+
+        if (active3DGame === 'sphere' && energySphere) {
+          energySphere.children[0].rotation.y += 0.01;
+        }
+
+        // Joystick wiggle spring return
+        if (arcadeJoystick && joystickWiggle > 0.01) {
+          arcadeJoystick.rotation.x = Math.sin(Date.now() * 0.03) * joystickWiggle;
+          joystickWiggle *= 0.92;
+        }
+      }
+
+      // 3D Flying Gold Coins Physics Update
+      coinPool.forEach(coin => {
+        if (coin.active) {
+          coin.mesh.position.x += coin.vx;
+          coin.mesh.position.y += coin.vy;
+          coin.mesh.position.z += coin.vz;
+
+          coin.mesh.rotation.x += coin.rx;
+          coin.mesh.rotation.y += coin.ry;
+          coin.mesh.rotation.z += coin.rz;
+
+          coin.vy -= 0.013; // Gravity
+          coin.life -= 0.018;
+
+          // Bounce off cyber floor
+          if (coin.mesh.position.y <= -5.5) {
+            coin.mesh.position.y = -5.5;
+            coin.vy = -coin.vy * 0.45;
+            coin.vx *= 0.8;
+            coin.vz *= 0.8;
+          }
+
+          if (coin.life <= 0) {
+            coin.active = false;
+            coin.mesh.visible = false;
+          }
+        }
+      });
+
+      renderer.render(scene, camera);
+    }
+
+    // =========================================================================
+    // INTELLIGENT AI AUTONOMOUS CEO (AUTO-PLAY / WATCH MODE)
+    // =========================================================================
+    let aiCeoTimer = null;
+    let aiCeoActive = false;
+
+    function toggleAICEO() {
+      if (aiCeoActive) {
+        stopAICEO();
+      } else {
+        startAICEO();
+      }
+    }
+
+    function startAICEO() {
+      stopAICEO();
+      aiCeoActive = true;
+      const btn = document.getElementById('aiCeoBtn');
+      const text = document.getElementById('aiCeoText');
+      if (btn) btn.className = "text-xs px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-emerald-600/30 transition active:scale-95";
+      if (text) text.textContent = "AI'ni To'xtatish";
+      updateCeoStatus("[AI] AI Bosh Direktor faol! Kompaniya operatsiyalari va investitsiyalar avtomatlashtirilmoqda...");
+      showToast("AI Bosh Direktor avtonom biznesni boshladi!", 'fa-robot');
+
+      aiCeoTimer = setInterval(() => {
+        stepAICEO();
+      }, 700);
+      stepAICEO();
+    }
+
+    function stopAICEO() {
+      if (aiCeoTimer) {
+        clearInterval(aiCeoTimer);
+        aiCeoTimer = null;
+      }
+      aiCeoActive = false;
+      const btn = document.getElementById('aiCeoBtn');
+      const text = document.getElementById('aiCeoText');
+      if (btn) btn.className = "text-xs px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-indigo-600/30 transition active:scale-95";
+      if (text) text.textContent = "AI Avtonom Bosh Direktor";
+      updateCeoStatus("AI to'xtatildi. Qo'lda sferani bosing yoki davom ettirish uchun bosing!");
+      showToast("AI Bosh Direktor to'xtatildi.", 'fa-pause');
+    }
+
+    function updateCeoStatus(msg) {
+      const el = document.getElementById('aiCeoStatus');
+      if (el) el.textContent = msg;
+    }
+
+    function stepAICEO() {
+      cash += tapVal;
+      sfx(540 + Math.random() * 60);
+      pulse3DGame();
+
+      let bought = null;
+      if (cash >= up4Cost) {
+        buyUpgrade(4);
+        bought = "BioParallel Klinik Litsenziyasi";
+      } else if (cash >= up3Cost) {
+        buyUpgrade(3);
+        bought = "FastMCP Bozor Arbitraj Klasteri";
+      } else if (cash >= up2Cost) {
+        buyUpgrade(2);
+        bought = "24/7 Klinika Telegram Qabulxonasi";
+      } else if (cash >= up1Cost) {
+        buyUpgrade(1);
+        bought = "OSM Avto-Skraper Boti";
+      }
+
+      updateUI();
+      if (bought) {
+        updateCeoStatus(`[AI] AI Bosh Direktor: Foyda '${bought}'ga investitsiya qilindi! Daromad: $${rate}/sek`);
+      } else {
+        updateCeoStatus(`[AI] AI Bosh Direktor: Mijozga sayt yetkazildi (+$${tapVal}) · Balans: $${Math.floor(cash)}`);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      updateUI();
+      init3D();
+    });
+  </script>
+
+  <!-- FOOTER & ECOSYSTEM INTEGRATION -->
+  <footer class="max-w-7xl mx-auto w-full pt-8 pb-6 border-t border-slate-800 text-xs font-mono text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 px-4">
+    <div class="space-y-1 text-center sm:text-left">
+      <div class="text-white font-bold flex items-center justify-center sm:justify-start gap-2">
+        <i class="fa-solid fa-gamepad text-rose-400"></i>
+        <span>Kiber-Magnat 3D: Samarqand 2050 · Muallif: Jasur Shukurov (@jasurceo) · 41/41 Jonli Ilova</span>
+      </div>
+      <div class="text-[11px] text-slate-400">
+        To'lov & Obuna: Humo/Uzcard <strong>9860 3501 4438 1851</strong> (Jasur Shukurov) · 1 Oylik Bepul Sinov ($0) · $5 / $20 / $200 Tariflar · <a href="/pay" class="text-rose-400 hover:underline">To'lov Markazi (/pay)</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="/pay" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
+        <i class="fa-solid fa-credit-card"></i>
+        <span>To'lov / Bepul Sinov</span>
+      </a>
+      <a href="https://t.me/jasurceo" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition flex items-center gap-1.5">
+        <span>Telegram: @jasurceo</span>
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>

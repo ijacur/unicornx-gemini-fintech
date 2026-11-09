@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>MedSurvivor: ER 2050 — Shoshilinch Yordam Simulyatori</title>
+  <meta name="description" content="MedSurvivor: ER 2050 — Shoshilinch Yordam & 3D Reanimatsiya Xonasi Simulyatori. Muallif: Jasur Shukurov (@jasurceo).">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    @keyframes ecgPulse {
+      0% { opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { opacity: 0.3; }
+    }
+    .ecg-anim { animation: ecgPulse 1s infinite; }
+  </style>
+  <style> canvas { touch-action: none; } </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-[100dvh] p-4 sm:p-8 flex flex-col justify-between selection:bg-rose-500 selection:text-white select-none">
+
+  <!-- Header -->
+  <header class="max-w-4xl mx-auto w-full flex items-center justify-between border-b border-slate-800 pb-4">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center shadow-lg shadow-rose-500/20">
+        <i data-lucide="heart-pulse" class="w-6 h-6 text-white"></i>
+      </div>
+      <div>
+        <div class="flex items-center space-x-2">
+          <h1 class="text-lg font-black tracking-wide text-white">MED-SURVIVOR: ER 2050</h1>
+          <span class="px-2 py-0.5 text-[10px] font-mono font-bold bg-rose-500/20 text-rose-300 rounded border border-rose-500/30">
+            KLINIK SARALASH (TRIAGE)
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-400">Samarqand Davlat Tibbiyot Universiteti • Shoshilinch Yordam Simulyatori</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center space-x-3">
+      <button onclick="toggleAIMedTriage()" id="aiMedBtn" class="text-xs px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-indigo-600/30 transition active:scale-95">
+        <i data-lucide="bot" class="w-4 h-4"></i>
+        <span id="aiMedText">Bosh Shifokor AI</span>
+      </button>
+      <div class="text-right font-mono text-xs">
+        <span class="text-slate-400">Klinik Tajriba:</span>
+        <span id="scoreVal" class="text-emerald-400 font-bold ml-1">0 pts</span>
+      </div>
+      <a href="/" class="text-xs text-slate-400 hover:text-white flex items-center space-x-1">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>Bosh sahifa</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- AI Medical Status Banner -->
+  <div id="aiMedBar" class="max-w-4xl mx-auto w-full mt-3 p-2.5 rounded-2xl bg-indigo-950/70 border border-indigo-800/80 text-xs font-mono text-indigo-200 flex items-center justify-between">
+    <div class="flex items-center space-x-2 truncate">
+      <span class="animate-pulse">[TIBBIY]</span>
+      <span id="aiMedStatus">Bosh Shifokor AI tayyor. Avtonom shoshilinch yordam ko'rsatishni tomosha qilish uchun bosing yoki o'zingiz saralang!</span>
+    </div>
+    <span class="text-slate-400 text-[10px] hidden sm:inline">Tezlik: ~1.5s/bemor · Istalgan vaqtda aralashing</span>
+  </div>
+
+  <!-- Main Game Stage -->
+  <main class="max-w-4xl mx-auto w-full py-6 space-y-6">
+    
+    <!-- Monitor Screen (ICU Telemetry) -->
+    <div class="p-6 rounded-3xl bg-slate-900 border border-slate-800 shadow-2xl space-y-4">
+      
+      <!-- Patient Banner -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-[10px] font-mono text-rose-400 font-bold uppercase tracking-wider">1-SHOSHILINCH PALATA • TEZKOR QABUL</span>
+          <h2 id="patientTitle" class="text-xl font-black text-white mt-0.5">Patient 402: 52-Year-Old Male</h2>
+          <p id="patientHpi" class="text-xs text-slate-300 mt-1">Crushing retrosternal chest pain radiating to left jaw, diaphoresis, dyspnea. Onset 45 mins ago.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-mono text-slate-400">Saralash Vaqti:</span>
+          <span id="timerVal" class="text-xl font-bold font-mono text-rose-400 px-3 py-1 rounded-xl bg-rose-950/40 border border-rose-500/30">25s</span>
+        </div>
+      </div>
+
+      <!-- Vital Signs Monitor Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
+        <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+          <div class="text-[10px] text-slate-400">YURAK URISHI (BPM)</div>
+          <div id="vitalHR" class="text-2xl font-black text-emerald-400 mt-1 ecg-anim">118</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+          <div class="text-[10px] text-slate-400">QON BOSIMI</div>
+          <div id="vitalBP" class="text-2xl font-black text-amber-400 mt-1">88/54</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+          <div class="text-[10px] text-slate-400">KISLOROD (SpO₂)</div>
+          <div id="vitalO2" class="text-2xl font-black text-cyan-400 mt-1">91%</div>
+        </div>
+        <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800">
+          <div class="text-[10px] text-slate-400">HOLAT</div>
+          <div id="vitalStatus" class="text-xs font-bold text-rose-400 mt-2">OG'IR / KRITIK</div>
+        </div>
+      </div>
+
+      <!-- Audio Telemetry & ECG Wave Canvas -->
+      <div class="h-16 w-full bg-slate-950 rounded-xl border border-slate-800 overflow-hidden relative flex items-center px-4">
+        <canvas id="ecgCanvas" class="w-full h-full"></canvas>
+      </div>
+
+    </div>
+
+    <!-- 3D OPERATING THEATER & HOLOGRAPHIC RESUSCITATION SUITE (Iteration 116) -->
+    <div class="p-5 rounded-3xl bg-slate-900 border border-cyan-500/30 shadow-2xl space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="box" class="w-5 h-5 text-cyan-400 animate-pulse"></i>
+          <div>
+            <h3 class="font-extrabold text-sm text-white">3D REANIMATSIYA XONASI VA ANATOMIK GOLOGRAMMA</h3>
+            <p class="text-[10px] text-slate-400 font-mono">Real-vaqt 3D Yurak urishi (BPM), Nafas harakati, Defibrillyatsiya elektrodlari va Elektr Zaryad chaqnashi</p>
+          </div>
+        </div>
+
+        <!-- Camera Preset Controls (Iteration 158) -->
+        <div class="flex items-center space-x-1.5 font-mono text-xs flex-wrap">
+          <button onclick="setER3DCamera('overview')" id="erCamIso" class="px-2.5 py-1 rounded-lg bg-cyan-600 text-white font-bold transition">[METRIKA] Palata / Iso</button>
+          <button onclick="setER3DCamera('cardiac')" id="erCamMacro" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-rose-300 font-bold transition">[KARDIOLOGIYA] Kardiak</button>
+          <button onclick="setER3DCamera('orbit')" id="erCamOrbit" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-300 font-bold transition">[EKOTIZIM] Orbita</button>
+          <button onclick="setER3DCamera('airway')" id="erCamAirway" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold transition">[NEYRON] GCS/Bosh</button>
+          <button onclick="setER3DCamera('defib')" id="erCamDefib" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold transition">⚡ Defib</button>
+          <button onclick="setER3DCamera('reset')" id="erCamReset" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition">[YANGILASH] Tiklash</button>
+        </div>
+      </div>
+
+      <!-- 3D Canvas Container -->
+      <div class="relative w-full h-64 sm:h-80 bg-slate-950 rounded-2xl overflow-hidden border border-slate-800">
+        <canvas id="er3DCanvas" class="w-full h-full block"></canvas>
+        
+        <!-- Interactive 3D Overlay HUD -->
+        <div class="absolute top-3 left-3 pointer-events-none flex flex-col gap-1 font-mono text-[10px]">
+          <span class="px-2 py-0.5 rounded bg-slate-900/80 backdrop-blur border border-cyan-500/30 text-cyan-300">
+            Kamera: <span id="er3DCamLabel" class="font-bold text-white">Palata (Izometriya)</span>
+          </span>
+          <span class="px-2 py-0.5 rounded bg-slate-900/80 backdrop-blur border border-rose-500/30 text-rose-300">
+            Yurak: <span id="er3DHeartRateLabel" class="font-bold text-white">118 BPM</span> (<span id="er3DHeartStateLabel">Sinus Taxikardiya</span>)
+          </span>
+        </div>
+
+        <div class="absolute bottom-3 right-3 pointer-events-none font-mono text-[10px] text-slate-400 bg-slate-900/80 px-2 py-1 rounded border border-slate-800">
+          Sichqoncha / sensor bilan 360° aylantiring
+        </div>
+      </div>
+    </div>
+
+    <!-- ACLS DEFIBRILLATOR & RESUSCITATION DECK (Iteration 53) -->
+    <div class="p-5 rounded-3xl bg-slate-900 border border-rose-500/40 shadow-2xl space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="zap" class="w-5 h-5 text-rose-500 animate-pulse"></i>
+          <div>
+            <h3 class="font-extrabold text-sm text-white">ACLS SHOSHILINCH DEFIBRILLYATSIYA VA REANIMATSIYA DASTGOHI</h3>
+            <p class="text-[10px] text-slate-400 font-mono">Bifazik Razryad (100J - 200J), CPR Metronomi & Ritm Sinxronizatsiyasi</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <span class="text-slate-400">Holat:</span>
+          <span id="defibStateBadge" class="px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 font-bold border border-slate-700">KUTISH REJIMI (STANDBY)</span>
+        </div>
+      </div>
+
+      <!-- Defibrillator Control Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs font-mono">
+        <!-- Energy Select -->
+        <div class="sm:col-span-1 lg:col-span-2 space-y-1">
+          <label class="text-[10px] text-slate-400 uppercase font-bold block">Razryad Energiyasi:</label>
+          <div class="flex space-x-1.5">
+            <button onclick="setDefibJoules(100)" id="jouleBtn_100" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition">100 J</button>
+            <button onclick="setDefibJoules(150)" id="jouleBtn_150" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition">150 J</button>
+            <button onclick="setDefibJoules(200)" id="jouleBtn_200" class="flex-1 py-2 rounded-xl bg-rose-600 text-white font-bold transition">200 J</button>
+          </div>
+        </div>
+
+        <!-- Charge Button -->
+        <button onclick="chargeDefibrillator()" id="chargeBtn" class="py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs shadow-lg transition flex items-center justify-center space-x-1.5 self-end">
+          <i data-lucide="battery-charging" class="w-4 h-4"></i>
+          <span id="chargeBtnText">ZARYADLASH</span>
+        </button>
+
+        <!-- Shock Button -->
+        <button onclick="deliverShock()" id="shockBtn" disabled class="py-2.5 px-4 rounded-xl bg-slate-800 text-slate-500 cursor-not-allowed font-black text-xs shadow-lg transition flex items-center justify-center space-x-1.5 self-end">
+          <i data-lucide="zap" class="w-4 h-4"></i>
+          <span id="shockBtnText">⚡ ZARBA (SHOCK)!</span>
+        </button>
+
+        <!-- CPR Metronome Toggle -->
+        <button onclick="toggleCprMetronome()" id="cprBtn" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[11px] transition flex items-center justify-center space-x-1 self-end">
+          <i data-lucide="heart" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span id="cprBtnText">CPR 110 BPM</span>
+        </button>
+
+        <!-- Clear Safety Alert -->
+        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800 text-[10px] text-slate-400 flex flex-col justify-center text-center">
+          <span class="text-rose-400 font-bold">XAVFSIZLIK:</span>
+          <span>"HAMMA ORQAGA!"</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLASGOW COMA SCALE (GCS) CALCULATOR (Iteration 53) -->
+    <div class="p-5 rounded-3xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="brain" class="w-5 h-5 text-indigo-400"></i>
+          <div>
+            <h3 class="font-extrabold text-sm text-white">GLAZGO KOMA SHKALASI (GCS - GLASGOW COMA SCALE)</h3>
+            <p class="text-[10px] text-slate-400 font-mono">Bosh miya shikastlanishi va hush darajasini baholash (3 - 15 Ball)</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 font-mono text-xs">
+          <span class="text-slate-400">Jami GCS:</span>
+          <span id="gcsTotalScore" class="px-3 py-1 rounded-xl bg-indigo-950/80 border border-indigo-500/40 text-indigo-300 font-black text-sm">15 / 15 (Normal)</span>
+        </div>
+      </div>
+
+      <!-- 3 GCS Selectors -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400 uppercase font-bold block">1. Ko'z Ochilishi (Eye 1-4):</label>
+          <select id="gcsEye" onchange="calculateGcs()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-cyan-300 text-xs">
+            <option value="4">Spontan (4 ball)</option>
+            <option value="3">Ovozga javoban (3 ball)</option>
+            <option value="2">Og'riqqa javoban (2 ball)</option>
+            <option value="1">Ko'z ochilmaydi (1 ball)</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400 uppercase font-bold block">2. Nutqiy Javob (Verbal 1-5):</label>
+          <select id="gcsVerbal" onchange="calculateGcs()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-cyan-300 text-xs">
+            <option value="5">Orientatsiyalangan, aniq (5 ball)</option>
+            <option value="4">Chalkash nutq (4 ball)</option>
+            <option value="3">Noma'qul so'zlar (3 ball)</option>
+            <option value="2">Tushunarsiz tovushlar (2 ball)</option>
+            <option value="1">Nutq yo'q (1 ball)</option>
+          </select>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[10px] text-slate-400 uppercase font-bold block">3. Harakat Javobi (Motor 1-6):</label>
+          <select id="gcsMotor" onchange="calculateGcs()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-cyan-300 text-xs">
+            <option value="6">Buyruqlarni to'liq bajaradi (6 ball)</option>
+            <option value="5">Og'riqni lokalizatsiya qiladi (5 ball)</option>
+            <option value="4">Og'riqdan tortib oladi (4 ball)</option>
+            <option value="3">Patologik egilish / Dekortikatsiya (3 ball)</option>
+            <option value="2">Patologik yozilish / Deserebratsiya (2 ball)</option>
+            <option value="1">Harakat yo'q (1 ball)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- GCS Warning Banner -->
+      <div id="gcsWarningBanner" class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs flex items-center justify-between font-mono">
+        <span id="gcsStatusText" class="text-emerald-400 font-bold">Bemor hushi tiniq, neyrologik holat barqaror.</span>
+        <span class="text-[10px] text-slate-500">GCS ≤ 8 intubatsiyani talab qiladi</span>
+      </div>
+    </div>
+
+    <!-- Triage Decisions (Action Cards) -->
+    <div class="space-y-3">
+      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">
+        Darhol Hayotni Saqlab Qoluvchi Klinik Aralashuvni Tanlang:
+      </h3>
+
+      <div id="choicesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <!-- Dynamically injected choices -->
+      </div>
+    </div>
+
+    <!-- Feedback Banner -->
+    <div id="feedbackBox" class="hidden p-4 rounded-2xl border text-xs leading-relaxed">
+      <!-- Populated dynamically -->
+    </div>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    // Audio ECG Beep
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function beep(freq = 880, dur = 0.08) {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+      } catch(e) {}
+    }
+
+    const scenarios = [
+      {
+        title: "Bemor 402: 52 yoshli erkak",
+        hpi: "To'sh ortida siquvchi kuchli og'riq chap jag' va chap qo'lga tarqalmoqda, kuchli sovuq terlash, hansirash. EKGda V1-V4 tarmoqlarida ST segmenti ko'tarilishi (Oldingi devor STEMI infarkti). Qon bosimi: 88/54 mm sim.ust.",
+        hr: 118, bp: "88/54", o2: "91%",
+        options: [
+          { text: "Aspirin 300mg chaynaladigan + Geparin v/i + Shoshilinch Angiografiya (PCI/ChKB) chaqiruvi", correct: true, exp: "TO'G'RI! O'tkir STEMI protokolida zudlik bilan antiagregant yuklamasi va dastlabki 90 daqiqa ichida teri orqali koronar stentlash (PCI) talab qilinadi." },
+          { text: "Yurak urishini tushirish uchun v/i Propranolol 10mg yuborish", correct: false, exp: "XATOLIK! Kardiogen shok va gipotoniyada (QB 88/54) beta-blokatorlar qat'iyan man etiladi! O'tkir yurak yetishmovchiligi chuqurlashdi." },
+          { text: "Ko'krak qafasi mushak spazmi deb og'iz orqali Ibuprofen 800mg berish", correct: false, exp: "QALTIS XATO! O'tkir infarktni mushak og'rig'i deb hisoblash qorinchalar fibrillyatsiyasi va o'limga olib keladi." },
+          { text: "Gastroezofageal reflyuks (GERD) tashxisi bilan antatsid yozib uyga javob berish", correct: false, exp: "QALTIS XATO! Bemor shifoxona qabulxonasida hushini yo'qotdi." }
+        ]
+      },
+      {
+        title: "Bemor 109: 19 yoshli qiz",
+        hpi: "Yeryong'oqli shirinlik iste'molidan so'ng to'satdan stridor (bo'g'ilish), yuzda angionevrotik shish (Kvinke), badanda eshakemi (urtikariya), xirillash. Qon bosimi: 76/40 mm sim.ust, Pulslar: 135 urish/daq.",
+        hr: 135, bp: "76/40", o2: "87%",
+        options: [
+          { text: "Mushak ichiga Epinefrin (Adrenalin 1:1000) 0.5mg sonning oldingi-yon sohasiga STAT + Yuqori oqimli O2", correct: true, exp: "TO'G'RI! Anafilaktik shokda birinchi tanlov vositasi darhol m/i Epinefrindir. Alfa-1 tomirlarni toraytirib bosimni tiklaydi, Beta-2 esa bronxlarni kengaytiradi." },
+          { text: "Og'iz orqali Loratadin 10mg tabletkasini suv bilan ichirish", correct: false, exp: "XATOLIK! Og'iz orqali antigistaminlar 1-2 soatda ta'sir qiladi, bemorda esa laringeal shish va yutish buzilishi mavjud." },
+          { text: "Vahima xuruji deb vena ichiga Diazepam 10mg bilan sedatsiya qilish", correct: false, exp: "QALTIS XATO! Sedativ vositalar nafas markazini susaytiradi va zudlik bilan asfiksiyaga sabab bo'ladi." },
+          { text: "Til ostiga Nitroglikerin spreyi purkash", correct: false, exp: "QALTIS XATO! Nitroglikerin kuchli vazodilatatsiya chaqirib, 76/40 bosimni nolga tushiradi." }
+        ]
+      },
+      {
+        title: "Bemor 881: 27 yoshli yigit",
+        hpi: "Hushsiz holda olib kelindi: nuqtasimon qorachiqlar (mioz), nafas soni daqiqasiga atigi 4 marta, ko'kargan lablar (sianoz), bilakda inyeksiya izlari. SpO2 74%.",
+        hr: 52, bp: "92/60", o2: "74%",
+        options: [
+          { text: "Nalokson (Narcan) 0.4mg - 2mg v/i yoki intranazal STAT + Qopchali niqob bilan sun'iy nafas (Ambu)", correct: true, exp: "TO'G'RI! Klassik Opioid Toksidromi (koma, tor qorachiqlar, gipoventilyatsiya). Nalokson mu-opioid retseptorlarini tezda bloklaydi." },
+          { text: "Vena ichiga yuqori dozada Insulin + Glyukoza yuborish", correct: false, exp: "XATO! Bemor diabetik komada emas; gipoventilyatsiya opioid blokadasini talab qiladi." },
+          { text: "Yuqori dozada Fentanil sedatsiyasi bilan endotraxeal intubatsiya", correct: false, exp: "QALTIS XATO! O'tkir opioid dozasini oshirib yuborishda yana opioid berish miyaning anoksik shikastlanishiga olib keladi." },
+          { text: "Faollashtirilgan ko'mir bilan zudlik bilan oshqozonni yuvish", correct: false, exp: "XATO! Himoyalanmagan nafas yo'llarida oshqozonni yuvish o'pka aspiratsiyasiga sabab bo'ladi." }
+        ]
+      },
+      {
+        title: "Bemor 550: 64 yoshli erkak (Yurak To'xtashi / Pulssiz)",
+        hpi: "Klinik o'lim holati: bemor hushsiz, uyqu arteriyasida puls yo'q, apnoe (nafas to'xtagan). EKG monitorida: tartibsiz mayda to'lqinli qorinchalar fibrillyatsiyasi (VFib). SpO2 o'lchanmaydi.",
+        hr: 0, bp: "0/0", o2: "0%",
+        options: [
+          { text: "Zudlik bilan YURAK-O'PKA REANIMATSIYASI (CPR 30:2) + Biphasic 200J Defibrillatsiya + V/i Epinefrin 1mg har 3-5 daqiqada", correct: true, exp: "TO'G'RI! Qorinchalar fibrillatsiyasi (VFib) defibrillyatsiyalanuvchi ritm hisoblanadi. Zudlik bilan CPR va 200J razryad qon aylanishini tiklashning yagona yo'lidir." },
+          { text: "Vena ichiga Kordaron (Amiodaron) 300mg tomchilab yuborib kardiologni kutish", correct: false, exp: "XATOLIK! Pulssiz bemorda faqat dori berish foydasiz; zudlik bilan elektr defibrillatsiya va ko'krak qafasi kompressiyasi zarur!" },
+          { text: "Og'izdan-og'izga nafas berib 10 daqiqa kuzatish", correct: false, exp: "QALTIS XATO! Kompressiyasiz va defibrillyatsiyasiz miya 4-5 daqiqada qaytmas biologik o'limga uchraydi." },
+          { text: "Bemorga elektr razryad berish mumkin emas deb EKS o'rnatishga tayyorlash", correct: false, exp: "QALTIS XATO! VFib aynan defibrillyatsiya qilinishi SHART bo'lgan eng asosiy ritm!" }
+        ]
+      },
+      {
+        title: "Bemor 712: 32 yoshli ayol (Og'ir Kalla-Miya Shikastlanishi)",
+        hpi: "Avtohalokatdan so'ng olib kelindi: chuqur koma (GCS 6 ball: E1 V2 M3), o'ng qorachiq kengaygan va nurga reaksiyasiz (Anisokoriya), bradikardiya (HR 44) va gipertoniya (QB 185/110) — Kushing Triadasi.",
+        hr: 44, bp: "185/110", o2: "82%",
+        options: [
+          { text: "Tezkor ketma-ket intubatsiya (RSI) + Giperosmotik Mannitol 20% 1g/kg v/i + Shoshilinch Bosh KT va Neyroxirurgiya", correct: true, exp: "TO'G'RI! GCS ≤ 8 nafas yo'llarini intubatsiya bilan himoyalashni talab qiladi. Anisokoriya va Kushing triadasi o'tkir kalla ichi gipertenziyasi va miya daxlizga tiqilishi xavfidan dalolat beradi." },
+          { text: "Qon bosimini tez tushirish uchun v/i Natriy Nitroprussid yuborish", correct: false, exp: "QALTIS XATO! Kalla ichi bosimi yuqori bo'lganda arterial bosimni keskin tushirish miya perfuzion bosimini (CPP) nolga tushiradi va miya infarktiga sabab bo'ladi!" },
+          { text: "Sedatsiya qilib travmatologiya bo'limiga yotqizish", correct: false, exp: "XATOLIK! Bemor o'tkir intrakranial gematoma tufayli bir necha daqiqada nobud bo'lishi mumkin." },
+          { text: "Ko'zga Pilokarpin tomizib qorachiqni toraytirish", correct: false, exp: "XATO! Anisokoriya 3-juft bosh miya nervining siqilishi oqibati, ko'z kasalligi emas." }
+        ]
+      }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+    let timeLeft = 25;
+    let timer = null;
+
+    function renderScenario(idx) {
+      const s = scenarios[idx];
+      document.getElementById('patientTitle').innerText = s.title;
+      document.getElementById('patientHpi').innerText = s.hpi;
+      document.getElementById('vitalHR').innerText = s.hr;
+      document.getElementById('vitalBP').innerText = s.bp;
+      document.getElementById('vitalO2').innerText = s.o2;
+      document.getElementById('vitalStatus').innerText = "OG'IR / KRITIK";
+
+      if (window.updateER3DScenario) {
+        window.updateER3DScenario(s);
+      }
+
+      document.getElementById('feedbackBox').className = "hidden";
+
+      const grid = document.getElementById('choicesGrid');
+      grid.innerHTML = "";
+
+      s.options.forEach((opt, oIdx) => {
+        const btn = document.createElement('button');
+        btn.className = "p-4 rounded-2xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/50 text-left text-slate-200 transition active:scale-95 leading-relaxed font-sans";
+        btn.innerHTML = `<span class="font-bold text-cyan-400 mr-1.5">[Harakat ${oIdx+1}]</span> ${opt.text}`;
+        btn.onclick = () => selectOption(opt);
+        grid.appendChild(btn);
+      });
+
+      clearInterval(timer);
+      timeLeft = 25;
+      document.getElementById('timerVal').innerText = `${timeLeft}s`;
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timerVal').innerText = `${timeLeft}s`;
+        beep(s.hr > 100 ? 980 : 780, 0.04);
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          handleTimeout();
+        }
+      }, 1000);
+    }
+
+    function selectOption(opt) {
+      clearInterval(timer);
+      const fb = document.getElementById('feedbackBox');
+      fb.classList.remove('hidden');
+
+      if (opt.correct) {
+        score += 150;
+        document.getElementById('scoreVal').innerText = `${score} pts`;
+        fb.className = "p-4 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs leading-relaxed";
+        fb.innerHTML = `<b>[MUVAFFAQ] BEMOR AHVOLI BARQARORLASHDI!</b><br>${opt.exp}<br><br><button onclick="nextScenario()" class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-xl mt-2">Keyingi Bemor →</button>`;
+        confetti({ particleCount: 40 });
+        beep(1200, 0.2);
+      } else {
+        fb.className = "p-4 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-200 text-xs leading-relaxed";
+        fb.innerHTML = `<b>⚠️ XAVFLI KLINIK ASORAT!</b><br>${opt.exp}<br><br><button onclick="renderScenario(currentIdx)" class="px-4 py-2 bg-rose-600 text-white font-bold rounded-xl mt-2">Qayta Urinib Ko'rish ↺</button>`;
+        beep(300, 0.4);
+      }
+    }
+
+    function handleTimeout() {
+      const fb = document.getElementById('feedbackBox');
+      fb.classList.remove('hidden');
+      fb.className = "p-4 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-200 text-xs leading-relaxed";
+      fb.innerHTML = `<b>⌛ VAQT TUGADI!</b> Kechiktirilgan aralashuv sababli bemorda o'tkir yurak-nafas to'xtashi yuz berdi.<br><br><button onclick="renderScenario(currentIdx)" class="px-4 py-2 bg-rose-600 text-white font-bold rounded-xl mt-2">Qayta Urinib Ko'rish ↺</button>`;
+    }
+
+    function nextScenario() {
+      currentIdx = (currentIdx + 1) % scenarios.length;
+      renderScenario(currentIdx);
+    }
+
+    // ECG Canvas Simulation
+    const canvas = document.getElementById('ecgCanvas');
+    const ctx = canvas.getContext('2d');
+    let ecgX = 0;
+    
+    // ==========================================
+    // ACLS DEFIBRILLATOR & GCS CONTROLLER (Iteration 53)
+    // ==========================================
+    let currentJoules = 200;
+    let isDefibCharged = false;
+    let isCprActive = false;
+    let cprInterval = null;
+
+    function setDefibJoules(j) {
+      currentJoules = j;
+      ['100', '150', '200'].forEach(val => {
+        const btn = document.getElementById(`jouleBtn_${val}`);
+        if (btn) {
+          if (parseInt(val) === j) {
+            btn.className = "flex-1 py-2 rounded-xl bg-rose-600 text-white font-bold transition";
+          } else {
+            btn.className = "flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition";
+          }
+        }
+      });
+      beep(600, 0.05);
+    }
+
+    function chargeDefibrillator() {
+      const chargeBtn = document.getElementById('chargeBtn');
+      const shockBtn = document.getElementById('shockBtn');
+      const badge = document.getElementById('defibStateBadge');
+
+      badge.innerText = `ZARYADLANMOQDA (${currentJoules} J)...`;
+      badge.className = "px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30 animate-pulse";
+
+      // Rising charge whine sound
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 1.2);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 1.2);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.2);
+      } catch (e) {}
+
+      setTimeout(() => {
+        isDefibCharged = true;
+        badge.innerText = `ZARYADLANDI (${currentJoules} J) — ZARBAGA TAYYOR!`;
+        badge.className = "px-2.5 py-0.5 rounded bg-rose-600 text-white font-bold animate-ping";
+
+        shockBtn.disabled = false;
+        shockBtn.className = "py-2.5 px-4 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-black text-xs shadow-2xl shadow-rose-600/50 transition flex items-center justify-center space-x-1.5 self-end animate-pulse cursor-pointer";
+        beep(1400, 0.3);
+      }, 1200);
+    }
+
+    function deliverShock() {
+      if (!isDefibCharged) return;
+
+      // Heavy low boom shock sound
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.35);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.35);
+      } catch (e) {}
+
+      // Visual screen flash
+      document.body.classList.add('bg-rose-900');
+      setTimeout(() => { document.body.classList.remove('bg-rose-900'); }, 150);
+
+      if (window.er3DShockDischarge) {
+        window.er3DShockDischarge();
+      }
+
+      isDefibCharged = false;
+      const shockBtn = document.getElementById('shockBtn');
+      shockBtn.disabled = true;
+      shockBtn.className = "py-2.5 px-4 rounded-xl bg-slate-800 text-slate-500 cursor-not-allowed font-black text-xs shadow-lg transition flex items-center justify-center space-x-1.5 self-end";
+
+      const badge = document.getElementById('defibStateBadge');
+      badge.innerText = "RAZRYAD YUBORILDI (200 J BIFAZIK)";
+      badge.className = "px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30";
+
+      // If current scenario is VFib (index 3), shock helps restore rhythm!
+      if (currentIdx === 3) {
+        document.getElementById('vitalHR').innerText = "76";
+        document.getElementById('vitalBP').innerText = "110/70";
+        document.getElementById('vitalO2').innerText = "96%";
+        document.getElementById('vitalStatus').innerText = "SINUS RITMI TIKLANDI (ROSC)";
+        document.getElementById('vitalStatus').className = "text-xs font-bold text-emerald-400 mt-2";
+        if (window.updateER3DScenario) {
+          window.updateER3DScenario({ hr: 76, title: "Qayta Tiklangan Sinus Ritmi" });
+        }
+        confetti({ particleCount: 70, spread: 80 });
+      }
+    }
+
+    function toggleCprMetronome() {
+      isCprActive = !isCprActive;
+      const btn = document.getElementById('cprBtn');
+      const text = document.getElementById('cprBtnText');
+
+      if (isCprActive) {
+        btn.className = "py-2.5 px-3 rounded-xl bg-rose-600 text-white font-bold text-[11px] transition flex items-center justify-center space-x-1 self-end shadow-lg shadow-rose-600/30";
+        text.innerText = "CPR: FAOL (110 BPM)";
+        cprInterval = setInterval(() => {
+          beep(880, 0.02);
+        }, 545); // 110 BPM = 60000/110 ~ 545 ms
+      } else {
+        btn.className = "py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[11px] transition flex items-center justify-center space-x-1 self-end";
+        text.innerText = "CPR 110 BPM";
+        clearInterval(cprInterval);
+        cprInterval = null;
+      }
+
+      if (window.setER3DCpr) {
+        window.setER3DCpr(isCprActive);
+      }
+    }
+
+    // Glasgow Coma Scale Calculation
+    function calculateGcs() {
+      const e = parseInt(document.getElementById('gcsEye').value, 10);
+      const v = parseInt(document.getElementById('gcsVerbal').value, 10);
+      const m = parseInt(document.getElementById('gcsMotor').value, 10);
+      const total = e + v + m;
+
+      const badge = document.getElementById('gcsTotalScore');
+      const statusText = document.getElementById('gcsStatusText');
+      const banner = document.getElementById('gcsWarningBanner');
+
+      if (total >= 13) {
+        badge.innerText = `${total} / 15 (Yengil / Barqaror)`;
+        badge.className = "px-3 py-1 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-black text-sm";
+        statusText.innerText = "Bemor hushi tiniq, neyrologik holat barqaror.";
+        statusText.className = "text-emerald-400 font-bold";
+        banner.className = "p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs flex items-center justify-between font-mono";
+      } else if (total >= 9) {
+        badge.innerText = `${total} / 15 (O'rtacha Og'ir)`;
+        badge.className = "px-3 py-1 rounded-xl bg-amber-950/80 border border-amber-500/40 text-amber-300 font-black text-sm";
+        statusText.innerText = "Sopor yoki karaxtlik. Qat'iy dinamik monitoring talab etiladi.";
+        statusText.className = "text-amber-400 font-bold";
+        banner.className = "p-3 rounded-xl bg-amber-950/30 border border-amber-500/30 text-xs flex items-center justify-between font-mono";
+      } else {
+        badge.innerText = `${total} / 15 (OG'IR KOMA!)`;
+        badge.className = "px-3 py-1 rounded-xl bg-rose-950/80 border border-rose-500/40 text-rose-300 font-black text-sm animate-pulse";
+        statusText.innerText = "⚠️ GCS ≤ 8: HUSHSIZLIK VA NAFAS YO'LLARI DISFUNKSIYASI (ZUDLIK BILAN INTUBATSIYA!)";
+        statusText.className = "text-rose-400 font-bold";
+        banner.className = "p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-xs flex items-center justify-between font-mono";
+      }
+    }
+
+    function drawECG() {
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      ctx.strokeStyle = '#10b981';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height/2);
+
+      for (let x = 0; x < canvas.width; x += 30) {
+        ctx.lineTo(x, canvas.height/2);
+        ctx.lineTo(x + 5, canvas.height/2 - 15);
+        ctx.lineTo(x + 10, canvas.height/2 + 20);
+        ctx.lineTo(x + 15, canvas.height/2 - 25);
+        ctx.lineTo(x + 20, canvas.height/2);
+      }
+      ctx.stroke();
+    }
+
+    // =========================================================================
+    // INTELLIGENT CHIEF MEDICAL AI (AUTO-PLAY / WATCH MODE)
+    // =========================================================================
+    let aiMedTimer = null;
+    let aiMedActive = false;
+
+    function toggleAIMedTriage() {
+      if (aiMedActive) {
+        stopAIMedTriage();
+      } else {
+        startAIMedTriage();
+      }
+    }
+
+    function startAIMedTriage() {
+      stopAIMedTriage();
+      aiMedActive = true;
+      const btn = document.getElementById('aiMedBtn');
+      const text = document.getElementById('aiMedText');
+      if (btn) btn.className = "text-xs px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-emerald-600/30 transition active:scale-95";
+      if (text) text.textContent = "AI'ni To'xtatish";
+      updateMedStatus("[AI] Bosh Shifokor AI faol! Telemetriya va klinik belgilar avtomatik tahlil qilinmoqda...");
+
+      stepAIMedTriage();
+    }
+
+    function stopAIMedTriage() {
+      if (aiMedTimer) {
+        clearTimeout(aiMedTimer);
+        aiMedTimer = null;
+      }
+      aiMedActive = false;
+      const btn = document.getElementById('aiMedBtn');
+      const text = document.getElementById('aiMedText');
+      if (btn) btn.className = "text-xs px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-indigo-600/30 transition active:scale-95";
+      if (text) text.textContent = "Bosh Shifokor AI";
+      updateMedStatus("Bosh Shifokor AI to'xtatildi. O'zingiz harakatni tanlang yoki davom ettirish uchun bosing!");
+    }
+
+    function updateMedStatus(msg) {
+      const el = document.getElementById('aiMedStatus');
+      if (el) el.textContent = msg;
+    }
+
+    function stepAIMedTriage() {
+      if (!aiMedActive) return;
+
+      const s = scenarios[currentIdx];
+      const correctOpt = s.options.find(o => o.correct);
+
+      updateMedStatus(`[AI] Bosh Shifokor AI: Telemetriya baholandi -> Klinik aralashuv: [${correctOpt.text}]`);
+
+      aiMedTimer = setTimeout(() => {
+        if (!aiMedActive) return;
+        selectOption(correctOpt);
+        updateMedStatus(`✅ Bosh Shifokor AI: Bemor ahvoli barqarorlashdi (+150 XP). Keyingi holatga o'tilmoqda...`);
+
+        aiMedTimer = setTimeout(() => {
+          if (!aiMedActive) return;
+          nextScenario();
+          stepAIMedTriage();
+        }, 1800);
+      }, 1400);
+    }
+
+    // =========================================================================
+    // THREE.JS 3D OPERATING THEATER & RESUSCITATION SUITE (Iteration 116)
+    // =========================================================================
+    let erScene, erCamera, erRenderer, erAnimId;
+    let erHeartMesh, erHeartLight, erLungsGroup;
+    let erPatientTorso, erPatientGroup, erShockParticles = [];
+    let erIvDropMesh, erSurgicalSpot;
+    let erTargetCamPos = new THREE.Vector3(0, 5.2, 7.5);
+    let erTargetCamLookAt = new THREE.Vector3(0, 0.3, 0);
+    let erCurrentLookAt = new THREE.Vector3(0, 0.3, 0);
+    let erBpm = 118;
+    let erCprActive = false;
+    let erIsDragging = false;
+    let erPrevMousePos = { x: 0, y: 0 };
+    let erCamPhi = 0.95;
+    let erCamTheta = 0.05;
+    let erCamRadius = 9.2;
+    let erAutoRotate = false;
+
+    function initER3D() {
+      const canvas = document.getElementById('er3DCanvas');
+      if (!canvas || typeof THREE === 'undefined') return;
+
+      const container = canvas.parentElement;
+      const width = container.clientWidth || 800;
+      const height = container.clientHeight || 320;
+
+      erScene = new THREE.Scene();
+      erScene.background = new THREE.Color(0x020617);
+      erScene.fog = new THREE.FogExp2(0x020617, 0.04);
+
+      erCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+      erCamera.position.copy(erTargetCamPos);
+      erCurrentLookAt.copy(erTargetCamLookAt);
+      erCamera.lookAt(erCurrentLookAt);
+
+      erRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
+      erRenderer.setSize(width, height);
+      erRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // 1. Surgical Lighting
+      const ambientLight = new THREE.AmbientLight(0x38bdf8, 0.45);
+      erScene.add(ambientLight);
+
+      erSurgicalSpot = new THREE.SpotLight(0x38bdf8, 2.8, 25, Math.PI / 4, 0.35);
+      erSurgicalSpot.position.set(0, 7.5, 0);
+      erSurgicalSpot.target.position.set(0, 0.4, 0);
+      erScene.add(erSurgicalSpot);
+      erScene.add(erSurgicalSpot.target);
+
+      // Overhead Surgical Lamp Fixture
+      const lampArm = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.04, 0.04, 2.5),
+        new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8, roughness: 0.2 })
+      );
+      lampArm.position.set(0, 8.5, 0);
+      erScene.add(lampArm);
+
+      const lampHead = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.2, 1.4, 0.3, 24),
+        new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.9, roughness: 0.3 })
+      );
+      lampHead.position.set(0, 7.5, 0);
+      erScene.add(lampHead);
+
+      const lampBulb = new THREE.Mesh(
+        new THREE.CircleGeometry(1.15, 24),
+        new THREE.MeshBasicMaterial({ color: 0x7dd3fc })
+      );
+      lampBulb.rotation.x = Math.PI / 2;
+      lampBulb.position.set(0, 7.34, 0);
+      erScene.add(lampBulb);
+
+      // Surgical Floor Grid
+      const grid = new THREE.GridHelper(24, 24, 0x0284c7, 0x1e293b);
+      grid.position.y = -1.8;
+      erScene.add(grid);
+
+      // 2. Hospital Stretcher Bed
+      buildERStretcher();
+
+      // 3. Holographic Patient Body & Organs
+      buildERPatient();
+
+      // 4. IV Drip Stand
+      buildERIVStand();
+
+      // Mouse & Wheel & Touch Controls (Iteration 158)
+      canvas.addEventListener('mousedown', (e) => {
+        erIsDragging = true;
+        erAutoRotate = false;
+        erPrevMousePos = { x: e.clientX, y: e.clientY };
+      });
+
+      canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const delta = e.deltaY * 0.01;
+        erCamRadius = Math.max(2.0, Math.min(18.0, erCamRadius + delta));
+        updateCamSphericalPos();
+      }, { passive: false });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!erIsDragging) return;
+        const dx = e.clientX - erPrevMousePos.x;
+        const dy = e.clientY - erPrevMousePos.y;
+        erCamTheta -= dx * 0.008;
+        erCamPhi = Math.max(0.15, Math.min(Math.PI / 2 - 0.05, erCamPhi - dy * 0.008));
+        updateCamSphericalPos();
+        erPrevMousePos = { x: e.clientX, y: e.clientY };
+      });
+
+      window.addEventListener('mouseup', () => { erIsDragging = false; });
+
+      let erTouchStartDist = 0;
+      canvas.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          erIsDragging = true;
+          erAutoRotate = false;
+          erPrevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        } else if (e.touches.length === 2) {
+          erIsDragging = false;
+          erTouchStartDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1 && erIsDragging) {
+          const dx = e.touches[0].clientX - erPrevMousePos.x;
+          const dy = e.touches[0].clientY - erPrevMousePos.y;
+          erCamTheta -= dx * 0.01;
+          erCamPhi = Math.max(0.15, Math.min(Math.PI / 2 - 0.05, erCamPhi - dy * 0.01));
+          updateCamSphericalPos();
+          erPrevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        } else if (e.touches.length === 2 && erTouchStartDist > 0) {
+          const curDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY
+          );
+          const diff = (erTouchStartDist - curDist) * 0.02;
+          erCamRadius = Math.max(2.0, Math.min(18.0, erCamRadius + diff));
+          updateCamSphericalPos();
+          erTouchStartDist = curDist;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', () => {
+        erIsDragging = false;
+        erTouchStartDist = 0;
+      });
+
+      // Resize listener
+      window.addEventListener('resize', onERResize);
+
+      animateER3D();
+    }
+
+    function updateCamSphericalPos() {
+      erTargetCamPos.x = erTargetCamLookAt.x + erCamRadius * Math.sin(erCamPhi) * Math.sin(erCamTheta);
+      erTargetCamPos.y = erTargetCamLookAt.y + erCamRadius * Math.cos(erCamPhi);
+      erTargetCamPos.z = erTargetCamLookAt.z + erCamRadius * Math.sin(erCamPhi) * Math.cos(erCamTheta);
+    }
+
+    function buildERStretcher() {
+      const stretcher = new THREE.Group();
+
+      // Bed Platform Base
+      const baseMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.8, roughness: 0.3 });
+      const base = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.2, 5.0), baseMat);
+      base.position.set(0, 0, 0);
+      stretcher.add(base);
+
+      // Mattress
+      const mattressMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.7 });
+      const mattress = new THREE.Mesh(new THREE.BoxGeometry(2.1, 0.25, 4.8), mattressMat);
+      mattress.position.set(0, 0.22, 0);
+      stretcher.add(mattress);
+
+      // Head Pillow
+      const pillowMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.8 });
+      const pillow = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.12, 0.9), pillowMat);
+      pillow.position.set(0, 0.38, -1.8);
+      stretcher.add(pillow);
+
+      // Stretcher Legs & Wheels
+      const legGeo = new THREE.CylinderGeometry(0.06, 0.06, 1.7);
+      const legMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.8, roughness: 0.2 });
+      const wheelGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.08, 16);
+      const wheelMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5 });
+
+      const legPositions = [
+        [-0.95, -0.9, -1.9],
+        [0.95, -0.9, -1.9],
+        [-0.95, -0.9, 1.9],
+        [0.95, -0.9, 1.9]
+      ];
+
+      legPositions.forEach(pos => {
+        const leg = new THREE.Mesh(legGeo, legMat);
+        leg.position.set(pos[0], pos[1], pos[2]);
+        stretcher.add(leg);
+
+        const wheel = new THREE.Mesh(wheelGeo, wheelMat);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.position.set(pos[0], -1.65, pos[2]);
+        stretcher.add(wheel);
+      });
+
+      // Bed Rails
+      const railMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, metalness: 0.9, roughness: 0.1 });
+      [-1.1, 1.1].forEach(sideX => {
+        const rail = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 3.4), railMat);
+        rail.rotation.x = Math.PI / 2;
+        rail.position.set(sideX, 0.45, 0);
+        stretcher.add(rail);
+      });
+
+      // Bedside Defibrillator & Telemetry Cart
+      const cartGroup = new THREE.Group();
+      cartGroup.position.set(1.7, 0.0, -0.8);
+
+      const cartTrolley = new THREE.Mesh(
+        new THREE.BoxGeometry(0.9, 1.2, 0.8),
+        new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.7, roughness: 0.3 })
+      );
+      cartGroup.add(cartTrolley);
+
+      // Defibrillator Screen
+      const screenMesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.7, 0.5),
+        new THREE.MeshBasicMaterial({ color: 0x10b981 })
+      );
+      screenMesh.rotation.y = -Math.PI / 2;
+      screenMesh.position.set(-0.46, 0.25, 0);
+      cartGroup.add(screenMesh);
+
+      // Defib Paddles in Cradle
+      [-0.15, 0.15].forEach(pz => {
+        const paddle = new THREE.Mesh(
+          new THREE.BoxGeometry(0.15, 0.2, 0.12),
+          new THREE.MeshStandardMaterial({ color: 0xef4444, metalness: 0.5, roughness: 0.4 })
+        );
+        paddle.position.set(-0.2, 0.65, pz);
+        cartGroup.add(paddle);
+      });
+
+      stretcher.add(cartGroup);
+      erScene.add(stretcher);
+    }
+
+    function buildERPatient() {
+      erPatientGroup = new THREE.Group();
+
+      const holoMat = new THREE.MeshStandardMaterial({
+        color: 0x0284c7,
+        emissive: 0x0369a1,
+        emissiveIntensity: 0.35,
+        transparent: true,
+        opacity: 0.75,
+        wireframe: true
+      });
+
+      const solidHoloMat = new THREE.MeshStandardMaterial({
+        color: 0x0369a1,
+        transparent: true,
+        opacity: 0.25,
+        roughness: 0.2
+      });
+
+      // Head
+      const headGroup = new THREE.Group();
+      headGroup.position.set(0, 0.62, -1.8);
+      const headWire = new THREE.Mesh(new THREE.SphereGeometry(0.38, 16, 16), holoMat);
+      const headSolid = new THREE.Mesh(new THREE.SphereGeometry(0.36, 16, 16), solidHoloMat);
+      headGroup.add(headWire);
+      headGroup.add(headSolid);
+      erPatientGroup.add(headGroup);
+
+      // Neck
+      const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.22, 0.3), holoMat);
+      neck.position.set(0, 0.52, -1.35);
+      erPatientGroup.add(neck);
+
+      // Torso (Thorax & Abdomen)
+      erPatientTorso = new THREE.Group();
+      erPatientTorso.position.set(0, 0.52, -0.3);
+
+      const thoraxWire = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.48, 1.4), holoMat);
+      const thoraxSolid = new THREE.Mesh(new THREE.BoxGeometry(1.16, 0.44, 1.36), solidHoloMat);
+      erPatientTorso.add(thoraxWire);
+      erPatientTorso.add(thoraxSolid);
+
+      // Ribs Arcs
+      const ribMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, wireframe: true });
+      for (let r = -0.4; r <= 0.4; r += 0.2) {
+        const rib = new THREE.Mesh(new THREE.TorusGeometry(0.55, 0.02, 6, 16, Math.PI), ribMat);
+        rib.rotation.x = Math.PI / 2;
+        rib.rotation.y = Math.PI;
+        rib.position.set(0, 0.05, r);
+        erPatientTorso.add(rib);
+      }
+
+      // Abdomen & Pelvis
+      const pelvis = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.42, 1.1), holoMat);
+      pelvis.position.set(0, 0.48, 0.9);
+      erPatientGroup.add(pelvis);
+
+      // 3D Anatomical Heart (Left Thorax)
+      const heartGroup = new THREE.Group();
+      heartGroup.position.set(-0.16, 0.05, -0.2);
+
+      const heartMat = new THREE.MeshStandardMaterial({
+        color: 0xef4444,
+        emissive: 0xd97706,
+        emissiveIntensity: 0.9,
+        roughness: 0.2
+      });
+
+      // Ventricles tapered cone
+      erHeartMesh = new THREE.Mesh(new THREE.DodecahedronGeometry(0.18, 1), heartMat);
+      heartGroup.add(erHeartMesh);
+
+      // Aortic Arch
+      const aorta = new THREE.Mesh(
+        new THREE.TorusGeometry(0.08, 0.03, 8, 16, Math.PI),
+        new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0xe11d48, emissiveIntensity: 0.6 })
+      );
+      aorta.position.set(0, 0.14, 0);
+      heartGroup.add(aorta);
+
+      erHeartLight = new THREE.PointLight(0xef4444, 1.6, 3.5);
+      erHeartLight.position.set(0, 0, 0);
+      heartGroup.add(erHeartLight);
+
+      erPatientTorso.add(heartGroup);
+
+      // 3D Lungs
+      erLungsGroup = new THREE.Group();
+      erLungsGroup.position.set(0, 0.04, -0.15);
+
+      const lungMat = new THREE.MeshStandardMaterial({
+        color: 0x38bdf8,
+        transparent: true,
+        opacity: 0.35,
+        roughness: 0.4
+      });
+
+      const leftLung = new THREE.Mesh(new THREE.SphereGeometry(0.24, 12, 12), lungMat);
+      leftLung.scale.set(0.8, 1.3, 0.9);
+      leftLung.position.set(-0.34, 0, 0);
+      erLungsGroup.add(leftLung);
+
+      const rightLung = new THREE.Mesh(new THREE.SphereGeometry(0.26, 12, 12), lungMat);
+      rightLung.scale.set(0.85, 1.3, 0.9);
+      rightLung.position.set(0.34, 0, 0);
+      erLungsGroup.add(rightLung);
+
+      erPatientTorso.add(erLungsGroup);
+
+      // 3D Defibrillator Electrodes / Pads on Patient Chest
+      const padMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, emissive: 0xca8a04, emissiveIntensity: 0.5, metalness: 0.8 });
+      const padCenterMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+
+      // Sternal Pad (Right Infraclavicular)
+      const sternalPad = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.03, 16), padMat);
+      sternalPad.position.set(0.28, 0.26, -0.42);
+      const sternalCenter = new THREE.Mesh(new THREE.CircleGeometry(0.09, 16), padCenterMat);
+      sternalCenter.rotation.x = -Math.PI / 2;
+      sternalCenter.position.set(0.28, 0.28, -0.42);
+      erPatientTorso.add(sternalPad);
+      erPatientTorso.add(sternalCenter);
+
+      // Apical Pad (Left Mid-Axillary Intercostal)
+      const apicalPad = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.03, 16), padMat);
+      apicalPad.position.set(-0.46, 0.22, 0.1);
+      const apicalCenter = new THREE.Mesh(new THREE.CircleGeometry(0.09, 16), padCenterMat);
+      apicalCenter.rotation.x = -Math.PI / 2;
+      apicalCenter.position.set(-0.46, 0.24, 0.1);
+      erPatientTorso.add(apicalPad);
+      erPatientTorso.add(apicalCenter);
+
+      // High-Voltage Conductive Defib Cables
+      const cableMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e });
+      const cable1 = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 1.8), cableMat);
+      cable1.rotation.z = -Math.PI / 3;
+      cable1.position.set(0.8, 0.1, -0.4);
+      erPatientTorso.add(cable1);
+
+      erPatientGroup.add(erPatientTorso);
+
+      // Limbs (Arms & Legs)
+      [-0.75, 0.75].forEach(ax => {
+        const arm = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.09, 2.0), holoMat);
+        arm.rotation.x = Math.PI / 2;
+        arm.position.set(ax, 0.42, 0.1);
+        erPatientGroup.add(arm);
+      });
+
+      [-0.28, 0.28].forEach(lx => {
+        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.11, 2.4), holoMat);
+        leg.rotation.x = Math.PI / 2;
+        leg.position.set(lx, 0.4, 2.5);
+        erPatientGroup.add(leg);
+      });
+
+      erScene.add(erPatientGroup);
+    }
+
+    function buildERIVStand() {
+      const standGroup = new THREE.Group();
+      standGroup.position.set(-1.45, 0, -1.1);
+
+      // Chrome Pole
+      const poleMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.9, roughness: 0.1 });
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 3.8), poleMat);
+      pole.position.set(0, 0.8, 0);
+      standGroup.add(pole);
+
+      // Top Hooks
+      const hook = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.03, 8, 16, Math.PI), poleMat);
+      hook.rotation.x = Math.PI / 2;
+      hook.position.set(0, 2.65, 0);
+      standGroup.add(hook);
+
+      // Saline IV Infusion Bag
+      const bagMat = new THREE.MeshStandardMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.65, roughness: 0.2 });
+      const ivBag = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.45, 0.12), bagMat);
+      ivBag.position.set(0, 2.3, 0);
+      standGroup.add(ivBag);
+
+      // Drip Chamber
+      const chamber = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.15), bagMat);
+      chamber.position.set(0, 2.0, 0);
+      standGroup.add(chamber);
+
+      // Dripping Fluid Droplet Particle
+      const dropMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+      erIvDropMesh = new THREE.Mesh(new THREE.SphereGeometry(0.02, 8, 8), dropMat);
+      erIvDropMesh.position.set(0, 1.95, 0);
+      standGroup.add(erIvDropMesh);
+
+      // IV Tubing to Patient Left Arm
+      const tubeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.5 });
+      const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.01, 0.01, 1.8), tubeMat);
+      tube.rotation.z = -Math.PI / 4;
+      tube.position.set(0.45, 1.2, 0.4);
+      standGroup.add(tube);
+
+      erScene.add(standGroup);
+    }
+
+    function setER3DCamera(mode) {
+      erAutoRotate = false;
+      const camLabel = document.getElementById('er3DCamLabel');
+      const btns = {
+        overview: document.getElementById('erCamIso'),
+        iso: document.getElementById('erCamIso'),
+        cardiac: document.getElementById('erCamMacro'),
+        macro: document.getElementById('erCamMacro'),
+        orbit: document.getElementById('erCamOrbit'),
+        airway: document.getElementById('erCamAirway'),
+        defib: document.getElementById('erCamDefib'),
+        reset: document.getElementById('erCamReset')
+      };
+
+      ['erCamIso', 'erCamMacro', 'erCamOrbit', 'erCamAirway', 'erCamDefib', 'erCamReset'].forEach(id => {
+        const b = document.getElementById(id);
+        if (b) {
+          b.className = "px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition";
+        }
+      });
+
+      if (btns[mode]) {
+        btns[mode].className = "px-2.5 py-1 rounded-lg bg-cyan-600 text-white font-bold transition shadow-md shadow-cyan-600/30";
+      }
+
+      if (mode === 'overview' || mode === 'iso' || mode === 'reset') {
+        erTargetCamPos.set(0, 5.2, 7.5);
+        erTargetCamLookAt.set(0, 0.3, 0);
+        erCamRadius = 9.2; erCamPhi = 0.95; erCamTheta = 0.05;
+        if (camLabel) camLabel.innerText = "Palata (Izometriya)";
+      } else if (mode === 'cardiac' || mode === 'macro') {
+        erTargetCamPos.set(-0.7, 2.0, 1.4);
+        erTargetCamLookAt.set(-0.16, 0.55, -0.45);
+        erCamRadius = 2.4; erCamPhi = 0.9; erCamTheta = -0.3;
+        if (camLabel) camLabel.innerText = "[KARDIOLOGIYA] Kardiak Fokus (Yurak & EKG)";
+      } else if (mode === 'orbit') {
+        erTargetCamPos.set(6.5, 4.8, 6.5);
+        erTargetCamLookAt.set(0, 0.3, 0);
+        erCamRadius = 9.5; erCamPhi = 0.9; erCamTheta = 0.8;
+        if (camLabel) camLabel.innerText = "[EKOTIZIM] Orbita Aylanishi";
+      } else if (mode === 'airway') {
+        erTargetCamPos.set(0, 2.2, -3.8);
+        erTargetCamLookAt.set(0, 0.55, -1.8);
+        erCamRadius = 2.5; erCamPhi = 1.1; erCamTheta = Math.PI;
+        if (camLabel) camLabel.innerText = "[NEYRON] GCS / Bosh / Nafas Yo'li";
+      } else if (mode === 'defib') {
+        erTargetCamPos.set(2.4, 2.8, 1.2);
+        erTargetCamLookAt.set(0, 0.5, -0.4);
+        erCamRadius = 3.2; erCamPhi = 0.85; erCamTheta = 0.9;
+        if (camLabel) camLabel.innerText = "⚡ Defib Zarbasi Rejimi";
+      }
+    }
+
+    // High-Voltage Electrical Shock Discharge Burst
+    window.er3DShockDischarge = function() {
+      if (!erScene) return;
+
+      // Blinding light flash
+      if (erSurgicalSpot) erSurgicalSpot.intensity = 8.0;
+      if (erHeartLight) erHeartLight.intensity = 9.0;
+      setTimeout(() => {
+        if (erSurgicalSpot) erSurgicalSpot.intensity = 2.8;
+        if (erHeartLight) erHeartLight.intensity = 1.6;
+      }, 200);
+
+      // Create 150 spark particles radiating from sternal and apical pads
+      const sparkMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
+      const blueSparkMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+
+      const origins = [
+        new THREE.Vector3(0.28, 0.78, -0.72),
+        new THREE.Vector3(-0.46, 0.74, -0.2)
+      ];
+
+      for (let i = 0; i < 150; i++) {
+        const origin = origins[i % 2];
+        const spark = new THREE.Mesh(
+          new THREE.SphereGeometry(0.035, 6, 6),
+          Math.random() > 0.4 ? sparkMat : blueSparkMat
+        );
+        spark.position.copy(origin);
+        spark.userData = {
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: Math.random() * 0.2 + 0.05,
+          vz: (Math.random() - 0.5) * 0.25,
+          life: 45
+        };
+        erScene.add(spark);
+        erShockParticles.push(spark);
+      }
+    };
+
+    window.updateER3DScenario = function(sc) {
+      if (!sc) return;
+      erBpm = sc.hr || 118;
+
+      const hrLabel = document.getElementById('er3DHeartRateLabel');
+      const stateLabel = document.getElementById('er3DHeartStateLabel');
+      if (hrLabel) hrLabel.innerText = `${erBpm} BPM`;
+
+      if (erHeartMesh && erHeartLight) {
+        if (erBpm > 100) {
+          erHeartMesh.material.color.setHex(0xef4444);
+          erHeartMesh.material.emissive.setHex(0xf59e0b);
+          erHeartLight.color.setHex(0xef4444);
+          if (stateLabel) stateLabel.innerText = "Sinus Taxikardiya";
+        } else if (erBpm < 60) {
+          erHeartMesh.material.color.setHex(0x8b5cf6);
+          erHeartMesh.material.emissive.setHex(0x6366f1);
+          erHeartLight.color.setHex(0x8b5cf6);
+          if (stateLabel) stateLabel.innerText = "Sinus Bradikardiya";
+        } else {
+          erHeartMesh.material.color.setHex(0x10b981);
+          erHeartMesh.material.emissive.setHex(0x059669);
+          erHeartLight.color.setHex(0x10b981);
+          if (stateLabel) stateLabel.innerText = "Norma / Sinus Ritmi";
+        }
+      }
+    };
+
+    window.setER3DCpr = function(active) {
+      erCprActive = active;
+    };
+
+    function onERResize() {
+      const canvas = document.getElementById('er3DCanvas');
+      if (!canvas || !erCamera || !erRenderer) return;
+      const container = canvas.parentElement;
+      const width = container.clientWidth || 800;
+      const height = container.clientHeight || 320;
+      erCamera.aspect = width / height;
+      erCamera.updateProjectionMatrix();
+      erRenderer.setSize(width, height);
+    }
+
+    function animateER3D() {
+      erAnimId = requestAnimationFrame(animateER3D);
+
+      const time = performance.now() * 0.001;
+
+      // Camera lerp
+      erCamera.position.lerp(erTargetCamPos, 0.06);
+      erCurrentLookAt.lerp(erTargetCamLookAt, 0.06);
+      erCamera.lookAt(erCurrentLookAt);
+
+      // Heartbeat pulse animation
+      if (erHeartMesh) {
+        const bps = erBpm / 60;
+        const beatPhase = (time * bps) % 1.0;
+        let scaleVal = 1.0;
+        if (beatPhase < 0.16) {
+          scaleVal = 1.0 + Math.sin(beatPhase / 0.16 * Math.PI) * 0.28;
+        } else if (beatPhase < 0.32) {
+          scaleVal = 1.0 + Math.sin((beatPhase - 0.16) / 0.16 * Math.PI) * 0.14;
+        }
+        erHeartMesh.scale.set(scaleVal, scaleVal, scaleVal);
+      }
+
+      // Lung respiration rhythm
+      if (erLungsGroup) {
+        const breath = Math.sin(time * 1.5) * 0.07;
+        erLungsGroup.scale.set(1 + breath, 1 + breath * 1.2, 1 + breath);
+      }
+
+      // CPR Metronome Compressions
+      if (erPatientTorso) {
+        if (erCprActive) {
+          const cprPhase = (time * (110 / 60)) % 1.0;
+          const compression = Math.max(0, Math.sin(cprPhase * Math.PI) * 0.12);
+          erPatientTorso.position.y = 0.52 - compression;
+        } else {
+          erPatientTorso.position.y = 0.52;
+        }
+      }
+
+      // IV Drip drop animation
+      if (erIvDropMesh) {
+        erIvDropMesh.position.y = 1.95 - ((time * 2.2) % 0.14);
+      }
+
+      // Shock particles update
+      for (let i = erShockParticles.length - 1; i >= 0; i--) {
+        const p = erShockParticles[i];
+        p.position.x += p.userData.vx;
+        p.position.y += p.userData.vy;
+        p.position.z += p.userData.vz;
+        p.userData.vy -= 0.005; // gravity
+        p.userData.life--;
+        p.scale.multiplyScalar(0.96);
+        if (p.userData.life <= 0) {
+          erScene.remove(p);
+          erShockParticles.splice(i, 1);
+        }
+      }
+
+      erRenderer.render(erScene, erCamera);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      drawECG();
+      renderScenario(0);
+      initER3D();
+    });
+  </script>
+
+  <!-- FOOTER & ECOSYSTEM INTEGRATION (Iteration 158) -->
+  <footer class="max-w-7xl mx-auto w-full pt-8 pb-6 border-t border-slate-800 text-xs font-mono text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 px-4">
+    <div class="space-y-1 text-center sm:text-left">
+      <div class="text-white font-bold flex items-center justify-center sm:justify-start gap-2">
+        <i class="fa-solid fa-heart-circle-bolt text-rose-400"></i>
+        <span>Anatomiya & Kardiologiya MedSurvivor 2050 · Muallif: Jasur Shukurov (@jasurceo)</span>
+        <span class="px-2 py-0.5 rounded-full text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/30">41/41 Ilova</span>
+      </div>
+      <div class="text-[11px] text-slate-400">
+        To'lov & Obuna: Humo/Uzcard <strong>9860 3501 4438 1851</strong> (Jasur Shukurov) · 1 Oylik Bepul Sinov ($0) · $5, $20, $200 Tariflar · <a href="/pay" class="text-rose-400 hover:underline">Tariflar (/pay)</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="/pay" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white font-bold transition flex items-center gap-1.5 shadow-lg shadow-emerald-500/20">
+        <i class="fa-solid fa-credit-card"></i>
+        <span>To'lov / Bepul Sinov</span>
+      </a>
+      <a href="https://t.me/jasurceo" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold transition flex items-center gap-1.5">
+        <i class="fa-brands fa-telegram"></i>
+        <span>Telegram: @jasurceo</span>
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
