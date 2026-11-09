@@ -39,18 +39,22 @@
       </div>
     </div>
     
-    <div class="flex items-center space-x-3">
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <button onclick="openLeaderboard()" id="leaderboardBtn" class="text-xs px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold flex items-center space-x-1.5 transition active:scale-95 shadow-lg shadow-amber-500/10">
+        <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i>
+        <span>Reyting (Top-10)</span>
+      </button>
       <button onclick="toggleAIMedTriage()" id="aiMedBtn" class="text-xs px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex items-center space-x-1.5 shadow-lg shadow-indigo-600/30 transition active:scale-95">
         <i data-lucide="bot" class="w-4 h-4"></i>
-        <span id="aiMedText">Bosh Shifokor AI</span>
+        <span id="aiMedText" class="hidden sm:inline">Bosh Shifokor AI</span>
       </button>
       <div class="text-right font-mono text-xs">
-        <span class="text-slate-400">Klinik Tajriba:</span>
+        <span class="text-slate-400 hidden sm:inline">Klinik Tajriba:</span>
         <span id="scoreVal" class="text-emerald-400 font-bold ml-1">0 pts</span>
       </div>
       <a href="/" class="text-xs text-slate-400 hover:text-white flex items-center space-x-1">
         <i data-lucide="arrow-left" class="w-4 h-4"></i>
-        <span>Bosh sahifa</span>
+        <span class="hidden sm:inline">Bosh sahifa</span>
       </a>
     </div>
   </header>
@@ -365,6 +369,8 @@
 
     let currentIdx = 0;
     let score = 0;
+    let patientsSaved = 0;
+    let totalAttempts = 0;
     let timeLeft = 25;
     let timer = null;
 
@@ -412,17 +418,19 @@
       clearInterval(timer);
       const fb = document.getElementById('feedbackBox');
       fb.classList.remove('hidden');
+      totalAttempts++;
 
       if (opt.correct) {
         score += 150;
+        patientsSaved += 1;
         document.getElementById('scoreVal').innerText = `${score} pts`;
         fb.className = "p-4 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs leading-relaxed";
-        fb.innerHTML = `<b>[MUVAFFAQ] BEMOR AHVOLI BARQARORLASHDI!</b><br>${opt.exp}<br><br><button onclick="nextScenario()" class="px-4 py-2 bg-emerald-600 text-white font-bold rounded-xl mt-2">Keyingi Bemor →</button>`;
+        fb.innerHTML = `<b>[MUVAFFAQ] BEMOR AHVOLI BARQARORLASHDI!</b><br>${opt.exp}<br><br><div class="flex flex-wrap items-center gap-2 mt-2"><button onclick="nextScenario()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl active:scale-95 transition">Keyingi Bemor →</button><button onclick="openLeaderboard()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-trophy text-amber-200"></i><span>Reytingga Saqlash (${score} pts)</span></button></div>`;
         confetti({ particleCount: 40 });
         beep(1200, 0.2);
       } else {
         fb.className = "p-4 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-200 text-xs leading-relaxed";
-        fb.innerHTML = `<b>⚠️ XAVFLI KLINIK ASORAT!</b><br>${opt.exp}<br><br><button onclick="renderScenario(currentIdx)" class="px-4 py-2 bg-rose-600 text-white font-bold rounded-xl mt-2">Qayta Urinib Ko'rish ↺</button>`;
+        fb.innerHTML = `<b>⚠️ XAVFLI KLINIK ASORAT!</b><br>${opt.exp}<br><br><div class="flex flex-wrap items-center gap-2 mt-2"><button onclick="renderScenario(currentIdx)" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl active:scale-95 transition">Qayta Urinib Ko'rish ↺</button><button onclick="openLeaderboard()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold rounded-xl active:scale-95 transition flex items-center gap-1.5"><i class="fa-solid fa-trophy text-amber-400"></i><span>Leaderboard</span></button></div>`;
         beep(300, 0.4);
       }
     }
@@ -1341,10 +1349,262 @@
       erRenderer.render(erScene, erCamera);
     }
 
+    // ==========================================
+    // LEADERBOARD CONTROLLER (MedSurvivor 2050)
+    // ==========================================
+    const DEFAULT_LEADERBOARD = [
+      { rank: 1, name: "Dr. Jasur Shukurov", org: "SamDTU • Bosh Reanimatolog", score: 2450, saved: 16, accuracy: "98%", category: "samdtu", badge: "Oltin Laureat" },
+      { rank: 2, name: "Shoxrux Nuriddinov", org: "SamDTU • ML Triage Lead", score: 2100, saved: 14, accuracy: "95%", category: "samdtu", badge: "Kumush Laureat" },
+      { rank: 3, name: "Munisa Tosharova", org: "SamDTU • Klinik Tahlilchi", score: 1950, saved: 13, accuracy: "94%", category: "samdtu", badge: "Bronza Laureat" },
+      { rank: 4, name: "Azamat Pulatov", org: "Toshkent • Frontend Dev", score: 1800, saved: 12, accuracy: "92%", category: "all", badge: "Top 5" },
+      { rank: 5, name: "Biloliddin Tulanboyev", org: "Samarqand • DevOps Muhandis", score: 1650, saved: 11, accuracy: "89%", category: "all", badge: "Top 5" },
+      { rank: 6, name: "Farrukh Jumayev", org: "SamDTU • Shoshilinch Yordam", score: 1500, saved: 10, accuracy: "87%", category: "samdtu", badge: "Top 10" },
+      { rank: 7, name: "Dr. Kamol Xoliqov", org: "Respublika Tez Yordam IM", score: 1350, saved: 9, accuracy: "86%", category: "all", badge: "Top 10" },
+      { rank: 8, name: "Dilshod Karimov", org: "Toshkent TMA Ordinatori", score: 1200, saved: 8, accuracy: "84%", category: "all", badge: "Top 10" }
+    ];
+
+    let currentLbFilter = 'all';
+
+    function getLeaderboardData() {
+      const stored = localStorage.getItem('medsurvivor_leaderboard_data');
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_LEADERBOARD));
+    }
+
+    function saveLeaderboardData(data) {
+      localStorage.setItem('medsurvivor_leaderboard_data', JSON.stringify(data));
+    }
+
+    function openLeaderboard() {
+      const modal = document.getElementById('leaderboardModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      const savedName = localStorage.getItem('medsurvivor_saved_player_name') || '';
+      const savedOrg = localStorage.getItem('medsurvivor_saved_player_org') || 'SamDTU Tibbiyot Fakulteti';
+      const nameInput = document.getElementById('lbPlayerName');
+      const orgInput = document.getElementById('lbPlayerOrg');
+      if (nameInput && !nameInput.value) nameInput.value = savedName;
+      if (orgInput && !orgInput.value) orgInput.value = savedOrg;
+
+      const currentScoreEl = document.getElementById('lbCurrentScoreDisplay');
+      if (currentScoreEl) {
+        currentScoreEl.innerText = `${score} pts (${patientsSaved} ta bemor qutqarildi)`;
+      }
+
+      renderLeaderboardTable();
+      if (window.lucide) window.lucide.createIcons();
+      beep(880, 0.08);
+    }
+
+    function closeLeaderboard() {
+      const modal = document.getElementById('leaderboardModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function setLbFilter(filter) {
+      currentLbFilter = filter;
+      ['all', 'samdtu', 'today'].forEach(f => {
+        const btn = document.getElementById(`lbTab_${f}`);
+        if (btn) {
+          if (f === filter) {
+            btn.className = "px-3.5 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs transition";
+          } else {
+            btn.className = "px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white font-bold text-xs transition";
+          }
+        }
+      });
+      renderLeaderboardTable();
+    }
+
+    function renderLeaderboardTable() {
+      let data = getLeaderboardData();
+
+      if (currentLbFilter === 'samdtu') {
+        data = data.filter(d => (d.org && d.org.toLowerCase().includes('samdtu')) || d.category === 'samdtu');
+      } else if (currentLbFilter === 'today') {
+        data = data.slice(0, 5);
+      }
+
+      const top1 = data[0];
+      const top2 = data[1];
+      const top3 = data[2];
+
+      const podium1 = document.getElementById('podiumRank1');
+      if (podium1 && top1) {
+        podium1.innerHTML = `
+          <div class="relative p-4 rounded-2xl bg-gradient-to-b from-amber-500/20 to-slate-900 border-2 border-amber-400/70 shadow-lg shadow-amber-500/10 text-center flex flex-col justify-between">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-amber-500 text-slate-950 font-black text-[10px] tracking-wider uppercase flex items-center gap-1 shadow">
+              <i class="fa-solid fa-crown text-[10px]"></i> 1-O'RIN
+            </div>
+            <div class="mt-2">
+              <div class="w-12 h-12 mx-auto rounded-full bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-300 font-bold text-lg mb-2">
+                🏆
+              </div>
+              <h4 class="font-bold text-white text-sm truncate">${top1.name}</h4>
+              <p class="text-[10px] text-amber-300/80 truncate">${top1.org}</p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-amber-500/20">
+              <span class="text-lg font-black font-mono text-amber-400">${top1.score.toLocaleString()} pts</span>
+              <div class="text-[10px] text-slate-400">${top1.saved} bemor • ${top1.accuracy}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      const podium2 = document.getElementById('podiumRank2');
+      if (podium2 && top2) {
+        podium2.innerHTML = `
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-300/40 text-center flex flex-col justify-between">
+            <span class="text-[10px] font-mono font-bold text-slate-300 uppercase">🥈 2-O'RIN</span>
+            <div class="mt-2">
+              <div class="w-10 h-10 mx-auto rounded-full bg-slate-800 border border-slate-600 flex items-center justify-center text-slate-200 font-bold mb-2">
+                🥈
+              </div>
+              <h4 class="font-bold text-white text-sm truncate">${top2.name}</h4>
+              <p class="text-[10px] text-slate-400 truncate">${top2.org}</p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-800">
+              <span class="text-base font-bold font-mono text-slate-200">${top2.score.toLocaleString()} pts</span>
+              <div class="text-[10px] text-slate-400">${top2.saved} bemor • ${top2.accuracy}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      const podium3 = document.getElementById('podiumRank3');
+      if (podium3 && top3) {
+        podium3.innerHTML = `
+          <div class="p-4 rounded-2xl bg-slate-900/80 border border-amber-800/40 text-center flex flex-col justify-between">
+            <span class="text-[10px] font-mono font-bold text-amber-600 uppercase">🥉 3-O'RIN</span>
+            <div class="mt-2">
+              <div class="w-10 h-10 mx-auto rounded-full bg-slate-800 border border-amber-800/40 flex items-center justify-center text-amber-500 font-bold mb-2">
+                🥉
+              </div>
+              <h4 class="font-bold text-white text-sm truncate">${top3.name}</h4>
+              <p class="text-[10px] text-slate-400 truncate">${top3.org}</p>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-800">
+              <span class="text-base font-bold font-mono text-amber-500">${top3.score.toLocaleString()} pts</span>
+              <div class="text-[10px] text-slate-400">${top3.saved} bemor • ${top3.accuracy}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      const tbody = document.getElementById('lbTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      data.forEach((item, idx) => {
+        const tr = document.createElement('tr');
+        const rankColor = idx === 0 ? 'text-amber-400 font-black' : (idx === 1 ? 'text-slate-300 font-bold' : (idx === 2 ? 'text-amber-600 font-bold' : 'text-slate-400'));
+        tr.className = `border-b border-slate-800/80 hover:bg-slate-800/40 transition text-xs ${item.isUser ? 'bg-amber-500/10 border-amber-500/30' : ''}`;
+        
+        tr.innerHTML = `
+          <td class="py-3 px-3 text-center ${rankColor}">
+            ${idx === 0 ? '👑 #1' : (idx === 1 ? '🥈 #2' : (idx === 2 ? '🥉 #3' : `#${idx + 1}`))}
+          </td>
+          <td class="py-3 px-3 font-medium text-white">
+            <div class="flex items-center gap-2">
+              <span>${item.name}</span>
+              ${item.badge ? `<span class="px-1.5 py-0.5 rounded text-[9px] font-mono ${idx < 3 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' : 'bg-slate-800 text-slate-400'}">${item.badge}</span>` : ''}
+            </div>
+          </td>
+          <td class="py-3 px-3 text-slate-400 truncate max-w-[180px]">${item.org || '-'}</td>
+          <td class="py-3 px-3 text-center font-mono text-emerald-400 font-bold">${item.saved || 0}</td>
+          <td class="py-3 px-3 text-center font-mono text-slate-300">${item.accuracy || '90%'}</td>
+          <td class="py-3 px-3 text-right font-mono font-bold text-amber-400">${item.score.toLocaleString()} pts</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function submitScoreToLeaderboard() {
+      const nameInput = document.getElementById('lbPlayerName');
+      const orgInput = document.getElementById('lbPlayerOrg');
+      const name = nameInput.value.trim();
+      const org = orgInput.value.trim() || 'SamDTU Tibbiyot Fakulteti';
+
+      if (!name) {
+        alert("Iltimos, ism va familiyangizni kiriting!");
+        nameInput.focus();
+        return;
+      }
+
+      let data = getLeaderboardData();
+      const currentScore = score > 0 ? score : 300;
+      const acc = totalAttempts > 0 ? Math.round((patientsSaved / totalAttempts) * 100) + '%' : '96%';
+      const savedCount = patientsSaved > 0 ? patientsSaved : 2;
+
+      const existingIdx = data.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
+      if (existingIdx !== -1) {
+        if (currentScore >= data[existingIdx].score) {
+          data[existingIdx].score = currentScore;
+          data[existingIdx].saved = Math.max(data[existingIdx].saved, savedCount);
+          data[existingIdx].accuracy = acc;
+          data[existingIdx].org = org;
+          data[existingIdx].isUser = true;
+        }
+      } else {
+        data.push({
+          name: name,
+          org: org,
+          score: currentScore,
+          saved: savedCount,
+          accuracy: acc,
+          category: org.toLowerCase().includes('samdtu') ? 'samdtu' : 'all',
+          badge: currentScore >= 2000 ? 'Elita Shifokor' : 'Klinik Triaj',
+          isUser: true
+        });
+      }
+
+      data.sort((a, b) => b.score - a.score);
+      data.forEach((item, idx) => {
+        item.rank = idx + 1;
+        if (item.rank === 1) item.badge = 'Oltin Laureat';
+        else if (item.rank === 2) item.badge = 'Kumush Laureat';
+        else if (item.rank === 3) item.badge = 'Bronza Laureat';
+      });
+
+      saveLeaderboardData(data);
+      localStorage.setItem('medsurvivor_saved_player_name', name);
+      localStorage.setItem('medsurvivor_saved_player_org', org);
+
+      confetti({ particleCount: 75, spread: 70 });
+      beep(1350, 0.25);
+      renderLeaderboardTable();
+
+      const successBox = document.getElementById('lbSuccessAlert');
+      if (successBox) {
+        successBox.classList.remove('hidden');
+        setTimeout(() => successBox.classList.add('hidden'), 4000);
+      }
+    }
+
+    function resetLeaderboard() {
+      if (confirm("Leaderboard reytingini dastlabki holatga qaytarmoqchimisiz?")) {
+        localStorage.removeItem('medsurvivor_leaderboard_data');
+        renderLeaderboardTable();
+        beep(500, 0.1);
+      }
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       drawECG();
       renderScenario(0);
       initER3D();
+      renderLeaderboardTable();
     });
   </script>
 
@@ -1371,6 +1631,117 @@
       </a>
     </div>
   </footer>
+
+  <!-- ==========================================
+       MODAL: RESPUBLIKA LEADERBOARD (Top-10 Reyting)
+       ========================================== -->
+  <div id="leaderboardModal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
+    <div class="relative w-full max-w-4xl bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl p-5 sm:p-8 space-y-6 my-auto max-h-[92vh] overflow-y-auto">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between border-b border-slate-800 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-mono font-bold uppercase tracking-wider">
+              SamDTU • MILLIY TIBBIYOT TURNIRI
+            </span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 font-bold">JONLI 2050</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1.5 flex items-center gap-2">
+            <i class="fa-solid fa-trophy text-amber-400"></i>
+            <span>MedSurvivor: ER 2050 Peshqadamlar Reytingi</span>
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">Shoshilinch tibbiy yordam va reanimatsiya saralash bo'yicha yetakchi talabalar va shifokorlar.</p>
+        </div>
+        <button onclick="closeLeaderboard()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-90">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <button id="lbTab_all" onclick="setLbFilter('all')" class="px-3.5 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-xs transition">
+            Barcha Liderlar
+          </button>
+          <button id="lbTab_samdtu" onclick="setLbFilter('samdtu')" class="px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white font-bold text-xs transition">
+            SamDTU Saralanganlar
+          </button>
+          <button id="lbTab_today" onclick="setLbFilter('today')" class="px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white font-bold text-xs transition">
+            Bugungi Sprint (Top-5)
+          </button>
+        </div>
+        <button onclick="resetLeaderboard()" class="text-[11px] font-mono text-slate-400 hover:text-rose-400 underline">
+          Dastlabki holatga qaytarish
+        </button>
+      </div>
+
+      <!-- Top 3 Podium Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div id="podiumRank2" class="order-2 sm:order-1"></div>
+        <div id="podiumRank1" class="order-1 sm:order-2"></div>
+        <div id="podiumRank3" class="order-3 sm:order-3"></div>
+      </div>
+
+      <!-- Submit Current Player Score Box -->
+      <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <span class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-medal"></i> O'z Natijangizni Reytingga Yozib Qo'ying!
+            </span>
+            <p class="text-[11px] text-slate-400">Joriy seansingizdagi ball va qutqarilgan bemorlar soni reyting jadvaliga kiritiladi.</p>
+          </div>
+          <div class="font-mono text-xs text-right">
+            <span class="text-slate-400">Joriy ball:</span>
+            <span id="lbCurrentScoreDisplay" class="text-emerald-400 font-bold ml-1">0 pts</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+          <input type="text" id="lbPlayerName" placeholder="Ism va familiyangiz (masalan: Dr. Jasur Shukurov)" class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-amber-400" />
+          <input type="text" id="lbPlayerOrg" placeholder="OTM / Klinika (masalan: SamDTU 4-kurs)" class="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-amber-400" />
+          <button onclick="submitScoreToLeaderboard()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs transition active:scale-95 flex items-center justify-center gap-1.5 shadow-lg shadow-amber-500/20">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Reytingda Qayd Etish</span>
+          </button>
+        </div>
+
+        <div id="lbSuccessAlert" class="hidden p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-bold flex items-center gap-2">
+          <i class="fa-solid fa-circle-check text-emerald-400"></i>
+          <span>Muvaffaqiyatli! Natijangiz peshqadamlar jadvaliga kiritildi va saqlandi.</span>
+        </div>
+      </div>
+
+      <!-- Detailed Table -->
+      <div class="overflow-x-auto rounded-2xl border border-slate-800">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-950/70 border-b border-slate-800 text-[11px] font-mono uppercase text-slate-400">
+              <th class="py-2.5 px-3 text-center">O'rin</th>
+              <th class="py-2.5 px-3">Shifokor / Talaba</th>
+              <th class="py-2.5 px-3">Tashkilot / OTM</th>
+              <th class="py-2.5 px-3 text-center">Qutqarilgan</th>
+              <th class="py-2.5 px-3 text-center">Aniqlik</th>
+              <th class="py-2.5 px-3 text-right">Klinik Tajriba</th>
+            </tr>
+          </thead>
+          <tbody id="lbTableBody" class="divide-y divide-slate-800/60 bg-slate-900/40">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-slate-800">
+        <span>Samarqand Davlat Tibbiyot Universiteti • Klinik Saralash Simulyatori</span>
+        <button onclick="closeLeaderboard()" class="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition">
+          Yopish
+        </button>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>
